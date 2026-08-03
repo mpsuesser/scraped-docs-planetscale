@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/create-a-metal-database
 title: "Create A Metal Database"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 [PlanetScale Metal](../metal.md) databases can be created in a similar way to other PlanetScale databases. However, there are a few important things to keep in mind when creating a new Metal database or upgrading an existing database to Metal, which will be covered here.

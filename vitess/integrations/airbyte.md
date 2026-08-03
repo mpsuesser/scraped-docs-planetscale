@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/airbyte
 title: "Airbyte"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 We implemented an [Airbyte](https://airbyte.com/) connector as the pipeline between your PlanetScale source and selected destination. This document will walk you through how to connect your PlanetScale database to Airbyte.

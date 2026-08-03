@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-rails
 title: "Planetscale Postgres Rails"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 Ruby on Rails is a popular web application framework that includes ActiveRecord, a powerful ORM for working with databases.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/cloudflare
 title: "Cloudflare"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 You can create PlanetScale Postgres or MySQL databases directly from the Cloudflare dashboard and pay for usage through your [Cloudflare account](https://developers.cloudflare.com/fundamentals/setup/account/create-account/).

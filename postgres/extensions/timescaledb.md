@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/timescaledb
 title: "Timescaledb"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 Only features from the [Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/) of TimescaleDB are supported.

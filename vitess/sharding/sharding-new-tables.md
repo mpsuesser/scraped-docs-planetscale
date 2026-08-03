@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-new-tables
 title: "Sharding New Tables"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).

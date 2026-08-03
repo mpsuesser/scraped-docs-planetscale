@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-quickstart
 title: "Sharding Quickstart"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 - If you are creating a new table that you want in a sharded keyspace, follow the instructions in the [Sharding new tables doc](sharding-new-tables.md).

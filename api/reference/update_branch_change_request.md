@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_branch_change_request
 title: "Update_branch_change_request"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 > ## Documentation Index

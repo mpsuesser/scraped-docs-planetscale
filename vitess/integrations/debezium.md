@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/debezium
 title: "Debezium"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 The [Debezium Connector for PlanetScale](https://github.com/planetscale/debezium-connector-planetscale) is based on the [Debezium Vitess connector](https://debezium.io/documentation/reference/stable/connectors/vitess.html) and packages the PlanetScale-specific connector classes, patches, and runtime dependencies for Kafka Connect and Debezium Server.

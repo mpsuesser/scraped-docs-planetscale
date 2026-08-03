@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/automatic-rails-migrations
 title: "Automatic Rails Migrations"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 If you are using PlanetScale with a Rails application, go to your database’s Settings page in the web app and enable “Automatically copy migration data.” Select “Rails/Phoenix” as the migration framework. When enabled, this setting updates the *schema\_migrations* table each time you branch with the latest migration. If disabled, running *rake db:migrate* will try to run all migrations every time, instead of only the latest one.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/vantage
 title: "Vantage"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 After integrating, you can create [cost reports](https://docs.vantage.sh/cost_reports) to break down costs per database and branch.

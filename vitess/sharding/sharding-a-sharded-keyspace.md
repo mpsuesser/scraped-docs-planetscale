@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace
 title: "Sharding A Sharded Keyspace"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 Adding or removing shards from a sharded keyspace requires some rebalancing, as you may be moving data from one MySQL instance to another. In PlanetScale, this is done using a sharded to sharded keyspace [workflow](../scaling/workflows.md). This involves creating a new sharded (target) keyspace with the new desired number of shards and transferring all of the data from your current (source) keyspace to the new target. This operation is done with no downtime.

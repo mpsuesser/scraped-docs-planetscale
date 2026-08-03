@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb
 title: "Postgres Migrate Pgcopydb"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 [pgcopydb](https://github.com/planetscale/pgcopydb) is a tool that automates migrating data between two running PostgreSQL servers. PlanetScale maintains a fork that supports PostgreSQL 17 and 18, improved filtering, resilient retry, and improved CDC support. This guide uses PlanetScale’s fork throughout.

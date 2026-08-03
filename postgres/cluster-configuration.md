@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-08-03T19:10:18.800Z
-current_date: 2026-08-03T19:10:18.800Z
+access_date: 2026-08-03T19:40:36.600Z
+current_date: 2026-08-03T19:40:36.600Z
 ---
 
 The Clusters page in your PlanetScale dashboard allows you to monitor your cluster utilization and configure cluster settings for each branch in your database. You can:
