@@ -1,0 +1,264 @@
+---
+url: https://planetscale.com/docs/vitess/vectors/using-with-an-orm
+title: "Using With An Orm"
+description: ""
+access_date: 2026-08-03T19:10:18.800Z
+current_date: 2026-08-03T19:10:18.800Z
+---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Vectors with an ORM
+
+export const PlatformAvailability = ({current, vitess, postgres}) => {
+  const docsHref = path => {
+    if (!path) return path;
+    const normalized = path.startsWith('/') ? path : `/${path}`;
+    return normalized;
+  };
+  const labels = {
+    vitess: 'Vitess',
+    postgres: 'Postgres'
+  };
+  if (current === 'both') {
+    return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
+        <span data-engine="both" data-state="current" aria-current="true" className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
+          Vitess and Postgres
+        </span>
+      </div>;
+  }
+  const hasVitess = current === 'vitess' || Boolean(vitess);
+  const hasPostgres = current === 'postgres' || Boolean(postgres);
+  const only = !(hasVitess && hasPostgres);
+  const engines = [];
+  if (current === 'vitess' || current === 'postgres') engines.push(current);
+  if (hasVitess && current !== 'vitess') engines.push('vitess');
+  if (hasPostgres && current !== 'postgres') engines.push('postgres');
+  return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
+      {engines.map(engine => {
+    const isCurrent = current === engine;
+    const href = docsHref(engine === 'vitess' ? vitess : postgres);
+    const label = only ? `${labels[engine]} only` : labels[engine];
+    const state = isCurrent || !href ? 'current' : 'link';
+    if (isCurrent || !href) {
+      return <span key={engine} data-engine={engine} data-state={state} aria-current={isCurrent ? 'true' : undefined} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
+              {label}
+            </span>;
+    }
+    return <a key={engine} href={href} data-engine={engine} data-state={state} title={`View ${labels[engine]} documentation`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
+            {label}
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+              <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>;
+  })}
+    </div>;
+};
+
+<PlatformAvailability current="vitess" />
+
+Many modern web development frameworks provide ORMs to make mapping data between your database and the objects in your application a seamless experience.
+Here, we show several examples of how you can use the `VECTOR` MySQL type with ORMs.
+These docs to not provide a comprehensive list of how to use vectors with all ORMs.
+Rather, small examples for several popular choices are provided (Drizzle, Prisma, Rails).
+If you use a different ORM and are having trouble getting it to work with vectors, please [reach out](https://planetscale.com/contact).
+
+Also note that for now, using PlanetScale MySQL vectors with these ORMs requires either a custom type or running raw MySQL queries.
+
+## Drizzle
+
+Here, we'll show how you can create and insert rows into a table that has a `VECTOR` column using Drizzle.
+First, modify your `schema.ts` file to import the appropriate items and define two new types.
+The first type is for the distance functions, and the second is to represent a vector.
+
+```typescript expandable theme={null}
+import { sql } from 'drizzle-orm'
+import { mysqlTable, customType, text, MySqlColumn, bigint } from 'drizzle-orm/mysql-core'
+
+export type DistanceFunction = 'COSINE' | 'DOT' | 'L2' | 'L2_SQUARED'
+
+export const vector = customType<{
+  data: ArrayBuffer
+  config: { length: number }
+  configRequired: true
+  driverData: Buffer
+}>({
+  dataType(config) {
+    return `VECTOR(${config.length})`
+  },
+  fromDriver(value) {
+    return value.buffer as ArrayBuffer
+  },
+  toDriver(value) {
+    return Buffer.from(value)
+  }
+})
+```
+
+With these in place, we can go ahead and declare our table, also in `schema.ts`.
+
+```typescript theme={null}
+export const product = mysqlTable('product', {
+  id: bigint('id', { mode: 'number', unsigned: true }).autoincrement().primaryKey(),
+  name: text('name'),
+  description: text('description'),
+  embedding: vector('embedding', { length: 384 })
+})
+```
+
+This would be in addition to other schema declarations you need for your application.
+
+We now have an object to model a table with a vector embedding column.
+Elsewhere in our application, we can perform typical operations like inserts, deletes, searches, etc.
+For example, to insert a row into this table, do the following:
+
+```typescript theme={null}
+const embedding = // generate an embedding with your preferred API
+const serializedEmbedding = Buffer.from((new Float32Array(embedding)).buffer)
+await db.insert(product).values({
+  description: 'hi there',
+  embedding: serializedEmbedding
+})
+```
+
+We can also perform searches on the data:
+
+```typescript theme={null}
+const rankedItems = await db
+  .select({ description: product.description })
+  .from(product)
+  .orderBy(`DISTANCE(TO_VECTOR(${embedding}), ${product.embedding}, L2_SQUARED)`)
+  .limit(10)
+```
+
+If you have a large data set, you'll want to make sure you create an index on this vector column.
+
+## Prisma
+
+Next, let's look at what it takes to get a table with a `VECTOR` column working with Prisma.
+As of this writing, [Prisma does not support custom types](https://github.com/prisma/prisma/issues/5039).
+
+Until Prisma provides support, you can still use vectors in a Prisma-powered application by using the `Unsupported` function in your `schema.prisma` and then use raw queries to perform vector searches.
+We can add a new table with a `VECTOR(4)` column by adding the following to our `schema.prisma` file.
+
+```typescript theme={null}
+model Product {
+  id          BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  name        String?    @db.Text
+  description String?    @db.Text
+  embedding   Unsupported("vector(4)")?
+}
+```
+
+When running `prisma db push`, it will create the table with the `embedding` column having type `VECTOR(4)`, even though Prisma does not technically support vectors.
+
+From here, you can use Prisma's `queryRaw` feature to run raw SQL queries.
+For example, to insert a row into this table.
+
+```typescript theme={null}
+const name = 'Pots'
+const description = 'For cooking'
+const embedding = '[0.5, 0.4, 0.3, 0.2]'
+await prisma.$queryRaw(
+  Prisma.sql`
+    INSERT INTO
+      Product (name, description, embedding)
+      VALUES(${name}, ${description}, TO_VECTOR(${embedding}))`
+)
+```
+
+And to retrieve results from this table:
+
+```typescript theme={null}
+const result = await prisma.$queryRaw(
+  Prisma.sql`SELECT * FROM Product ORDER BY DISTANCE(TO_VECTOR(${query_vector}), embedding, 'l2_squared')`
+)
+console.log(result)
+```
+
+If you have a large data set, you'll want to make sure you create an index on this vector column.
+
+## Ruby on Rails
+
+Lets look at how you can work with a vector column in a Ruby on Rails application.
+Say you have an existing object that models rows in a table, and you are using ActiveRecord to manage the mapping between your objects and your database.
+For example, an object representing a tweet in `app/models/tweet.rb`.
+
+```ruby theme={null}
+class Tweet < ApplicationRecord
+  belongs_to :user
+  has_one_attached :image
+  default_scope -> { order(created_at: :desc) }
+  validates :content, presence: true, length: { maximum: 140 }
+  validates :user_id, presence: true
+end
+```
+
+Since vectors are a new type for MySQL, we will add a custom migration to handle adding and dropping a `VECTOR` column to this table in the database.
+To do this, add a new migration in `db/migrations` like so:
+
+```ruby expandable theme={null}
+class AddTweetEmbeddings < ActiveRecord::Migration[7.0]
+  def up
+    execute <<-SQL
+      ALTER TABLE tweets ADD COLUMN embedding VECTOR(1536);
+    SQL
+    execute <<-SQL
+      CREATE VECTOR INDEX idx_tweet_embeddings ON tweets(embedding) '{"type":"spann","distance":"cosine"}';
+    SQL
+  end
+
+  def down
+    execute <<-SQL
+      ALTER TABLE tweets DROP COLUMN embedding;
+    SQL
+  end
+end
+```
+
+You'll also need to make the appropriate adjustments in your project to ensure that this gets executed when you run `rails db:migrate`.
+With the schema updated appropriately, you can run raw SQL queries via ActiveRecord to insert rows with vectors and perform search.
+For example, to insert a new row with a vector, you can do something like this:
+
+```ruby expandable theme={null}
+embedding = [1.0, 0.5, 0.25, 0.125].to_json
+created_at = Time.now.to_s
+updated_at = Time.now.to_s
+content = 'A tweet!'
+user_id =  100
+
+sql = <<-SQL
+  INSERT INTO tweets (user_id, content, content_embeddings, created_at, updated_at)
+    VALUES (
+      #{ActiveRecord::Base.connection.quote(user_id)},
+      #{ActiveRecord::Base.connection.quote(content)},
+      TO_VECTOR(#{ActiveRecord::Base.connection.quote(embedding)}),
+      #{ActiveRecord::Base.connection.quote(created_at)},
+      #{ActiveRecord::Base.connection.quote(updated_at)}
+    )
+SQL
+
+ActiveRecord::Base.connection.execute(sql)
+```
+
+To perform a similarity search based on an input embedding, you can execute the following:
+
+```ruby theme={null}
+embedding = [1.0, 0.5, 0.25, 0.125]
+sql = <<-SQL
+  SELECT id, content, distance(content_embeddings, TO_VECTOR('#{embedding}'), 'COSINE') as d FROM tweets ORDER BY d LIMIT 10
+SQL
+
+results = ActiveRecord::Base.connection.execute(sql)
+```
+
+## Other ORMs
+
+If you have requests for other ORMs you'd like to see documented for using with vectors, please [reach out](https://planetscale.com/contact) with your questions.
+On the other hand, if you get PlanetScale MySQL vectors working with an ORM not listed here and would like to share your technique, please do as well.
+
+## Need help?
+
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
