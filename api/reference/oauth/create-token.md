@@ -2,21 +2,13 @@
 url: https://planetscale.com/docs/api/reference/oauth/create-token
 title: "Create Token"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Create or refresh OAuth token
-
-> Exchange an authorization code for an access token or refresh an expired token
 
 ## Endpoint
 
-```
+```text
 POST https://auth.planetscale.com/oauth/token
 ```
 
@@ -26,51 +18,51 @@ This is the standard OAuth 2.0 token endpoint for creating and refreshing access
 
 The request body should be sent as `application/x-www-form-urlencoded`.
 
-### For authorization code exchange
+### For authorization code exchangestring
 
-<ParamField body="grant_type" type="string" required>
-  Must be `authorization_code`
-</ParamField>
+required
 
-<ParamField body="code" type="string" required>
-  The authorization code received from the authorization flow
-</ParamField>
+Must be `authorization_code`string
 
-<ParamField body="redirect_uri" type="string" required>
-  The redirect URI used in the authorization request
-</ParamField>
+required
 
-<ParamField body="client_id" type="string" required>
-  Your OAuth application's client ID
-</ParamField>
+The authorization code received from the authorization flowstring
 
-<ParamField body="client_secret" type="string" required>
-  Your OAuth application's client secret
-</ParamField>
+required
 
-### For token refresh
+The redirect URI used in the authorization requeststring
 
-<ParamField body="grant_type" type="string" required>
-  Must be `refresh_token`
-</ParamField>
+required
 
-<ParamField body="refresh_token" type="string" required>
-  The refresh token from a previous token response
-</ParamField>
+Your OAuth application’s client IDstring
 
-<ParamField body="client_id" type="string" required>
-  Your OAuth application's client ID
-</ParamField>
+required
 
-<ParamField body="client_secret" type="string" required>
-  Your OAuth application's client secret
-</ParamField>
+Your OAuth application’s client secret
+
+### For token refreshstring
+
+required
+
+Must be `refresh_token`string
+
+required
+
+The refresh token from a previous token responsestring
+
+required
+
+Your OAuth application’s client IDstring
+
+required
+
+Your OAuth application’s client secret
 
 ## Response
 
 ### Success Response (200 OK)
 
-```json theme={null}
+```json
 {
   "access_token": "<PLANETSCALE_OAUTH_ACCESS_TOKEN>",
   "token_type": "Bearer",
@@ -78,31 +70,21 @@ The request body should be sent as `application/x-www-form-urlencoded`.
   "refresh_token": "<PLANETSCALE_OAUTH_REFRESH_TOKEN>",
   "scope": "read_user read_databases"
 }
-```
+```string
 
-<ResponseField name="access_token" type="string">
-  The OAuth access token to use for API requests
-</ResponseField>
+The OAuth access token to use for API requestsstring
 
-<ResponseField name="token_type" type="string">
-  Will always be "Bearer"
-</ResponseField>
+Will always be “Bearer”integer
 
-<ResponseField name="expires_in" type="integer">
-  Number of seconds until the access token expires
-</ResponseField>
+Number of seconds until the access token expiresstring
 
-<ResponseField name="refresh_token" type="string">
-  Token to use for refreshing the access token when it expires
-</ResponseField>
+Token to use for refreshing the access token when it expiresstring
 
-<ResponseField name="scope" type="string">
-  Space-separated list of scopes granted to this token
-</ResponseField>
+Space-separated list of scopes granted to this token
 
 ## Example
 
-```bash theme={null}
+```shellscript
 # Exchange authorization code for access token
 curl -X POST https://auth.planetscale.com/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded" \

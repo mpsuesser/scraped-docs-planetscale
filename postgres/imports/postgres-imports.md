@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, and other Postgres instances.

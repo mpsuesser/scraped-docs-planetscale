@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_duckdb
 title: "Pg_duckdb"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 We don’t recommend running `pg_duckdb` directly on your PlanetScale Postgres database as it can consume significant resources during analytical queries. If you want to use DuckDB for analytics, we recommend using [MotherDuck](https://motherduck.com/) to host your analytical workloads separately.

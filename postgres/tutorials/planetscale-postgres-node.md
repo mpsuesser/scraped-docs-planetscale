@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-node
 title: "Planetscale Postgres Node"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 Node.js is a popular JavaScript runtime for building server-side applications.

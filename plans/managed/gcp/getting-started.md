@@ -2,25 +2,15 @@
 url: https://planetscale.com/docs/plans/managed/gcp/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Set up PlanetScale Managed in GCP
-
-> The following guide will walk you through setting up a PlanetScale Managed cluster in your Google Cloud Platform (GCP) organization.
 
 ## Overview
 
 If you have any questions while working through this documentation, contact your PlanetScale Solutions Engineer for assistance.
 
-<Note>
-  This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](../../managed.md), please [contact us](https://planetscale.com/contact).
-</Note>
+This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](../../managed.md), please [contact us](https://planetscale.com/contact).
 
 ## Step 1: Account requirements
 
@@ -44,7 +34,7 @@ Before setting up the IAM roles, you must create a new GCP project, assign it to
 
 A new GCP project can be created via the command line if the [gcloud](https://cloud.google.com/sdk/install) SDK is installed and configured:
 
-```bash theme={null}
+```shellscript
 gcloud projects create <project-name>
 ```
 
@@ -56,9 +46,7 @@ Further information on creating GCP projects is available in the [Google Cloud R
 
 Next, assign the new project to a GCP Billing Account inside your organization. The account to use will depend on your organization and its policies.
 
-<Note>
-  If the user who created the project has the Billing Administrator role, the project may already have billing enabled. Please review the settings to ensure it is attached to the intended Billing Account.
-</Note>
+If the user who created the project has the Billing Administrator role, the project may already have billing enabled. Please review the settings to ensure it is attached to the intended Billing Account.
 
 Further information on assigning projects to Billing Accounts is available [here](https://cloud.google.com/billing/docs/how-to/modify-project).
 
@@ -66,7 +54,7 @@ Further information on assigning projects to Billing Accounts is available [here
 
 The Compute Engine API must be enabled on the new project. This can be done via the command line:
 
-```bash theme={null}
+```shellscript
 gcloud services enable compute.googleapis.com --project "<project-name>"
 ```
 
@@ -76,25 +64,25 @@ Further information on enabling an API is available [here](https://cloud.google.
 
 For PlanetScale to provision resources in the project, the following IAM roles must be granted to the following service accounts:
 
-* `terraform-planner@planetscale-operations.iam.gserviceaccount.com` service account:
-  * `roles/viewer` - Viewer
-* `terraform-runner@planetscale-operations.iam.gserviceaccount.com` service account:
-  * `roles/cloudkms.admin` - Cloud KMS Admin
-  * `roles/compute.admin` - Compute Admin
-  * `roles/container.admin` - Kubernetes Engine Admin
-  * `roles/container.clusterAdmin` - Kubernetes Engine Cluster Admin
-  * `roles/iam.roleAdmin` - IAM Role Admin
-  * `roles/iam.securityAdmin` - Security Admin
-  * `roles/iam.serviceAccountAdmin` - Service Account Admin
-  * `roles/iam.serviceAccountKeyAdmin` - Service Account Key Admin
-  * `roles/logging.admin` - Logging Admin
-  * `roles/serviceusage.serviceUsageAdmin` - Service Usage Admin
-  * `roles/storage.admin` - Storage Admin
-  * `roles/viewer` - Viewer
+- `terraform-planner@planetscale-operations.iam.gserviceaccount.com` service account:
+	- `roles/viewer` - Viewer
+- `terraform-runner@planetscale-operations.iam.gserviceaccount.com` service account:
+	- `roles/cloudkms.admin` - Cloud KMS Admin
+		- `roles/compute.admin` - Compute Admin
+		- `roles/container.admin` - Kubernetes Engine Admin
+		- `roles/container.clusterAdmin` - Kubernetes Engine Cluster Admin
+		- `roles/iam.roleAdmin` - IAM Role Admin
+		- `roles/iam.securityAdmin` - Security Admin
+		- `roles/iam.serviceAccountAdmin` - Service Account Admin
+		- `roles/iam.serviceAccountKeyAdmin` - Service Account Key Admin
+		- `roles/logging.admin` - Logging Admin
+		- `roles/serviceusage.serviceUsageAdmin` - Service Usage Admin
+		- `roles/storage.admin` - Storage Admin
+		- `roles/viewer` - Viewer
 
 These can be assigned using the `gcloud` command line tool:
 
-```bash theme={null}
+```shellscript
 gcloud projects add-iam-policy-binding "<project-name>" --member serviceAccount:terraform-planner@planetscale-operations.iam.gserviceaccount.com --role roles/viewer
 gcloud projects add-iam-policy-binding "<project-name>" --member serviceAccount:terraform-runner@planetscale-operations.iam.gserviceaccount.com --role roles/cloudkms.admin
 gcloud projects add-iam-policy-binding "<project-name>" --member serviceAccount:terraform-runner@planetscale-operations.iam.gserviceaccount.com --role roles/compute.admin
@@ -110,13 +98,13 @@ gcloud projects add-iam-policy-binding "<project-name>" --member serviceAccount:
 gcloud projects add-iam-policy-binding "<project-name>" --member serviceAccount:terraform-runner@planetscale-operations.iam.gserviceaccount.com --role roles/viewer
 ```
 
-Alternatively, they can be assigned through the GCP console under the project's "**IAM & Admin > IAM**" section of the [GCP console](https://console.cloud.google.com/iam-admin/iam).
+Alternatively, they can be assigned through the GCP console under the project’s “ **IAM & Admin > IAM** ” section of the [GCP console](https://console.cloud.google.com/iam-admin/iam).
 
 Further information on assigning IAM roles to projects is available in the [GCP IAM documentation](https://cloud.google.com/iam/docs/granting-changing-revoking-access).
 
 ## Step 3: Requesting an initial quota increase
 
-By default, GCP provides most new projects with quotas that are too small for PlanetScale's initial provisioning process.
+By default, GCP provides most new projects with quotas that are too small for PlanetScale’s initial provisioning process.
 
 Submit increase requests for the following quotas. This must be done for all regions in which PlanetScale will provision resources. Depending on your organization, the default quotas may already be at or above these levels:
 
@@ -127,7 +115,7 @@ Submit increase requests for the following quotas. This must be done for all reg
 5. `compute.googleapis.com/cpus_all_regions`: 256
 6. `compute.googleapis.com/instances`: 100
 
-You can submit GCP quota increase requests via the project's "**IAM & Admin > Quotas**" section of the [GCP console](https://console.cloud.google.com/iam-admin/quotas). Copy and paste the quota metrics from above into the table to search for them in the quota interface.
+You can submit GCP quota increase requests via the project’s “ **IAM & Admin > Quotas** ” section of the [GCP console](https://console.cloud.google.com/iam-admin/quotas). Copy and paste the quota metrics from above into the table to search for them in the quota interface.
 
 While PlanetScale does not immediately consume all requested resources, we recommend these values to ensure enough resources are available for autoscaling, growth, and upgrades.
 
@@ -135,26 +123,22 @@ PlanetScale will request the quota increase if the customer does not but recomme
 
 Further information on requesting and managing GCP quotas can be found in the [Google Cloud Allocation quotas documentation](https://cloud.google.com/compute/docs/resource-quotas).
 
-<Note>
-  After initial provisioning, PlanetScale will manage quotas on behalf of the customer. Customers do not need to request quota increases for future upgrades or scaling and should not restrict quotas. Limiting quotas may result in service interruptions.
-</Note>
+After initial provisioning, PlanetScale will manage quotas on behalf of the customer. Customers do not need to request quota increases for future upgrades or scaling and should not restrict quotas. Limiting quotas may result in service interruptions.
 
 ## Step 4: Initiating the provisioning process
 
 Once the GCP project has been created, the IAM roles have been applied, and the quota increases have been granted, notify your Solutions Engineer, providing them the following information:
 
-* The name of the organization that you have created on `app.planetscale.com`.
-* The GCP project name
-* A confirmation of the region(s) that you have chosen for the deployment to reside in. The canonical list of regions can be found in the [Google Cloud Regions and Zones documentation](https://cloud.google.com/compute/docs/regions-zones).
+- The name of the organization that you have created on `app.planetscale.com`.
+- The GCP project name
+- A confirmation of the region(s) that you have chosen for the deployment to reside in. The canonical list of regions can be found in the [Google Cloud Regions and Zones documentation](https://cloud.google.com/compute/docs/regions-zones).
 
 Once your Solutions Engineer receives this information, they will forward it to the team responsible for provisioning your deployment. Provisioning the deployment takes PlanetScale, on average, one business day.
 
 Once the deployment has been provisioned, your Solutions Engineer will contact you to confirm that your team can start creating databases.
 
-<Note>
-  Optionally, PlanetScale can connect you to your databases via [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) with PlanetScale Managed. See the [GCP Private Service Connect documentation](private-service-connect.md) for more information on establishing a Private Service Connect connection.
-</Note>
+Optionally, PlanetScale can connect you to your databases via [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) with PlanetScale Managed. See the [GCP Private Service Connect documentation](private-service-connect.md) for more information on establishing a Private Service Connect connection.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

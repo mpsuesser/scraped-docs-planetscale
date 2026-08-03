@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/deploy-to-netlify
 title: "Deploy To Netlify"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 This doc is intended for users that are manually storing a connection string in an environment variable in Netlify. If you want to use the Netlify integration, which handles this for you, see the [PlanetScale integration in the Netlify docs](https://docs.netlify.com/integrations/planetscale-integration).

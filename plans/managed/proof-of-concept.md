@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/proof-of-concept
 title: "Proof Of Concept"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 ## PlanetScale proof of concept

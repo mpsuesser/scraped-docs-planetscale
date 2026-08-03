@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 You should not connect to the database from your application servers using the default role. If you ever need to rotate your default role credentials and you use the default role to connect to your application, you will have to take some downtime while rotating the credentials.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/pre-sharding-checklist
 title: "Pre Sharding Checklist"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 If you started a workflow while following the [Sharding quickstart](sharding-quickstart.md) and saw a lot of incomplete steps in the validation phase, you need follow the instructions in this document, and then go back to the quickstart to continue the workflow.

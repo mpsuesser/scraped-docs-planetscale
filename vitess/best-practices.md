@@ -2,66 +2,13 @@
 url: https://planetscale.com/docs/vitess/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
+![Diagram showing PlanetScale workflow](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=072a1af512e6de700a104e286cefca42)
 
-# PlanetScale workflow for Vitess
-
-export const PlatformAvailability = ({current, vitess, postgres}) => {
-  const docsHref = path => {
-    if (!path) return path;
-    const normalized = path.startsWith('/') ? path : `/${path}`;
-    return normalized;
-  };
-  const labels = {
-    vitess: 'Vitess',
-    postgres: 'Postgres'
-  };
-  if (current === 'both') {
-    return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-        <span data-engine="both" data-state="current" aria-current="true" className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-          Vitess and Postgres
-        </span>
-      </div>;
-  }
-  const hasVitess = current === 'vitess' || Boolean(vitess);
-  const hasPostgres = current === 'postgres' || Boolean(postgres);
-  const only = !(hasVitess && hasPostgres);
-  const engines = [];
-  if (current === 'vitess' || current === 'postgres') engines.push(current);
-  if (hasVitess && current !== 'vitess') engines.push('vitess');
-  if (hasPostgres && current !== 'postgres') engines.push('postgres');
-  return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-      {engines.map(engine => {
-    const isCurrent = current === engine;
-    const href = docsHref(engine === 'vitess' ? vitess : postgres);
-    const label = only ? `${labels[engine]} only` : labels[engine];
-    const state = isCurrent || !href ? 'current' : 'link';
-    if (isCurrent || !href) {
-      return <span key={engine} data-engine={engine} data-state={state} aria-current={isCurrent ? 'true' : undefined} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-              {label}
-            </span>;
-    }
-    return <a key={engine} href={href} data-engine={engine} data-state={state} title={`View ${labels[engine]} documentation`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-            {label}
-            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
-              <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>;
-  })}
-    </div>;
-};
-
-<PlatformAvailability current="vitess" />
-
-<Frame>
-  <img src="https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=cd739ac76edee56fd3c0130b6edfe32c" alt="Diagram showing PlanetScale workflow" width="1511" height="407" data-path="images/planetscale-workflow.png" />
-</Frame>
+Diagram showing PlanetScale workflow
 
 PlanetScale databases are designed for developers and developer workflows. Deploy a fully managed database cluster with the reliability of MySQL (our databases run on MySQL 8) and the scale of open source Vitess in just minutes.
 
@@ -95,9 +42,7 @@ Learn more about [non-blocking schema changes](schema-changes.md).
 
 ## Deploy requests
 
-<Note>
-  Your database must have a branch with [safe migrations](schema-changes/safe-migrations.md) enabled before you can create a deploy request.
-</Note>
+Your database must have a branch with [safe migrations](schema-changes/safe-migrations.md) enabled before you can create a deploy request.
 
 [Deploy requests](schema-changes/deploy-requests.md) allow you to propose schema changes and get feedback from your team. The deploy requests display DDL statements (`CREATE`, `ALTER`, and `DROP`) for each table changed, with a line-by-line schema diff, making it easy to review the changes.
 
@@ -113,8 +58,8 @@ As a part of the process of adding the schema changes to the deploy queue, Plane
 
 ## Revert a schema change
 
-If you ever deploy a schema change, only to realize you need to undo it, PlanetScale can handle that. With our [schema revert feature](schema-changes/deploy-requests.md#revert-a-schema-change), you have 30 minutes to "undo" a schema change deployment. Simply click the "Revert changes" button on the affected deploy request page and your production database will instantly revert back to the previous schema. Additionally, any data that was added to your production database in the time between deployment and reverting will be retained. Learn more about this process in our [Revert a schema change section](schema-changes/deploy-requests.md#revert-a-schema-change) of our deploy requests documentation.
+If you ever deploy a schema change, only to realize you need to undo it, PlanetScale can handle that. With our [schema revert feature](schema-changes/deploy-requests.md#revert-a-schema-change), you have 30 minutes to “undo” a schema change deployment. Simply click the “Revert changes” button on the affected deploy request page and your production database will instantly revert back to the previous schema. Additionally, any data that was added to your production database in the time between deployment and reverting will be retained. Learn more about this process in our [Revert a schema change section](schema-changes/deploy-requests.md#revert-a-schema-change) of our deploy requests documentation.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

@@ -2,31 +2,23 @@
 url: https://planetscale.com/docs/api/reference/oauth/token-info
 title: "Token Info"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Get OAuth token info
-
-> Retrieve information about the current OAuth access token
 
 ## Endpoint
 
-```
+```text
 GET https://auth.planetscale.com/oauth/token/info
 ```
 
-Returns information about the currently authenticated access token, including whether it's active, scopes, and expiration.
+Returns information about the currently authenticated access token, including whether it’s active, scopes, and expiration.
 
 ## Authentication
 
 This endpoint requires a valid OAuth access token in the Authorization header:
 
-```
+```text
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
@@ -34,7 +26,7 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 ### Success Response (200 OK) - Active Token
 
-```json theme={null}
+```json
 {
   "active": true,
   "scope": "read_user read_databases",
@@ -44,41 +36,27 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
   "iat": 1706486400,
   "sub": "user_xyz789"
 }
-```
+```boolean
 
-<ResponseField name="active" type="boolean">
-  Whether the token is currently active (not expired or revoked)
-</ResponseField>
+Whether the token is currently active (not expired or revoked)string
 
-<ResponseField name="scope" type="string">
-  Space-separated list of scopes granted to this token
-</ResponseField>
+Space-separated list of scopes granted to this tokenstring
 
-<ResponseField name="client_id" type="string">
-  The OAuth application's client ID
-</ResponseField>
+The OAuth application’s client IDstring
 
-<ResponseField name="token_type" type="string">
-  Will always be "Bearer"
-</ResponseField>
+Will always be “Bearer”integer
 
-<ResponseField name="exp" type="integer">
-  Unix timestamp when the token expires
-</ResponseField>
+Unix timestamp when the token expiresinteger
 
-<ResponseField name="iat" type="integer">
-  Unix timestamp when the token was issued (created)
-</ResponseField>
+Unix timestamp when the token was issued (created)string
 
-<ResponseField name="sub" type="string">
-  Subject - the ID of the user who authorized the token
-</ResponseField>
+Subject - the ID of the user who authorized the token
 
 ### Success Response (200 OK) - Inactive Token
 
 If the token is expired, revoked, or invalid:
 
-```json theme={null}
+```json
 {
   "active": false
 }
@@ -86,7 +64,7 @@ If the token is expired, revoked, or invalid:
 
 ## Example
 
-```bash theme={null}
+```shellscript
 curl -X GET https://auth.planetscale.com/oauth/token/info \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
@@ -95,8 +73,8 @@ curl -X GET https://auth.planetscale.com/oauth/token/info \
 
 This endpoint is useful for:
 
-* Validating that a token is still active
-* Checking which scopes a token has access to
-* Determining when a token will expire
-* Identifying which user authorized the token
-* Token introspection for security auditing
+- Validating that a token is still active
+- Checking which scopes a token has access to
+- Determining when a token will expire
+- Identifying which user authorized the token
+- Token introspection for security auditing

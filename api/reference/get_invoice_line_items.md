@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_invoice_line_items
 title: "Get_invoice_line_items"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 > ## Documentation Index

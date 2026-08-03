@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/automatic-prisma-migrations
 title: "Automatic Prisma Migrations"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 This document has been updated to include the recommended Prisma and PlanetScale workflow, specifically the recommendation to use `prisma db push` instead of `prisma migrate dev` with shadow branches. Also, you previously needed to turn on the ability to automatically copy the Prisma migration metadata. You no longer need to do this. Read more below.

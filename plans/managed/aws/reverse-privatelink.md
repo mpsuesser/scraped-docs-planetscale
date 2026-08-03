@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/reverse-privatelink
 title: "Reverse Privatelink"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 Often, one of the first tasks for a new Managed deployment is to import data from an existing database housed in a separate AWS Organizations member account.

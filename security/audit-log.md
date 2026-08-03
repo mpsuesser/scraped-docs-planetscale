@@ -2,75 +2,18 @@
 url: https://planetscale.com/docs/security/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Audit log
-
-> The organization audit log grants [Organization Administrators](access-control.md#organization-administrator) access to review **actions** performed by individual members of the organization.
-
-export const PlatformAvailability = ({current, vitess, postgres}) => {
-  const docsHref = path => {
-    if (!path) return path;
-    const normalized = path.startsWith('/') ? path : `/${path}`;
-    return normalized;
-  };
-  const labels = {
-    vitess: 'Vitess',
-    postgres: 'Postgres'
-  };
-  if (current === 'both') {
-    return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-        <span data-engine="both" data-state="current" aria-current="true" className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-          Vitess and Postgres
-        </span>
-      </div>;
-  }
-  const hasVitess = current === 'vitess' || Boolean(vitess);
-  const hasPostgres = current === 'postgres' || Boolean(postgres);
-  const only = !(hasVitess && hasPostgres);
-  const engines = [];
-  if (current === 'vitess' || current === 'postgres') engines.push(current);
-  if (hasVitess && current !== 'vitess') engines.push('vitess');
-  if (hasPostgres && current !== 'postgres') engines.push('postgres');
-  return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-      {engines.map(engine => {
-    const isCurrent = current === engine;
-    const href = docsHref(engine === 'vitess' ? vitess : postgres);
-    const label = only ? `${labels[engine]} only` : labels[engine];
-    const state = isCurrent || !href ? 'current' : 'link';
-    if (isCurrent || !href) {
-      return <span key={engine} data-engine={engine} data-state={state} aria-current={isCurrent ? 'true' : undefined} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-              {label}
-            </span>;
-    }
-    return <a key={engine} href={href} data-engine={engine} data-state={state} title={`View ${labels[engine]} documentation`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-            {label}
-            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
-              <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>;
-  })}
-    </div>;
-};
-
-<PlatformAvailability current="both" />
 
 In addition, each audit log includes **events** detailing who performed the **action** and when it happened.
 
 Audit log retainment period is [based on your plan](../planetscale-plans.md):
 
-* **Base plan** — 15 days
-* **Enterprise** — 15 days
+- **Base plan** — 15 days
+- **Enterprise** — 15 days
 
-<Note>
-  Organization audit log access is limited to [Organization Administrators](access-control.md#organization-administrator).
-</Note>
+Organization audit log access is limited to [Organization Administrators](access-control.md#organization-administrator).
 
 ## Review your organization audit log
 
@@ -84,32 +27,32 @@ Clicking and expanding individual log **event** names empowers you to investigat
 
 You can track the following organization **events** in your PlanetScale account:
 
-| PlanetScale organization events      | Actions                                                                                                                                                                                                                                            | Database Engine  |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------- |
-| access\_token                        | created  deleted  token\_leaked                                                                                                                                                                                                                    | Vitess, Postgres |
-| backup\_policy                       | created  deleted                                                                                                                                                                                                                                   | Vitess           |
-| branch\_maintenance\_schedule        | created  deleted  started\_maintenance\_window  finished\_maintenance\_window                                                                                                                                                                      | Vitess           |
-| branch\_maintenance\_window          | created  deleted                                                                                                                                                                                                                                   | Vitess           |
-| database                             | created  deleted  requested\_deletion  updated\_default\_branch  updated\_migration\_table\_name  removed\_member  added\_member                                                                                                                   | Vitess, Postgres |
-| database\_branch                     | created  deleted  enabled\_safe\_migrations  disabled\_safe\_migrations  enabled\_foreign\_keys  disabled\_foreign\_keys  enabled\_vectors  updated\_cluster\_size  updated\_cluster\_config  updated\_vtgates  updated\_cluster\_update\_strategy | Vitess, Postgres |
-| database\_branch\_keyspace           | created  deleted  updated  requested\_deletion                                                                                                                                                                                                     | Vitess           |
-| database\_branch\_password           | created  deleted  password\_leaked  updated\_ip\_restrictions                                                                                                                                                                                      | Vitess, Postgres |
-| database\_branch\_read\_only\_region | created  deleted                                                                                                                                                                                                                                   | Vitess           |
-| database\_deploy\_request            | created  deleted  closed                                                                                                                                                                                                                           | Vitess           |
-| database\_webhook                    | created  deleted                                                                                                                                                                                                                                   | Vitess, Postgres |
-| deploy\_request\_review              | approved                                                                                                                                                                                                                                           | Vitess           |
-| deployment                           | unqueued                                                                                                                                                                                                                                           | Vitess           |
-| external\_datasource                 | created  deleted                                                                                                                                                                                                                                   | Vitess, Postgres |
-| integration                          | created  deleted                                                                                                                                                                                                                                   | Vitess, Postgres |
-| organization                         | created  deleted  joined  removed\_member  left  added\_member  enabled\_sso  disabled\_sso  enabled\_sso\_directory  disabled\_sso\_directory                                                                                                     | Vitess, Postgres |
-| organization\_invitation             | created  deleted                                                                                                                                                                                                                                   | Vitess, Postgres |
-| organization\_membership             | created  updated\_role                                                                                                                                                                                                                             | Vitess, Postgres |
-| organization\_team                   | created  deleted  added\_member  left  removed\_member                                                                                                                                                                                             | Vitess, Postgres |
-| postgres\_role                       | created  deleted                                                                                                                                                                                                                                   | PostgreSQL       |
-| regional\_failover\_event            | created  deleted                                                                                                                                                                                                                                   | Vitess, Postgres |
-| service\_token                       | created  deleted  updated\_bulk\_database\_access  token\_leaked                                                                                                                                                                                   | Vitess, Postgres |
-| user                                 | created  deleted  signed\_in                                                                                                                                                                                                                       | Vitess, Postgres |
+| PlanetScale organization events | Actions | Database Engine |
+| --- | --- | --- |
+| access\_token | created deleted token\_leaked | Vitess, Postgres |
+| backup\_policy | created deleted | Vitess |
+| branch\_maintenance\_schedule | created deleted started\_maintenance\_window finished\_maintenance\_window | Vitess |
+| branch\_maintenance\_window | created deleted | Vitess |
+| database | created deleted requested\_deletion updated\_default\_branch updated\_migration\_table\_name removed\_member added\_member | Vitess, Postgres |
+| database\_branch | created deleted enabled\_safe\_migrations disabled\_safe\_migrations enabled\_foreign\_keys disabled\_foreign\_keys enabled\_vectors updated\_cluster\_size updated\_cluster\_config updated\_vtgates updated\_cluster\_update\_strategy | Vitess, Postgres |
+| database\_branch\_keyspace | created deleted updated requested\_deletion | Vitess |
+| database\_branch\_password | created deleted password\_leaked updated\_ip\_restrictions | Vitess, Postgres |
+| database\_branch\_read\_only\_region | created deleted | Vitess |
+| database\_deploy\_request | created deleted closed | Vitess |
+| database\_webhook | created deleted | Vitess, Postgres |
+| deploy\_request\_review | approved | Vitess |
+| deployment | unqueued | Vitess |
+| external\_datasource | created deleted | Vitess, Postgres |
+| integration | created deleted | Vitess, Postgres |
+| organization | created deleted joined removed\_member left added\_member enabled\_sso disabled\_sso enabled\_sso\_directory disabled\_sso\_directory | Vitess, Postgres |
+| organization\_invitation | created deleted | Vitess, Postgres |
+| organization\_membership | created updated\_role | Vitess, Postgres |
+| organization\_team | created deleted added\_member left removed\_member | Vitess, Postgres |
+| postgres\_role | created deleted | PostgreSQL |
+| regional\_failover\_event | created deleted | Vitess, Postgres |
+| service\_token | created deleted updated\_bulk\_database\_access token\_leaked | Vitess, Postgres |
+| user | created deleted signed\_in | Vitess, Postgres |
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

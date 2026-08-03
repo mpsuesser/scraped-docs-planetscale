@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 PlanetScale for Vitess lets you adjust a curated set of VTGate, VTTablet, and MySQL parameters directly from the [Clusters page](../cluster-configuration.md) in the dashboard.

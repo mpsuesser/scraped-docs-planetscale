@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide
 title: "Planetscale Quick Start Guide"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 PlanetScale supports both Vitess and [Postgres](../../postgres/tutorials/planetscale-postgres-quickstart.md) databases. This guide covers getting started with a Vitess database.

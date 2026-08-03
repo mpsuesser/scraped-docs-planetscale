@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/cloudflare-workers
 title: "Cloudflare Workers"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 [Cloudflare Workers](https://developers.cloudflare.com/workers/) is a serverless platform that allows you to run your code at the edge, close to your users. [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) accelerates queries you make to existing databases, including PlanetScale.

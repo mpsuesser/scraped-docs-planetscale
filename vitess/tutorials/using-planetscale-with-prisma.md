@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma
 title: "Using Planetscale With Prisma"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 Prisma and PlanetScale together offer a powerful workflow. Prisma handles the object-relational mapping with full type safety and intuitive data modeling, while PlanetScale provides horizontal scaling, branching workflows, and zero-downtime schema changes, making it an ideal stack for building modern, scalable applications.

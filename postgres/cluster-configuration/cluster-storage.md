@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](../../metal.md)

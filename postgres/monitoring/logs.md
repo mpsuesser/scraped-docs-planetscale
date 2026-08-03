@@ -2,75 +2,20 @@
 url: https://planetscale.com/docs/postgres/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Cluster Logs
-
-> The Logs dashboard provides comprehensive logging and debugging capabilities for your PlanetScale Postgres database cluster. This centralized view helps you monitor database activity, troubleshoot issues, and analyze system behavior in real-time.
-
-export const PlatformAvailability = ({current, vitess, postgres}) => {
-  const docsHref = path => {
-    if (!path) return path;
-    const normalized = path.startsWith('/') ? path : `/${path}`;
-    return normalized;
-  };
-  const labels = {
-    vitess: 'Vitess',
-    postgres: 'Postgres'
-  };
-  if (current === 'both') {
-    return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-        <span data-engine="both" data-state="current" aria-current="true" className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-          Vitess and Postgres
-        </span>
-      </div>;
-  }
-  const hasVitess = current === 'vitess' || Boolean(vitess);
-  const hasPostgres = current === 'postgres' || Boolean(postgres);
-  const only = !(hasVitess && hasPostgres);
-  const engines = [];
-  if (current === 'vitess' || current === 'postgres') engines.push(current);
-  if (hasVitess && current !== 'vitess') engines.push('vitess');
-  if (hasPostgres && current !== 'postgres') engines.push('postgres');
-  return <div className="not-prose mb-5 flex flex-wrap items-center gap-2" role="group" aria-label="Platform availability">
-      {engines.map(engine => {
-    const isCurrent = current === engine;
-    const href = docsHref(engine === 'vitess' ? vitess : postgres);
-    const label = only ? `${labels[engine]} only` : labels[engine];
-    const state = isCurrent || !href ? 'current' : 'link';
-    if (isCurrent || !href) {
-      return <span key={engine} data-engine={engine} data-state={state} aria-current={isCurrent ? 'true' : undefined} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-              {label}
-            </span>;
-    }
-    return <a key={engine} href={href} data-engine={engine} data-state={state} title={`View ${labels[engine]} documentation`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[13px] font-semibold leading-tight no-underline data-[engine=vitess]:data-[state=current]:border-[#ffc59b] data-[engine=vitess]:data-[state=current]:bg-[#ffe8d8] data-[engine=vitess]:data-[state=current]:text-[#672002] dark:data-[engine=vitess]:data-[state=current]:border-[#962d00] dark:data-[engine=vitess]:data-[state=current]:bg-[#3c1403] dark:data-[engine=vitess]:data-[state=current]:text-[#ffe8d8] data-[engine=vitess]:data-[state=link]:border-[#ffc59b] data-[engine=vitess]:data-[state=link]:bg-transparent data-[engine=vitess]:data-[state=link]:text-[#b83a05] dark:data-[engine=vitess]:data-[state=link]:border-[#962d00] dark:data-[engine=vitess]:data-[state=link]:bg-transparent dark:data-[engine=vitess]:data-[state=link]:text-[#ffc59b] data-[engine=postgres]:data-[state=current]:border-[#a9dffe] data-[engine=postgres]:data-[state=current]:bg-[#ddf2ff] data-[engine=postgres]:data-[state=current]:text-[#0e3682] dark:data-[engine=postgres]:data-[state=current]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=current]:bg-[#08204e] dark:data-[engine=postgres]:data-[state=current]:text-[#ddf2ff] data-[engine=postgres]:data-[state=link]:border-[#a9dffe] data-[engine=postgres]:data-[state=link]:bg-transparent data-[engine=postgres]:data-[state=link]:text-[#0b6ec5] dark:data-[engine=postgres]:data-[state=link]:border-[#144eb6] dark:data-[engine=postgres]:data-[state=link]:bg-transparent dark:data-[engine=postgres]:data-[state=link]:text-[#73c7f9] data-[engine=both]:data-[state=current]:border-[#d4d4d4] data-[engine=both]:data-[state=current]:bg-[#f0f0f0] data-[engine=both]:data-[state=current]:text-[#3d3d3d] dark:data-[engine=both]:data-[state=current]:border-[#525252] dark:data-[engine=both]:data-[state=current]:bg-[#2a2a2a] dark:data-[engine=both]:data-[state=current]:text-[#e5e5e5]">
-            {label}
-            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
-              <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>;
-  })}
-    </div>;
-};
-
-<PlatformAvailability current="postgres" />
 
 ## Dashboard overview
 
 The Logs dashboard displays real-time and historical log entries from your database cluster across all servers. You can filter and analyze logs by:
 
-* **Server Filter**: Monitor all servers or focus on specific replica instances
-* **Log Level**: Filter by severity (DEBUG, INFO, WARNING, ERROR)
-* **Time Range**: View logs from the past hour up to custom time ranges
-* **Branch**: Select which database branch to monitor
-* **Search**: Full-text search across log messages
-* **Live update**: Toggle on/off the auto-refresh of data every \~10 seconds
+- **Server Filter**: Monitor all servers or focus on specific replica instances
+- **Log Level**: Filter by severity (DEBUG, INFO, WARNING, ERROR)
+- **Time Range**: View logs from the past hour up to custom time ranges
+- **Branch**: Select which database branch to monitor
+- **Search**: Full-text search across log messages
+- **Live update**: Toggle on/off the auto-refresh of data every ~10 seconds
 
 ## Log filtering and navigation
 
@@ -78,38 +23,36 @@ The Logs dashboard displays real-time and historical log entries from your datab
 
 The server filter dropdown allows you to choose which database instances to view logs from. You can select the Primary, Replicas, or all servers. By default just the Primary is shown:
 
-| Filter Option | Purpose                            |
-| :------------ | :--------------------------------- |
-| **Primary**   | Monitor main database server logs  |
-| **Replicas**  | Monitor individual replica servers |
+| Filter Option | Purpose |
+| --- | --- |
+| **Primary** | Monitor main database server logs |
+| **Replicas** | Monitor individual replica servers |
 
 ### Log level filtering
 
 By default all log levels are displayed. You can filter them based on the following log levels:
 
-| Level       | Color Code | Purpose                                    |
-| :---------- | :--------- | :----------------------------------------- |
-| **DEBUG**   | Gray       | Detailed system information                |
-| **INFO**    | Blue       | General information messages               |
-| **WARNING** | Yellow     | Potential issues requiring attention       |
-| **ERROR**   | Red        | Critical issues requiring immediate action |
+| Level | Color Code | Purpose |
+| --- | --- | --- |
+| **DEBUG** | Gray | Detailed system information |
+| **INFO** | Blue | General information messages |
+| **WARNING** | Yellow | Potential issues requiring attention |
+| **ERROR** | Red | Critical issues requiring immediate action |
 
 ### Time range selection
 
 The time range selector offers several preset options:
 
-* **Past 15 minutes**
-* **Past hour**
-* **Past 3 hours**
-* **Past 6 hours**
-* **Past 12 hours**
-* **Past day**
+- **Past 15 minutes**
+- **Past hour**
+- **Past 3 hours**
+- **Past 6 hours**
+- **Past 12 hours**
+- **Past day**
 
 **Custom range**: Set specific date and time ranges for targeted analysis
 
-<Note>
-  All log timestamps are displayed in the timezone configured in the top right of the console under the drop down 'Timezone display'
-</Note>
+All log timestamps are displayed in the timezone configured in the top right of the console under the drop down ‘Timezone display’
 
 ## Log retention
 
@@ -121,35 +64,35 @@ By default, logs are retained for **7 days**. This retention period ensures you 
 
 Use the search bar to find specific:
 
-* Error messages and stack traces
-* Connection identifiers
-* Query patterns
-* Configuration changes
+- Error messages and stack traces
+- Connection identifiers
+- Query patterns
+- Configuration changes
 
 ### LogQL search syntax
 
-PlanetScale's logging capabilities utilize Victoria Logs, which supports powerful LogQL query syntax. Click the `?` icon in the search box to see syntax help. Common examples include:
+PlanetScale’s logging capabilities utilize Victoria Logs, which supports powerful LogQL query syntax. Click the `?` icon in the search box to see syntax help. Common examples include:
 
 **Text search:**
 
-* `error` - Find logs containing "error"
-* `"received message"` - Exact phrase search
+- `error` - Find logs containing “error”
+- `"received message"` - Exact phrase search
 
 **Field filtering:**
 
-* `planetscale.pod:h2l-pod` - Filter by specific pod
-* `planetscale.role:replica` - Filter by database role
-* `planetscale.container:pgbouncer` - Filter by container type
-* `planetscale.availability_zone:us-east-1a` - Filter by availability zone
+- `planetscale.pod:h2l-pod` - Filter by specific pod
+- `planetscale.role:replica` - Filter by database role
+- `planetscale.container:pgbouncer` - Filter by container type
+- `planetscale.availability_zone:us-east-1a` - Filter by availability zone
 
 **Exclusion filters:**
 
-* `NOT error` - Exclude logs containing "error"
-* `NOT "received message"` - Exclude specific phrases
+- `NOT error` - Exclude logs containing “error”
+- `NOT "received message"` - Exclude specific phrases
 
 **Logical operators:**
 
-* `"received message" OR planetscale.container:pgbouncer` - Match either condition
+- `"received message" OR planetscale.container:pgbouncer` - Match either condition
 
 For complete LogQL syntax documentation, see: [Victoria Logs LogQL Documentation](https://docs.victoriametrics.com/victorialogs/logsql/)
 
@@ -157,27 +100,27 @@ For complete LogQL syntax documentation, see: [Victoria Logs LogQL Documentation
 
 Combine multiple filters for precise log analysis and advanced log discovery:
 
-* **Server type + Log level**: Filter Primary/Replica servers by ERROR/WARNING levels for targeted troubleshooting
-* **Time window + Search terms**: Narrow down to specific time ranges with LogQL queries for incident investigation
-* **Log level + Search bar**: Combine severity filtering with text search for comprehensive debugging
-* **Server selection + Time range + LogQL**: Use all filtering options together for precise log discovery
+- **Server type + Log level**: Filter Primary/Replica servers by ERROR/WARNING levels for targeted troubleshooting
+- **Time window + Search terms**: Narrow down to specific time ranges with LogQL queries for incident investigation
+- **Log level + Search bar**: Combine severity filtering with text search for comprehensive debugging
+- **Server selection + Time range + LogQL**: Use all filtering options together for precise log discovery
 
 ## Log message structure
 
 When you click on a log entry, a detailed view appears on the right side showing:
 
-| Field                 | Description                                    | Example                                               |
-| :-------------------- | :--------------------------------------------- | :---------------------------------------------------- |
-| **Time**              | Exact timestamp of the log event with timezone | `2025-06-23 17:31:27 UTC`                             |
-| **Level**             | Log severity level with color coding           | `INFO`, `DEBUG`, `ERROR`, `WARNING`                   |
-| **Role**              | Database server role                           | `primary`                                             |
-| **Pod**               | Kubernetes pod identifier                      | `h2l-8abod1fll1tn-aws-useast1b-1-1335211508-467a6a97` |
-| **Container**         | Container identifier                           | `postgres`                                            |
-| **Availability Zone** | Geographic server location                     | `us-east-1a`                                          |
-| **Message**           | Full log message content                       | Complete error messages, SQL queries, system events   |
+| Field | Description | Example |
+| --- | --- | --- |
+| **Time** | Exact timestamp of the log event with timezone | `2025-06-23 17:31:27 UTC` |
+| **Level** | Log severity level with color coding | `INFO`, `DEBUG`, `ERROR`, `WARNING` |
+| **Role** | Database server role | `primary` |
+| **Pod** | Kubernetes pod identifier | `h2l-8abod1fll1tn-aws-useast1b-1-1335211508-467a6a97` |
+| **Container** | Container identifier | `postgres` |
+| **Availability Zone** | Geographic server location | `us-east-1a` |
+| **Message** | Full log message content | Complete error messages, SQL queries, system events |
 
 The Logs dashboard serves as your primary debugging and monitoring tool, providing the detailed visibility needed to maintain optimal database performance and quickly resolve issues.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/stitch
 title: "Stitch"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 We implemented an [Stitch Singer Tap](https://stitchdata.com/) as the pipeline between your PlanetScale source and selected destination. This document will walk you through how to connect your PlanetScale database to Stitch.

@@ -2,23 +2,17 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# PlanetScale CLI commands: insights
 
 ## Getting Started
 
-Make sure to first [set up your PlanetScale developer environment](planetscale-environment-setup.md). Once you've installed the `pscale` CLI, you can interact with PlanetScale and manage your databases straight from the command line.
+Make sure to first [set up your PlanetScale developer environment](planetscale-environment-setup.md). Once you’ve installed the `pscale` CLI, you can interact with PlanetScale and manage your databases straight from the command line.
 
-## The `insights` command
+## The insights command
 
-Surface PlanetScale's server-side analysis of a database: aggregated query statistics, failing query patterns, resource anomalies, and schema recommendations, all computed from production traffic.
+Surface PlanetScale’s server-side analysis of a database: aggregated query statistics, failing query patterns, resource anomalies, and schema recommendations, all computed from production traffic.
 
 For live, connection-level diagnostics (table sizes, locks, running queries), use [`pscale inspect`](inspect.md) instead.
 
@@ -26,7 +20,7 @@ Query insights require Query Insights to be enabled for the database. See [Postg
 
 **Usage:**
 
-```bash theme={null}
+```shellscript
 pscale insights <sub-command> <database> [<branch>] --org <org> <FLAG>
 ```
 
@@ -34,84 +28,84 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 
 ### Available sub-commands
 
-| **Sub-command**   | **Product**      | **Description**                                                         |
-| :---------------- | :--------------- | :---------------------------------------------------------------------- |
-| `queries`         | Postgres, Vitess | List top queries ranked by a performance metric                         |
-| `errors`          | Postgres, Vitess | List queries that are failing with errors                               |
-| `anomalies`       | Postgres, Vitess | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
-| `recommendations` | Postgres, Vitess | List schema recommendations with ready-to-apply DDL                     |
+| **Sub-command** | **Product** | **Description** |
+| --- | --- | --- |
+| `queries` | Postgres, Vitess | List top queries ranked by a performance metric |
+| `errors` | Postgres, Vitess | List queries that are failing with errors |
+| `anomalies` | Postgres, Vitess | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
+| `recommendations` | Postgres, Vitess | List schema recommendations with ready-to-apply DDL |
 
 ### Available flags
 
-| **Flag**                  | **Description**                                                                      |
-| ------------------------- | ------------------------------------------------------------------------------------ |
-| `--org <org>`             | Organization name **(required)**                                                     |
+| **Flag** | **Description** |
+| --- | --- |
+| `--org <org>` | Organization name **(required)** |
 | `-f`, `--format <FORMAT>` | Show output in a specific format. Possible values: `human` (default), `json`, `csv`. |
-| `-h`, `--help`            | Help for `insights`                                                                  |
+| `-h`, `--help` | Help for `insights` |
 
 ## Examples
 
-### The `queries` sub-command
+### The queries sub-command
 
 List the top queries for a branch, ranked by cumulative execution time (default).
 
 **Usage:**
 
-```bash theme={null}
+```shellscript
 pscale insights queries <database> <branch> --org <org> <FLAG>
 ```
 
 **Available flags:**
 
-| **Flag**              | **Description**                                                                                                                                                                                                                   |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sort <metric>`     | Metric to rank by. One of: `totalTime`, `count`, `errorCount`, `rowsRead`, `rowsReturned`, `rowsAffected`, `rowsReadPerReturned`, `p50Latency`, `p99Latency`, `maxLatency`, `cpuTime`, `ioTime`, `lastRun`. Default: `totalTime`. |
-| `--dir <direction>`   | Sort direction: `asc` or `desc`. Default: `desc`.                                                                                                                                                                                 |
-| `--limit <n>`         | Number of queries to return. Default: `15`.                                                                                                                                                                                       |
-| `--period <duration>` | Time period to aggregate over (for example `1h`, `24h`).                                                                                                                                                                          |
+| **Flag** | **Description** |
+| --- | --- |
+| `--sort <metric>` | Metric to rank by. One of: `totalTime`, `count`, `errorCount`, `rowsRead`, `rowsReturned`, `rowsAffected`, `rowsReadPerReturned`, `p50Latency`, `p99Latency`, `maxLatency`, `cpuTime`, `ioTime`, `lastRun`. Default: `totalTime`. |
+| `--dir <direction>` | Sort direction: `asc` or `desc`. Default: `desc`. |
+| `--limit <n>` | Number of queries to return. Default: `15`. |
+| `--period <duration>` | Time period to aggregate over (for example `1h`, `24h`). |
 
 **Examples:**
 
-```bash theme={null}
+```shellscript
 pscale insights queries <database> <branch> --org <org>
 pscale insights queries <database> <branch> --org <org> --sort rowsReadPerReturned
 pscale insights queries <database> <branch> --org <org> --sort p99Latency --period 1h --format json
 ```
 
-### The `errors` sub-command
+### The errors sub-command
 
 List failing query patterns with error messages.
 
 **Usage:**
 
-```bash theme={null}
+```shellscript
 pscale insights errors <database> <branch> --org <org> <FLAG>
 ```
 
 **Available flags:**
 
-| **Flag**              | **Description**                                          |
-| --------------------- | -------------------------------------------------------- |
-| `--limit <n>`         | Number of errors to return. Default: `15`.               |
+| **Flag** | **Description** |
+| --- | --- |
+| `--limit <n>` | Number of errors to return. Default: `15`. |
 | `--period <duration>` | Time period to aggregate over (for example `1h`, `24h`). |
 
 **Example:**
 
-```bash theme={null}
+```shellscript
 pscale insights errors <database> <branch> --org <org> --format json
 ```
 
-### The `anomalies` sub-command
+### The anomalies sub-command
 
 List detected resource anomalies for a branch.
 
 **Usage:**
 
-```bash theme={null}
+```shellscript
 pscale insights anomalies <database> <branch> --org <org> <FLAG>
 ```
 
-### The `recommendations` sub-command
+### The recommendations sub-command
 
 List schema recommendations for a database: unused tables and indexes, duplicate indexes, bloated tables and indexes, missing indexes derived from production query patterns, and sequence overflow risks. Each recommendation includes ready-to-apply DDL in JSON output.
 
@@ -119,13 +113,13 @@ This sub-command takes a database name only (not a branch).
 
 **Usage:**
 
-```bash theme={null}
+```shellscript
 pscale insights recommendations <database> --org <org> <FLAG>
 ```
 
 **Example:**
 
-```bash theme={null}
+```shellscript
 pscale insights recommendations <database> --org <org> --format json
 ```
 
@@ -133,16 +127,14 @@ If the database or branch is not found, or Query Insights is not enabled, the co
 
 ## Related documentation
 
-<CardGroup>
-  <Card title="pscale inspect" href="/docs/cli/inspect" icon="angles-right" horizontal />
+## pscale inspect
 
-  <Card title="Query Insights (Postgres)" href="/docs/postgres/monitoring/query-insights" icon="angles-right" horizontal />
+## Query Insights (Postgres)
 
-  <Card title="Query Insights (Vitess)" href="/docs/vitess/monitoring/query-insights" icon="angles-right" horizontal />
+## Query Insights (Vitess)
 
-  <Card title="Schema recommendations (Postgres)" href="/docs/postgres/monitoring/schema-recommendations" icon="angles-right" horizontal />
-</CardGroup>
+## Schema recommendations (Postgres)
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

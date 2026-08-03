@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/datadog
 title: "Datadog"
 description: ""
-access_date: 2026-08-03T19:40:36.600Z
-current_date: 2026-08-03T19:40:36.600Z
+access_date: 2026-08-03T19:45:59.089Z
+current_date: 2026-08-03T19:45:59.089Z
 ---
 
 This Datadog integration is no longer receiving updates or new metric additions. You should instead use our [Datadog Agent Integration](../tutorials/prometheus-metrics-datadog.md), which provides more metrics than this native integration.
