@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/postgres/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-08-04T20:49:52.548Z
-current_date: 2026-08-04T20:49:52.548Z
+access_date: 2026-08-04T22:21:23.931Z
+current_date: 2026-08-04T22:21:23.931Z
 ---
 
-Due to an operational issue, we have temporarily disabled the following Postgres extensions: **address\_standardizer**, **address\_standardizer\_data\_us**. We hope to have them available again in the coming days. We apologize for any inconvenience.
+Due to an operational issue, we have temporarily disabled the following Postgres extensions: **address\_standardizer**, **address\_standardizer\_data\_us**, **postgis**, **postgis\_sfcgal**, **postgis\_topology**. We hope to have them available again in the coming days. We apologize for any inconvenience.
 
 You can submit and vote for the extensions you want us to support next at [ps-extensions.io](https://ps-extensions.io/).
 
