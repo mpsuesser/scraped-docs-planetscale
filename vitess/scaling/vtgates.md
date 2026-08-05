@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/vtgates
 title: "Vtgates"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T18:42:40.123Z
+current_date: 2026-08-05T18:42:40.123Z
 ---
 
 A VTGate, or Vitess Gateway, is the layer of Vitess that acts as a proxy between your application servers and the MySQL instances.
@@ -33,6 +33,29 @@ VTGate autoscaling configuration
 To modify the size or number of VTGates, click on your database in the dashboard, “Clusters” in the sidebar, choose the branch you want to modify from the dropdown, and then click on the “VTGates” tab at the top.
 
 From here, you can see the current VTGate utilization, adjust your VTGate size, and modify the number of VTGates per availability zone (for `VTG-320` and larger). Note the price difference on this page after you adjust. This will be added to your monthly bill going forward. When you’re satisfied, click “Save changes”. It will take some time to update the VTGate configuration. This is an online operation and does not cause downtime.
+
+### Configuring VTGates with the CLI
+
+You can also view and resize VTGates with the [PlanetScale CLI](../../cli/branch.md). Only production branches can be resized.
+
+```shellscript
+# Show the current VTGate configuration
+pscale branch vtgate show <DATABASE_NAME> <BRANCH_NAME>
+
+# Queue a VTGate resize
+pscale branch vtgate resize <DATABASE_NAME> <BRANCH_NAME> \
+  --vtgate-size VTG_320 \
+  --vtgate-autoscaling \
+  --vtgate-count 2 \
+  --vtgate-max-count 8 \
+  --vtgate-target-cpu-utilization 50
+
+# Check on or cancel a resize request
+pscale branch vtgate resize status <DATABASE_NAME> <BRANCH_NAME>
+pscale branch vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>
+```
+
+CLI size SKUs use underscores (for example `VTG_320`). Hyphens are accepted and converted. See the [`branch` command reference](../../cli/branch.md) for all flags.
 
 ## VTGate default sizes
 
@@ -67,7 +90,7 @@ Every PlanetScale cluster includes VTGate credits that cover the cost of a VTGat
 - Additional keyspaces increase your VTGate credits
 - Additional shards increase your VTGate credits
 
-If your specific workload requires more powerful VTGates, you can upgrade them manually through the dashboard. Any VTGate usage that exceeds your included credits will be billed as an additional charge.
+If your specific workload requires more powerful VTGates, you can upgrade them manually through the dashboard or [CLI](../../cli/branch.md). Any VTGate usage that exceeds your included credits will be billed as an additional charge.
 
 Here are some examples of how VTGate credits work:
 

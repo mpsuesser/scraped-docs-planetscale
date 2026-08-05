@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T18:42:40.123Z
+current_date: 2026-08-05T18:42:40.123Z
 ---
 
 ## Getting Started
@@ -41,6 +41,10 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `schema <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the schema of a branch | Vitess |
 | `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific backup of a branch | Postgres, Vitess |
 | `switch <BRANCH_NAME> --database <DATABASE_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `parent-branch <BRANCH_NAME>` | Switch to the specified branch | Postgres, Vitess |
+| `vtgate show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the current VTGate configuration for a Vitess branch | Vitess |
+| `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
+| `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
+| `vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel a queued VTGate resize for a Vitess branch | Vitess |
 
 ### Service token automation: branch
 
@@ -88,6 +92,11 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--namespace <NAMESPACE>` | Only show parameters in this namespace (e.g. `pgconf`, `pgbouncer`, `patroni`) | `parameters list` |
 | `--extension` | Only show parameters that configure an extension (`--extension=false` hides them) | `parameters list` |
 | `--internal` | Only show internal (immutable) parameters (`--internal=false` hides them) | `parameters list` |
+| `--vtgate-size <SKU>` | VTGate size SKU (e.g. `VTG_320`, `VTG_1280`). Hyphens are accepted and converted to underscores. | `vtgate resize` |
+| `--vtgate-count <COUNT>` | Number of VTGates per availability zone (minimum when autoscaling is enabled) | `vtgate resize` |
+| `--vtgate-max-count <COUNT>` | Maximum VTGates per availability zone when autoscaling is enabled | `vtgate resize` |
+| `--vtgate-autoscaling` | Enable or disable VTGate autoscaling (`--vtgate-autoscaling=false` to disable) | `vtgate resize` |
+| `--vtgate-target-cpu-utilization <PERCENT>` | Target CPU utilization percent when autoscaling is enabled | `vtgate resize` |
 
 The `--region` flag can not be used with `--restore` when creating a branch. Branch backups will be restored to their original region.
 
@@ -182,6 +191,45 @@ pscale branch resize cancel <DATABASE_NAME> <BRANCH_NAME>
 ```
 
 Cancels the queued change request for the branch. Only change requests that have not started being applied can be canceled.
+
+### The vtgate sub-command
+
+**Command:**
+
+```shellscript
+pscale branch vtgate show <DATABASE_NAME> <BRANCH_NAME>
+```
+
+Shows the current VTGate size, count, and autoscaling settings for a Vitess branch.
+
+**Command:**
+
+```shellscript
+pscale branch vtgate resize <DATABASE_NAME> <BRANCH_NAME> \
+  --vtgate-size VTG_320 \
+  --vtgate-autoscaling \
+  --vtgate-count 2 \
+  --vtgate-max-count 8 \
+  --vtgate-target-cpu-utilization 50
+```
+
+Queues a VTGate resize for a Vitess production branch. Pass at least one of `--vtgate-size`, `--vtgate-count`, `--vtgate-max-count`, `--vtgate-autoscaling`, or `--vtgate-target-cpu-utilization`. Development branches cannot be resized. See the [VTGate documentation](../vitess/scaling/vtgates.md) for size defaults, autoscaling limits, and pricing.
+
+**Command:**
+
+```shellscript
+pscale branch vtgate resize status <DATABASE_NAME> <BRANCH_NAME>
+```
+
+Shows the latest VTGate resize request for the branch.
+
+**Command:**
+
+```shellscript
+pscale branch vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>
+```
+
+Cancels a queued VTGate resize. Only resize requests that have not started being applied can be canceled.
 
 ### The diff sub-command
 
