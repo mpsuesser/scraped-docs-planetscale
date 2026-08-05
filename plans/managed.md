@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed
 title: "Managed"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T16:55:10.098Z
+current_date: 2026-08-05T16:55:10.098Z
 ---
 
 ## What is PlanetScale Managed?
@@ -33,9 +33,8 @@ Read more on how PlanetScale Managed works inside either cloud provider:
 Single-tenancy is one of many benefits when it comes to PlanetScale Managed. Still, with this PlanetScale Enterprise service, you also get:
 
 - Assistance with [horizontal sharding](../vitess/sharding.md) (MySQL)
-- Option to sign BAAs for [HIPAA compliance](https://planetscale.com/blog/planetscale-and-hipaa)
 - Deployment to additional regions
-- [PCI compliance](https://planetscale.com/blog/planetscale-managed-is-now-pci-compliant) (AWS only)
+- [PCI compliance](../security.md#pci-compliance)
 - Additional [support options](../support.md#enterprise)
 - Available on [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). Your PlanetScale purchase through the AWS Marketplace and the resources you use on PlanetScale will qualify against your EDP commitment.
 
