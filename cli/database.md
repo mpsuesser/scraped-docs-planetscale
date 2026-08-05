@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Getting Started
@@ -71,8 +71,9 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--tables <TABLES_LIST>` | Comma separated string of tables to dump. By default, all tables are dumped. | `dump` |
 | `--columns <TABLE:COLUMN_LIST>` | Specify which columns to include when dumping specific tables. Use format `table:col1,col2`. Can be specified multiple times. | `dump` |
 | `--wheres string` | Comma separated string of WHERE clauses to filter the tables to dump. | `dump` |
-| `--replica` | Dump from a replica (if available; will fail if not). | `dump` |
-| `--rdonly` | Dump from a rdonly tablet (if available; will fail if not). | `dump` |
+| `--replica` | Dump from a replica tablet in the primary region (if available; will fail if not). | `dump` |
+| `--rdonly` | Dump from a rdonly tablet in the primary region (if available; will fail if not). Not for separate read-only regions. Use `--read-only-region` instead. | `dump` |
+| `--read-only-region <REGION>` | Dump from a Vitess [read-only region](../vitess/scaling/read-only-regions.md) (region slug, display name, or id). List regions with `pscale keyspace read-only-regions`. Cannot be combined with `--replica` or `--rdonly`. | `dump` |
 | `--keyspace <KEYSPACE_NAME>` | Optionally target a specific keyspace to be dumped. Useful for sharded databases. | `dump` |
 | `--shard <SHARD_NAME>` | Optional shard to target, must be used with keyspace | `dump` |
 | `--output-format <FORMAT>` | Output format for the dump. Options: `sql` (default), `json`, `csv`. | `dump` |
@@ -180,6 +181,16 @@ pscale database dump <DATABASE_NAME> <BRANCH_NAME> --columns 'users:id,name' --c
 ```
 
 The schema dump will include the complete table schema, but the data files will only contain the specified columns.
+
+### Dump from a read-only region:
+
+For Vitess databases with [read-only regions](../vitess/scaling/read-only-regions.md), dump from a specific region instead of the primary:
+
+```shellscript
+pscale database dump <DATABASE_NAME> <BRANCH_NAME> --read-only-region eu-west
+```
+
+Pass a region slug, display name, or id. List configured regions with `pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>`.
 
 ### Restore a backup to an existing branch:
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Getting started
@@ -27,6 +27,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `create <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--cluster-size <SIZE>`, `--additional-replicas <NUMBER>`, `--shards <NUMBER>` | Vitess | Create a new keyspace within a database branch. |
 | `list <DATABASE_NAME> <BRANCH_NAME>` |  | Vitess | List all keyspaces within a database branch. |
 | `show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show a specific keyspace within a database branch. |
+| `read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | List [read-only regions](../vitess/scaling/read-only-regions.md) for a keyspace. |
 | `resize <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--cluster-size <SIZE>`, `--additional-replicas <NUMBER>` | Vitess | Resize a keyspace. |
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Cancel an ongoing keyspace resize. |
 | `resize status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the status of the keyspace’s last resize. |
@@ -71,6 +72,16 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--no-color` | Disable color output. |
 | `--service-token <TOKEN>` | The service token for authenticating. |
 | `--service-token-id <TOKEN_ID>` | The service token ID for authenticating. |
+
+## Examples
+
+### List read-only regions for a keyspace
+
+```shellscript
+pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
+
+Output includes each region’s slug, cluster size, and replica count. Use a region slug with `pscale password create ... --read-only-region` or `pscale database dump ... --read-only-region`.
 
 ## Need help?
 

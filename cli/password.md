@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/password
 title: "Password"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Getting Started
@@ -34,7 +34,7 @@ pscale password <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
-| `create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME>` | `--ttl`, `--role` | Vitess | Create new credentials to access a branch’s data |
+| `create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME>` | `--ttl`, `--role`, `--replica`, `--read-only-region` | Vitess | Create new credentials to access a branch’s data |
 | `delete <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_ID>` | `--force` | Vitess | Delete the specified branch credentials |
 | `list <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Vitess | List all credentials of a database |
 
@@ -61,8 +61,10 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
-| `--ttl` | TTL defines the time to live for the password in seconds. By default, it is 0, which means it will never expire. | `create` |
-| `--role <ROLE>` | Add a [role to a password](../vitess/security/password-roles.md) | `create` |
+| `--ttl` | TTL defines the time to live for the password. Durations such as `30m` or `24h`, or bare seconds like `3600`, are accepted. Default is `0` (never expires). | `create` |
+| `--role <ROLE>` | Add a [role to a password](../vitess/security/password-roles.md). Defaults to `reader` for `--replica` and `--read-only-region`, otherwise `admin`. | `create` |
+| `--replica` | Route reads to the branch’s primary-region replicas and all [read-only regions](../vitess/scaling/read-only-regions.md) (nearest replica). Cannot be combined with `--read-only-region`. | `create` |
+| `--read-only-region <REGION>` | Scope the password to a Vitess [read-only region](../vitess/scaling/read-only-regions.md). Accepts a region slug, display name, or id. List regions with `pscale keyspace read-only-regions`. Cannot be combined with `--replica`. | `create` |
 | `--force` | Delete a password without confirmation. | `delete` |
 | `--web` | Perform the action in your web browser | `list` |
 
@@ -94,6 +96,20 @@ Available roles for the `--role` flag are:
 | `--service-token-id <TOKEN_ID>` | The service token ID for authenticating. |
 
 ## Examples
+
+### Create a read-only region password
+
+Create credentials that always connect to a specific Vitess read-only region:
+
+```shellscript
+pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME> --read-only-region eu-west
+```
+
+List configured regions for a keyspace first:
+
+```shellscript
+pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
 
 ### The delete sub-command
 

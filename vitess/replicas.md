@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Overview
@@ -34,6 +34,14 @@ pscale password create <database> <branch> <password_name> --replica
 ```
 
 All queries made using this credential will be routed to the nearest replica, even as you add and remove read-only regions.
+
+To pin traffic to a specific read-only region instead, create a region-scoped password:
+
+```shellscript
+pscale password create <database> <branch> <password_name> --read-only-region <region>
+```
+
+See [Read-only regions](scaling/read-only-regions.md#region-scoped-credentials) for details.
 
 ### 2\. USE @replica (not recommended)
 

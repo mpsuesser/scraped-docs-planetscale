@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/vitess/security/connection-strings
 title: "Connection Strings"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Creating a password
 
-There are two connection types for a password: `Primary` and `Replica`. The `Primary` connection type is used to connect to the primary region of your database, while the `Replica` connection type is used to route queries to your branch’s replicas and read-only regions. You can create multiple passwords for a branch, each with a different connection type. [Read more about replicas](../scaling/replicas.md).
+Passwords support three connection types: `Primary`, `Replica`, and `Read-only region`. `Primary` connects to the primary region. `Replica` routes queries to your branch’s replicas and read-only regions (nearest replica). `Read-only region` scopes the password to a specific read-only region and can be created with `pscale password create ... --read-only-region`. [Read more about replicas](../scaling/replicas.md) and [read-only regions](../scaling/read-only-regions.md).
 
 Make sure you copy the credentials for your application and the “Other” format. We do not save the password in plaintext, so there will be no way to retrieve the password after you leave this page.
 

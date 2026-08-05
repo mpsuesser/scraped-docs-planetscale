@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/read-only-regions
 title: "Read Only Regions"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-05T19:12:39.041Z
+current_date: 2026-08-05T19:12:39.041Z
 ---
 
 ## Overview
@@ -30,11 +30,37 @@ Once you remove a region, you will no longer be charged for the storage or row r
 
 ## How to query a read-only region
 
-Connecting to a read-only region requires using a [replica credential](replicas.md). You can create a global replica credential by following these steps:
+### Global replica credentials
 
-Alternatively, you can create a connection string by going to your database settings page > “ **Passwords** ” > “ **New password** ”.
+A [global replica credential](replicas.md) routes queries to the nearest replica among your branch’s primary-region replicas and read-only regions.
 
-All queries made using this password will be routed to your branch’s replicas or the nearest read-only region. If you want to route queries to a specific read-only region, you can go to the “ **Passwords** ” page within your database’s settings page and select the created password. Under “ **Database endpoint** ”, you can then select “ **Direct** ” and choose your desired host from the “ **Host** ” dropdown.
+Alternatively, create the credential from the CLI:
+
+```shellscript
+pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME> --replica
+```
+
+You can also create a connection string by going to your database settings page > “ **Passwords** ” > “ **New password** ”.
+
+### Region-scoped credentials
+
+To always connect to a specific read-only region, create a region-scoped password from the CLI:
+
+```shellscript
+pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME> --read-only-region eu-west
+```
+
+Pass a region slug, display name, or id. List the regions configured for a keyspace with:
+
+```shellscript
+pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
+
+`--read-only-region` cannot be combined with `--replica`. Use `--replica` when you want nearest-replica routing across regions.
+
+### Direct host selection
+
+If you already have a password, open it on the “ **Passwords** ” page within your database’s settings. Under “ **Database endpoint** ”, select “ **Direct** ” and choose your desired host from the “ **Host** ” dropdown.
 
 ## Concepts
 
