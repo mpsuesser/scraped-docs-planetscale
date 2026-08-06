@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility
 title: "Mysql Compatibility"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T21:59:03.955Z
+current_date: 2026-08-06T21:59:03.955Z
 ---
 
 ## Overview
@@ -28,6 +28,7 @@ If you’re attempting to import a database using our Import tool, there are som
 | --- | --- | --- |
 | `ALTER TABLE...RENAME COLUMN` |  | Renaming columns and tables may be destructive. See our [guide for column rename recommendations](../schema-changes/handling-table-and-column-renames.md). |
 | `CREATE DATABASE` |  | You cannot `CREATE` a logical database within a PlanetScale Vitess database. |
+| `CREATE USER` |  | Vitess does not support MySQL’s native user and privilege management. Create database credentials through the PlanetScale dashboard, API, CLI, or [password roles](../security/password-roles.md). |
 | `DROP DATABASE` |  | You cannot `DROP` a logical database within a PlanetScale Vitess database. |
 | `JSON_TABLE` |  | The [`JSON_TABLE` function](https://dev.mysql.com/doc/refman/8.0/en/json-table-functions.html#function_json-table) is not yet supported. All other [JSON SQL functions](https://dev.mysql.com/doc/refman/8.0/en/json-function-reference.html) should work. |
 | `PROCEDURE` |  | We do not support any form of [stored routines](https://dev.mysql.com/doc/refman/8.0/en/stored-routines.html). |
