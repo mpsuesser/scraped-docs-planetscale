@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_bouncer
 title: "Get_bouncer"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -112,12 +112,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -146,6 +149,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -251,6 +257,9 @@ paths:
                       - cpu
                       - ram
                       - sort_order
+                  bouncer_size:
+                    type: string
+                    description: The size of the bouncer as a SKU name (e.g., 'PGB_5')
                   target:
                     type: string
                     enum:
@@ -425,6 +434,7 @@ paths:
                   - id
                   - name
                   - sku
+                  - bouncer_size
                   - target
                   - replicas_per_cell
                   - created_at

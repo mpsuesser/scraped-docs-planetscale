@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_role
 title: "Delete_role"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 DELETE
@@ -82,7 +82,7 @@ The ID of the role
 
 string
 
-The optional role to reassign ownership to before dropping
+The optional role to reassign ownership to before dropping. Accepts the role's ID, or its username with or without the branch ID suffix.
 
 #### Response
 

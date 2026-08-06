@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_default_role
 title: "Reset_default_role"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -112,12 +112,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -146,6 +149,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -218,175 +224,19 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    description: The ID of the role
-                  name:
-                    type: string
-                    description: The name of the role
-                  access_host_url:
-                    type: string
-                    description: The database connection string
-                  private_access_host_url:
-                    type: string
-                    description: The database connection string for private connections
-                  private_connection_service_name:
-                    type: string
-                    description: The service name to set up private connectivity
                   username:
                     type: string
                     description: The database user name
-                  base_username:
-                    type: string
-                    description: The base username without branch routing suffix
                   password:
                     type: string
-                    description: The plaintext password, available only after create
-                  database_name:
+                    description: The plaintext password
+                  access_host_url:
                     type: string
-                    description: The database name
-                  created_at:
-                    type: string
-                    description: When the role was created
-                  updated_at:
-                    type: string
-                    description: When the role was updated
-                  deleted_at:
-                    type: string
-                    description: When the role was deleted
-                    nullable: true
-                  expires_at:
-                    type: string
-                    description: When the role expires
-                    nullable: true
-                  dropped_at:
-                    type: string
-                    description: When the role was dropped
-                    nullable: true
-                  disabled_at:
-                    type: string
-                    description: When the role was disabled
-                    nullable: true
-                  drop_failed:
-                    type: string
-                    description: Error message available when dropping the role fails
-                  expired:
-                    type: boolean
-                    description: True if the credentials are expired
-                  default:
-                    type: boolean
-                    description: Whether the role is the default postgres user
-                  ttl:
-                    type: integer
-                    description: Number of seconds before the credentials expire
-                  inherited_roles:
-                    items:
-                      type: string
-                      enum:
-                        - pscale_managed
-                        - pg_checkpoint
-                        - pg_create_subscription
-                        - pg_maintain
-                        - pg_monitor
-                        - pg_read_all_data
-                        - pg_read_all_settings
-                        - pg_read_all_stats
-                        - pg_signal_backend
-                        - pg_stat_scan_tables
-                        - pg_use_reserved_connections
-                        - pg_write_all_data
-                        - postgres
-                    type: array
-                    description: Database roles these credentials inherit
-                  with_replication:
-                    type: boolean
-                    description: Whether the role has the REPLICATION attribute
-                  branch:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: The ID for the resource
-                      name:
-                        type: string
-                        description: The name for the resource
-                      created_at:
-                        type: string
-                        description: When the resource was created
-                      updated_at:
-                        type: string
-                        description: When the resource was last updated
-                      deleted_at:
-                        type: string
-                        description: When the resource was deleted, if deleted
-                        nullable: true
-                    required:
-                      - id
-                      - name
-                      - created_at
-                      - updated_at
-                      - deleted_at
-                  actor:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: The ID of the actor
-                      display_name:
-                        type: string
-                        description: The name of the actor
-                      avatar_url:
-                        type: string
-                        description: The URL of the actor's avatar
-                    required:
-                      - id
-                      - display_name
-                      - avatar_url
-                  query_safety_settings:
-                    type: object
-                    properties:
-                      require_where_on_delete:
-                        type: string
-                        enum:
-                          - 'off'
-                          - warn
-                          - 'on'
-                        description: Require WHERE clause on DELETE statements
-                      require_where_on_update:
-                        type: string
-                        enum:
-                          - 'off'
-                          - warn
-                          - 'on'
-                        description: Require WHERE clause on UPDATE statements
-                    required:
-                      - require_where_on_delete
-                      - require_where_on_update
+                    description: The database connection host
                 required:
-                  - id
-                  - name
-                  - access_host_url
-                  - private_access_host_url
-                  - private_connection_service_name
                   - username
-                  - base_username
                   - password
-                  - database_name
-                  - created_at
-                  - updated_at
-                  - deleted_at
-                  - expires_at
-                  - dropped_at
-                  - disabled_at
-                  - drop_failed
-                  - expired
-                  - default
-                  - ttl
-                  - inherited_roles
-                  - with_replication
-                  - branch
-                  - actor
-                  - query_safety_settings
+                  - access_host_url
         '401':
           description: Unauthorized
         '403':

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_branch
 title: "Create_branch"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -118,12 +118,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -152,6 +155,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -254,8 +260,18 @@ paths:
                   type: string
                   description: >-
                     The database cluster size. Required if a backup_id is
-                    provided, optional otherwise. Options: PS_10, PS_20, PS_40,
+                    provided (unless keyspace_cluster_sizes covers every
+                    keyspace), optional otherwise. Options: PS_10, PS_20, PS_40,
                     ..., PS_2800
+                keyspace_cluster_sizes:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    For MySQL backup restores, per-keyspace cluster sizes. Each
+                    entry is { "keyspace_name": "main", "cluster_size": "PS_40"
+                    }. When provided, each restored keyspace must have a size
+                    here or via cluster_size.
                 storage:
                   type: object
                   properties:

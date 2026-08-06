@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_query_summary
 title: "Get_query_summary"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -111,12 +111,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -145,6 +148,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -211,6 +217,7 @@ paths:
             type: string
         - name: keyspace
           in: query
+          required: true
           description: The keyspace to filter by
           schema:
             type: string
@@ -226,9 +233,19 @@ paths:
             type: string
         - name: period
           in: query
-          description: Time period for filtering query statistics (e.g., '1h', '24h')
+          description: Time period for filtering query statistics
           schema:
             type: string
+            enum:
+              - 15m
+              - 1h
+              - 3h
+              - 6h
+              - 12h
+              - 1d
+              - 2d
+              - 7d
+              - 8d
       responses:
         '200':
           description: Returns aggregated query statistics summary
@@ -302,6 +319,9 @@ paths:
                   avg_shard_queries:
                     type: number
                     description: The average number of shard queries
+                  avg_parallel_workers:
+                    type: number
+                    description: The average number of parallel workers
                   sum_rows_read:
                     type: integer
                     description: The total number of rows read
@@ -419,6 +439,7 @@ paths:
                   - sum_shard_queries
                   - max_shard_queries
                   - avg_shard_queries
+                  - avg_parallel_workers
                   - sum_rows_read
                   - sum_rows_affected
                   - sum_rows_returned

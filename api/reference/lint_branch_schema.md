@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/lint_branch_schema
 title: "Lint_branch_schema"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -112,12 +112,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -146,6 +149,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -233,6 +239,9 @@ paths:
                   current_page:
                     type: integer
                     description: The current page number
+                  per_page:
+                    type: integer
+                    description: The maximum number of results per page
                   next_page:
                     type: integer
                     description: The next page number, or null when this is the last page
@@ -340,6 +349,7 @@ paths:
                 required:
                   - type
                   - current_page
+                  - per_page
                   - next_page
                   - next_page_url
                   - prev_page

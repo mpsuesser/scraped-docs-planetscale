@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database_postgres_cidr
 title: "Create_database_postgres_cidr"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-06T03:13:30.576Z
+current_date: 2026-08-06T03:13:30.576Z
 ---
 
 > ## Documentation Index
@@ -111,12 +111,15 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
-  - name: Roles
-    description: |2
-                Resources for managing role credentials.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Read-only replicas
+    description: |2
+                Resources for managing Postgres read-only replicas.
+  - name: Roles
+    description: |2
+                Resources for managing role credentials.
   - name: Schema recommendations
     description: |2
                 Resources for managing schema recommendations within a database.
@@ -145,6 +148,9 @@ tags:
   - name: Webhooks
     description: |2
                   Resources for managing database webhooks.
+  - name: AuthAttemptExports
+    description: |2
+                  Resources for creating and downloading organization auth attempt exports.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
@@ -221,6 +227,9 @@ paths:
                     List of IPv4 CIDR ranges (e.g., ['192.168.1.0/24',
                     '192.168.1.1/32']). Must contain at least one valid IPv4
                     address or range.
+                description:
+                  type: string
+                  description: An optional description for the IP restriction rule.
               required:
                 - cidrs
       responses:
@@ -246,6 +255,10 @@ paths:
                       type: string
                     type: array
                     description: List of CIDR ranges
+                  description:
+                    type: string
+                    description: An optional description for the IP restriction rule
+                    nullable: true
                   created_at:
                     type: string
                     description: When the entry was created
@@ -277,6 +290,7 @@ paths:
                   - schema
                   - role
                   - cidrs
+                  - description
                   - created_at
                   - updated_at
                   - deleted_at
