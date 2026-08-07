@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-07T21:15:19.588Z
+current_date: 2026-08-07T21:15:19.588Z
 ---
 
 ## Overview
@@ -37,7 +37,7 @@ If you are the only administrator in your Organization and you enable the “Req
 
 To ensure only approved schema changes are applied to production, an approval is automatically dismissed if the proposed changes are updated after the deploy request is approved. When this occurs, `planetscale-bot` comments on the deploy request with the list of changes since the last approval.
 
-If the deploy request is already in the deploy queue when it’s schema changes, it will be removed from the queue. It must be re-approved and added to the queue again before it can deploy.
+If the deploy request is already in the deploy queue when the schema changes are updated, it will be removed from the queue. It must be re-approved and added to the queue again before it can deploy.
 
 ### Reviewing changes across shards
 
@@ -49,14 +49,17 @@ PlanetScale deploy request - changes on sharded keyspace
 
 ## Deploy a deploy request
 
+By default, deploy requests on a branch run through a **serial deploy queue**: only one deploy runs at a time, and later requests wait until earlier ones finish. When a queue is already running, you can also [deploy in parallel](#parallel-deployments) alongside it.
+
 ### Deploy changes
 
 ### Deploy changes instantly
 
 You also have the option to use MySQL’s **ALGORITHM=INSTANT** to instantly deploy the schema change. Learn more in the [**Instant Deployments** section](#instant-deployments).
 
-1. When you’re ready to deploy, click “ **Deploy changes instantly** ”. The deployment will begin or be queued if there are other pending deployments.
-	- Though the deployment many be queued, once it’s at the front of the queue, it will be deployed instantly.
+1. When you’re ready to deploy, click “ **Deploy changes instantly** ”. The deployment will begin immediately, or join the serial deploy queue if other deployments are already pending.
+	- If it joins the serial queue, it deploys instantly once it reaches the front of that queue.
+		- You can also deploy instantly [in parallel](#parallel-deployments) alongside an existing queue.
 		- Instant deployments **cannot be reverted**.
 
 If you would like to require an administrator’s approval before a request can be deployed, go to the “ **Settings** ” page for your database and check the “ **Require administrator approval for deploy requests** ” box. You must be an Organization Administrator to enable this restriction. Please note you will not be able to approve your own deploy requests.
@@ -171,10 +174,48 @@ If neither `--enable-auto-apply` nor `--disable-auto-apply` is provided when cre
 
 ### Limitations
 
-- If you have an open gated deployment, you cannot deploy another deploy request until the current one has been merged in.
+- An open gated deployment holds the **serial** deploy queue until you apply (or cancel) it. Later serial deploy requests wait behind it. You can still [deploy in parallel](#parallel-deployments) alongside a gated deployment if the changes touch different tables.
 - Deploy requests that are [instantly deployed](#instant-deployments) cannot be gated.
 
 For more information about this process and why we built it, check out the [Gated Deployments: Addressing the complexity of schema deployments at scale](https://planetscale.com/blog/gated-deployments-addressing-the-complexity-of-schema-deployments-at-scale) blog post.
+
+## Parallel deployments
+
+By default, deploy requests on a branch run one at a time through the serial deploy queue. Each deploy waits for the one ahead of it to finish before it starts.
+
+**Parallel deployments** let you run two deploy requests at once: one in the serial queue, and one alongside it in a parallel lane. Put a slow change in the parallel lane and keep shipping faster ones through the queue, or leave slow work in the queue and run a quick change in parallel. Either way works, as long as the changes touch different tables.
+
+### Deploy in parallel
+
+When a deploy queue is already running on the branch, the deploy request Summary tab shows a deployment strategy choice:
+
+- **Add to deploy queue**: joins the serial queue and waits its turn (default)
+- **Deploy in parallel**: starts now, alongside the queue
+
+Select **Deploy in parallel**, then confirm. The deploy request page and the database deploy queue view show parallel deploys in a separate lane from the serial queue.
+
+You can also deploy in parallel from the [PlanetScale CLI](../../cli/deploy-request.md):
+
+```shellscript
+pscale deploy-request deploy <DATABASE_NAME> <DR_NUMBER> --strategy parallel
+```
+
+Use `--strategy serial` (or omit `--strategy`) to join the serial queue.
+
+If a deploy request is already waiting in the serial queue, remove it from the queue and deploy it again with the parallel strategy.
+
+Everything else about the deploy (review, schema diff, gated cutover, and revert) works the same way as a serial deploy. Reverting a parallel deploy only undoes that deploy’s changes. It does not rewind work the serial queue already completed, and it does not pause the serial queue.
+
+### Limits
+
+- **One parallel deploy at a time per branch.** If a parallel deploy is already running, you must wait for it to finish before starting another.
+- **No overlapping table changes across lanes.** A parallel deploy and any deploy in the serial queue cannot modify the same table at the same time. The deploy is rejected if there is overlap.
+
+### Performance considerations
+
+Two deploys at once can **increase database load**. Impact depends on the database, available resources, and workload. Avoid running two resource-intensive deploy requests at the same time. For example, two large but quiet tables may be fine together, while busy tables or deploy requests that each change many tables can put more pressure on the database.
+
+You can independently adjust the [throttler settings](throttling-deploy-requests.md) for each deploy request to control the impact on the database.
 
 ## Artifact tables
 

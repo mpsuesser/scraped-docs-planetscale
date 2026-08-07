@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-07T21:15:19.588Z
+current_date: 2026-08-07T21:15:19.588Z
 ---
 
 ## Getting Started
@@ -30,7 +30,7 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `cancel <DATABASE_NAME> <DR_NUMBER>` |  | Cancel a deploy request. | Vitess |
 | `close <DATABASE_NAME> <DR_NUMBER>` |  | Close the specified deploy request. | Vitess |
 | `create <DATABASE_NAME> <BRANCH_NAME>` | `--into <BRANCH_NAME>`, `--notes <NOTE>`, `--enable-auto-apply`, `--disable-auto-apply` | Create a new deploy request. | Vitess |
-| `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant` | Deploy the specified deploy request. | Vitess |
+| `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant`, `--strategy <serial\|parallel>` | Deploy the specified deploy request. | Vitess |
 | `diff <DATABASE_NAME> <DR_NUMBER>` | `--web` | Show the diff of the specified deploy request. | Vitess |
 | `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply` | Edit a deploy request. | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
@@ -59,6 +59,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--approve` | Approve a deploy request | `review` |
 | `--comment <COMMENT>` | Leave a comment on a deploy request | `review` |
 | `--instant` | Deploy a deploy request using MySQL’s built-in ALGORITHM=INSTANT option. Deployment will be faster, but cannot be reverted. | `deploy` |
+| `--strategy <serial\|parallel>` | Deployment strategy. `serial` (default) joins the deploy queue. `parallel` runs alongside the queue. See [Parallel deployments](../vitess/schema-changes/deploy-requests.md#parallel-deployments). | `deploy` |
 
 ### Available flags
 
