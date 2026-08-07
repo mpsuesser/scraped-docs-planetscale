@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/supabase
 title: "Supabase"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-07T16:16:03.743Z
+current_date: 2026-08-07T16:16:03.743Z
 ---
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
@@ -84,10 +84,14 @@ Storage configuration min size
 
 On this page, adjust the “Minimum disk size.” You should set this value to at least 150% of the size of the database you are migrating. For example, if the database you are importing is 330 GB, you should set your minimum disk size to at least 500 GB.
 
-The 50% overhead is to account for:
+The 50% overhead is a baseline to account for:
 
-1. Data growth during the import process and
-2. Table and index bloat that can occur during the import process. This can be later mitigated with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or using an extension like [pg\_squeeze](../extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
+1. Data growth during the import process
+2. Table and index bloat that can occur during the import process
+
+Schemas with many secondary indexes often need more headroom. Each index is built during the copy phase, which increases copy time and temporary disk usage. If your source database has a large number of indexes, provision more than 150% of your source size.
+
+Bloat can be mitigated after import with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or an extension like [pg\_squeeze](../extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
 
 When ready, queue and apply the changes. You can check the “Changes” tab to see the status of the resize:
 
@@ -191,6 +195,20 @@ You should inspect these to see if they are of any concern. You can [reach out t
 
 We now must create a `PUBLICATION` on Supabase that the PlanetScale database can subscribe to for data copying and replication. This example shows how to create a publication that only publishes changes to tables in the `public` schema of your Postgres database. You can adjust the commands if you want to do so for a different schema, or have multiple schemas to migrate.
 
+### Configure the Supabase replication role
+
+Before creating the publication, check the `statement_timeout` on the Supabase role used for replication. Supabase roles may have a low default (for example, 10 seconds). During the initial table copy, replication reads full table contents from Supabase. Large rows, such as tables with `jsonb` columns, can exceed this limit.
+
+When statements time out on the source, table copy can fail repeatedly without cleaning up. This can cause WAL and disk usage to grow on Supabase.
+
+On Supabase, disable or raise the timeout for your replication role:
+
+```sql
+ALTER ROLE your_supabase_role SET statement_timeout = 0;
+```
+
+You can restore the previous value after migration completes.
+
 First, run this command on your Supabase database to get all of the tables in the `public` schema:
 
 ```sql
@@ -242,6 +260,8 @@ When the subscription is created with `copy_data = true`, PostgreSQL proceeds in
 **Initial table sync (copy phase)** PostgreSQL spawns tablesync workers on the PlanetScale side. Each worker opens a replication connection to Supabase and copies one table at a time using a consistent snapshot taken at subscription creation. Up to `max_sync_workers_per_subscription` tables are copied in parallel (the default is 2; we recommend increasing `max_worker_processes` as described above to allow more parallelism).
 
 Because your schema was loaded before the subscription was created, all indexes are live during this phase. Expect elevated CPU on PlanetScale for the duration — this is normal. The larger and more heavily indexed your tables, the longer this phase takes.
+
+For schemas with many secondary indexes, one approach is to load only primary key and foreign key indexes in the initial `schema.sql`, run the copy, then create remaining indexes after all tables reach the `ready` state. This reduces CPU usage, copy time, and disk overhead during the sync phase.
 
 **Steady-state replication (streaming phase)** Once all tables are copied, the tablesync workers exit and a single apply worker takes over, streaming WAL changes from Supabase in real time. CPU usage will drop significantly at this point. This is the state you want to reach and maintain until cutover.
 
@@ -329,6 +349,10 @@ WHERE wait_event IS NOT NULL
 ```
 
 **Replication lag is growing after the copy phase** If `received_lsn` is falling further behind `pg_current_wal_lsn()` during steady-state replication, your source may be generating changes faster than the single apply worker can apply them. This is uncommon for typical workloads but can occur with very high write volume. Contact [PlanetScale support](https://planetscale.com/contact?initial=support) if you observe this.
+
+**Supabase disk usage is growing during migration** A low `statement_timeout` on the Supabase replication role can cause table copy to fail repeatedly on large rows. Failed copy operations can leave replication slots active and allow WAL to accumulate on Supabase. See [Configure the Supabase replication role](#configure-the-supabase-replication-role) and verify that table copy is completing on PlanetScale using the [table sync progress](#tracking-table-sync-progress) queries.
+
+**Copy phase is slow or PlanetScale disk usage is high** Schemas with many secondary indexes take longer to copy and use more disk during import. See [Configure disk size on PlanetScale](#2-configure-disk-size-on-planetscale) for sizing guidance. For heavily indexed schemas, consider deferring non-primary-key and non-foreign-key indexes until after all tables reach the `ready` state.
 
 ## 6\. Handling sequences
 
