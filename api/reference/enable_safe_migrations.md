@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/enable_safe_migrations
 title: "Enable_safe_migrations"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-08T00:02:20.925Z
+current_date: 2026-08-08T00:02:20.925Z
 ---
 
 > ## Documentation Index
@@ -245,9 +245,26 @@ paths:
                   vtgate_size:
                     type: string
                     description: The size of the vtgate cluster for the branch
+                  vtgate_name:
+                    type: string
+                    description: The public SKU representing the VTGate size
+                    nullable: true
                   vtgate_count:
                     type: integer
                     description: The number of vtgate instances in the branch
+                  vtgate_autoscaling:
+                    type: boolean
+                    description: Whether VTGate autoscaling is enabled
+                  vtgate_max_count:
+                    type: integer
+                    description: >-
+                      The maximum number of VTGate instances when autoscaling is
+                      enabled
+                    nullable: true
+                  vtgate_target_cpu_utilization:
+                    type: integer
+                    description: The target CPU utilization for VTGate autoscaling
+                    nullable: true
                   cluster_name:
                     type: string
                     description: The SKU representing the branch's cluster size
@@ -412,7 +429,11 @@ paths:
                   - state
                   - direct_vtgate
                   - vtgate_size
+                  - vtgate_name
                   - vtgate_count
+                  - vtgate_autoscaling
+                  - vtgate_max_count
+                  - vtgate_target_cpu_utilization
                   - cluster_name
                   - cluster_iops
                   - ready

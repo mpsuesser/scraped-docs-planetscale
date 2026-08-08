@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_bouncer
 title: "Create_bouncer"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-08T00:02:20.925Z
+current_date: 2026-08-08T00:02:20.925Z
 ---
 
 > ## Documentation Index
@@ -266,9 +266,6 @@ paths:
                       - cpu
                       - ram
                       - sort_order
-                  bouncer_size:
-                    type: string
-                    description: The size of the bouncer as a SKU name (e.g., 'PGB_5')
                   target:
                     type: string
                     enum:
@@ -443,7 +440,6 @@ paths:
                   - id
                   - name
                   - sku
-                  - bouncer_size
                   - target
                   - replicas_per_cell
                   - created_at
