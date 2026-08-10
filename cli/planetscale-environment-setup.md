@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/planetscale-environment-setup
 title: "Planetscale Environment Setup"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-10T20:04:55.854Z
+current_date: 2026-08-10T20:04:55.854Z
 ---
 
 ## Table of Contents
@@ -152,6 +152,14 @@ In either case, the MySQL or PostgreSQL client will need to be installed separat
 **PostgreSQL client:** Refer to the [official PostgreSQL documentation](https://www.postgresql.org/download/) and select the operating system you are working with.
 
 ## Using the PlanetScale CLI
+
+Authenticate with your PlanetScale account:
+
+```shellscript
+pscale auth login
+```
+
+This opens a browser window to complete sign-in. See the [`auth` command reference](auth.md) for details.
 
 See all available commands by running:
 
