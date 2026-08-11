@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_deploy_request
 title: "Create_deploy_request"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-11T20:05:56.920Z
+current_date: 2026-08-11T20:05:56.920Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-08-06T03:13:30.576Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_deploy_request`, `create_deploy_requests`
+ `create_deploy_request`
 
 **OAuth Scopes**
 
@@ -84,6 +84,9 @@ tags:
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
+  - name: Keyspace resizes
+    description: |2
+                Resources for managing keyspace resize requests.
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
@@ -111,6 +114,9 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchovers
+    description: |2
+                Resources for moving the primary of a Postgres branch.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
@@ -179,7 +185,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_deploy_request`, `create_deploy_requests`
+         `create_deploy_request`
 
         **OAuth Scopes**
 

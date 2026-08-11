@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_keyspace_rollout_status
 title: "Get_keyspace_rollout_status"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-11T20:05:56.920Z
+current_date: 2026-08-11T20:05:56.920Z
 ---
 
 > ## Documentation Index
@@ -79,6 +79,9 @@ tags:
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
+  - name: Keyspace resizes
+    description: |2
+                Resources for managing keyspace resize requests.
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
@@ -106,6 +109,9 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchovers
+    description: |2
+                Resources for moving the primary of a Postgres branch.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.

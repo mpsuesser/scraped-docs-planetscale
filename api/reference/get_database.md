@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_database
 title: "Get_database"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-11T20:05:56.920Z
+current_date: 2026-08-11T20:05:56.920Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-08-06T03:13:30.576Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
+ `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
 
 **OAuth Scopes**
 
@@ -84,6 +84,9 @@ tags:
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
+  - name: Keyspace resizes
+    description: |2
+                Resources for managing keyspace resize requests.
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
@@ -111,6 +114,9 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchovers
+    description: |2
+                Resources for moving the primary of a Postgres branch.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
@@ -179,7 +185,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
+         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
 
         **OAuth Scopes**
 

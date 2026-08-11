@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_keyspace
 title: "Update_keyspace"
 description: ""
-access_date: 2026-08-06T03:13:30.576Z
-current_date: 2026-08-06T03:13:30.576Z
+access_date: 2026-08-11T20:05:56.920Z
+current_date: 2026-08-11T20:05:56.920Z
 ---
 
 > ## Documentation Index
@@ -79,6 +79,9 @@ tags:
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
+  - name: Keyspace resizes
+    description: |2
+                Resources for managing keyspace resize requests.
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
@@ -106,6 +109,9 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchovers
+    description: |2
+                Resources for moving the primary of a Postgres branch.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
@@ -202,6 +208,30 @@ paths:
           description: The name of the keyspace
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                replication_durability_constraints:
+                  type: object
+                  properties:
+                    strategy:
+                      type: string
+                      description: The replication durability strategy
+                vreplication_flags:
+                  type: object
+                  properties:
+                    optimize_inserts:
+                      type: boolean
+                      description: Enable optimized inserts
+                    allow_no_blob_binlog_row_image:
+                      type: boolean
+                      description: Allow no blob binlog row image
+                    vplayer_batching:
+                      type: boolean
+                      description: Enable VPlayer batching
       responses:
         '200':
           description: Returns the keyspace
