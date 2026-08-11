@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-11T21:47:58.400Z
+current_date: 2026-08-11T21:47:58.400Z
 ---
 
 ## Overview
@@ -160,7 +160,7 @@ Clicking on a query in the Queries list will open a new page with more informati
 
 You’ll first see the full query pattern, which displays the query with data normalized away. This query may run several times with different values, which Insights combines into a single query pattern.
 
-You can display an LLM-generated summary of the query by clicking “Summarize query.”
+You can display an LLM-generated summary of the query by clicking “Summarize query.” [Learn more about how PlanetScale uses AI here](../../how-we-use-ai.md).
 
 #### Additional query information
 
