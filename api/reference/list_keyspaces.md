@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_keyspaces
 title: "List_keyspaces"
 description: ""
-access_date: 2026-08-11T20:05:56.920Z
-current_date: 2026-08-11T20:05:56.920Z
+access_date: 2026-08-12T21:47:36.828Z
+current_date: 2026-08-12T21:47:36.828Z
 ---
 
 > ## Documentation Index
@@ -294,6 +294,11 @@ paths:
                         resizing:
                           type: boolean
                           description: Is the keyspace currently resizing
+                        resize_in_progress:
+                          type: boolean
+                          description: >-
+                            True if the keyspace has an unfinished resize
+                            request
                         resize_pending:
                           type: boolean
                           description: Is the keyspace awaiting a resize
@@ -372,6 +377,7 @@ paths:
                         - cluster_name
                         - cluster_display_name
                         - resizing
+                        - resize_in_progress
                         - resize_pending
                         - config_change_in_progress
                         - ready

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_roles
 title: "List_roles"
 description: ""
-access_date: 2026-08-11T20:05:56.920Z
-current_date: 2026-08-11T20:05:56.920Z
+access_date: 2026-08-12T21:47:36.828Z
+current_date: 2026-08-12T21:47:36.828Z
 ---
 
 > ## Documentation Index
@@ -355,7 +355,6 @@ paths:
                           items:
                             type: string
                             enum:
-                              - pscale_managed
                               - pg_checkpoint
                               - pg_create_subscription
                               - pg_maintain

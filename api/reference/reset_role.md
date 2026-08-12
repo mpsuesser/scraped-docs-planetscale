@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_role
 title: "Reset_role"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-12T21:47:36.828Z
+current_date: 2026-08-12T21:47:36.828Z
 ---
 
 POST
@@ -209,8 +209,6 @@ required
 Database roles these credentials inherit
 
 Available options:
-
-`pscale_managed`,
 
 `pg_checkpoint`,
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database
 title: "Create_database"
 description: ""
-access_date: 2026-08-11T20:05:56.920Z
-current_date: 2026-08-11T20:05:56.920Z
+access_date: 2026-08-12T21:47:36.828Z
+current_date: 2026-08-12T21:47:36.828Z
 ---
 
 > ## Documentation Index
@@ -429,6 +429,16 @@ paths:
                     description: >-
                       Whether an approval is required to deploy schema changes
                       to this database
+                  deletion_protected:
+                    type: boolean
+                    description: >-
+                      Whether customer-managed deletion protection is enabled
+                      for the database
+                  deletion_protection_managed:
+                    type: boolean
+                    description: >-
+                      Whether deletion protection is managed by PlanetScale and
+                      cannot be disabled
                   resizing:
                     type: boolean
                     description: True if a branch is currently resizing
@@ -516,6 +526,8 @@ paths:
                   - default_branch_table_count
                   - default_branch
                   - require_approval_for_deploy
+                  - deletion_protected
+                  - deletion_protection_managed
                   - resizing
                   - resize_queued
                   - config_changing
