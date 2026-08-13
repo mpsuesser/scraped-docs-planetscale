@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover
 title: "Aggressive Cutover"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-13T20:06:54.622Z
+current_date: 2026-08-13T20:06:54.622Z
 ---
 
 ## Overview
@@ -16,7 +16,13 @@ Long-running queries or transactions holding locks on the table can prevent Vite
 
 When cutover is blocked, Vitess retries for up to **1 hour**, then automatically runs force cutover and kills the blocking queries and transactions.
 
-To complete the cutover sooner, use the **Force cutover now** button on the deploy request page. This triggers force cutover immediately without waiting for the 1 hour timeout.
+To complete the cutover sooner, use the **Force cutover now** button on the deploy request page, or run:
+
+```shellscript
+pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
+```
+
+This triggers force cutover immediately without waiting for the 1 hour timeout. Pass `--force` to skip the confirmation prompt.
 
 Force cutover terminates active queries and transactions holding locks on the table. Understand which queries will be affected before using this option.
 
