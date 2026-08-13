@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_database_settings
 title: "Update_database_settings"
 description: ""
-access_date: 2026-08-12T21:47:36.828Z
-current_date: 2026-08-12T21:47:36.828Z
+access_date: 2026-08-13T18:34:16.453Z
+current_date: 2026-08-13T18:34:16.453Z
 ---
 
 > ## Documentation Index
@@ -258,9 +258,7 @@ paths:
                     database
                 deletion_protected:
                   type: boolean
-                  description: >-
-                    Whether customer-managed deletion protection is enabled for
-                    the database
+                  description: Whether deletion protection is enabled for the database
                 production_branch_web_console:
                   type: boolean
                   description: >-
@@ -444,14 +442,7 @@ paths:
                       to this database
                   deletion_protected:
                     type: boolean
-                    description: >-
-                      Whether customer-managed deletion protection is enabled
-                      for the database
-                  deletion_protection_managed:
-                    type: boolean
-                    description: >-
-                      Whether deletion protection is managed by PlanetScale and
-                      cannot be disabled
+                    description: Whether deletion protection is enabled for the database
                   resizing:
                     type: boolean
                     description: True if a branch is currently resizing
@@ -540,7 +531,6 @@ paths:
                   - default_branch
                   - require_approval_for_deploy
                   - deletion_protected
-                  - deletion_protection_managed
                   - resizing
                   - resize_queued
                   - config_changing

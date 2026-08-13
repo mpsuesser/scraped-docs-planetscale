@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch
 title: "Get_branch"
 description: ""
-access_date: 2026-08-12T21:47:36.828Z
-current_date: 2026-08-12T21:47:36.828Z
+access_date: 2026-08-13T18:34:16.453Z
+current_date: 2026-08-13T18:34:16.453Z
 ---
 
 > ## Documentation Index
@@ -326,14 +326,7 @@ paths:
                     description: Whether or not the branch has safe migrations enabled
                   deletion_protected:
                     type: boolean
-                    description: >-
-                      Whether customer-managed deletion protection is enabled
-                      for the branch
-                  deletion_protection_managed:
-                    type: boolean
-                    description: >-
-                      Whether deletion protection is managed by PlanetScale and
-                      cannot be disabled
+                    description: Whether deletion protection is enabled for the branch
                   sharded:
                     type: boolean
                     description: Whether or not the branch is sharded
@@ -489,7 +482,6 @@ paths:
                   - production
                   - safe_migrations
                   - deletion_protected
-                  - deletion_protection_managed
                   - sharded
                   - shard_count
                   - keyspace_count

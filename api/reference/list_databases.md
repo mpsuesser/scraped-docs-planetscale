@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_databases
 title: "List_databases"
 description: ""
-access_date: 2026-08-12T21:47:36.828Z
-current_date: 2026-08-12T21:47:36.828Z
+access_date: 2026-08-13T18:34:16.453Z
+current_date: 2026-08-13T18:34:16.453Z
 ---
 
 > ## Documentation Index
@@ -445,13 +445,8 @@ paths:
                         deletion_protected:
                           type: boolean
                           description: >-
-                            Whether customer-managed deletion protection is
-                            enabled for the database
-                        deletion_protection_managed:
-                          type: boolean
-                          description: >-
-                            Whether deletion protection is managed by
-                            PlanetScale and cannot be disabled
+                            Whether deletion protection is enabled for the
+                            database
                         resizing:
                           type: boolean
                           description: True if a branch is currently resizing
@@ -544,7 +539,6 @@ paths:
                         - default_branch
                         - require_approval_for_deploy
                         - deletion_protected
-                        - deletion_protection_managed
                         - resizing
                         - resize_queued
                         - config_changing
