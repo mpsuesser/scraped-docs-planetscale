@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-07T21:15:19.588Z
-current_date: 2026-08-07T21:15:19.588Z
+access_date: 2026-08-13T20:24:07.070Z
+current_date: 2026-08-13T20:24:07.070Z
 ---
 
 ## Getting Started
@@ -33,6 +33,7 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant`, `--strategy <serial\|parallel>` | Deploy the specified deploy request. | Vitess |
 | `diff <DATABASE_NAME> <DR_NUMBER>` | `--web` | Show the diff of the specified deploy request. | Vitess |
 | `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply` | Edit a deploy request. | Vitess |
+| `force-cutover <DATABASE_NAME> <DR_NUMBER>` | `--force` | Force cutover when a migration is delayed by a table lock. | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
 | `revert <DATABASE_NAME> <DR_NUMBER>` |  | Revert a deployed deploy request. | Vitess |
 | `review <DATABASE_NAME> <DR_NUMBER>` | `--web`, `--approve`, `--comment <COMMENT>` | Approve or comment on a deploy request. | Vitess |
@@ -60,6 +61,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--comment <COMMENT>` | Leave a comment on a deploy request | `review` |
 | `--instant` | Deploy a deploy request using MySQL’s built-in ALGORITHM=INSTANT option. Deployment will be faster, but cannot be reverted. | `deploy` |
 | `--strategy <serial\|parallel>` | Deployment strategy. `serial` (default) joins the deploy queue. `parallel` runs alongside the queue. See [Parallel deployments](../vitess/schema-changes/deploy-requests.md#parallel-deployments). | `deploy` |
+| `--force` | Skip the confirmation prompt and force cutover now. | `force-cutover` |
 
 ### Available flags
 
@@ -94,6 +96,22 @@ pscale deploy-request review <DATABASE_NAME> 1 --comment 'Lets wait on this.'
 **Output:**
 
 A comment is added to the deploy request `<DATABASE_NAME>` /1.
+
+### The deploy-request command with force-cutover subcommand
+
+The final step of a migration requires a brief table lock. Long-running transactions can block that lock and delay completion. PlanetScale retries for up to 1 hour, then forces cutover automatically. Use this command to skip the wait. It kills long-running transactions that are blocking the table lock so the migration can finish.
+
+Only allowed when the deployment state is `in_progress_cutover`. See [Aggressive cutover](../vitess/schema-changes/aggressive-cutover.md).
+
+**Command:**
+
+```shellscript
+pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
+```
+
+**Output:**
+
+Successfully requested force cutover for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>`. Vitess will attempt again momentarily.
 
 ## Need help?
 
