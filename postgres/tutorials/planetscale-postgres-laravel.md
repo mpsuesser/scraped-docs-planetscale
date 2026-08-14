@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-laravel
 title: "Planetscale Postgres Laravel"
 description: ""
-access_date: 2026-08-14T20:39:03.125Z
-current_date: 2026-08-14T20:39:03.125Z
+access_date: 2026-08-14T21:54:09.887Z
+current_date: 2026-08-14T21:54:09.887Z
 ---
 
 Laravel is a popular, fully-featured PHP framework for building web applications.
@@ -78,7 +78,7 @@ The “Default role” is meant purely for administrative purposes. You can only
 
 #### Dashboard
 
-![Database dashboard](https://mintlify.s3.us-west-1.amazonaws.com/planetscale-2/postgres/tutorials/new-database.png)
+![Database dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/new-database.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=5f0bb654347b6ee3e49b4d6ac19cc962)
 
 Database dashboard
 
