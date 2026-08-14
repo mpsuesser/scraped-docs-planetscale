@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-laravel
 title: "Planetscale Postgres Laravel"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-14T20:39:03.125Z
+current_date: 2026-08-14T20:39:03.125Z
 ---
 
 Laravel is a popular, fully-featured PHP framework for building web applications.
@@ -78,7 +78,7 @@ The “Default role” is meant purely for administrative purposes. You can only
 
 #### Dashboard
 
-![Database dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/new-database.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=5f0bb654347b6ee3e49b4d6ac19cc962)
+![Database dashboard](https://mintlify.s3.us-west-1.amazonaws.com/planetscale-2/postgres/tutorials/new-database.png)
 
 Database dashboard
 
@@ -120,6 +120,8 @@ Port `6432` enables a lightweight connection pooler for PostgreSQL. This facilit
 Port `5432` connects directly to PostgreSQL. Total connections are limited by your cluster’s `max_connections` setting.
 
 Both connection types will disconnect when your database restarts or handles a failover scenario.
+
+When using [PgBouncer](../connecting/pgbouncer.md) (port `6432`), set `DB_POOLED=true` and ensure your `pgsql` connection in `config/database.php` includes `'pooled' => env('DB_POOLED', false)`. This option is available in Laravel 13.17.0 and later. See [Laravel’s pooled PostgreSQL connections](https://laravel.com/docs/13.x/database#pooled-postgresql-connections).
 
 ### Step 2: Create a database connection
 
