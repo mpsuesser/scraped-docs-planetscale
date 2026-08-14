@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-14T17:16:03.479Z
+current_date: 2026-08-14T17:16:03.479Z
 ---
 
-Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, and other Postgres instances.
+Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, Cloudflare D1, and other Postgres or SQLite instances.
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
 
@@ -14,13 +14,15 @@ If you have IP restrictions in place on your source database and need to grant a
 
 ## Migration Options Overview
 
-PlanetScale Postgres provides three primary migration approaches to suit different business requirements, database sizes, and downtime tolerances:
+PlanetScale Postgres provides several migration approaches to suit different business requirements, database sizes, and downtime tolerances:
 
 ## Migrate using pg\_dump & pg\_restore
 
 ## Migrate using WAL streaming
 
 ## Migrate using pgcopydb
+
+## Migrate using pscale from Cloudflare D1
 
 You can also utilize our [migration scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-direct) directly if you prefer. These scripts can be used to migrate straight from any Postgres source that supports logical replication into PlanetScale Postgres.
 
@@ -61,6 +63,10 @@ This method is ideal for production databases that require minimal downtime and 
 - Perform cutover when replication is caught up
 
 pgcopydb is the recommended approach for large databases requiring high-throughput parallel copying, near-zero downtime, and fine-grained control over the migration process. PlanetScale has used pgcopydb and these helper scripts to migrate multi-terabyte databases from live customer environments, with speeds as fast as 2 TB per hour using [Metal](../../metal.md).
+
+### 4\. Cloudflare D1
+
+If you are moving from **Cloudflare D1** (SQLite) rather than Postgres, use the dedicated [D1 import guide](postgres-migrate-d1.md). Export with Wrangler, then run `pscale import d1` to convert schema and load data into PlanetScale Postgres.
 
 ## Migration Method Comparison
 
@@ -160,6 +166,8 @@ For the most up-to-date information on supported features and extensions, refer 
 ## Get Started
 
 Follow the migration guide that’s right for you:
+
+## Import from Cloudflare D1
 
 ## Migrate using pg\_dump & pg\_restore
 
