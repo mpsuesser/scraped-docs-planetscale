@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-08-14T00:39:58.404Z
+current_date: 2026-08-14T00:39:58.404Z
 ---
 
 ## Getting started
@@ -25,6 +25,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
 | `create <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--cluster-size <SIZE>`, `--additional-replicas <NUMBER>`, `--shards <NUMBER>` | Vitess | Create a new keyspace within a database branch. |
+| `delete <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--force` | Vitess | Delete a keyspace from a database branch. |
 | `list <DATABASE_NAME> <BRANCH_NAME>` |  | Vitess | List all keyspaces within a database branch. |
 | `show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show a specific keyspace within a database branch. |
 | `read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | List [read-only regions](../vitess/scaling/read-only-regions.md) for a keyspace. |
@@ -45,6 +46,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | --- | --- | --- |
 | `--additional-replicas <NUMBER>` | `<NUMBER>` is the number of replicas to add to the keyspace. By default, production branches include 2 replicas. | `create`, `resize` |
 | `--cluster-size <SIZE>` | `<SIZE>` is the size of the database cluster. | `create`, `resize` |
+| `--force` | Delete the keyspace without a confirmation prompt. Required in non-interactive or non- `human` output modes. | `delete` |
 | `-i, --interactive` | Run the command in interactive mode. | `update-settings` |
 | `--replication-durability-constraints-strategy <STRATEGY>` | Replication strategy to use. Options: maximum, dynamic, minimum (default “maximum”). | `update-settings` |
 | `--shards <NUMBER>` | Number of shards in the keyspace (default 1). | `create` |

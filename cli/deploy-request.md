@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-13T20:24:07.070Z
-current_date: 2026-08-13T20:24:07.070Z
+access_date: 2026-08-14T00:39:58.404Z
+current_date: 2026-08-14T00:39:58.404Z
 ---
 
 ## Getting Started
@@ -31,14 +31,21 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `close <DATABASE_NAME> <DR_NUMBER>` |  | Close the specified deploy request. | Vitess |
 | `create <DATABASE_NAME> <BRANCH_NAME>` | `--into <BRANCH_NAME>`, `--notes <NOTE>`, `--enable-auto-apply`, `--disable-auto-apply` | Create a new deploy request. | Vitess |
 | `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant`, `--strategy <serial\|parallel>` | Deploy the specified deploy request. | Vitess |
+| `deployment <DATABASE_NAME> <DR_NUMBER>` |  | Show the deployment for a deploy request. | Vitess |
 | `diff <DATABASE_NAME> <DR_NUMBER>` | `--web` | Show the diff of the specified deploy request. | Vitess |
 | `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply` | Edit a deploy request. | Vitess |
 | `force-cutover <DATABASE_NAME> <DR_NUMBER>` | `--force` | Force cutover when a migration is delayed by a table lock. | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
+| `operations <DATABASE_NAME> <DR_NUMBER>` |  | List deploy operations for a deploy request. | Vitess |
+| `queue <DATABASE_NAME>` |  | Show the deploy queue for a database. | Vitess |
 | `revert <DATABASE_NAME> <DR_NUMBER>` |  | Revert a deployed deploy request. | Vitess |
 | `review <DATABASE_NAME> <DR_NUMBER>` | `--web`, `--approve`, `--comment <COMMENT>` | Approve or comment on a deploy request. | Vitess |
+| `reviews <DATABASE_NAME> <DR_NUMBER>` |  | List reviews for a deploy request. | Vitess |
 | `show <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--web` | Show the specified deploy request. | Vitess |
 | `skip-revert <DATABASE_NAME> <DR_NUMBER>` |  | Skip and close a pending deploy request revert. | Vitess |
+| `storage-check <DATABASE_NAME> <DR_NUMBER>` |  | Check storage readiness for a deploy request. | Vitess |
+| `throttler show <DATABASE_NAME> <DR_NUMBER>` |  | Show throttler configuration for a deploy request. | Vitess |
+| `throttler update <DATABASE_NAME> <DR_NUMBER>` | `--ratio <RATIO>`, `--configuration <KEYSPACE=RATIO>` | Update throttler configuration for a deploy request. | Vitess |
 
 > \* *Flag is required*
 
@@ -62,6 +69,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--instant` | Deploy a deploy request using MySQL’s built-in ALGORITHM=INSTANT option. Deployment will be faster, but cannot be reverted. | `deploy` |
 | `--strategy <serial\|parallel>` | Deployment strategy. `serial` (default) joins the deploy queue. `parallel` runs alongside the queue. See [Parallel deployments](../vitess/schema-changes/deploy-requests.md#parallel-deployments). | `deploy` |
 | `--force` | Skip the confirmation prompt and force cutover now. | `force-cutover` |
+| `--ratio <RATIO>` | Throttler ratio between 0 and 95 applied to all eligible keyspaces. 0 disables throttling; 95 slows migrations the most. | `throttler update` |
+| `--configuration <KEYSPACE=RATIO>` | Per-keyspace throttler ratio as `keyspace=ratio` (repeatable). Use instead of `--ratio`, not together. | `throttler update` |
 
 ### Available flags
 
@@ -112,6 +121,20 @@ pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
 **Output:**
 
 Successfully requested force cutover for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>`. Vitess will attempt again momentarily.
+
+### The deploy-request command with throttler update subcommand
+
+Adjust the migration throttler for a single deploy request. This is per deploy request, not the database-level throttler. Use `--ratio` for one ratio across all eligible keyspaces, or `--configuration` for per-keyspace ratios.
+
+**Command:**
+
+```shellscript
+pscale deploy-request throttler update <DATABASE_NAME> <DR_NUMBER> --ratio 25
+```
+
+**Output:**
+
+The throttler configuration for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>` is updated.
 
 ## Need help?
 

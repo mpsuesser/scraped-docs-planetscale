@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-08-14T00:39:58.404Z
+current_date: 2026-08-14T00:39:58.404Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The database command
 
-This command allows you to create, read, delete, dump, and restore databases.
+This command allows you to create, read, update, delete, dump, and restore databases, plus manage Postgres IP restrictions.
 
 **Usage:**
 
@@ -27,9 +27,15 @@ pscale database <SUB-COMMAND> <FLAG>
 | `create <DATABASE_NAME>` | `--region <REGION_NAME>`, `--plan <PLAN>`, `--cluster_size <CLUSTER_SIZE>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>` | Create a database with the specified name | Postgres, Vitess |
 | `delete <DATABASE_NAME>` | `--force` | Delete the specified database | Postgres, Vitess |
 | `dump <DATABASE_NAME> <BRANCH_NAME>` | `--local-addr <ADDRESS>`, `--output <DIRECTORY_NAME>`, `--tables <TABLES_LIST>`, `--columns <TABLE:COLUMN_LIST>`, `--threads <NUMBER_OF_THREADS> (defaults to 16)` | Backup and dump the specified database | Vitess |
+| `ip-restriction list <DATABASE_NAME>` |  | List IP restriction entries | Postgres |
+| `ip-restriction show <DATABASE_NAME> <ENTRY_ID>` |  | Show an IP restriction entry | Postgres |
+| `ip-restriction create <DATABASE_NAME>` | `--cidrs <CIDR>` \*, `--schema <SCHEMA>`, `--role <ROLE>`, `--description <TEXT>` | Create an IP restriction entry | Postgres |
+| `ip-restriction update <DATABASE_NAME> <ENTRY_ID>` | `--cidrs <CIDR>`, `--schema <SCHEMA>`, `--role <ROLE>`, `--description <TEXT>` | Update an IP restriction entry | Postgres |
+| `ip-restriction delete <DATABASE_NAME> <ENTRY_ID>` | `--force` | Delete an IP restriction entry | Postgres |
 | `list <DATABASE_NAME>` |  | List all databases in the current org | Postgres, Vitess |
 | `restore-dump <DATABASE_NAME> <BRANCH_NAME>` | `--dir <DIRECTORY_NAME>` \*, `--local-addr <ADDRESS>`, `--overwrite-tables`, `--threads <NUMBER_OF_THREADS> (defaults to 1)`, `--allow-different-destination`, `--show-details`, `--schema-only`, `--data-only`, `--starting-table <STARTING_TABLE>`, `--ending-table <ENDING_TABLE>` | Restore the specified database from a local dump directory | Postgres, Vitess |
 | `show <DATABASE_NAME>` | `--web` | Retrieve information about a database | Postgres, Vitess |
+| `update <DATABASE_NAME>` | `--new-name`, `--default-branch`, `--restrict-branch-region`, `--production-branch-web-console`, `--insights-raw-queries`, `--require-approval-for-deploy`, `--allow-data-branching`, `--allow-foreign-key-constraints`, `--automatic-migrations`, `--migration-framework`, `--migration-table-name` | Update database settings | Postgres, Vitess |
 
 ### Service token automation: database
 
@@ -64,7 +70,22 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--major-version` | The major version of the database (Postgres only). Currently supports `17` or `18`. | `create` |
 | `--min-storage` | Minimum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
 | `--max-storage` | Maximum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
-| `--force` | Delete a database without confirmation. | `delete` |
+| `--force` | Skip confirmation for destructive actions. | `delete`, `ip-restriction delete` |
+| `--cidrs <CIDR>` | IPv4 CIDR ranges to allow. Repeatable or comma-separated. Required on create; replaces the existing list on update. | `ip-restriction create`, `ip-restriction update` |
+| `--schema <SCHEMA>` | Postgres schema to restrict. Omit (or empty on update) for all schemas. | `ip-restriction create`, `ip-restriction update` |
+| `--role <ROLE>` | Postgres role to restrict. Omit (or empty on update) for all roles. | `ip-restriction create`, `ip-restriction update` |
+| `--description <TEXT>` | Optional description for the IP restriction entry. | `ip-restriction create`, `ip-restriction update` |
+| `--new-name <NAME>` | Rename the database. | `update` |
+| `--default-branch <BRANCH>` | Set the default branch. | `update` |
+| `--restrict-branch-region` | Limit branch creation to the database region. Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--production-branch-web-console` | Allow the web console on the production branch. Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--insights-raw-queries` | Collect full SQL for Insights (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--require-approval-for-deploy` | Require admin approval for deploy requests (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--allow-data-branching` | Allow seeding branches with data (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--allow-foreign-key-constraints` | Allow foreign key constraints (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--automatic-migrations` | Copy migration data to new branches and deploy requests (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
+| `--migration-framework <NAME>` | Migration framework for the database (Vitess only). | `update` |
+| `--migration-table-name <NAME>` | Migration table name for the database (Vitess only). | `update` |
 | `--local-addr <ADDRESS>` | Local address to bind and listen for connections. By default the proxy binds to 127.0.0.1 with a random port. | `dump`, `restore-dump` |
 | `--threads` | Number of concurrent threads to use | `dump`, `restore-dump` |
 | `--output <DIRECTORY_NAME>` | Output directory of the dump. By default the dump is saved to a folder in the current directory. | `dump` |
@@ -191,6 +212,26 @@ pscale database dump <DATABASE_NAME> <BRANCH_NAME> --read-only-region eu-west
 ```
 
 Pass a region slug, display name, or id. List configured regions with `pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>`.
+
+### Update database settings
+
+Only flags you pass are sent to the API. Boolean flags must be set explicitly (`=true` or `=false`). Flags marked Vitess-only are rejected for PostgreSQL databases.
+
+```shellscript
+pscale database update <DATABASE_NAME> --default-branch main --restrict-branch-region=true
+pscale database update <DATABASE_NAME> --require-approval-for-deploy=true
+```
+
+### Manage Postgres IP restrictions
+
+Aliases: `pscale database cidr` and `pscale database cidrs`. Postgres only.
+
+```shellscript
+pscale database ip-restriction list <DATABASE_NAME>
+pscale database ip-restriction create <DATABASE_NAME> --cidrs 203.0.113.0/24 --description office
+pscale database ip-restriction update <DATABASE_NAME> <ENTRY_ID> --cidrs 203.0.113.0/24,198.51.100.10/32
+pscale database ip-restriction delete <DATABASE_NAME> <ENTRY_ID>
+```
 
 ### Restore a backup to an existing branch:
 
