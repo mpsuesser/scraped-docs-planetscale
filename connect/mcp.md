@@ -2,14 +2,14 @@
 url: https://planetscale.com/docs/connect/mcp
 title: "Mcp"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-14T22:51:42.506Z
+current_date: 2026-08-14T22:51:42.506Z
 ---
 
 ## What is the PlanetScale MCP server?
 
 - A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, and Insights data.
-- Authenticated via OAuth for configurable access to permissions and scopes.
+- Authenticated via OAuth. [Service tokens](mcp-service-token.md) are also supported for CI and headless clients.
 - Accessible from any MCP client that supports HTTP-hosted servers.
 
 ## Quick start
@@ -55,9 +55,9 @@ The hosted MCP server uses **OAuth** so you can authorize access to PlanetScale 
 https://mcp.pscale.dev/mcp/planetscale
 ```
 
-You can also use a [PlanetScale service token](../api/service-tokens.md) to authenticate requests to the MCP. Export `PLANETSCALE_API_TOKEN` environment variable as your service token to bypass browser OAuth. This is particularly useful for headless / CI environments.
-
 If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes the `planetscale_execute_read_query` and `planetscale_execute_write_query` tools.
+
+For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](mcp-service-token.md).
 
 ## Security and credentials
 
@@ -67,12 +67,14 @@ We advise caution when giving LLMs *write* access to any production database. Al
 
 ### Scopes and permissions
 
-Permissions are controlled through OAuth scopes:
+OAuth permissions are controlled through scopes:
 
 - Scopes define which organizations, databases, branches, or features the MCP server can see.
 - You choose whether the MCP server has no access, read-only access, or full access to databases at the organization or per-database level.
 
 Most MCP clients provide a way to re-authenticate the MCP server if you need to update your permissions.
+
+Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](mcp-service-token.md).
 
 ## Installation instructions
 
@@ -488,6 +490,8 @@ If your MCP client cannot connect or tools fail to run:
 	If scopes or tokens have changed, reauthorize the PlanetScale MCP server in your client so it can request fresh tokens.
 4. **Verify organization and database access**
 	Confirm that your PlanetScale user account has access to the orgs and databases you expect to see.
+5. **Using a service token**
+	If you authenticated with a service token instead of OAuth, see [MCP service tokens](mcp-service-token.md).
 
 ## PlanetScale CLI MCP server
 
