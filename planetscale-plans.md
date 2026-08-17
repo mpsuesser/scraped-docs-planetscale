@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-17T20:08:47.652Z
+current_date: 2026-08-17T20:08:47.652Z
 ---
 
 ## Overview
@@ -41,7 +41,7 @@ On top of processing and memory, all **Base** cluster sizes share the following:
 
 |  | **Vitess** | **Postgres** |
 | --- | --- | --- |
-| **Storage/month (network-attached storage)** | 10 GB included; $0.50 per instance per additional 1 GB\* | 10 GB included; $0.50 per instance per additional 1 GB\* |
+| **Storage/month (network-attached storage)** | 10 GB included; $0.50 per instance per additional 1 GB\* | 10 GB included; additional storage pricing [varies by region and cloud provider](postgres/pricing.md#storage-pricing) |
 | **Storage/month (Metal)** | Depends on selected NVMe drive size | Depends on selected NVMe drive size |
 | **Available cluster sizes** | 22 | 22 |
 | **Availability zones** | 3 | 3 |
