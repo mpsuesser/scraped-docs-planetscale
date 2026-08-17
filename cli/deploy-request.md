@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-14T00:39:58.404Z
-current_date: 2026-08-14T00:39:58.404Z
+access_date: 2026-08-17T22:26:09.446Z
+current_date: 2026-08-17T22:26:09.446Z
 ---
 
 ## Getting Started
@@ -124,7 +124,7 @@ Successfully requested force cutover for deploy request `<DATABASE_NAME>` / `<DR
 
 ### The deploy-request command with throttler update subcommand
 
-Adjust the migration throttler for a single deploy request. This is per deploy request, not the database-level throttler. Use `--ratio` for one ratio across all eligible keyspaces, or `--configuration` for per-keyspace ratios.
+Adjust the migration throttler for a single deploy request. This is per deploy request, not the [database-level throttler](database.md#database-level-vitess-migration-throttler). Use `--ratio` for one ratio across all eligible keyspaces, or `--configuration` for per-keyspace ratios.
 
 **Command:**
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-14T00:39:58.404Z
-current_date: 2026-08-14T00:39:58.404Z
+access_date: 2026-08-17T22:26:09.446Z
+current_date: 2026-08-17T22:26:09.446Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The database command
 
-This command allows you to create, read, update, delete, dump, and restore databases, plus manage Postgres IP restrictions.
+This command allows you to create, read, update, delete, dump, and restore databases, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler.
 
 **Usage:**
 
@@ -35,6 +35,8 @@ pscale database <SUB-COMMAND> <FLAG>
 | `list <DATABASE_NAME>` |  | List all databases in the current org | Postgres, Vitess |
 | `restore-dump <DATABASE_NAME> <BRANCH_NAME>` | `--dir <DIRECTORY_NAME>` \*, `--local-addr <ADDRESS>`, `--overwrite-tables`, `--threads <NUMBER_OF_THREADS> (defaults to 1)`, `--allow-different-destination`, `--show-details`, `--schema-only`, `--data-only`, `--starting-table <STARTING_TABLE>`, `--ending-table <ENDING_TABLE>` | Restore the specified database from a local dump directory | Postgres, Vitess |
 | `show <DATABASE_NAME>` | `--web` | Retrieve information about a database | Postgres, Vitess |
+| `throttler show <DATABASE_NAME>` |  | Show database-level Vitess migration throttler configuration | Vitess |
+| `throttler update <DATABASE_NAME>` | `--ratio <RATIO>`, `--configuration <KEYSPACE=RATIO>` | Update database-level Vitess migration throttler configuration | Vitess |
 | `update <DATABASE_NAME>` | `--new-name`, `--default-branch`, `--restrict-branch-region`, `--production-branch-web-console`, `--insights-raw-queries`, `--require-approval-for-deploy`, `--allow-data-branching`, `--allow-foreign-key-constraints`, `--automatic-migrations`, `--migration-framework`, `--migration-table-name` | Update database settings | Postgres, Vitess |
 
 ### Service token automation: database
@@ -86,6 +88,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--automatic-migrations` | Copy migration data to new branches and deploy requests (Vitess only). Boolean; set explicitly with `=true` or `=false`. | `update` |
 | `--migration-framework <NAME>` | Migration framework for the database (Vitess only). | `update` |
 | `--migration-table-name <NAME>` | Migration table name for the database (Vitess only). | `update` |
+| `--ratio <RATIO>` | Throttler ratio between 0 and 95 applied to all eligible keyspaces. 0 disables throttling; 95 slows migrations the most. | `throttler update` |
+| `--configuration <KEYSPACE=RATIO>` | Per-keyspace throttler ratio as `keyspace=ratio` (repeatable). Use instead of `--ratio`, not together. | `throttler update` |
 | `--local-addr <ADDRESS>` | Local address to bind and listen for connections. By default the proxy binds to 127.0.0.1 with a random port. | `dump`, `restore-dump` |
 | `--threads` | Number of concurrent threads to use | `dump`, `restore-dump` |
 | `--output <DIRECTORY_NAME>` | Output directory of the dump. By default the dump is saved to a folder in the current directory. | `dump` |
@@ -231,6 +235,16 @@ pscale database ip-restriction list <DATABASE_NAME>
 pscale database ip-restriction create <DATABASE_NAME> --cidrs 203.0.113.0/24 --description office
 pscale database ip-restriction update <DATABASE_NAME> <ENTRY_ID> --cidrs 203.0.113.0/24,198.51.100.10/32
 pscale database ip-restriction delete <DATABASE_NAME> <ENTRY_ID>
+```
+
+### Database-level Vitess migration throttler
+
+Sets the default throttler for future deploy requests on the database. This is not the [per-deploy-request throttler](deploy-request.md#the-deploy-request-command-with-throttler-update-subcommand) and not the tablet/vtctld throttler. Vitess only. Use `--ratio` for one ratio across all eligible keyspaces, or `--configuration` for per-keyspace ratios (not both).
+
+```shellscript
+pscale database throttler show <DATABASE_NAME>
+pscale database throttler update <DATABASE_NAME> --ratio 25
+pscale database throttler update <DATABASE_NAME> --configuration main=10 --configuration sharded=40
 ```
 
 ### Restore a backup to an existing branch:
