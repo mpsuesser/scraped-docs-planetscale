@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/logical-cdc
 title: "Logical Cdc"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-18T19:07:15.748Z
+current_date: 2026-08-18T19:07:15.748Z
 ---
 
 ## What is logical replication?
@@ -138,6 +138,18 @@ SELECT pg_create_logical_replication_slot(
   true                      -- failover = true (REQUIRED)
 );
 ```
+
+### Enabling failover on an existing replication slot
+
+If you created a logical replication slot before enabling failover support on your cluster, the slot will not survive a switchover or failover on its own. Use the steps below to enable failover on an already-created slot without having to drop and recreate it.
+
+Before following these steps, confirm the following in your cluster’s **Parameters** tab:
+
+- `hot_standby_feedback` is set to `on`
+- `sync_replication_slots` is set to `on`
+- The name of the replication slot is added to the **Logical slot name** parameter in the cluster configuration
+
+Altering the slot’s failover setting without these prerequisites in place will not protect it during a switchover or failover.
 
 ### Create initial publication
 
