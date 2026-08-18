@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_schema_recommendations
 title: "List_schema_recommendations"
 description: ""
-access_date: 2026-08-11T20:05:56.920Z
-current_date: 2026-08-11T20:05:56.920Z
+access_date: 2026-08-18T20:17:33.766Z
+current_date: 2026-08-18T20:17:33.766Z
 ---
 
 > ## Documentation Index
@@ -96,6 +96,9 @@ tags:
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
+  - name: Metrics
+    description: |2
+                Resources for retrieving database metrics.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
@@ -269,6 +272,12 @@ paths:
                       The previous page of results, or null when this is the
                       first page
                     nullable: true
+                  total_count:
+                    type: integer
+                    description: The total number of matching results
+                  total_pages:
+                    type: integer
+                    description: The total number of pages of matching results
                   data:
                     type: array
                     items:
@@ -388,6 +397,8 @@ paths:
                   - next_page_url
                   - prev_page
                   - prev_page_url
+                  - total_count
+                  - total_pages
                   - data
         '401':
           description: Unauthorized

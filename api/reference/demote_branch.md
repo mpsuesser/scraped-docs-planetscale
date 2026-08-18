@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/demote_branch
 title: "Demote_branch"
 description: ""
-access_date: 2026-08-13T18:34:16.453Z
-current_date: 2026-08-13T18:34:16.453Z
+access_date: 2026-08-18T20:17:33.766Z
+current_date: 2026-08-18T20:17:33.766Z
 ---
 
 > ## Documentation Index
@@ -96,6 +96,9 @@ tags:
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
+  - name: Metrics
+    description: |2
+                Resources for retrieving database metrics.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.

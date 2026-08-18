@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_role
 title: "Reset_role"
 description: ""
-access_date: 2026-08-12T21:47:36.828Z
-current_date: 2026-08-12T21:47:36.828Z
+access_date: 2026-08-18T20:17:33.766Z
+current_date: 2026-08-18T20:17:33.766Z
 ---
 
 POST
@@ -182,7 +182,13 @@ string
 
 required
 
-Error message available when dropping the role failsexpired
+Error message available when dropping the role failsready
+
+boolean
+
+required
+
+Whether the role is ready to accept connectionsexpired
 
 boolean
 

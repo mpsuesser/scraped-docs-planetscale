@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_role
 title: "Update_role"
 description: ""
-access_date: 2026-08-12T21:47:36.828Z
-current_date: 2026-08-12T21:47:36.828Z
+access_date: 2026-08-18T20:17:33.766Z
+current_date: 2026-08-18T20:17:33.766Z
 ---
 
 > ## Documentation Index
@@ -97,6 +97,9 @@ tags:
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
+  - name: Metrics
+    description: |2
+                Resources for retrieving database metrics.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
@@ -303,6 +306,9 @@ paths:
                   drop_failed:
                     type: string
                     description: Error message available when dropping the role fails
+                  ready:
+                    type: boolean
+                    description: Whether the role is ready to accept connections
                   expired:
                     type: boolean
                     description: True if the credentials are expired
@@ -411,6 +417,7 @@ paths:
                   - dropped_at
                   - disabled_at
                   - drop_failed
+                  - ready
                   - expired
                   - default
                   - ttl

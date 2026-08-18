@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_bouncer
 title: "Get_bouncer"
 description: ""
-access_date: 2026-08-11T20:05:56.920Z
-current_date: 2026-08-11T20:05:56.920Z
+access_date: 2026-08-18T20:17:33.766Z
+current_date: 2026-08-18T20:17:33.766Z
 ---
 
 > ## Documentation Index
@@ -97,6 +97,9 @@ tags:
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
+  - name: Metrics
+    description: |2
+                Resources for retrieving database metrics.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
@@ -385,9 +388,6 @@ paths:
                         min:
                           type: number
                           description: The minimum value of the parameter
-                        step:
-                          type: number
-                          description: The step change of the parameter
                         url:
                           type: string
                           description: The URL of the parameter
@@ -429,7 +429,6 @@ paths:
                         - restart
                         - max
                         - min
-                        - step
                         - url
                         - options
                         - actor
