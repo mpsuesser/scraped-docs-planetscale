@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/read-only-mode
 title: "Read Only Mode"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-18T17:18:17.016Z
+current_date: 2026-08-18T17:18:17.016Z
 ---
 
 Read-only mode preserves cluster functionality while preventing operations that could lead to instability, allowing you to remediate issues before they become critical.
@@ -46,3 +46,24 @@ If the issue was temporary, say due to errant data being written by mistake, you
 Single node Postgres clusters offer decreased durability compared to HA offerings. In HA, we use Postgres synchronous replication to guarantee every committed transaction reaches the primary and at least one replica. As part of our usual (we do this on HA too) durability posture, we archive postgres Write-Ahead Logs (WAL) to durable object storage (S3, GCP Cloud Storage). For single-node, we will enter read-only mode if this archiving process falls too far behind writes on your cluster.
 
 If you see this happening frequently, we recommend sizing your cluster up, or moving to an HA cluster.
+
+## Read-only transactions vs cluster read-only mode
+
+Cluster read-only mode and read-only transactions are different failure modes with different error messages.
+
+|  | Cluster read-only mode | Read-only transaction |
+| --- | --- | --- |
+| Error | `invalid statement because cluster is read-only` | `cannot execute <command> in a read-only transaction` (SQLSTATE `25006`) |
+| Cause | PlanetScale protects the cluster when storage is low or archiver lag is high | The current transaction is read only |
+| Branch state | Branch enters read-only mode | Branch stays writable |
+
+A transaction becomes read only through `BEGIN READ ONLY`, `SET TRANSACTION READ ONLY`, session characteristics, role defaults, `default_transaction_read_only`, and similar settings in application code, an ORM, or a database driver.
+
+If only some writes fail while others succeed on the same branch, the branch is likely not in read-only mode.
+
+[PgBouncer](../connecting/pgbouncer.md) runs in transaction pooling mode and reuses server connections across clients. When session parameters such as `default_transaction_read_only` are not tracked, read-only state from a prior client can persist on a server connection and affect the next client. A plain `SET` can leak across transactions (including `BEGIN; SET ...; COMMIT`); only `SET LOCAL` is limited to the current transaction. See [limitations of transaction pooling](../connecting/pgbouncer.md#limitations-of-transaction-pooling) and [PgBouncer error messages](../connecting/pgbouncer.md#pgbouncer-error-messages) for more on pooled connection behavior.
+
+To resolve read-only transaction errors:
+
+1. Search application code, ORM configuration, and driver options for read-only transaction modes, session characteristics, or replica routing that sets read-only sessions on a write connection.
+2. Remove the setting if writes should use the same connection, use `SET LOCAL` when a per-transaction setting is required, or route read-only traffic through a separate [role](../connecting/roles.md) and connection (for example, a [replica PgBouncer](../connecting/pgbouncer.md#dedicated-replica-pgbouncers)) instead of toggling read-only on a shared pooled connection.
