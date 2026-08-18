@@ -1,0 +1,193 @@
+---
+url: https://planetscale.com/docs/cli/metrics
+title: "Metrics"
+description: ""
+access_date: 2026-08-18T22:25:53.110Z
+current_date: 2026-08-18T22:25:53.110Z
+---
+
+## Overview
+
+See our [Prometheus integration](../vitess/integrations/prometheus.md) documentation for how to set Prometheus up to automatically discover and scrape metrics for your database branches.
+
+If you’re using Datadog, see our [Datadog tutorial](../vitess/tutorials/prometheus-metrics-datadog.md) for how to setup your Datadog agent to scrape metrics for your branch.
+
+## Metrics
+
+PlanetScale emits the following metrics to be scraped.
+
+## Database metrics
+
+| **Name & Description** | **Type** | **Tags** |
+| --- | --- | --- |
+| **planetscale\_edge\_active\_connections** The number of active MySQL connections to the branch | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_region |
+| **planetscale\_mysql\_bytes\_received\_total** Total number of bytes received from MySQL clients | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_bytes\_sent\_total** Total number of bytes sent to MySQL clients | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_data\_writes\_total** Total number of InnoDB data write operations | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_row\_lock\_time\_total** Total time spent acquiring row locks in InnoDB | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_row\_lock\_waits\_total** Number of times InnoDB had to wait for a row lock | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_row\_operations\_total** Total number of row operations (inserts/updates/deletes) in InnoDB | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_mysql\_operation\_type, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_auto\_increment\_util\_percentage** The percentage of auto increment size being utilized | Gauge | cluster, planetscale\_column, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_table |
+| **planetscale\_mysql\_replica\_lag\_seconds** Replica lag in fine-grained seconds from MySQL | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_slow\_queries\_total** Number of queries that exceeded the slow query threshold | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_threads\_running** Current number of threads executing in MySQL | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_pods\_container\_waiting\_reason** Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc) | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_waiting\_reason |
+| **planetscale\_pods\_cpu\_util\_percentages** CPU utilization percentage of database pods | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_pods\_iops\_total** Total IOPS (Input/Output Operations Per Second) of database pods | Counter | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_pods\_mem\_util\_percentages** Memory utilization percentage of database pods | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_pods\_status\_phase** Pod status phase (Running, Pending, Failed, Succeeded, Unknown) | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_phase, planetscale\_pod, planetscale\_keyspace, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_affected\_rows\_total** Number of rows affected by queries through vtgate | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod |
+| **planetscale\_vtgate\_commands\_total** Number of commands processed by vtgate | Counter | cluster, planetscale\_cell, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_pod |
+| **planetscale\_vtgate\_errors\_total** Total number of errors encountered by vtgate | Counter | cluster, planetscale\_vtgate\_code, planetscale\_database\_branch\_id, planetscale\_tablet\_type, planetscale\_keyspace, planetscale\_cell, planetscale\_pod, planetscale\_vtgate\_operation |
+| **planetscale\_vtgate\_queries\_duration** Distribution of query execution times through vtgate | Histogram | cluster, le, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_tablet\_type, planetscale\_vtgate\_operation |
+| **planetscale\_vtgate\_returned\_rows\_total** Number of rows returned by queries through vtgate | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_total\_pods** Total number of vtgate pods | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id |
+| **planetscale\_vtgate\_v\_streams\_count** Number of active vstreams | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_v\_streams\_created\_total** Number of vstreams created | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_v\_streams\_ended\_with\_errors\_total** Number of vstreams that ended with errors | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_v\_streams\_events\_streamed\_total** Number of events sent across all vstreams | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtgate\_v\_streams\_lag\_seconds** Difference in seconds between the current time when the vstream event was sent and the time when the binlog event occurred | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vtorc\_failed\_recoveries\_total** Number of failed replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_vtorc\_recovery\_type |
+| **planetscale\_vtorc\_successful\_recoveries\_total** Number of successful replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_vtorc\_recovery\_type |
+| **planetscale\_vttablet\_connection\_pool\_active** Number of active connections in the vttablet connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_connection\_pool\_capacity** Total capacity of the vttablet connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_connection\_pool\_get\_total** Number of connection get operations from the vttablet pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_connection\_pool\_in\_use** Number of connections currently in use in the vttablet pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_connection\_pool\_wait\_time\_total** Total time spent waiting for connections from the vttablet pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_connection\_pool\_wait\_total** Number of waits for an available connection in the vttablet pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_errors\_total** Number of errors encountered by vttablet | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_vttablet\_code |
+| **planetscale\_vttablet\_found\_rows\_pool\_active** Number of active connections in the vttablet found rows pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_found\_rows\_pool\_capacity** Total capacity of the vttablet found rows pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_found\_rows\_pool\_get\_total** Number of connection get operations from the found rows pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_found\_rows\_pool\_in\_use** Number of connections currently in use in the found rows pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_found\_rows\_pool\_wait\_time\_total** Total time spent waiting for connections from the found rows pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_found\_rows\_pool\_wait\_total** Number of waits for an available connection in the found rows pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_is\_serving** If a vttablet is or is not serving traffic | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_affected\_rows\_total** Total number of rows affected by queries through vttablet | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_duration** Distribution of query execution times through vttablet | Histogram | cluster, le, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_duration\_by\_table\_total** Total of query execution times through vttablet, broken down by table | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_read\_rows\_total** Total number of rows read by queries through vttablet | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_returned\_rows\_total** Total number of rows returned by queries through vttablet | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_queries\_total** Total number of queries processed by vttablet | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_replication\_lag** MySQL replication lag in seconds | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_active** Number of active connections in the vttablet stream connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_capacity** Total capacity of the vttablet stream connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_get\_total** Number of connection get operations from the stream connection pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_in\_use** Number of connections currently in use in the stream connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_wait\_time\_total** Total time spent waiting for connections from the stream pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_stream\_connection\_pool\_wait\_total** Number of waits for an available connection in the stream pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_table\_storage\_all\_bytes** Storage size of tables in bytes for all tablet types | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_active** Number of active transactions in the vttablet transaction pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_capacity** Total capacity of the vttablet transaction pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_get\_total** Number of transaction get operations from the transaction pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_in\_use** Number of transactions currently in use in the transaction pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_wait\_time\_total** Total time spent waiting for transactions from the transaction pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transaction\_pool\_wait\_total** Number of waits for an available transaction in the transaction pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_volume\_available\_bytes** Available storage space in bytes on vttablet volumes | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_volume\_capacity\_bytes** Total storage capacity in bytes on vttablet volumes | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_vstreamer\_errors\_total** Total number of vttablet vstreamer errors. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_vstreamer\_code |
+| **planetscale\_vttablet\_vstreamer\_events\_total** Total number of vttablet vstreamer streamed events. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard |
+| **planetscale\_vttablet\_vstreamer\_throttled\_total** Number of times the vstreamer was throttled by the tablet throttler. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard |
+| **planetscale\_workflow\_vreplication\_lag** VReplication lag in seconds for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_source\_keyspace, planetscale\_source\_shard, planetscale\_workflow |
+| **planetscale\_workflow\_vreplication\_stream\_state** State of the VReplication stream for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_state, planetscale\_workflow |
+
+## Edge metrics (Single Tenant & Managed only)
+
+| **Name & Description** | **Type** | **Tags** |
+| --- | --- | --- |
+| **planetscale\_edge\_cpu\_util\_percentages** CPU utilization percentage of Edge instances | Gauge | cluster, planetscale\_component, planetscale\_instance |
+| **planetscale\_edge\_instance\_connections** Number of active connections to Edge instances | Gauge | cluster, planetscale\_component, planetscale\_instance, planetscale\_region |
+| **planetscale\_edge\_mem\_util\_percentages** Memory utilization percentage of Edge instances | Gauge | cluster, planetscale\_component, planetscale\_instance |
+| **planetscale\_edge\_mysql\_bytes\_received\_total** Total number of MySQL bytes received by Edge instances | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_instance, planetscale\_region |
+| **planetscale\_edge\_mysql\_bytes\_sent\_total** Total number of MySQL bytes sent by Edge instances | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_instance, planetscale\_region |
+| **planetscale\_edge\_mysql\_http\_bytes\_received\_total** Total number of MySQL HTTP bytes received by Edge instances | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_instance, planetscale\_region |
+| **planetscale\_edge\_mysql\_http\_bytes\_sent\_total** Total number of MySQL HTTP bytes sent by Edge instances | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_instance, planetscale\_region |
+| **planetscale\_edge\_queries\_total** Total number of queries processed by Edge instances | Counter | cluster, planetscale\_component, planetscale\_instance, planetscale\_region |
+| **planetscale\_psdb\_api\_cpu\_util\_percentages** CPU utilization percentage of PSDB API instances | Gauge | cluster, planetscale\_availability\_zone, planetscale\_component, planetscale\_pod |
+| **planetscale\_psdb\_api\_mem\_util\_percentages** Memory utilization percentage of PSDB API instances | Gauge | cluster, planetscale\_availability\_zone, planetscale\_component, planetscale\_pod |
+| **planetscale\_psdb\_api\_requests\_total** Total number of requests processed by PSDB API instances | Counter | cluster, planetscale\_availability\_zone, planetscale\_component, planetscale\_pod, planetscale\_psdb\_api\_operation |
+
+## Deprecated metrics
+
+These metrics are deprecated and will be removed eventually.
+
+| **Name & Description** | **Type** | **Tags** |
+| --- | --- | --- |
+| **planetscale\_vtgate\_commands\_total** Number of commands processed by vtgate. Replaced by planetscale\_vtgate\_query\_executions\_total. | Counter | cluster, planetscale\_cell, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_pod |
+| **planetscale\_vttablet\_table\_storage\_bytes** Storage size of tables in bytes. Replaced by planetscale\_vttablet\_table\_storage\_all\_bytes. | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_table |
+
+## Experimental metrics
+
+These metrics are experimental and may be subject to changes to their name, type, or tags.
+
+| **Name & Description** | **Type** | **Tags** |
+| --- | --- | --- |
+| **planetscale\_mysql\_innodb\_history\_list\_length** InnoDB transaction history list length (purge lag indicator) | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_redo\_log\_capacity\_resized** Current InnoDB redo log capacity in bytes | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_redo\_log\_current\_lsn** Current InnoDB redo log sequence number | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_redo\_log\_checkpoint\_lsn** InnoDB redo log checkpoint sequence number | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_read\_requests\_total** Total logical read requests to buffer pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_reads\_total** Number of reads that required disk I/O (buffer pool misses) | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_bytes\_dirty** Total bytes of dirty pages in buffer pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_bytes\_data** Total bytes of data in buffer pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_wait\_free\_total** Number of times InnoDB had to wait for free pages in buffer pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_log\_waits\_total** Number of times log buffer was too small and required flushing | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_os\_log\_written\_total** Total bytes written to InnoDB redo log files | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_data\_written\_total** Total bytes of data written by InnoDB | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_innodb\_buffer\_pool\_read\_ahead\_evicted\_total** Read-ahead pages evicted without being accessed | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_handlers\_total** Total handler operations by type | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_mysql\_handler\_type, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_sort\_merge\_passes\_total** Number of merge passes the sort algorithm has had to do | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_sort\_range\_total** Number of sorts done with ranges | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_sort\_scan\_total** Number of sorts done by scanning the table | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_threads\_connected** Number of currently open connections | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_connections\_total** Total number of connection attempts | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_max\_connections** Maximum permitted number of simultaneous connections | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_created\_tmp\_tables\_total** Number of internal temporary tables created | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_created\_tmp\_disk\_tables\_total** Number of internal on-disk temporary tables created | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_table\_locks\_immediate\_total** Number of times a table lock was acquired immediately | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_table\_locks\_waited\_total** Number of times a table lock could not be acquired immediately | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_binlog\_cache\_use\_total** Number of transactions that used the binary log cache | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_binlog\_cache\_disk\_use\_total** Number of transactions that used temporary binary log cache but exceeded binlog\_cache\_size | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_binlog\_stmt\_cache\_use\_total** Number of non-transactional statements that used the binary log statement cache | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_binlog\_stmt\_cache\_disk\_use\_total** Number of non-transactional statements that exceeded binlog\_stmt\_cache\_size | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_storage\_info** An info metric for the storage type of a vttablet | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_storage\_type, planetscale\_tablet\_type |
+
+## Tag glossary
+
+| **Tag Name** | **Description** |
+| --- | --- |
+| cluster | The database cluster identifier |
+| le | Histogram bucket upper bound (less than or equal to) |
+| planetscale\_availability\_zone | AWS availability zone where the component is running |
+| planetscale\_cell | Availability zone or cell where the component is running |
+| planetscale\_column | Auto-increment column name |
+| planetscale\_command | VTGate command type (e.g., Select, Insert, Update) |
+| planetscale\_component | Vitess component type (vtgate, vttablet, vtctld, vtorc) |
+| planetscale\_container | Kubernetes container name within the pod |
+| planetscale\_database\_branch\_id | Unique identifier for the database branch |
+| planetscale\_instance | Edge instance identifier |
+| planetscale\_keyspace | Database keyspace (logical database name) |
+| planetscale\_mysql\_handler\_type | MySQL handler operation type (e.g., read\_first, read\_key, write) |
+| planetscale\_mysql\_operation\_type | MySQL row operation type (inserted, read, updated, deleted) |
+| planetscale\_phase | Pod status phase (Running, Pending, Failed, Succeeded, Unknown) |
+| planetscale\_pod | Kubernetes pod name where the component is running |
+| planetscale\_psdb\_api\_operation | PSDB API operation type |
+| planetscale\_region | Geographic region where the database is hosted |
+| planetscale\_shard | Database shard identifier |
+| planetscale\_source\_keyspace | Source keyspace for VReplication workflow operations |
+| planetscale\_source\_shard | Source shard for VReplication workflow operations |
+| planetscale\_state | VReplication stream state (e.g., Running, Stopped) |
+| planetscale\_storage\_type | Storage type backing a vttablet (network-attached, metal) |
+| planetscale\_table | Database table name |
+| planetscale\_tablet\_type | Vitess tablet type (primary, replica, rdonly) |
+| planetscale\_vstreamer\_code | VTTablet VStreamer error code (StreamEnded, etc.) |
+| planetscale\_vtgate\_code | VTGate error code (INVALID\_ARGUMENT, etc.) |
+| planetscale\_vtgate\_operation | VTGate operation type (Execute, ExecuteBatch, etc.) |
+| planetscale\_vtorc\_recovery\_type | Type of recovery operation performed by VTOrc (planned, unplanned) |
+| planetscale\_vttablet\_code | VTTablet error code (NOT\_FOUND, etc.) |
+| planetscale\_waiting\_reason | Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc.) |
+| planetscale\_workflow | VReplication workflow identifier |
+
+## Need help?
+
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-08-13T20:24:07.070Z
-current_date: 2026-08-13T20:24:07.070Z
+access_date: 2026-08-18T22:25:53.110Z
+current_date: 2026-08-18T22:25:53.110Z
 ---
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
@@ -43,12 +43,13 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`connect`](cli/connect.md) | `<database_name>` `<branch_name>` | `--execute string`, `--execute-env-url string`, `--execute-protocol string`, `--help`, `--host string`, `--org string`, `--port string`, `--remote-addr string`, `--role string` | Vitess | Create a [secure connection](vitess/tutorials/connect-any-application.md#option-2-connect-using-the-planetscale-proxy) to the given database and branch |
 | [`database`](cli/database.md) | `create`, `delete`, `dump`, `list`, `restore-dump`, `show` | `--help` | Vitess, Postgres | Manage databases |
 | [`deploy-request`](cli/deploy-request.md) | `apply`, `cancel`, `close`, `create`, `deploy`, `diff`, `edit`, `force-cutover`, `list`, `revert`, `review`, `show`, `skip-revert` | `--help` | Vitess | Manage [deploy requests](vitess/schema-changes/deploy-requests.md#create-a-deploy-request) including [gated deployments](vitess/schema-changes/deploy-requests.md#gated-deployments) |
-| `help` | `agent-guide`, `audit-log`, `auth`, `backup`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `mcp`, `org`, `password`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres | View help for any command |
+| `help` | `agent-guide`, `audit-log`, `auth`, `backup`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `mcp`, `metrics`, `org`, `password`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres | View help for any command |
 | [`import`](cli/import.md) | `d1 doctor`, `d1 lint`, `d1 convert-schema`, `d1 start`, `d1 verify`, `d1 status`, `d1 complete` | `--help`, `--org string` | Postgres | Import external databases ([Cloudflare D1](postgres/imports/postgres-imports.md)) into PlanetScale Postgres |
 | [`insights`](cli/insights.md) | `queries`, `errors`, `anomalies`, `recommendations` | `--help`, `--org string`, `--format json`, `--sort string`, `--dir string`, `--limit int`, `--period string` | Vitess, Postgres | Server-side query insights, anomalies, and schema recommendations from production traffic |
 | [`inspect`](cli/inspect.md) | `all`, `table-sizes`, `index-sizes`, `unused-indexes`, `redundant-indexes`, `invalid-indexes`, `seq-scans`, `long-running-queries`, `locks`, `outliers`, `calls`, `bloat`, `vacuum-stats`, `replication-slots`, `subscriptions` | `--help`, `--org string`, `--format json`, `--keyspace string`, `--dbname string`, `--role string`, `--replica` | Vitess, Postgres | Live, read-only diagnostic checks over a direct database connection |
 | [`org`](cli/org.md) | `list`, `show`, `switch` | `--help` | Vitess, Postgres | Manage and switch [organizations](security/access-control.md) |
 | [`mcp`](cli/mcp.md) | `install`, `server` | `--target string (cursor\|claude-code\|zed)`, `--format json`, `--help` | Vitess, Postgres | Install hosted MCP config ([docs](connect/mcp.md)) |
+| [`metrics`](cli/metrics.md) | `show`, `instant`, `report` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres | Query historical and current branch metrics from PlanetScale’s metrics service |
 | [`password`](cli/password.md) | `create`, `delete`, `list` | `--help`, `--org string` | Vitess | Manage [branch credentials](vitess/connecting/connection-strings.md) |
 | [`ping`](cli/ping.md) |  | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres | Check [latency](vitess/connecting/network-latency.md) between your machine and PlanetScale’s public regions |
 | [`region`](cli/region.md) | `list` | `--org string` | Vitess, Postgres | View available [regions](https://planetscale.com/docs/vitess/regions) |
