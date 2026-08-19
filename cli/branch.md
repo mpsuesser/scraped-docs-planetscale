@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-08-05T18:42:40.123Z
-current_date: 2026-08-05T18:42:40.123Z
+access_date: 2026-08-19T20:12:19.089Z
+current_date: 2026-08-19T20:12:19.089Z
 ---
 
 ## Getting Started
@@ -41,6 +41,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `schema <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the schema of a branch | Vitess |
 | `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific backup of a branch | Postgres, Vitess |
 | `switch <BRANCH_NAME> --database <DATABASE_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `parent-branch <BRANCH_NAME>` | Switch to the specified branch | Postgres, Vitess |
+| `switchover <DATABASE_NAME> <BRANCH_NAME>` | `--candidate <REPLICA_NAME>` | Move the primary of a Postgres branch to a replica. See [Switchovers](../postgres/troubleshooting/switchovers.md). | Postgres |
 | `vtgate show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the current VTGate configuration for a Vitess branch | Vitess |
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
@@ -85,6 +86,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--parent-branch <BRANCH_NAME>` | If a new branch is being created, use this to specify a parent branch. Default is `main`. | `switch` |
 | `--delete-descendants` | Recursively delete all descendant branches when deleting a branch | `delete` |
 | `--output <PATH>` | Write the query patterns CSV report to a specific file path. | `query-patterns download` |
+| `--candidate <REPLICA_NAME>` | The replica to promote during a switchover, as returned by `pscale branch infra`. Omit to select automatically. | `switchover` |
 | `--cluster-size <SKU>` | New cluster size for the branch, as a fully-qualified SKU name (e.g. `PS_10_GCP_X86`). Use `pscale size cluster list --engine postgresql` to see the valid sizes. | `resize` |
 | `--replicas <COUNT>` | Desired number of replicas for the branch | `resize` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` to see available parameters. | `resize` |
@@ -141,6 +143,16 @@ pscale branch query-patterns download <DATABASE_NAME> <BRANCH_NAME> --org <ORGAN
 ```
 
 Creates a Query Insights report for the branch, waits for it to finish generating, and downloads the CSV file. Use `--output` to choose the file path. See the [`query-patterns` reference](query-patterns.md) for the full workflow.
+
+### The switchover sub-command
+
+**Command:**
+
+```shellscript
+pscale branch switchover <DATABASE_NAME> <BRANCH_NAME> --candidate <REPLICA_NAME>
+```
+
+Moves the primary of a Postgres branch to a replica. With `--candidate`, the named replica is promoted; without it, an eligible replica is selected automatically. On a branch without replicas, the single instance is restarted in place instead. See [Switchovers](../postgres/troubleshooting/switchovers.md) for the full workflow.
 
 ### The list sub-command with --web flag
 
