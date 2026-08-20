@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-17T22:26:09.446Z
-current_date: 2026-08-17T22:26:09.446Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The database command
 
-This command allows you to create, read, update, delete, dump, and restore databases, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler.
+This command allows you to create, read, update, delete, dump, and restore databases, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler and aggressive cutover.
 
 **Usage:**
 
@@ -24,6 +24,9 @@ pscale database <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Description** | **Product** |
 | --- | --- | --- | --- |
+| `aggressive-cutover show <DATABASE_NAME>` |  | Show whether aggressive cutover is enabled for future deploy requests | Vitess |
+| `aggressive-cutover enable <DATABASE_NAME>` |  | Enable [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) for a database | Vitess |
+| `aggressive-cutover disable <DATABASE_NAME>` |  | Disable aggressive cutover for a database | Vitess |
 | `create <DATABASE_NAME>` | `--region <REGION_NAME>`, `--plan <PLAN>`, `--cluster_size <CLUSTER_SIZE>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>` | Create a database with the specified name | Postgres, Vitess |
 | `delete <DATABASE_NAME>` | `--force` | Delete the specified database | Postgres, Vitess |
 | `dump <DATABASE_NAME> <BRANCH_NAME>` | `--local-addr <ADDRESS>`, `--output <DIRECTORY_NAME>`, `--tables <TABLES_LIST>`, `--columns <TABLE:COLUMN_LIST>`, `--threads <NUMBER_OF_THREADS> (defaults to 16)` | Backup and dump the specified database | Vitess |
@@ -245,6 +248,16 @@ Sets the default throttler for future deploy requests on the database. This is n
 pscale database throttler show <DATABASE_NAME>
 pscale database throttler update <DATABASE_NAME> --ratio 25
 pscale database throttler update <DATABASE_NAME> --configuration main=10 --configuration sharded=40
+```
+
+### Database-level aggressive cutover
+
+Sets [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) for future deploy requests on the database. This is not [`deploy-request force-cutover`](deploy-request.md), which forces the cutover of a single migration that is already delayed. Vitess only.
+
+```shellscript
+pscale database aggressive-cutover show <DATABASE_NAME>
+pscale database aggressive-cutover enable <DATABASE_NAME>
+pscale database aggressive-cutover disable <DATABASE_NAME>
 ```
 
 ### Restore a backup to an existing branch:

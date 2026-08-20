@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agent-setup/prompt
 title: "Prompt"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 > ## Documentation Index
@@ -94,12 +94,6 @@ After installing, load skill **`14-pscale-cli-automation`** for CLI conventions 
 }
 ```
 
-Or use the CLI helper for Cursor:
-
-```bash theme={null}
-pscale mcp install --target cursor --format json
-```
-
 OAuth triggers automatically on first PlanetScale MCP tool use. See [PlanetScale MCP server](../connect/mcp.md) for details.
 
 **Skills** — use `script/setup` above or install into `<project>/.cursor/skills/` for project-scoped workflows.
@@ -114,23 +108,14 @@ Hosted MCP (recommended):
 claude mcp add --transport http "planetscale" https://mcp.pscale.dev/mcp/planetscale
 ```
 
-Or ask the CLI for the current command:
-
-```bash theme={null}
-pscale mcp install --target claude-code --format json
-```
-
 Install skills with `npx skills add planetscale/skills -g -y` or `script/setup`.
 
 ***
 
 ### Zed
 
-See the current MCP docs — the CLI prints setup instructions:
-
-```bash theme={null}
-pscale mcp install --target zed --format json
-```
+Add the hosted MCP server to your Zed settings, using the URL above. See
+[PlanetScale MCP server](../connect/mcp.md) for the current setup steps.
 
 Install skills with `script/setup` or `npx skills add planetscale/skills -g -y`.
 

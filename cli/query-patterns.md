@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/query-patterns
 title: "Query Patterns"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -12,40 +12,64 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The query-patterns command
 
-Download a CSV report of the query patterns for a database branch. The command creates a Query Insights report, waits for the report to finish generating, and writes the CSV file locally.
+List, inspect, delete, and download query pattern reports for a database branch. The `download` command creates a Query Insights report, waits for it to finish generating, and writes the CSV file locally.
 
 Query pattern reports require Query Insights to be enabled for the database.
 
 **Usage:**
 
 ```shellscript
-pscale branch query-patterns download <database> <branch> --org <org> <FLAG>
+pscale branch query-patterns <command> <database> <branch> --org <org>
 ```
 
 ### Available sub-commands
 
 | **Sub-command** | **Product** | **Description** |
 | --- | --- | --- |
+| `list` | Postgres, Vitess | List query pattern reports for a branch |
+| `show` | Postgres, Vitess | Show the status and details of a query pattern report |
+| `delete` | Postgres, Vitess | Delete a query pattern report |
 | `download` | Postgres, Vitess | Generate and download a CSV report of branch query patterns |
 
 ### Available flags
 
 | **Flag** | **Description** |
 | --- | --- |
-| `--output <path>` | Output file for the CSV report. Defaults to `query-patterns-<organization>-<database>-<branch>-<timestamp>.csv` in the current directory. |
+| `--limit <number>` | Number of reports to return, up to 100. Defaults to 25. Available for `list`. |
+| `--starting-after <report-id>` | Fetch the next page after a report ID. Available for `list`. |
+| `--force` | Delete a report without confirmation. Available for `delete`. |
+| `--output <path>` | Output file for the CSV report. Defaults to `query-patterns-<organization>-<database>-<branch>-<timestamp>.csv` in the current directory. Available for `download`. |
 | `--org <org>` | Organization name |
-| `-f`, `--format <FORMAT>` | Show the download result in a specific format. Possible values: `human` (default), `json`, `csv`. |
+| `-f`, `--format <FORMAT>` | Show output in a specific format. Possible values: `human` (default), `json`, `csv`. |
 | `-h`, `--help` | Help for `query-patterns` |
 
 ## Examples
 
-Download a report with the default file name:
+List reports for a branch:
+
+```shellscript
+pscale branch query-patterns list <database> <branch> --org <org>
+```
+
+Show a report:
+
+```shellscript
+pscale branch query-patterns show <database> <branch> <report-id> --org <org>
+```
+
+Delete a report:
+
+```shellscript
+pscale branch query-patterns delete <database> <branch> <report-id> --org <org>
+```
+
+Generate and download a report with the default file name:
 
 ```shellscript
 pscale branch query-patterns download <database> <branch> --org <org>
 ```
 
-Download a report to a specific path:
+Generate and download a report to a specific path:
 
 ```shellscript
 pscale branch query-patterns download <database> <branch> --org <org> --output ./query-patterns.csv

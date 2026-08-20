@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/traffic-control
 title: "Traffic Control"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -65,8 +65,25 @@ pscale traffic-control budget [command]
 | --- | --- |
 | `create` | Create a traffic budget |
 | `delete` | Delete a traffic budget |
+| `list` | List traffic budgets |
 | `show` | Show a traffic budget |
 | `update` | Update a traffic budget |
+
+### The budget list sub-command
+
+List the traffic budgets for a branch, including their IDs.
+
+**Usage:**
+
+```shellscript
+pscale traffic-control budget list <database> <branch> [flags]
+```
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--fingerprint string` | Only list budgets with a rule for this query fingerprint |
 
 ### The budget create sub-command
 

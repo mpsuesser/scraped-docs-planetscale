@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Agent setup prompt
@@ -34,12 +34,6 @@ The hosted MCP server can be installed in development tools as well as other MCP
 ## PlanetScale MCP Server
 
 Install in Claude Code, Cursor, VS Code and more
-
-Use the CLI helper for Cursor:
-
-```shellscript
-pscale mcp install --target cursor --format json
-```
 
 ## Automated Database Optimization
 

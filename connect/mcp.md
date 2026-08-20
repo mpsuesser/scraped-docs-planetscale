@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/mcp
 title: "Mcp"
 description: ""
-access_date: 2026-08-14T22:51:42.506Z
-current_date: 2026-08-14T22:51:42.506Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## What is the PlanetScale MCP server?
@@ -495,7 +495,7 @@ If your MCP client cannot connect or tools fail to run:
 
 ## PlanetScale CLI MCP server
 
-The local-only [PlanetScale CLI](../cli/mcp.md) MCP server has been deprecated and is no longer recommended.
+The local-only `pscale mcp` MCP server has been removed. Use the hosted MCP server documented above.
 
 ## Need help?
 

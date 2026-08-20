@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/password
 title: "Password"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -36,7 +36,10 @@ pscale password <SUB-COMMAND> <FLAG>
 | --- | --- | --- | --- |
 | `create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME>` | `--ttl`, `--role`, `--replica`, `--read-only-region` | Vitess | Create new credentials to access a branch’s data |
 | `delete <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_ID>` | `--force` | Vitess | Delete the specified branch credentials |
-| `list <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Vitess | List all credentials of a database |
+| `list <DATABASE_NAME> <BRANCH_NAME>` | `--name`, `--status`, `--page`, `--per-page`, `--web` | Vitess | List all credentials of a database |
+| `renew <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_ID>` |  | Vitess | Renew the specified branch credentials |
+| `show <DATABASE_NAME> <BRANCH_NAME> [<PASSWORD_ID>]` | `--name` | Vitess | Show the metadata of one set of branch credentials |
+| `update <DATABASE_NAME> <BRANCH_NAME> [<PASSWORD_ID>]` | `--name`, `--new-name`, `--cidrs` | Vitess | Rename credentials or replace their IP restrictions |
 
 ### Service token automation: password
 
@@ -66,6 +69,12 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--replica` | Route reads to the branch’s primary-region replicas and all [read-only regions](../vitess/scaling/read-only-regions.md) (nearest replica). Cannot be combined with `--read-only-region`. | `create` |
 | `--read-only-region <REGION>` | Scope the password to a Vitess [read-only region](../vitess/scaling/read-only-regions.md). Accepts a region slug, display name, or id. List regions with `pscale keyspace read-only-regions`. Cannot be combined with `--replica`. | `create` |
 | `--force` | Delete a password without confirmation. | `delete` |
+| `--name <NAME>` | Select the password by name instead of ID (`show`, `update`), or filter the list by a name substring (`list`). | `list`, `show`, `update` |
+| `--new-name <NAME>` | New name for the password. | `update` |
+| `--cidrs <CIDRS>` | Replace the IP addresses and CIDR ranges allowed to use this password. Pass an empty value to remove all restrictions. | `update` |
+| `--status <STATUS>` | Filter passwords by status: `active`, `renewable`, or `expired`. | `list` |
+| `--page <NUMBER>` | Page of results to fetch. | `list` |
+| `--per-page <NUMBER>` | Number of results per page. Default is `100`. | `list` |
 | `--web` | Perform the action in your web browser | `list` |
 
 Available roles for the `--role` flag are:
@@ -109,6 +118,37 @@ List configured regions for a keyspace first:
 
 ```shellscript
 pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
+
+### The show sub-command
+
+Show the metadata of one set of credentials, by ID or by name:
+
+```shellscript
+pscale password show <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_ID>
+pscale password show <DATABASE_NAME> <BRANCH_NAME> --name <PASSWORD_NAME>
+```
+
+Only metadata is returned. The password itself is shown once, when it is created or renewed, and cannot be retrieved afterwards.
+
+### The update sub-command
+
+Rename credentials or replace the IP addresses allowed to use them, without rotating the password:
+
+```shellscript
+pscale password update <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_ID> --new-name reporting
+pscale password update <DATABASE_NAME> <BRANCH_NAME> --name reporting --cidrs 10.0.0.0/8,192.168.1.1/32
+pscale password update <DATABASE_NAME> <BRANCH_NAME> --name reporting --cidrs ""
+```
+
+An empty `--cidrs` value clears all IP restrictions. To rotate a password, create a new one and delete the old one.
+
+### The list sub-command with filters
+
+Filter credentials by a name substring and by status:
+
+```shellscript
+pscale password list <DATABASE_NAME> <BRANCH_NAME> --name prod --status active
 ```
 
 ### The delete sub-command

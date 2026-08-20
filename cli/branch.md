@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-08-19T20:12:19.089Z
-current_date: 2026-08-19T20:12:19.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -27,21 +27,30 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `connections <COMMAND>` | `show`, `top`, `kill`, `kill-transaction` | Inspect and act on live branch connections. See the [`connections` reference](connections.md). | Postgres, Vitess |
 | `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_NAME>`, `--seed-data`, `--wait` | Create a new branch on the specified database | Postgres, Vitess |
 | `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess |
+| `demote <DATABASE_NAME> <BRANCH_NAME>` |  | Demote a production branch to development | Vitess |
 | `diff <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the diff of the specified branch against the parent branch. | Vitess |
+| `extensions list <DATABASE_NAME> <BRANCH_NAME>` |  | List the extensions available on a Postgres branch’s cluster image | Postgres |
+| `lint <DATABASE_NAME> <BRANCH_NAME>` |  | Lint the schema of a branch | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all branches of a database | Postgres, Vitess |
 | `parameters list <DATABASE_NAME> <BRANCH_NAME>` | `--namespace <NAMESPACE>`, `--extension`, `--internal` | List the configuration parameters of a Postgres branch | Postgres |
 | `promote <DATABASE_NAME> <BRANCH_NAME>` |  | Promote a database branch to production | Vitess |
+| `query-patterns list <DATABASE_NAME> <BRANCH_NAME>` | `--limit <NUMBER>`, `--starting-after <REPORT_ID>` | List query pattern reports for a branch. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
+| `query-patterns show <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` |  | Show a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
+| `query-patterns delete <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` | `--force` | Delete a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `query-patterns download <DATABASE_NAME> <BRANCH_NAME>` | `--output <PATH>` | Generate and download a CSV report of branch query patterns. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `refresh-schema <DATABASE_NAME> <BRANCH_NAME>` |  | Refresh the schema for a database branch | Vitess |
 | `resize <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>`, `--replicas <COUNT>`, `--parameters <NAMESPACE.NAME=VALUE>`, `--wait`, `--wait-timeout <DURATION>` | Change a Postgres branch’s cluster size, replica count, or configuration parameters | Postgres |
 | `resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest change request for a Postgres branch | Postgres |
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel the queued change request for a Postgres branch | Postgres |
+| `routing-rules get <DATABASE_NAME> <BRANCH_NAME>` |  | Show the keyspace routing rules of a branch | Vitess |
+| `routing-rules update <DATABASE_NAME> <BRANCH_NAME>` | `--routing-rules <FILE>` \* | Replace the keyspace routing rules of a branch | Vitess |
 | `safe-migrations enable <DATABASE_NAME> <BRANCH_NAME>` |  | Enables safe migrations for a database branch | Vitess |
 | `safe-migrations disable <DATABASE_NAME> <BRANCH_NAME>` |  | Disables safe migrations for a database branch | Vitess |
 | `schema <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the schema of a branch | Vitess |
 | `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific backup of a branch | Postgres, Vitess |
 | `switch <BRANCH_NAME> --database <DATABASE_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `parent-branch <BRANCH_NAME>` | Switch to the specified branch | Postgres, Vitess |
 | `switchover <DATABASE_NAME> <BRANCH_NAME>` | `--candidate <REPLICA_NAME>` | Move the primary of a Postgres branch to a replica. See [Switchovers](../postgres/troubleshooting/switchovers.md). | Postgres |
+| `update <DATABASE_NAME> <BRANCH_NAME>` | `--new-name <BRANCH_NAME>`, `--deletion-protected` | Rename a branch or change its deletion protection | Postgres, Vitess |
 | `vtgate show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the current VTGate configuration for a Vitess branch | Vitess |
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
@@ -85,8 +94,13 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--create` | Create a new branch if it does not exist | `switch` |
 | `--parent-branch <BRANCH_NAME>` | If a new branch is being created, use this to specify a parent branch. Default is `main`. | `switch` |
 | `--delete-descendants` | Recursively delete all descendant branches when deleting a branch | `delete` |
+| `--limit <NUMBER>` | Number of query pattern reports to return, up to 100. | `query-patterns list` |
+| `--starting-after <REPORT_ID>` | Fetch the next page of query pattern reports after a report ID. | `query-patterns list` |
 | `--output <PATH>` | Write the query patterns CSV report to a specific file path. | `query-patterns download` |
 | `--candidate <REPLICA_NAME>` | The replica to promote during a switchover, as returned by `pscale branch infra`. Omit to select automatically. | `switchover` |
+| `--new-name <BRANCH_NAME>` | New name for the branch | `update` |
+| `--deletion-protected` | Protect the branch from deletion (`--deletion-protected=false` to disable) | `update` |
+| `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
 | `--cluster-size <SKU>` | New cluster size for the branch, as a fully-qualified SKU name (e.g. `PS_10_GCP_X86`). Use `pscale size cluster list --engine postgresql` to see the valid sizes. | `resize` |
 | `--replicas <COUNT>` | Desired number of replicas for the branch | `resize` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` to see available parameters. | `resize` |
@@ -139,10 +153,35 @@ Opens a live view of the branch’s connection activity. It works for Postgres a
 **Command:**
 
 ```shellscript
+pscale branch query-patterns list <DATABASE_NAME> <BRANCH_NAME> --org <ORGANIZATION_NAME>
+pscale branch query-patterns show <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID> --org <ORGANIZATION_NAME>
+pscale branch query-patterns delete <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID> --org <ORGANIZATION_NAME>
 pscale branch query-patterns download <DATABASE_NAME> <BRANCH_NAME> --org <ORGANIZATION_NAME>
 ```
 
-Creates a Query Insights report for the branch, waits for it to finish generating, and downloads the CSV file. Use `--output` to choose the file path. See the [`query-patterns` reference](query-patterns.md) for the full workflow.
+List, inspect, and delete existing Query Insights reports for a branch. The `download` command creates a new report, waits for it to finish generating, and downloads the CSV file. See the [`query-patterns` reference](query-patterns.md) for the full workflow.
+
+### The update sub-command
+
+**Command:**
+
+```shellscript
+pscale branch update <DATABASE_NAME> <BRANCH_NAME> --new-name <NEW_BRANCH_NAME>
+pscale branch update <DATABASE_NAME> <BRANCH_NAME> --deletion-protected
+pscale branch update <DATABASE_NAME> <BRANCH_NAME> --deletion-protected=false
+```
+
+Renames a branch or changes its deletion protection. Only the flags you pass are sent, and at least one is required.
+
+### The extensions sub-command
+
+**Command:**
+
+```shellscript
+pscale branch extensions list <DATABASE_NAME> <BRANCH_NAME>
+```
+
+Lists the extensions available on a Postgres branch’s cluster image. This is the catalog the image can load, not the result of `CREATE EXTENSION`. Preload libraries are configured with `pscale branch resize --parameters`. See [Postgres extensions](../postgres/extensions.md).
 
 ### The switchover sub-command
 

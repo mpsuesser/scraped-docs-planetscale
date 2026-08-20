@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/org
 title: "Org"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The org command
 
-This command allows you to list, show, and switch [organizations](../security/access-control.md#organization-member).
+This command allows you to list, show, and switch [organizations](../security/access-control.md#organization-member), and to manage organization members.
 
 **Usage:**
 
@@ -25,8 +25,14 @@ pscale org <SUB-COMMAND> <FLAG>
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
 | `list` |  | Postgres, Vitess | List all currently active organizations with timestamps |
+| `member list` | `--query <QUERY>`, `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List the members of an organization |
+| `member show <EMAIL\|USER_ID>` |  | Postgres, Vitess | Show an organization member |
+| `member update <EMAIL\|USER_ID>` | `--role <ROLE>` \* | Postgres, Vitess | Change another member’s organization role |
+| `member remove <EMAIL\|USER_ID>` | `--force`, `--delete-passwords`, `--delete-service-tokens` | Postgres, Vitess | Remove a member from an organization |
 | `show` |  | Postgres, Vitess | Display the currently active organization |
 | `switch <ORGANIZATION_NAME>` | `--save-config <PATH>` | Postgres, Vitess | Switch the currently active organization |
+
+> \* *Flag is required*
 
 ### Service token automation: org
 
@@ -47,6 +53,13 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
 | `--save-config <PATH>` | Path to store the organization. By default, the configuration is automatically deduced based on where `pscale` is executed. | `switch` |
+| `--query <QUERY>` | Filter members by a name or email prefix. | `member list` |
+| `--page <NUMBER>` | Page of results to fetch. | `member list` |
+| `--per-page <NUMBER>` | Number of results per page. Default is `100`. | `member list` |
+| `--role <ROLE>` | Organization role to assign: `admin`, `member`, or `analyst`. See [access control](../security/access-control.md). | `member update` |
+| `--force` | Remove the member without confirmation. | `member remove` |
+| `--delete-passwords` | Also delete passwords created by the member. Cannot be used when removing yourself. | `member remove` |
+| `--delete-service-tokens` | Also delete service tokens created by the member. Cannot be used when removing yourself. | `member remove` |
 
 ### Available flags
 
@@ -80,6 +93,19 @@ pscale org switch <ORGANIZATION_NAME>
 **Output:**
 
 Successfully switched to organization `<ORGANIZATION_NAME>` (using file: `/Users/name/.config/planetscale/pscale.yml`)
+
+### The org command with member sub-commands
+
+**Command:**
+
+```shellscript
+pscale org member list --org <ORGANIZATION_NAME>
+pscale org member show <EMAIL> --org <ORGANIZATION_NAME>
+pscale org member update <EMAIL> --role member --org <ORGANIZATION_NAME>
+pscale org member remove <EMAIL> --org <ORGANIZATION_NAME>
+```
+
+Members can be identified by email or by the `USER_ID` shown by `org member list`, which is paginated at 100 members per page. Changing another member’s role or removing them requires the organization admin role, and you cannot change your own role or remove the last admin. You can remove yourself without being an admin.
 
 ## Need help?
 

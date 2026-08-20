@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-08-14T00:39:58.404Z
-current_date: 2026-08-14T00:39:58.404Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -33,7 +33,9 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | `queries` | Postgres, Vitess | List top queries ranked by a performance metric |
 | `queries samples` | Postgres, Vitess | List recent executions for a query fingerprint |
 | `errors` | Postgres, Vitess | List queries that are failing with errors |
+| `errors show` | Postgres, Vitess | List the individual query executions that failed with an error fingerprint |
 | `anomalies` | Postgres, Vitess | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
+| `anomalies show` | Postgres, Vitess | Show one anomaly and the queries correlated with it |
 | `tags` | Postgres, Vitess | List query tag keys (sqlcommenter / system) |
 | `tags show` | Postgres, Vitess | Show a query tag key and its values |
 | `tags summaries` | Postgres, Vitess | List query statistics grouped by tag keys |
@@ -124,6 +126,22 @@ pscale insights errors <database> <branch> --org <org> <FLAG>
 pscale insights errors <database> <branch> --org <org> --format json
 ```
 
+#### errors show
+
+List the individual executions that failed with an error fingerprint, including the users, keyspaces, and statements involved. Use the fingerprint column from `insights errors` (`error_fingerprint` in JSON), not the truncated id.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--limit <n>` | Number of queries to return. Default: `25`. |
+| `--period <duration>` | Time period to look back (for example `1h`, `1d`). |
+
+```shellscript
+pscale insights errors show <database> <branch> <fingerprint> --org <org>
+pscale insights errors show <database> <branch> <fingerprint> --org <org> --period 1h --limit 50
+```
+
 ### The anomalies sub-command
 
 List detected resource anomalies for a branch.
@@ -132,6 +150,14 @@ List detected resource anomalies for a branch.
 
 ```shellscript
 pscale insights anomalies <database> <branch> --org <org> <FLAG>
+```
+
+#### anomalies show
+
+Show one anomaly from `insights anomalies`, along with the queries whose activity correlates with it.
+
+```shellscript
+pscale insights anomalies show <database> <branch> <anomaly-id> --org <org>
 ```
 
 ### The tags sub-command

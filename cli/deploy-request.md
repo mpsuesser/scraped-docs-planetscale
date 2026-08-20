@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-17T22:26:09.446Z
-current_date: 2026-08-17T22:26:09.446Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -33,7 +33,7 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant`, `--strategy <serial\|parallel>` | Deploy the specified deploy request. | Vitess |
 | `deployment <DATABASE_NAME> <DR_NUMBER>` |  | Show the deployment for a deploy request. | Vitess |
 | `diff <DATABASE_NAME> <DR_NUMBER>` | `--web` | Show the diff of the specified deploy request. | Vitess |
-| `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply` | Edit a deploy request. | Vitess |
+| `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch` | Alias for `update`. | Vitess |
 | `force-cutover <DATABASE_NAME> <DR_NUMBER>` | `--force` | Force cutover when a migration is delayed by a table lock. | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
 | `operations <DATABASE_NAME> <DR_NUMBER>` |  | List deploy operations for a deploy request. | Vitess |
@@ -46,6 +46,8 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `storage-check <DATABASE_NAME> <DR_NUMBER>` |  | Check storage readiness for a deploy request. | Vitess |
 | `throttler show <DATABASE_NAME> <DR_NUMBER>` |  | Show throttler configuration for a deploy request. | Vitess |
 | `throttler update <DATABASE_NAME> <DR_NUMBER>` | `--ratio <RATIO>`, `--configuration <KEYSPACE=RATIO>` | Update throttler configuration for a deploy request. | Vitess |
+| `unblock <DATABASE_NAME> <DR_NUMBER>` |  | Unblock the deploy queue after a failed deploy or revert. | Vitess |
+| `update <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch` | Update settings on a deploy request. | Vitess |
 
 > \* *Flag is required*
 
@@ -61,8 +63,9 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | --- | --- | --- |
 | `--into <BRANCH_NAME>` | Specify that the new deploy request deploy to a specified branch. Default is `main`. | `create` |
 | `--notes <NOTE>` | A note describing the deploy request. Acts as the first comment. | `create` |
-| `--enable-auto-apply` | Enable auto-apply for this deploy request. When enabled, the deploy request will swap over to the new schema once ready. | `create`, `edit` |
-| `--disable-auto-apply` | Disable auto-apply for this deploy request. If neither flag is provided, the setting is inherited from the previous deploy request. | `create`, `edit` |
+| `--enable-auto-apply` | Enable auto-apply for this deploy request. When enabled, the deploy request will swap over to the new schema once ready. | `create`, `update` |
+| `--disable-auto-apply` | Disable auto-apply for this deploy request. If neither flag is provided, the setting is inherited from the previous deploy request. | `create`, `update` |
+| `--auto-delete-branch` | Delete the source branch after the deploy request completes (`--auto-delete-branch=false` to keep it). | `create`, `update` |
 | `--web` | Perform the action in your web browser | `diff`, `list`, `show` |
 | `--approve` | Approve a deploy request | `review` |
 | `--comment <COMMENT>` | Leave a comment on a deploy request | `review` |
@@ -135,6 +138,28 @@ pscale deploy-request throttler update <DATABASE_NAME> <DR_NUMBER> --ratio 25
 **Output:**
 
 The throttler configuration for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>` is updated.
+
+### The deploy-request command with unblock subcommand
+
+When a deployment or revert errors, PlanetScale blocks the deploy queue as a precaution. This is the same action as **Unblock deploy queue** in the dashboard. It does not apply a gated deploy, which is [`deploy-request apply`](deploy-request.md), and it does not fix a schema that failed deploy checks.
+
+**Command:**
+
+```shellscript
+pscale deploy-request unblock <DATABASE_NAME> <DR_NUMBER>
+```
+
+### The deploy-request command with update subcommand
+
+Changes settings on an existing deploy request. At least one flag is required, and flags you leave off are not sent. `edit` is an alias for this command.
+
+**Command:**
+
+```shellscript
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --enable-auto-apply
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --auto-delete-branch
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --auto-delete-branch=false
+```
 
 ## Need help?
 

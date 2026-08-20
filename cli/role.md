@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/role
 title: "Role"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T18:00:05.296Z
+current_date: 2026-08-20T18:00:05.296Z
 ---
 
 ## Getting Started
@@ -35,6 +35,7 @@ pscale role [command]
 | **Sub-Command** | **Product** | **Description** |
 | --- | --- | --- |
 | `create` | Postgres | Create a new role for a Postgres database branch |
+| `default` | Postgres | Show the default role without rotating its credentials |
 | `delete` | Postgres | Delete a role |
 | `get` | Postgres | Retrieve information about a specific role |
 | `list` | Postgres | List all roles for a Postgres database branch |
@@ -100,6 +101,22 @@ pscale role create <database> <branch> <name> [flags]
 
 ```shellscript
 pscale role create my-database main api-user --inherited-roles pg_read_all_data --ttl 24h
+```
+
+### The default sub-command
+
+Show the default role for a Postgres database branch without rotating its credentials:
+
+**Usage:**
+
+```shellscript
+pscale role default <database> <branch> [flags]
+```
+
+**Example:**
+
+```shellscript
+pscale role default my-database main
 ```
 
 ### The delete sub-command
