@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-08-07T21:15:19.588Z
-current_date: 2026-08-07T21:15:19.588Z
+access_date: 2026-08-20T20:04:23.877Z
+current_date: 2026-08-20T20:04:23.877Z
 ---
 
 ## Overview
@@ -56,6 +56,8 @@ By default, deploy requests on a branch run through a **serial deploy queue**: o
 ### Deploy changes instantly
 
 You also have the option to use MySQL’s **ALGORITHM=INSTANT** to instantly deploy the schema change. Learn more in the [**Instant Deployments** section](#instant-deployments).
+
+If [Prefer instant](#prefer-instant) is enabled, eligible deploy requests default the deploy button to this option.
 
 1. When you’re ready to deploy, click “ **Deploy changes instantly** ”. The deployment will begin immediately, or join the serial deploy queue if other deployments are already pending.
 	- If it joins the serial queue, it deploys instantly once it reaches the front of that queue.
@@ -133,6 +135,16 @@ To know whether or not a deploy request is instantly deployable, look for the �
 PlanetScale deploy request - deploy instantly badge
 
 We recommend reading [MySQL’s Online DDL documentation](https://dev.mysql.com/doc/refman/en/innodb-online-ddl-operations.html) for the full list of operations that can be deployed instantly.
+
+### Prefer instant
+
+Admins can enable **Prefer instant** on the database **Settings** page under **Advanced settings**. When enabled, deploy requests that are instantly deployable default the deploy button to **Deploy changes instantly**. You can still choose **Deploy changes** from the dropdown.
+
+The setting applies to all future deploy requests that have not started deploying. It does not change in-progress regular deploys.
+
+CLI and API deploys are unchanged. Pass [`--instant`](../../cli/deploy-request.md) with `pscale deploy-request deploy`, or set `instant_ddl` when [queueing a deploy request](../../api/reference/queue_deploy_request.md).
+
+Before enabling this as a default, review [supported operations](#supported-operations) and [who should use instant deployments](#who-should-use-instant-deployments). Instant deployments cannot be reverted and can terminate queries holding locks on the table.
 
 ## Gated deployments
 
