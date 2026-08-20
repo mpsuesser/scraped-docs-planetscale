@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-20T06:56:30.151Z
+current_date: 2026-08-20T06:56:30.151Z
 ---
 
 > ## Documentation Index
@@ -41,6 +41,7 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_mysql\_replica\_lag\_seconds**  Replica lag in fine-grained seconds from MySQL                                                                                 | Gauge     | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                                                                  |
 | **planetscale\_mysql\_slow\_queries\_total**  Number of queries that exceeded the slow query threshold                                                                        | Counter   | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                                                                  |
 | **planetscale\_mysql\_threads\_running**  Current number of threads executing in MySQL                                                                                        | Gauge     | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                                                                  |
+| **planetscale\_pods\_container\_restarts\_total**  Total container restart events detected                                                                                    | Counter   | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_restart\_reason, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_pods\_container\_waiting\_reason**  Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc)                                                         | Gauge     | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_waiting\_reason |
 | **planetscale\_pods\_cpu\_util\_percentages**  CPU utilization percentage of database pods                                                                                    | Gauge     | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                       |
 | **planetscale\_pods\_iops\_total**  Total IOPS (Input/Output Operations Per Second) of database pods                                                                          | Counter   | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                       |
