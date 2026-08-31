@@ -2,29 +2,28 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
 
-Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized. In both cases, there is a multi-hour cooldown period between resizing operations. These volumes also typically do not support shrinking. PlanetScale disk autoscaling handles the automatic increasing and decreasing of disk size beyond these AWS and GCP limitations.
+Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized. In both cases, there is a multi-hour cooldown period between resizing operations. These volumes also typically do not support shrinking. PlanetScale disk autoscaling grows disks past those limits. To shrink, we copy your data onto a new, smaller disk and replace the old one.
 
 **Disk autoscaling is enabled by default upon database creation.**
 
-We provide three scaling modes designed to optimize cost and performance while maintaining data availability:
+We provide two growth modes:
 
 - **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages AWS EBS’s native resize capability.
 - **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing [AWS EBS resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
-- **Shrink mode** — In shrink mode, the autoscaler reduces storage capacity for underutilized volumes. This can help to optimize costs after a surge event.
 
-Autoscaling will grow the cluster’s storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed.
+Autoscaling will grow the cluster’s storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed. Disks are never shrunk automatically. After usage drops, use [Manually shrinking](#manually-shrinking) to shrink the disk.
 
-There are pricing implications when you enable disk autoscaling. You will be billed for the *allocated* disk size, not the actual total storage. Make sure you enable shrink mode to automatically adjust down to optimize costs.
+You’re billed for the allocated disk, not how much data you have.
 
 ## Autoscaling thresholds and behaviors
 
-When enabled, disk surge and shrink autoscaling will kick in when your disk utilization reaches the following thresholds:
+When enabled, disk growth kicks in when your disk utilization reaches the following thresholds. Shrink is never automatic. A shrink is only suggested in the dashboard when utilization falls below the thresholds below.
 
 ### Surge mode thresholds
 
@@ -65,15 +64,13 @@ We make every effort to keep your network-attached storage disk from filling, bu
 
 ## Manually shrinking
 
-A disk can be manually shrunk by going to “Clusters” > “Storage” and modifying “Minimum disk size”. The UI will indicate if the disk can shrink and the minimum volume size following the [suggested shrink thresholds](#suggested-shrink-thresholds).
-
-When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as AWS EBS does not support in-place volume shrinking.
+When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as network-attached storage does not support in-place volume shrinking. This process may take up to an hour after being submitted.
 
 Shrink operations cause a brief failover event that severs existing database connections. Applications must handle connection recovery.
 
 ## Enable or disable disk autoscaling
 
-Disk autoscaling is enabled by default upon database creation. Both of these options can be configured by going to “Clusters” > “Storage” > and clicking the “Enable autoscaling” checkbox.
+Disk autoscaling is enabled by default upon database creation. Turn it on or off from “Clusters” > “Storage” with the “Enable autoscaling” checkbox.
 
 ## Storage limits
 

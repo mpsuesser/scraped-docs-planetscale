@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](../../metal.md)
@@ -15,6 +15,8 @@ You must be a database or organization administrator to modify these settings. A
 ## Minimum disk size configuration
 
 Configure the minimum disk size for your database cluster. This setting determines the initial storage capacity allocated to your database. The disk size is specified in GB and serves as the baseline storage allocation for your cluster.
+
+You’re billed for the allocated size, which can be larger after the disk grows via autoscaling. To shrink, lower the minimum, then queue and apply the change. See [Manually shrinking](disk-autoscaling.md#manually-shrinking).
 
 The maximum disk size for network-attached storage is 65536 GB (64 TiB).
 

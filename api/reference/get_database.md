@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_database
 title: "Get_database"
 description: ""
-access_date: 2026-08-18T20:17:33.766Z
-current_date: 2026-08-18T20:17:33.766Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-08-18T20:17:33.766Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
+ `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `read_workflow`, `write_workflow`, `delete_workflow`
 
 **OAuth Scopes**
 
@@ -160,9 +160,21 @@ tags:
   - name: AuthAttemptExports
     description: |2
                   Resources for creating and downloading organization auth attempt exports.
+  - name: Billing payment method setup
+    description: |2
+                  Resources for adding an organization's payment method through hosted checkout.
+  - name: Billing payment method
+    description: |2
+                  Resources for managing an organization's payment method.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: Organization SSO domains
+    description: |2
+                  Resources for listing and verifying organization email domains used for SSO.
+  - name: Organization SSO
+    description: |2
+                  Resources for enabling SSO, verifying email domains, and configuring an identity provider.
   - name: Team members
     description: |2
                   Resources for managing team memberships within an organization. Team members inherit access to databases assigned to their team.
@@ -188,7 +200,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`
+         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `read_workflow`, `write_workflow`, `delete_workflow`
 
         **OAuth Scopes**
 
@@ -417,6 +429,11 @@ paths:
                   restrict_branch_region:
                     type: boolean
                     description: Whether to restrict branch creation to one region
+                  prefer_instant:
+                    type: boolean
+                    description: >-
+                      Whether deploy requests default to instant deploy when it
+                      is available
                   insights_raw_queries:
                     type: boolean
                     description: Whether raw SQL queries are collected
@@ -483,6 +500,7 @@ paths:
                   - allow_data_branching
                   - foreign_keys_enabled
                   - restrict_branch_region
+                  - prefer_instant
                   - insights_raw_queries
                   - plan
                   - insights_enabled
@@ -578,7 +596,9 @@ components:
             organization:manage_read_only_passwords: >-
               Read, write, and delete read only branch passwords in an
               organization
+            organization:manage_sso: Enable, configure, and disable organization SSO
             organization:promote_branches: Promote branches in an organization
+            organization:read_audit_logs: Read organization audit logs
             organization:read_backups: Read backups in an organization
             organization:read_branches: Read branches in an organization
             organization:read_comments: Read deploy request comments in an organization
@@ -587,6 +607,7 @@ components:
             organization:read_invoices: Read organization invoices
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
+            organization:read_payment_method: Read organization payment method
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
               Restore production branch backups to new branches in an
@@ -598,6 +619,7 @@ components:
             organization:write_deploy_requests: Create and update deploy requests in an organization
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
+            organization:write_payment_method: Update and delete the organization payment method
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user

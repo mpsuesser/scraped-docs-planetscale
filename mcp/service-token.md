@@ -1,12 +1,12 @@
 ---
-url: https://planetscale.com/docs/connect/mcp-service-token
-title: "Mcp Service Token"
+url: https://planetscale.com/docs/mcp/service-token
+title: "Service Token"
 description: ""
-access_date: 2026-08-14T22:51:42.506Z
-current_date: 2026-08-14T22:51:42.506Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
-OAuth is the default for the [hosted MCP server](mcp.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
+OAuth is the default for the [hosted MCP server](../mcp-server.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
 
 The hosted MCP server accepts the token secret as a Bearer token.
 
@@ -46,7 +46,7 @@ This covers listing organizations, databases, branches, schema, Insights, and sc
 
 `read_databases` lets the token list every database in the organization. If you only want one database, skip `read_databases` and grant `read_database` plus `read_branch` on that database only.
 
-Add `read_invoices` on the organization if you want the invoice tools.
+Add `read_invoices` on the organization if you want the invoice tools. Add `read_payment_method` to view the saved card, and `write_payment_method` to start Checkout or confirm a setup.
 
 ### Read queries
 
@@ -86,6 +86,8 @@ Write query permissions can run `INSERT`, `UPDATE`, `DELETE`, and DDL. Only gran
 | `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema` |  | `read_branch` |
 | `planetscale_get_insights`, `planetscale_list_schema_recommendations` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
 | `planetscale_list_invoices`, `planetscale_get_invoice_line_items` | `read_invoices` |  |
+| `planetscale_get_organization_billing_payment_method` | `read_payment_method` |  |
+| `planetscale_update_payment_method`, `planetscale_get_payment_method_setup` | `write_payment_method` |  |
 | `planetscale_execute_read_query` |  | Read-only set, plus the read-query connect and delete permissions above |
 | `planetscale_execute_write_query` |  | Read-only set, plus the write-query connect and delete permissions above |
 | `planetscale_search_documentation` | None | None |

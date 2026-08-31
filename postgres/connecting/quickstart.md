@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/quickstart
 title: "Quickstart"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 We recommend reading the before going through this quickstart. It contains important information such as when and how to use PgBouncer over direct connections.
@@ -171,7 +171,7 @@ The branch ID in the username tells PlanetScale’s routing layer (Exosphere) wh
 All PlanetScale Postgres passwords begin with `pscale_pw_` followed by a unique string:
 
 ```shellscript
-pscale_pw_XXXXXXXXXXXXXXXXXXXX
+pscale_pw_<PLANETSCALE_DATABASE_PASSWORD>
 ```
 
 ## Strong security model

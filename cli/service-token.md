@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Getting Started
@@ -29,6 +29,7 @@ pscale service-token <SUB-COMMAND> <FLAG>
 | `delete <TOKEN_ID>` |  | Postgres, Vitess | Delete an entire service token in an organization |
 | `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess | Delete individual permissions granted to a service token in the organization |
 | `list` |  | Postgres, Vitess | List the IDs, names, and expiration times of an organization’s service tokens |
+| `show <TOKEN_ID>` |  | Postgres, Vitess | Show a service token in the organization |
 | `show-access` |  | Postgres, Vitess | Fetch a service token and its accesses |
 
 ### Service token automation: service-token
@@ -113,6 +114,12 @@ This will grant the service token the `read_organization` access on the organiza
 | RESOURCE NAME | RESOURCE TYPE | ACCESSES |
 | --- | --- | --- |
 | my-org | Organization | read\_organization |
+
+### Show a service token
+
+```shellscript
+pscale service-token show <TOKEN_ID>
+```
 
 ## Need help?
 

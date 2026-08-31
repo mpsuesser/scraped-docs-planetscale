@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Connecting to your PlanetScale Postgres database
@@ -22,7 +22,7 @@ Create a **branch password** with [`pscale password`](../cli/password.md), then 
 
 ### AI assistant integrations
 
-You can expose read-only schema and query capabilities to tools like Claude, Cursor, or Zed through the shared [Model Context Protocol (MCP)](../connect/mcp.md) guide. Point each tool at the hosted PlanetScale MCP server, which streams data over a secure, read-only connection.
+You can expose read-only schema and query capabilities to tools like Claude, Cursor, or Zed through the shared [Model Context Protocol (MCP)](../mcp-server.md) guide. Point each tool at the hosted PlanetScale MCP server, which streams data over a secure, read-only connection.
 
 ### Roles and credentials
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/billing
 title: "Billing"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -49,6 +49,8 @@ To see more details about your billing from the PlanetScale dashboard, click the
 All plans require that your organization has a valid payment method on file. You can use a debit or credit card, but we do not accept pre-paid cards.
 
 It’s possible to use the same card for multiple organizations, but only after the card has been used to successfully pay for a database in the first organization.
+
+You can also show, update, or delete the current card from the [CLI](cli/billing.md) or update it from the [MCP server](mcp-server.md). Updating always happens in Stripe Checkout; PlanetScale never collects the card number.
 
 ## Spend management
 

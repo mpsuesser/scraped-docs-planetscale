@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-08-11T21:47:58.400Z
-current_date: 2026-08-11T21:47:58.400Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -56,7 +56,7 @@ The remaining sections of this doc walk through how to interpret and act on the 
 
 ### MCP server access
 
-Query Insights data is also available through the [PlanetScale MCP server](../../connect/mcp.md). This lets MCP-compatible tools like Cursor, Claude, and VS Code query your Insights data directly — useful for analyzing slow queries, spotting pattern changes, or getting index recommendations without leaving your editor. See the [MCP server documentation](../../connect/mcp.md) for setup instructions.
+Query Insights data is also available through the [PlanetScale MCP server](../../mcp-server.md). This lets MCP-compatible tools like Cursor, Claude, and VS Code query your Insights data directly — useful for analyzing slow queries, spotting pattern changes, or getting index recommendations without leaving your editor. See the [MCP server documentation](../../mcp-server.md) for setup instructions.
 
 ## Query latency
 

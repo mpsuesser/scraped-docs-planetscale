@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/aurora
 title: "Aurora"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
@@ -52,7 +52,7 @@ Copy the password and all other connection credentials into environment variable
 
 ```shellscript
 PLANETSCALE_USERNAME=pscale_api_XXXXXXXXXX.XXXXXXXXXX
-PLANETSCALE_PASSWORD=pscale_pw_XXXXXXXXXXXXXXXXXXXXXXX
+PLANETSCALE_PASSWORD=pscale_pw_<PLANETSCALE_DATABASE_PASSWORD>
 PLANETSCALE_HOST=XXXX.pg.psdb.cloud
 PLANETSCALE_DBNAME=postgres
 ```

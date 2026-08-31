@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/postgres/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 Schema recommendations use query-level telemetry data, PostgreSQL system tables, and your database’s schema to generate tailored recommendations in the form of DDL statements.
 
-Schema recommendations are also available through the [PlanetScale MCP server](../../connect/mcp.md), and can be automatically evaluated and implemented by AI coding agents on a recurring schedule. See [Self-improving database](../../connect/self-improving-database.md).
+Schema recommendations are also available through the [PlanetScale MCP server](../../mcp-server.md), and can be automatically evaluated and implemented by AI coding agents on a recurring schedule. See [Self-improving database](../../self-improving-database.md).
 
 ![Schema recommendations](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/monitoring/schema-recommendations-postgres.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=5bed03fce989473d357b931d7da152af)
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
@@ -38,18 +38,19 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`audit-log`](cli/audit-log.md) | `list`, `auth-attempts download` | `--help`, `--org string` | Vitess, Postgres | List all [audit logs](security/audit-log.md#review-your-organization-audit-log) and download authentication-attempt exports |
 | [`auth`](cli/auth.md) | `login`, `logout`, `check` | `--help`, `--format json` | Vitess, Postgres | Authenticate via console or JSON device login for agents |
 | [`backup`](cli/backup.md) | `create`, `delete`, `list`, `restore`, `show` | `--help`, `--org string` | Vitess, Postgres | Manage [branch backups](vitess/backups.md) |
+| [`billing`](cli/billing.md) | `payment-method` | `--help`, `--org string` | Vitess, Postgres | Show, update, or delete the organization [payment method](billing.md#payment-methods) |
 | [`branch`](cli/branch.md) | `connections`, `create`, `delete`, `demote`, `diff`, `extensions list`, `lint`, `list`, `parameters list`, `promote`, `query-patterns`, `refresh-schema`, `resize`, `routing-rules`, `safe-migrations`, `schema`, `show`, `switch`, `switchover`, `update`, `vtgate` | `--help`, `--org string` | Vitess, Postgres | Manage [branches](vitess/schema-changes/branching.md) |
 | [`completion`](cli/completion.md) | `bash`, `zsh`, `fish`, `powershell` | `--help` | Vitess, Postgres | Generate completion script for specified shell |
 | [`connect`](cli/connect.md) | `<database_name>` `<branch_name>` | `--execute string`, `--execute-env-url string`, `--execute-protocol string`, `--help`, `--host string`, `--org string`, `--port string`, `--remote-addr string`, `--role string` | Vitess | Create a [secure connection](vitess/tutorials/connect-any-application.md#option-2-connect-using-the-planetscale-proxy) to the given database and branch |
 | [`database`](cli/database.md) | `aggressive-cutover`, `create`, `delete`, `dump`, `ip-restriction`, `list`, `restore-dump`, `show`, `throttler`, `update` | `--help` | Vitess, Postgres | Manage databases |
 | [`deploy-request`](cli/deploy-request.md) | `apply`, `cancel`, `close`, `create`, `deploy`, `deployment`, `diff`, `force-cutover`, `list`, `operations`, `queue`, `revert`, `review`, `reviews`, `show`, `skip-revert`, `storage-check`, `throttler`, `unblock`, `update` | `--help` | Vitess | Manage [deploy requests](vitess/schema-changes/deploy-requests.md#create-a-deploy-request) including [gated deployments](vitess/schema-changes/deploy-requests.md#gated-deployments) |
-| `help` | `agent-guide`, `audit-log`, `auth`, `backup`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `keyspace`, `maintenance`, `metrics`, `org`, `password`, `pgbouncer`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres | View help for any command |
+| `help` | `agent-guide`, `audit-log`, `auth`, `backup`, `billing`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `keyspace`, `maintenance`, `metrics`, `org`, `password`, `pgbouncer`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres | View help for any command |
 | [`import`](cli/import.md) | `d1 doctor`, `d1 lint`, `d1 convert-schema`, `d1 start`, `d1 verify`, `d1 status`, `d1 complete` | `--help`, `--org string` | Postgres | Import external databases ([Cloudflare D1](postgres/imports/postgres-imports.md)) into PlanetScale Postgres |
 | [`insights`](cli/insights.md) | `queries`, `queries samples`, `errors`, `errors show`, `anomalies`, `anomalies show`, `tags`, `recommendations`, `recommendations dismiss` | `--help`, `--org string`, `--format json`, `--sort string`, `--dir string`, `--limit int`, `--period string` | Vitess, Postgres | Server-side query insights, anomalies, and schema recommendations from production traffic |
 | [`inspect`](cli/inspect.md) | `all`, `table-sizes`, `index-sizes`, `unused-indexes`, `redundant-indexes`, `invalid-indexes`, `seq-scans`, `long-running-queries`, `locks`, `outliers`, `calls`, `bloat`, `vacuum-stats`, `replication-slots`, `subscriptions` | `--help`, `--org string`, `--format json`, `--keyspace string`, `--dbname string`, `--role string`, `--replica` | Vitess, Postgres | Live, read-only diagnostic checks over a direct database connection |
 | [`keyspace`](cli/keyspace.md) | `create`, `delete`, `list`, `read-only-regions`, `resize`, `rollout-status`, `settings`, `show`, `update-settings`, `vschema` | `--help`, `--org string` | Vitess | Manage [keyspaces](vitess/sharding/keyspaces.md) within a database branch |
 | [`maintenance`](cli/maintenance.md) | `list`, `show`, `windows` | `--help`, `--org string` | Vitess | View planned maintenance schedules and windows for a database |
-| [`org`](cli/org.md) | `list`, `member`, `show`, `switch` | `--help` | Vitess, Postgres | Manage and switch [organizations](security/access-control.md), and manage organization members |
+| [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres | Manage and switch [organizations](security/access-control.md), including members, teams, and SSO |
 | [`metrics`](cli/metrics.md) | `show`, `instant`, `report` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres | Query historical and current branch metrics from PlanetScale’s metrics service |
 | [`password`](cli/password.md) | `create`, `delete`, `list`, `renew`, `show`, `update` | `--help`, `--org string`, `--name string`, `--new-name string`, `--cidrs strings`, `--status string` | Vitess | Manage [branch credentials](vitess/connecting/connection-strings.md) |
 | [`pgbouncer`](cli/pgbouncer.md) | `create`, `delete`, `list`, `resize`, `show` | `--help`, `--org string` | Postgres | Manage dedicated [PgBouncers](postgres/connecting/pgbouncer.md) for a Postgres branch |

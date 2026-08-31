@@ -1,15 +1,15 @@
 ---
-url: https://planetscale.com/docs/connect/mcp
-title: "Mcp"
+url: https://planetscale.com/docs/mcp-server
+title: "Mcp Server"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## What is the PlanetScale MCP server?
 
-- A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, and Insights data.
-- Authenticated via OAuth. [Service tokens](mcp-service-token.md) are also supported for CI and headless clients.
+- A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, Insights data, and the organization payment method.
+- Authenticated via OAuth. [Service tokens](mcp/service-token.md) are also supported for CI and headless clients.
 - Accessible from any MCP client that supports HTTP-hosted servers.
 
 ## Quick start
@@ -44,7 +44,7 @@ See all options
 
 ## Authentication
 
-The hosted MCP server uses **OAuth** so you can authorize access to PlanetScale organizations, databases, branches, and Insights data directly in your client via the MCP server.
+The hosted MCP server uses **OAuth** so you can authorize access to PlanetScale organizations, databases, branches, Insights data, and the organization payment method directly in your client via the MCP server.
 
 - Each client (for example, Claude Code, Cursor, or other MCP-compatible tools) registers as an OAuth application with PlanetScale.
 - When you connect the MCP server from your client, you’re redirected to PlanetScale to sign in and grant access.
@@ -57,7 +57,7 @@ https://mcp.pscale.dev/mcp/planetscale
 
 If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes the `planetscale_execute_read_query` and `planetscale_execute_write_query` tools.
 
-For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](mcp-service-token.md).
+For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](mcp/service-token.md).
 
 ## Security and credentials
 
@@ -71,10 +71,11 @@ OAuth permissions are controlled through scopes:
 
 - Scopes define which organizations, databases, branches, or features the MCP server can see.
 - You choose whether the MCP server has no access, read-only access, or full access to databases at the organization or per-database level.
+- Payment method access is separate: no access, read-only (view the saved card), or full access (start Checkout and confirm the saved card). Full access is required to update the card.
 
 Most MCP clients provide a way to re-authenticate the MCP server if you need to update your permissions.
 
-Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](mcp-service-token.md).
+Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](mcp/service-token.md).
 
 ## Installation instructions
 
@@ -419,7 +420,7 @@ The PlanetScale MCP server includes several built-in behaviors to help ensure sa
 
 - Read queries route to a replica when your branch has replicas configured, reducing load on the primary. This is the default behavior.
 - Set `use_replica` to `false` on `planetscale_execute_read_query` to run against the primary instead. Works for both Vitess and Postgres databases.
-- All queries include a `source=planetscale-mcp` comment, making them easy to identify and track in [Insights](../what-is-planetscale.md#insights).
+- All queries include a `source=planetscale-mcp` comment, making them easy to identify and track in [Insights](what-is-planetscale.md#insights).
 
 #### Postgres row-level security
 
@@ -448,6 +449,7 @@ Once installed, you can ask your MCP-enabled editor or agent to:
 - “Show me all databases in my PlanetScale organization and highlight anything running on PlanetScale Metal.”
 - “List the branches for my production database and summarize their differences.”
 - “Look at my slowest queries over the last day and suggest index or query changes.”
+- “Which route tag is spending the most database time?”
 - “Check whether the CPU and memory profile for my database is appropriate for the current workload.”
 - “Explain what changed between yesterday’s and today’s query patterns in Insights.”
 
@@ -473,8 +475,17 @@ The available tools are:
 12. `planetscale_list_cluster_size_skus` - List all available cluster size SKUs.
 13. `planetscale_list_invoices` - List all invoices for an organization.
 14. `planetscale_get_invoice_line_items` - Get all line items for an invoice, with prorated costs broken down by database branch.
-15. `planetscale_search_documentation` - Search the PlanetScale documentation.
-16. `planetscale_list_schema_recommendations` - List schema recommendations for a database, including suggestions for adding indexes, removing redundant indexes, and preventing primary key exhaustion.
+15. `planetscale_get_organization_billing_payment_method` - Show the organization’s current payment method.
+16. `planetscale_update_payment_method` - Start Stripe Checkout to add or replace the organization’s card. Returns a `checkout_url` and `setup_id`. Requires Payment method full access.
+17. `planetscale_get_payment_method_setup` - Check a Checkout setup by `setup_id`. Does not poll; do not start a second update while one is pending.
+18. `planetscale_search_documentation` - Search the PlanetScale documentation.
+19. `planetscale_list_schema_recommendations` - List schema recommendations for a database, including suggestions for adding indexes, removing redundant indexes, and preventing primary key exhaustion.
+20. `planetscale_list_query_error_patterns` - List failing queries for a database branch, aggregated by error fingerprint, with the error message, occurrence count, last run, and total and average duration. Optionally search by error text, sort, and filter by tablet type.
+21. `planetscale_list_query_error_executions` - List the individual failed executions behind an `error_fingerprint` from `planetscale_list_query_error_patterns`, including the normalized SQL, tables, keyspace, user, row counts, duration, and query tags.
+22. `planetscale_get_postgres_logs` - Fetch server logs for a Postgres database branch, newest first. Filter by log level, time range, server role (primary or replica), and pod name, or pass a raw LogsQL query for advanced filtering. Postgres-only; not available for Vitess databases.
+23. `planetscale_list_query_tags` - List the [query tags](postgres/monitoring/query-tags.md) seen on a database branch’s queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
+24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
+25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
 
 The MCP server tools are [open source and available on GitHub](https://github.com/planetscale/mcp-server).
 
@@ -491,7 +502,7 @@ If your MCP client cannot connect or tools fail to run:
 4. **Verify organization and database access**
 	Confirm that your PlanetScale user account has access to the orgs and databases you expect to see.
 5. **Using a service token**
-	If you authenticated with a service token instead of OAuth, see [MCP service tokens](mcp-service-token.md).
+	If you authenticated with a service token instead of OAuth, see [MCP service tokens](mcp/service-token.md).
 
 ## PlanetScale CLI MCP server
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Getting Started
@@ -25,7 +25,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | **Sub-command** | **Sub-command flags** | **Description** | **Product** |
 | --- | --- | --- | --- |
 | `connections <COMMAND>` | `show`, `top`, `kill`, `kill-transaction` | Inspect and act on live branch connections. See the [`connections` reference](connections.md). | Postgres, Vitess |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_NAME>`, `--seed-data`, `--wait` | Create a new branch on the specified database | Postgres, Vitess |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_NAME>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--wait` | Create a new branch on the specified database | Postgres, Vitess |
 | `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess |
 | `demote <DATABASE_NAME> <BRANCH_NAME>` |  | Demote a production branch to development | Vitess |
 | `diff <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the diff of the specified branch against the parent branch. | Vitess |
@@ -50,6 +50,8 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific backup of a branch | Postgres, Vitess |
 | `switch <BRANCH_NAME> --database <DATABASE_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `parent-branch <BRANCH_NAME>` | Switch to the specified branch | Postgres, Vitess |
 | `switchover <DATABASE_NAME> <BRANCH_NAME>` | `--candidate <REPLICA_NAME>` | Move the primary of a Postgres branch to a replica. See [Switchovers](../postgres/troubleshooting/switchovers.md). | Postgres |
+| `switchover list <DATABASE_NAME> <BRANCH_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List switchovers for a Postgres branch | Postgres |
+| `switchover show <DATABASE_NAME> <BRANCH_NAME> <ID>` |  | Show a Postgres switchover | Postgres |
 | `update <DATABASE_NAME> <BRANCH_NAME>` | `--new-name <BRANCH_NAME>`, `--deletion-protected` | Rename a branch or change its deletion protection | Postgres, Vitess |
 | `vtgate show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the current VTGate configuration for a Vitess branch | Vitess |
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
@@ -86,6 +88,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--from <SOURCE_BRANCH>` | Parent branch that you want to create a new branch off of | `create` |
 | `--region <BRANCH_REGION>` | Region where database should be created | `create` |
 | `--restore <BACKUP_NAME>` | Create a new branch from a specified backup | `create` |
+| `--restore-point <TIMESTAMP>` | For PostgreSQL, restore to a point-in-time recovery timestamp (for example `2023-01-01T00:00:00Z`). Requires `--restore` or `--from`. Cannot be used with `--seed-data`. | `create` |
 | `--seed-data` | Create a new branch and seed data using the [Data Branching® feature](../vitess/schema-changes/data-branching.md) | `create` |
 | `--web` | Perform the action in your web browser | `create`, `diff`, `list`, `schema`, `show` |
 | `--wait` | Wait until the branch is ready (`create`) or the change request completes (`resize`) | `create`, `resize` |
@@ -98,6 +101,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--starting-after <REPORT_ID>` | Fetch the next page of query pattern reports after a report ID. | `query-patterns list` |
 | `--output <PATH>` | Write the query patterns CSV report to a specific file path. | `query-patterns download` |
 | `--candidate <REPLICA_NAME>` | The replica to promote during a switchover, as returned by `pscale branch infra`. Omit to select automatically. | `switchover` |
+| `--page <NUMBER>` | Page of results to fetch. | `switchover list` |
+| `--per-page <NUMBER>` | Number of results per page. Default is `100`. | `switchover list` |
 | `--new-name <BRANCH_NAME>` | New name for the branch | `update` |
 | `--deletion-protected` | Protect the branch from deletion (`--deletion-protected=false` to disable) | `update` |
 | `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
@@ -114,7 +119,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--vtgate-autoscaling` | Enable or disable VTGate autoscaling (`--vtgate-autoscaling=false` to disable) | `vtgate resize` |
 | `--vtgate-target-cpu-utilization <PERCENT>` | Target CPU utilization percent when autoscaling is enabled | `vtgate resize` |
 
-The `--region` flag can not be used with `--restore` when creating a branch. Branch backups will be restored to their original region.
+The `--region` flag can not be used with `--restore` when creating a branch. Branch backups will be restored to their original region. `--restore-point` is PostgreSQL only. When you pass `--restore-point` without `--restore`, `--from` is required so the CLI can look up a backup that covers that timestamp.
 
 ### Available flags
 
@@ -192,6 +197,13 @@ pscale branch switchover <DATABASE_NAME> <BRANCH_NAME> --candidate <REPLICA_NAME
 ```
 
 Moves the primary of a Postgres branch to a replica. With `--candidate`, the named replica is promoted; without it, an eligible replica is selected automatically. On a branch without replicas, the single instance is restarted in place instead. See [Switchovers](../postgres/troubleshooting/switchovers.md) for the full workflow.
+
+List past switchovers or show one by id. `switchover list` supports `--page` and `--per-page`.
+
+```shellscript
+pscale branch switchover list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch switchover show <DATABASE_NAME> <BRANCH_NAME> <ID>
+```
 
 ### The list sub-command with --web flag
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_branch_change_request
 title: "Update_branch_change_request"
 description: ""
-access_date: 2026-08-18T20:17:33.766Z
-current_date: 2026-08-18T20:17:33.766Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 > ## Documentation Index
@@ -160,9 +160,21 @@ tags:
   - name: AuthAttemptExports
     description: |2
                   Resources for creating and downloading organization auth attempt exports.
+  - name: Billing payment method setup
+    description: |2
+                  Resources for adding an organization's payment method through hosted checkout.
+  - name: Billing payment method
+    description: |2
+                  Resources for managing an organization's payment method.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: Organization SSO domains
+    description: |2
+                  Resources for listing and verifying organization email domains used for SSO.
+  - name: Organization SSO
+    description: |2
+                  Resources for enabling SSO, verifying email domains, and configuring an identity provider.
   - name: Team members
     description: |2
                   Resources for managing team memberships within an organization. Team members inherit access to databases assigned to their team.
@@ -261,6 +273,11 @@ paths:
                     storage_throughput_mibs:
                       type: integer
                       description: The storage throughput in MiB/s.
+                    confirm_shrink:
+                      type: boolean
+                      description: >-
+                        Re-apply the current minimum disk size to shrink the
+                        provisioned disk.
       responses:
         '200':
           description: Returns the branch change request
@@ -324,6 +341,9 @@ paths:
                   replicas:
                     type: integer
                     description: The total number of replicas
+                  version:
+                    type: string
+                    description: The PostgreSQL version after the change
                   parameters:
                     type: object
                     additionalProperties: true
@@ -342,6 +362,9 @@ paths:
                   previous_replicas:
                     type: integer
                     description: The previous total number of replicas
+                  previous_version:
+                    type: string
+                    description: The PostgreSQL version before the change
                   previous_parameters:
                     type: object
                     additionalProperties: true
@@ -396,6 +419,11 @@ paths:
                   previous_storage_throughput_mibs:
                     type: integer
                     description: The previous storage throughput in MiB/s
+                  confirm_shrink:
+                    type: boolean
+                    description: >-
+                      Whether the change re-applies the current minimum disk
+                      size to shrink the provisioned disk
                 required:
                   - id
                   - state
@@ -408,11 +436,13 @@ paths:
                   - cluster_display_name
                   - cluster_metal
                   - replicas
+                  - version
                   - parameters
                   - previous_cluster_name
                   - previous_cluster_display_name
                   - previous_cluster_metal
                   - previous_replicas
+                  - previous_version
                   - previous_parameters
                   - minimum_storage_bytes
                   - maximum_storage_bytes
@@ -428,6 +458,7 @@ paths:
                   - previous_storage_type
                   - previous_storage_iops
                   - previous_storage_throughput_mibs
+                  - confirm_shrink
         '204':
           description: No changes to apply
           headers: {}
@@ -518,7 +549,9 @@ components:
             organization:manage_read_only_passwords: >-
               Read, write, and delete read only branch passwords in an
               organization
+            organization:manage_sso: Enable, configure, and disable organization SSO
             organization:promote_branches: Promote branches in an organization
+            organization:read_audit_logs: Read organization audit logs
             organization:read_backups: Read backups in an organization
             organization:read_branches: Read branches in an organization
             organization:read_comments: Read deploy request comments in an organization
@@ -527,6 +560,7 @@ components:
             organization:read_invoices: Read organization invoices
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
+            organization:read_payment_method: Read organization payment method
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
               Restore production branch backups to new branches in an
@@ -538,6 +572,7 @@ components:
             organization:write_deploy_requests: Create and update deploy requests in an organization
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
+            organization:write_payment_method: Update and delete the organization payment method
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user

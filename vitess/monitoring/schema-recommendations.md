@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
 
 Schema recommendations uses query-level telemetry to generate tailored recommendations in the form of DDL statements that can be applied directly to a database branch and then deployed to production.
 
-Schema recommendations are also available through the [PlanetScale MCP server](../../connect/mcp.md). AI coding agents can evaluate and implement recommendations on a recurring schedule; see [automated database optimization](../../connect/self-improving-database.md).
+Schema recommendations are also available through the [PlanetScale MCP server](../../mcp-server.md). AI coding agents can evaluate and implement recommendations on a recurring schedule; see [automated database optimization](../../self-improving-database.md).
 
 If you are a PlanetScale Enterprise customer, please get in touch with your account manager to learn how you can fully benefit from schema recommendations.
 

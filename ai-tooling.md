@@ -1,9 +1,9 @@
 ---
-url: https://planetscale.com/docs/connect/ai-tooling
+url: https://planetscale.com/docs/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Agent setup prompt
@@ -23,7 +23,7 @@ pscale auth check --format json
 
 Upgrade with `brew upgrade pscale` if `agent-guide` is unknown.
 
-See [CLI agent-guide](../cli/agent-guide.md) for the JSON response fields.
+See [CLI agent-guide](cli/agent-guide.md) for the JSON response fields.
 
 ## PlanetScale MCP Server
 
@@ -64,7 +64,7 @@ cd skills && script/setup
 npx skills add planetscale/skills -g -y
 ```
 
-Load **`14-pscale-cli-automation`** for CLI conventions and **`00-safe-orchestrator`** for a full PlanetScale assessment. See the [skills README](https://github.com/planetscale/skills) for usage and the Class A–E safety model.
+Load **`planetscale-pscale-cli-automation`** for CLI conventions and **`planetscale-safe-orchestrator`** for a full PlanetScale assessment. See the [skills README](https://github.com/planetscale/skills) for usage and the Class A–E safety model.
 
 ## Database Skills (MySQL / Vitess query patterns)
 

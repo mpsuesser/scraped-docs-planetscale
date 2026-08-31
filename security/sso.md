@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/sso
 title: "Sso"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -11,6 +11,8 @@ current_date: 2026-08-03T19:45:59.089Z
 Users only need to sign in once with a single set of credentials *(i.e. password and email)* to access all of their tools and applications upon joining the company.
 
 Furthermore, SSO allows an administrator to revoke someone’s access to all tools and applications from a single place when they leave a team or the company. PlanetScale uses SAML SSO.
+
+You can also enable and manage organization SSO from the [PlanetScale CLI](../cli/org.md).
 
 SSO is available as an *add-on* for the [Base plan](../planetscale-plans.md#base-plan) at $199/month per organization and included in our [Enterprise plans](../planetscale-plans.md#enterprise-plan). Security is important to us, so we do not profit off of SSO. We only charge enough to cover the WorkOS cost for enrolling a new account.
 
@@ -35,7 +37,7 @@ If you enable SSO and Directory Sync, the Directory will remain the source of tr
 
 ## Domain verification
 
-Verify ownership of each email domain your organization uses for SSO. Users can sign in through SSO only when their email address uses a verified domain.
+Verify ownership of each email domain your organization uses for SSO. Users can sign in through SSO only when their email address uses a verified domain. You can start verification from the dashboard or with `pscale org sso domain verify`.
 
 The **Configure single sign-on** button stays disabled until at least one domain is verified.
 
@@ -53,7 +55,7 @@ If you delete a verified domain, users with email addresses on that domain can n
 
 ## Enable SSO for your organization
 
-To enable SSO for your organization, you must be an [Organization Administrator](access-control.md). Organization administrators can *enable*, *configure*, and *disable* SSO for all members of your organization.
+To enable SSO for your organization, you must be an [Organization Administrator](access-control.md). Organization administrators can *enable*, *configure*, and *disable* SSO for all members of your organization in the dashboard or with [`pscale org sso`](../cli/org.md).
 
 You also have the option to manage PlanetScale roles through your identity provider’s SSO profile. Just check the box next to that message on the settings page to enable.
 
@@ -73,7 +75,7 @@ Should a user lose access to the email address associated with that organization
 
 ## Directory Sync
 
-We also support the use of Directory Sync with SSO. You can use Directory Sync to make the directory the source of truth for organization membership.
+We also support the use of Directory Sync with SSO. You can use Directory Sync to make the directory the source of truth for organization membership. You can open the directory setup portal with `pscale org sso directory enable`.
 
 ### Enable Directory Sync
 

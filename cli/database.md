@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The database command
 
-This command allows you to create, read, update, delete, dump, and restore databases, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler and aggressive cutover.
+This command allows you to create, read, update, delete, dump, and restore databases, list available regions and Vitess read-only regions, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler and aggressive cutover.
 
 **Usage:**
 
@@ -36,6 +36,8 @@ pscale database <SUB-COMMAND> <FLAG>
 | `ip-restriction update <DATABASE_NAME> <ENTRY_ID>` | `--cidrs <CIDR>`, `--schema <SCHEMA>`, `--role <ROLE>`, `--description <TEXT>` | Update an IP restriction entry | Postgres |
 | `ip-restriction delete <DATABASE_NAME> <ENTRY_ID>` | `--force` | Delete an IP restriction entry | Postgres |
 | `list <DATABASE_NAME>` |  | List all databases in the current org | Postgres, Vitess |
+| `read-only-regions list <DATABASE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List Vitess read-only regions for the database’s default branch | Vitess |
+| `regions list <DATABASE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List regions available to a database for its engine | Postgres, Vitess |
 | `restore-dump <DATABASE_NAME> <BRANCH_NAME>` | `--dir <DIRECTORY_NAME>` \*, `--local-addr <ADDRESS>`, `--overwrite-tables`, `--threads <NUMBER_OF_THREADS> (defaults to 1)`, `--allow-different-destination`, `--show-details`, `--schema-only`, `--data-only`, `--starting-table <STARTING_TABLE>`, `--ending-table <ENDING_TABLE>` | Restore the specified database from a local dump directory | Postgres, Vitess |
 | `show <DATABASE_NAME>` | `--web` | Retrieve information about a database | Postgres, Vitess |
 | `throttler show <DATABASE_NAME>` |  | Show database-level Vitess migration throttler configuration | Vitess |
@@ -76,6 +78,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--min-storage` | Minimum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
 | `--max-storage` | Maximum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
 | `--force` | Skip confirmation for destructive actions. | `delete`, `ip-restriction delete` |
+| `--page <NUMBER>` | Page of results to fetch. | `regions list`, `read-only-regions list` |
+| `--per-page <NUMBER>` | Number of results per page. | `regions list`, `read-only-regions list` |
 | `--cidrs <CIDR>` | IPv4 CIDR ranges to allow. Repeatable or comma-separated. Required on create; replaces the existing list on update. | `ip-restriction create`, `ip-restriction update` |
 | `--schema <SCHEMA>` | Postgres schema to restrict. Omit (or empty on update) for all schemas. | `ip-restriction create`, `ip-restriction update` |
 | `--role <ROLE>` | Postgres role to restrict. Omit (or empty on update) for all roles. | `ip-restriction create`, `ip-restriction update` |
@@ -218,7 +222,16 @@ For Vitess databases with [read-only regions](../vitess/scaling/read-only-region
 pscale database dump <DATABASE_NAME> <BRANCH_NAME> --read-only-region eu-west
 ```
 
-Pass a region slug, display name, or id. List configured regions with `pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>`.
+Pass a region slug, display name, or id. List configured regions with `pscale database read-only-regions list <DATABASE_NAME>` or `pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>`.
+
+### List available regions
+
+`database regions list` returns regions available to that database for its engine. `database read-only-regions list` returns configured Vitess read-only regions for the database’s default branch and is rejected for PostgreSQL databases.
+
+```shellscript
+pscale database regions list <DATABASE_NAME>
+pscale database read-only-regions list <DATABASE_NAME>
+```
 
 ### Update database settings
 

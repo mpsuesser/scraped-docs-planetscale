@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Getting Started
@@ -32,6 +32,9 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | --- | --- | --- |
 | `queries` | Postgres, Vitess | List top queries ranked by a performance metric |
 | `queries samples` | Postgres, Vitess | List recent executions for a query fingerprint |
+| `queries show` | Postgres, Vitess | Show one query execution by sample ID |
+| `queries summary` | Postgres, Vitess | Show aggregate statistics for a query fingerprint |
+| `queries traffic-budgets` | Postgres, Vitess | List traffic budgets that affect a query fingerprint |
 | `errors` | Postgres, Vitess | List queries that are failing with errors |
 | `errors show` | Postgres, Vitess | List the individual query executions that failed with an error fingerprint |
 | `anomalies` | Postgres, Vitess | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
@@ -40,6 +43,7 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | `tags show` | Postgres, Vitess | Show a query tag key and its values |
 | `tags summaries` | Postgres, Vitess | List query statistics grouped by tag keys |
 | `recommendations` | Postgres, Vitess | List schema recommendations with ready-to-apply DDL |
+| `recommendations show` | Postgres, Vitess | Show one schema recommendation and its full DDL |
 | `recommendations dismiss` | Postgres, Vitess | Dismiss a schema recommendation |
 
 ### Available flags
@@ -101,6 +105,52 @@ pscale insights queries samples <database> <branch> <fingerprint> --org <org> --
 
 ```shellscript
 pscale insights queries samples <database> <branch> <fingerprint> --org <org> --keyspace <keyspace> --format json
+```
+
+`queries show` takes an individual execution/sample `id` from `queries samples`. `queries samples` and `queries summary` take a query `fingerprint`. These identifiers are not interchangeable.
+
+### The queries show sub-command
+
+Show one query execution using an ID returned by `pscale insights queries samples`.
+
+```shellscript
+pscale insights queries show <database> <branch> <query-id> --org <org>
+```
+
+### The queries summary sub-command
+
+Show aggregate statistics for a fingerprint from `pscale insights queries`. `--keyspace` is required (use the keyspace column from the queries list).
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--keyspace <name>` | Keyspace for the fingerprint (required; from `insights queries`) |
+| `--period <duration>` | Named time period to summarize (for example `1h`, `12h`, or `1d`) |
+| `--from <timestamp>` | Start of a custom time range as an ISO 8601 timestamp (use with `--to`) |
+| `--to <timestamp>` | End of a custom time range as an ISO 8601 timestamp (use with `--from`) |
+
+`--period` cannot be combined with `--from` and `--to`. Both range flags must be set together.
+
+```shellscript
+pscale insights queries summary <database> <branch> <fingerprint> --org <org> --keyspace <keyspace>
+pscale insights queries summary <database> <branch> <fingerprint> --org <org> --keyspace <keyspace> --period 1h
+```
+
+### The queries traffic-budgets sub-command
+
+List traffic budgets that affect a query fingerprint. Pass `--keyspace` from the queries list. The command is paginated; pass `--page` for the next page instead of walking every page automatically.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--keyspace <name>` | Keyspace for the fingerprint (from `insights queries`) |
+| `--page <n>` | Page of results to fetch. |
+| `--per-page <n>` | Number of results per page. Default: `25`. |
+
+```shellscript
+pscale insights queries traffic-budgets <database> <branch> <fingerprint> --org <org> --keyspace <keyspace>
 ```
 
 ### The errors sub-command
@@ -217,6 +267,14 @@ pscale insights recommendations <database> --org <org> <FLAG>
 
 ```shellscript
 pscale insights recommendations <database> --org <org> --format json
+```
+
+#### recommendations show
+
+Show a single schema recommendation, including the full ready-to-apply DDL. `<number>` is the recommendation sequence number from `pscale insights recommendations`, the same value used by `recommendations dismiss`.
+
+```shellscript
+pscale insights recommendations show <database> <number> --org <org>
 ```
 
 #### recommendations dismiss

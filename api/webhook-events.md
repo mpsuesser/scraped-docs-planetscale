@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -32,6 +32,8 @@ All webhooks from PlanetScale will have an `X-PlanetScale-Signature` header. Thi
 | [Branch ready](#branch-ready) | `branch.ready` | The branch is created and ready to connect. |
 | [Branch sleeping](#branch-sleeping) | `branch.sleeping` | The branch is now sleeping. |
 | [Branch start maintenance](#branch-start-maintenance) | `branch.start_maintenance` | A production branch is about to start maintenance. |
+| [Backup failed](#backup-failed) | `backup.failed` | A backup has failed. |
+| [Backup succeeded](#backup-succeeded) | `backup.succeeded` | A backup has completed successfully. |
 | [Cluster storage](#cluster-storage) | `cluster.storage` | A Postgres database has reached a storage threshold (60%, 75%, 85%, 90%, 95%). |
 | [Database access request](#database-access-request) | `database.access_request` | PlanetScale staff opens an access request. |
 | [Deploy request opened](#deploy-request-opened) | `deploy_request.opened` | The deploy request has been opened. |
@@ -543,6 +545,118 @@ The `branch.start_maintenance` event uses the same response body as a `200` resp
       "current_default": false
     },
     "kind": "postgresql"
+  }
+}
+```
+
+### Backup failed
+
+A backup has failed. This event is sent for Vitess and Postgres databases.
+
+The `backup.failed` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
+
+**Example:**
+
+```json
+{
+  "timestamp": 1698252879,
+  "event": "backup.failed",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "k2n8pqw4x1yz",
+    "type": "Backup",
+    "name": "2026.08.27 15:04:05.123",
+    "state": "failed",
+    "size": 0,
+    "estimated_storage_cost": 0,
+    "created_at": "2026-08-27T15:04:05.123Z",
+    "updated_at": "2026-08-27T15:12:44.890Z",
+    "started_at": "2026-08-27T15:04:06.001Z",
+    "expires_at": "2026-09-26T15:04:05.123Z",
+    "completed_at": "2026-08-27T15:12:44.890Z",
+    "deleted_at": null,
+    "pvc_size": 0,
+    "uncompressed_size": 0,
+    "protected": false,
+    "required": true,
+    "restored_branches": [],
+    "actor": null,
+    "backup_policy": {
+      "id": "p0licy12abcd",
+      "type": "BackupPolicy",
+      "name": "production",
+      "target": "production",
+      "retention_value": 2,
+      "retention_unit": "day",
+      "frequency_value": 12,
+      "frequency_unit": "hour",
+      "schedule_time": "00:00",
+      "created_at": "2026-01-15T12:00:00.000Z",
+      "updated_at": "2026-01-15T12:00:00.000Z"
+    },
+    "schema_snapshot": null,
+    "database_branch": {
+      "id": "q9x7ylb3hcmx",
+      "type": "Branch",
+      "name": "main"
+    }
+  }
+}
+```
+
+### Backup succeeded
+
+A backup has completed successfully. This event is sent for Vitess and Postgres databases.
+
+The `backup.succeeded` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
+
+**Example:**
+
+```json
+{
+  "timestamp": 1698252879,
+  "event": "backup.succeeded",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "b4ckup98wxyz",
+    "type": "Backup",
+    "name": "2026.08.27 03:00:00.000",
+    "state": "success",
+    "size": 2147483648,
+    "estimated_storage_cost": 0.14,
+    "created_at": "2026-08-27T03:00:00.000Z",
+    "updated_at": "2026-08-27T03:18:22.441Z",
+    "started_at": "2026-08-27T03:00:01.102Z",
+    "expires_at": "2026-09-26T03:00:00.000Z",
+    "completed_at": "2026-08-27T03:18:22.441Z",
+    "deleted_at": null,
+    "pvc_size": 0,
+    "uncompressed_size": 5368709120,
+    "protected": false,
+    "required": true,
+    "restored_branches": [],
+    "actor": null,
+    "backup_policy": {
+      "id": "p0licy12abcd",
+      "type": "BackupPolicy",
+      "name": "production",
+      "target": "production",
+      "retention_value": 2,
+      "retention_unit": "day",
+      "frequency_value": 12,
+      "frequency_unit": "hour",
+      "schedule_time": "00:00",
+      "created_at": "2026-01-15T12:00:00.000Z",
+      "updated_at": "2026-01-15T12:00:00.000Z"
+    },
+    "schema_snapshot": null,
+    "database_branch": {
+      "id": "q9x7ylb3hcmx",
+      "type": "Branch",
+      "name": "main"
+    }
   }
 }
 ```

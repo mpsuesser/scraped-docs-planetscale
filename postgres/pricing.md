@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -17,6 +17,46 @@ Understanding the relationship between **databases**, **branches**, and **cluste
 **Each branch runs on its own dedicated cluster** and is billed separately based on its configuration and usage.
 
 There are no upfront commitments, and as you adjust your configuration or usage changes, pricing will automatically adjust from that point.
+
+## Query live prices with SQL
+
+Cluster SKU prices are available in a public, read-only Postgres table: `public.planetscale_prices`. You and your agent can query live prices with `SELECT`.
+
+The role can only `SELECT` on that table. SSL is required. Connect through PgBouncer:
+
+```text
+postgresql://pscale_api_hhdcchpiodja.dzken160d27q:pscale_pw_<PLANETSCALE_DATABASE_PASSWORD>@aws-us-east-1-3.pg.psdb.cloud:6432/postgres?sslmode=verify-full&sslrootcert=system
+```
+
+Each row is one priced cluster. Filter on `product` (`Postgres` or `Vitess`), `provider`, `region`, `machine_sku`, `replication_factor`, and `disk_sku` (empty string for `PS-*` network-attached SKUs). `price` is the monthly cluster cost in whole USD. It does not include extra storage, backups, egress, dedicated PgBouncers, or extra replicas.
+
+```sql
+-- Postgres, 3-node HA PS-160 ARM in us-east-1
+SELECT machine_sku, replication_factor, price
+FROM planetscale_prices
+WHERE product = 'Postgres'
+  AND machine_sku = 'PS-160-ARM'
+  AND provider = 'AWS'
+  AND region = 'us-east-1'
+  AND disk_sku = ''
+  AND replication_factor = 3;
+```
+
+```sql
+-- Vitess, 3-node HA PS-160 in us-east-1
+SELECT machine_sku, replication_factor, price
+FROM planetscale_prices
+WHERE product = 'Vitess'
+  AND machine_sku = 'PS-160'
+  AND provider = 'AWS'
+  AND region = 'us-east-1'
+  AND disk_sku = ''
+  AND replication_factor = 3;
+```
+
+Not every SKU exists in every region. If a query returns no rows, that configuration is not sold there. Do not invent a price. Vitess SKUs in this catalog are mostly x86; there is no `PS-160-ARM` Vitess row.
+
+Column meanings, more example queries, and an agent-friendly catalog are in [pricing.md](https://planetscale.com/pricing.md). The connection URI is also on the [pricing page](https://planetscale.com/pricing#pricing-database).
 
 For information on Vitess cluster pricing on the Base plan, see [Base plan cluster pricing](../plans/cluster-sizing.md).
 

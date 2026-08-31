@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_tablet_metrics
 title: "Get_tablet_metrics"
 description: ""
-access_date: 2026-08-18T22:12:50.459Z
-current_date: 2026-08-18T22:12:50.459Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 > ## Documentation Index
@@ -161,9 +161,21 @@ tags:
   - name: AuthAttemptExports
     description: |2
                   Resources for creating and downloading organization auth attempt exports.
+  - name: Billing payment method setup
+    description: |2
+                  Resources for adding an organization's payment method through hosted checkout.
+  - name: Billing payment method
+    description: |2
+                  Resources for managing an organization's payment method.
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: Organization SSO domains
+    description: |2
+                  Resources for listing and verifying organization email domains used for SSO.
+  - name: Organization SSO
+    description: |2
+                  Resources for enabling SSO, verifying email domains, and configuring an identity provider.
   - name: Team members
     description: |2
                   Resources for managing team memberships within an organization. Team members inherit access to databases assigned to their team.
@@ -223,7 +235,11 @@ paths:
             type: string
         - name: metrics
           in: query
-          description: Metric names to retrieve
+          description: >-
+            Metric names to retrieve. Pass as `metrics[]=name` (repeat for
+            multiple), `metrics=name`, or a comma-separated list
+            (`metrics=name,other`). Time range is `period` (for example `15m`)
+            or ISO 8601 `from`/`to`.
           style: form
           explode: false
           schema:
@@ -238,6 +254,7 @@ paths:
                 - pod_queries
                 - pod_rows_read
                 - pod_iops
+                - pod_ooms
                 - primary_cpu_usage
                 - primary_memory_usage
                 - primary_iops
@@ -321,7 +338,14 @@ paths:
                     type: array
                     items:
                       type: string
-                    description: The time-series metric data
+                required:
+                  - type
+                  - start_date
+                  - end_date
+                  - interval
+                  - series
+        '400':
+          description: Malformed metrics parameter
         '401':
           description: Unauthorized
         '403':
@@ -411,7 +435,9 @@ components:
             organization:manage_read_only_passwords: >-
               Read, write, and delete read only branch passwords in an
               organization
+            organization:manage_sso: Enable, configure, and disable organization SSO
             organization:promote_branches: Promote branches in an organization
+            organization:read_audit_logs: Read organization audit logs
             organization:read_backups: Read backups in an organization
             organization:read_branches: Read branches in an organization
             organization:read_comments: Read deploy request comments in an organization
@@ -420,6 +446,7 @@ components:
             organization:read_invoices: Read organization invoices
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
+            organization:read_payment_method: Read organization payment method
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
               Restore production branch backups to new branches in an
@@ -431,6 +458,7 @@ components:
             organization:write_deploy_requests: Create and update deploy requests in an organization
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
+            organization:write_payment_method: Update and delete the organization payment method
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user

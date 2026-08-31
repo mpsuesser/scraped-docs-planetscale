@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-08-20T20:04:23.877Z
-current_date: 2026-08-20T20:04:23.877Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -50,6 +50,8 @@ PlanetScale deploy request - changes on sharded keyspace
 ## Deploy a deploy request
 
 By default, deploy requests on a branch run through a **serial deploy queue**: only one deploy runs at a time, and later requests wait until earlier ones finish. When a queue is already running, you can also [deploy in parallel](#parallel-deployments) alongside it.
+
+A deploy that cannot lock the table is usually due to long-running transactions. See [Long-running transactions](long-running-transactions.md).
 
 ### Deploy changes
 

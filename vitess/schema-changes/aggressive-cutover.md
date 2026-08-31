@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover
 title: "Aggressive Cutover"
 description: ""
-access_date: 2026-08-13T20:06:54.622Z
-current_date: 2026-08-13T20:06:54.622Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Overview
@@ -11,6 +11,8 @@ current_date: 2026-08-13T20:06:54.622Z
 Cutover is the final step in an online schema migration where Vitess atomically swaps the original table with a newly created shadow table containing the updated schema. Completing the swap requires a brief metadata lock (MDL) on the table.
 
 Long-running queries or transactions holding locks on the table can prevent Vitess from acquiring the MDL, delaying cutover.
+
+Force cutover only applies after copy has finished. If the deploy failed while copying, see [Long-running transactions](long-running-transactions.md).
 
 ## Force cutover
 

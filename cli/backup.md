@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/backup
 title: "Backup"
 description: ""
-access_date: 2026-08-14T00:39:58.404Z
-current_date: 2026-08-14T00:39:58.404Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The backup command
 
-This command allows you to create, list, show, and delete [branch backups](../vitess/backups.md), and manage scheduled backup policies.
+This command allows you to create, list, show, update, and delete [branch backups](../vitess/backups.md), and manage scheduled backup policies.
 
 **Usage:**
 
@@ -34,6 +34,7 @@ pscale backup <SUB-COMMAND> <FLAG>
 | `policy delete <DATABASE_NAME> <POLICY_ID>` | `--force` | Delete a backup policy | Postgres, Vitess |
 | `restore <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` |  | Restore a backup to a new branch | Postgres, Vitess |
 | `show <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` |  | Show a specific backup of a branch | Postgres, Vitess |
+| `update <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` | `--protected` \* | Update a backup’s protected status | Postgres, Vitess |
 
 > \* *Flag is required*
 
@@ -51,6 +52,7 @@ pscale backup <SUB-COMMAND> <FLAG>
 | `--schedule-day` | Day of week (`0` =Sunday … `6` =Saturday); used for weekly/monthly schedules. | `policy create`, `policy update` |
 | `--schedule-week` | Week of month (`0` =first … `3` =fourth); used for monthly schedules. | `policy create`, `policy update` |
 | `--force` | Delete a backup policy without confirmation. | `policy delete` |
+| `--protected` | Protect the backup from deletion (`--protected=false` to disable). Required on `update`. | `update` |
 
 ### Available flags
 
@@ -124,6 +126,15 @@ pscale backup policy create <DATABASE_NAME> \
   --schedule-time 02:00
 pscale backup policy update <DATABASE_NAME> <POLICY_ID> --retention-value 14
 pscale backup policy delete <DATABASE_NAME> <POLICY_ID>
+```
+
+### Protect a backup from deletion
+
+`--protected` is required. Use `--protected=false` to turn protection off.
+
+```shellscript
+pscale backup update <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID> --protected
+pscale backup update <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID> --protected=false
 ```
 
 ## Need help?

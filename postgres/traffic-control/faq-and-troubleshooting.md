@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/faq-and-troubleshooting
 title: "Faq And Troubleshooting"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-08-31T07:29:59.083Z
+current_date: 2026-08-31T07:29:59.083Z
 ---
 
 ## Behavior and expectations
@@ -62,7 +62,7 @@ Consistently high violations for a key application workload suggest a mismatch b
 
 - The application’s normal behavior exceeds the resource budget limits, in which case you should adjust the resource budget; or
 - The application is issuing more or heavier queries than intended, in which case you should treat this as a performance issue.
-- Your queries might be poorly optimized, in which case you should inspect results in [Insights](../monitoring/query-insights.md) for more details, or debug queries with the [PlanetScale MCP Server](../../connect/mcp.md).
+- Your queries might be poorly optimized, in which case you should inspect results in [Insights](../monitoring/query-insights.md) for more details, or debug queries with the [PlanetScale MCP Server](../../mcp-server.md).
 - Your database may be under-provisioned, in which case you should consider [upgrading your cluster](../cluster-configuration.md) to a larger size.
 
 In any case, do not ignore sustained high violation counts for important workloads.
