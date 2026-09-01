@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/verify_workflow
 title: "Verify_workflow"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-08-31T23:54:49.109Z
+current_date: 2026-08-31T23:54:49.109Z
 ---
 
 > ## Documentation Index
@@ -645,7 +645,7 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://auth.planetscale.com/oauth/authorize
+          authorizationUrl: https://app.planetscale.com/oauth/authorize
           tokenUrl: https://auth.planetscale.com/oauth/token
           scopes:
             email: Read user email
