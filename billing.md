@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/billing
 title: "Billing"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -69,10 +69,6 @@ You may incur additional costs if your usage continues beyond the period, dollar
 You will see your coupon reflected in your monthly invoice. Go to “Settings” > “Billing” and select the invoice for the month(s) where your coupon was active. You will see a note at the top of the invoice similar to this:
 
 `Amount reflects your $xx.xx discount with code YOURCOUPONCODE`
-
-![PlanetScale dashboard - Example coupon factored into invoice](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/billing/coupons-in-invoices.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=0c98d2e1bf54a3b2f8891fc1df133388)
-
-PlanetScale dashboard - Example coupon factored into invoice
 
 ## Canceling your plan
 

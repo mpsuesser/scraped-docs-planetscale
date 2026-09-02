@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/safe-migrations
 title: "Safe Migrations"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Zero-downtime schema migrations
@@ -28,10 +28,6 @@ You can then open a deploy request against either the main production or “stag
 
 In this setup, the “staging” branch is still a development branch. Compared to your production branch, it will have reduced resources, similar to other development branches.
 
-![View of the Branches tab with main <- staging <- dev branches](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/safe-migrations/branches-with-staging-branch.jpg?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=0c84cdc17fefc7d1f4dbd70cd968a408)
-
-View of the Branches tab with main <- staging <- dev branches
-
 ## How to enable safe migrations
 
 Safe migrations can be enabled using the PlanetScale dashboard or the pscale CLI.
@@ -40,17 +36,9 @@ Safe migrations can be enabled using the PlanetScale dashboard or the pscale CLI
 
 To enable safe migrations on a branch, select the branch you want to modify from the branch dropdown and click the **”cog”** in the upper right of the infrastructure card on the ” **Dashboard** ” tab of the database.
 
-![The production branch UI card.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/safe-migrations/production-branch-card-with-sm-disabled-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=34c93062424788c67cab496f45d84b7a)
-
-The production branch UI card.
-
 In the modal, toggle the option labeled **”Enable safe migrations”**, then click the **”Enable safe migrations”** button to save and close the modal.
 
 The UI card will reflect the status of the safe migrations for that branch.
-
-![Branch UI card with safe migrations enabled.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/safe-migrations/production-branch-card-with-sm-enabled-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=e4f9a7f164c6af0c4b81978378bc050f)
-
-Branch UI card with safe migrations enabled.
 
 You can also access the same settings from the **”cog”** on a branch overview page (from the **”Branches”** tab, then select the branch you want to view or modify).
 
@@ -69,10 +57,6 @@ There are two ways to disable safe migrations: the PlanetScale dashboard and the
 ### Using the PlanetScale dashboard
 
 To disable safe migrations, click the **”cog”** in the upper right of the infrastructure card on the ” **Dashboard** ” tab of the database.
-
-![Branch UI with enabled with cog highlighted.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/safe-migrations/prod-card-cog-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=e36d1f707a86c75577f47f7d2602f42b)
-
-Branch UI with enabled with cog highlighted.
 
 In the modal, toggle the option labeled **”Enable safe migrations,”** then click the **”Disable safe migrations”** button to save and close the modal.
 

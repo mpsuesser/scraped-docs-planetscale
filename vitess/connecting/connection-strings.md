@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/connecting/connection-strings
 title: "Connection Strings"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Postgres
@@ -27,10 +27,6 @@ Make sure you copy the credentials for your application and the “Other” form
 Once you’ve created the password, you can head over to the “ **Passwords** ” settings page available at `Organization > Database > Settings > Passwords` to manage them.
 
 You can also create passwords for branches other than `main` on this page.
-
-![Manage passwords page](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/connection-strings/manage-2.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=6aa408edd609ad877295b6c73c45d303)
-
-Manage passwords page
 
 Clicking on the `...` icon on the row for your password allows you rename or delete the password.
 

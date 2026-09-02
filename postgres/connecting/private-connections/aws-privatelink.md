@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink
 title: "Aws Privatelink"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 [AWS PrivateLink](https://aws.amazon.com/privatelink/) is a highly available, scalable technology that enables you to privately connect your VPC to supported AWS services, VPC endpoint services, and AWS Marketplace partner services.
@@ -49,9 +49,6 @@ For current pricing in your region, see the [AWS PrivateLink pricing page](https
 		3. Select **Roles**
 		4. Click on a role with permissions to the relevant `Branch`
 		5. Copy the `Private Host` and `Private Service Name` from the role details
-![Private connection strings](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/aws-private-host-names.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=d947f955316088c50bfb22745dc94efe)
-
-Private connection strings
 
 Save these two attributes for your records and the rest of the configuration.
 
@@ -91,30 +88,14 @@ Both the `Private Host` and `Private Service Name` values are the same for all r
 	1. Confirm you are in the proper `<aws-region>` from the dropdown on the top right
 		2. In the search field at the top left enter “Endpoints”.
 		3. Click the link listed as a **VPC Feature**.
-	![Endpoint search](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/endpoint-search.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=4c0fc90daffb113828b68b759518c6f8)
-	Endpoint search
 3. **Create a new endpoint**: Click “ **Create Endpoint** ”.
-	![Create a new endpoint](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/create-new-endpoint.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a1957dd7119e4016a5b5ee664b2b8973)
-	Create a new endpoint
 4. **Select endpoint type**: Choose “Endpoint services that use NLBs and GWLBs”.
-	![Menu to select endpoint type](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/type-of-endpoint.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=c8dbdb40ce2e0f70f05c6003712e7dd1)
-	Menu to select endpoint type
 5. **Enter service name**: Enter in the “Service name” text box the `Private Service Name` retrieved from the PlanetScale dashboard. Click “ **Verify service** ” to confirm the service exists.
-	![Endpoint service name and verification](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/verified-endpoint.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=d1982301906d2aec53e49f2bf8eac174)
-	Endpoint service name and verification
 6. **Configure VPCs**: Choose the VPC that should have access to the PlanetScale service endpoint.
 7. **Enable DNS names**: Click the “Additional settings” dropdown arrow to reveal DNS configuration options, and select the “ **Enable DNS name** ” checkbox.
 8. **Configure Subnets**: Choose the subnets that should have endpoint interfaces for the PlanetScale service endpoint. It is recommended that you select at least 2. You should select subnets that your application servers have access to.
-![Subnets](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/network-subnets-config.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=f403e28b00d1c9a21970fd2231674546)
 9. **Configure security groups**: Choose the appropriate security group to control which resources can send traffic to the PlanetScale service endpoint. Use the one created earlier if you created one for this purpose.
-![Security Groups](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/security-groups.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=0c212f505c8237537dc65f8a0f26ee83)
-
-Security Groups
-
 10. **Create the endpoint**: Click “ **Create endpoint** ” and wait for the VPC endpoint status to show “Available” (this may take several minutes).
-![Available Endpoint](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/available-endpoint.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=c04c24a43958701069bb7554258b43ae)
-
-Available Endpoint
 
 ## Verifying your VPC endpoint connectivity
 

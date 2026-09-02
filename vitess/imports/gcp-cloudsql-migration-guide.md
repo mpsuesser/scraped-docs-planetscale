@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide
 title: "Gcp Cloudsql Migration Guide"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -22,15 +22,7 @@ Before you can perform a migration, gather the following information from the GC
 - **Database name** - The name of the database you want to import
 - **Root username and password** - You’ll need these to create the migration user
 
-![The GCP Cloud SQL console with the IP address highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-ip-address.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=99e852a2d99299c14cdf1350bd3729ab)
-
-The GCP Cloud SQL console with the IP address highlighted.
-
 A list of your databases can be found in the **Databases** tab. In this guide, we’ll be using the `prod` database.
-
-![The Databases list in the GCP console.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-databases.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=9095e921daf061354c09798e02c2f6bb)
-
-The Databases list in the GCP console.
 
 ## Create a migration user
 
@@ -78,10 +70,6 @@ For PlanetScale to connect to your database, you’ll need to update the Authori
 
 See the [Import public IP addresses](import-tool-migration-addresses.md) page for more details on where to find these IP addresses in the workflow. To permit traffic from these IP addresses to your database in GCP, select **Connections** from the navigation on the left. Under **Authorized networks**, click “ **Add network** ”. This will display an inline form for you to add a network. The name of the field is arbitrary, but the **Network** field should contain the IP address that needs access to your database. Click “ **Done** ” to add the new entry. Perform this step for each IP address for the selected region, then click “ **Save** ” to apply the settings.
 
-![The form to add a new authorized network in the GCP console.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-networking.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=8698060bf4f771dda3af9b20c7ba01f4)
-
-The form to add a new authorized network in the GCP console.
-
 ## Configure MySQL server settings
 
 Certain MySQL server settings may need to be changed before you can begin the import. The initial connection test will fail if these settings are not configured correctly.
@@ -94,17 +82,9 @@ You want to select the “ **binlog\_expire\_logs\_seconds** ” flag and set it
 
 Make sure to select the “ **Done** ” button.
 
-![The form to set MySQL flags.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-set-flags.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=ac3fc3a5f07de3f8cda478b6152a6149)
-
-The form to set MySQL flags.
-
 - log\_bin
 
 If `log_bin` is set to OFF you may need to [enable Point in Time Recovery (PITR)](https://cloud.google.com/sql/docs/mysql/backup-recovery/pitr#enablingpitr) from the GCP console to start binary logging.
-
-![The form to set enable point in time recovery.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-enable-pitr.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=7f94caa0babcb84f344723e6ab6791e7)
-
-The form to set enable point in time recovery.
 
 ## Importing your database
 

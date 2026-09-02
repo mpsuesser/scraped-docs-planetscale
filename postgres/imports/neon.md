@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/neon
 title: "Neon"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
@@ -26,25 +26,13 @@ Create a new database in the [PlanetScale dashboard](https://app.planetscale.com
 - This guide assumes you are migrating from a Neon database, so also choose the Postgres option in PlanetScale.
 - Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](../../metal.md). For applications that need more flexible storage options or smaller compute instances, choose “Elastic Block Storage” or “Persistent Disk.”
 
-![Create a new PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=14b7879471576772f73188e9eb6de428)
-
-Create a new PlanetScale Postgres database
-
 Once the database is created and ready, navigate to your dashboard and click the “Connect” button.
-
-![Connect to a PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=e0b93dea71e300b4c90d09d083079637)
-
-Connect to a PlanetScale Postgres database
 
 From here, follow the instructions to create a new default role. This role will act as your admin role, with the highest level of privileges.
 
 Though you may use this one for your migration, we recommend you use a separate role with lesser privileges for your migration and general database connections.
 
 To create a new role, navigate to the [Role management page](../connecting/roles.md) in your database settings. Click “New role” and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
-
-![New Postgres role privileges](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image3.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=366687049d96e06fe0c1698a8ae6bc05)
-
-New Postgres role privileges
 
 Copy the password and all other connection credentials into environment variables for later use:
 
@@ -57,15 +45,7 @@ PLANETSCALE_DBNAME=postgres
 
 We also recommend that you increase `max_worker_processes` for the duration of the migration, in order to speed up data copying. Go to the “Parameters” tab of the “Clusters” page:
 
-![Configure parameters](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image4.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=e502fd27587a995e215d6f466ac31d95)
-
-Configure parameters
-
 On this page, increase this value from the default of `4` to `10` or more:
-
-![Configure max worker processes](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image5.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=84cc43801ae8eda2136971faca644a51)
-
-Configure max worker processes
 
 You can decrease these values after the migration is complete.
 
@@ -74,10 +54,6 @@ You can decrease these values after the migration is complete.
 If you are importing into a database backed by network-attached storage, you must configure your disk in advance to ensure your database will fit. Though we support disk autoscaling for these, AWS and GCP limit how frequently disks can be resized. If you don’t ensure your disk is large enough for the import in advance, it will not be able to resize fast enough for a large data import.
 
 To configure this, navigate to “Clusters” and then the “Storage” tab:
-
-![Storage configuration min size](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/storage-configuration-min-size.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=f4b30c296771178d8a8e8d0ed096da58)
-
-Storage configuration min size
 
 On this page, adjust the “Minimum disk size.” You should set this value to at least 150% of the size of the database you are migrating. For example, if the database you are importing is 330 GB, you should set your minimum disk size to at least 500 GB.
 
@@ -88,19 +64,11 @@ The 50% overhead is to account for:
 
 When ready, queue and apply the changes. You can check the “Changes” tab to see the status of the resize:
 
-![Confirm disk size change](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/confirm-disk-size-change.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=5c7afaf953bbd7ec7ac0e82ed220a75d)
-
-Confirm disk size change
-
 Wait for it to indicate completion.
 
 If you are importing to a Metal database, you must choose a disk size when first creating your database. You should launch your cluster with a disk size at least 50% larger than the storage used by your current source database (150% of the existing total).
 
 As an example, if you need to import a 330 GB database onto a PlanetScale `M-160` there are three storage sizes available:
-
-![Metal disk size](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/metal-disk-size.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a4bb2ac32cdbcd18ec686875681ab59d)
-
-Metal disk size
 
 You should use the largest, 1.25TB option during the import. After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option. Resizing is a no-downtime operation that can be performed on the [clusters](../cluster-configuration.md) page.
 
@@ -108,17 +76,9 @@ You should use the largest, 1.25TB option during the import. After importing and
 
 You will need to enable logical replication to use this import guide. To do so, go to the settings page in your Neon project:
 
-![Neon dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/neon-dashboard-darkmode.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=c9d8a9739be1f83bd702704d20619216)
-
-Neon dashboard
-
 Navigate to the “Logical Replication” section and ensure it is enabled.
 
 Note the warnings in the Neon dashboard. Changing this setting will sever all existing connections and restart all computes.
-
-![Neon logical replication](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/neon-logical-replication-darkmode.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=cc1331752310903103b76a982e4535b4)
-
-Neon logical replication
 
 You can confirm that the `wal_level` is set to `logical` by running `SHOW wal_level;` on your Neon database:
 
@@ -133,15 +93,7 @@ If you see a result other than `logical`, then it is not configured correctly. O
 
 For these instructions, you’ll need to connect to Neon with a role that has permissions to create replication publications and read all data. Your default role that was generated by Neon when you first created your database should suffice here. To get these connection credentials to use for the migration, click on the “Connect” button from your project dashboard:
 
-![Neon dashboard connect](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/neon-dashboard-connect-darkmode.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=360c98e210636d5af7582212779abd36)
-
-Neon dashboard connect
-
 In the connection modal that appears, ensure you have “connection pooling” disabled.
-
-![Neon connect](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/neon-connect-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=06440671120d1810380b1f806eb62e4c)
-
-Neon connect
 
 The credentials displayed here are the ones you can use for the migration. For the rest of this guide, we’ll assume these are saved into the following environment variables:
 

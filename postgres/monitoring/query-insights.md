@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -19,10 +19,6 @@ With this built-in tool, you can easily diagnose issues with your queries, allow
 To view Insights for your database, head to the [PlanetScale dashboard](https://app.planetscale.com/), select your database, and click the “ **Insights** ” tab.
 
 The dropdown on the top left lets you select which branch you want to analyze. You can also choose which servers you want to view insights for: primary or replicas.
-
-![PlanetScale Insights overview page](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/monitoring/query-insights-overview.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=c2b740258ace6f479fe9e10d826387bf)
-
-PlanetScale Insights overview page
 
 You can click the dates listed above the graph to scroll through the past seven days. To further narrow down query analysis, you can select a time range by clicking on the graph and dragging the cursor across. This will zoom in on the selected timeframe.
 

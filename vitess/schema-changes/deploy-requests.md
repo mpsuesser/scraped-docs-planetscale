@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -13,10 +13,6 @@ Database branching, coupled with deploy requests, allows you to **deploy non-blo
 ## Create a deploy request
 
 Before you can create a deploy request, the branch you are merging into must have [safe migrations](safe-migrations.md) enabled.
-
-![Example of deploy request on branch page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/deploy-requests/deploy-request-page-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=ef2ac069a782ed847ee67de18da4ed25)
-
-Example of deploy request on branch page
 
 ## Review a deploy request
 
@@ -42,10 +38,6 @@ If the deploy request is already in the deploy queue when the schema changes are
 ### Reviewing changes across shards
 
 If your deploy request contains changes to a sharded keyspace, you can see the affected shards by clicking the arrow next to each changed table. This will show the SQL that will run, and in the next tab, each shard that will be affected.
-
-![PlanetScale deploy request - changes on sharded keyspace](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/deploy-requests/sharded-deploy-request.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=d7808adb5c714da06cf9bc7d0738989d)
-
-PlanetScale deploy request - changes on sharded keyspace
 
 ## Deploy a deploy request
 
@@ -131,10 +123,6 @@ The following changes are examples of changes that are **not** instantly deploya
 - Updating a column to `NULL` or `NOT NULL`
 
 To know whether or not a deploy request is instantly deployable, look for the “Instantly deployable” badge on your deploy request. This badge will only be visible on deploy requests that can be deployed instantly.
-
-![PlanetScale deploy request - deploy instantly badge](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/deploy-requests/deploy-instantly.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=783d1d4de4360405677e8f69f1d739d6)
-
-PlanetScale deploy request - deploy instantly badge
 
 We recommend reading [MySQL’s Online DDL documentation](https://dev.mysql.com/doc/refman/en/innodb-online-ddl-operations.html) for the full list of operations that can be deployed instantly.
 

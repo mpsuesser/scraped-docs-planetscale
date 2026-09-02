@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/pgbouncer
 title: "Pgbouncer"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## When to use PgBouncer
@@ -49,16 +49,8 @@ You must be a database or organization administrator to create PgBouncers.
 4. Select the **PgBouncers** tab
 5. Scroll down to the “ **Dedicated replica PgBouncers** ” section
 6. Click the “ **Add a replica PgBouncer** ” button
-![Dedicated replica PgBouncer](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/dedicated-replica-pgbouncer-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=46dd6bbbf3009f02c682dca35ab55a28)
-
-Dedicated replica PgBouncer
-
 7. In the pop-up dialog, give the new PgBouncer a descriptive name. Note that names can not be modified after creation.
 8. Select a size based on your connection pooling needs (see [PgBouncer pricing](../pricing.md#pgbouncer-pricing) for available sizes)
-![Create a PgBouncer](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/create-pgbouncer-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=5131ba376623c3360d2564ee4282cf8f)
-
-Create a PgBouncer
-
 9. Click “ **Create PgBouncer** ”
 10. Wait a few minutes for the creation to complete
 
@@ -117,10 +109,6 @@ psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
 ## Configuring PgBouncers
 
 Each PgBouncer on the “PgBouncers” tab can be individually configured with a section like this under each PgBouncer:
-
-![Configure a PgBouncer](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/pgbouncer-settings-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=f3e37ce699290344a8c69fd26fd0581d)
-
-Configure a PgBouncer
 
 The basic settings are at the top, with advanced settings available as an option. Adjusting advanced settings is not recommended unless there is a good understanding of how PgBouncer works.
 

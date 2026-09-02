@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/vantage
 title: "Vantage"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 After integrating, you can create [cost reports](https://docs.vantage.sh/cost_reports) to break down costs per database and branch.
@@ -26,10 +26,6 @@ PlanetScale data refreshes daily in Vantage.
 ## View PlanetScale costs in Vantage
 
 In Vantage, you can create cost reports to drill down into your costs. Vantage displays PlanetScale costs by Organization, Service, Category, and Resource.
-
-![Image of a PlanetScale Cost Report in Vantage showing costs per database](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/integrations/vantage/vantage-console.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=986bf10d22180bc5c9047600caf39db3)
-
-Image of a PlanetScale Cost Report in Vantage showing costs per database
 
 In the graphic above, PlanetScale costs are grouped by database for the month. For complete cost reporting dimensions and more information, see the [PlanetScale documentation](https://docs.vantage.sh/connecting_planetscale) for Vantage.
 

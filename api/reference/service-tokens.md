@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -43,8 +43,6 @@ The token is generated immediately after the service token is created.
 
 Copy this value to use as `SERVICE_TOKEN`.
 
-![Modal showing service token ID and token secret](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/reference/ef1a137-new-service-token.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=035d9d0bb3b91bd1e4e3938e085e299c)
-
 Modal showing service token ID and token secret
 
 ## Access permissions
@@ -53,9 +51,7 @@ You can access your specific service token page from your organization’s **Set
 
 Service tokens are configured with granular permissions for both organizations and databases access. On the page for your specific service token you can add one or many of the following permissions.
 
-![Showing the UI for organization and database access with buttons to add what access permissions](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/reference/858081d-service-token-accesses.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=69bf65b208034fd66f2b3b1291d7f96e)
-
-Showing the UI for organization and database access with buttons to add what access permissions
+Showing the UI for organization and database access with buttons to add what access permissions.
 
 Please note that you may only add service token accesses that you are also authorized to do. For example, as an organization member, you can’t create a service token with `create_databases` access.
 

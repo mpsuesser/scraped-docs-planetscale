@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/supabase
 title: "Supabase"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
@@ -29,25 +29,13 @@ Create a new database in the [PlanetScale dashboard](https://app.planetscale.com
 - Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](../../metal.md). For applications that need more flexible storage options or smaller compute instances, choose “Elastic Block Storage” or “Persistent Disk.”
 - Choose between aarch64 and x86-64 architecture. If you don’t know which to choose, `aarch64` is a good default choice.
 
-![Create a new PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=d57abfcd9e5c0298b8d0792a34d9d96e)
-
-Create a new PlanetScale Postgres database
-
 Once the database is created and ready, navigate to your dashboard and click the “Connect” button.
-
-![Connect to a PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/migration-dashboard-connect.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=ff02c0d20735f7e5533f6399d4758017)
-
-Connect to a PlanetScale Postgres database
 
 From here, follow the instructions to create a new default role. This role will act as your admin role, with the highest level of privileges.
 
 Though you may use this one for your migration, we recommend you use a separate role with lesser privileges for your migration and general database connections.
 
 To create a new role, navigate to the [Role management page](../connecting/roles.md). Click “New role” and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
-
-![New Postgres role privileges](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image3.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=85c997f69697d2739e7089dd24df6dba)
-
-New Postgres role privileges
 
 Copy the password and all other connection credentials into environment variables for later use:
 
@@ -60,15 +48,7 @@ PLANETSCALE_DBNAME=postgres
 
 We also recommend that you increase `max_worker_processes` for the duration of the migration in order to speed up data copying. Go to the “Parameters” tab of the “Clusters” page:
 
-![Configure parameters](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image4.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=8137047b599e82dd67f97e1102a3fc68)
-
-Configure parameters
-
 On this page, increase this value from the default of `4` to `10` or more:
-
-![Configure max worker processes](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image5.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=5ebab1ddd19b9555b76c22a2c6001f43)
-
-Configure max worker processes
 
 You can decrease these values after the migration is complete.
 
@@ -77,10 +57,6 @@ You can decrease these values after the migration is complete.
 If you are importing into a database backed by network-attached storage, you must configure your disk in advance to ensure your database will fit. Though we support disk autoscaling for these, AWS and GCP limit how frequently disks can be resized. If you don’t ensure your disk is large enough for the import in advance, it will not be able to resize fast enough for a large data import.
 
 To configure this, navigate to “Clusters” and then the “Storage” tab:
-
-![Storage configuration min size](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/storage-configuration-min-size.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=f4b30c296771178d8a8e8d0ed096da58)
-
-Storage configuration min size
 
 On this page, adjust the “Minimum disk size.” You should set this value to at least 150% of the size of the database you are migrating. For example, if the database you are importing is 330 GB, you should set your minimum disk size to at least 500 GB.
 
@@ -95,19 +71,11 @@ Bloat can be mitigated after import with careful [VACUUMing](https://www.postgre
 
 When ready, queue and apply the changes. You can check the “Changes” tab to see the status of the resize:
 
-![Confirm disk size change](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/confirm-disk-size-change.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=5c7afaf953bbd7ec7ac0e82ed220a75d)
-
-Confirm disk size change
-
 Wait for it to indicate completion.
 
 If you are importing to a Metal database, you must choose a disk size when first creating your database. You should launch your cluster with a disk size at least 50% larger than the storage used by your current source database (150% of the existing total).
 
 As an example, if you need to import a 330 GB database onto a PlanetScale `M-160`, there are three storage sizes available:
-
-![Metal disk size](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/metal-disk-size.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a4bb2ac32cdbcd18ec686875681ab59d)
-
-Metal disk size
 
 You should use the largest, 1.25TB option during the import. After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option.
 
@@ -115,21 +83,9 @@ You should use the largest, 1.25TB option during the import. After importing and
 
 In Supabase, logical replication to external sources requires direct connections. Direct IPv4 connections are not enabled by default. If you have not enabled them yet, go to your project dashboard in Supabase and click the “Connect” button:
 
-![Supabase dashboard](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image6.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=9c405b69896e8fc8b6e1cf413a507f99)
-
-Supabase dashboard
-
 In the connection modal, click “IPv4 add-on.”
 
-![Supabase direct](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image7.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=671be07b48f9ef186476dd332fb610b4)
-
-Supabase direct
-
 In the menu that appears, enable the IPv4 add-on:
-
-![Supabase IPV4](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image8.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=ae096387090e28d6ca7c28654a63e9d4)
-
-Supabase IPV4
 
 Supabase notes that enabling this might incur downtime. Take that into account when planning your migration.
 

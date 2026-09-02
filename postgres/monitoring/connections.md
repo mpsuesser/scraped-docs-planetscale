@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/connections
 title: "Connections"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -28,10 +28,6 @@ pscale branch connections top <database> <branch>
 ```
 
 The view refreshes about once per second; press `space` to pause. You can also scrub back through the recent in-memory history without leaving the live view: `[` and `]` step one sample at a time, `{` and `}` jump to the oldest or newest, and `}` returns to live-follow.
-
-![The pscale branch connections top view, with a stuck checkout transaction blocking a queue of updates](https://mintcdn.com/planetscale-2/Kp51U6wavfDUDSGO/postgres/monitoring/live-connections-top.png?w=2500&fit=max&auto=format&n=Kp51U6wavfDUDSGO&q=85&s=6320dc1e325c1a0348ba6d6b21a31db7)
-
-The pscale branch connections top view, with a stuck checkout transaction blocking a queue of updates
 
 ### Reading the table
 
@@ -69,10 +65,6 @@ Press `enter` on a row to open the detail view. It has two tabs:
 Inside the detail view, `left` and `right` switch between the two tabs, and `b` jumps straight to Blockers. From the table you can also open a row directly onto a tab: `v` opens it on the Query tab and `b` opens it on the Blockers tab.
 
 On the Blockers tab, press `enter` on a session in the chain to re-center the detail view on it, so you can walk a lock wait all the way to its root cause. Press `esc` to go back, and `?` at any time for the in-app key reference.
-
-![The Blockers tab: one idle checkout-api transaction holding up the refund, payment, and cancel updates queued behind it](https://mintcdn.com/planetscale-2/Kp51U6wavfDUDSGO/postgres/monitoring/live-connections-blockers.png?w=2500&fit=max&auto=format&n=Kp51U6wavfDUDSGO&q=85&s=2c56ad3b52014f253b33d6105fcbfa70)
-
-The Blockers tab: one idle checkout-api transaction holding up the refund, payment, and cancel updates queued behind it
 
 ### Capture and replay
 

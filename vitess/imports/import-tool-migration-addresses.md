@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses
 title: "Import Tool Migration Addresses"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -13,10 +13,6 @@ To import your external database into PlanetScale, you need to allowlist PlanetS
 ## Where to find your IP addresses
 
 The IP addresses you need to allowlist are shown during the import workflow on the **Connect to external database** step. You’ll see a blue info box on the connection page that lists all the IP addresses that need access to your external database.
-
-![IP addresses displayed on the connection step of import workflow](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows-ip-addresses/import-ips.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=c0ef10d962e51694776422e5b6911bbf)
-
-IP addresses displayed on the connection step of import workflow
 
 ## Provider-specific firewall guides
 

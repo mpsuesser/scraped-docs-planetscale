@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/nextjs-deploy-to-vercel
 title: "Nextjs Deploy To Vercel"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 It will cover two options:
@@ -36,10 +36,6 @@ In Vercel, you’ll set it as follows:
 - **VALUE** = `mysql://xxxxxxxxx:************@xxxxxxxxxx.us-east-3.psdb.cloud/my_database?sslaccept=strict`
 
 The credentials are blurred for the example, but when you paste them in, use the actual values.
-
-![Vercel dashboard - Environment variables](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-to-vercel/environment-variables.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=862f384807cd468b3e519a721965c84c)
-
-Vercel dashboard - Environment variables
 
 ## Deploy with the PlanetScale Vercel integration
 

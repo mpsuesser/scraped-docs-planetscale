@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-symfony-app
 title: "Connect Symfony App"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Prerequisites
@@ -63,10 +63,6 @@ Now that you’re connected, let’s add some data to see it in action. The samp
 There are also two seeder files, `src/DataFixtures/CategoryFixtures.php` and `src/DataFixtures/ProductFixtures.php`, that will add ten random categories and products to the `category` and `product` tables, respectively. Let’s run those now.
 
 The `templates/product/index.html.twig` file pulls this data from the `product` table with the help of the `src/Controller/ProductController.php` file.
-
-![Symfony PlanetScale starter app homepage](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-symfony-app/example.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=9a77f6d01359a94f1f4604b5a75ea846)
-
-Symfony PlanetScale starter app homepage
 
 ## Add data manually
 

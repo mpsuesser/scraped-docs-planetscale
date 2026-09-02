@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect
 title: "Gcp Private Service Connect"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) is a highly available, scalable technology that enables you to privately connect your VPC to supported GCP services, endpoint services, and partner services.
@@ -47,8 +47,6 @@ For current GCP pricing in your region, see the [GCP Private Service Connect pri
 		3. Select **Roles**
 		4. Click on a role with permissions to the relevant `Branch`
 		5. Copy the `Private Host` and `Private Service Name` from the role details
-	![Private connection strings](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/psc-private-host-names.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=1c43d54b027a3d885f9366b22355dc00)
-	Private connection strings
 	Save these two attributes for your records and the rest of the configuration.
 	Both the `Private Host` and `Private Service Name` values are the same for all roles for a given PlanetScale database `Branch`. Once enabled, any role can use the Private Service Connect endpoint. You do not need to configure this per PlanetScale `Role`.
 2. **Enable required APIs**: Ensure Cloud DNS and Service Directory APIs are enabled for automatic DNS zone creation:
@@ -61,8 +59,6 @@ For current GCP pricing in your region, see the [GCP Private Service Connect pri
 3. **Navigate to Private Service Connect**: In the GCP Console:
 	1. Confirm you are in the proper `<gcp-region>` from the project selector
 		2. From the top search bar, search for `Private Service Connect` and select it from the results
-	![Private Service Connect console](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/psc-search.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=65c2eee5b97f1c80289ed9591b1d8b83)
-	Private Service Connect console
 4. **Create a new endpoint**: Click ” **\+ Connect endpoint** ”.
 5. **Configure endpoint details**:
 	- **Target**: Select “Published Service”
@@ -73,19 +69,13 @@ For current GCP pricing in your region, see the [GCP Private Service Connect pri
 		- **Create an IP Address**: Reserve a static IP address for the endpoint
 		- **Enable Global Access**: Recommended - allows applications in other regions to reach the endpoint
 		- **Create a namespace**: Recommended - Set a namespace in `Service Directory` to enable creation of an entry for this endpoint
-	![Endpoint configuration details](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/psc-endpoint-configuration.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=406f9a05ecb9427793ad2fc1902529a2)
-	Endpoint configuration details
 6. **Create the endpoint**: Click “ **Add Endpoint** ” and wait for the endpoint status to show “Accepted” (this may take several minutes).
 
 ## Verifying your Private Service Connect endpoint connectivity
 
 1. **Confirm endpoint status**: In the GCP Console, verify that your endpoint’s status shows “Accepted”.
-	![Active Endpoint](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/psc-active-endpoint.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=9f5c36adf8441b5691608f53ea8aad6d)
-	Active Endpoint
 2. **Test DNS resolution**: If Cloud DNS is enabled, GCP automatically creates a private Cloud DNS zone for your endpoint. The DNS zone will match the `Private Host` (recorded earlier from the PlanetScale Dashboard).
 	You can verify by navigating to the `Cloud DNS` page from the left Nav:
-	![Cloud DNS resource](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/private-connections/psc-clouddns-record.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a4834f98fe0ea810469671f49b7fbda2)
-	Cloud DNS resource
 	To address the actual host endpoint you will use, you need to combine the `Endpoint name` you defined with the DNS zone name here (same as the `Private Host` recorded earlier).
 	From this example:
 	- `Endpoint name` = planetscale-main

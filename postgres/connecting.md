@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Connecting to your PlanetScale Postgres database
@@ -77,10 +77,6 @@ The following sections describe each option in detail to help you choose the rig
 
 Direct connections provide the lowest-latency access to your Postgres primary instance.
 
-![Direct connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-direct-connect.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=74bd197e2f263822552d2c3845ef9e5b)
-
-Direct connections
-
 However, these connections are considered *heavy-weight* since each one consumes significant resources. Direct connections are recommended only for specific scenarios:
 
 1. Administrative tasks, like creating new databases/schemas, manual DDL commands, and installing extensions.
@@ -89,10 +85,6 @@ However, these connections are considered *heavy-weight* since each one consumes
 4. When you need features like `SET`, pub/sub, and other features not provided by PgBouncer pooled connections.
 
 Because having too many direct connections degrades performance, PlanetScale sets `max_connections` to a conservative default value that varies depending on cluster size. To find this value, navigate to the “Clusters” page and select the “Parameters” tab.
-
-![Navigate to the Cluster Parameters page](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/cluster-configuration-parameters-darkmode.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=941ad0599c231328f8b91f545d3818af)
-
-Navigate to the Cluster Parameters page
 
 Search for `max_connections` to view the current configured value. This can be increased if necessary, though doing so requires careful consideration as increasing direct connections can negatively impact performance.
 
@@ -113,10 +105,6 @@ For application connections outside of the specific use cases listed above, PgBo
 ## Direct replica connections
 
 The main purpose for the default [Replicas](scaling/replicas.md) in a cluster is to maintain [high-availability](operations-philosophy.md), but they can also be used to handle read traffic. Since replicas are read-only, they are only capable of serving `SELECT` queries. All write traffic (`INSERT`, `UPDATE`, etc) must be sent to the primary.
-
-![Direct replica connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-replica-direct-connect.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=31d4d9690e765bb47f548266d148be80)
-
-Direct replica connections
 
 Replicas always experience some level of replication lag — the delay between data arriving at the primary and being replicated to a replica. Frequently, replication lag is measured in milliseconds, but it can grow to multiple seconds, especially when the server is experiencing high write traffic or network issues.
 
@@ -145,27 +133,15 @@ All managed PgBouncers run in transaction pooling mode. Session pooling is not o
 
 ### Local PgBouncer
 
-![Local PgBouncer connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-local-pgbouncer.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=c54abe2369f2d869954ec6fe5e9ce60f)
-
-Local PgBouncer connections
-
 All PlanetScale Postgres databases include a local PgBouncer instance running on the same host node as the Postgres primary. This is recommended for all application connections to the primary. To connect via the local PgBouncer, use the same credentials as a direct connection but change the port from `5432` to `6432`.
 
 The local PgBouncer only routes connections to the primary. To pool connections to replicas, use a [dedicated replica PgBouncer](#dedicated-replica-pgbouncer).
 
 ### Dedicated replica PgBouncer
 
-![Dedicated replica PgBouncer connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-dedicated-replica-pgbouncer.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=52d7c26310e78922f9074ac6a503522b)
-
-Dedicated replica PgBouncer connections
-
 [Dedicated replica PgBouncers](connecting/pgbouncer.md#dedicated-replica-pgbouncers) run on nodes separate from the Postgres instances and pool connections to your replicas. These are useful for read-heavy workloads that send significant read traffic to replicas.
 
 ### Dedicated primary PgBouncers
-
-![Dedicated primary PgBouncer connections](https://mintcdn.com/planetscale-2/kiyN17feiApl1in5/images/assets/docs/postgres/connecting/diagram-dedicated-primary-pgbouncer.png?w=2500&fit=max&auto=format&n=kiyN17feiApl1in5&q=85&s=2b2747293c8455088d4ffe2f0b4a4488)
-
-Dedicated primary PgBouncer connections
 
 [Dedicated primary PgBouncers](connecting/pgbouncer.md#dedicated-primary-pgbouncers) provide connection pooling for your primary database on nodes separate from the Postgres servers. Traffic routes from the dedicated primary PgBouncer to the local PgBouncer on the primary node, and then to Postgres. This lets client connections persist through cluster resizes, upgrades, and most failover scenarios, providing improved high availability.
 

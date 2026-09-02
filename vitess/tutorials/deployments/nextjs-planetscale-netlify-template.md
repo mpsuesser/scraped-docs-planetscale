@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/nextjs-planetscale-netlify-template
 title: "Nextjs Planetscale Netlify Template"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -16,10 +16,6 @@ This guide will show you how to get up and running with the [Netlify, Next.js, a
 - [Next.js authentication](https://nextjs.org/docs/app/building-your-application/authentication)
 - One-click [deploy to Netlify](https://netlify.com/)
 - [Tailwind CSS](https://tailwindcss.com/) styling
-
-![Example of the dashboard application](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/nextjs-planetscale-netlify-template/example.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=9a328c0b1090396dce0ed4aed1d81c5d)
-
-Example of the dashboard application
 
 If you’re coming from the **[Netlify Template](https://github.com/planetscale/nextjs-planetscale-starter)** and you already clicked deploy, you’re in the right place! This tutorial will walk you through how to set up your PlanetScale database so that you can fill in the environment variables in the Netlify dashboard. You’ll also learn how to set up your local environment so you can continue to develop and extend this starter template. Just read through the prerequisites and then skip the first section to [go straight to the local setup](#set-up-the-project-locally).
 
@@ -38,10 +34,6 @@ To follow along with this guide, you’ll need the following:
 ## One-click deploy to Netlify
 
 The one-click deploy button allows you to connect Netlify to your GitHub account to clone the `nextjs-planetscale-starter` repository and automatically deploy it. Be sure to [sign up for a Netlify account](https://app.netlify.com/signup) before clicking the deploy button.
-
-![Deploy to Netlify button](https://www.netlify.com/img/deploy/button.svg)
-
-Deploy to Netlify button
 
 Once you click the button, you’ll be taken to Netlify’s direct deploy page with the pre-built project’s repository passed as a parameter in the URL. Click the “ **Connect to GitHub** ” button to authorize access.
 
@@ -68,10 +60,6 @@ yarn next
 ```
 
 Navigate to [http://localhost:3000/](http://localhost:3000/) in your browser to view the PlanetScale Next.js Starter app.
-
-![Next.js PlanetScale Starter application homepage](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/nextjs-planetscale-netlify-template/starter.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=7c28699877504c717a0eb18e9de49f18)
-
-Next.js PlanetScale Starter application homepage
 
 ## Database setup
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-php-app
 title: "Connect Php App"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 Already have a PHP application and just want to connect to PlanetScale? Check out the [PHP quick connect repo](https://github.com/planetscale/connection-examples/tree/main/php).
@@ -18,10 +18,6 @@ Already have a PHP application and just want to connect to PlanetScale? Check ou
 ## Set up the PHP app
 
 This guide uses [a simple PHP app](https://github.com/planetscale/php-example) that displays a list of products stored in a PlanetScale database. If you have an existing application, you can also use that.
-
-![PHP sample application homepage priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-php-app/example.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=94cee531fd28f43de26cbe8d2ea35cc0)
-
-PHP sample application homepage priority
 
 You can view the application at [http://localhost:8000](http://localhost:8000/).
 

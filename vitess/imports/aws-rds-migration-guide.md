@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide
 title: "Aws Rds Migration Guide"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -22,10 +22,6 @@ Gather the following information from the AWS Console:
 - **Port number** - Typically 3306
 - **Master username and password** - Your RDS root credentials
 
-![The Connectivity & security tab of the database in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-connectivity-and-security-tab-of-the-database-in-rds.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=2f725f3c23d8d61b7ffb67cc97409ddb)
-
-The Connectivity & security tab of the database in RDS.
-
 ## Step 1: Configure server settings
 
 Your RDS database needs specific server settings configured before you can import. Follow these steps to configure GTID mode, binlog format, and sql\_mode.
@@ -33,10 +29,6 @@ Your RDS database needs specific server settings configured before you can impor
 ### Check your current parameter group
 
 Your Amazon RDS database is either using the default DB parameter group (e.g., default.mysql8.0) or a custom one. You can view it in the “ **Configuration** ” tab of your database instance.
-
-![The Configuration tab of the database view in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-configuration-tab-of-the-database-view-in-rds.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=116576fb4241e74f5cb291ec62fe547c)
-
-The Configuration tab of the database view in RDS.
 
 ### Configure the parameter group
 
@@ -136,15 +128,7 @@ The specific IP addresses depend on your PlanetScale database region. These will
 
 Navigate to “ **Connectivity & security** ” tab of your database instance and click the VPC security group link.
 
-![The Connectivity & security tab of the database view in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-connectivity-and-security-tab-of-the-database-view-in-rds.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=9bba7897fcba4c73a1be2c73eaed4f39)
-
-The Connectivity & security tab of the database view in RDS.
-
 Select “ **Inbound rules** ” tab, then “ **Edit inbound rules** ”.
-
-![The view of security groups associated with the RDS instance.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-view-of-security-groups-associated-with-the-rds-instance.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=be39a270bec73e73e5a8809e0def99d3)
-
-The view of security groups associated with the RDS instance.
 
 Click “ **Add rule** ”, then:
 
@@ -152,10 +136,6 @@ Click “ **Add rule** ”, then:
 - **Source**: Enter the first PlanetScale IP address (AWS will format it as `x.x.x.x/32`)
 
 Repeat for each IP address in your region, then click “ **Save rules** ”.
-
-![The Edit inbound rules view where source traffic can be allowed.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-edit-inbound-rules-view-where-source-traffic-can-be-allowed.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=c47d06daa3ad6267b1a88261d4954989)
-
-The Edit inbound rules view where source traffic can be allowed.
 
 ## Importing your database
 

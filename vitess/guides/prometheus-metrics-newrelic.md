@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/guides/prometheus-metrics-newrelic
 title: "Prometheus Metrics Newrelic"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 While this tutorial is written for New Relic, using Prometheus’ remote write is a common pattern for sending metrics to [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), [Google Cloud Managed Service for Prometheus](https://cloud.google.com/stackdriver/docs/managed-prometheus), [Grafana hosted Prometheus](https://grafana.com/products/cloud/metrics/) and many other tools.
@@ -154,10 +154,6 @@ FROM Metric SELECT average(planetscale_pods_cpu_util_percentages) WHERE planetsc
 ```
 
 Because my `main` branch is production, we will see the memory usage for my primary and both my replicas over the last 30 minutes:
-
-![New Relic Memory Query](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-new-relic-dashboard.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=b34906ffab18e6ba706053666ea43542)
-
-New Relic Memory Query
 
 ## Filtering Metrics
 

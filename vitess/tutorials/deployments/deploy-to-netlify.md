@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/deploy-to-netlify
 title: "Deploy To Netlify"
 description: ""
-access_date: 2026-08-10T19:43:55.078Z
-current_date: 2026-08-10T19:43:55.078Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 This doc is intended for users that are manually storing a connection string in an environment variable in Netlify. If you want to use the Netlify integration, which handles this for you, see the [PlanetScale integration in the Netlify docs](https://docs.netlify.com/extend/install-and-use/setup-guides/planetscale-integration/).
@@ -34,10 +34,6 @@ In Netlify, you’ll set it as follows:
 - **Value** = `mysql://xxxxxxxxx:************@xxxxxxxxxx.us-east-3.psdb.cloud/my-database?sslaccept=strict`
 
 The credentials are blurred for the example, but when you paste them in, use the actual values.
-
-![Netlify dashboard - Environment variables](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-to-netlify/environment-variables.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=d0cfec940f13e3797e3cf3d35ba21ec2)
-
-Netlify dashboard - Environment variables
 
 After you have saved, you will need to rebuild the site with the new environment variable.
 

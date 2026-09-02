@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-08-11T21:47:58.400Z
-current_date: 2026-08-11T21:47:58.400Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -21,10 +21,6 @@ Insights will also automatically recommend schema changes to improve database pe
 To view Insights for your database, head to the [PlanetScale dashboard](https://app.planetscale.com/), select your database, and click the “ **Insights** ” tab.
 
 The dropdown on the top left lets you select which branch you want to analyze. You can also choose which servers you want to view insights for: primary or replicas.
-
-![PlanetScale Insights overview page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/query-insights/query-insights-overview.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=55613e99e54e945209ff2548e68f59dd)
-
-PlanetScale Insights overview page
 
 You can click the dates listed above the graph to scroll through the past seven days. To further narrow down query analysis, you can select a time range by clicking on the graph and dragging the cursor across. This will zoom in on the selected timeframe.
 

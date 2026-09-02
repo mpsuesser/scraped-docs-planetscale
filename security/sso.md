@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/sso
 title: "Sso"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -91,17 +91,9 @@ Directory Sync automatically adds and removes members from your PlanetScale orga
 
 If you wish to have your identity provider determine user roles in PlanetScale, please make sure to select the option for `Manage PlanetScale roles through identity provider` in Settings > Authentication.
 
-![Manage roles](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/sso/sync.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=91dac6b8758d23b0ca2c8a3d49e2651d)
-
-Manage roles
-
 Once you enable Directory Sync, existing Teams will be cleared, as all Teams must map to a Directory group.
 
 You can find the directory-managed members under “ **Settings** ” > “ **Members** ”, and directory-managed Teams under “ **Settings** ” > “ **Teams** ”.
-
-![Dashboard UI - Directory-managed Teams page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/sso/managed.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=8c0b03673194997294972778ea13b2c2)
-
-Dashboard UI - Directory-managed Teams page
 
 ## Admin failsafe
 
@@ -132,10 +124,6 @@ After following all of these steps, after you change the PlanetScale role for a 
 In order to manage roles using Directory Sync, you must properly configure the SCIM user’s profile within Okta and update the Directory Sync custom attributes before enabling the setting within the PlanetScale dashboard.
 
 #### Configuring the SCIM user profile in Okta
-
-![PlanetScale Role](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/sso/planetscale_role.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=5ecfc95e1ca381ac27f5b15d339e80ed)
-
-PlanetScale Role
 
 This attribute then needs to be mapped to the PlanetScale application in Okta.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/branching
 title: "Branching"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## What are branches on PlanetScale
@@ -79,17 +79,9 @@ You can then open a deploy request against either the main production or “stag
 
 In this setup, the “staging” branch is still a development branch. Compared to your main production branch (additional production branches are an additional cost), it will have reduced resources, similar to other development branches.
 
-![View of the Branches tab with main < staging < dev branches](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/branching/branches-with-staging-branch.jpg?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=d172be7481aaa84442b1c99bc0f1ad41)
-
-View of the Branches tab with main < staging < dev branches
-
 ## How to make schema changes on a branch with safe migrations enabled
 
 Since DDL is restricted on branches with safe migrations enabled to prevent accidental changes and enable zero-downtime migrations, you’ll need to perform the following steps in order to make changes to a safe migrations enabled branch:
-
-![PlanetScale Branching Flow Diagram](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/branching/diagram.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=8ed3037acbc0ce1cdedfb94c525107c2)
-
-PlanetScale Branching Flow Diagram
 
 You’ll see a `ERROR 1105 (HY000): direct DDL is disabled` message if you attempt to make schema changes in a branch with safe migrations enabled. Instead, create a development branch, and make your changes there.
 

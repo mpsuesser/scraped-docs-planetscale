@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors/terminology-and-concepts
 title: "Terminology And Concepts"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 There are many concepts, algorithms and data structures that are used when discussing vector databases. Here, we provide an overview of many of these concepts and describe the indexing technique that PlanetScale MySQL uses (SPANN).
@@ -58,10 +58,6 @@ Brute-force search on an vector data set for nearest neighbors is one that does 
 
 IVF is a type of index used to speed up ANN search. In an IVF index, all of the vectors are partitioned into chunks of similar indexes. The number of chunks to partition the data into is typically configurable. In the image below, we have our vectors (blue dots) partitioned into 5 chunks (colored regions). This shows a representation in 2D space, but is applicable to N-dimensional space as well.
 
-![IVF Visual](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/vector-indexes/ivf.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=bb29ac982277b7476758d7fe3ebb116b)
-
-IVF Visual
-
 When a vector search is performed, the index finds the partition(s) that are most likely to contain similar vectors, and only performs similarity search on vectors in those.
 
 This technique allows for much faster search compared to a full scan of all vectors, as we eliminate much of the vector data from the search early in the process. However, it might miss some similar vectors in the chunks that it skips, and therefore is only capable of performant ANN searches.
@@ -76,10 +72,6 @@ HNSW is one of the most commonly implemented vector indexes in modern vector dat
 HNSW indexes map every vector in the data set onto a graph, with nodes representing each vector and edges between nodes that are near each-other in the high-dimensional space.
 
 HNSW builds multiple graph layers. The bottom layer is the full similarity graph, and each level above is a sparser version of the graph below (in other words, some nodes and edges get pruned).
-
-![HNSW Visual](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/vector-indexes/hnsw.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=041807ce67985f8c379dd01abc9e7feb)
-
-HNSW Visual
 
 HNSW begins its search for a vector at the top layer. Since the graph is sparse, it can quickly navigate through and find the nearest similar vector. It then drops down to the next level, and continues to search for the closest vector match in that region of the graph. This process continues until it finds the closest match(es) in the lowest level.
 
@@ -96,10 +88,6 @@ DiskANN is another graph-based ANN search algorithm akin to HNSW. However, DiskA
 
 Initially, a graph node is created for each vector in the data set, and random edges are added, leading to a very “messy” graph. Then, two phases of optimization and pruning occur. The first optimization phase does significant adjustment and pruning to optimize similarity search with short edges. The second optimization phase build longer edges into the graph, allowing for faster graph traversals. This graph construction algorithm is known as *Vamana*.
 
-![DiskANN Visual](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/vector-indexes/diskann.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=22795594b47b56068d032f5d9aa87535)
-
-DiskANN Visual
-
 As the name suggests, DiskANN has better performance than HNSW when the index does not all fit into RAM. DiskANN uses a different technique for building the graph compared to HNSW. This technique leads to different neighbors for each node and a different memory / disk layout. When the index cannot fit into memory, this graph allows for a significant reduction in the number of disk read operations needed to fulfill a search compared to HNSW.
 
 DiskANN scales well, but suffers from worse query performance. While it can be modified to allow incremental updates, these are not particularly efficient and are hard to map to transactional SQL semantics.
@@ -114,10 +102,6 @@ SPANN is a hybrid vector indexing and search algorithm that uses both graph and 
 A graph is created for the vector data, with edges representing nearby neighbors. The graph is partitioned into many small clusters called *posting lists*. In SPANN, nodes that are near the boundary between two posting lists may reside in multiple posting lists to help improve recall.
 
 The full set of posting lists are stored on disk. The center-most node of each posting list (known as the *centroid*) is stored in a special SPTAG index, which is designed to fit in memory.
-
-![SPANN Visual](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/vector-indexes/spann.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=08ebd467b9f35b284a8af7e709a95f0e)
-
-SPANN Visual
 
 When an ANN search is performed, the search algorithm can quickly identify a small set of the nearest centroids to the search vector using the in-memory index. Then, a relatively small number of disk reads can take place to load only the relevant parts of the graph into memory, and then the search can be completed. According to the [SPANN research paper](https://www.microsoft.com/en-us/research/uploads/prod/2021/11/SPANN_finalversion1.pdf), this leads to a 2x performance improvement over DiskANN.
 

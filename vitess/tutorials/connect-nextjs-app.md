@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-nextjs-app
 title: "Connect Nextjs App"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 In this tutorial, you’ll create a [Next.js](https://nextjs.org/) application that uses [Tailwind CSS](https://tailwindcss.com/) for styling and [Prisma](https://www.prisma.io/) to connect to a [PlanetScale](https://planetscale.com/docs) database.
@@ -97,10 +97,6 @@ Open your browser at [localhost:3000](http://localhost:3000/) to see the running
 After you have your application running locally, you may want to deploy it to production. Your database branch (`main` by default) is already a production database branch. You should also enable [safe migrations](../schema-changes/safe-migrations.md), which protects your production branch from accidental schema changes. This can be done from the PlanetScale dashboard by clicking the same **“cog”** once the branch has been promoted to production.
 
 In the modal that will appear, toggle the option labeled **“Enable safe migrations”**, then click the **“Enable safe migrations”**. This will close the modal and save the setting.
-
-![Enable safe migrations](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-nextjs-app/prod-branch-options-modal.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=2468f92829fa5cd6775360b8c3657a8d)
-
-Enable safe migrations
 
 ### Deploy to Vercel
 

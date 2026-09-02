@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver-node-example
 title: "Planetscale Serverless Driver Node Example"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -21,33 +21,13 @@ To follow along, you’ll need the following:
 
 Start by creating a database in PlanetScale by clicking **“New database”** > **“Create new database”**.
 
-![How to create a new database. priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/how-to-create-a-new-database-2.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=9bce4125202d23e2966f4237b2a35006)
-
-How to create a new database. priority
-
 Name the database `travel_db`. Click **“Create database”**. Wait for the database to finish initializing before moving on.
-
-![The travel_db initializing.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/initializing.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=8f6e9f45a92206e3d1ed1ff50173e578)
-
-The travel\_db initializing.
 
 Generate a set of credentials by clicking the **“Connect”** button.
 
-![The Connect button in the PlanetScale dashboard.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/the-connect-button-in-the-planetscale-dashboard.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=6ec03a0ef53af9c64ad5ec8c34bf47e4)
-
-The Connect button in the PlanetScale dashboard.
-
 Copy your password credentials first:
 
-![The password details.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/the-serverlessjs-connect-modal.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=e2234b65ee8937cd81fa5cde6c68b96a)
-
-The password details.
-
 Scroll down and select **“database-js”** from the “Select your language or framework” options. Copy the text from the **“.env”** section, as we’ll be putting this in the project after it’s pulled down from GitHub.
-
-![The password env details.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/the-serverlessjs-connect-modal-env.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=6f94949610872efafea96789ddd3615a)
-
-The password env details.
 
 On your workstation, open a terminal and clone the repository to your computer by running the following command:
 
@@ -76,10 +56,6 @@ npm start
 If the project is running properly, you should receive a message stating that the API is running.
 
 The `tests.http` file is designed to work with the [VS Code Rest Client plugin](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), but can be used as a reference when testing with the tool of your choosing. If you are using the plugin, you may click the **“Send request”** button that appears above each request to see the API in action.
-
-![An example of a POST request to the sample project.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver-node-example/an-example-of-a-post-request-to-the-sample-project.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=70c6a61629fbacbcc4c69d9509ae8f02)
-
-An example of a POST request to the sample project.
 
 If you check the terminal where the API was started, the response from the `execute` function is logged out for review.
 

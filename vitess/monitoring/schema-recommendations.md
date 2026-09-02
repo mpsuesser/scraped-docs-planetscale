@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -28,10 +28,6 @@ Each recommendation will have the following:
 - The option to apply the recommended change to a branch for testing and a safe migration
 
 Schema recommendations that depend on your database traffic run **once per day**. Recommendations that depend only on database schema are run whenever the the schema of your default branch is modified. Schema recommendations are generated only for the database’s default branch.
-
-![Example of a recommendation to add an index](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/schema-recommendations/add-index-recommendation.jpg?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=2ce238b3380e611c16a8b2f326378a76)
-
-Example of a recommendation to add an index
 
 ### Applying a recommendation
 

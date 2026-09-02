@@ -2,15 +2,11 @@
 url: https://planetscale.com/docs/postgres/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 This centralized view helps you track performance, identify bottlenecks, and ensure optimal database health.
-
-![Metrics Dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/monitoring/metrics.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=d7a3868a557460c4ee2db2e1eeb557cb)
-
-Metrics Dashboard
 
 ## Dashboard overview
 

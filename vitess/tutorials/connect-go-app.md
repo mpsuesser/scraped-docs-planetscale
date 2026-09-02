@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-go-app
 title: "Connect Go App"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Introduction
@@ -27,10 +27,6 @@ By default, web console access to production branches is disabled to prevent acc
 
 Then, click on the **“Console”** tab, then “ **Connect** ”.
 
-![The Console tab](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/connect-go-app/console-2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=698df8f5448657eaa97f06cb9a63dd36)
-
-The Console tab
-
 Run the following two commands to create a sample table and insert some data:
 
 ```sql
@@ -47,10 +43,6 @@ INSERT INTO \`products\` (name, price) VALUES
 ```
 
 Finally, head to the **“Dashboard”** tab and click **“Connect”**.
-
-![The location of the Connect button](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/connect-go-app/connect-2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=bce2fe8fc7527e3cfe8e3ae4c9c09d6b)
-
-The location of the Connect button
 
 On the following page, click **“Create password”** to generate a new password for your database. Then click **Go** in the **Select your language or framework** section, and copy the contents of the `.env` file. You’ll need it for the next section.
 
@@ -76,10 +68,6 @@ go run .
 ```
 
 The terminal should update with the following output.
-
-![The output of the GET test](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/connect-go-app/go-run-output.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=0c09844fa292b413d2edd035e230b7d9)
-
-The output of the GET test
 
 ## Exploring the code
 
@@ -122,10 +110,6 @@ func main() {
 Open the `tests.http` file, which contains HTTP requests that can be sent to test the API. Running the `get {{hostname}}/products` test is the equivalent of running `SELECT * FROM products` in SQL and returning the results as JSON.
 
 If you do not wish to use VS Code with the Rest Client plugin, you may use `tests.http` as a reference for your preferred IDE and API testing software.
-
-![The terminal output of the go run command](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/connect-go-app/go-run-output.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=0c09844fa292b413d2edd035e230b7d9)
-
-The terminal output of the go run command
 
 This is the `GetProducts` function defined in `main.go`. Notice how the `query` variable is the `SELECT` statement, which is passed into `db.Query` before being scanned into a slice of `Product` structs.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 You can configure your PlanetScale Postgres cluster settings in the “ **Parameters** ” tab on the Clusters page for your database.
@@ -63,9 +63,6 @@ When you apply parameters that require a restart, PlanetScale performs a rolling
 1. Configuration changes are first applied to replica instances and they are restarted
 2. Once replicas are ready, a switchover promotes one replica to become the new primary
 3. The configuration is applied to the former primary (now a replica) and it is restarted
-![Config change with restart](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-configuration/config-change-restart.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=f29e310a9ca4ca2ee95c972ee1f9d8c2)
-
-Config change with restart
 
 This rolling restart process minimizes downtime, but there remains a brief several-second window of unavailability during the primary switchover. All direct database connections will be terminated during this process, so your application should implement connection retry logic. With the exception of the `Number of processes` parameter for PgBouncer, PgBouncer connections persist through all parameter changes and do not require reconnection.
 

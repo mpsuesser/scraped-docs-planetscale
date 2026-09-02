@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-grafana
 title: "Prometheus Metrics Grafana"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Introduction
@@ -32,10 +32,6 @@ $ brew services start grafana
 
 When that succeeds, I can go to `http://localhost:3000/` and I should see the Grafana welcome page:
 
-![Grafana Welcome Page](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-grafana-welcome.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=1f5214c36c8f58b9763dc3d7fc3e2e3b)
-
-Grafana Welcome Page
-
 The default username and password for a new install is `admin` and `admin`. Grafana will ask you to change the password the first time you log in, please pick something more secure than `admin`.
 
 ### Adding a Prometheus Endpoint
@@ -46,18 +42,10 @@ If you’re running Prometheus locally, you’ll need to add that as a datasourc
 
 Now, you should look see a page that looks like this:
 
-![Grafana Add Datasource](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-add-prometheus-connection.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=889f576bf43b33447e6efe52d4b02bf9)
-
-Grafana Add Datasource
-
 You can call this whatever you want, we’ll use the following:
 
 - Name: “PlanetScale”
 - Prometheus server URL: `http://localhost:9090/`
-
-![Grafana Prometheus Configuration](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-prometheus-configuration.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=7e2e60e4389f0f070763314a27535e49)
-
-Grafana Prometheus Configuration
 
 Because this is running on your local machine, we do not need to use any Authentication or TLS
 
@@ -80,10 +68,6 @@ PlanetScale maintains the latest version of the dashboard located here:
 Download this file to your computer, and then click “Upload dashboard JSON file”.
 
 Find the JSON file you downloaded in the previous step, and configure it with the Prometheus datasource that we added in an earlier:
-
-![Grafana Prometheus Configuration](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-prometheus-configuration.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=7e2e60e4389f0f070763314a27535e49)
-
-Grafana Prometheus Configuration
 
 Click ‘Import’ and you should be directed to the dashboard, configured to query your local Prometheus with the data it’s been scraping!
 

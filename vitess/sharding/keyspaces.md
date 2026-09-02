@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/keyspaces
 title: "Keyspaces"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 Keyspaces are used to group MySQL instances, typically to shard certain tables in your database cluster. While a keyspace may contain several MySQL instances across many shards, to your application, it will appear as a single database.
@@ -26,10 +26,6 @@ Unless your database cluster is sharded or you have created multiple unsharded k
 As your database grows, you may wish to shard some tables in your database cluster. To do this, you will create a new keyspace and add the shards to the sharded keyspace.
 
 The following diagram depicts a PlanetScale database with 2 keyspaces: one unsharded and one sharded. The unsharded keyspace has the default 1 primary and 2 replicas. The sharded keyspace contains two shards, each with 1 primary and 2 replicas.
-
-![Keyspace diagram](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/sharding/keyspace-diagram.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=15ce12eb6151fee15267cba4401204c8)
-
-Keyspace diagram
 
 When a new request comes in, it first goes through our Global Edge Network layer. This Edge layer manages the connection and sends it to the correct Vitess cluster in PlanetScale. From here, the VTGates will parse the incoming query and determine the correct keyspace and shard to route it to.
 

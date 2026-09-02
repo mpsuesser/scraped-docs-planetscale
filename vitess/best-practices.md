@@ -2,13 +2,9 @@
 url: https://planetscale.com/docs/vitess/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
-
-![Diagram showing PlanetScale workflow](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=072a1af512e6de700a104e286cefca42)
-
-Diagram showing PlanetScale workflow
 
 PlanetScale databases are designed for developers and developer workflows. Deploy a fully managed database cluster with the reliability of MySQL (our databases run on MySQL 8) and the scale of open source Vitess in just minutes.
 

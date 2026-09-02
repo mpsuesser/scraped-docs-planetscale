@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-architecture
 title: "Postgres Architecture"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -22,10 +22,6 @@ PlanetScale Postgres deploys database clusters across multiple availability zone
 - **Network isolation**: Each availability zone operates independently with its own network infrastructure
 
 ### Cluster design
-
-![PlanetScale Postgres cluster topology](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-arch-diagram.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=75d3b8d73ba0db0cb8c3a3343fd2be9d)
-
-PlanetScale Postgres cluster topology
 
 PlanetScale Postgres uses a primary-replica architecture distributed across availability zones to provide high availability without compromising performance. This design ensures that your database can survive infrastructure failures while maintaining fast read and write operations.
 
@@ -87,10 +83,6 @@ Our custom [Kubernetes operator](https://kubernetes.io/docs/concepts/extend-kube
 
 PlanetScale Postgres offers flexible instance configuration to match your workload requirements and cost constraints. You can choose different CPU architectures, storage types, and performance characteristics to optimize for your specific use case.
 
-![Creating a database](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-create-config.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=b71965b73aff18ab9c69cc1c494babf2)
-
-Creating a database
-
 ### CPU architecture options
 
 **ARM64 (AWS Graviton)**:
@@ -129,10 +121,6 @@ Learn more about [storage configuration](cluster-configuration/cluster-storage.m
 
 ### Performance and scaling relationships
 
-![Database dashboard summary](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-dashboard-summary-metal.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=97572840d235e12488b712072fd69551)
-
-Database dashboard summary
-
 Understanding how different configuration choices affect performance helps you optimize your database for both cost and performance. These relationships guide capacity planning and scaling decisions:
 
 **Compute scaling**:
@@ -153,10 +141,6 @@ Understanding how different configuration choices affect performance helps you o
 PlanetScale Postgres provides comprehensive operational tools that give you visibility into database performance, health, and behavior. These capabilities help you monitor, troubleshoot, and optimize your database without requiring additional setup or external tools.
 
 ### Insights and query analysis
-
-![PlanetScale Insights](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-insights.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=20f6acaaa66a6eabf675c78a25d4f8c8)
-
-PlanetScale Insights
 
 **Query performance insights**:
 
@@ -195,10 +179,6 @@ Centralized logging aggregates all database-related logs in a searchable format 
 
 ### Cluster configuration options
 
-![Tracking changes](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-config-changes.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=65c5ade9a3dbed00ef05247ac814070b)
-
-Tracking changes
-
 Flexible configuration options allow you to customize PostgreSQL behavior, enable additional functionality, and optimize performance for your specific workload requirements:
 
 **Extension management**:
@@ -219,10 +199,6 @@ Learn more about [extension configuration](extensions.md).
 Learn more about [parameter configuration](cluster-configuration/parameters.md).
 
 **Custom Backups and Point-in-time recovery**:
-
-![Postgres PITR](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-pitr.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=6226cf8b85899c6282d82370375f5e20)
-
-Postgres PITR
 
 - Automated backup scheduling with configurable retention periods
 - Custom backup timing to minimize impact on production workloads

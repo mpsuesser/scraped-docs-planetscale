@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -77,10 +77,6 @@ Click “ **Show advanced settings** ” for more options:
 - **SSL CA certificate chain** - If your database server has a certificate with a non-trusted root CA, provide the full CA certificate chain here
 
 You must have [binary logs](https://dev.mysql.com/doc/refman/8.0/en/binary-log.html) enabled on the database you’re importing. See our [provider-specific migration guides](database-imports.md) for instructions on enabling binary logging.
-
-![The connection form with SSL/TLS settings.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/external-database-connection-settings.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=54f5f4f9f7c3f8c4231bf93e2ee993bc)
-
-The connection form with SSL/TLS settings.
 
 ## Step 3: Validate connection and schema
 
@@ -168,10 +164,6 @@ Before creating the workflow, click “ **Validate** ” to run pre-migration ch
 
 Once these checks pass, the “ **Create workflow** ” button will light up.
 
-![The validation results showing checks passed and table list.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/validate-import-workflow.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=c0ad1c520bba3f5d391dac70718b6018)
-
-The validation results showing checks passed and table list.
-
 ### Advanced options
 
 Click “ **Advanced options** ” to see additional settings that can optimize your import:
@@ -239,10 +231,6 @@ The main view shows data flowing from your external database to PlanetScale:
 - Your PlanetScale shards (only one shard in most cases)
 - Traffic serving status
 
-![The visual replication flow with progress indicators.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/copying-phase.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=bdfebe2169a37e599bcbb1612b531cf5)
-
-The visual replication flow with progress indicators.
-
 ### Workflow phases
 
 Your import will go through these states:
@@ -287,10 +275,6 @@ Once added, you’ll see the replica connection listed below your primary. You c
 - Especially useful for large imports or high-traffic databases
 - The replica must have the same data as your primary (replication lag should be minimal)
 
-![Connection status add replica hostname.](https://mintlify.s3.us-west-1.amazonaws.com/planetscale-2/images/assets/docs/imports/import-workflows/add-replica-hostname.png)
-
-Connection status add replica hostname.
-
 ### Verify data (optional)
 
 Once the initial copy completes and replication catches up, you can optionally verify that your data matches between the external database and PlanetScale.
@@ -317,17 +301,9 @@ You must update your application’s connection string to point to PlanetScale *
 
 Always verify your application is connected to PlanetScale before proceeding with the primary traffic switch.
 
-![Switch replica and primary traffice.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/switch-traffic-dropdown.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=5712c0f9607c5562ff79d01a99fde451)
-
-Switch replica and primary traffice.
-
 ### Monitoring replication lag
 
 The lag graph shows how far behind PlanetScale is from your external database. During the initial copy, lag will be high. Once the copy finishes and replication catches up, lag should drop.
-
-![The replication lag graph.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/replication-phase.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=b5615473b6d0355b755c7dfd73a468d1)
-
-The replication lag graph.
 
 ## Step 8: Complete the import
 

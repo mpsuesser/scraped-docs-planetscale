@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes
 title: "Schema Changes"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Overview
@@ -27,10 +27,6 @@ In order to make non-blocking schema changes, you **must** enable [safe migratio
 At a high level, this is what happens during the *non-blocking schema change* process in PlanetScale:
 
 PlanetScale makes sure not to exhaust your resources; the deployment may be throttled to avoid any impact on production queries.
-
-![PlanetScale non-blocking schema changes diagram](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/nonblocking-schema-changes/diagram.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=1546b5a6690ef6b2ce281919203804e3)
-
-PlanetScale non-blocking schema changes diagram
 
 ## PlanetScale workflow
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver
 title: "Planetscale Serverless Driver"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-02T21:57:53.710Z
+current_date: 2026-09-02T21:57:53.710Z
 ---
 
 ## Why use the PlanetScale serverless driver
@@ -27,10 +27,6 @@ npm install @planetscale/database
 The first step to using the PlanetScale serverless driver for JavaScript is to connect to your database.
 
 You can get your connection string in the PlanetScale dashboard by clicking on your database, clicking “ **Connect** ”, and selecting `database-js` from the “Select your language or framework” section.
-
-![Database-js selection priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver/connect-serverless-credentials-database-js.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=b4b4cd49a793d91a8f3796cc94ae3db2)
-
-Database-js selection priority
 
 Scroll down to the env variables. You’ll need this to connect to your database.
 
