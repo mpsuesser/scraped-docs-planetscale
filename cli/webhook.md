@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/webhook
 title: "Webhook"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-04T21:54:31.222Z
+current_date: 2026-09-04T21:54:31.222Z
 ---
 
 ## Getting Started
@@ -35,6 +35,8 @@ pscale webhook <SUB-COMMAND> <FLAG>
 
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
+| `--authorization-header <VALUE>` | Complete Authorization header value, including the authentication scheme (for example, `Bearer <token>`). Sent unchanged. | `create`, `update` |
+| `--clear-authorization-header` | Remove the configured Authorization header. Cannot be used with `--authorization-header`. | `update` |
 | `--events <EVENTS>` | Comma-separated list of events to trigger the webhook. See [webhook events](../api/webhook-events.md) for available events. | `create`, `update` |
 | `--url <URL>` | The HTTPS URL where webhook events will be sent | `create`, `update` |
 | `--enabled` | Enable or disable the webhook. Use `--enabled` or `--enabled=true` to enable, `--enabled=false` to disable. Webhooks are disabled by default when created. | `update` |
@@ -92,10 +94,11 @@ ID             URL                                   EVENTS                     
 ```shellscript
 pscale webhook create <DATABASE_NAME> --org <ORGANIZATION_NAME> \
   --events "branch.ready,branch.sleeping" \
-  --url https://example.com/webhook
+  --url https://example.com/webhook \
+  --authorization-header "Bearer $AUTOMATION_TOKEN"
 ```
 
-This creates a new webhook for the specified database with the selected events. The webhook will be disabled by default until you enable it with the `update` command.
+This creates a new webhook for the specified database with the selected events. The example sends the complete Authorization header value, `Bearer $AUTOMATION_TOKEN`, with the token supplied by the environment variable. PlanetScale sends the value unchanged. The header value is write-only and will not appear in command output. The webhook will be disabled by default until you enable it with the `update` command.
 
 **Output:**
 
@@ -135,7 +138,14 @@ The `show` command displays the webhook secret, which is useful if you need to r
 pscale webhook update <DATABASE_NAME> <WEBHOOK_ID> --org <ORGANIZATION_NAME> --enabled
 ```
 
-This enables an existing webhook. To disable a webhook, use `--enabled=false`. You can also use this command to update other webhook settings like events and URL.
+This enables an existing webhook. To disable a webhook, use `--enabled=false`. You can also update the events or URL, or set an Authorization header with `--authorization-header`. Supply the complete header value, including the authentication scheme—for example, `--authorization-header "Bearer $AUTOMATION_TOKEN"`. PlanetScale sends the value unchanged. Omitting `--authorization-header` preserves the configured value.
+
+Webhook output indicates whether an Authorization header is configured without revealing its value. To remove a configured header, run:
+
+```shellscript
+pscale webhook update <DATABASE_NAME> <WEBHOOK_ID> --org <ORGANIZATION_NAME> \
+  --clear-authorization-header
+```
 
 **Output:**
 

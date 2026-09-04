@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhooks
 title: "Webhooks"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-04T21:54:31.222Z
+current_date: 2026-09-04T21:54:31.222Z
 ---
 
 ## Webhooks in PlanetScale
@@ -66,6 +66,18 @@ To protect your service from being overloaded by webhook deliveries, we recommen
 - Each database can have up to **5 webhooks**. If you need more webhooks per database, please [contact us](https://planetscale.com/contact).
 - You can only send one webhook test **every 20 seconds**.
 - Webhooks that repeatedly fail will be disabled.
+
+### Authenticating webhook deliveries
+
+If the receiving service requires authentication, configure an Authorization header when you create or update the webhook. Enter the complete value, including the authentication scheme—for example, `Bearer <token>`. PlanetScale sends this value unchanged:
+
+```http
+Authorization: Bearer <token>
+```
+
+The Authorization header value is write-only. API responses and the dashboard edit form indicate whether a header is configured without revealing its value. When editing a webhook in the dashboard, leave the configured header unchanged to preserve it, choose **Replace** to enter a new value, or choose **Remove** to clear it when you save. In the CLI, omit `--authorization-header` to preserve the configured value, or use `pscale webhook update <DATABASE_NAME> <WEBHOOK_ID> --clear-authorization-header` to clear it.
+
+The Authorization header authenticates PlanetScale to the receiving service. It does not replace the `X-PlanetScale-Signature` header, which lets your own endpoint verify the payload’s origin and integrity.
 
 ### Validating a webhook signature
 

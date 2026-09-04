@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-04T21:54:31.222Z
+current_date: 2026-09-04T21:54:31.222Z
 ---
 
 ## Overview
@@ -13,6 +13,8 @@ Webhooks can be used to build integrations, such as notifications, and automate 
 ## Webhook headers
 
 All webhooks from PlanetScale will have an `X-PlanetScale-Signature` header. This header is a SHA-256 HMAC hex digest of the request body, using your webhook secret as the key. You can use this header to verify that the webhook payload was sent by PlanetScale. See the documentation on [validating a webhook signature](webhooks.md#validating-a-webhook-signature) for more information.
+
+If configured, webhook deliveries include your Authorization header value unchanged. See [authenticating webhook deliveries](webhooks.md#authenticating-webhook-deliveries) for more information.
 
 ## Webhook request body parameters
 
