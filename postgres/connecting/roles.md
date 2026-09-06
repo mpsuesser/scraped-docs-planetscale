@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 You should not connect to the database from your application servers using the default role. If you ever need to rotate your default role credentials and you use the default role to connect to your application, you will have to take some downtime while rotating the credentials.
@@ -83,6 +83,10 @@ There are several ways to create a new role:
 ### Creating roles in the dashboard
 
 To create a new role in the dashboard, you can either click the “Connect” button on the database overview page, or navigate to “Settings” > “Roles” and click “New role”.
+
+![Configure the new role](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/roles/image3.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=021c2cce085fbd2a2eec855d4494563e)
+
+Configure the new role
 
 ### Creating roles via the CLI
 
@@ -178,11 +182,19 @@ You can rename a role by clicking the ”…” button for the role on the Roles
 
 To delete a role, click the ”…” for the role on the database Roles page at “Settings” > “Roles”.
 
+![Rename or delete a role](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/roles/image5.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=a3e81f507a14f3e10e7b41cad6eea686)
+
+Rename or delete a role
+
 Deleting a role requires an extra step if the role has created any objects like tables or schemas, if the role has been granted any additional permissions, or if the role has created any other roles. If you try to delete a role that is still referenced, you may see this error: `Role is still referenced and cannot be dropped.`.
 
 Such roles must designate a successor role, to which allowed objects are reassigned. Additional granted permissions are dropped as part of the transfer process. The usual successor role is `postgres`, which you can indicate in the “Delete role” modal.
 
 You can reassign owned objects when deleting a role directly in the dashboard. When you click “Delete role”, check the “ **Reassign owned objects** ” box on the modal.
+
+![Specify a successor for a role](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/roles/image6.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=27242b10c8c15d4baadc87b350549b14)
+
+Specify a successor for a role
 
 You can choose successors other than `postgres`, but only by using the API or the `pscale role` CLI. Deleting a role that owns objects, has additional permissions, or has created other roles will fail if no successor is specified.
 

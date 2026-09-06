@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/prometheus-metrics-datadog
 title: "Prometheus Metrics Datadog"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -215,6 +215,10 @@ Running Checks
 ```
 
 In the Datadog UI, I can see data for the `planetscale.active_connections` metric:
+
+![Datadog Connections Metric](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/prometheus-datadog-graph.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=c2d2ad986d30f46c2023694955b7873a)
+
+Datadog Connections Metric
 
 ## What’s Next?
 

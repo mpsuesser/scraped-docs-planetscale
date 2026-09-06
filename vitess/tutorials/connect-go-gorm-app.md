@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-go-gorm-app
 title: "Connect Go Gorm App"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Introduction
@@ -82,6 +82,10 @@ You may need to install the MySQL command line client if you haven’t already.
 ### Add data with PlanetScale dashboard console
 
 If you don’t care to install MySQL client or the PlanetScale CLI, another quick option is using the MySQL console built into the PlanetScale dashboard.
+
+![PlanetScale console insert and select example](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/connect-go-gorm-app/console-2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=0ee502a46491e24c95b4e6d9ce719c6b)
+
+PlanetScale console insert and select example
 
 You can now refresh the [Go products page](http://localhost:8080/products) to see the new record.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-laravel-app
 title: "Connect Laravel App"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Prerequisites
@@ -85,6 +85,10 @@ Let’s migrate and seed the database now.
 You can view the application at [http://localhost:8000](http://localhost:8000/).
 
 1. Refresh your Laravel homepage and you’ll see a list of users.
+
+![Laravel PlanetScale starter app homepage](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/laravel-users.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=7beff1977d9291d8eb65dce7a6cf83fd)
+
+Laravel PlanetScale starter app homepage
 
 ## Add data manually
 

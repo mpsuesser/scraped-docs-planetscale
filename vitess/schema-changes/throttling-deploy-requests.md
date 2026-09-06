@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/throttling-deploy-requests
 title: "Throttling Deploy Requests"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -11,6 +11,10 @@ current_date: 2026-09-02T21:57:53.710Z
 Deploy requests, though non-blocking, do consume some resources as the online schema change process occurs. Normally, you don’t need to get involved, as the [Vitess tablet throttler](https://vitess.io/docs/reference/features/tablet-throttler/) automatically identifies when replication lag is high on your database and [slows down migration progress](https://vitess.io/docs/user-guides/schema-changes/audit-and-control/#controlling-throttling).
 
 For long-running schema changes that take several minutes or hours, you may wish to increase throttling on your deploy request to mitigate load on your database.
+
+![Deploy request throttling settings page](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/schema-changes/throttling-deploy-requests/deploy-request-throttling.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=4cc8e069cb718c731a235d14f6bf0352)
+
+Deploy request throttling settings page
 
 ## How it works
 

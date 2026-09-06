@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp/private-service-connect
 title: "Private Service Connect"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -69,6 +69,10 @@ Google maintains additional documentation covering DNS and Private Service Conne
 Private Service Connect endpoints automatically create a private DNS records in the project where the PSC consumer endpoints are created that resolve to the endpoint’s reserved IP.
 
 The domain name used varies by region. You can view the domain name by clicking on `Network Services > Cloud DNS`. If Google was able to set up automatic DNS, you will see a new private DNS zone labeled by `DNS Name`:
+
+![cloud dns zone list](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/gcp/private-service-connect/cloud_dns.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=d64a57ebcb14557e2736dc1bc9147c04)
+
+cloud dns zone list
 
 Your consumer endpoints will be available via DNS records visible only within your VPC using the format:
 

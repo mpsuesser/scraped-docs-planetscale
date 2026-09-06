@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/postgres-mysql-planetscale-migration-guide
 title: "Postgres Mysql Planetscale Migration Guide"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale’s Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
@@ -20,6 +20,10 @@ When using this script, your data will take the following path:
 - DMS does necessary type conversions and copies the data into the Aurora MySQL database
 - Using the PlanetScale import tool, your data will flow from Aurora MySQL into your destination PlanetScale database
 - After the initial copy, changes will continue to flow form Postgres, to Aurora MySQL, to PlanetScale so that your data stays in sync, even if the migration takes several hours or days.
+
+![Import data flow](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/postgres-mysql-planetscale-darkmode.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=0f2bfad70fe3b4c34834391512b9ba3f)
+
+Import data flow
 
 It is up to you to determine how to handle the cut over between the two in your application.
 
@@ -200,9 +204,21 @@ You can monitor the progress of the migration by comparing row counts between th
 
 To get your data into PlanetScale, we will use the import tool to migrate the data from the Aurora MySQL instance created in the previous steps into PlanetScale. Log into PlanetScale, select your organization, click “New database”, and then “Import database.”
 
+![PlanetScale new database via import](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-new-import.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=a5ea0360cbc978505d0d3d46ac5c8ad1)
+
+PlanetScale new database via import
+
 Enter the name of your database and choose the type and size of database you want to import to. For large imports, we recommend using Metal for improved import speed.
 
+![PlanetScale set database name and type for import](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-database-name-type.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=ba2cb1ae4e4a24074d306215f5cd8744)
+
+PlanetScale set database name and type for import
+
 Scroll down and you will see a section to add the connection information for the database to import. Enter all of the credentials that the script printed out, and use the username and password for the `migration_user`.
+
+![PlanetScale import connection info](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-import-connection-info.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=beb5b321be27a4c0658bf5be117787ba)
+
+PlanetScale import connection info
 
 Click “Connect to Database.” If you encounter any errors at this step, look carefully at the error message and address any connection or schema issues as needed. When the import is ready, click “Begin import.”
 
@@ -236,11 +252,27 @@ If the script is able to set up all of the resources without error but the impor
 
 Log in to the web console, and go to the AWS DMS service page. In the sidebar, click on “Database migration tasks.”
 
+![AWS DMS landing page](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=71e1d3bfdb7379b64aac724ea5c9a10f)
+
+AWS DMS landing page
+
 You should see a migration task in the list with a name that corresponds to the identifier you chose.
+
+![AWS DMS migration tasks](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-tasks.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=8e57478228831a0a778c0cc9d123d153)
+
+AWS DMS migration tasks
 
 Click on the migration task, and then click “View logs” in the top right corner.
 
+![AWS DMS migration task choice](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-task-choice.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=bd76be10b80e317b129a08bbfa83e9f1)
+
+AWS DMS migration task choice
+
 This will bring you to your CloudWatch logs for this replication task, and you can search through it for error and warning messages to help you pinpoint the issue.
+
+![AWS DMS migration task logs](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-task-logs.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=a712755af4b97a7cfb9e2078adfc66a9)
+
+AWS DMS migration task logs
 
 ## Need help?
 

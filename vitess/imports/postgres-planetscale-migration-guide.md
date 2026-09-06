@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/postgres-planetscale-migration-guide
 title: "Postgres Planetscale Migration Guide"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale’s Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
@@ -15,6 +15,10 @@ This guide covers how to do an import directly between a Postgres source databas
 The scripts in this guide leverage [AWS Database Migration Service](https://aws.amazon.com/dms/) to handle conversions between Postgres and MySQL types. Even if you are migrating from a non-AWS Postgres provider, such as Neon or Supabase, you will still need an AWS account to perform the migration.
 
 DMS acts as a middle-man between your Postgres source database and PlanetScale. All of your data will pass through the DMS server which will handle type conversions before passing the data on to your PlanetScale database. After the initial data copy, DMS will continue to replicate changes from your source to the target until you stop it. It is up to you to determine how to handle the cut over between the two in your application.
+
+![Import data flow](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/postgres-planetscale-darkmode.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=4735a50e6b2f59268fbcb6f71636d5d2)
+
+Import data flow
 
 ### Prerequisites
 
@@ -174,11 +178,27 @@ If the script is able to set up all of the resources without error but the impor
 
 Log in to the web console, and go to the AWS DMS service page. In the sidebar, click on “Database migration tasks.”
 
+![AWS DMS landing page](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=71e1d3bfdb7379b64aac724ea5c9a10f)
+
+AWS DMS landing page
+
 You should see a migration task in the list with a name that corresponds to the identifier you chose.
+
+![AWS DMS migration tasks](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-tasks.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=8e57478228831a0a778c0cc9d123d153)
+
+AWS DMS migration tasks
 
 Click on the migration task, and then click “View logs” in the top right corner.
 
+![AWS DMS migration task choice](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-task-choice.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=bd76be10b80e317b129a08bbfa83e9f1)
+
+AWS DMS migration task choice
+
 This will bring you to your CloudWatch logs for this replication task, and you can search through it for error and warning messages to help you pinpoint the issue.
+
+![AWS DMS migration task logs](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/aws-dms-migration-task-logs.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=a712755af4b97a7cfb9e2078adfc66a9)
+
+AWS DMS migration task logs
 
 ## Need help?
 

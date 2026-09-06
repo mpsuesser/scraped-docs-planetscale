@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deploy-a-django-app-to-heroku
 title: "Deploy A Django App To Heroku"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -30,13 +30,29 @@ This article will make use of the [django-example GitHub repository](https://git
 
 It’s important to store the connection details for the PlanetScale database in **Config Vars** in Heroku so they are properly secured. These details can be obtained from the PlanetScale dashboard by clicking the “ **Connect** ” button.
 
+![The location of the “Connect” button in the PlanetScale dashboard. priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-a-django-app-to-heroku/database-2.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=48ba1b9a3ed43136f2604d12b26efac4)
+
+The location of the “Connect” button in the PlanetScale dashboard. priority
+
 In the following modal, choose Django from the “Connect with” dropdown. The.env tab will show all of the Config vars that need to be set up in Heroku. Take note of these and head to the Heroku dashboard.
 
+![The connection details for the project.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-a-django-app-to-heroku/connect-2.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=f8ba45650d3b0c224a2ba2d110677cb6)
+
+The connection details for the project.
+
 Select the **Settings** tab of your Heroku project and then “ **Reveal Config Vars”** from the Config **Vars** section. You should see your current Config Vars or an empty set of inputs if there are none configured yet.
+
+![The Settings tab of the Heroku dashboard.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-a-django-app-to-heroku/heroku.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=07ad7b32c59225161fe10f13232d1eac)
+
+The Settings tab of the Heroku dashboard.
 
 Set up a separate **Config Var** for each line you captured from the PlanetScale dashboard. The one exception is the `MYSQL_ATTR_SSL_CA`, which should be set to `/etc/ssl/certs/ca-certificates.crt`
 
 Heroku uses Ubuntu by default to run applications deployed to their systems, which is why the `MYSQL_ATTR_SSL_CA` value needs to be different than the default values provided by PlanetScale
+
+![The Config Vars setup for the project.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-a-django-app-to-heroku/ssl.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=d498bb1fb4261a05e6156a3963098342)
+
+The Config Vars setup for the project.
 
 ### Update the requirements
 

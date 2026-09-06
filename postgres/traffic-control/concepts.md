@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/concepts
 title: "Concepts"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Resource budgets
@@ -21,7 +21,9 @@ A resource budget:
 
 When a query to the database arrives, Database Traffic Control first checks whether it matches any resource budget **rules**. If a match is found, the cost of executing the query is estimated, and the **limits** in that resource budget determine whether the query is allowed, warned, or blocked.
 
-Each resource budget contains optional settings to control the amount of resources a specific traffic slice can use.
+![Create a new resource budget](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/create-new-resource-budget-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=8afe431c44376b474646096ccbb53a7f)
+
+Create a new resource budget
 
 Each resource budget has four optional, configurable limits:
 
@@ -45,7 +47,9 @@ Under normal usage, queries flow through without noticeable impact. When a workl
 
 Each resource budget has a **mode** that controls how strictly it is applied.
 
-You can set the mode of a resource budget to Enforce, Warn, or Off.
+![Database Traffic Control mode enforcement](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-enforce-banner-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=5a0b4ef7c176829330b84f699bf92505)
+
+Database Traffic Control mode enforcement
 
 - **Enforce**
 	- Limits are active
@@ -96,7 +100,9 @@ System attributes and tags are matched on key-value pairs. System attributes are
 
 You can combine rules with `AND` logic so that multiple rules must match, or `OR` logic so that any one of the rules must match, for the resource budget to apply.
 
-This rule will match any query that contains the `action='analytics'` tag
+![Creating resource budget rules](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-edit-rules-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=bef9b8d9be40261e1ca3f0c9b022d3c1)
+
+Creating resource budget rules
 
 ### System attribute rules
 
@@ -141,6 +147,14 @@ For details on the tag format, how to add tags to your queries, and framework su
 Target a specific query by using the query itself as the rule.
 
 You can create query-based rules by finding the query in the [Insights](../monitoring/query-insights.md) page and clicking **Create resource budget**.
+
+![Create resource budget from query](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/create-resource-budget-from-query-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=c4dd6a992cff545407fa16dc90ed8827)
+
+Create resource budget from query
+
+![Create resource budget from query](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/create-resource-budget-from-query-light.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=5f029497a02cd671752f127fb257407d)
+
+Create resource budget from query
 
 This is recommended only for temporary cases where you need to test or limit the resources allocated to a specific query. Such as an emergency situation. Prefer system attribute or tag-based rules.
 

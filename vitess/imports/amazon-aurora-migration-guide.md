@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide
 title: "Amazon Aurora Migration Guide"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -22,6 +22,10 @@ Gather the following information from the AWS Console:
 - **Port number** - Typically 3306
 - **Master username and password** - Your Aurora root credentials
 
+![The Connectivity & security tab of the database in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/amazon-aurora-migration-guide/the-connectivity-and-security-tab-of-the-database-in-aurora.jpg?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=594e824a7e0cd37d6825cdb9ca984ca8)
+
+The Connectivity & security tab of the database in RDS.
+
 ## Step 1: Configure server settings
 
 Your Aurora database needs specific server settings configured before you can import. Follow these steps to configure GTID mode, binlog format, and sql\_mode.
@@ -29,6 +33,10 @@ Your Aurora database needs specific server settings configured before you can im
 ### Check your current parameter group
 
 Your Amazon Aurora database is either using the default DB cluster parameter group (e.g., default.aurora-mysql8.0) or a custom one. You can view it in the “ **Configuration** ” tab of your regional database cluster (not reader or writer instances).
+
+![The Configuration tab of the database view in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/amazon-aurora-migration-guide/the-configuration-tab-of-the-database-view-in-aurora.jpg?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=556dad30f580c80890d805ab7d8c4d05)
+
+The Configuration tab of the database view in RDS.
 
 ### Configure the parameter group
 
@@ -128,12 +136,26 @@ The specific IP addresses depend on your PlanetScale database region. These will
 
 1. Navigate to “ **Connectivity & security** ” tab of your writer instance
 2. Click the VPC security group link
+
+![The Connectivity & security tab of the database view in RDS.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/amazon-aurora-migration-guide/the-connectivity-and-security-tab-of-the-database-view-in-aurora.jpg?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=6efbebc49a044edeb2bda02a48bce549)
+
+The Connectivity & security tab of the database view in RDS.
+
 3. Select “ **Inbound rules** ” tab, then “ **Edit inbound rules** ”
+
+![The view of security groups associated with the RDS instance.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-view-of-security-groups-associated-with-the-rds-instance.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=be39a270bec73e73e5a8809e0def99d3)
+
+The view of security groups associated with the RDS instance.
+
 4. Click “ **Add rule** ”
 5. **Type**: Select `MYSQL/Aurora`
 6. **Source**: Enter the first PlanetScale IP address (AWS will format it as `x.x.x.x/32`)
 7. Repeat for each IP address in your region
 8. Click “ **Save rules** ”
+
+![The Edit inbound rules view where source traffic can be allowed.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/aws-rds-migration-guide/the-edit-inbound-rules-view-where-source-traffic-can-be-allowed.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=c47d06daa3ad6267b1a88261d4954989)
+
+The Edit inbound rules view where source traffic can be allowed.
 
 ## Importing your database
 

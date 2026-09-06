@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control
 title: "Traffic Control"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 Database Traffic Control for PlanetScale Postgres introduces **resource budgets**, giving you control over the resources allocated to specific traffic slices.
@@ -46,7 +46,9 @@ If you never see contention between workloads and your queries are well understo
 
 ## Key capabilities
 
-The decision to Warn or Block a query is determined by the resource budget limits and mode.
+![Graph of blocked and warned queries](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-control-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=cf0d1d225a97246fa6eac03cf29309bb)
+
+Graph of blocked and warned queries
 
 See [Concepts](traffic-control/concepts.md) for detailed definitions of **resource budgets**, **rules**, and **modes**.
 

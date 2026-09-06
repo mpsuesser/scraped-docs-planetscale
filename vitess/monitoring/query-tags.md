@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
+
+![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-dark.png?w=2500&fit=max&auto=format&n=Ez_PNQOyZBhNfDDQ&q=85&s=5f39af621dd68f69789cdc1551534e8c)
+
+Insights tags
+
+![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-light.png?w=2500&fit=max&auto=format&n=Ez_PNQOyZBhNfDDQ&q=85&s=783690190be8b389b80b394ebae20b69)
+
+Insights tags
 
 ## Overview
 

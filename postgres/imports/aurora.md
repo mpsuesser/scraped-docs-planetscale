@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/aurora
 title: "Aurora"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
@@ -28,13 +28,25 @@ Create a new database in the [PlanetScale dashboard](https://app.planetscale.com
 - This guide assumes you are migrating from a Postgres Aurora database, so also choose the Postgres option in PlanetScale.
 - Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](../../metal.md). For applications that need more flexible storage options or smaller compute instances, choose “Elastic Block Storage” or “Persistent Disk.”
 
+![Create a new PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=14b7879471576772f73188e9eb6de428)
+
+Create a new PlanetScale Postgres database
+
 Once the database is created and ready, navigate to your dashboard and click the “Connect” button.
+
+![Connect to a PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=e0b93dea71e300b4c90d09d083079637)
+
+Connect to a PlanetScale Postgres database
 
 From here, follow the instructions to create a new default role. This role will act as your admin role, with the highest level of privileges.
 
 Though you may use this one for your migration, we recommend you use a separate role with lesser privileges for your migration and general database connections.
 
 To create a new role, navigate to the [Role management page](../connecting/roles.md) in your database settings. Click “New role” and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
+
+![New Postgres role privileges](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image3.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=366687049d96e06fe0c1698a8ae6bc05)
+
+New Postgres role privileges
 
 Copy the password and all other connection credentials into environment variables for later use:
 
@@ -47,7 +59,15 @@ PLANETSCALE_DBNAME=postgres
 
 We also recommend that you increase `max_worker_processes` for the duration of the migration, in order to speed up data copying. Go to the “Parameters” tab of the “Clusters” page:
 
+![Configure parameters](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image4.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=e502fd27587a995e215d6f466ac31d95)
+
+Configure parameters
+
 On this page, increase this value from the default of `4` to `10` or more:
+
+![Configure max worker processes](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image5.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=84cc43801ae8eda2136971faca644a51)
+
+Configure max worker processes
 
 You can decrease these values after the migration is complete.
 
@@ -59,6 +79,10 @@ If you don’t ensure your disk is large enough for the import in advance, it wi
 
 To configure this, navigate to “Clusters” and then the “Storage” tab:
 
+![Storage configuration min size](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/imports/storage-configuration-min-size.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=f4b30c296771178d8a8e8d0ed096da58)
+
+Storage configuration min size
+
 On this page, adjust the “Minimum disk size.” You should set this value to at least 150% of the size of the database you are migrating. For example, if the database you are importing is 330 GB, you should set your minimum disk size to at least 500 GB.
 
 The 50% overhead is to account for:
@@ -68,11 +92,19 @@ The 50% overhead is to account for:
 
 When ready, queue and apply the changes. You can check the “Changes” tab to see the status of the resize:
 
+![Confirm disk size change](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/confirm-disk-size-change.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=5c7afaf953bbd7ec7ac0e82ed220a75d)
+
+Confirm disk size change
+
 Wait for it to indicate completion.
 
 If you are importing to a Metal database, you must choose a disk size when first creating your database. You should launch your cluster with a disk size at least 50% larger than the storage used by your current source database (150% of the existing total).
 
 As an example, if you need to import a 330 GB database onto a PlanetScale `M-160` there are three storage sizes available:
+
+![Metal disk size](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/imports/metal-disk-size.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a4bb2ac32cdbcd18ec686875681ab59d)
+
+Metal disk size
 
 You should use the largest, 1.25TB option during the import. After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option. Resizing is a no-downtime operation that can be performed on the [Clusters](../cluster-configuration.md) page.
 
@@ -84,11 +116,31 @@ In the writer instance of your database cluster, go to the “Connectivity & sec
 
 You will also need to change some parameters and ensure that logical replication is enabled. If you don’t already have a parameter group for your Aurora cluster, create one from the “Parameter groups” page in the AWS console:
 
+![AWS parameter groups](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image6.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=e0bec3640a83c8fc62f3956a2d11f08f)
+
+AWS parameter groups
+
 From here, click the button to create a new group. Choose whichever name and description you want. Set the `Engine type` to `Aurora Postgres` and the `Parameter family group` to the version that matches your Aurora Postgres database. Set the `Type` to `DB Cluster Parameter Group`.
+
+![Create an AWS parameter group](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image7.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=f99ee18e93c0ba01ed6932749e06983c)
+
+Create an AWS parameter group
 
 If you already have a custom parameter group for your cluster, you can use the existing one instead. The two key parameters you need to update are adding `pglogical` to `shared_preload_libraries` and setting `rds.logical_replication` to `1`:
 
+![Preload libraries parameter](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image8.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=575b5e91dffb413aed398f2e93c49108)
+
+Preload libraries parameter
+
+![Logical replication parameter](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image9.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=6f22c9e77dd5dbbe3bbae3906c86526c)
+
+Logical replication parameter
+
 Once these are set, you need to make sure your Aurora database is configured to use them. Navigate to your Aurora database in the AWS console, click the “Modify” button, and then ensure your database is using the parameter group:
+
+![Set parameter group for Aurora](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image10.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=9ad926ab9dec9560c4c9ccef7bb59f03)
+
+Set parameter group for Aurora
 
 When you go to save the changes, select the option to either apply immediately or during your next maintenance window. The changes may take time to propagate. You can confirm that the `wal_level` is set to `logical` by running `SHOW wal_level;` on your Aurora database:
 

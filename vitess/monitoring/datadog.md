@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/datadog
 title: "Datadog"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 This Datadog integration is no longer receiving updates or new metric additions. You should instead use our [Datadog Agent Integration](../tutorials/prometheus-metrics-datadog.md), which provides more metrics than this native integration.
@@ -17,6 +17,10 @@ If you have any questions about migrating to the Datadog Agent Integration, [rea
 ## Configuring the Datadog integration
 
 Once complete, a “PlanetScale” dashboard will be available with incoming metrics from PlanetScale.
+
+![PlanetScale Default Dashboard in Datadog](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/integrations/datadog/dashboard.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=fda5e21f5e73e8bd3bb8bc30a80caff1)
+
+PlanetScale Default Dashboard in Datadog
 
 ## Metrics We Collect
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/guides/prometheus-metrics-grafana
 title: "Prometheus Metrics Grafana"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Introduction
@@ -32,6 +32,10 @@ $ brew services start grafana
 
 When that succeeds, I can go to `http://localhost:3000/` and I should see the Grafana welcome page:
 
+![Grafana Welcome Page](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-grafana-welcome.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=bfd15c6dd885790f23bb2958b5caa17a)
+
+Grafana Welcome Page
+
 The default username and password for a new install is `admin` and `admin`. Grafana will ask you to change the password the first time you log in, please pick something more secure than `admin`.
 
 ### Adding a Prometheus Endpoint
@@ -42,10 +46,18 @@ If you’re running Prometheus locally, you’ll need to add that as a datasourc
 
 Now, you should look see a page that looks like this:
 
+![Grafana Add Datasource](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-add-prometheus-connection.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=d8ba77f8190a6b387f976398b9ec0ce3)
+
+Grafana Add Datasource
+
 You can call this whatever you want, we’ll use the following:
 
 - Name: “PlanetScale”
 - Prometheus server URL: `http://localhost:9090/`
+
+![Grafana Prometheus Configuration](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-prometheus-configuration.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=330e9dce03b1afc6d9587df3486400b8)
+
+Grafana Prometheus Configuration
 
 Because this is running on your local machine, we do not need to use any Authentication or TLS
 
@@ -68,6 +80,10 @@ PlanetScale maintains the latest version of the dashboard located here:
 Download this file to your computer, and then click “Upload dashboard JSON file”.
 
 Find the JSON file you downloaded in the previous step, and configure it with the Prometheus datasource that we added in an earlier:
+
+![Grafana Prometheus Configuration](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-prometheus-configuration.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=330e9dce03b1afc6d9587df3486400b8)
+
+Grafana Prometheus Configuration
 
 Click ‘Import’ and you should be directed to the dashboard, configured to query your local Prometheus with the data it’s been scraping!
 

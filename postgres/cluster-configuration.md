@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 The Clusters page in your PlanetScale dashboard allows you to monitor your cluster utilization and configure cluster settings for each branch in your database. You can:
@@ -28,9 +28,17 @@ Cluster resizing may take several minutes to complete and you cannot make additi
 
 Consider the case where you need to upgrade from an `M-160` database cluster to an `M-320`, doubling the compute resources of each node. After applying the upgrade, three new `M-320` nodes are created. These are caught up with the primary through a combination of a backup restore and data replication.
 
+![Cluster Resize 1](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-1.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=51a44bb69be6f8900d9e25dc389bf032)
+
+Cluster Resize 1
+
 Once these new `M-320` replicas are sufficiently caught up, the operator transitions primaryship to the one of the new `M-320` nodes.
 
 After this, the old `M-160` replicas are decommissioned, using the new ones for all replica traffic. During each node replacement, the connections to the decommissioned node will be terminated. Your clients will need to establish new connections with the new nodes.
+
+![Cluster Resize 2](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-2.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=8d662f076cc5fac16b5728b4978005b4)
+
+Cluster Resize 2
 
 During the primary cutover all database connections will be terminated. Normally a primary promotion proceeds in a fast and orderly manner in less than 5 seconds. In cases where the operator is not able to quickly and cleanly shutdown the primary due to unresponsive user queries or transactions, the the operator will failover to a replica after a timeout of 30 seconds.
 

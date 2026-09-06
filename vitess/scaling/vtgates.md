@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/vtgates
 title: "Vtgates"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 A VTGate, or Vitess Gateway, is the layer of Vitess that acts as a proxy between your application servers and the MySQL instances.
@@ -19,6 +19,14 @@ From the Clusters page:
 - Turn on VTGate autoscaling (for `VTG-320` and larger)
 - View your VTGate CPU and memory utilization for the past hour up through the past week
 - View any past changes to your VTGates
+
+![VTGate page in PlanetScale dashboard](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/vtgates/vtgates-panel.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=0b9e35fa3fbfa512bea01279ec8a914a)
+
+VTGate page in PlanetScale dashboard
+
+![VTGate autoscaling configuration](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/vtgates/vtgates-panel-darkmode.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=db4bcdf5d5e51ce731c4b89bf7c03a2d)
+
+VTGate autoscaling configuration
 
 ## Adjusting the size and number of VTGates
 

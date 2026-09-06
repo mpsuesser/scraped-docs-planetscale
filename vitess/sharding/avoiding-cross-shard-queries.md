@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries
 title: "Avoiding Cross Shard Queries"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 When designing your database sharding scheme, it’s important to think about your common query patterns with the goal of avoiding cross-shard queries.
@@ -156,6 +156,10 @@ With that out of the way, let’s again look at how we handle joining the other 
 
 With our current setup, we have `exercises`, `users`, and `programs` on the unsharded keyspace and the `exercise_logs` table on the sharded keyspace, as shown below:
 
+![Example of cross-shard joins](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/sharding/cross-shard-queries/cross-shard-tables.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=426b1b8fc7891d6c8c582feab0dcdce4)
+
+Example of cross-shard joins
+
 This means that every time we run the above query, we’re doing cross-keyspace `JOIN` s. In this case, we’ll see a massive hit to performance, and application speed will feel slow to the end user.
 
 Now that we have a good grasp on what we’d like to avoid, let’s come up with some solutions. The main thing we need to solve is how to avoid cross-keyspace / cross-shard joins between `exercise_logs`, `users`, and `exercises`.
@@ -167,6 +171,10 @@ Let’s start by looking at the `users` table. We already know we’re using `ex
 To avoid this, we should move the `users` table to the `metal-sharded` keyspace and shard that as well. We’ll need to choose a primary Vindex for `users` in order to shard it. Because we sharded `exercise_logs` on the `user_id`, we now have a great option for the `users` primary vindex: `users.id`. Hashing on `users.id` will guarantee that for every user, both their user record and exercise logs all end up on the same shard.
 
 Our cluster now looks like this:
+
+![Example of cross-shard joins](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/sharding/cross-shard-queries/cross-shard-tables-2.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=43e76604bdec053fca13799c6dc7bd68)
+
+Example of cross-shard joins
 
 ### The exercises table
 
@@ -186,6 +194,10 @@ Here is a recap of what we’ve chosen for our `metal` database cluster:
 - Used `exercise_logs.user_id` as the primary Vindex for `exercise_logs`
 - Used `users.id` as the primary Vindex for `users`
 - Used a reference table to copy `exercises` to every shard in our `sharded-metal` keyspace
+
+![Example of avoiding cross-shard queries](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/sharding/cross-shard-queries/avoiding-cross-shard-joins.png?w=2500&fit=max&auto=format&n=Lta43VIYjNTnQ47e&q=85&s=bc5f94658d18629632b5345f61a85408)
+
+Example of avoiding cross-shard queries
 
 With this setup, running our most common query does not involve any cross-keyspace or cross-shard queries:
 

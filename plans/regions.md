@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/regions
 title: "Regions"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -63,6 +63,10 @@ pscale database create <DATABASE_NAME> --region us-west
 
 PlanetScale allows you to select a region for development branches during creation as well. By default, it is set to the same region as its database.
 
+![Select your branch region](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/regions/branch.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=91d85b4ee6f5af754d662c47e68aebb6)
+
+Select your branch region
+
 Once you select a branch region, it cannot be changed.
 
 You can also select the region while creating a branch via the CLI by using the `--region` flag with the region’s slug.
@@ -76,6 +80,10 @@ pscale branch create my-production-database add-tables --region eu-west
 ## Restricting the branch regions
 
 [Organization Administrators](../security/access-control.md#organization-administrator) can restrict branches to only being created in the same region as the one selected during database creation. To enable this setting, check the *Restrict region* setting in the settings page for the database: `app.planetscale.com/<org>/<database>/settings`.
+
+![Restrict your branches to one region](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/regions/restrict-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=79f1732aa7cfeb0d1d139ac55a3f2e5f)
+
+Restrict your branches to one region
 
 ## Changing branch and database regions
 

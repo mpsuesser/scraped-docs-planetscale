@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
+
+![Insights tags](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-tags-dark.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=31c8da3149dc62765b2464e4e3d6a164)
+
+Insights tags
+
+![Insights tags](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-tags-light.png?w=2500&fit=max&auto=format&n=Pc1vKrfqALwLm39x&q=85&s=309068da045d19beaeb0f302afd241b6)
+
+Insights tags
 
 ## Overview
 

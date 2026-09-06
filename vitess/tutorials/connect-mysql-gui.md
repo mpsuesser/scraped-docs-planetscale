@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui
 title: "Connect Mysql Gui"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Introduction
@@ -27,7 +27,15 @@ As a security best practice, passwords are only displayed when they are created.
 
 In the application you are using, enter the access information you gathered in the previous step into the appropriate fields. Make sure to check **“Require SSL”** as SSL is required to connect to a PlanetScale database. Click **“Connect”** once you are finished.
 
+![The new connection window in Sequel Ace.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-mysql-gui/ace-connect.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=d02db10a7fcba42895e6322ceda5275d)
+
+The new connection window in Sequel Ace.
+
 If the connection is successful, you should be able to query your database and perform other [supported operations](../troubleshooting/mysql-compatibility.md).
+
+![A sample query in Sequel Ace.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-mysql-gui/ace-query.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=0b569521c9eff7a53e581542fd50e41d)
+
+A sample query in Sequel Ace.
 
 ## Caveats
 

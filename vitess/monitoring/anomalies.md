@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/anomalies
 title: "Anomalies"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -13,6 +13,10 @@ PlanetScale Insights continuously analyzes your query performance to establish a
 ## Using the Anomalies graph
 
 The graph shown on the Anomalies page shows the percentage of queries executing slower than the 97.7th (2-sigma) percentile baseline on the y-axis and the period of time on the x-axis. The “expected” line shows the percent of queries that are statistically expected in a database with uniform query performance over time. Slight deviations from the expected value are normal. Only substantial and sustained deviations from the expected value are considered an anomaly.
+
+![Database health graph showing two anomalies](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/anomalies/database-health-graph.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=e465ee053557ce3478bf8f4927f50e3b)
+
+Database health graph showing two anomalies
 
 Any periods where your database was unhealthy will be highlighted with a red icon representing a performance anomaly. Each anomaly on the graph is clickable. Clicking on it will pull up more details about it in the table below the graph, such as: duration, percentage of increase, and when the anomaly occurred. We also overlay any deploy requests that happened during that period over the anomaly graph.
 

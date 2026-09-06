@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/backups
 title: "Backups"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 ## Overview
@@ -17,6 +17,10 @@ Our [Base plan](../planetscale-plans.md) includes automated backups every 12 hou
 To view backups for all of your branches, go to your database backups page: `app.planetscale.com/<org>/<database>/backups`.
 
 Once there, you’ll find additional details about your backup history.
+
+![View backups for your database](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/back-up-and-restore/view-backups.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=b04869a9528bafd452fac63b83064479)
+
+View backups for your database
 
 ## Create manual backups
 

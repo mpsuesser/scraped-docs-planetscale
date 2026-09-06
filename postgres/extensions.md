@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-09-04T17:35:45.309Z
-current_date: 2026-09-04T17:35:45.309Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 You can submit and vote for the extensions you want us to support next at [ps-extensions.io](https://ps-extensions.io/).
@@ -99,6 +99,10 @@ ALTER EXTENSION pgcrypto SET SCHEMA new_schema;
 Not all extensions support being installed in non-public schemas. Most utility and data type extensions work fine, but some system-level extensions must remain in the public schema.
 
 ## Configuring Extensions in the Dashboard
+
+![Configuring Extensions](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/extensions/configure-extensions.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=e5570f674960a50f46470d435fb167be)
+
+Configuring Extensions
 
 Some extensions require explicit configuration through the PlanetScale dashboard and may consume additional resources on your database instances. Configuring these extensions may require a database restart. The extensions that require a restart are marked with a ✅ in the “Restart required” column. For `Production` clusters, these reboots are applied in a rolling cadence through the cluster’s instances.
 

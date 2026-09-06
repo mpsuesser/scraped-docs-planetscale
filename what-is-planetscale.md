@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/what-is-planetscale
 title: "What Is Planetscale"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T18:18:54.347Z
+current_date: 2026-09-06T18:18:54.347Z
 ---
 
 PlanetScale is a fully managed relational database platform for [Vitess](vitess.md) and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
@@ -34,9 +34,17 @@ Our [non-blocking schema change workflow](vitess/schema-changes.md) for Vitess m
 
 Our [branching workflow](vitess/schema-changes/branching.md) paired with [safe migrations](vitess/schema-changes/safe-migrations.md) is what enables non-blocking schema changes on your production Vitess database. Instead of applying schema changes directly to your production database, we let you create branches, which are essentially copies of your database. When you create a new branch off of production, you have an isolated copy of your database that you can use for development to make schema changes.
 
+![Branching workflow diagram - Create dev branch off of main, make schema changes, make deploy request, resolve schema conflicts, test, deploy to main](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/what-is-planetscale/branching-diagram.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=b4d90d13b1fbccca71599565aad2a543)
+
+Branching workflow diagram - Create dev branch off of main, make schema changes, make deploy request, resolve schema conflicts, test, deploy to main
+
 Development branches can serve as your staging environment, so you don’t have to worry about spinning up a new testing database and constantly syncing it with production. We handle all of that for you.
 
 Once you’re ready to deploy schema changes from your development branch to production, you [open a deploy request](vitess/schema-changes/deploy-requests.md). The deploy request allows your team to view a diff of the schema changes being made, comment, and approve before deploying the change to production.
+
+![Example of a deploy request showing comments, approval, and deployment](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/what-is-planetscale/deploy-request.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=77738e699a02fd500fb91e4c6c97b23e)
+
+Example of a deploy request showing comments, approval, and deployment
 
 ### Revert a schema change
 
@@ -76,6 +84,10 @@ We understand changing database providers can be a pain, from dealing with downt
 We built a [database import tool](vitess/imports/database-imports.md) to make importing to Vitess as pain-free as possible.
 
 With our import tool, you can connect your internet-accessible database to PlanetScale and begin the import process. During the import, your production database remains live, and both your PlanetScale and production databases are continuously synced. This means that as new or updated data hits your production database, PlanetScale will pull it in as long as the connection remains open. Once you’re ready to do the swap, the cutover happens in an instant. No downtime and no data loss.
+
+![Step 3 of database import - Primary mode](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/validate-import-workflow.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=c0ad1c520bba3f5d391dac70718b6018)
+
+Step 3 of database import - Primary mode
 
 ### Connect
 
