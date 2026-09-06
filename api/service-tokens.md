@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
 
 ## Overview
@@ -19,6 +19,10 @@ Give the token a name (this is used for your reference only) and click **“Crea
 The modal will update, displaying your service token where the Name field was. Copy the ID and token values as you’ll need them moving forward. Click **“Edit token permissions”** to proceed.
 
 Be sure to copy the service token after you create it. There’s no way to retrieve the token value once you leave this page.
+
+![Service token detail page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/modal-with-service-token-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=9e0549863228c5adf442a450b9632190)
+
+Service token detail page
 
 ## Assign service token permissions
 
@@ -39,6 +43,10 @@ In order to perform operations specific to a database, permissions can be assign
 Select the database you want to grant access to and check the box next to each permission option you need to grant. Once you are done, click **“Save permissions”**.
 
 For a full list of database access permissions, see the [API documentation for service tokens](reference/service-tokens.md#database-access-permissions).
+
+![The Database access permissions modal.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/db-access-permissions-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=a865a4bfd9b1cbc48b402919149855ae)
+
+The Database access permissions modal.
 
 ### Add permissions for all databases
 
@@ -103,11 +111,19 @@ Refer to the [API docs](reference/getting-started-with-planetscale-api.md) for m
 
 If you want to modify the permissions granted to a service token, start by opening the service token from the settings pane. Select the three dots next to the organization or database name permissions you want to modify and click **“Edit permissions”**.
 
+![The location of the Edit permissions option for organization permissions.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/edit-org-perms-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=90cc315d328b832a8f3f1820cef1b4be)
+
+The location of the Edit permissions option for organization permissions.
+
 This will open a modal that allows you to modify the permissions the service token has to access that organization.
 
 ## Delete a service token
 
 You can delete a service token at any time from the service token detail page. Simply click the **“Delete service token”** button.
+
+![Delete service token.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/delete-service-token-2.png?w=2500&fit=max&auto=format&n=GA0k5H-MolPvBjDk&q=85&s=d7ac5491944cb607a0102bcadbd7c362)
+
+Delete service token.
 
 ## Manage service tokens using the PlanetScale CLI
 

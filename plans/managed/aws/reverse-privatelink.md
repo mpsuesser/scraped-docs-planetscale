@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/reverse-privatelink
 title: "Reverse Privatelink"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
 
 Often, one of the first tasks for a new Managed deployment is to import data from an existing database housed in a separate AWS Organizations member account.
@@ -23,6 +23,10 @@ Broadly speaking, there are three major components to this PrivateLink setup:
 ## Starting state
 
 Below is a simplified diagram of our initial state. We’ve got two separate accounts, each with their own VPCs and availability zones. We’re using AWS [AZ IDs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#az-ids) as well as of AZ names to ensure that we’re always referring to the correct AZ, as AZ names are not consistent across AWS accounts. On the producer side, we have a network subnet inside each AZ.
+
+![starting state](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/privatelink/starting-state.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=9ced727a7239e9c8f75783746f328f8a)
+
+starting state
 
 ## Create and configure the NLB
 
@@ -78,6 +82,10 @@ aws elbv2 create-listener \
 
 Now that you’ve created the NLB and configured it, you can add the NLB to the diagram. Although on the diagram it looks like there are three separate NLBs, it’s meant to represent a single NLB object that has network interfaces in three different subnets.
 
+![create and configure nlb](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/privatelink/create-and-configure-nlb.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=a37bfa2cdefa37293d90239bd79c6dd9)
+
+create and configure nlb
+
 ## Create and configure the PrivateLink VPC Endpoint Service
 
 Now, let’s configure the endpoint service. You’ll need the ARN of your load balancer for this.
@@ -104,9 +112,17 @@ aws ec2 modify-vpc-endpoint-service-permissions \
   --add-allowed-principals '["arn:aws:iam::123456789012:root"]'
 ```
 
+![create and configure vpce svc](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/privatelink/create-and-configure-vpce-svc.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=feead52b45f085880bb172f82f922469)
+
+create and configure vpce svc
+
 ## Wrapping Up
 
 Once you’ve communicated your newly created VPC Service Endpoint ID to your Solutions Engineer, the PlanetScale Engineering team can then complete the rest of the process. This involves creating, configuring, and testing the PrivateLink VPC Interface Endpoint. The diagram below illustrates the completed system.
+
+![wrapping up](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/privatelink/wrapping-up.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=739cbbd655957959fb862d47f1566def)
+
+wrapping up
 
 ## Need help?
 

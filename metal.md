@@ -2,9 +2,11 @@
 url: https://planetscale.com/docs/metal
 title: "Metal"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
+
+![Metal SSD](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/metal.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=7ba9c2fedfd3553c640f4d45a4355d3e)
 
 This translates to significant latency reduction, more consistent IO performance, and unlimited I/O Operations Per Second (IOPS). Metal is an excellent choice for high-IOPS and other performance-critical workloads. With Metal, your database now has the ability to use modern NVMe SSD technology to its full potential.
 
@@ -14,15 +16,39 @@ Metal nodes for Postgres now [start at $50/month](https://planetscale.com/blog/5
 
 PlanetScale databases come in two main flavors: **Metal** and **network-attached storage**. When you create a database on PlanetScale, you can choose between these two options:
 
+![Choose between network attached storage and Metal](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/nas-and-metal.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=55d7d8371ce91fba292b2282a045db25)
+
+Choose between network attached storage and Metal
+
+![Choose between network attached storage and Metal](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/nas-and-metal-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=4e91f8d05638240a85bb2b1473e93536)
+
+Choose between network attached storage and Metal
+
 The storage for Metal databases does not autoscale. It is important to keep a close eye on the storage capacity of Metal databases, and upgrade well before running out of space.
 
 When you create a Metal database, you must choose a drive size up front.
+
+![Select storage drive size for a Metal database](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/metal-drive-size.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=c0a852ad8b9bfa17203634b9e0159029)
+
+Select storage drive size for a Metal database
+
+![Select storage drive size for a Metal database](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/metal-drive-size-darkmode.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=db67e03bca10ac2e286960b7448573a4)
+
+Select storage drive size for a Metal database
 
 You should select a drive size that best suits your current data size, while also taking into account growth trends. When the time comes that you need more storage, we make it easy to upgrade to larger NVMe drives with just a few clicks of a button. You can learn more about creating and resizing Metal databases in our [creation and upgrade documentation](metal/create-a-metal-database.md).
 
 ## Monitoring your storage
 
 Fixed-sized drives also means that you must closely monitor how much storage your database is using. You can do so by looking at the storage information on the PlanetScale dashboard:
+
+![Storage indicator in PlanetScale](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/storage.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=1510ce992e3e1759acdf1623132bcfb1)
+
+Storage indicator in PlanetScale
+
+![Storage indicator in PlanetScale](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/storage-darkmode.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a257b9de9ea710989e8f3c4c837ec17b)
+
+Storage indicator in PlanetScale
 
 We will send you email notices when your database storage reaches the following thresholds: 60%, 75%, 85%, 90%, 95%. We will also email you when we estimate that your storage will run out in 1 week and 24 hours, based on recent usage trends.
 
@@ -55,6 +81,10 @@ We’ve mentioned several times that Metal can provide you better performance. W
 
 Below is a screenshot showing the p50 and p95 response times for the database that was powering PlanetScale Insights as of Q4 2024.
 
+![The effect of Metal on the Insights database](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/metal-insights-p50-p95.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=1867d8df4ad2988c9dc7fae932b7e21e)
+
+The effect of Metal on the Insights database
+
 You can pretty clearly see when the database was switched over from network-attached storage instance types to Metal. The p50 response times were cut in half, and the p95 had approximately a 7x improvement.
 
 The workload was and continues to be very I/O bound. The Insights database ingests a large amount of time-series data, and is frequently queried to pull the data that we use to generate graphs in Insights. Metal provides a huge improvement for this type of workload.
@@ -63,15 +93,27 @@ The workload was and continues to be very I/O bound. The Insights database inges
 
 One of our existing customers runs several large, sharded databases. We migrated these databases to Metal during the internal release of our product. Below is a screenshot of the p99 latencies of a set of shards that we migrated from network-attached storage database to Metal instances.
 
+![The effect of Metal on a large sharded database](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/customer-p99.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=8d8c81da577a58fe3ef6c97658473191)
+
+The effect of Metal on a large sharded database
+
 Though their p99 response times were already very good, Metal was able to further cut it in half.
 
 ### Cost and performance
 
 We migrated yet another large customer during our internal release. After switching to Metal, they saw a significant improvement in API call latency for one of their critical APIs.
 
+![API latency improvement](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/customer-api-improvement.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=e18ec9a0d6f420381f02d4b6500a20f7)
+
+API latency improvement
+
 We can clearly see that starting on Dec 20, the long tail of latency was reduced significantly. This is due to the lower latency and improved consistency of local NVMe disk performance.
 
 This same customer also saw some significant cost savings with their move to Metal.
+
+![Cost savings with Metal](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/metal/customer-pricing-drop.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=7b0811595c9c0cf68f60dc74c7a08f1c)
+
+Cost savings with Metal
 
 The performance of the database improved and the AWS costs to run dropped from over $100 per day to ~$30 per day.
 

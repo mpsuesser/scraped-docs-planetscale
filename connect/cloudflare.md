@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/cloudflare
 title: "Cloudflare"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
 
 You can create PlanetScale Postgres or MySQL databases directly from the Cloudflare dashboard and pay for usage through your [Cloudflare account](https://developers.cloudflare.com/fundamentals/setup/account/create-account/).
@@ -42,9 +42,25 @@ PlanetScale usage for databases created through Cloudflare is billed at [standar
 
 To confirm billing is routed through Cloudflare, go to your PlanetScale organization **Settings** > **Billing**. You’ll see a banner indicating that some billing is handled through Cloudflare, with a link to your Cloudflare billing page.
 
+![PlanetScale billing page showing some billing through Cloudflare](https://mintcdn.com/planetscale-2/G873q0u1kC24Q7We/connect/assets/ps_paid_via_cloudflare-light.png?w=2500&fit=max&auto=format&n=G873q0u1kC24Q7We&q=85&s=93db4c7f8f0e0c2c8e292dae1147f242)
+
+PlanetScale billing page showing some billing through Cloudflare
+
+![PlanetScale billing page showing some billing through Cloudflare](https://mintcdn.com/planetscale-2/G873q0u1kC24Q7We/connect/assets/ps_paid_via_cloudflare-darkmode.png?w=2500&fit=max&auto=format&n=G873q0u1kC24Q7We&q=85&s=166e5d9f950b257ff69cac2d8e2c9dd2)
+
+PlanetScale billing page showing some billing through Cloudflare
+
 ## Connect Hyperdrive
 
 Once your database is ready, a banner at the top of the PlanetScale dashboard directs you back to the Cloudflare dashboard to set up Hyperdrive.
+
+![PlanetScale dashboard banner directing to Cloudflare Hyperdrive setup](https://mintcdn.com/planetscale-2/G873q0u1kC24Q7We/connect/assets/ps_hyperdrive_banner-light.png?w=2500&fit=max&auto=format&n=G873q0u1kC24Q7We&q=85&s=2eae9d273c53454a143580c07b75e53f)
+
+PlanetScale dashboard banner directing to Cloudflare Hyperdrive setup
+
+![PlanetScale dashboard banner directing to Cloudflare Hyperdrive setup](https://mintcdn.com/planetscale-2/G873q0u1kC24Q7We/connect/assets/ps_hyperdrive_banner-darkmode.png?w=2500&fit=max&auto=format&n=G873q0u1kC24Q7We&q=85&s=d89d0dae9e2932795a387755a82ff716)
+
+PlanetScale dashboard banner directing to Cloudflare Hyperdrive setup
 
 Hyperdrive connects your Worker to PlanetScale with connection pooling and query caching. For step-by-step Hyperdrive setup instructions, see:
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/create-a-metal-database
 title: "Create A Metal Database"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
 
 [PlanetScale Metal](../metal.md) databases can be created in a similar way to other PlanetScale databases. However, there are a few important things to keep in mind when creating a new Metal database or upgrading an existing database to Metal, which will be covered here.
@@ -12,7 +12,23 @@ current_date: 2026-09-02T21:57:53.710Z
 
 After logging in to `app.planetscale.com`, click “New database” -> “Create new database.” Next, enter the name of your new database and select the “PlanetScale Metal” option.
 
+![New Metal database](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-new-db.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=401d06c40e5d73e239eb11e7be0edb8b)
+
+New Metal database
+
+![New Metal database](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-new-db-darkmode.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=a9b0f878e02187709ddec1ab376656d5)
+
+New Metal database
+
 This brings up a set of options to choose from for the size of your Metal database. Start by choosing the vCPU and RAM combination that best suits your needs, then use the dropdown to select the drive size for the instance.
+
+![Select Metal database size](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-new-db-choose-size.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=1448196260f2a6355c1398cc0da437bd)
+
+Select Metal database size
+
+![Select Metal database size](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-new-db-choose-size-darkmode.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=bbb34e4cafd1cb2daa6de32e27e56546)
+
+Select Metal database size
 
 As opposed to [network-attached storage](../plans/planetscale-skus.md#network-attached-storage) databases, [Metal](../plans/planetscale-skus.md#metal) databases do not autoscale their storage size. Therefore, it’s important to make a good size choice from the start. If you are starting a new project from scratch on a Metal database and you do not expect massive initial growth, it is likely best to choose the smallest drive possible. If you intend to migrate an existing database into this in the near future, ensure that your drive will fit all of the data while also allowing room for further growth.
 
@@ -21,6 +37,14 @@ When ready, click “Create database.” After database initialization completes
 ## Upgrading an existing database to Metal
 
 You can also upgrade an existing database cluster to Metal. This is a no-downtime operation.
+
+![Upgrade cluster to Metal](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-upgrade.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=435d75638af28a3443f99f2c09726d72)
+
+Upgrade cluster to Metal
+
+![Upgrade cluster to Metal](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-upgrade-darkmode.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=2c0dc9a30e381dbe0cdeab171283de53)
+
+Upgrade cluster to Metal
 
 Keep in mind that this is not an immediate operation. If you have a large database, it may take a while for the upgrade to complete since behind the scenes, your entire database needs to be migrated to the new NVMe drives. Ensure that you upgrade well before reaching max drive capacity. We recommend upgrading at no later than 75% in most cases, and even earlier than that if you are growing quickly.
 
@@ -33,6 +57,14 @@ There are several ways to monitor this.
 You can view storage information on the right side of the main PlanetScale dashboard for Metal databases.
 
 After the upgrade is complete, we recommend going to the Insights page and view your query latency diagrams. If you transitioned from a network-attached storage cluster to a Metal one of the same size, you should see a reduction in query latency.
+
+![Metal storage info](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/storage.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=8b3845290a5dc35803a5880b7d88df8c)
+
+Metal storage info
+
+![Metal storage info](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/storage-darkmode.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=702d11f23406669e4a78444d12dcf1b8)
+
+Metal storage info
 
 You should make a habit of regularly logging in and checking the health of your database, keep an eye on this number. If PlanetScale detects that you have only 6GiB or less of available storage, it will cause your database to reject writes, preferring to keep the database available rather than cause a total system failure due to running out of storage. This is a safety measure put in place to protect your data. You should upgrade to a larger instance long before reaching this point. You can upgrade to a larger Metal instance / drive using the same set of steps described above.
 

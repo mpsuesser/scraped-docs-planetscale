@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-09-02T21:57:53.710Z
-current_date: 2026-09-02T21:57:53.710Z
+access_date: 2026-09-06T20:30:42.418Z
+current_date: 2026-09-06T20:30:42.418Z
 ---
 
 ## Overview
@@ -18,9 +18,17 @@ We distribute components of the cluster across three AWS availability zones with
 
 Backups, part of the data plane, are stored in S3 inside the same member account. PlanetScale Managed uses isolated Amazon Elastic Compute Cloud (Amazon EC2) instances as part of the deployment.
 
+![Architecture diagram for PlanetScale Managed in AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-arch-diagram.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=9c2d324a4e0c4f9f0d5765886df58338)
+
+Architecture diagram for PlanetScale Managed in AWS
+
 Your database lives entirely inside a dedicated AWS Organizations member account within your AWS organization. PlanetScale will not have access to other member accounts nor your organization-level settings within AWS. Outside of your AWS organization, we run the PlanetScale control plane, which includes the PlanetScale API and web application, including the dashboard you see at `app.planetscale.com`.
 
 In a MySQL deployment, the Vitess cluster running inside Kubernetes is composed of a number of Vitess components. All incoming queries are received by one of the **VTGates**, which then routes them to the appropriate **VTTablet**. The VTGates, VTTablets, and MySQL instances are distributed across 3 availability zones.
+
+![Diagram of Vitess cluster on AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-vitess.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=2eca59b4b27e446cacb5e135e92d40e9)
+
+Diagram of Vitess cluster on AWS
 
 Several additional required Vitess components are run in the Kubernetes cluster as well. The topology server keeps track of cluster configuration. **VTOrc** monitors cluster health and handles repairs, including managing automatic failover in case of an issue with a primary. **vtctld** along with the client **vtctl** can be used to make changes to the cluster configuration and run workflows.
 
