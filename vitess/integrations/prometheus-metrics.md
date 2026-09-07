@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-08-20T06:56:30.151Z
-current_date: 2026-08-20T06:56:30.151Z
+access_date: 2026-09-07T13:39:43.177Z
+current_date: 2026-09-07T13:39:43.177Z
 ---
 
 > ## Documentation Index
@@ -48,9 +48,9 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_pods\_mem\_util\_percentages**  Memory utilization percentage of database pods                                                                                 | Gauge     | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                       |
 | **planetscale\_pods\_status\_phase**  Pod status phase (Running, Pending, Failed, Succeeded, Unknown)                                                                         | Gauge     | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_phase, planetscale\_pod, planetscale\_keyspace, planetscale\_shard, planetscale\_tablet\_type                                   |
 | **planetscale\_vtgate\_affected\_rows\_total**  Number of rows affected by queries through vtgate                                                                             | Counter   | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod                                                                                                                                                     |
-| **planetscale\_vtgate\_commands\_total**  Number of commands processed by vtgate                                                                                              | Counter   | cluster, planetscale\_cell, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_pod                                                                                                                               |
 | **planetscale\_vtgate\_errors\_total**  Total number of errors encountered by vtgate                                                                                          | Counter   | cluster, planetscale\_vtgate\_code, planetscale\_database\_branch\_id, planetscale\_tablet\_type, planetscale\_keyspace, planetscale\_cell, planetscale\_pod, planetscale\_vtgate\_operation                                        |
 | **planetscale\_vtgate\_queries\_duration**  Distribution of query execution times through vtgate                                                                              | Histogram | cluster, le, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_tablet\_type, planetscale\_vtgate\_operation                                                                                      |
+| **planetscale\_vtgate\_query\_executions\_total**  Number of queries executed by vtgate. Replaces planetscale\_vtgate\_commands\_total                                        | Counter   | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_query\_type, planetscale\_tablet\_type, planetscale\_vtgate\_plan\_type                                                               |
 | **planetscale\_vtgate\_returned\_rows\_total**  Number of rows returned by queries through vtgate                                                                             | Counter   | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_tablet\_type                                                                                                                          |
 | **planetscale\_vtgate\_total\_pods**  Total number of vtgate pods                                                                                                             | Gauge     | cluster, planetscale\_cell, planetscale\_database\_branch\_id                                                                                                                                                                       |
 | **planetscale\_vtgate\_v\_streams\_count**  Number of active vstreams                                                                                                         | Gauge     | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type                                                                               |
@@ -165,39 +165,41 @@ These metrics are experimental and may be subject to changes to their name, type
 
 ## Tag glossary
 
-| **Tag Name**                        | **Description**                                                     |
-| ----------------------------------- | ------------------------------------------------------------------- |
-| cluster                             | The database cluster identifier                                     |
-| le                                  | Histogram bucket upper bound (less than or equal to)                |
-| planetscale\_availability\_zone     | AWS availability zone where the component is running                |
-| planetscale\_cell                   | Availability zone or cell where the component is running            |
-| planetscale\_column                 | Auto-increment column name                                          |
-| planetscale\_command                | VTGate command type (e.g., Select, Insert, Update)                  |
-| planetscale\_component              | Vitess component type (vtgate, vttablet, vtctld, vtorc)             |
-| planetscale\_container              | Kubernetes container name within the pod                            |
-| planetscale\_database\_branch\_id   | Unique identifier for the database branch                           |
-| planetscale\_instance               | Edge instance identifier                                            |
-| planetscale\_keyspace               | Database keyspace (logical database name)                           |
-| planetscale\_mysql\_handler\_type   | MySQL handler operation type (e.g., read\_first, read\_key, write)  |
-| planetscale\_mysql\_operation\_type | MySQL row operation type (inserted, read, updated, deleted)         |
-| planetscale\_phase                  | Pod status phase (Running, Pending, Failed, Succeeded, Unknown)     |
-| planetscale\_pod                    | Kubernetes pod name where the component is running                  |
-| planetscale\_psdb\_api\_operation   | PSDB API operation type                                             |
-| planetscale\_region                 | Geographic region where the database is hosted                      |
-| planetscale\_shard                  | Database shard identifier                                           |
-| planetscale\_source\_keyspace       | Source keyspace for VReplication workflow operations                |
-| planetscale\_source\_shard          | Source shard for VReplication workflow operations                   |
-| planetscale\_state                  | VReplication stream state (e.g., Running, Stopped)                  |
-| planetscale\_storage\_type          | Storage type backing a vttablet (network-attached, metal)           |
-| planetscale\_table                  | Database table name                                                 |
-| planetscale\_tablet\_type           | Vitess tablet type (primary, replica, rdonly)                       |
-| planetscale\_vstreamer\_code        | VTTablet VStreamer error code (StreamEnded, etc.)                   |
-| planetscale\_vtgate\_code           | VTGate error code (INVALID\_ARGUMENT, etc.)                         |
-| planetscale\_vtgate\_operation      | VTGate operation type (Execute, ExecuteBatch, etc.)                 |
-| planetscale\_vtorc\_recovery\_type  | Type of recovery operation performed by VTOrc (planned, unplanned)  |
-| planetscale\_vttablet\_code         | VTTablet error code (NOT\_FOUND, etc.)                              |
-| planetscale\_waiting\_reason        | Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc.) |
-| planetscale\_workflow               | VReplication workflow identifier                                    |
+| **Tag Name**                        | **Description**                                                       |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| cluster                             | The database cluster identifier                                       |
+| le                                  | Histogram bucket upper bound (less than or equal to)                  |
+| planetscale\_availability\_zone     | AWS availability zone where the component is running                  |
+| planetscale\_cell                   | Availability zone or cell where the component is running              |
+| planetscale\_column                 | Auto-increment column name                                            |
+| planetscale\_command                | VTGate command type (e.g., Select, Insert, Update)                    |
+| planetscale\_component              | Vitess component type (vtgate, vttablet, vtctld, vtorc)               |
+| planetscale\_container              | Kubernetes container name within the pod                              |
+| planetscale\_database\_branch\_id   | Unique identifier for the database branch                             |
+| planetscale\_instance               | Edge instance identifier                                              |
+| planetscale\_keyspace               | Database keyspace (logical database name)                             |
+| planetscale\_mysql\_handler\_type   | MySQL handler operation type (e.g., read\_first, read\_key, write)    |
+| planetscale\_mysql\_operation\_type | MySQL row operation type (inserted, read, updated, deleted)           |
+| planetscale\_phase                  | Pod status phase (Running, Pending, Failed, Succeeded, Unknown)       |
+| planetscale\_pod                    | Kubernetes pod name where the component is running                    |
+| planetscale\_psdb\_api\_operation   | PSDB API operation type                                               |
+| planetscale\_query\_type            | Query statement type (SELECT, INSERT, UPDATE, DELETE, etc.)           |
+| planetscale\_region                 | Geographic region where the database is hosted                        |
+| planetscale\_shard                  | Database shard identifier                                             |
+| planetscale\_source\_keyspace       | Source keyspace for VReplication workflow operations                  |
+| planetscale\_source\_shard          | Source shard for VReplication workflow operations                     |
+| planetscale\_state                  | VReplication stream state (e.g., Running, Stopped)                    |
+| planetscale\_storage\_type          | Storage type backing a vttablet (network-attached, metal)             |
+| planetscale\_table                  | Database table name                                                   |
+| planetscale\_tablet\_type           | Vitess tablet type (primary, replica, rdonly)                         |
+| planetscale\_vstreamer\_code        | VTTablet VStreamer error code (StreamEnded, etc.)                     |
+| planetscale\_vtgate\_code           | VTGate error code (INVALID\_ARGUMENT, etc.)                           |
+| planetscale\_vtgate\_operation      | VTGate operation type (Execute, ExecuteBatch, etc.)                   |
+| planetscale\_vtgate\_plan\_type     | VTGate query plan type (Passthrough, Scatter, MultiShard, Join, etc.) |
+| planetscale\_vtorc\_recovery\_type  | Type of recovery operation performed by VTOrc (planned, unplanned)    |
+| planetscale\_vttablet\_code         | VTTablet error code (NOT\_FOUND, etc.)                                |
+| planetscale\_waiting\_reason        | Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc.)   |
+| planetscale\_workflow               | VReplication workflow identifier                                      |
 
 ## Need help?
 
