@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/check_deploy_request_storage
 title: "Check_deploy_request_storage"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 > ## Documentation Index
@@ -284,6 +284,11 @@ paths:
                             description: >-
                               Whether this shard has enough remaining storage
                               for the deployment
+                          blocked_by_in_flight:
+                            type: boolean
+                            description: >-
+                              Whether this shard lacks storage only because a
+                              competing in-flight deployment is still copying
                     description: >-
                       Per-keyspace and per-shard storage report. Keys are
                       keyspace names.

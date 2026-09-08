@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_organization_team_members
 title: "List_organization_team_members"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 > ## Documentation Index
@@ -554,6 +554,11 @@ paths:
                                 description: >-
                                   Whether or not the password is for a read
                                   replica
+                              read_only_region:
+                                type: boolean
+                                description: >-
+                                  Whether or not the password is scoped to a
+                                  read-only region
                               renewable:
                                 type: boolean
                                 description: Whether or not the password can be renewed
@@ -606,6 +611,7 @@ paths:
                               - username
                               - plain_text
                               - replica
+                              - read_only_region
                               - renewable
                               - database_branch
                       required:

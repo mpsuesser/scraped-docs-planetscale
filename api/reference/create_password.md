@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_password
 title: "Create_password"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 POST
@@ -242,7 +242,13 @@ boolean
 
 required
 
-Whether or not the password is for a read replicarenewable
+Whether or not the password is for a read replicaread\_only\_region
+
+boolean
+
+required
+
+Whether or not the password is scoped to a read-only regionrenewable
 
 boolean
 

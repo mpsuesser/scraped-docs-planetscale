@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_branch
 title: "Create_branch"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 > ## Documentation Index
@@ -270,6 +270,13 @@ paths:
                     Restore from a point-in-time recovery timestamp (e.g.
                     2023-01-01T00:00:00Z). Available only for PostgreSQL
                     databases.
+                replicas:
+                  type: integer
+                  description: >-
+                    For PostgreSQL backup restores and point-in-time recovery,
+                    the number of additional replicas from 0 to 8, subject to
+                    the target cluster size. 0 creates a single-node branch. If
+                    omitted, the target cluster size's minimum is used.
                 seed_data:
                   type: string
                   enum:

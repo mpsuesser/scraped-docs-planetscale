@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_webhooks
 title: "List_webhooks"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 > ## Documentation Index
@@ -291,6 +291,9 @@ paths:
                         secret:
                           type: string
                           description: The secret used to sign the webhook payloads
+                        authorization_header_configured:
+                          type: boolean
+                          description: Whether the webhook sends an Authorization header
                         enabled:
                           type: boolean
                           description: Whether the webhook is enabled
@@ -318,6 +321,7 @@ paths:
                               - branch.anomaly
                               - branch.out_of_memory
                               - branch.primary_promoted
+                              - branch.primary_switchover_imminent
                               - branch.schema_recommendation
                               - branch.sleeping
                               - branch.start_maintenance
@@ -341,6 +345,7 @@ paths:
                         - id
                         - url
                         - secret
+                        - authorization_header_configured
                         - enabled
                         - last_sent_result
                         - last_sent_success

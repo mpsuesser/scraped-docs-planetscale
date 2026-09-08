@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_keyspace
 title: "Create_keyspace"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-08T23:30:04.646Z
+current_date: 2026-09-08T23:30:04.646Z
 ---
 
 > ## Documentation Index
@@ -265,6 +265,9 @@ paths:
                   sharded:
                     type: boolean
                     description: If the keyspace is sharded
+                  external:
+                    type: boolean
+                    description: If the keyspace uses an external datasource
                   replicas:
                     type: integer
                     description: Total number of replicas in the keyspace
@@ -360,6 +363,7 @@ paths:
                   - name
                   - shards
                   - sharded
+                  - external
                   - replicas
                   - extra_replicas
                   - created_at
