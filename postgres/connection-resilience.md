@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connection-resilience
 title: "Connection Resilience"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-09T08:29:12.146Z
+current_date: 2026-09-09T08:29:12.146Z
 ---
 
 > ## Documentation Index
@@ -20,6 +20,7 @@ current_date: 2026-08-03T19:45:59.089Z
 
 * Use dedicated PgBouncers (not local) for production OLTP
 * Connect via port 6432 with `username|bouncer-name` format
+* Do not hold any connection longer than 24 hours, regardless of target
 * Keep transactions under 3 seconds for clean failovers
 * Add retry logic for read queries to handle transient failures
 
@@ -40,6 +41,12 @@ Postgres design dictates connection interruptions for several reasons:
 * **PlanetScale emergency maintenance** — Critical security vulnerabilities may require immediate patching to protect your data. These patches are deployed as soon as possible and may not include advance notice.
 
 Many applications don't tolerate a Postgres connection being closed. Typically this results in an HTTP 500 error and an error in your exception tracker/logs.
+
+## Connection lifetime
+
+Do not hold any connection open longer than 24 hours, regardless of the target. This applies to every connection method: direct connections to the primary or replicas, the local PgBouncer, and dedicated primary or replica PgBouncers.
+
+Connections held longer than 24 hours may be terminated unexpectedly. Configure your connection pool or client to close and reconnect at least once per day. Set a maximum connection lifetime of 24 hours or less (for example, `maxLifetime` or the equivalent setting in your driver or pool).
 
 ## Use Dedicated PgBouncer
 
@@ -63,8 +70,10 @@ Configuration changes to dedicated bouncers are very safe. When you modify a ded
 This means:
 
 * Bouncer configuration changes cause no connection drops for well-behaved clients
-* Clients that hold connections indefinitely (beyond 24 hours) will eventually be disconnected
+* Clients that hold connections longer than 24 hours will eventually be disconnected when the drain period ends
 * Long-lived connections will continue using old settings until they reconnect
+
+See [Connection lifetime](#connection-lifetime). Recycle every connection at least once per day so clients disconnect during the drain rather than being terminated at the end of it.
 
 ## Failover behavior
 
@@ -122,6 +131,7 @@ ALTER ROLE app_user SET idle_in_transaction_session_timeout = '30s';
 
 Configure timeouts in your connection pool and database driver:
 
+* **Maximum connection lifetime** — How long a pooled connection may remain open before being closed and replaced. Set this to 24 hours or less so connections are recycled before they can be [terminated unexpectedly](#connection-lifetime). This applies to every target, including direct Postgres and all PgBouncer paths.
 * **Connection timeout** — How long to wait when establishing a new connection. Set this low enough to fail fast during outages rather than queueing requests indefinitely.
 * **Query timeout** — Application query timeout should be set slightly higher than your Postgres `statement_timeout` to allow Postgres to cancel the query cleanly.
 * **Pool checkout timeout** — How long to wait for a connection from the pool. During failovers, this determines how long requests queue before failing.
