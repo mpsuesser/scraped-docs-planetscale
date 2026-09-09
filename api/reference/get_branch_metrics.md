@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_metrics
 title: "Get_branch_metrics"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-09T19:02:27.237Z
+current_date: 2026-09-09T19:02:27.237Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,36 @@ current_date: 2026-08-31T23:54:49.109Z
 
 # Get time-series metrics
 
-> 
+> Retrieve time-series metrics for a database branch.
+
+```sh
+curl --get \
+  --header "Authorization: $PLANETSCALE_SERVICE_TOKEN" \
+  --data-urlencode "metrics=queries" \
+  --data-urlencode "period=15m" \
+  "https://api.planetscale.com/v1/organizations/acme/databases/app-db/branches/main/metrics"
+```
+
+Each series contains its metric name, display label, identifying labels, and sampled `[Unix timestamp, value]` points:
+
+```json
+{
+  "type": "MetricSeries",
+  "start_date": "2026-09-09T17:00:00Z",
+  "end_date": "2026-09-09T17:15:00Z",
+  "interval": 60,
+  "series": [
+    {
+      "type": "TimeSeries",
+      "metric": "queries",
+      "label": "Queries",
+      "labels": { "tablet_type": "primary" },
+      "points": [[1788973200, 42.0]]
+    }
+  ]
+}
+```
+
 ### Authorization
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
@@ -193,6 +222,43 @@ paths:
         - Metrics
       summary: Get time-series metrics
       description: >-
+        Retrieve time-series metrics for a database branch.
+
+
+        ```sh
+
+        curl --get \
+          --header "Authorization: $PLANETSCALE_SERVICE_TOKEN" \
+          --data-urlencode "metrics=queries" \
+          --data-urlencode "period=15m" \
+          "https://api.planetscale.com/v1/organizations/acme/databases/app-db/branches/main/metrics"
+        ```
+
+
+        Each series contains its metric name, display label, identifying labels,
+        and sampled `[Unix timestamp, value]` points:
+
+
+        ```json
+
+        {
+          "type": "MetricSeries",
+          "start_date": "2026-09-09T17:00:00Z",
+          "end_date": "2026-09-09T17:15:00Z",
+          "interval": 60,
+          "series": [
+            {
+              "type": "TimeSeries",
+              "metric": "queries",
+              "label": "Queries",
+              "labels": { "tablet_type": "primary" },
+              "points": [[1788973200, 42.0]]
+            }
+          ]
+        }
+
+        ```
+
 
         ### Authorization
 
@@ -455,17 +521,46 @@ paths:
                     description: The metrics response type
                   start_date:
                     type: string
-                    description: The start of the time range
+                    description: The start of the time range for the metric series
                   end_date:
                     type: string
-                    description: The end of the time range
+                    description: The end of the time range for the metric series
                   interval:
                     type: integer
                     description: The step interval in seconds between data points
                   series:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: The time-series response type
+                        metric:
+                          type: string
+                          description: The name of the metric
+                        label:
+                          type: string
+                          description: A human-readable label for the time series
+                        labels:
+                          type: object
+                          additionalProperties: true
+                          description: >-
+                            Key/value labels, also known as tags, identifying
+                            the time series
+                        points:
+                          items:
+                            type: array
+                            items:
+                              type: number
+                          type: array
+                          description: Sampled data points as [Unix timestamp, value] pairs
+                      required:
+                        - type
+                        - metric
+                        - label
+                        - labels
+                        - points
                 required:
                   - type
                   - start_date

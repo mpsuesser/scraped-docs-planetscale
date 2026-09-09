@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_query_metrics
 title: "Get_branch_query_metrics"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-09T19:02:27.237Z
+current_date: 2026-09-09T19:02:27.237Z
 ---
 
 > ## Documentation Index
@@ -371,17 +371,46 @@ paths:
                     description: The metrics response type
                   start_date:
                     type: string
-                    description: The start of the time range
+                    description: The start of the time range for the metric series
                   end_date:
                     type: string
-                    description: The end of the time range
+                    description: The end of the time range for the metric series
                   interval:
                     type: integer
                     description: The step interval in seconds between data points
                   series:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: The time-series response type
+                        metric:
+                          type: string
+                          description: The name of the metric
+                        label:
+                          type: string
+                          description: A human-readable label for the time series
+                        labels:
+                          type: object
+                          additionalProperties: true
+                          description: >-
+                            Key/value labels, also known as tags, identifying
+                            the time series
+                        points:
+                          items:
+                            type: array
+                            items:
+                              type: number
+                          type: array
+                          description: Sampled data points as [Unix timestamp, value] pairs
+                      required:
+                        - type
+                        - metric
+                        - label
+                        - labels
+                        - points
                 required:
                   - type
                   - start_date
