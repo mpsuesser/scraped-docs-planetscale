@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/coming-from-postgres
 title: "Coming From Postgres"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-10T17:00:58.777Z
+current_date: 2026-09-10T17:00:58.777Z
 ---
 
 > ## Documentation Index
@@ -104,7 +104,7 @@ When your data is sharded, Neki allows for extremely fast backups, since each sh
 PlanetScale Postgres also has automated backups, custom backup schedules, and point-in-time recovery.
 However, large databases can lead to long backups, since all data is managed by the primary.
 
-If backups time is a pain in your current OLTP database, Neki and sharding is a great solution to improve performance.
+If backup time is a pain in your current OLTP database, Neki and sharding is a great solution to improve performance.
 
 ## Summary
 
