@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_keyspaces
 title: "List_keyspaces"
 description: ""
-access_date: 2026-09-08T23:30:04.646Z
-current_date: 2026-09-08T23:30:04.646Z
+access_date: 2026-09-10T00:38:34.784Z
+current_date: 2026-09-10T00:38:34.784Z
 ---
 
 > ## Documentation Index
@@ -348,6 +348,22 @@ paths:
                             - node_ttl_always
                             - node_ttl_off
                           description: Controls when node TTL drains are allowed
+                        disk_autoscaling:
+                          type: object
+                          properties:
+                            strategy:
+                              type: string
+                              enum:
+                                - grow
+                                - disable
+                                - shrink
+                              description: The disk autoscaling strategy
+                            storage_limit_bytes:
+                              type: integer
+                              description: The maximum size in bytes disks may autoscale to
+                          required:
+                            - strategy
+                            - storage_limit_bytes
                         replication_durability_constraints:
                           type: object
                           properties:
@@ -405,6 +421,7 @@ paths:
                         - imported
                         - vector_pool_allocation
                         - node_ttl_strategy
+                        - disk_autoscaling
                         - replication_durability_constraints
                         - vreplication_flags
                         - mysqld_options
