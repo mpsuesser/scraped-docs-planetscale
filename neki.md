@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki
 title: "Neki"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-10T15:33:21.404Z
+current_date: 2026-09-10T15:33:21.404Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -12,7 +12,7 @@ Neki is the best way to scale a highly-available Postgres database. It provides 
 
 Neki abstracts all of this capability behind a single connection string that speaks the Postgres wire protocol. It accomplishes this by placing a sophisticated proxy (router) between clients and the Postgres nodes. This router parses, plans, and coordinates all of the Postgres traffic, routing it to the correct nodes in an extremely efficient way.
 
-All of these capabilities come with the other PlanetScale features like [Insights](neki/monitoring/query-insights.md), [anomalies](neki/monitoring/anomalies.md), and [schema recommendations](neki/monitoring/schema-recommendations.md). This makes it a perfect solution for anything from a massive databases storing hundreds of terabytes across many shards, all the way down to small, unsharded Postgres databases with a handful of gigabytes.
+All of these capabilities come with the other PlanetScale features like [Insights](neki/monitoring/query-insights.md), [anomalies](neki/monitoring/anomalies.md), and [schema recommendations](neki/monitoring/schema-recommendations.md). This makes it a perfect solution for anything from a massive database storing hundreds of terabytes across many shards, all the way down to small, unsharded Postgres databases with a handful of gigabytes.
 
 You do not have to shard to use Neki. A new database starts as an unsharded cluster. You still get all the benefits of zero-downtime upgrades, cluster management, connection pooling and more. Whether you later shard depends on your traffic, access patterns, and data — see [When to shard](neki/when-to-shard.md).
 
