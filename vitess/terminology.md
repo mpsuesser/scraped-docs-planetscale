@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/terminology
 title: "Terminology"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:43:51.520Z
+current_date: 2026-09-10T14:43:51.520Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ A Vitess-powered MySQL database can scale to petabytes of data and millions of q
 ### PlanetScale
 
 PlanetScale is a complete database platform that emphasizes reliability, scalability, and developer productivity.
-PlanetScale offers two database engines: [Vitess](../vitess.md) (MySQL-compatible) and [Postgres](../postgres.md).
+PlanetScale offers three database engines: [Vitess](../vitess.md) (MySQL-compatible), [Neki](https://planetscale.com/docs/neki) (sharded Postgres), and [Postgres](../postgres.md).
 PlanetScale Vitess databases are powered by Vitess and MySQL. PlanetScale makes it easy to spin up, resize, manage, and work with databases both for small organizations and large enterprises. Additionally, PlanetScale employs the majority of the Vitess core maintainers.
 
 ## PlanetScale concepts
@@ -43,7 +43,7 @@ PlanetScale Vitess databases are powered by Vitess and MySQL. PlanetScale makes 
 
 In the PlanetScale app, users can create one or more **Databases**.
 Each database belongs to an **Organization**.
-Each database uses either [Vitess](../vitess.md) or [Postgres](../postgres.md).
+Each database uses [Vitess](../vitess.md), [Neki](https://planetscale.com/docs/neki), or [Postgres](../postgres.md).
 
 Vitess databases use MySQL under the hood. If you've used vanilla MySQL in the past, you may be used to one MySQL server managing multiple logical databases. In a PlanetScale Vitess database, you cannot use `CREATE DATABASE` to create multiple logical databases. Instead, you can achieve a similar outcome by creating multiple **keyspaces**.
 
