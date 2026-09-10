@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/metal/metal-performance
 title: "Metal Performance"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Upgrading to Metal
 
 When upgrading your existing PlanetScale database to Metal, it’s useful to know where to look to see how the upgrade has improved performance. Here, we cover the two main places you can inspect: Insights and the database metrics panel.
 
-The examples shown on this page use a Vitess database, but Metal is available for both Vitess and Postgres databases.
+The examples shown on this page use a Vitess database, but Metal is available for Vitess, Neki, and Postgres databases.
 
 In this page, we will show the results of upgrading from a `PS-640` to an `M-640`. These both have 8 vCPUs and 64GB of RAM, but use a different underlying storage system that allows for the `M-640` to have improved performance. Let’s look at the effects of this in PlanetScale.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp
 title: "Gcp"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -12,7 +12,7 @@ In this configuration, you can use the same API, CLI, and web interface that Pla
 
 ## Architecture
 
-As you can see in the architecture diagram below, the PlanetScale data plane is deployed inside of a PlanetScale-controlled project in your GCP organization. The database cluster will run within this project, orchestrated by Kubernetes. PlanetScale Managed supports MySQL-compatible Vitess and Postgres clusters.
+As you can see in the architecture diagram below, the PlanetScale data plane is deployed inside of a PlanetScale-controlled project in your GCP organization. The database cluster will run within this project, orchestrated by Kubernetes. PlanetScale Managed supports Vitess (MySQL-compatible), Neki, and Postgres clusters. Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki.
 
 We distribute components of the cluster across three GCP zones within a region to ensure high availability. You can deploy PlanetScale Managed to any GCP region with at least three zones, including zones not supported by the PlanetScale self-serve product, so long as the region supports the required GCP services (including but not limited to Google Compute Engine (GCE), Google Kubernetes Engine (GKE), Cloud Storage, Persistent Disk, Cloud Key Management Service (Cloud KMS), Cloud Logging).
 

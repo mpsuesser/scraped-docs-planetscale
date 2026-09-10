@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-09-04T21:54:31.222Z
-current_date: 2026-09-04T21:54:31.222Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -26,28 +26,28 @@ If configured, webhook deliveries include your Authorization header value unchan
 
 ## Webhook events
 
-| Webhook event | `event` parameter | Trigger |
-| --- | --- | --- |
-| [Branch anomaly](#branch-anomaly) | `branch.anomaly` | The branch has a new anomaly in insights. |
-| [Branch primary promoted](#branch-primary-promoted) | `branch.primary_promoted` | A new primary has been promoted for the branch. |
-| [Branch out of memory](#branch-out-of-memory) | `branch.out_of_memory` | A Postgres database experienced an out of memory event. |
-| [Branch ready](#branch-ready) | `branch.ready` | The branch is created and ready to connect. |
-| [Branch sleeping](#branch-sleeping) | `branch.sleeping` | The branch is now sleeping. |
-| [Branch start maintenance](#branch-start-maintenance) | `branch.start_maintenance` | A production branch is about to start maintenance. |
-| [Backup failed](#backup-failed) | `backup.failed` | A backup has failed. |
-| [Backup succeeded](#backup-succeeded) | `backup.succeeded` | A backup has completed successfully. |
-| [Cluster storage](#cluster-storage) | `cluster.storage` | A Postgres database has reached a storage threshold (60%, 75%, 85%, 90%, 95%). |
-| [Database access request](#database-access-request) | `database.access_request` | PlanetScale staff opens an access request. |
-| [Deploy request opened](#deploy-request-opened) | `deploy_request.opened` | The deploy request has been opened. |
-| [Deploy request queued](#deploy-request-queued) | `deploy_request.queued` | The deploy request has been added to the deploy queue. |
-| [Deploy request in progress](#deploy-request-in-progress) | `deploy_request.in_progress` | The deploy request has started running. |
-| [Deploy request pending cutover](#deploy-request-pending-cutover) | `deploy_request.pending_cutover` | The deploy request is ready to cutover and waiting on the user. |
-| [Deploy request schema applied](#deploy-request-schema-applied) | `deploy_request.schema_applied` | The deploy request has finished applying the schema. |
-| [Deploy request errored](#deploy-request-errored) | `deploy_request.errored` | The deploy request has stopped due to an error. |
-| [Deploy request reverted](#deploy-request-reverted) | `deploy_request.reverted` | The deploy request has been reverted. |
-| [Deploy request closed](#deploy-request-closed) | `deploy_request.closed` | The deploy request has been closed. |
-| [Keyspace storage](#keyspace-storage) | `keyspace.storage` | A Vitess keyspace has reached a storage threshold (60%, 75%, 85%, 90%, 95%). |
-| [Webhook test](#webhook-test) | `webhook.test` | A webhook test is triggered. |
+| Webhook event | `event` parameter | Trigger | Engines |
+| --- | --- | --- | --- |
+| [Branch anomaly](#branch-anomaly) | `branch.anomaly` | The branch has a new anomaly in insights. | Vitess, Neki, Postgres |
+| [Branch primary promoted](#branch-primary-promoted) | `branch.primary_promoted` | A new primary has been promoted for the branch. | Postgres |
+| [Branch out of memory](#branch-out-of-memory) | `branch.out_of_memory` | A Postgres database experienced an out of memory event. | Postgres |
+| [Branch ready](#branch-ready) | `branch.ready` | The branch is created and ready to connect. | Vitess, Neki, Postgres |
+| [Branch sleeping](#branch-sleeping) | `branch.sleeping` | The branch is now sleeping. | Vitess, Neki, Postgres |
+| [Branch start maintenance](#branch-start-maintenance) | `branch.start_maintenance` | A production branch is about to start maintenance. | Vitess, Neki, Postgres |
+| [Backup failed](#backup-failed) | `backup.failed` | A backup has failed. | Vitess, Neki, Postgres |
+| [Backup succeeded](#backup-succeeded) | `backup.succeeded` | A backup has completed successfully. | Vitess, Neki, Postgres |
+| [Cluster storage](#cluster-storage) | `cluster.storage` | A Postgres database has reached a storage threshold (60%, 75%, 85%, 90%, 95%). | Postgres |
+| [Database access request](#database-access-request) | `database.access_request` | PlanetScale staff opens an access request. | Vitess, Neki, Postgres |
+| [Deploy request opened](#deploy-request-opened) | `deploy_request.opened` | The deploy request has been opened. | Vitess |
+| [Deploy request queued](#deploy-request-queued) | `deploy_request.queued` | The deploy request has been added to the deploy queue. | Vitess |
+| [Deploy request in progress](#deploy-request-in-progress) | `deploy_request.in_progress` | The deploy request has started running. | Vitess |
+| [Deploy request pending cutover](#deploy-request-pending-cutover) | `deploy_request.pending_cutover` | The deploy request is ready to cutover and waiting on the user. | Vitess |
+| [Deploy request schema applied](#deploy-request-schema-applied) | `deploy_request.schema_applied` | The deploy request has finished applying the schema. | Vitess |
+| [Deploy request errored](#deploy-request-errored) | `deploy_request.errored` | The deploy request has stopped due to an error. | Vitess |
+| [Deploy request reverted](#deploy-request-reverted) | `deploy_request.reverted` | The deploy request has been reverted. | Vitess |
+| [Deploy request closed](#deploy-request-closed) | `deploy_request.closed` | The deploy request has been closed. | Vitess |
+| [Keyspace storage](#keyspace-storage) | `keyspace.storage` | A Vitess keyspace has reached a storage threshold (60%, 75%, 85%, 90%, 95%). | Vitess |
+| [Webhook test](#webhook-test) | `webhook.test` | A webhook test is triggered. | Vitess, Neki, Postgres |
 
 If there is an event you want to use that is not included in this list, please [contact us](https://planetscale.com/contact) and let us know what event you want to trigger a webhook on.
 
@@ -460,11 +460,15 @@ The `branch.sleeping` event uses the same response body as a `200` response from
 
 ### Branch start maintenance
 
-A production branch is about to start maintenance. This webhook is available for both Vitess and Postgres databases, with different behaviors:
+A production branch is about to start maintenance. This webhook is available for Vitess, Neki, and Postgres databases, with different behaviors:
 
 #### Vitess
 
 Vitess maintenance webhooks are available for enterprise customers with maintenance windows configured. During maintenance, Vitess and security upgrades are rolled out. Any queued cluster configuration changes are applied.
+
+#### Neki
+
+Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](../neki/cluster-configuration/maintenance-windows.md) for more information.
 
 #### Postgres
 
@@ -553,7 +557,7 @@ The `branch.start_maintenance` event uses the same response body as a `200` resp
 
 ### Backup failed
 
-A backup has failed. This event is sent for Vitess and Postgres databases.
+A backup has failed. This event is sent for Vitess, Neki, and Postgres databases.
 
 The `backup.failed` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
 
@@ -609,7 +613,7 @@ The `backup.failed` event uses the same response body as a `200` response from t
 
 ### Backup succeeded
 
-A backup has completed successfully. This event is sent for Vitess and Postgres databases.
+A backup has completed successfully. This event is sent for Vitess, Neki, and Postgres databases.
 
 The `backup.succeeded` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
 

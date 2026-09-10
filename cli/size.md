@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/size
 title: "Size"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-08-03T19:45:59.089Z
 
 # PlanetScale CLI commands: size
 
-**Platform availability:** Vitess and Postgres
+**Platform availability:** 
 
 Lists the sizes for various components within PlanetScale.
 
@@ -24,9 +24,9 @@ pscale size [command]
 
 ## Available commands
 
-| **Command** | **Product**      | **Description**                          |
-| :---------- | :--------------- | :--------------------------------------- |
-| `cluster`   | Postgres, Vitess | List the sizes for PlanetScale databases |
+| **Command** | **Product**            | **Description**                          |
+| :---------- | :--------------------- | :--------------------------------------- |
+| `cluster`   | Postgres, Vitess, Neki | List the sizes for PlanetScale databases |
 
 ## Flags
 
@@ -58,13 +58,13 @@ List the sizes for PlanetScale databases.
 pscale size cluster [command]
 ```
 
-**Aliases:** `cluster`, `clusters`
+**Alias:** `clusters`
 
 ### Available sub-commands
 
-| **Command** | **Product** | **Description**                                              |
-| :---------- | :---------- | :----------------------------------------------------------- |
-| `list`      | All         | List the sizes that are available for a PlanetScale database |
+| **Command** | **Product**            | **Description**                                              |
+| :---------- | :--------------------- | :----------------------------------------------------------- |
+| `list`      | Postgres, Vitess, Neki | List the sizes that are available for a PlanetScale database |
 
 ## The `list` sub-command
 
@@ -76,24 +76,26 @@ List the sizes that are available for a PlanetScale database. Use `--engine` to 
 pscale size cluster list [flags]
 ```
 
-**Aliases:** `list`, `ls`
+**Alias:** `ls`
 
 ### Available flags
 
-| **Flag**          | **Description**                                                                                        |
-| :---------------- | :----------------------------------------------------------------------------------------------------- |
-| `--engine string` | The database engine to show cluster sizes for. Supported values: mysql, postgresql. Defaults to mysql. |
-| `-h`, `--help`    | Help for list                                                                                          |
-| `--metal`         | View cluster sizes and rates for clusters with metal storage                                           |
-| `--region string` | View cluster sizes and rates for a specific region                                                     |
+| **Flag**          | **Description**                                                                                                     |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------ |
+| `--engine string` | Filter cluster sizes by database engine. Supported values: `mysql`, `postgresql`, `neki`. Omit to list all engines. |
+| `-h`, `--help`    | Help for list                                                                                                       |
+| `--metal`         | View cluster sizes and rates for clusters with metal storage                                                        |
+| `--region string` | View cluster sizes and rates for a specific region                                                                  |
 
 ## Examples
 
-### List all available cluster sizes (defaults to Vitess)
+### List all available cluster sizes
 
 ```bash theme={null}
 pscale size cluster list
 ```
+
+Omitting `--engine` lists Vitess, Neki, and Postgres sizes.
 
 ### List Vitess cluster sizes explicitly
 
@@ -106,6 +108,14 @@ pscale size cluster list --engine mysql
 ```bash theme={null}
 pscale size cluster list --engine postgresql
 ```
+
+### List Neki cluster sizes
+
+```bash theme={null}
+pscale size cluster list --engine neki
+```
+
+Neki admin and router SKUs are listed separately with `pscale branch admin sizes` and `pscale branch router sizes`. See [Neki cluster sizing](../neki/cluster-configuration/cluster-sizing.md).
 
 ### List cluster sizes for a specific organization
 
@@ -131,16 +141,18 @@ pscale size cluster list --engine postgresql --region us-east
 pscale size cluster list --metal
 ```
 
-For Postgres Metal clusters, use:
+For Postgres or Neki Metal clusters, use:
 
 ```bash theme={null}
 pscale size cluster list --engine postgresql --metal
+pscale size cluster list --engine neki --metal
 ```
 
 For more information about PlanetScale cluster sizes and pricing, see:
 
-* [PlanetScale Postgres pricing](../postgres/pricing.md)
 * [PlanetScale Vitess plans documentation](../planetscale-plans.md)
+* [Neki pricing](../neki/pricing.md)
+* [PlanetScale Postgres pricing](../postgres/pricing.md)
 
 ## Need help?
 

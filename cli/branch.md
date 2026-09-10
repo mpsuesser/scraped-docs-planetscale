@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The branch command
 
-This command allows you to create, delete, diff, and manage [branches](../vitess/schema-changes/branching.md).
+This command creates and manages Vitess, Postgres, and [Neki branches](../neki/branching.md). It also contains the Neki configuration, shard, router, and data-topology commands.
 
 **Usage:**
 
@@ -24,14 +24,18 @@ pscale branch <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Description** | **Product** |
 | --- | --- | --- | --- |
+| `admin <COMMAND>` | `show`, `update`, `parameters`, `sizes`, `changes` (`list`, `show`, `cancel`) | Manage the Admin configuration for a Neki branch | Neki |
 | `connections <COMMAND>` | `show`, `top`, `kill`, `kill-transaction` | Inspect and act on live branch connections. See the [`connections` reference](connections.md). | Postgres, Vitess |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_NAME>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--wait` | Create a new branch on the specified database | Postgres, Vitess |
-| `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess |
+| `config-profile <COMMAND>` | `create`, `default`, `delete`, `list`, `set-default`, `show`, `update`, `parameters`, `extensions` (`enable`, `disable`), `maintenance`, `changes` (`list`, `show`, `cancel`) | Manage configuration profiles for a Neki branch | Neki |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_ID>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--cluster-size <CLUSTER_SIZE>`, `--replicas <COUNT>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>`, `--config-profile`, `--router`, `--wait` | Create a new branch on the specified database | Postgres, Vitess, Neki |
+| `data-topology <COMMAND>` | `get`, `ls` (`--shards`), `update` | View or update a Neki branch’s data topology | Neki |
+| `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess, Neki |
 | `demote <DATABASE_NAME> <BRANCH_NAME>` |  | Demote a production branch to development | Vitess |
 | `diff <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the diff of the specified branch against the parent branch. | Vitess |
 | `extensions list <DATABASE_NAME> <BRANCH_NAME>` |  | List the extensions available on a Postgres branch’s cluster image | Postgres |
 | `lint <DATABASE_NAME> <BRANCH_NAME>` |  | Lint the schema of a branch | Vitess |
-| `list <DATABASE_NAME>` | `--web` | List all branches of a database | Postgres, Vitess |
+| `list <DATABASE_NAME>` | `--web` | List all branches of a database | Postgres, Vitess, Neki |
+| `maintenance run <DATABASE_NAME> <BRANCH_NAME>` | `--update-postgres-minor-version` (Postgres only) | Run maintenance for a Postgres or Neki branch | Postgres, Neki |
 | `parameters list <DATABASE_NAME> <BRANCH_NAME>` | `--namespace <NAMESPACE>`, `--extension`, `--internal` | List the configuration parameters of a Postgres branch | Postgres |
 | `promote <DATABASE_NAME> <BRANCH_NAME>` |  | Promote a database branch to production | Vitess |
 | `query-patterns list <DATABASE_NAME> <BRANCH_NAME>` | `--limit <NUMBER>`, `--starting-after <REPORT_ID>` | List query pattern reports for a branch. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
@@ -46,13 +50,16 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `routing-rules update <DATABASE_NAME> <BRANCH_NAME>` | `--routing-rules <FILE>` \* | Replace the keyspace routing rules of a branch | Vitess |
 | `safe-migrations enable <DATABASE_NAME> <BRANCH_NAME>` |  | Enables safe migrations for a database branch | Vitess |
 | `safe-migrations disable <DATABASE_NAME> <BRANCH_NAME>` |  | Disables safe migrations for a database branch | Vitess |
-| `schema <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the schema of a branch | Vitess |
-| `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific backup of a branch | Postgres, Vitess |
-| `switch <BRANCH_NAME> --database <DATABASE_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `parent-branch <BRANCH_NAME>` | Switch to the specified branch | Postgres, Vitess |
+| `router <COMMAND>` | `create`, `delete`, `list`, `show`, `update`, `sizes`, `changes` (`list`, `show`, `cancel`) | Manage router groups for a Neki branch | Neki |
+| `schema <DATABASE_NAME> <BRANCH_NAME>` | `--web`, `--keyspace`, `--namespace` | Show the schema of a branch | Postgres, Vitess, Neki |
+| `shard <COMMAND>` | `assign`, `create`, `delete`, `list`, `show`, `update` | Manage shards and their configuration-profile assignments | Neki |
+| `show <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show a specific branch | Postgres, Vitess, Neki |
+| `sidecar <COMMAND>` | `list`, `show`, `update`, `parameters`, `changes` (`list`, `show`, `cancel`) | Manage connection-pool sidecars for a Neki branch | Neki |
+| `switch <BRANCH_NAME>` | `--database <DATABASE_NAME>` \*, `--create`, `--parent-branch <BRANCH_NAME>`, `--wait` | Switch to the specified branch | Postgres, Vitess, Neki |
 | `switchover <DATABASE_NAME> <BRANCH_NAME>` | `--candidate <REPLICA_NAME>` | Move the primary of a Postgres branch to a replica. See [Switchovers](../postgres/troubleshooting/switchovers.md). | Postgres |
 | `switchover list <DATABASE_NAME> <BRANCH_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List switchovers for a Postgres branch | Postgres |
 | `switchover show <DATABASE_NAME> <BRANCH_NAME> <ID>` |  | Show a Postgres switchover | Postgres |
-| `update <DATABASE_NAME> <BRANCH_NAME>` | `--new-name <BRANCH_NAME>`, `--deletion-protected` | Rename a branch or change its deletion protection | Postgres, Vitess |
+| `update <DATABASE_NAME> <BRANCH_NAME>` | `--new-name <BRANCH_NAME>`, `--deletion-protected` | Rename a branch or change its deletion protection | Postgres, Vitess, Neki |
 | `vtgate show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the current VTGate configuration for a Vitess branch | Vitess |
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
@@ -87,12 +94,18 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | --- | --- | --- |
 | `--from <SOURCE_BRANCH>` | Parent branch that you want to create a new branch off of | `create` |
 | `--region <BRANCH_REGION>` | Region where database should be created | `create` |
-| `--restore <BACKUP_NAME>` | Create a new branch from a specified backup | `create` |
-| `--restore-point <TIMESTAMP>` | For PostgreSQL, restore to a point-in-time recovery timestamp (for example `2023-01-01T00:00:00Z`). Requires `--restore` or `--from`. Cannot be used with `--seed-data`. | `create` |
+| `--restore <BACKUP_ID>` | Create a new branch from a backup ID. For Neki restore sizing, see `--config-profile` and `--router`. | `create` |
+| `--restore-point <TIMESTAMP>` | For Postgres or Neki, restore to a point-in-time recovery timestamp (for example `2023-01-01T00:00:00Z`). Requires `--restore` or `--from`. Cannot be used with `--seed-data`. | `create` |
 | `--seed-data` | Create a new branch and seed data using the [Data Branching® feature](../vitess/schema-changes/data-branching.md) | `create` |
-| `--web` | Perform the action in your web browser | `create`, `diff`, `list`, `schema`, `show` |
+| `--web` | Perform the action in your web browser | `diff`, `list`, `schema`, `show` |
 | `--wait` | Wait until the branch is ready (`create`) or the change request completes (`resize`) | `create`, `resize` |
-| `--major-version` | The major version of the branch (Postgres only). Currently supports `17` or `18`. | `create` |
+| `--major-version` | PostgreSQL major version for a Postgres or Neki branch. Defaults to the parent branch or the database default. Ignored when restoring from a backup. | `create` |
+| `--min-storage <BYTES>` | Minimum storage size in bytes for a Postgres or Neki branch, or for shards in a Neki configuration profile. Not available for Vitess. | `create`, `config-profile create`, `config-profile update` |
+| `--max-storage <BYTES>` | Maximum storage size in bytes for storage autoscaling on a Postgres or Neki branch, or for shards in a Neki configuration profile. Not available for Vitess. | `create`, `config-profile create`, `config-profile update` |
+| `--storage-autoscaling` | Enable storage autoscaling for shards in a Neki configuration profile (`--storage-autoscaling=false` to disable). | `config-profile create`, `config-profile update` |
+| `--storage-iops <NUMBER>` | Storage IOPS for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
+| `--storage-throughput <NUMBER>` | Storage throughput in MiB/s for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
+| `--update-postgres-minor-version` | Also upgrade a Postgres branch to the latest PostgreSQL minor version during the maintenance run. | `maintenance run` |
 | `--database <DATABASE_NAME>` | Specify the database name | `switch` |
 | `--create` | Create a new branch if it does not exist | `switch` |
 | `--parent-branch <BRANCH_NAME>` | If a new branch is being created, use this to specify a parent branch. Default is `main`. | `switch` |
@@ -106,9 +119,9 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--new-name <BRANCH_NAME>` | New name for the branch | `update` |
 | `--deletion-protected` | Protect the branch from deletion (`--deletion-protected=false` to disable) | `update` |
 | `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
-| `--cluster-size <SKU>` | New cluster size for the branch, as a fully-qualified SKU name (e.g. `PS_10_GCP_X86`). Use `pscale size cluster list --engine postgresql` to see the valid sizes. | `resize` |
-| `--replicas <COUNT>` | Desired number of replicas for the branch | `resize` |
-| `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` to see available parameters. | `resize` |
+| `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, or shards in a Neki configuration profile. For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update` |
+| `--replicas <COUNT>` | Additional replica count for a Postgres branch resize, a Postgres or Neki backup restore, or shards in a Neki configuration profile. | `create`, `resize`, `config-profile create`, `config-profile update` |
+| `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
 | `--wait-timeout <DURATION>` | Maximum time to wait for the change request to complete with `--wait`. Default is `10m`. | `resize` |
 | `--namespace <NAMESPACE>` | Only show parameters in this namespace (e.g. `pgconf`, `pgbouncer`, `patroni`) | `parameters list` |
 | `--extension` | Only show parameters that configure an extension (`--extension=false` hides them) | `parameters list` |
@@ -118,14 +131,31 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--vtgate-max-count <COUNT>` | Maximum VTGates per availability zone when autoscaling is enabled | `vtgate resize` |
 | `--vtgate-autoscaling` | Enable or disable VTGate autoscaling (`--vtgate-autoscaling=false` to disable) | `vtgate resize` |
 | `--vtgate-target-cpu-utilization <PERCENT>` | Target CPU utilization percent when autoscaling is enabled | `vtgate resize` |
+| `--config-profile <PROFILE>` | Configuration profile that hosts new shards, or the profile to assign or filter by. On `create --restore`, repeat `name=<profile>[,cluster-size=<size>][,replicas=<n>]` to override Neki restore sizes. | `create`, `shard create`, `shard assign`, `shard list` |
+| `--exclude-config-profile <PROFILE>` | Exclude shards assigned to this configuration profile | `shard list` |
+| `--count <NUMBER>` | Number of shards to create. Defaults to `1`. | `shard create` |
+| `--display-name <NAME>` | Shard display name. Pass an empty string to clear it. | `shard update` |
+| `--query <QUERY>` | Search shards by name, display name, or configuration profile | `shard list` |
+| `--size <SKU>` | Router size SKU (for example `NKR-5`) or Admin size (for example `NKA-0`). Hyphens are accepted and converted to underscores. Use `router sizes` or `admin sizes` to list valid SKUs. | `router create`, `router update`, `admin update` |
+| `--replicas-per-cell <COUNT>` | Number of router replicas in each cell | `router create`, `router update` |
+| `--autoscaling` | Enable horizontal router scaling within each cell | `router update` |
+| `--max-replicas-per-cell <COUNT>` | Maximum router replicas in each cell when autoscaling | `router update` |
+| `--target-cpu-utilization <PERCENT>` | Target average CPU utilization when router autoscaling is enabled | `router update` |
+| `--name <NAME>` | New name for a configuration profile | `config-profile update` |
+| `--postgres-major-version` | PostgreSQL major version for a configuration profile | `config-profile create`, `config-profile update` |
+| `--postgres-minor-version` | PostgreSQL minor version. Requires `--postgres-major-version`. | `config-profile create`, `config-profile update` |
+| `--router` | On `create --restore`, repeat `name=<router>[,size=<sku>][,replicas-per-cell=<n>]` to override Neki restore router sizes. | `create` |
+| `--shards` | Group data-topology output by the physical shards that host the data | `data-topology ls` |
+| `--period <PERIOD>` | Only show changes from this period | `config-profile changes list`, `admin changes list`, `router changes list`, `sidecar changes list` |
+| `--completed-at <TIMESTAMP>` | Only show changes completed at this time | `config-profile changes list`, `admin changes list`, `router changes list`, `sidecar changes list` |
 
-The `--region` flag can not be used with `--restore` when creating a branch. Branch backups will be restored to their original region. `--restore-point` is PostgreSQL only. When you pass `--restore-point` without `--restore`, `--from` is required so the CLI can look up a backup that covers that timestamp.
+You can use `--region` with `--restore` to restore a backup into another region. `--restore-point` is available for Postgres and Neki. When you pass `--restore-point` without `--restore`, `--from` is required so the CLI can look up a backup that covers that timestamp.
 
 ### Available flags
 
 | **Flag** | **Description** |
 | --- | --- |
-| `-h`, `--help` | View help for auth command |
+| `-h`, `--help` | View help for branch command |
 | `--org <ORGANIZATION_NAME>` | The organization for the current user |
 
 ### Global flags
@@ -152,6 +182,107 @@ pscale branch connections top <database> <branch>
 ```
 
 Opens a live view of the branch’s connection activity. It works for Postgres and Vitess branches; for Vitess, pass `--keyspace` and `--shard` to target a tablet, or run interactively to select them. See the [`connections` reference](connections.md), [Inspect live Postgres connections](../postgres/monitoring/connections.md), and [Inspect live Vitess connections](../vitess/monitoring/connections.md) for the full workflow.
+
+### Neki configuration commands
+
+Neki infrastructure commands are nested under `pscale branch`. See [Neki cluster configuration](../neki/cluster-configuration.md) and [Neki data topology](../neki/data-topology.md) for the workflows behind these commands.
+
+#### Configuration profiles
+
+```shellscript
+pscale branch config-profile list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch config-profile default <DATABASE_NAME> <BRANCH_NAME>
+pscale branch config-profile create <DATABASE_NAME> <BRANCH_NAME> <PROFILE> \
+  --cluster-size <SKU> --replicas 2 --postgres-major-version 18
+pscale branch config-profile update <DATABASE_NAME> <BRANCH_NAME> <PROFILE> \
+  --cluster-size <SKU> --parameters pgconf.max_connections=200
+pscale branch config-profile set-default <DATABASE_NAME> <BRANCH_NAME> <PROFILE>
+pscale branch config-profile parameters <DATABASE_NAME> <BRANCH_NAME> <PROFILE> --namespace pgconf
+pscale branch config-profile extensions <DATABASE_NAME> <BRANCH_NAME> <PROFILE>
+pscale branch config-profile extensions enable <DATABASE_NAME> <BRANCH_NAME> <PROFILE> <EXTENSION>
+pscale branch config-profile extensions disable <DATABASE_NAME> <BRANCH_NAME> <PROFILE> <EXTENSION>
+pscale branch config-profile maintenance <DATABASE_NAME> <BRANCH_NAME> <PROFILE>
+pscale branch config-profile changes list <DATABASE_NAME> <BRANCH_NAME> <PROFILE>
+pscale branch config-profile changes show <DATABASE_NAME> <BRANCH_NAME> <PROFILE> <CHANGE_ID>
+pscale branch config-profile changes cancel <DATABASE_NAME> <BRANCH_NAME> <PROFILE> <CHANGE_ID>
+pscale branch config-profile delete <DATABASE_NAME> <BRANCH_NAME> <PROFILE>
+```
+
+`create` and `update` accept `--cluster-size`, `--replicas`, `--postgres-major-version`, `--postgres-minor-version`, `--min-storage`, `--max-storage`, `--storage-autoscaling`, `--storage-iops`, and `--storage-throughput`. `--postgres-major-version` is required when you pass `--postgres-minor-version`. `update` also accepts `--name` and repeatable `--parameters namespace.name=value`. `parameters` accepts `--namespace`, `--extension`, and `--internal`. `extensions enable` and `extensions disable` toggle an extension that the catalog marks as enablable. `maintenance` upgrades one or more profiles to the latest image and returns immediately; use `pscale branch maintenance run` to maintain every profile on the branch. Change lists accept `--period`, `--completed-at`, `--page`, and `--per-page`.
+
+#### Shards
+
+```shellscript
+pscale branch shard create <DATABASE_NAME> <BRANCH_NAME> --config-profile <PROFILE> --count 2
+pscale branch shard list <DATABASE_NAME> <BRANCH_NAME> --config-profile <PROFILE>
+pscale branch shard show <DATABASE_NAME> <BRANCH_NAME> <SHARD_ID>
+pscale branch shard assign <DATABASE_NAME> <BRANCH_NAME> <SHARD_ID> --config-profile <PROFILE>
+pscale branch shard update <DATABASE_NAME> <BRANCH_NAME> <SHARD_ID> --display-name "tenant-a"
+pscale branch shard delete <DATABASE_NAME> <BRANCH_NAME> <SHARD_ID>
+```
+
+`--config-profile` is required on `create` and `assign`. `list` and `show` include whether the shard is the authoritative copy from the branch data topology. `list` accepts `--config-profile`, `--exclude-config-profile`, `--query`, `--page`, and `--per-page`. `update --display-name ""` clears a display name. `delete` accepts `--force`.
+
+#### Routers
+
+```shellscript
+pscale branch router create <DATABASE_NAME> <BRANCH_NAME> <ROUTER> --size NKR-5 --replicas-per-cell 2
+pscale branch router list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch router show <DATABASE_NAME> <BRANCH_NAME> <ROUTER>
+pscale branch router sizes <DATABASE_NAME> <BRANCH_NAME>
+pscale branch router update <DATABASE_NAME> <BRANCH_NAME> <ROUTER> \
+  --autoscaling --max-replicas-per-cell 8 --target-cpu-utilization 50
+pscale branch router changes list <DATABASE_NAME> <BRANCH_NAME> <ROUTER>
+pscale branch router changes show <DATABASE_NAME> <BRANCH_NAME> <ROUTER> <CHANGE_ID>
+pscale branch router changes cancel <DATABASE_NAME> <BRANCH_NAME> <ROUTER> <CHANGE_ID>
+pscale branch router delete <DATABASE_NAME> <BRANCH_NAME> <ROUTER>
+```
+
+`create` accepts `--size` and `--replicas-per-cell`. `update` also accepts `--autoscaling`, `--max-replicas-per-cell`, `--target-cpu-utilization`, and repeatable `--parameters`. `sizes` lists valid router SKUs. Change lists accept `--period`, `--completed-at`, `--page`, and `--per-page`. `delete` accepts `--force`. Connect through a named router with [`pscale shell --router`](shell.md).
+
+#### Admin and sidecars
+
+Each Neki branch has one Admin. Each configuration profile has one sidecar. Both are created and deleted with the cluster or profile.
+
+```shellscript
+pscale branch admin show <DATABASE_NAME> <BRANCH_NAME>
+pscale branch admin sizes <DATABASE_NAME> <BRANCH_NAME>
+pscale branch admin parameters <DATABASE_NAME> <BRANCH_NAME>
+pscale branch admin update <DATABASE_NAME> <BRANCH_NAME> --size NKA-0
+pscale branch admin changes list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch sidecar list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch sidecar show <DATABASE_NAME> <BRANCH_NAME> <SIDECAR>
+pscale branch sidecar update <DATABASE_NAME> <BRANCH_NAME> <SIDECAR> \
+  --parameters pgbouncer.default_pool_size=50
+pscale branch sidecar changes list <DATABASE_NAME> <BRANCH_NAME> <SIDECAR>
+```
+
+`<SIDECAR>` is the sidecar ID from `sidecar list`, or the configuration profile name. Admin `update` accepts `--size` and `--parameters`. `admin sizes` lists valid Admin SKUs. Sidecar `update` accepts `--parameters`. Change lists include a **Changes** column with the previous and requested size or parameter values, and accept `--period`, `--completed-at`, `--page`, and `--per-page`.
+
+#### Data topology and maintenance
+
+```shellscript
+pscale branch data-topology get <DATABASE_NAME> <BRANCH_NAME>
+pscale branch data-topology ls <DATABASE_NAME> <BRANCH_NAME>
+pscale branch data-topology ls <DATABASE_NAME> <BRANCH_NAME> --shards --format json
+pscale branch data-topology update <DATABASE_NAME> <BRANCH_NAME> < data-topology.json
+pscale branch maintenance run <DATABASE_NAME> <BRANCH_NAME>
+```
+
+`data-topology update` reads a JSON object from standard input. `ls --shards` groups the topology by the physical shards that host the data. `maintenance run` updates every profile on the branch to the latest available image.
+
+#### Restore a Neki backup
+
+`pscale branch create --restore` creates a new branch from a backup, the same as [`pscale backup restore`](backup.md). For Neki, omit `--cluster-size` to keep the source default profile size. Override individual profiles and routers with repeatable `--config-profile` and `--router` flags.
+
+```shellscript
+pscale branch create <DATABASE_NAME> <NEW_BRANCH_NAME> --restore <BACKUP_ID>
+pscale branch create <DATABASE_NAME> <NEW_BRANCH_NAME> --restore <BACKUP_ID> \
+  --config-profile name=default,cluster-size=PS_40,replicas=2 \
+  --router name=default,size=NKR-20,replicas-per-cell=1
+```
+
+Preview the live source sizes first with `pscale backup restore show <DATABASE_NAME> <SOURCE_BRANCH_NAME> <BACKUP_ID>`.
 
 ### The query-patterns sub-command
 

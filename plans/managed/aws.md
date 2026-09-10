@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -12,7 +12,7 @@ In this configuration, you can use the same API, CLI, and web interface that Pla
 
 ## Architecture
 
-The PlanetScale data plane is deployed inside of a PlanetScale-controlled AWS Organizations member account in your AWS organization. The database cluster will run within this member account, orchestrated via Kubernetes. PlanetScale Managed supports MySQL-compatible Vitess and Postgres clusters.
+The PlanetScale data plane is deployed inside of a PlanetScale-controlled AWS Organizations member account in your AWS organization. The database cluster will run within this member account, orchestrated via Kubernetes. PlanetScale Managed supports Vitess (MySQL-compatible), Neki, and Postgres clusters. Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki.
 
 We distribute components of the cluster across three AWS availability zones within your selected region to ensure high availability. You can deploy PlanetScale Managed to any AWS region with at least three availability zones, including those not supported by the PlanetScale self-serve product.
 

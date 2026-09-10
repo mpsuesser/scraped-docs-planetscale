@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/org
 title: "Org"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,32 +24,32 @@ pscale org <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
-| `list` |  | Postgres, Vitess | List all currently active organizations with timestamps |
-| `member list` | `--query <QUERY>`, `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List the members of an organization |
-| `member show <EMAIL\|USER_ID>` |  | Postgres, Vitess | Show an organization member |
-| `member update <EMAIL\|USER_ID>` | `--role <ROLE>` \* | Postgres, Vitess | Change another member’s organization role |
-| `member remove <EMAIL\|USER_ID>` | `--force`, `--delete-passwords`, `--delete-service-tokens` | Postgres, Vitess | Remove a member from an organization |
-| `show` |  | Postgres, Vitess | Display the currently active organization |
-| `sso show` |  | Postgres, Vitess | Show organization SSO status |
-| `sso enable` |  | Postgres, Vitess | Enable organization SSO |
-| `sso disable` | `--force` | Postgres, Vitess | Disable organization SSO |
-| `sso configure` |  | Postgres, Vitess | Open the identity provider setup portal |
-| `sso directory enable` |  | Postgres, Vitess | Open the directory sync setup portal |
-| `sso directory disable` | `--force` | Postgres, Vitess | Disable directory sync |
-| `sso domain list` |  | Postgres, Vitess | List SSO email domains |
-| `sso domain show <DOMAIN_ID>` |  | Postgres, Vitess | Show an SSO email domain |
-| `sso domain verify` | `--wait`, `--wait-timeout <DURATION>` | Postgres, Vitess | Open the domain verification portal |
-| `sso domain delete <DOMAIN_ID>` | `--force` | Postgres, Vitess | Delete an SSO email domain |
-| `switch <ORGANIZATION_NAME>` | `--save-config <PATH>` | Postgres, Vitess | Switch the currently active organization |
-| `team create` | `--name <NAME>` \*, `--description <TEXT>` | Postgres, Vitess | Create a team |
-| `team delete <TEAM>` | `--force` | Postgres, Vitess | Delete a team |
-| `team list` | `--query <QUERY>`, `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List teams in an organization |
-| `team member add <TEAM> <EMAIL\|USER_ID>` |  | Postgres, Vitess | Add an organization member to a team |
-| `team member list <TEAM>` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List members of a team |
-| `team member remove <TEAM> <EMAIL\|USER_ID>` | `--force`, `--delete-passwords` | Postgres, Vitess | Remove a member from a team |
-| `team show <TEAM>` |  | Postgres, Vitess | Show a team |
-| `team update <TEAM>` | `--name <NAME>`, `--description <TEXT>` | Postgres, Vitess | Update a team’s name or description |
-| `update` | `--billing-email <EMAIL>`, `--idp-managed-roles`, `--idp-sso-managed-roles`, `--spend-alert`, `--spend-alert-amount <AMOUNT>` | Postgres, Vitess | Update organization settings |
+| `list` |  | Postgres, Vitess, Neki | List all currently active organizations with timestamps |
+| `member list` | `--query <QUERY>`, `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess, Neki | List the members of an organization |
+| `member show <EMAIL\|USER_ID>` |  | Postgres, Vitess, Neki | Show an organization member |
+| `member update <EMAIL\|USER_ID>` | `--role <ROLE>` \* | Postgres, Vitess, Neki | Change another member’s organization role |
+| `member remove <EMAIL\|USER_ID>` | `--force`, `--delete-passwords`, `--delete-service-tokens` | Postgres, Vitess, Neki | Remove a member from an organization |
+| `show` |  | Postgres, Vitess, Neki | Display the currently active organization |
+| `sso show` |  | Postgres, Vitess, Neki | Show organization SSO status |
+| `sso enable` |  | Postgres, Vitess, Neki | Enable organization SSO |
+| `sso disable` | `--force` | Postgres, Vitess, Neki | Disable organization SSO |
+| `sso configure` |  | Postgres, Vitess, Neki | Open the identity provider setup portal |
+| `sso directory enable` |  | Postgres, Vitess, Neki | Open the directory sync setup portal |
+| `sso directory disable` | `--force` | Postgres, Vitess, Neki | Disable directory sync |
+| `sso domain list` |  | Postgres, Vitess, Neki | List SSO email domains |
+| `sso domain show <DOMAIN_ID>` |  | Postgres, Vitess, Neki | Show an SSO email domain |
+| `sso domain verify` | `--wait`, `--wait-timeout <DURATION>` | Postgres, Vitess, Neki | Open the domain verification portal |
+| `sso domain delete <DOMAIN_ID>` | `--force` | Postgres, Vitess, Neki | Delete an SSO email domain |
+| `switch <ORGANIZATION_NAME>` | `--save-config <PATH>` | Postgres, Vitess, Neki | Switch the currently active organization |
+| `team create` | `--name <NAME>` \*, `--description <TEXT>` | Postgres, Vitess, Neki | Create a team |
+| `team delete <TEAM>` | `--force` | Postgres, Vitess, Neki | Delete a team |
+| `team list` | `--query <QUERY>`, `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess, Neki | List teams in an organization |
+| `team member add <TEAM> <EMAIL\|USER_ID>` |  | Postgres, Vitess, Neki | Add an organization member to a team |
+| `team member list <TEAM>` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess, Neki | List members of a team |
+| `team member remove <TEAM> <EMAIL\|USER_ID>` | `--force`, `--delete-passwords` | Postgres, Vitess, Neki | Remove a member from a team |
+| `team show <TEAM>` |  | Postgres, Vitess, Neki | Show a team |
+| `team update <TEAM>` | `--name <NAME>`, `--description <TEXT>` | Postgres, Vitess, Neki | Update a team’s name or description |
+| `update` | `--billing-email <EMAIL>`, `--idp-managed-roles`, `--idp-sso-managed-roles`, `--spend-alert`, `--spend-alert-amount <AMOUNT>` | Postgres, Vitess, Neki | Update organization settings |
 
 > \* *Flag is required*
 

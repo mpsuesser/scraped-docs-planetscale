@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/shell
 title: "Shell"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -14,7 +14,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 This command opens a secure shell instance to your database so that you can manipulate it from the command line.
 
-For MySQL databases, it uses the MySQL command-line client (`mysql`). For Postgres databases, it uses the Postgres command-line client (`psql`). The appropriate client [must be installed](planetscale-environment-setup.md) prior to use.
+For Vitess databases, it uses the MySQL command-line client (`mysql`). For Postgres and Neki databases, it uses the PostgreSQL command-line client (`psql`). The appropriate client [must be installed](planetscale-environment-setup.md) prior to use.
 
 If your Managed cluster has public connectivity disabled, you must connect over PrivateLink. Set up the VPC endpoint using the service name we provide, make sure your DNS resolves your PlanetScale hostnames to that PrivateLink endpoint, and then run `pscale shell mydatabase mybranch`.
 
@@ -23,21 +23,23 @@ If you use a VPN such as Tailscale, do not override `psdb.cloud` DNS in your VPN
 **Usage:**
 
 ```shellscript
-pscale shell <DATABASE_NAME> <BRANCH_NAME> <FLAG>
+pscale shell <DATABASE_NAME> [BRANCH_NAME] [DB_NAME] <FLAG>
 ```
 
 By default, if no branch names are given and there is only one branch, it automatically opens a shell to that branch. If there are multiple branches for the given database, you’ll be prompted to choose one.
 
 ### Available flags
 
-| **Flag** | **Description** |
-| --- | --- |
-| `-h`, `--help` | Help for shell command |
-| `--local-addr <ADDRESS>` | Local address to bind and listen for connections. By default the proxy binds to `127.0.0.1` with a random port. |
-| `--org <ORGANIZATION_NAME>` | The organization for the current user |
-| `--remote-addr <ADDRESS>` | PlanetScale Database remote network address. By default the remote address is populated automatically from the PlanetScale API |
-| `--replica` | When enabled, the password will route all reads to the branch’s primary replicas and all read-only regions |
-| `--role <ROLE>` | Role defines the access level, allowed values are: reader, writer, readwriter, admin. Defaults to ‘reader’ for replica passwords, otherwise defaults to ‘admin’ |
+| **Flag** | **Description** |  |
+| --- | --- | --- |
+| `-h`, `--help` | Help for shell command |  |
+| `--local-addr <ADDRESS>` | Local address where the Vitess proxy binds and listens. By default it binds to `127.0.0.1` with a random port. Not supported for Postgres or Neki. |  |
+| `--org <ORGANIZATION_NAME>` | The organization for the current user |  |
+| `--remote-addr <ADDRESS>` | PlanetScale Database remote network address. By default the remote address is populated automatically from the PlanetScale API |  |
+| `--replica` | Connect to a replica. The CLI adds the \` | replica `username suffix for Vitess and Postgres. For Neki, it instead sets` PGOPTIONS `to` -c \_\_neki.target=REPLICA\`. |
+| `--role <ROLE>` | Role defines the access level, allowed values are: reader, writer, readwriter, admin. Defaults to ‘reader’ for replica passwords, otherwise defaults to ‘admin’ |  |
+| `--router <ROUTER>` | Connect through the named router group. Neki only. |  |
+| `--db-name <NAME>` | PostgreSQL database name to connect to (default `postgres`). Also accepted as a third positional argument. Postgres and Neki only. |  |
 
 Available roles for the `--role` flag are:
 
@@ -77,6 +79,13 @@ pscale shell mydatabase
 pscale shell mydatabase mybranch
 ```
 
+**Open a Postgres or Neki shell to a specific database name:**
+
+```shellscript
+pscale shell <DATABASE_NAME> <BRANCH_NAME> --db-name <DB_NAME>
+pscale shell <DATABASE_NAME> <BRANCH_NAME> <DB_NAME>
+```
+
 Once the shell is opened, you can run SQL as expected.
 
 **Example MySQL session:**
@@ -109,7 +118,7 @@ pg/|⚠ main ⚠|> \dt
 pg/|⚠ main ⚠|> \q
 ```
 
-Type `exit` (MySQL) or `\q` (Postgres) to exit the shell.
+Type `exit` (MySQL) or `\q` (Postgres and Neki) to exit the shell.
 
 ### Using replica connections
 
@@ -119,7 +128,16 @@ Type `exit` (MySQL) or `\q` (Postgres) to exit the shell.
 pscale shell mydatabase mybranch --replica
 ```
 
-Replica connections route all reads to the branch’s primary replicas, and defaults to `reader` role.
+Replica connections route reads to replicas and default to the `reader` role.
+
+For Neki, `--replica` sets the session’s Neki target to `REPLICA`. You can combine it with `--router` to select both a router group and a replica target.
+
+### Connect through a Neki router group
+
+```shellscript
+pscale shell mydatabase mybranch --router analytics
+pscale shell mydatabase mybranch --router analytics --replica
+```
 
 ### Using specific roles
 

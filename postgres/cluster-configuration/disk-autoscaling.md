@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
@@ -29,18 +29,18 @@ When enabled, disk growth kicks in when your disk utilization reaches the follow
 
 Automatic disk growth activates when disk utilization reaches these thresholds:
 
-- **70%** for disks smaller than 4 TiB
-- **25%** for disks larger than or equal to 4 TiB
+- **70%** for disks smaller than 4 TB
+- **25%** for disks larger than or equal to 4 TB
 
 ### Suggested shrink thresholds
 
 A disk shrink will be suggested in the “Clusters” configuration storage tab when disk utilization falls below these thresholds:
 
-- **12.5%** for disks smaller than 1 TiB
-- **15%** for disks between 1 TiB and 2 TiB
-- **25%** for disks larger than 2 TiB
+- **12.5%** for disks smaller than 1 TB
+- **15%** for disks between 1 TB and 2 TB
+- **25%** for disks larger than 2 TB
 
-For example, if you have a 200 GiB disk allocation and are only using 20 GiB, we will suggest the disk can be shrunk because it’s below the existing 12.5% threshold.
+For example, if you have a 200 GB disk allocation and are only using 20 GB, we will suggest the disk can be shrunk because it’s below the existing 12.5% threshold.
 
 ### Key disk autoscaling behavior:
 
@@ -78,4 +78,4 @@ The storage limit sets the maximum amount of storage that can be allocated to yo
 
 When autoscaling is enabled, your storage can grow from the minimum disk size up to the storage limit you specify. The storage limit should be set higher than your initial disk size to allow for growth while providing a reasonable upper bound for your storage costs.
 
-The maximum disk size for network-attached storage is 65536 GB (64 TiB).
+The maximum disk size for network-attached storage is 65536 GB (64 TB).

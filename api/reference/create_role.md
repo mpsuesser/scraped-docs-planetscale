@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_role
 title: "Create_role"
 description: ""
-access_date: 2026-08-18T20:17:33.766Z
-current_date: 2026-08-18T20:17:33.766Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 POST
@@ -112,7 +112,11 @@ Available options:
 
 `pg_write_all_data`,
 
-`postgres`with\_replication
+`postgres`,
+
+`neki_operator`,
+
+`neki_viewer`with\_replication
 
 boolean
 

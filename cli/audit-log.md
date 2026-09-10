@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-08-11T16:46:50.137Z
-current_date: 2026-08-11T16:46:50.137Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,7 +24,7 @@ pscale audit-log <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Description** | **Product** |
 | --- | --- | --- |
-| `list` | List all audit logs in an organization | Postgres, Vitess |
+| `list` | List all audit logs in an organization | Postgres, Vitess, Neki |
 | `auth-attempts download` | Download a report of database authentication attempts | Postgres |
 
 ### The list sub-command flags

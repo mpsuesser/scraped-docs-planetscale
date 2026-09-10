@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-architecture
 title: "Postgres Architecture"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -120,7 +120,7 @@ Storage choice significantly impacts database performance and cost. PlanetScale 
 
 **Network-attached storage (EBS)**:
 
-- Flexible storage scaling up to 64 TiB
+- Flexible storage scaling up to 64 TB
 - Configurable IOPS and throughput settings
 - Automatic storage scaling based on usage patterns
 - Cost-effective for variable storage requirements

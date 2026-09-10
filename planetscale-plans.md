@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-08-17T20:08:47.652Z
-current_date: 2026-08-17T20:08:47.652Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -14,13 +14,13 @@ Our plans are split into two general offerings: [Base (self-serve)](#base-plan) 
 
 ## Base
 
-Self-serve plan with fully-managed Vitess (MySQL-compatible) and Postgres databases. Features include sharding, branching, query insights, and more. Available with network-attached storage or Metal options.
+Self-serve plan with fully-managed Vitess (MySQL-compatible), [Neki](neki.md), and Postgres databases. Features include sharding, branching, query insights, and more. Available with network-attached storage or Metal options.
 
 [Learn more](#base-plan)
 
 ## Enterprise
 
-Enhanced support, customizations, and deployment options. Available for both Vitess and Postgres with features like dedicated accounts, PCI compliance, and expert assistance.
+Enhanced support, customizations, and deployment options. Available for Vitess, Neki, and Postgres with features like dedicated accounts, PCI compliance, and expert assistance.
 
 [Learn more](#enterprise-plan)
 
@@ -28,7 +28,7 @@ Enhanced support, customizations, and deployment options. Available for both Vit
 
 Our Base plan is completely self-serviceable. [Sign up for a PlanetScale account to get started](https://auth.planetscale.com/sign-up).
 
-PlanetScale offers two database engines: **Vitess** (MySQL-compatible) and **Postgres**. Both are available with two storage options: **network-attached storage** and **Metal**.
+PlanetScale offers **Vitess** (MySQL-compatible), **Neki**, and **Postgres**. All three are available with two storage options: **network-attached storage** and **Metal**.
 
 - [**Network-attached storage**](plans/planetscale-skus.md#network-attached-storage) (Amazon Elastic Block Storage or Google Persistent Disk) databases come with autoscaling storage and have varying levels of compute power.
 - [**Metal databases**](plans/planetscale-skus.md#metal) are backed by locally-attached NVMe drives for storage, unlocking incredible performance and cost-efficiencies. Because the drives are locally-attached, you need to choose both your compute and storage resources when you create your database.
@@ -39,32 +39,32 @@ If you need larger sizes immediately, please [contact us](https://planetscale.co
 
 On top of processing and memory, all **Base** cluster sizes share the following:
 
-|  | **Vitess** | **Postgres** |
-| --- | --- | --- |
-| **Storage/month (network-attached storage)** | 10 GB included; $0.50 per instance per additional 1 GB\* | 10 GB included; additional storage pricing [varies by region and cloud provider](postgres/pricing.md#storage-pricing) |
-| **Storage/month (Metal)** | Depends on selected NVMe drive size | Depends on selected NVMe drive size |
-| **Available cluster sizes** | 22 | 22 |
-| **Availability zones** | 3 | 3 |
-| **Production branches** | 1 included\*\* | 1 included |
-| **Development branches** | ~1,440 hours included (2× hours of current month) | Billed as a new cluster |
-| **Concurrent Connections** | *Unmetered* | *Unmetered* |
-| **Single node** | Not available | Available starting at $5/mo |
-| **Query Insights retention** | 7 days | 7 days |
-| **Horizontal sharding** | Included | [Coming soon](https://planetscale.com/blog/announcing-neki) |
-| **Vertical sharding** | Included | Included |
-| [**Deployment options**](plans/deployment-options.md) | Multi-tenant | Multi-tenant |
-| **Read-only regions** | Available as an add-on | Coming soon |
-| **Web console** | Included | Included |
-| **PlanetScale CLI** | Included | Included |
-| **Connection pooling** | [VTGates](vitess/scaling/vtgates.md) based on cluster size | [PgBouncer](postgres/connecting/pgbouncer.md) |
-| [**Database Traffic Control®**](postgres/traffic-control.md) | Not available | Included |
-| **SSO** | Available as an add-on\*\*\* | Available as an add-on\*\*\* |
-| **Audit log retention** | 6 months | 6 months |
-| **Private connections** | [AWS](vitess/connecting/private-connections.md) and [GCP](vitess/connecting/private-connections-gcp.md) | [AWS](postgres/connecting/private-connections/aws-privatelink.md) and [GCP](postgres/connecting/private-connections/gcp-private-service-connect.md) |
-| **BAAs** | Included | Included |
-| **Automatic backups** | Every 12 hours | Every 12 hours |
-| **Support** | Standard, upgrade available\*\*\* | Standard, upgrade available\*\*\* |
-| [**Data Branching®**](vitess/schema-changes/data-branching.md) | Included | Not available |
+|  | **Vitess** | **Neki** | **Postgres** |
+| --- | --- | --- | --- |
+| **Storage/month (network-attached storage)** | 10 GB included; $0.50 per instance per additional GB\* | 10 GB included on each primary and included replica volume; additional storage [varies by region](neki/pricing.md#storage) | 10 GB included; additional storage pricing [varies by region, cloud provider, and storage type](postgres/pricing.md#storage-pricing) |
+| **Storage/month (Metal)** | Depends on selected NVMe drive size | Depends on selected NVMe drive size | Depends on selected NVMe drive size |
+| **Available cluster sizes** | 22 | 22 | 22 |
+| **Availability zones** | 3 | 3 | 3 |
+| **Production branches** | 1 included\*\* | 1 included | 1 included |
+| **Development branches** | ~1,440 hours included (2× hours of current month) | Billed as a new branch | Billed as a new cluster |
+| **Concurrent Connections** | *Unmetered* | *Unmetered* | *Unmetered* |
+| **Single node** | Not available | Not available | Available starting at $5/mo |
+| **Query Insights retention** | 7 days | 7 days | 7 days |
+| **Horizontal sharding** | Included | Included | Only in [Neki](neki.md) |
+| **Vertical sharding** | Included | Included | Included |
+| [**Deployment options**](plans/deployment-options.md) | Multi-tenant | Multi-tenant | Multi-tenant |
+| **Read-only regions** | Available as an add-on | Coming soon | Coming soon |
+| **Web console** | Included | Included | Included |
+| **PlanetScale CLI** | Included | Included | Included |
+| **Connection pooling** | [VTGates](vitess/scaling/vtgates.md) based on cluster size | [Routers](neki/overview.md#routers) | [PgBouncer](postgres/connecting/pgbouncer.md) |
+| [**Database Traffic Control®**](postgres/traffic-control.md) | Not available | Coming soon | Included |
+| **SSO** | Available as an add-on\*\*\* | Available as an add-on\*\*\* | Available as an add-on\*\*\* |
+| **Audit log retention** | 6 months | 6 months | 6 months |
+| **Private connections** | [AWS](vitess/connecting/private-connections.md) and [GCP](vitess/connecting/private-connections-gcp.md) | [AWS](neki/connecting/private-connections/aws-privatelink.md) and [GCP](neki/connecting/private-connections/gcp-private-service-connect.md) | [AWS](postgres/connecting/private-connections/aws-privatelink.md) and [GCP](postgres/connecting/private-connections/gcp-private-service-connect.md) |
+| **BAAs** | Included | Included | Included |
+| **Automatic backups** | Every 12 hours | Every 12 hours | Every 12 hours |
+| **Support** | Standard, upgrade available\*\*\* | Standard, upgrade available\*\*\* | Standard, upgrade available\*\*\* |
+| [**Data Branching®**](vitess/schema-changes/data-branching.md) | Included | Not available | Not available |
 
 \* For HA network-attached storage databases, production branch storage is billed at $1.50/GB (1 primary + 2 replicas) and development branch storage is billed at $0.50/GB (1 primary).
 
@@ -76,7 +76,7 @@ On top of processing and memory, all **Base** cluster sizes share the following:
 
 Each HA production branch in the Base plan provisions a separate, production database cluster in our infrastructure. Upon adding an additional production branch, you will be prompted to select the cluster size for the new branch.
 
-Each cluster size is priced based on the selected region. You can find the full list of pricing in our [Vitess cluster pricing documentation](plans/cluster-sizing.md).
+Each cluster size is priced based on the selected region. See [Vitess](plans/cluster-sizing.md), [Neki](neki/pricing.md), and [Postgres](postgres/pricing.md) pricing.
 
 If you have a `main` network-attached storage production branch using the **PS-40** cluster size and two additional production branches using the **PS-20** cluster size, the total cost for the database would be **$217.00** per month.
 
@@ -86,17 +86,17 @@ If you have a `main` network-attached storage production branch using the **PS-4
 | PS-20 | $59.00 | 2 | $118.00 |
 | **Grand total** |  |  | **$217.00** |
 
-Also note that pricing is prorated. If you create a new database in the middle of a billing cycle, you will only be charged for the appropriate fraction of the month. This also applies to changes to an existing database, such as upsizing. For example, if you have a database that started the month as a `PS-10` and at the halfway point in the month you upgrade to a `PS-20`, you would be charged $39/2 + $59/2 = $49 (assuming no additional other charges for storage, etc). The billing for the new sizes begins as soon as you begin the cluster resize.
+Also note that pricing is prorated. If you create a new database in the middle of a billing cycle, you will only be charged for the appropriate fraction of the month. This also applies to changes to an existing database, such as upsizing. For example, if you have a database that started the month as a `PS-10` and a resize to `PS-20` completes halfway through the month, you would be charged $39/2 + $59/2 = $49 (assuming no other charges for storage, etc.). Billing for the new size begins when the cluster resize completes.
 
 ### Development branches
 
-Billing for development branches differs depending on whether you’re using PlanetScale Postgres or Vitess.
+Billing for development branches differs depending on whether you’re using Vitess, Neki, or Postgres.
 
 ### Vitess development branches
 
 Development branches, `PS-DEV` are billed for the time that they are running, prorated to the millisecond. Databases include `hours_in_current_month * 2` of development branch time per month (1,440 hours for a 30 day month) at no additional cost. Any time used over the included is billed at a rate of ~$0.014 per hour ($10 / hours\_in\_current\_month). You may see how many development branch hours have been used at any time by visiting your [organization billing page](https://app.planetscale.com/~/settings/billing/). Data is updated hourly.
 
-### Postgres development branches
+### Neki and Postgres development branches
 
 Postgres development branches, `PS-DEV`, are billed for the time that they are running, prorated to the millisecond. Each development branch is $5 per month. Development branches are not intended for HA production traffic, as they do not come with any replicas or have maintenance windows.
 
@@ -158,7 +158,7 @@ Add [Business support](support.md#business) to the Base plan for an additional f
 
 On the Base plan, we run automated backups every 12 hours. Disk space for default backups is not counted against your plan’s storage limit.
 
-You can also [schedule additional backups yourself](vitess/backups.md#create-manual-backups) as needed. For these additional user-scheduled backups, storage is billed at **$0.023 per GB** per month. Backups include system tables as well as your data and start at around 140MB.
+You can also [schedule additional backups yourself](vitess/backups.md#create-manual-backups) as needed. For these additional user-scheduled backups, storage is billed at **$0.023 per GB** per month. Backups include system tables as well as your data and start at around 140 MB.
 
 ## Free plan
 

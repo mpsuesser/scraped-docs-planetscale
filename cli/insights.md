@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -16,7 +16,7 @@ Surface PlanetScale’s server-side analysis of a database: aggregated query sta
 
 For live, connection-level diagnostics (table sizes, locks, running queries), use [`pscale inspect`](inspect.md) instead.
 
-Query insights require Query Insights to be enabled for the database. See [Postgres](../postgres/monitoring/query-insights.md) or [Vitess](../vitess/monitoring/query-insights.md). Postgres and Vitess branches are supported.
+Query insights require Query Insights to be enabled for the database. See [Postgres](../postgres/monitoring/query-insights.md), [Vitess](../vitess/monitoring/query-insights.md), or [Neki](../neki/monitoring/query-insights.md).
 
 **Usage:**
 
@@ -30,21 +30,21 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 
 | **Sub-command** | **Product** | **Description** |
 | --- | --- | --- |
-| `queries` | Postgres, Vitess | List top queries ranked by a performance metric |
-| `queries samples` | Postgres, Vitess | List recent executions for a query fingerprint |
-| `queries show` | Postgres, Vitess | Show one query execution by sample ID |
-| `queries summary` | Postgres, Vitess | Show aggregate statistics for a query fingerprint |
+| `queries` | Postgres, Vitess, Neki | List top queries ranked by a performance metric |
+| `queries samples` | Postgres, Vitess, Neki | List recent executions for a query fingerprint |
+| `queries show` | Postgres, Vitess, Neki | Show one query execution by sample ID |
+| `queries summary` | Postgres, Vitess, Neki | Show aggregate statistics for a query fingerprint |
 | `queries traffic-budgets` | Postgres, Vitess | List traffic budgets that affect a query fingerprint |
-| `errors` | Postgres, Vitess | List queries that are failing with errors |
-| `errors show` | Postgres, Vitess | List the individual query executions that failed with an error fingerprint |
-| `anomalies` | Postgres, Vitess | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
-| `anomalies show` | Postgres, Vitess | Show one anomaly and the queries correlated with it |
-| `tags` | Postgres, Vitess | List query tag keys (sqlcommenter / system) |
-| `tags show` | Postgres, Vitess | Show a query tag key and its values |
-| `tags summaries` | Postgres, Vitess | List query statistics grouped by tag keys |
-| `recommendations` | Postgres, Vitess | List schema recommendations with ready-to-apply DDL |
-| `recommendations show` | Postgres, Vitess | Show one schema recommendation and its full DDL |
-| `recommendations dismiss` | Postgres, Vitess | Dismiss a schema recommendation |
+| `errors` | Postgres, Vitess, Neki | List queries that are failing with errors |
+| `errors show` | Postgres, Vitess, Neki | List the individual query executions that failed with an error fingerprint |
+| `anomalies` | Postgres, Vitess, Neki | List detected resource anomalies (CPU, memory, IOPS, rows read/written) |
+| `anomalies show` | Postgres, Vitess, Neki | Show one anomaly and the queries correlated with it |
+| `tags` | Postgres, Vitess, Neki | List query tag keys (sqlcommenter / system) |
+| `tags show` | Postgres, Vitess, Neki | Show a query tag key and its values |
+| `tags summaries` | Postgres, Vitess, Neki | List query statistics grouped by tag keys |
+| `recommendations` | Postgres, Vitess, Neki | List schema recommendations with ready-to-apply DDL |
+| `recommendations show` | Postgres, Vitess, Neki | Show one schema recommendation and its full DDL |
+| `recommendations dismiss` | Postgres, Vitess, Neki | Dismiss a schema recommendation |
 
 ### Available flags
 
@@ -295,7 +295,13 @@ If the database or branch is not found, or Query Insights is not enabled, the co
 
 ## Query Insights (Vitess)
 
+## Query Insights (Neki)
+
+## Anomalies (Neki)
+
 ## Schema recommendations (Postgres)
+
+## Schema recommendations (Neki)
 
 ## Need help?
 

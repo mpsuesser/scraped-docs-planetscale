@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_cluster_size_skus
 title: "List_cluster_size_skus"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -229,6 +229,7 @@ paths:
             enum:
               - mysql
               - postgresql
+              - neki
         - name: rates
           in: query
           description: Whether to include pricing rates in the response. Defaults to false.
@@ -293,6 +294,14 @@ paths:
                     default_vtgate_rate:
                       type: number
                       description: The default vtgate rate for the cluster SKU
+                      nullable: true
+                    default_neki_router:
+                      type: string
+                      description: The recommended Neki router size for the cluster SKU
+                      nullable: true
+                    default_neki_router_rate:
+                      type: number
+                      description: The default Neki router rate for the cluster SKU
                       nullable: true
                     replica_rate:
                       type: number

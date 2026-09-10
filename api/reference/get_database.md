@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_database
 title: "Get_database"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -469,6 +469,7 @@ paths:
                     enum:
                       - mysql
                       - postgresql
+                      - neki
                     description: The kind of database
                 required:
                   - id

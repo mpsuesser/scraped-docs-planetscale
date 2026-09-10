@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_organization
 title: "Get_organization"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -291,6 +291,11 @@ paths:
                   keyspace_shard_limit:
                     type: integer
                     description: The keyspace shard limit for the organization
+                  neki_router_replicas_per_cell_limit:
+                    type: integer
+                    description: >-
+                      The Neki router replica limit per cell for the
+                      organization
                   has_card:
                     type: boolean
                     description: >-
@@ -318,6 +323,7 @@ paths:
                   - idp_managed_roles
                   - invoice_budget_amount
                   - keyspace_shard_limit
+                  - neki_router_replicas_per_cell_limit
                   - has_card
                   - payment_info_required
         '401':

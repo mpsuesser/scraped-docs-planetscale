@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database
 title: "Create_database"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -252,13 +252,14 @@ paths:
                   enum:
                     - mysql
                     - postgresql
+                    - neki
                   description: The kind of database to create.
                 major_version:
                   type: string
                   description: >-
-                    For PostgreSQL databases, the PostgreSQL major version to
-                    use for the database. Defaults to the latest available major
-                    version.
+                    For PostgreSQL and Neki databases, the PostgreSQL major
+                    version to use for the database. Defaults to the latest
+                    available major version.
                 storage:
                   type: object
                   properties:
@@ -516,6 +517,7 @@ paths:
                     enum:
                       - mysql
                       - postgresql
+                      - neki
                     description: The kind of database
                 required:
                   - id

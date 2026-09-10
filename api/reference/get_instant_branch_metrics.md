@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_instant_branch_metrics
 title: "Get_instant_branch_metrics"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -259,6 +259,7 @@ paths:
                 - planetscale_pgbouncer_settings_max_client_conn
                 - planetscale_postgres_connection_state
                 - planetscale_postgres_settings_max_connections
+                - planetscale_postgres_settings_max_wal_size_bytes
                 - planetscale_volume_capacity_bytes
                 - planetscale_volume_disk_usage_bytes
                 - planetscale_volume_usage_percentage
@@ -270,6 +271,11 @@ paths:
         - name: shard
           in: query
           description: Filter by shard
+          schema:
+            type: string
+        - name: shard_config_profile
+          in: query
+          description: Filter by shard configuration profile name
           schema:
             type: string
         - name: container

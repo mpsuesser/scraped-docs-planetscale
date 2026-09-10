@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/agent-setup/prompt
 title: "Prompt"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
-PlanetScale instructions for setting up AI agents with PlanetScale Postgres and Vitess/MySQL.
+PlanetScale instructions for setting up AI agents with PlanetScale Vitess/MySQL, Neki, and Postgres.
 
 Agents with the PlanetScale CLI installed can also fetch setup instructions in JSON:
 
@@ -134,7 +134,7 @@ pscale auth check --format json \
 
 In the user’s application repo, add or update a **project** `AGENTS.md` with:
 
-- PlanetScale organization, database, branch, and engine (Postgres or Vitess)
+- PlanetScale organization, database, branch, and engine (Vitess, Neki, or Postgres)
 - Whether agents may run write SQL or only read-only queries
 - Approval rules for schema changes, Traffic Control, webhooks, and credentials
 

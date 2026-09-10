@@ -2,15 +2,16 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
 
-- Create, delete and list your databases and branches
+- Create, delete and list your Vitess, Neki, and Postgres databases and branches
 - Run non-interactive SQL for agents and scripts (`pscale sql`)
-- Open a secure MySQL or PostgreSQL shell instance
+- Open a secure MySQL or PostgreSQL shell instance, including Neki router and replica routing
+- Manage Neki configuration profiles, shards, routers, sidecars, and data topology
 - Manage your deploy requests
 - Bootstrap AI agents (`pscale agent-guide`)
 - …and more!
@@ -19,7 +20,7 @@ To interact with PlanetScale and manage your databases, you can use the `pscale`
 
 Install or upgrade the PlanetScale CLI for macOS, Linux, or Windows.
 
-Agents and automation should start with the [Agent setup prompt](agent-setup/prompt.md) or `pscale agent-guide --format json`. Agent automation commands require `pscale` 0.292.0 or later; run `brew upgrade pscale` if `agent-guide` is unknown. Always pass `--format json` in automation.
+Agents and automation should start with the [Agent setup prompt](agent-setup/prompt.md), `pscale --skill`, or `pscale agent-guide --format json`. Agent automation commands require `pscale` 0.292.0 or later; run `brew upgrade pscale` if `agent-guide` is unknown. Always pass `--format json` in automation.
 
 `pscale` can use the MySQL command-line client to quickly open an interactive shell for a database branch. Optional instructions for installing the MySQL client can be found for each platform below.
 
@@ -33,37 +34,39 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 
 | **Command** | **Subcommands/Options** | **Flags** | **Product** | **Description** |
 | --- | --- | --- | --- | --- |
-| [`agent-guide`](cli/agent-guide.md) |  | `--format json` | Vitess, Postgres | Bootstrap JSON for AI agents; embeds CLI conventions and skills/MCP hints |
-| [`api`](cli/api.md) |  | `--help`, `--org string`, `--database string`, `--branch string`, `--field key=value`, `--header stringArray`, `--input string`, `--method string`, `--query key=value` | Vitess, Postgres | Performs authenticated calls against the PlanetScale API and prints the response to stdout. |
-| [`audit-log`](cli/audit-log.md) | `list`, `auth-attempts download` | `--help`, `--org string` | Vitess, Postgres | List all [audit logs](security/audit-log.md#review-your-organization-audit-log) and download authentication-attempt exports |
-| [`auth`](cli/auth.md) | `login`, `logout`, `check` | `--help`, `--format json` | Vitess, Postgres | Authenticate via console or JSON device login for agents |
-| [`backup`](cli/backup.md) | `create`, `delete`, `list`, `restore`, `show` | `--help`, `--org string` | Vitess, Postgres | Manage [branch backups](vitess/backups.md) |
-| [`billing`](cli/billing.md) | `payment-method` | `--help`, `--org string` | Vitess, Postgres | Show, update, or delete the organization [payment method](billing.md#payment-methods) |
-| [`branch`](cli/branch.md) | `connections`, `create`, `delete`, `demote`, `diff`, `extensions list`, `lint`, `list`, `parameters list`, `promote`, `query-patterns`, `refresh-schema`, `resize`, `routing-rules`, `safe-migrations`, `schema`, `show`, `switch`, `switchover`, `update`, `vtgate` | `--help`, `--org string` | Vitess, Postgres | Manage [branches](vitess/schema-changes/branching.md) |
-| [`completion`](cli/completion.md) | `bash`, `zsh`, `fish`, `powershell` | `--help` | Vitess, Postgres | Generate completion script for specified shell |
+| [`agent-guide`](cli/agent-guide.md) |  | `--format json`, `--skill` | Vitess, Postgres, Neki | Bootstrap JSON for AI agents or print the installable agent skill |
+| [`api`](cli/api.md) |  | `--help`, `--org string`, `--database string`, `--branch string`, `--field key=value`, `--header stringArray`, `--input string`, `--method string`, `--query key=value` | Vitess, Postgres, Neki | Performs authenticated calls against the PlanetScale API and prints the response to stdout. |
+| [`audit-log`](cli/audit-log.md) | `list`, `auth-attempts download` | `--help`, `--org string` | Vitess, Postgres, Neki | List all [audit logs](security/audit-log.md#review-your-organization-audit-log) and download authentication-attempt exports |
+| [`auth`](cli/auth.md) | `login`, `logout`, `check` | `--help`, `--format json` | Vitess, Postgres, Neki | Authenticate via console or JSON device login for agents |
+| [`backup`](cli/backup.md) | `create`, `delete`, `list`, `policy`, `restore`, `restore show`, `show`, `update` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage [Vitess](vitess/backups.md), [Postgres](postgres/backups.md), and [Neki](neki/backups.md) branch backups |
+| [`billing`](cli/billing.md) | `payment-method` | `--help`, `--org string` | Vitess, Postgres, Neki | Show, update, or delete the organization [payment method](billing.md#payment-methods) |
+| [`branch`](cli/branch.md) | `admin`, `config-profile`, `connections`, `create`, `data-topology`, `delete`, `demote`, `diff`, `extensions list`, `lint`, `list`, `maintenance`, `parameters list`, `promote`, `query-patterns`, `refresh-schema`, `resize`, `router`, `routing-rules`, `safe-migrations`, `schema`, `shard`, `show`, `sidecar`, `switch`, `switchover`, `update`, `vtgate` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage [Vitess](vitess/schema-changes/branching.md), [Postgres](postgres/branching.md), and [Neki](neki/branching.md) branches, including [Neki configuration](neki/cluster-configuration.md) |
+| [`completion`](cli/completion.md) | `bash`, `zsh`, `fish`, `powershell` | `--help` | Vitess, Postgres, Neki | Generate completion script for specified shell |
 | [`connect`](cli/connect.md) | `<database_name>` `<branch_name>` | `--execute string`, `--execute-env-url string`, `--execute-protocol string`, `--help`, `--host string`, `--org string`, `--port string`, `--remote-addr string`, `--role string` | Vitess | Create a [secure connection](vitess/tutorials/connect-any-application.md#option-2-connect-using-the-planetscale-proxy) to the given database and branch |
-| [`database`](cli/database.md) | `aggressive-cutover`, `create`, `delete`, `dump`, `ip-restriction`, `list`, `restore-dump`, `show`, `throttler`, `update` | `--help` | Vitess, Postgres | Manage databases |
+| [`database`](cli/database.md) | `aggressive-cutover`, `create`, `delete`, `dump`, `ip-restriction`, `list`, `read-only-regions`, `regions`, `restore-dump`, `show`, `throttler`, `update` | `--help` | Vitess, Postgres, Neki | Manage databases |
 | [`deploy-request`](cli/deploy-request.md) | `apply`, `cancel`, `close`, `create`, `deploy`, `deployment`, `diff`, `force-cutover`, `list`, `operations`, `queue`, `revert`, `review`, `reviews`, `show`, `skip-revert`, `storage-check`, `throttler`, `unblock`, `update` | `--help` | Vitess | Manage [deploy requests](vitess/schema-changes/deploy-requests.md#create-a-deploy-request) including [gated deployments](vitess/schema-changes/deploy-requests.md#gated-deployments) |
-| `help` | `agent-guide`, `audit-log`, `auth`, `backup`, `billing`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `keyspace`, `maintenance`, `metrics`, `org`, `password`, `pgbouncer`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres | View help for any command |
+| `help` | `agents`, `agent-guide`, `api`, `audit-log`, `auth`, `backup`, `billing`, `branch`, `completion`, `connect`, `database`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `keyspace`, `logs`, `maintenance`, `metrics`, `org`, `password`, `pgbouncer`, `ping`, `read-only-replica`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres, Neki | View help for any command or the agent automation help topic |
 | [`import`](cli/import.md) | `d1 doctor`, `d1 lint`, `d1 convert-schema`, `d1 start`, `d1 verify`, `d1 status`, `d1 complete` | `--help`, `--org string` | Postgres | Import external databases ([Cloudflare D1](postgres/imports/postgres-imports.md)) into PlanetScale Postgres |
-| [`insights`](cli/insights.md) | `queries`, `queries samples`, `errors`, `errors show`, `anomalies`, `anomalies show`, `tags`, `recommendations`, `recommendations dismiss` | `--help`, `--org string`, `--format json`, `--sort string`, `--dir string`, `--limit int`, `--period string` | Vitess, Postgres | Server-side query insights, anomalies, and schema recommendations from production traffic |
-| [`inspect`](cli/inspect.md) | `all`, `table-sizes`, `index-sizes`, `unused-indexes`, `redundant-indexes`, `invalid-indexes`, `seq-scans`, `long-running-queries`, `locks`, `outliers`, `calls`, `bloat`, `vacuum-stats`, `replication-slots`, `subscriptions` | `--help`, `--org string`, `--format json`, `--keyspace string`, `--dbname string`, `--role string`, `--replica` | Vitess, Postgres | Live, read-only diagnostic checks over a direct database connection |
+| [`insights`](cli/insights.md) | `queries`, `queries samples`, `queries show`, `queries summary`, `queries traffic-budgets`, `errors`, `errors show`, `anomalies`, `anomalies show`, `tags`, `tags show`, `tags summaries`, `recommendations`, `recommendations show`, `recommendations dismiss` | `--help`, `--org string`, `--format json` | Vitess, Postgres, Neki | Server-side query insights, anomalies, and schema recommendations from production traffic |
+| [`inspect`](cli/inspect.md) | `all`, `table-sizes`, `index-sizes`, `unused-indexes`, `redundant-indexes`, `invalid-indexes`, `seq-scans`, `long-running-queries`, `locks`, `outliers`, `calls`, `bloat`, `vacuum-stats`, `replication-slots`, `subscriptions` | `--help`, `--org string`, `--format json`, `--keyspace string`, `--dbname string`, `--role string`, `--replica` | Vitess, Postgres, Neki | Live, read-only diagnostic checks over a direct database connection |
+| [`logs`](cli/logs.md) | `<database>` `<branch>` | `--help`, `--org string`, `--query string`, `--period string`, `--from string`, `--to string`, `--level string`, `--server string`, `--shard string`, `--limit int`, `--page int` | Postgres, Neki | Query recent [Postgres](postgres/monitoring/logs.md) or [Neki](neki/monitoring/logs.md) branch logs |
 | [`keyspace`](cli/keyspace.md) | `create`, `delete`, `list`, `read-only-regions`, `resize`, `rollout-status`, `settings`, `show`, `update-settings`, `vschema` | `--help`, `--org string` | Vitess | Manage [keyspaces](vitess/sharding/keyspaces.md) within a database branch |
 | [`maintenance`](cli/maintenance.md) | `list`, `show`, `windows` | `--help`, `--org string` | Vitess | View planned maintenance schedules and windows for a database |
-| [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres | Manage and switch [organizations](security/access-control.md), including members, teams, and SSO |
-| [`metrics`](cli/metrics.md) | `show`, `instant`, `report` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres | Query historical and current branch metrics from PlanetScale’s metrics service |
+| [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres, Neki | Manage and switch [organizations](security/access-control.md), including members, teams, and SSO |
+| [`metrics`](cli/metrics.md) | `instant`, `keyspace-tables`, `queries`, `report`, `show`, `tables`, `tablets`, `tags` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres, Neki | Query historical and current branch metrics from PlanetScale’s metrics service |
 | [`password`](cli/password.md) | `create`, `delete`, `list`, `renew`, `show`, `update` | `--help`, `--org string`, `--name string`, `--new-name string`, `--cidrs strings`, `--status string` | Vitess | Manage [branch credentials](vitess/connecting/connection-strings.md) |
 | [`pgbouncer`](cli/pgbouncer.md) | `create`, `delete`, `list`, `resize`, `show` | `--help`, `--org string` | Postgres | Manage dedicated [PgBouncers](postgres/connecting/pgbouncer.md) for a Postgres branch |
-| [`ping`](cli/ping.md) |  | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres | Check [latency](vitess/connecting/network-latency.md) between your machine and PlanetScale’s public regions |
-| [`region`](cli/region.md) | `list` | `--org string` | Vitess, Postgres | View available [regions](https://planetscale.com/docs/vitess/regions) |
-| [`role`](cli/role.md) | `create`, `default`, `delete`, `get`, `list`, `reassign`, `renew`, `reset`, `reset-default`, `update` | `--help`, `--org string`, `--inherited-roles string`, `--ttl duration`, `--force`, `--successor string`, `--name string`, `--web` | Postgres | Manage [Postgres roles](postgres/connecting/roles.md) |
-| [`service-token`](cli/service-token.md) | `add-access`, `create`, `delete`, `delete-access`, `list`, `show-access` | `--help`, `--org string` | Vitess, Postgres | Manage access of [service tokens](api/reference/service-tokens.md) |
-| [`size`](planetscale-plans.md) | `cluster list` | `--help`, `--org string`, `--region string`, `--metal` | Vitess, Postgres | View available [cluster sizes](planetscale-plans.md) |
+| [`ping`](cli/ping.md) |  | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres, Neki | Check [latency](vitess/connecting/network-latency.md) between your machine and PlanetScale’s public regions |
+| `read-only-replica` | `create`, `delete`, `list`, `show`, `update` | `--help`, `--org string`, `--region string`, `--replicas int`, `--cluster-size string`, `--parameters stringArray`, `--force` | Postgres | Manage read-only replicas for a Postgres branch |
+| [`region`](cli/region.md) | `list` | `--org string` | Vitess, Postgres, Neki | View available [regions](https://planetscale.com/docs/vitess/regions) |
+| [`role`](cli/role.md) | `create`, `default`, `delete`, `get`, `list`, `reassign`, `renew`, `reset`, `reset-default`, `update` | `--help`, `--org string`, `--inherited-roles string`, `--ttl duration`, `--force`, `--successor string`, `--name string`, `--web` | Postgres, Neki | Manage [Postgres](postgres/connecting/roles.md) and [Neki](neki/connecting/roles.md) roles |
+| [`service-token`](cli/service-token.md) | `add-access`, `create`, `delete`, `delete-access`, `list`, `show-access` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage access of [service tokens](api/reference/service-tokens.md) |
+| [`size`](cli/size.md) | `cluster list` | `--help`, `--org string`, `--engine string`, `--region string`, `--metal` | Vitess, Postgres, Neki | View available [cluster sizes](planetscale-plans.md) |
 | [`traffic-control`](cli/traffic-control.md) | `budget`, `rule` | `--help`, `--org string` | Postgres | Manage [Database Traffic Control](postgres/traffic-control.md) budgets and rules for a Postgres database branch |
-| [`shell`](cli/shell.md) | `<database_name>` `<branch_name>` | `--help`, `--local-addr string`, `--org string`, `--remote-addr string`, `--role string`, `--replica` | Vitess, Postgres | Open an interactive shell to the specified database and branch |
-| [`signup`](cli/signup.md) |  | `--help` | Vitess, Postgres | Sign up for a new PlanetScale account |
-| [`sql`](cli/sql.md) | `<database>` `<branch>` | `--org string`, `--query string`, `--role string`, `--replica`, `--dbname string`, `--keyspace string`, `--force`, `--format json` | Vitess, Postgres | Execute a SQL query without an interactive shell (agents/scripts) |
-| [`webhook`](cli/webhook.md) | `create`, `delete`, `list`, `show`, `test`, `update` | `--help`, `--org string`, `--events string`, `--url string`, `--enabled` | Vitess, Postgres | Manage [webhooks](api/webhooks.md) for databases |
+| [`shell`](cli/shell.md) | `<database_name>` `[branch_name]` `[db_name]` | `--help`, `--db-name string`, `--local-addr string`, `--org string`, `--remote-addr string`, `--role string`, `--replica`, `--router` | Vitess, Postgres, Neki | Open an interactive shell to the specified database and branch |
+| [`signup`](cli/signup.md) |  | `--help` | Vitess, Postgres, Neki | Sign up for a new PlanetScale account |
+| [`sql`](cli/sql.md) | `<database>` `<branch>` | `--org string`, `--query string`, `--role string`, `--replica`, `--dbname string`, `--keyspace string`, `--force`, `--vertical`, `--format json` | Vitess, Postgres, Neki | Execute a SQL query without an interactive shell (agents/scripts) |
+| [`webhook`](cli/webhook.md) | `create`, `delete`, `list`, `show`, `test`, `update` | `--help`, `--org string`, `--events string`, `--url string`, `--enabled` | Vitess, Postgres, Neki | Manage [webhooks](api/webhooks.md) for databases |
 | [`workflow`](cli/workflow.md) | `cancel`, `complete`, `create`, `cutover`, `list`, `retry`, `reverse-cutover`, `reverse-traffic`, `show`, `switch-traffic`, `verify-data` | `--help`, `--org string` | Vitess | Manage the workflows for PlanetScale databases |
 
 ## Flags
@@ -81,6 +84,7 @@ You may use the following flags with the PlanetScale CLI commands.
 | `--no-color` | Disable color output |
 | `--service-token string` | Service Token for authenticating |
 | `--service-token-id string` | The Service Token ID for authenticating |
+| `--skill` | Print the installable agent skill file and exit |
 | `--version` | Show pscale version |
 
 ## Service tokens permissions

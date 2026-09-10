@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal
 title: "Metal"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ![Metal SSD](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/metal.png?w=2500&fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=7ba9c2fedfd3553c640f4d45a4355d3e)
@@ -52,7 +52,7 @@ Storage indicator in PlanetScale
 
 We will send you email notices when your database storage reaches the following thresholds: 60%, 75%, 85%, 90%, 95%. We will also email you when we estimate that your storage will run out in 1 week and 24 hours, based on recent usage trends.
 
-Reaching or getting close to a drive’s max capacity is dangerous and can lead to failures. It’s important to closely monitor your database’s disk usage in the dashboard and check your regular storage email notifications. We have an additional safeguard in place to protect your data: When we detect that your Metal disk has 6GiB or less of available space, we automatically switch it to read-only mode until resized. Ideally, you should resize to a larger drive long before reaching this point.
+Reaching or getting close to a drive’s max capacity is dangerous and can lead to failures. It’s important to closely monitor your database’s disk usage in the dashboard and check your regular storage email notifications. We have an additional safeguard in place to protect your data: When we detect that your Metal disk has 6GB or less of available space, we automatically switch it to read-only mode until resized. Ideally, you should resize to a larger drive long before reaching this point.
 
 ## Workload suitability
 

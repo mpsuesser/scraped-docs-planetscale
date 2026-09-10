@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/agent-guide
 title: "Agent Guide"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The agent-guide command
 
-Shows guidance for AI agents and automation using `pscale`. Use **`--format json`** for a machine-readable bootstrap response with conventions, hosted MCP details, skills install commands, and suggested next steps.
+Shows guidance for AI agents and automation using `pscale`. Use **`--format json`** for a machine-readable bootstrap response with conventions, hosted MCP details, skills install commands, and suggested next steps. Use **`--skill`** to print the same guide as an installable skill file. `pscale --skill` on the root command prints that skill file and exits.
 
 **Requires `pscale` 0.292.0 or later.** Install or upgrade with `brew install pscale` or `brew upgrade pscale`.
 
@@ -42,10 +42,13 @@ pscale agent-guide --format json
 | `conventions` | Short list of CLI rules for agents |
 | `next_steps` | Commands to run after reading the guide |
 
-### Global flags
+`--skill` writes a YAML-frontmatter skill file to stdout and skips this JSON object. Use `pscale agent-guide --skill` or `pscale --skill` when you need the installable skill rather than the bootstrap response.
+
+### Available flags
 
 | **Flag** | **Description** |
 | --- | --- |
+| `--skill` | Print the guide as an installable agent skill file and exit |
 | `-f`, `--format json` | **Required for automation** — JSON on stdout |
 | `--api-url <URL>` | Non-production API base URL |
 | `--config <FILE>` | Config file (default `$HOME/.config/planetscale/pscale.yml`) |
@@ -57,6 +60,13 @@ pscale agent-guide --format json
 
 ```shellscript
 pscale agent-guide
+```
+
+**Installable skill file:**
+
+```shellscript
+pscale agent-guide --skill
+pscale --skill
 ```
 
 ## Need help?

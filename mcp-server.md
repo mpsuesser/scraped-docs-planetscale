@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## What is the PlanetScale MCP server?
@@ -419,7 +419,7 @@ The PlanetScale MCP server includes several built-in behaviors to help ensure sa
 ### Read queries
 
 - Read queries route to a replica when your branch has replicas configured, reducing load on the primary. This is the default behavior.
-- Set `use_replica` to `false` on `planetscale_execute_read_query` to run against the primary instead. Works for both Vitess and Postgres databases.
+- Set `use_replica` to `false` on `planetscale_execute_read_query` to run against the primary instead. Works for Vitess, Neki, and Postgres databases.
 - All queries include a `source=planetscale-mcp` comment, making them easy to identify and track in [Insights](what-is-planetscale.md#insights).
 
 #### Postgres row-level security

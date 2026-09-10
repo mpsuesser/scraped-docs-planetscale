@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/plans/regions
 title: "Regions"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
 
-PlanetScale currently offers database deployment for both Vitess and Postgres in multiple regions. Select the region closest to your application servers to reduce latency between your database and application. Deploy development branches in the region closest to your own location to reduce latency when working with the branch.
+PlanetScale currently offers database deployment for Vitess, Neki, and Postgres in multiple regions. Select the region closest to your application servers to reduce latency between your database and application. Deploy development branches in the region closest to your own location to reduce latency when working with the branch.
 
 For Vitess databases, you may also add read-only regions to your production database. See our [Read-only regions documentation](../vitess/scaling/read-only-regions.md) for more information.
 

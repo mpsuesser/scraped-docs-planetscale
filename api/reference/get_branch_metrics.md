@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_metrics
 title: "Get_branch_metrics"
 description: ""
-access_date: 2026-09-09T19:02:27.237Z
-current_date: 2026-09-09T19:02:27.237Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -342,10 +342,28 @@ paths:
                 - planetscale_edge_bytes_received_rate
                 - planetscale_edge_bytes_sent
                 - planetscale_edge_bytes_sent_rate
+                - planetscale_neki_router_pods_container_ooms
+                - planetscale_neki_router_pods_container_restarts
+                - planetscale_neki_router_pods_container_waiting_reason
+                - planetscale_neki_router_pods_cpu_util_percentages
+                - planetscale_neki_router_pods_mem_util_percentages
+                - planetscale_neki_router_pods_status_phase
+                - planetscale_neki_router_queries
+                - planetscale_neki_router_query_errors
+                - planetscale_neki_router_query_latency_avg
+                - planetscale_neki_router_query_latency_avg_by_database
+                - planetscale_neki_router_query_latency_p50
+                - planetscale_neki_router_query_latency_p50_by_database
+                - planetscale_neki_router_query_latency_p95
+                - planetscale_neki_router_query_latency_p95_by_database
+                - planetscale_neki_router_query_latency_p99
+                - planetscale_neki_router_query_latency_p99_by_database
                 - planetscale_pgbouncer_current_connections
                 - planetscale_pgbouncer_pools_client
                 - planetscale_pgbouncer_pools_server
                 - planetscale_pods_container_ooms
+                - planetscale_pods_container_restarts
+                - planetscale_pods_container_waiting_reason
                 - planetscale_pods_cpu_util_percentages
                 - planetscale_pods_iops_total
                 - planetscale_pods_mem_util_percentages
@@ -358,8 +376,12 @@ paths:
                 - planetscale_primary_pods_cpu_util_percentages
                 - planetscale_primary_pods_iops_total
                 - planetscale_primary_pods_mem_util_percentages
+                - planetscale_primary_pods_status_phase
                 - planetscale_primary_postgres_connection_state
+                - planetscale_primary_postgres_locks
                 - planetscale_primary_storage_usage
+                - planetscale_primary_storage_usage_bytes
+                - planetscale_primary_volume_usage_percentages
                 - planetscale_primary_xact_commit_rate
                 - planetscale_replica_lag_seconds
                 - planetscale_replica_memory_active_cache_bytes
@@ -372,7 +394,9 @@ paths:
                 - planetscale_replica_pods_cpu_util_percentages
                 - planetscale_replica_pods_iops_total
                 - planetscale_replica_pods_mem_util_percentages
+                - planetscale_replica_pods_status_phase
                 - planetscale_replica_postgres_connection_state
+                - planetscale_replica_postgres_locks
                 - planetscale_replica_storage_usage_bytes
                 - planetscale_replica_volume_usage_percentages
                 - planetscale_replication_slot_max_wal_retained_bytes
@@ -381,6 +405,7 @@ paths:
                 - planetscale_storage_usage_bytes
                 - planetscale_volume_usage_percentages
                 - planetscale_wal_archiver_failed_rate
+                - planetscale_wal_archiver_lag_bytes
                 - planetscale_wal_archiver_last_age_succeeded
                 - planetscale_wal_archiver_succeeded_rate
                 - planetscale_wal_size_bytes
@@ -452,6 +477,16 @@ paths:
         - name: shard
           in: query
           description: Filter by shard
+          schema:
+            type: string
+        - name: shard_config_profile
+          in: query
+          description: Filter by shard configuration profile name
+          schema:
+            type: string
+        - name: router
+          in: query
+          description: Filter by router
           schema:
             type: string
         - name: role

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,13 +24,13 @@ pscale service-token <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
-| `add-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess | Add individual permissions to the specified service token in the organization |
-| `create` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess | Create a service token for the organization |
-| `delete <TOKEN_ID>` |  | Postgres, Vitess | Delete an entire service token in an organization |
-| `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess | Delete individual permissions granted to a service token in the organization |
-| `list` |  | Postgres, Vitess | List the IDs, names, and expiration times of an organization’s service tokens |
-| `show <TOKEN_ID>` |  | Postgres, Vitess | Show a service token in the organization |
-| `show-access` |  | Postgres, Vitess | Fetch a service token and its accesses |
+| `add-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Add individual permissions to the specified service token in the organization |
+| `create` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Create a service token for the organization |
+| `delete <TOKEN_ID>` |  | Postgres, Vitess, Neki | Delete an entire service token in the organization |
+| `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Delete individual permissions granted to a service token in the organization |
+| `list` |  | Postgres, Vitess, Neki | List the IDs, names, and expiration times of an organization’s service tokens |
+| `show <TOKEN_ID>` |  | Postgres, Vitess, Neki | Show a service token in the organization |
+| `show-access` |  | Postgres, Vitess, Neki | Fetch a service token and its accesses |
 
 ### Service token automation: service-token
 

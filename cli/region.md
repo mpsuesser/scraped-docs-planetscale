@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/region
 title: "Region"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,7 +24,7 @@ pscale region <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Product** | **Description** |
 | --- | --- | --- |
-| `list` | Postgres, Vitess | List all regions |
+| `list` | Postgres, Vitess, Neki | List all regions |
 
 ### Available flags
 

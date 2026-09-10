@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](../../metal.md)
@@ -18,7 +18,7 @@ Configure the minimum disk size for your database cluster. This setting determin
 
 You’re billed for the allocated size, which can be larger after the disk grows via autoscaling. To shrink, lower the minimum, then queue and apply the change. See [Manually shrinking](disk-autoscaling.md#manually-shrinking).
 
-The maximum disk size for network-attached storage is 65536 GB (64 TiB).
+The maximum disk size for network-attached storage is 65536 GB (64 TB).
 
 ## Enable autoscaling
 
@@ -36,7 +36,7 @@ The storage limit sets the maximum amount of storage that can be allocated to yo
 
 When autoscaling is enabled, your storage can grow from the minimum disk size up to the storage limit you specify. The storage limit should be set higher than your initial disk size to allow for growth while providing a reasonable upper bound for your storage costs.
 
-The maximum disk size for network-attached storage is 65536 GB (64 TiB).
+The maximum disk size for network-attached storage is 65536 GB (64 TB).
 
 ## IOPS
 

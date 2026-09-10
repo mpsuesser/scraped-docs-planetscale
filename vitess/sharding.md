@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/vitess/sharding
 title: "Sharding"
 description: ""
-access_date: 2026-09-10T14:43:51.520Z
-current_date: 2026-09-10T14:43:51.520Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
-**Looking for Postgres sharding?** [Neki](https://planetscale.com/docs/neki) is horizontal sharding for Postgres. Start with the [Neki quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide) or [when to shard](https://planetscale.com/docs/neki/when-to-shard).
+**Looking for Postgres sharding?** [Neki](../neki.md) is horizontal sharding for Postgres. Start with the [Neki quickstart](../neki/tutorials/planetscale-quick-start-guide.md) or [when to shard](../neki/when-to-shard.md).
 
 You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](cluster-configuration.md) and running an [unsharded to sharded workflow](sharding/sharding-quickstart.md) in your dashboard.
 

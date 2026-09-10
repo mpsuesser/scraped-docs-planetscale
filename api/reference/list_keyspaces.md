@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_keyspaces
 title: "List_keyspaces"
 description: ""
-access_date: 2026-09-10T00:38:34.784Z
-current_date: 2026-09-10T00:38:34.784Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -391,6 +391,21 @@ paths:
                             - optimize_inserts
                             - allow_no_blob_binlog_row_image
                             - vplayer_batching
+                        throttler:
+                          type: object
+                          properties:
+                            enabled:
+                              type: boolean
+                              description: Whether the keyspace throttler is enabled
+                            threshold:
+                              type: number
+                              description: >-
+                                Replication lag in seconds that trips the
+                                throttler
+                              nullable: true
+                          required:
+                            - enabled
+                            - threshold
                         mysqld_options:
                           type: object
                           additionalProperties: true
@@ -424,6 +439,7 @@ paths:
                         - disk_autoscaling
                         - replication_durability_constraints
                         - vreplication_flags
+                        - throttler
                         - mysqld_options
                         - vttablet_options
                 required:

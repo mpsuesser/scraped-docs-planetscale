@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/sql
 title: "Sql"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -31,10 +31,11 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | `--query <SQL>` | SQL query to execute **(required)** |
 | `--org <org>` | Organization name **(required)** |
 | `--role <role>` | Access level: `reader` (default), `writer`, `readwriter`, `admin` |
-| `--replica` | Route reads to replicas |
-| `--dbname <name>` | PostgreSQL database name (default `postgres`) |
+| `--replica` | Route reads to a replica for PlanetScale Postgres or Vitess. For Neki, use [`pscale shell --replica`](shell.md) instead, which sets `__neki.target=REPLICA`. |
+| `--dbname <name>` | Postgres or Neki database name (default `postgres`) |
 | `--keyspace <name>` | MySQL/Vitess keyspace (default `@primary`, same as `pscale shell`) |
 | `--force` | Allow destructive SQL after explicit user approval (see below) |
+| `--vertical` | Print each row vertically, one column per line. Ending a query with `\G` has the same effect. |
 | `-h`, `--help` | Help for `sql` |
 
 Unlike [`pscale shell`](shell.md), the default `--role` is **`reader`**. Pass `--role admin` (or `writer` / `readwriter`) for writes.
@@ -49,11 +50,11 @@ With `--format json`, blocked queries return `"status": "action_required"` and `
 
 Use `--format json` for automation.
 
-**Success:** `status`, `database`, `branch`, `kind` (`mysql` or `postgresql`), `role`, `row_count`, `columns`, `rows`; `replica` when `--replica` was used.
+**Success:** `status`, `database`, `branch`, `kind` (`mysql`, `postgresql`, or `neki`), `role`, `row_count`, `columns`, `rows`, and `next_steps`; `rows_affected` when applicable and `replica` when `--replica` was used. Neki databases use the PostgreSQL query path.
 
-**Errors:** one JSON object on stdout with `status: "error"`, `error`, and `next_steps`.
+**Errors:** one JSON object on stdout with `status: "error"`, `error`, `issues`, and `next_steps`.
 
-**Destructive guard:** `status: "action_required"`, `query_kind: "destructive"`, `issues`, and `next_steps` (includes a `--force` retry command).
+**Destructive guard:** `status: "action_required"`, `query_kind: "destructive"`, `message`, `issues`, and `next_steps` (includes a `--force` retry command).
 
 ### Global flags
 
@@ -74,13 +75,15 @@ Use `--format json` for automation.
 pscale sql <database> <branch> --org <org> --format json --query "SELECT 1"
 ```
 
-**Read from replica:**
+**Read from a PlanetScale Postgres or Vitess replica:**
 
 ```shellscript
 pscale sql <database> <branch> --org <org> --format json --replica --query "SELECT COUNT(*) FROM users"
 ```
 
-**PostgreSQL with explicit database name:**
+`pscale sql --replica` appends the Postgres `|replica` username suffix. That is not how Neki routes replica traffic. For Neki replica reads, use [`pscale shell --replica`](shell.md). Do not add `|replica` to a Neki username.
+
+**Postgres or Neki with an explicit database name:**
 
 ```shellscript
 pscale sql <database> <branch> --org <org> --format json --dbname postgres --query "SELECT version()"
@@ -90,6 +93,12 @@ pscale sql <database> <branch> --org <org> --format json --dbname postgres --que
 
 ```shellscript
 pscale sql <database> <branch> --org <org> --format json --keyspace <keyspace> --query "SELECT 1"
+```
+
+**Vertical output for wide rows:**
+
+```shellscript
+pscale sql <database> <branch> --org <org> --replica --query "SHOW REPLICA STATUS\G"
 ```
 
 **Destructive SQL (after user approval):**

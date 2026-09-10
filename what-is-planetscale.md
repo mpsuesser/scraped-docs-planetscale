@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/what-is-planetscale
 title: "What Is Planetscale"
 description: ""
-access_date: 2026-09-10T14:43:51.520Z
-current_date: 2026-09-10T14:43:51.520Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
-PlanetScale is a fully managed relational database platform for [Vitess](vitess.md), [Neki](https://planetscale.com/docs/neki), and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
+PlanetScale is a fully managed relational database platform for [Vitess](vitess.md), [Neki](neki.md), and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
 
 We don’t call ourselves the world’s fastest database for nothing. Benchmarks for both [Vitess](https://planetscale.com/benchmarks/vitess) and [Postgres](https://planetscale.com/blog/benchmarking-postgres) show PlanetScale in the lead over and over again for both queries per second and latency.
 
@@ -14,7 +14,7 @@ With PlanetScale, you get blazing fast performance with our [locally-attached NV
 
 Our Vitess product offers unlimited scalability through explicit horizontal sharding. Vitess was [created at YouTube in 2010](https://vitess.io/overview/history/#:~:text=Vitess%20was%20created%20in%202010,exceed%20the%20database's%20serving%20capacity.) to solve the scaling issues they faced with their massive MySQL database. Vitess was later donated to the CNCF and continues to scale massive companies like [Slack](https://slack.engineering/scaling-datastores-at-slack-with-vitess/), [GitHub](https://github.blog/2021-09-27-partitioning-githubs-relational-databases-scale/), and more.
 
-For Postgres, [Neki](https://planetscale.com/docs/neki) provides the same model of horizontal sharding: applications connect to a router and query a logical database while data lives across independent shards. [Sign up for a PlanetScale account](https://auth.planetscale.com/sign-up) to use Neki.
+For Postgres, [Neki](neki.md) provides the same model of horizontal sharding: applications connect to a router and query a logical database while data lives across independent shards. [Sign up for a PlanetScale account](https://auth.planetscale.com/sign-up) to use Neki.
 
 The team building PlanetScale is made up of passionate industry experts who have spent decades working on databases for some of the web’s largest companies. Our team has directly felt the pain of overly-complicated, unintuitive database tools and came to PlanetScale to build the future of databases — the database they wished they had at their previous companies.
 
@@ -58,13 +58,13 @@ No more fumbling around with snapshots or backups and restores. Just revert.
 
 ### Scale with sharding + unlimited connections
 
-With Vitess and [Neki](https://planetscale.com/docs/neki), we’re able to offer horizontal scaling via sharding with minimal application changes.
+With Vitess and [Neki](neki.md), we’re able to offer horizontal scaling via sharding with minimal application changes.
 
-PlanetScale allows you to break up a monolithic database and partition the data across several databases. This [reduces the load on a single database](https://planetscale.com/blog/one-million-queries-per-second-with-mysql) by distributing it across several. Sharding can easily become a convoluted and hard-to-manage scenario, but because of our underlying architecture, we’re able to keep this sharding logic largely out of the application. So, from the application’s perspective, there only exists one database. Use [Vitess sharding](vitess/sharding.md) for MySQL-compatible workloads, or [Neki](https://planetscale.com/docs/neki) for Postgres.
+PlanetScale allows you to break up a monolithic database and partition the data across several databases. This [reduces the load on a single database](https://planetscale.com/blog/one-million-queries-per-second-with-mysql) by distributing it across several. Sharding can easily become a convoluted and hard-to-manage scenario, but because of our underlying architecture, we’re able to keep this sharding logic largely out of the application. So, from the application’s perspective, there only exists one database. Use [Vitess sharding](vitess/sharding.md) for MySQL-compatible workloads, or [Neki](neki.md) for Postgres.
 
 Another scenario that companies with massive databases often run into is connection limits due to MySQL. With PlanetScale, we can support [nearly infinite connections](https://planetscale.com/blog/one-million-connections). Vitess offers built-in [connection pooling](https://vitess.io/reference/features/connection-pools/), and we’ve built our own [edge infrastructure](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript) into PlanetScale to ensure connection limits are never an issue.
 
-We generally recommend exploring horizontal sharding when your database exceeds 250 GB of data and you are beginning to feel some of the [pains associated with large scale](https://planetscale.com/blog/how-to-scale-your-database-and-when-to-shard-mysql). [Vitess sharding](vitess/sharding/sharding-quickstart.md) is offered on our Base plan. Horizontal sharding for Postgres is available with [Neki](https://planetscale.com/docs/neki). If you need assistance with setting up horizontal sharding, migrating to PlanetScale, or want enterprise-level SLAs, we offer this through our [Enterprise plan](https://planetscale.com/enterprise) option. [Please reach out](https://planetscale.com/contact) for more information.
+We generally recommend exploring horizontal sharding when your database exceeds 250 GB of data and you are beginning to feel some of the [pains associated with large scale](https://planetscale.com/blog/how-to-scale-your-database-and-when-to-shard-mysql). [Vitess sharding](vitess/sharding/sharding-quickstart.md) is offered on our Base plan. Horizontal sharding for Postgres is available with [Neki](neki.md). If you need assistance with setting up horizontal sharding, migrating to PlanetScale, or want enterprise-level SLAs, we offer this through our [Enterprise plan](https://planetscale.com/enterprise) option. [Please reach out](https://planetscale.com/contact) for more information.
 
 ### Insights
 

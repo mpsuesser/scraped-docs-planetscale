@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/auth
 title: "Auth"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,9 +24,9 @@ pscale auth <SUB-COMMAND> <FLAG>
 
 | **Sub-Command** | **Description** | **Product** |
 | --- | --- | --- |
-| `login` | Authenticate with the PlanetScale API | Postgres, Vitess |
-| `logout` | Log out of the PlanetScale API | Postgres, Vitess |
-| `check` | Check if you are authenticated | Postgres, Vitess |
+| `login` | Authenticate with the PlanetScale API | Postgres, Vitess, Neki |
+| `logout` | Log out of the PlanetScale API | Postgres, Vitess, Neki |
+| `check` | Check if you are authenticated | Postgres, Vitess, Neki |
 
 Agents and automation should use **`--format json`** on `auth check` and `auth login`. Start with [`pscale agent-guide --format json`](agent-guide.md) or the [Agent setup prompt](../agent-setup/prompt.md).
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The database command
 
-This command allows you to create, read, update, delete, dump, and restore databases, list available regions and Vitess read-only regions, manage Postgres IP restrictions, and configure the Vitess database-level migration throttler and aggressive cutover.
+This command allows you to create, read, update, and delete Vitess, Neki, and Postgres databases. It also provides engine-specific dump, restore, networking, and migration controls.
 
 **Usage:**
 
@@ -27,22 +27,22 @@ pscale database <SUB-COMMAND> <FLAG>
 | `aggressive-cutover show <DATABASE_NAME>` |  | Show whether aggressive cutover is enabled for future deploy requests | Vitess |
 | `aggressive-cutover enable <DATABASE_NAME>` |  | Enable [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) for a database | Vitess |
 | `aggressive-cutover disable <DATABASE_NAME>` |  | Disable aggressive cutover for a database | Vitess |
-| `create <DATABASE_NAME>` | `--region <REGION_NAME>`, `--plan <PLAN>`, `--cluster_size <CLUSTER_SIZE>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>` | Create a database with the specified name | Postgres, Vitess |
-| `delete <DATABASE_NAME>` | `--force` | Delete the specified database | Postgres, Vitess |
+| `create <DATABASE_NAME>` | `--engine <ENGINE>`, `--region <REGION_NAME>`, `--cluster-size <CLUSTER_SIZE>`, `--major-version <MAJOR_VERSION>`, `--replicas <COUNT>`, `--min-storage <BYTES>`, `--max-storage <BYTES>`, `--wait` | Create a database with the specified name | Postgres, Vitess, Neki |
+| `delete <DATABASE_NAME>` | `--force` | Delete the specified database | Postgres, Vitess, Neki |
 | `dump <DATABASE_NAME> <BRANCH_NAME>` | `--local-addr <ADDRESS>`, `--output <DIRECTORY_NAME>`, `--tables <TABLES_LIST>`, `--columns <TABLE:COLUMN_LIST>`, `--threads <NUMBER_OF_THREADS> (defaults to 16)` | Backup and dump the specified database | Vitess |
 | `ip-restriction list <DATABASE_NAME>` |  | List IP restriction entries | Postgres |
 | `ip-restriction show <DATABASE_NAME> <ENTRY_ID>` |  | Show an IP restriction entry | Postgres |
 | `ip-restriction create <DATABASE_NAME>` | `--cidrs <CIDR>` \*, `--schema <SCHEMA>`, `--role <ROLE>`, `--description <TEXT>` | Create an IP restriction entry | Postgres |
 | `ip-restriction update <DATABASE_NAME> <ENTRY_ID>` | `--cidrs <CIDR>`, `--schema <SCHEMA>`, `--role <ROLE>`, `--description <TEXT>` | Update an IP restriction entry | Postgres |
 | `ip-restriction delete <DATABASE_NAME> <ENTRY_ID>` | `--force` | Delete an IP restriction entry | Postgres |
-| `list <DATABASE_NAME>` |  | List all databases in the current org | Postgres, Vitess |
+| `list` |  | List all databases in the current org | Postgres, Vitess, Neki |
 | `read-only-regions list <DATABASE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List Vitess read-only regions for the database’s default branch | Vitess |
-| `regions list <DATABASE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List regions available to a database for its engine | Postgres, Vitess |
-| `restore-dump <DATABASE_NAME> <BRANCH_NAME>` | `--dir <DIRECTORY_NAME>` \*, `--local-addr <ADDRESS>`, `--overwrite-tables`, `--threads <NUMBER_OF_THREADS> (defaults to 1)`, `--allow-different-destination`, `--show-details`, `--schema-only`, `--data-only`, `--starting-table <STARTING_TABLE>`, `--ending-table <ENDING_TABLE>` | Restore the specified database from a local dump directory | Postgres, Vitess |
-| `show <DATABASE_NAME>` | `--web` | Retrieve information about a database | Postgres, Vitess |
+| `regions list <DATABASE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | List regions available to a database for its engine | Postgres, Vitess, Neki |
+| `restore-dump <DATABASE_NAME> <BRANCH_NAME>` | `--dir <DIRECTORY_NAME>` \*, `--local-addr <ADDRESS>`, `--overwrite-tables`, `--threads <NUMBER_OF_THREADS> (defaults to 1)`, `--allow-different-destination`, `--show-details`, `--schema-only`, `--data-only`, `--starting-table <STARTING_TABLE>`, `--ending-table <ENDING_TABLE>` | Restore the specified database from a local dump directory | Vitess |
+| `show <DATABASE_NAME>` | `--web` | Retrieve information about a database | Postgres, Vitess, Neki |
 | `throttler show <DATABASE_NAME>` |  | Show database-level Vitess migration throttler configuration | Vitess |
 | `throttler update <DATABASE_NAME>` | `--ratio <RATIO>`, `--configuration <KEYSPACE=RATIO>` | Update database-level Vitess migration throttler configuration | Vitess |
-| `update <DATABASE_NAME>` | `--new-name`, `--default-branch`, `--restrict-branch-region`, `--production-branch-web-console`, `--insights-raw-queries`, `--require-approval-for-deploy`, `--allow-data-branching`, `--allow-foreign-key-constraints`, `--automatic-migrations`, `--migration-framework`, `--migration-table-name` | Update database settings | Postgres, Vitess |
+| `update <DATABASE_NAME>` | `--new-name`, `--default-branch`, `--restrict-branch-region`, `--production-branch-web-console`, `--insights-raw-queries`, `--require-approval-for-deploy`, `--allow-data-branching`, `--allow-foreign-key-constraints`, `--automatic-migrations`, `--migration-framework`, `--migration-table-name` | Update database settings | Postgres, Vitess, Neki |
 
 ### Service token automation: database
 
@@ -71,12 +71,14 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
-| `--region` | Specify the [region](https://planetscale.com/docs/vitess/regions) of the new database. Default is `us-east`. | `create` |
-| `--plan` | Specify the plan for the database. Currently, `scaler_pro` is the only option and the default. | `create` |
-| `--cluster_size` | For Base plan databases, you may specify the cluster size. Default is `PS_10` | `create` |
-| `--major-version` | The major version of the database (Postgres only). Currently supports `17` or `18`. | `create` |
-| `--min-storage` | Minimum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
-| `--max-storage` | Maximum storage size in bytes for Postgres databases using Amazon Elastic Block Storage (EBS). | `create` |
+| `--engine <ENGINE>` | Database engine: `mysql` for Vitess, `postgresql` for Postgres (`postgres` is accepted), or `neki` for Neki. Defaults to `mysql`. | `create` |
+| `--region` | Specify the [region](https://planetscale.com/docs/vitess/regions) of the new database. When omitted, the API selects the default region. | `create` |
+| `--cluster-size` | Cluster size for the new database. Use `pscale size cluster list` for Vitess, Neki, and Postgres (`--engine neki`) sizes. See also [Neki cluster sizing](../neki/cluster-configuration/cluster-sizing.md). | `create` |
+| `--major-version` | PostgreSQL major version for a Postgres or Neki database. Defaults to the latest available major version. | `create` |
+| `--replicas` | Number of replicas for a Postgres or Neki database. Neki production databases require at least two replicas during Platform Preview. | `create` |
+| `--min-storage` | Minimum storage size in bytes for a Postgres or Neki database. Not available for Vitess. | `create` |
+| `--max-storage` | Maximum storage size in bytes for storage autoscaling on a Postgres or Neki database. Not available for Vitess. | `create` |
+| `--wait` | Wait until the database is ready. | `create` |
 | `--force` | Skip confirmation for destructive actions. | `delete`, `ip-restriction delete` |
 | `--page <NUMBER>` | Page of results to fetch. | `regions list`, `read-only-regions list` |
 | `--per-page <NUMBER>` | Number of results per page. | `regions list`, `read-only-regions list` |
@@ -148,16 +150,16 @@ The `--format` flag does not apply to the database dump files created by the `du
 **Command:**
 
 ```shellscript
-pscale database create new-database --region <REGION_NAME> --plan scaler_pro --cluster_size PS_80
+pscale database create new-database --region <REGION_NAME> --cluster-size PS_80
 ```
 
 **Output:**
 
 Database `new-database` was successfully created.
 
-### Create a Postgres database with storage size settings (Amazon EBS)
+### Create a Postgres or Neki database with storage size settings
 
-Use `--min-storage` and `--max-storage` to set the initial and maximum storage size in bytes when creating a Postgres database on Amazon Elastic Block Storage (EBS).
+Use `--min-storage` and `--max-storage` to set the initial and maximum network-attached storage size in bytes when creating a Postgres or Neki database. These flags are not available for Vitess.
 
 **Command:**
 
@@ -165,11 +167,28 @@ Use `--min-storage` and `--max-storage` to set the initial and maximum storage s
 pscale database create new-postgres-db --engine postgres --region <REGION_NAME> --min-storage 10737418240 --max-storage 21474836480
 ```
 
-In this example, the database starts at 10 GiB (`10737418240` bytes) and can scale up to 20 GiB (`21474836480` bytes).
+In this example, the database starts at 10 GiB (`10737418240` bytes) and can scale up to 20 GiB (`21474836480` bytes). The same flags work with `--engine neki`.
+
+### Create a Neki database
+
+Use `--engine neki` to create a Neki database. `--wait` keeps the command open until the database is ready.
+
+```shellscript
+pscale database create new-neki-db \
+  --engine neki \
+  --region <REGION_NAME> \
+  --cluster-size <NEKI_CLUSTER_SIZE> \
+  --replicas 2 \
+  --min-storage 10737418240 \
+  --max-storage 21474836480 \
+  --wait
+```
+
+Choose `<NEKI_CLUSTER_SIZE>` with `pscale size cluster list --engine neki` or from the [Neki cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu.
 
 ### Create a dump of an existing branch:
 
-This command is only available for Vitess databases. For Postgres databases, use the [pg\_dump](https://www.postgresql.org/docs/current/app-pgdump.html) command instead.
+This command is only available for Vitess databases. For Postgres and Neki databases, use the [pg\_dump](https://www.postgresql.org/docs/current/app-pgdump.html) command instead.
 
 **Command:**
 
@@ -226,7 +245,7 @@ Pass a region slug, display name, or id. List configured regions with `pscale da
 
 ### List available regions
 
-`database regions list` returns regions available to that database for its engine. `database read-only-regions list` returns configured Vitess read-only regions for the database’s default branch and is rejected for PostgreSQL databases.
+`database regions list` returns regions available to that database for its engine. `database read-only-regions list` returns configured Vitess read-only regions for the database’s default branch and is rejected for Postgres and Neki databases.
 
 ```shellscript
 pscale database regions list <DATABASE_NAME>
@@ -235,7 +254,7 @@ pscale database read-only-regions list <DATABASE_NAME>
 
 ### Update database settings
 
-Only flags you pass are sent to the API. Boolean flags must be set explicitly (`=true` or `=false`). Flags marked Vitess-only are rejected for PostgreSQL databases.
+Only flags you pass are sent to the API. Boolean flags must be set explicitly (`=true` or `=false`). Flags marked Vitess-only are rejected for Postgres and Neki databases.
 
 ```shellscript
 pscale database update <DATABASE_NAME> --default-branch main --restrict-branch-region=true

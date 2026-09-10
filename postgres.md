@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres
 title: "Postgres"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 PlanetScale Postgres is a fully-managed PostgreSQL-compatible database that brings you scale, performance, and reliability without sacrificing developer experience.
@@ -16,7 +16,7 @@ Deploy a Postgres database and learn the basics of using PlanetScale.
 
 ## Architecture
 
-Learn about PlanetScale Postgres architecture.
+PlanetScale Postgres architecture.
 
 ## Database operations
 
@@ -25,6 +25,10 @@ The operational philosophy behind PlanetScale Postgres databases.
 ## Import a database
 
 Import your existing Postgres database to PlanetScale.
+
+## Horizontal sharding with Neki
+
+Scale Postgres beyond a single cluster with Neki.
 
 ## Need help?
 

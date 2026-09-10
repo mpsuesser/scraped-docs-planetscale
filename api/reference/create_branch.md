@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_branch
 title: "Create_branch"
 description: ""
-access_date: 2026-09-08T23:30:04.646Z
-current_date: 2026-09-08T23:30:04.646Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 > ## Documentation Index
@@ -303,6 +303,24 @@ paths:
                     entry is { "keyspace_name": "main", "cluster_size": "PS_40"
                     }. When provided, each restored keyspace must have a size
                     here or via cluster_size.
+                configuration_profile_sizes:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    For Neki backup restores, per-configuration-profile cluster
+                    size and replica count. Each entry is { "name": "default",
+                    "cluster_size": "PS_40", "replicas": 2 }. Omitted profiles
+                    inherit the source size and replica count.
+                router_sizes:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    For Neki backup restores, per-router size and replica count.
+                    Each entry is { "name": "default", "router_size": "NKR_20",
+                    "replicas_per_cell": 1 }. Omitted routers inherit the source
+                    size and replica count.
                 storage:
                   type: object
                   properties:
@@ -315,10 +333,11 @@ paths:
                 major_version:
                   type: string
                   description: >-
-                    For PostgreSQL databases, the PostgreSQL major version to
-                    use for the branch. Defaults to the major version of the
-                    parent branch if it exists or the database's default branch
-                    major version. Ignored for branches restored from backups.
+                    For PostgreSQL and Neki databases, the PostgreSQL major
+                    version to use for the branch. Defaults to the major version
+                    of the parent branch if it exists or the database's default
+                    branch major version. Ignored for branches restored from
+                    backups.
                 create_database_if_missing:
                   type: boolean
                   description: >-
@@ -329,6 +348,7 @@ paths:
                   enum:
                     - mysql
                     - postgresql
+                    - neki
                   description: >-
                     The kind of branch to create. Required when
                     create_database_if_missing is set.
@@ -374,6 +394,7 @@ paths:
                     enum:
                       - mysql
                       - postgresql
+                      - neki
                     description: The kind of branch
                   mysql_address:
                     type: string

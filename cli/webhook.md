@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/webhook
 title: "Webhook"
 description: ""
-access_date: 2026-09-04T21:54:31.222Z
-current_date: 2026-09-04T21:54:31.222Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -24,12 +24,12 @@ pscale webhook <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Description** | **Product** |
 | --- | --- | --- |
-| `create <DATABASE_NAME>` | Create a new webhook for a database | Vitess, Postgres |
-| `delete <DATABASE_NAME> <WEBHOOK_ID>` | Delete a webhook from a database | Vitess, Postgres |
-| `list <DATABASE_NAME>` | List all webhooks for a database | Vitess, Postgres |
-| `show <DATABASE_NAME> <WEBHOOK_ID>` | Show details for a specific webhook | Vitess, Postgres |
-| `test <DATABASE_NAME> <WEBHOOK_ID>` | Send a test event to a webhook | Vitess, Postgres |
-| `update <DATABASE_NAME> <WEBHOOK_ID>` | Update an existing webhook | Vitess, Postgres |
+| `create <DATABASE_NAME>` | Create a new webhook for a database | Vitess, Postgres, Neki |
+| `delete <DATABASE_NAME> <WEBHOOK_ID>` | Delete a webhook from a database | Vitess, Postgres, Neki |
+| `list <DATABASE_NAME>` | List all webhooks for a database | Vitess, Postgres, Neki |
+| `show <DATABASE_NAME> <WEBHOOK_ID>` | Show details for a specific webhook | Vitess, Postgres, Neki |
+| `test <DATABASE_NAME> <WEBHOOK_ID>` | Send a test event to a webhook | Vitess, Postgres, Neki |
+| `update <DATABASE_NAME> <WEBHOOK_ID>` | Update an existing webhook | Vitess, Postgres, Neki |
 
 #### Sub-command flags
 

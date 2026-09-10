@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/role
 title: "Role"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -22,7 +22,7 @@ Create a **branch password** with [`pscale password`](password.md), then connect
 
 ## The role command
 
-Manage database roles for a Postgres database branch. This command is only supported for Postgres databases.
+Manage database roles for a Postgres or Neki database branch.
 
 **Usage:**
 
@@ -34,16 +34,16 @@ pscale role [command]
 
 | **Sub-Command** | **Product** | **Description** |
 | --- | --- | --- |
-| `create` | Postgres | Create a new role for a Postgres database branch |
-| `default` | Postgres | Show the default role without rotating its credentials |
-| `delete` | Postgres | Delete a role |
-| `get` | Postgres | Retrieve information about a specific role |
-| `list` | Postgres | List all roles for a Postgres database branch |
-| `reassign` | Postgres | Reassign objects owned by a role to another role |
-| `renew` | Postgres | Renew a role’s expiration |
-| `reset` | Postgres | Reset a role’s password |
-| `reset-default` | Postgres | Reset the credentials for the default `postgres` role |
-| `update` | Postgres | Update a role’s name |
+| `create` | Postgres, Neki | Create a new role for a database branch |
+| `default` | Postgres, Neki | Show the default role without rotating its credentials |
+| `delete` | Postgres, Neki | Delete a role |
+| `get` | Postgres, Neki | Retrieve information about a specific role |
+| `list` | Postgres, Neki | List all roles for a database branch |
+| `reassign` | Postgres, Neki | Reassign objects owned by a role to another role |
+| `renew` | Postgres, Neki | Renew a role’s expiration |
+| `reset` | Postgres, Neki | Reset a role’s password |
+| `reset-default` | Postgres, Neki | Reset the credentials for the default `postgres` role |
+| `update` | Postgres, Neki | Update a role’s name |
 
 ### Service token automation: role
 
@@ -84,7 +84,7 @@ pscale role list <database> <branch> --format json
 
 ### The create sub-command
 
-Create a new role for a Postgres database branch:
+Create a new role for a Postgres or Neki database branch:
 
 **Usage:**
 
@@ -96,6 +96,7 @@ pscale role create <database> <branch> <name> [flags]
 
 - `--inherited-roles string` - Comma-separated list of role names to inherit privileges from. Common values are ‘pg\_read\_all\_data’ for read access, ‘pg\_write\_all\_data’ for write access, and ‘postgres’ for admin access.
 - `--ttl duration` - TTL defines the time to live for the role. Durations such as “30m”, “24h”, or bare integers such as “3600” (seconds) are accepted. The default TTL is 0s, which means the role will never expire.
+- `--with-replication` - Grant the `REPLICATION` privilege for logical replication. Requires `--inherited-roles postgres`.
 
 **Example:**
 
@@ -105,7 +106,7 @@ pscale role create my-database main api-user --inherited-roles pg_read_all_data 
 
 ### The default sub-command
 
-Show the default role for a Postgres database branch without rotating its credentials:
+Show the default role for a Postgres or Neki database branch without rotating its credentials:
 
 **Usage:**
 
@@ -152,15 +153,24 @@ Retrieve information about a specific role:
 pscale role get <database> <branch> <role-id> [flags]
 ```
 
+**Available flags:**
+
+- `--replica` - Return connection details for a branch replica.
+- `--read-only-replica <name>` - Return connection details for a read-only replica. Postgres only.
+- `--bouncer <name>` - Return connection details for a named PgBouncer on Postgres or Neki.
+
+These connection-target flags are mutually exclusive.
+
 **Example:**
 
 ```shellscript
-pscale role get my-database main role-123
+pscale role get <DATABASE_NAME> <BRANCH_NAME> <ROLE_ID>
+pscale role get <DATABASE_NAME> <BRANCH_NAME> <ROLE_ID> --replica
 ```
 
 ### The list sub-command
 
-List all roles for a Postgres database branch:
+List all roles for a Postgres or Neki database branch:
 
 **Usage:**
 
@@ -285,6 +295,8 @@ pscale role update my-database main role-123 --name new-role-name
 ## Related documentation
 
 ## Managing Postgres roles
+
+## Managing Neki roles
 
 ## Postgres roles API documentation
 

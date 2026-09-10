@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/create-a-metal-database
 title: "Create A Metal Database"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 [PlanetScale Metal](../metal.md) databases can be created in a similar way to other PlanetScale databases. However, there are a few important things to keep in mind when creating a new Metal database or upgrading an existing database to Metal, which will be covered here.
@@ -66,7 +66,7 @@ Metal storage info
 
 Metal storage info
 
-You should make a habit of regularly logging in and checking the health of your database, keep an eye on this number. If PlanetScale detects that you have only 6GiB or less of available storage, it will cause your database to reject writes, preferring to keep the database available rather than cause a total system failure due to running out of storage. This is a safety measure put in place to protect your data. You should upgrade to a larger instance long before reaching this point. You can upgrade to a larger Metal instance / drive using the same set of steps described above.
+You should make a habit of regularly logging in and checking the health of your database, keep an eye on this number. If PlanetScale detects that you have only 6GB or less of available storage, it will cause your database to reject writes, preferring to keep the database available rather than cause a total system failure due to running out of storage. This is a safety measure put in place to protect your data. You should upgrade to a larger instance long before reaching this point. You can upgrade to a larger Metal instance / drive using the same set of steps described above.
 
 Additionally, operations such as deploy requests may not run if you do not have enough storage. The exception to this is if you are performing an [instant deployment](../vitess/schema-changes/deploy-requests.md#instant-deployments).
 

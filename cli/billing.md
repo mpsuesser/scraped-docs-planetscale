@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/billing
 title: "Billing"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -26,13 +26,13 @@ pscale billing <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
-| `invoice list` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List invoices for an organization |
-| `invoice show <INVOICE_ID>` |  | Postgres, Vitess | Show an invoice |
-| `invoice line-items <INVOICE_ID>` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess | List line items for an invoice |
-| `payment-method show` |  | Postgres, Vitess | Show the current card |
-| `payment-method update` |  | Postgres, Vitess | Create a Stripe Checkout session, open it when possible, and wait until the card is verified and saved |
-| `payment-method status <SETUP_ID>` |  | Postgres, Vitess | Show a Checkout setup started by `update`. Pass the setup id, not the card id from `show` |
-| `payment-method delete` | `--force` | Postgres, Vitess | Delete the current card |
+| `invoice list` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess, Neki | List invoices for an organization |
+| `invoice show <INVOICE_ID>` |  | Postgres, Vitess, Neki | Show an invoice |
+| `invoice line-items <INVOICE_ID>` | `--page <NUMBER>`, `--per-page <NUMBER>` | Postgres, Vitess, Neki | List line items for an invoice |
+| `payment-method show` |  | Postgres, Vitess, Neki | Show the current card |
+| `payment-method update` |  | Postgres, Vitess, Neki | Create a Stripe Checkout session, open it when possible, and wait until the card is verified and saved |
+| `payment-method status <SETUP_ID>` |  | Postgres, Vitess, Neki | Show a Checkout setup started by `update`. Pass the setup id, not the card id from `show` |
+| `payment-method delete` | `--force` | Postgres, Vitess, Neki | Delete the current card |
 
 #### Sub-command flag descriptions
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/inspect
 title: "Inspect"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Getting Started
@@ -28,21 +28,21 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 
 ### Database engine support
 
-Checks adapt to the database engine. MySQL (Vitess) checks read `information_schema`, `mysql`, and `sys`. PostgreSQL checks read `pg_catalog` and `pg_stat` views. Checks that do not apply to an engine explain what to use instead (often a matching `pscale insights` command).
+Checks adapt to the database engine. MySQL (Vitess) checks read `information_schema`, `mysql`, and `sys`. Postgres and Neki checks read `pg_catalog` and `pg_stat` views. Checks that do not apply to an engine explain what to use instead (often a matching `pscale insights` command).
 
-|  | **Postgres** | **Vitess** |
+|  | **Postgres and Neki** | **Vitess** |
 | --- | --- | --- |
 | Targeting flags | `--dbname`, `--role` | `--keyspace` |
 | Scope | One PostgreSQL database per run | One shard’s MySQL instance per run |
-| Replica checks | `--replica` | `--replica` (via `--keyspace` tablet type) |
+| Replica checks | `--replica` for Postgres. For Neki, use [`pscale shell --replica`](shell.md). | `--replica` (via `--keyspace` tablet type) |
 
 On sharded Vitess databases, statistics reflect one shard’s MySQL instance per run. Pass `--keyspace` to pick the keyspace, or target an exact shard with `--keyspace 'mykeyspace/-80'` (enumerate shards with `SHOW VITESS_SHARDS` via `pscale sql`). Databases can have hundreds of shards, so no check fans out across shards automatically.
 
-On PostgreSQL, statistics are scoped to one database. Pass `--dbname` to target the database your application uses (defaults to `postgres`). The reader role may lack `CONNECT` on non-default databases; use `--role admin` if connecting with `--dbname` fails.
+On Postgres and Neki, pass `--dbname` to target the PostgreSQL database your application uses (defaults to `postgres`). The reader role may lack `CONNECT` on non-default databases; use `--role admin` if connecting with `--dbname` fails. Neki runs these checks through its router; use Query Insights for traffic-aware, cross-shard analysis.
 
 ### Available checks
 
-| **Check** | **Postgres** | **Vitess** | **Description** |
+| **Check** | **Postgres and Neki** | **Vitess** | **Description** |
 | --- | --- | --- | --- |
 | `table-sizes` | Yes | Yes | Tables by total size, largest first |
 | `index-sizes` | Yes | Yes | Indexes by size, largest first |
@@ -68,11 +68,13 @@ On PostgreSQL, statistics are scoped to one database. Pass `--dbname` to target 
 | --- | --- |
 | `--org <org>` | Organization name **(required)** |
 | `--keyspace <target>` | Vitess keyspace to inspect, optionally with a shard and tablet type (for example `mykeyspace`, `mykeyspace/-80`, `mykeyspace/-80@replica`). Defaults to `@primary`. |
-| `--dbname <name>` | PostgreSQL database name to inspect. Default: `postgres`. |
+| `--dbname <name>` | Postgres or Neki database name to inspect. Default: `postgres`. |
 | `--role <role>` | Access role for ephemeral credentials: `reader`, `writer`, `readwriter`, or `admin`. Default: `reader`. |
-| `--replica` | Run checks against a replica instead of the primary. |
+| `--replica` | Run checks against a replica instead of the primary for PlanetScale Postgres or Vitess. For Neki, use [`pscale shell --replica`](shell.md), which sets `__neki.target=REPLICA`. |
 | `-f`, `--format <FORMAT>` | Show output in a specific format. Possible values: `human` (default), `json`, `csv`. `csv` is supported for individual checks only, not `inspect all`. |
 | `-h`, `--help` | Help for `inspect` |
+
+`pscale inspect --replica` uses the same Postgres `|replica` username suffix as `pscale sql`. That is not how Neki routes replica traffic. Do not add `|replica` to a Neki username.
 
 ## Examples
 

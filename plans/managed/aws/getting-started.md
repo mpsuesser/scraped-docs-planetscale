@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
@@ -117,8 +117,8 @@ By default, AWS may provision new member accounts with EC2 On-Demand quotas that
 Although the PlanetScale Support and Operations teams will have the ability to request quota increases on your behalf after you give us access to the AWS Organizations member account, we recommend that you review the following quotas and request increases as necessary, as requesting quota increases later will delay the process:
 
 - [Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances](https://console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-1216C47A) — Since PlanetScale Managed typically runs small instances by default, it is generally best to set this high enough to avoid any later issues. At least **300** is sufficient for most customers.
-- [Storage for General Purpose SSD (gp3) volumes, in TiB](https://console.aws.amazon.com/servicequotas/home/services/ebs/quotas/L-7A658B76) — Note that we typically will keep 3 copies of all data (primary plus 2 replicas), so you have to consider that here. We will also create volumes at backup time, which could be a temporary 4th copy for quota purposes. **50** TiB should be sufficient for most customers.
-- [Storage modifications for General Purpose SSD (gp3) volumes, in TiB](https://console.aws.amazon.com/servicequotas/home/services/ebs/quotas/L-59C8FC87) — Ensure this is large enough, if possible, to cover your largest database so that storage volume performance modifications can be made (if necessary), without replacing volumes. Again, **50** TiB or more should be sufficient in most cases.
+- [Storage for General Purpose SSD (gp3) volumes, in TB](https://console.aws.amazon.com/servicequotas/home/services/ebs/quotas/L-7A658B76) — Note that we typically will keep 3 copies of all data (primary plus 2 replicas), so you have to consider that here. We will also create volumes at backup time, which could be a temporary 4th copy for quota purposes. **50** TB should be sufficient for most customers.
+- [Storage modifications for General Purpose SSD (gp3) volumes, in TB](https://console.aws.amazon.com/servicequotas/home/services/ebs/quotas/L-59C8FC87) — Ensure this is large enough, if possible, to cover your largest database so that storage volume performance modifications can be made (if necessary), without replacing volumes. Again, **50** TB or more should be sufficient in most cases.
 
 You can read more about how to request a quota increase in the [AWS requesting a quota increase documentation](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html).
 

@@ -2,15 +2,13 @@
 url: https://planetscale.com/docs/billing
 title: "Billing"
 description: ""
-access_date: 2026-09-06T20:30:42.418Z
-current_date: 2026-09-06T20:30:42.418Z
+access_date: 2026-09-10T14:51:28.297Z
+current_date: 2026-09-10T14:51:28.297Z
 ---
 
 ## Overview
 
 Usage charges are scoped to each database, which you can find all together in the [billing section of your Organization](billing.md#organization-usage-and-billing-page). Each plan is further broken down in the [PlanetScale plans documentation](planetscale-plans.md).
-
-We use **[gibibytes, otherwise known as binary gigabytes](https://simple.wikipedia.org/wiki/Gibibyte)**, to calculate storage and usage limits. For reference, 1 binary gigabyte is equivalent to 2^30 bytes.
 
 ## Organization usage and billing page
 
