@@ -2,9 +2,13 @@
 url: https://planetscale.com/docs/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-11T20:32:01.323Z
+current_date: 2026-09-11T20:32:01.323Z
 ---
+
+## Agents
+
+Use the [Database Bot for Grok Bot](agents/grok-bot.md) to answer database questions, investigate performance, and follow webhook events. See [Agents](agents.md) for the template and other ways to connect an agent to PlanetScale.
 
 ## Agent setup prompt
 
