@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-11T16:24:04.711Z
+current_date: 2026-09-11T16:24:04.711Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -123,7 +123,7 @@ After having created one or more shards, shards are assigned to one or more shar
 ]
 ```
 
-The first one, `tenant_id`, is where we will store the `orders` table data, since we assigned that table to this shard group. This group has four shards, `shard-a`, `shard-b`, `shard-c`, and `shard-d`, and uses the `xxhash_tenant_id` shard index (more on that soon). Any table assigned to this shard group will be distributed across these shards. The way in which the row distribution happens depends on the shard index.
+The first one, `tenant_data`, is where we will store the `orders` table data, since we assigned that table to this shard group. This group has four shards, `shard-a`, `shard-b`, `shard-c`, and `shard-d`, and uses the `xxhash_tenant_id` shard index (more on that soon). Any table assigned to this shard group will be distributed across these shards. The way in which the row distribution happens depends on the shard index.
 
 Here, we use `shard-?` labels as the shard id, but on a real Neki cluster in your PlanetScale dashboard, you will see these as longer, unique hashed values (e.g., `sh57wz7p7tblk2`).
 
@@ -198,7 +198,7 @@ A table-level primary index must produce values that fit the shard group’s ran
 
 ## Single-shard and multi-shard queries
 
-When the Neki router receives a query, it uses the database schema and topology to determine which shard(s) requests will get passed along to fulfill the query. For example, a predicate on `events.tenant_id` can narrow it to be able to execute on a single shard:
+When the Neki router receives a query, it uses the database schema and topology to determine which shard(s) will fulfill the query. For example, a predicate on `events.tenant_id` can narrow it to be able to execute on a single shard:
 
 ```sql
 SELECT *
@@ -212,7 +212,7 @@ Co-location means that related rows from different tables are stored on the same
 
 If Neki cannot narrow the scope of a query using a shard-key predicate, it sends the query to every shard in the table’s group. Each shard calculates its part of an aggregate such as `COUNT(*)`, and Neki combines those results before returning the answer.
 
-More about inspecting a statement’s routing reach in [Query planning](query-planning.md#controlling-fanout).
+More about inspecting a statement’s routing reach can be found in [Query planning](query-planning.md#controlling-fanout).
 
 ## Schema and database defaults
 
