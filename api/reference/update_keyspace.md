@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_keyspace
 title: "Update_keyspace"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -247,6 +247,17 @@ paths:
                     vplayer_batching:
                       type: boolean
                       description: Enable VPlayer batching
+                throttler:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      description: Whether the keyspace throttler is enabled
+                    threshold:
+                      type: number
+                      description: >-
+                        Replication lag in seconds that trips the throttler.
+                        Must be >= 0
       responses:
         '200':
           description: Returns the keyspace

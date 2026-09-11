@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_router
 title: "Update_router"
 description: ""
-access_date: 2026-09-10T16:32:33.433Z
-current_date: 2026-09-10T16:32:33.433Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -305,6 +305,11 @@ paths:
                         type: number
                         description: The monthly rate for the SKU
                         nullable: true
+                      enabled:
+                        type: boolean
+                        description: >-
+                          Whether or not the router SKU is enabled for the
+                          organization
                     required:
                       - name
                       - display_name
@@ -312,6 +317,7 @@ paths:
                       - ram
                       - sort_order
                       - rate
+                      - enabled
                   router_size:
                     type: string
                     description: The router size SKU name

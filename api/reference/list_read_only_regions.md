@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_read_only_regions
 title: "List_read_only_regions"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -358,6 +358,9 @@ paths:
                             postgresql_supported:
                               type: boolean
                               description: Whether the region supports PostgreSQL databases
+                            neki_supported:
+                              type: boolean
+                              description: Whether the region supports Neki databases
                           required:
                             - id
                             - provider
@@ -369,6 +372,7 @@ paths:
                             - current_default
                             - mysql_supported
                             - postgresql_supported
+                            - neki_supported
                       required:
                         - id
                         - display_name

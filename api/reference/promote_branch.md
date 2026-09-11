@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/promote_branch
 title: "Promote_branch"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -448,6 +448,9 @@ paths:
                       postgresql_supported:
                         type: boolean
                         description: Whether the region supports PostgreSQL databases
+                      neki_supported:
+                        type: boolean
+                        description: Whether the region supports Neki databases
                     required:
                       - id
                       - provider
@@ -459,6 +462,7 @@ paths:
                       - current_default
                       - mysql_supported
                       - postgresql_supported
+                      - neki_supported
                   parent_branch:
                     type: string
                     description: >-

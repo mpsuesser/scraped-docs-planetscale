@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_regions_for_organization
 title: "List_regions_for_organization"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -309,6 +309,9 @@ paths:
                         postgresql_supported:
                           type: boolean
                           description: Whether the region supports PostgreSQL databases
+                        neki_supported:
+                          type: boolean
+                          description: Whether the region supports Neki databases
                       required:
                         - id
                         - provider
@@ -320,6 +323,7 @@ paths:
                         - current_default
                         - mysql_supported
                         - postgresql_supported
+                        - neki_supported
                 required:
                   - type
                   - current_page

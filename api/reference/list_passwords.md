@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_passwords
 title: "List_passwords"
 description: ""
-access_date: 2026-09-08T23:30:04.646Z
-current_date: 2026-09-08T23:30:04.646Z
+access_date: 2026-09-11T18:25:13.023Z
+current_date: 2026-09-11T18:25:13.023Z
 ---
 
 > ## Documentation Index
@@ -441,6 +441,9 @@ paths:
                             postgresql_supported:
                               type: boolean
                               description: Whether the region supports PostgreSQL databases
+                            neki_supported:
+                              type: boolean
+                              description: Whether the region supports Neki databases
                           required:
                             - id
                             - provider
@@ -452,6 +455,7 @@ paths:
                             - current_default
                             - mysql_supported
                             - postgresql_supported
+                            - neki_supported
                         username:
                           type: string
                           description: The username for the password
