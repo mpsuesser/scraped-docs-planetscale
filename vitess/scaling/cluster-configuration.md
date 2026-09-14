@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-14T20:46:03.870Z
+current_date: 2026-09-14T20:46:03.870Z
 ---
 
 From here, you can:
@@ -21,6 +21,7 @@ From here, you can:
 - Adjust the [memory allocated to vector indexes](../vectors.md#resource-requirements) and the InnoDB buffer pool, for any branch with [vectors](../vectors.md) enabled
 - Configure [VReplication settings](#vreplication-settings)
 - Configure [replication durability constraints](#replication-durability-constraints)
+- Enable or disable the [tablet throttler](#throttler) and set its replication lag threshold
 - Tune [VTGate, VTTablet, and MySQL parameters](../cluster-configuration/parameters.md)
 
 This documentation will cover how to use everything on this Clusters page. For a full walkthrough with an example of setting up a sharded keyspace, refer to the [Sharding quickstart](../sharding/sharding-quickstart.md).
@@ -101,6 +102,15 @@ These settings improve performance during [VReplication](https://vitess.io/docs/
 - **Optimize inserts** — Enabled by default. When enabled, during binlog replication catch-up, skip sending insert events for rows that have yet to be copied. For more technical details, see the corresponding [Vitess implementation](https://github.com/vitessio/vitess/pull/7708).
 - **Allow NOBLOB binlog row image** — Enabled by default. When enabled, then we support enabling MySQL’s NOBLOB binlog mode, to omit unchanged BLOB and TEXT columns from replication events, reducing binlog size. For more technical details, see the corresponding [Vitess Implementation](https://github.com/vitessio/vitess/pull/14502).
 - **Batch binlog statements** — Disabled by default. If enabled, batches binlog statements and transactions to limit the number of round-trips to MySQL. For more technical details, see the corresponding [Vitess implementation](https://github.com/vitessio/vitess/pull/14502).
+
+### Throttler
+
+The [Vitess tablet throttler](https://vitess.io/docs/reference/features/tablet-throttler/) pauses schema migrations and VReplication workflows when replication lag rises above a threshold. You can enable or disable it per keyspace, and set the lag threshold, from the same keyspace settings form.
+
+- **Enable** — On by default. When enabled, migrations and workflows pause while replication lag is above the threshold. This setting applies across all shards in the keyspace.
+- **Replication lag threshold** — Seconds of lag that trip the throttler. The default is 5 seconds.
+
+You can also change these settings from the CLI with `pscale keyspace update-settings`. See the [keyspace CLI docs](../../cli/keyspace.md).
 
 ## Need help?
 
