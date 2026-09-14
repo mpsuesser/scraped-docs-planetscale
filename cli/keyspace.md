@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-08-14T00:39:58.404Z
-current_date: 2026-08-14T00:39:58.404Z
+access_date: 2026-09-14T20:54:26.630Z
+current_date: 2026-09-14T20:54:26.630Z
 ---
 
 ## Getting started
@@ -33,7 +33,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Cancel an ongoing keyspace resize. |
 | `resize status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the status of the keyspace’s last resize. |
 | `settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the settings for a keyspace. |
-| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--replication-durability-constraints-strategy <STRATEGY>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
+| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--replication-durability-constraints-strategy <STRATEGY>`, `--throttler-enabled`, `--throttler-threshold <SECONDS>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
 | `vschema show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the VSchema for a sharded keyspace. Empty on non-sharded keyspaces. |
 | `vschema update <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--vschema <FILE>` \* | Vitess | Update a VSchema of a keyspace. |
 | `rollout-status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Check the status of a keyspace resize request. |
@@ -49,6 +49,8 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--force` | Delete the keyspace without a confirmation prompt. Required in non-interactive or non- `human` output modes. | `delete` |
 | `-i, --interactive` | Run the command in interactive mode. | `update-settings` |
 | `--replication-durability-constraints-strategy <STRATEGY>` | Replication strategy to use. Options: maximum, dynamic, minimum (default “maximum”). | `update-settings` |
+| `--throttler-enabled` | Pause schema migrations and VReplication workflows when replication lag is above the threshold. Pass `--throttler-enabled=false` to turn the throttler off. | `update-settings` |
+| `--throttler-threshold <SECONDS>` | Replication lag in seconds above which migrations and workflows are paused. Default is 5. | `update-settings` |
 | `--shards <NUMBER>` | Number of shards in the keyspace (default 1). | `create` |
 | `--vreplication-batch-replication-events` | When enabled, sends fewer queries to MySQL to improve performance. | `update-settings` |
 | `--vreplication-enable-noblob-binlog-mode` | When enabled, omits changed BLOB and TEXT columns from replication events, which reduces binlog sizes. (default true) | `update-settings` |
@@ -76,6 +78,14 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--service-token-id <TOKEN_ID>` | The service token ID for authenticating. |
 
 ## Examples
+
+### Update tablet throttler settings
+
+```shellscript
+pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --throttler-enabled=false
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --throttler-threshold=10
+```
 
 ### List read-only regions for a keyspace
 
