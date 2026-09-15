@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-15T23:05:23.430Z
+current_date: 2026-09-15T23:05:23.430Z
 ---
 
 Postgres extensions add data types, functions, operators, background workers, and other capabilities to Postgres. Extensions that do not require a profile-level toggle install in a logical database with `CREATE EXTENSION`.
@@ -46,14 +46,6 @@ WHERE installed_version IS NOT NULL
 ORDER BY name;
 ```
 
-To see every extension that Postgres reports as available to the current logical database:
-
-```sql
-SELECT name, default_version, installed_version, comment
-FROM pg_available_extensions
-ORDER BY name;
-```
-
 During Platform Preview, do not use `ALTER EXTENSION ... ADD` to attach a user-created table, type, function, sequence, view, or other object to an extension. A shard created or rebuilt later may not recreate that object. Contact PlanetScale Support before using extension-membership DDL.
 
 ## Supported extensions
@@ -70,22 +62,41 @@ These extensions are part of Neki’s managed configuration and cannot be disabl
 | `pginsights` | — | Collects per-query execution statistics for [Query Insights](monitoring/query-insights.md) |
 | `plpgsql` | 1.0 | Built-in PL/pgSQL procedural language |
 
-### Customer-configurable
+### Built-in PostgreSQL extensions
+
+These modules ship with PostgreSQL. They do not need a configuration-profile checkbox. Install each one in the logical databases that need it:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+```
+
+| Extension | Version | Database install | Purpose |
+| --- | --- | --- | --- |
+| [`bloom`](https://www.postgresql.org/docs/current/bloom.html) | 1.0 | `CREATE EXTENSION bloom` | Bloom filter index access method |
+| [`btree_gin`](https://www.postgresql.org/docs/current/btree-gin.html) | 1.3 | `CREATE EXTENSION btree_gin` | B-tree equivalent operator classes for GIN |
+| [`btree_gist`](https://www.postgresql.org/docs/current/btree-gist.html) | 1.8 | `CREATE EXTENSION btree_gist` | B-tree equivalent operator classes for GiST |
+| [`citext`](https://www.postgresql.org/docs/current/citext.html) | 1.8 | `CREATE EXTENSION citext` | Case-insensitive text type |
+| [`cube`](https://www.postgresql.org/docs/current/cube.html) | 1.5 | `CREATE EXTENSION cube` | Multidimensional cube type |
+| [`fuzzystrmatch`](https://www.postgresql.org/docs/current/fuzzystrmatch.html) | 1.2 | `CREATE EXTENSION fuzzystrmatch` | String similarity and distance functions |
+| [`hstore`](https://www.postgresql.org/docs/current/hstore.html) | 1.8 | `CREATE EXTENSION hstore` | Key/value pairs stored in a single value |
+| [`insert_username`](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-INSERT-USERNAME) | 1.0 | `CREATE EXTENSION insert_username` | Trigger functions that record who changed a table |
+| [`intarray`](https://www.postgresql.org/docs/current/intarray.html) | 1.5 | `CREATE EXTENSION intarray` | Functions and operators for integer arrays |
+| [`ltree`](https://www.postgresql.org/docs/current/ltree.html) | 1.3 | `CREATE EXTENSION ltree` | Labels in a hierarchical tree |
+| [`moddatetime`](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-MODDATETIME) | 1.0 | `CREATE EXTENSION moddatetime` | Trigger functions that record last modification time |
+| [`pg_trgm`](https://www.postgresql.org/docs/current/pgtrgm.html) | 1.6 | `CREATE EXTENSION pg_trgm` | Trigram text similarity |
+| [`pgcrypto`](https://www.postgresql.org/docs/current/pgcrypto.html) | 1.4 | `CREATE EXTENSION pgcrypto` | Cryptographic functions |
+| [`tcn`](https://www.postgresql.org/docs/current/tcn.html) | 1.0 | `CREATE EXTENSION tcn` | Trigger function that notifies listeners of table changes |
+| [`tsm_system_rows`](https://www.postgresql.org/docs/current/tsm-system-rows.html) | 1.0 | `CREATE EXTENSION tsm_system_rows` | `TABLESAMPLE` method `SYSTEM_ROWS` |
+| [`tsm_system_time`](https://www.postgresql.org/docs/current/tsm-system-time.html) | 1.0 | `CREATE EXTENSION tsm_system_time` | `TABLESAMPLE` method `SYSTEM_TIME` |
+| [`unaccent`](https://www.postgresql.org/docs/current/unaccent.html) | 1.1 | `CREATE EXTENSION unaccent` | Text-search dictionary that strips accents |
+| [`uuid-ossp`](https://www.postgresql.org/docs/current/uuid-ossp.html) | 1.1 | `CREATE EXTENSION "uuid-ossp"` | UUID generation functions |
+
+### Community extensions
 
 | Extension | Version | Profile toggle | Database install | Notes |
 | --- | --- | --- | --- | --- |
-| `citext` | 1.8 | — | `CREATE EXTENSION citext` |  |
-| `cube` | 1.5 | — | `CREATE EXTENSION cube` |  |
-| `fuzzystrmatch` | 1.2 | — | `CREATE EXTENSION fuzzystrmatch` |  |
-| `hstore` | 1.8 | — | `CREATE EXTENSION hstore` |  |
-| `intarray` | 1.5 | — | `CREATE EXTENSION intarray` |  |
-| `ltree` | 1.3 | — | `CREATE EXTENSION ltree` |  |
-| `pg_trgm` | 1.6 | — | `CREATE EXTENSION pg_trgm` |  |
-| `pgcrypto` | 1.4 | — | `CREATE EXTENSION pgcrypto` |  |
-| `unaccent` | 1.1 | — | `CREATE EXTENSION unaccent` |  |
-| `uuid-ossp` | 1.1 | — | `CREATE EXTENSION "uuid-ossp"` |  |
-| [`vector`](#pgvector) (pgvector) | 0.8.6 | Enable | `CREATE EXTENSION vector` | Usable on unsharded and sharded Neki with [query-shape limits](#pgvector) |
-| [`vectorscale`](#vectorscale) | 0.9.0 | Enable | `CREATE EXTENSION vectorscale` | Requires `vector`. Exposes DiskANN query parameters. Inherits the [pgvector query-shape limits](#pgvector) |
+| [`vector`](#pgvector) (pgvector) | 0.8.5 | Enable | `CREATE EXTENSION vector` | Usable on unsharded and sharded Neki with [query-shape limits](#pgvector) |
+| [`vectorscale`](#vectorscale) | 0.9.0 | — | `CREATE EXTENSION vectorscale` | Requires `vector`. Enable on the profile to expose DiskANN query parameters. Inherits the [pgvector query-shape limits](#pgvector) |
 
 ## Extension-specific caveats
 
@@ -131,7 +142,7 @@ Other current limits:
 
 ### vectorscale
 
-[vectorscale](https://github.com/timescale/pgvectorscale) adds StreamingDiskANN indexes on top of pgvector. Install `vector` first, then:
+[vectorscale](https://github.com/timescale/pgvectorscale) adds StreamingDiskANN indexes on top of pgvector. Enable and install `vector` first, then:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS vectorscale;
@@ -139,7 +150,7 @@ CREATE EXTENSION IF NOT EXISTS vectorscale;
 
 Tenant-routed and scatter searches that use a StreamingDiskANN index work when they follow the [pgvector `ORDER BY distance` shape](#pgvector). The pgvector parameter-binding, literal-cast, and `vector_recv` limits also apply, including routed `INSERT ... SELECT` of vector values.
 
-After `vectorscale` is enabled, the **Extensions** tab exposes these DiskANN query parameters:
+Enabling `vectorscale` on the **Extensions** tab exposes these DiskANN query parameters:
 
 | Parameter | Dashboard default | Description |
 | --- | --- | --- |
