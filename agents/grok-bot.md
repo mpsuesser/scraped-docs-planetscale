@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/agents/grok-bot
 title: "Grok Bot"
 description: ""
-access_date: 2026-09-11T20:32:01.323Z
-current_date: 2026-09-11T20:32:01.323Z
+access_date: 2026-09-15T19:21:39.360Z
+current_date: 2026-09-15T19:21:39.360Z
 ---
 
-Database Bot helps you get started with PlanetScale, understand database performance, and fix slow or failing queries using its [MCP server](../mcp-server.md) and installed skills.
+PlanetScale Bot helps you get started with PlanetScale, understand database performance, and fix slow or failing queries using its [MCP server](../mcp-server.md) and installed skills.
 
-## Add Database Bot
+## Add PlanetScale Bot
 
-Open the Database Bot by PlanetScale template, then choose Add to Grok Bot.
+Open the PlanetScale Bot by PlanetScale template, then choose Add to Grok Bot.
 
 ## Connect the PlanetScale plugin
 
@@ -24,7 +24,7 @@ You need a PlanetScale account and access to the databases you want to investiga
 - [Set up Grok Bot on mobile](https://docs.x.ai/grok-bot/mobile).
 - [Connect plugins](https://cursor.com/help/grok-bot/connect-plugins).
 
-## Add Database Bot and connect it to PlanetScale
+## Add PlanetScale Bot and connect it to PlanetScale
 
 For example:
 
@@ -37,11 +37,11 @@ Do not change the database.
 
 ## Connect a codebase (optional)
 
-With access to your repository, Database Bot can trace database issues back to your code and help fix them via [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent). Tell the bot which repository to work on. If it is not already connected to Cursor, connect your source control account through [Cursor Integrations](https://cursor.com/dashboard/integrations). See [Work with Grok Bot](https://cursor.com/docs/grok-bot/work) for more.
+With access to your repository, PlanetScale Bot can trace database issues back to your code and help fix them via [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent). Tell the bot which repository to work on. If it is not already connected to Cursor, connect your source control account through [Cursor Integrations](https://cursor.com/dashboard/integrations). See [Work with Grok Bot](https://cursor.com/docs/grok-bot/work) for more.
 
 ## Setting up the webhook routine
 
-Webhooks are optional. They let Database Bot investigate events as they arrive, check whether database changes completed, and flag what needs your attention. Without webhooks, the bot responds when you ask.
+Webhooks are optional. They let PlanetScale Bot investigate events as they arrive, check whether database changes completed, and flag what needs your attention. Without webhooks, the bot responds when you ask.
 
 See [Setting up webhooks](../api/webhooks.md) for more details.
 

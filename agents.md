@@ -2,19 +2,19 @@
 url: https://planetscale.com/docs/agents
 title: "Agents"
 description: ""
-access_date: 2026-09-11T20:32:01.323Z
-current_date: 2026-09-11T20:32:01.323Z
+access_date: 2026-09-15T19:21:39.360Z
+current_date: 2026-09-15T19:21:39.360Z
 ---
 
 Connect an agent to PlanetScale to get help with your databases. The hosted MCP server provides access to database information and tools, while PlanetScale skills provide guidance for investigating queries and planning changes.
 
-## Database Bot for Grok Bot
+## PlanetScale Bot for Grok Bot
 
 Get started with PlanetScale, ask questions about your database, and investigate slow or failing queries. Connect a codebase to trace database issues back to your code and help fix them via Cloud Agents, or set up webhooks to follow database events.
 
-## Use the Database Bot template
+## Use the PlanetScale Bot template
 
-Preview Database Bot by PlanetScale and add a copy to Grok Bot.
+Preview PlanetScale Bot by PlanetScale and add a copy to Grok Bot.
 
 ## Set up Grok Bot
 
