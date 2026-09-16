@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-16T19:45:27.654Z
+current_date: 2026-09-16T19:45:27.654Z
 ---
 
 ## Getting Started
@@ -64,6 +64,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
 | `vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel a queued VTGate resize for a Vitess branch | Vitess |
+| `vtctld move-tables <COMMAND>` | `list`, `create`, `show`, `status`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | Run Vitess MoveTables workflows. See the [`move-tables` reference](move-tables.md). | Vitess |
 
 ### Service token automation: branch
 
@@ -424,6 +425,16 @@ pscale branch vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>
 ```
 
 Cancels a queued VTGate resize. Only resize requests that have not started being applied can be canceled.
+
+### The vtctld move-tables sub-command
+
+**Command:**
+
+```shellscript
+pscale branch vtctld move-tables list <DATABASE_NAME> <BRANCH_NAME>
+```
+
+Lists Vitess MoveTables workflows on a branch. JSON output includes a helpful `next_steps` field. See the [`move-tables` reference](move-tables.md).
 
 ### The diff sub-command
 

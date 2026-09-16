@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/workflows
 title: "Workflows"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-16T19:45:27.654Z
+current_date: 2026-09-16T19:45:27.654Z
 ---
 
 PlanetScale workflows are built on top of [Vitess VReplication](https://vitess.io/docs/reference/vreplication/vreplication/) and provide a managed way to move data between database sources with real-time progress tracking, data verification, and controlled traffic switching.
@@ -28,7 +28,7 @@ Available table movement workflows:
 - **Sharded to sharded** — Move tables between sharded keyspaces to change the number of shards. See [Modifying the number of shards](../sharding/sharding-a-sharded-keyspace.md).
 - **Unsharded to unsharded** — Move tables from one unsharded keyspace to another unsharded keyspace.
 
-Table movement workflows can be created from the dashboard, the [CLI](../../cli/workflow.md), or the [API](../../api/reference/create_workflow.md).
+Table movement workflows can be created from the dashboard, the [CLI](../../cli/workflow.md), or the [API](../../api/reference/create_workflow.md). You can also run Vitess MoveTables directly with [`pscale branch vtctld move-tables`](../../cli/move-tables.md).
 
 ## Database import workflows
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/workflow
 title: "Workflow"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-16T19:45:27.654Z
+current_date: 2026-09-16T19:45:27.654Z
 ---
 
 ## Getting Started
@@ -13,6 +13,8 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 ## The workflow command
 
 This command allows you to create and manage [workflows](../vitess/scaling/workflows.md) for Vitess databases, including creating workflows, listing them, and performing actions like traffic switching and cutover. This command is not supported for Postgres databases.
+
+For the Vitess MoveTables command surface, see [`pscale branch vtctld move-tables`](move-tables.md).
 
 The `create` sub-command is for [table movement workflows](../vitess/scaling/workflows.md#table-movement-workflows) only (moving tables between keyspaces). [Database import workflows](../vitess/imports/database-imports.md) must be created through the PlanetScale dashboard. Once created, all other sub-commands (`list`, `show`, `switch-traffic`, `verify-data`, `complete`, `cancel`, etc.) work with both workflow types.
 
