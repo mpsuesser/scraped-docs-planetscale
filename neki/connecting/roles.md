@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-16T19:19:11.186Z
+current_date: 2026-09-16T19:19:11.186Z
 ---
 
 A role in Neki has scoped access across all shards within a single branch.
@@ -60,7 +60,7 @@ pscale role create <DATABASE_NAME> <BRANCH> replicator \
 | Role | Grants |
 | --- | --- |
 | `pg_read_all_data` | Read all tables, views, and sequences |
-| `pg_write_all_data` | Write all tables, views, and sequences |
+| `pg_write_all_data` | `INSERT`, `UPDATE`, and `DELETE` on all tables, views, and sequences. |
 | `pg_read_all_settings` | Read all configuration variables |
 | `pg_read_all_stats` | Read all `pg_stat_*` views |
 | `pg_stat_scan_tables` | Run monitoring functions that may take `ACCESS SHARE` locks |

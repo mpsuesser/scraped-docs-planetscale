@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-16T19:19:11.186Z
+current_date: 2026-09-16T19:19:11.186Z
 ---
 
 You should not connect to the database from your application servers using the default role. If you ever need to rotate your default role credentials and you use the default role to connect to your application, you will have to take some downtime while rotating the credentials.
@@ -49,7 +49,13 @@ Below is a list of available permissions you can set on user-defined roles.
 **Data access permissions**
 
 - **pg\_read\_all\_data** — Read data from all tables, views, and sequences. This permission allows `SELECT` queries across all database objects.
-- **pg\_write\_all\_data** — Write data to all tables, views, and sequences. This permission allows `INSERT`, `UPDATE`, `DELETE`, and `TRUNCATE` operations. Note that write operations typically require `pg_read_all_data` as well to read the data being modified.
+- **pg\_write\_all\_data** — Write data to all tables, views, and sequences. This permission allows `INSERT`, `UPDATE`, and `DELETE` operations. Note that write operations typically require `pg_read_all_data` as well to read the data being modified.
+
+`TRUNCATE` is a separate table privilege. Grant it explicitly on the tables that need it, or run `TRUNCATE` as a table owner or a role that inherits `postgres`:
+
+```sql
+GRANT TRUNCATE ON TABLE public.my_table TO "<role_name>";
+```
 
 **Configuration and monitoring permissions**
 
@@ -261,7 +267,7 @@ For a typical web application that needs to read and write data, you may conside
 - `pg_read_all_data`
 - `pg_write_all_data`
 
-`pg_read_all_data` and `pg_write_all_data` grant **data** access only (`SELECT`, `INSERT`, `UPDATE`, `DELETE`). They do **not** grant the ability to run DDL such as `CREATE TABLE`, `CREATE INDEX`, or `CREATE SCHEMA`. Creating an object in a schema additionally requires the `CREATE` privilege **on that schema**.
+`pg_read_all_data` and `pg_write_all_data` grant **data** access only (`SELECT`, `INSERT`, `UPDATE`, `DELETE`). They do **not** grant `TRUNCATE`, and they do **not** grant the ability to run DDL such as `CREATE TABLE`, `CREATE INDEX`, or `CREATE SCHEMA`. Creating an object in a schema additionally requires the `CREATE` privilege **on that schema**.
 
 A role with only these two permissions that tries to create a table in the `public` schema will fail with:
 
