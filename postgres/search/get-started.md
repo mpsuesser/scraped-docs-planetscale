@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-09-16T20:24:15.727Z
-current_date: 2026-09-16T20:24:15.727Z
+access_date: 2026-09-16T22:03:58.009Z
+current_date: 2026-09-16T22:03:58.009Z
 ---
 
 ## Install the extension
@@ -14,7 +14,7 @@ The database encoding must be `UTF8` or `SQL_ASCII`. `CREATE EXTENSION tin` refu
 CREATE EXTENSION IF NOT EXISTS tin;
 ```
 
-If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your bran ch, find the “Cluster update available” indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
+If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the “Cluster update available” indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
 
 ## Create a table and index
 

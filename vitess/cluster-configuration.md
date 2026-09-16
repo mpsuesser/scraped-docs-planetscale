@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-14T20:54:26.630Z
-current_date: 2026-09-14T20:54:26.630Z
+access_date: 2026-09-16T22:03:58.009Z
+current_date: 2026-09-16T22:03:58.009Z
 ---
 
 From here, you can:
@@ -21,6 +21,7 @@ From here, you can:
 - Adjust the [memory allocated to vector indexes](vectors.md#resource-requirements) and the InnoDB buffer pool, for any branch with [vectors](vectors.md) enabled
 - Configure [VReplication settings](#vreplication-settings)
 - Configure [replication durability constraints](#replication-durability-constraints)
+- Configure [shard rollout concurrency](#shard-rollout-concurrency)
 - Enable or disable the [tablet throttler](#throttler) and set its replication lag threshold
 - Tune [VTGate, VTTablet, and MySQL parameters](cluster-configuration/parameters.md)
 
@@ -102,6 +103,19 @@ These settings improve performance during [VReplication](https://vitess.io/docs/
 - **Optimize inserts** — Enabled by default. When enabled, during binlog replication catch-up, skip sending insert events for rows that have yet to be copied. For more technical details, see the corresponding [Vitess implementation](https://github.com/vitessio/vitess/pull/7708).
 - **Allow NOBLOB binlog row image** — Enabled by default. When enabled, then we support enabling MySQL’s NOBLOB binlog mode, to omit unchanged BLOB and TEXT columns from replication events, reducing binlog size. For more technical details, see the corresponding [Vitess Implementation](https://github.com/vitessio/vitess/pull/14502).
 - **Batch binlog statements** — Disabled by default. If enabled, batches binlog statements and transactions to limit the number of round-trips to MySQL. For more technical details, see the corresponding [Vitess implementation](https://github.com/vitessio/vitess/pull/14502).
+
+### Shard rollout concurrency
+
+By default, PlanetScale rolls out keyspace configuration changes to one shard at a time. For a sharded keyspace, you can set the maximum number of shards updated concurrently to a value from 1 to 32. Increasing the value can shorten rollouts for keyspaces with many shards, but changes more shards at the same time.
+
+View and change the setting with the `pscale` CLI:
+
+```shellscript
+pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --max-rollout <NUMBER>
+```
+
+You can also set `max_rollout` with the [update keyspace API endpoint](../api/reference/update_keyspace.md). Omitting `max_rollout` preserves the current setting. Passing `null` through the API clears the configured value and uses the default of 1.
 
 ### Throttler
 
