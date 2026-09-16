@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-09-14T20:54:26.630Z
-current_date: 2026-09-14T20:54:26.630Z
+access_date: 2026-09-16T22:20:10.815Z
+current_date: 2026-09-16T22:20:10.815Z
 ---
 
 ## Getting started
@@ -33,7 +33,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Cancel an ongoing keyspace resize. |
 | `resize status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the status of the keyspace’s last resize. |
 | `settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the settings for a keyspace. |
-| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--replication-durability-constraints-strategy <STRATEGY>`, `--throttler-enabled`, `--throttler-threshold <SECONDS>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
+| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--max-rollout <NUMBER>`, `--replication-durability-constraints-strategy <STRATEGY>`, `--throttler-enabled`, `--throttler-threshold <SECONDS>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
 | `vschema show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the VSchema for a sharded keyspace. Empty on non-sharded keyspaces. |
 | `vschema update <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--vschema <FILE>` \* | Vitess | Update a VSchema of a keyspace. |
 | `rollout-status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Check the status of a keyspace resize request. |
@@ -48,6 +48,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--cluster-size <SIZE>` | `<SIZE>` is the size of the database cluster. | `create`, `resize` |
 | `--force` | Delete the keyspace without a confirmation prompt. Required in non-interactive or non- `human` output modes. | `delete` |
 | `-i, --interactive` | Run the command in interactive mode. | `update-settings` |
+| `--max-rollout <NUMBER>` | Maximum number of shards to update concurrently during a keyspace rollout. Accepts values from 1 to 32. | `update-settings` |
 | `--replication-durability-constraints-strategy <STRATEGY>` | Replication strategy to use. Options: maximum, dynamic, minimum (default “maximum”). | `update-settings` |
 | `--throttler-enabled` | Pause schema migrations and VReplication workflows when replication lag is above the threshold. Pass `--throttler-enabled=false` to turn the throttler off. | `update-settings` |
 | `--throttler-threshold <SECONDS>` | Replication lag in seconds above which migrations and workflows are paused. Default is 5. | `update-settings` |
@@ -86,6 +87,17 @@ pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
 pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --throttler-enabled=false
 pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --throttler-threshold=10
 ```
+
+### Update shard rollout concurrency
+
+Set the maximum number of shards updated concurrently during keyspace configuration rollouts:
+
+```shellscript
+pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --max-rollout=4
+```
+
+`--max-rollout` accepts values from 1 to 32. If the API value is not set, `pscale keyspace settings` displays `not set`, and PlanetScale uses the default of 1.
 
 ### List read-only regions for a keyspace
 
