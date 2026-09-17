@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-09-07T13:39:43.177Z
-current_date: 2026-09-07T13:39:43.177Z
+access_date: 2026-09-17T15:58:08.632Z
+current_date: 2026-09-17T15:58:08.632Z
 ---
 
 ## Overview
@@ -21,8 +21,8 @@ PlanetScale emits the following metrics to be scraped.
 | **Name & Description** | **Type** | **Tags** |
 | --- | --- | --- |
 | **planetscale\_edge\_active\_connections** The number of active MySQL connections to the branch | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_region |
-| **planetscale\_mysql\_bytes\_received\_total** Total number of bytes received from MySQL clients | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
-| **planetscale\_mysql\_bytes\_sent\_total** Total number of bytes sent to MySQL clients | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_bytes\_received\_total** Total number of bytes received from MySQL clients | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_mysql\_bytes\_sent\_total** Total number of bytes sent to MySQL clients | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_innodb\_data\_writes\_total** Total number of InnoDB data write operations | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_innodb\_row\_lock\_time\_total** Total time spent acquiring row locks in InnoDB | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_innodb\_row\_lock\_waits\_total** Number of times InnoDB had to wait for a row lock | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
