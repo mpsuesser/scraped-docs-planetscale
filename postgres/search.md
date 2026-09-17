@@ -2,11 +2,13 @@
 url: https://planetscale.com/docs/postgres/search
 title: "Search"
 description: ""
-access_date: 2026-09-16T20:24:15.727Z
-current_date: 2026-09-16T20:24:15.727Z
+access_date: 2026-09-17T17:35:52.931Z
+current_date: 2026-09-17T17:35:52.931Z
 ---
 
 TIN (**T** ext **IN** dex) brings blazing-fast full-text search to PlanetScale Postgres. Enabling the `tin` extension adds an inverted index type built for search, BM25 ranking, and the **[TINQL](search/tinql.md)** query language.
+
+For local development and CI, use [Lead](https://github.com/planetscale/lead), a TIN-compatible Postgres extension for testing your application’s search queries on small datasets. See [Local development and CI](search/get-started.md#local-development-and-ci) for setup instructions. Lead is intentionally unsuitable for production workloads.
 
 ## A search engine inside Postgres
 

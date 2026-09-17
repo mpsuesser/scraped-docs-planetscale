@@ -2,11 +2,13 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-09-16T22:03:58.009Z
-current_date: 2026-09-16T22:03:58.009Z
+access_date: 2026-09-17T17:35:52.931Z
+current_date: 2026-09-17T17:35:52.931Z
 ---
 
 ## Install the extension
+
+On PlanetScale, enable TIN with the SQL below. For a local or CI database, first [set up Lead](#local-development-and-ci).
 
 The database encoding must be `UTF8` or `SQL_ASCII`. `CREATE EXTENSION tin` refuses other encodings (for example, `LATIN1`).
 
@@ -138,6 +140,14 @@ WHERE name ==> 'fuji^1.5'
 ORDER BY score DESC
 LIMIT 10;
 ```
+
+## Local development and CI
+
+[Lead](https://github.com/planetscale/lead) is a Postgres extension for exercising TIN-compatible application SQL in local development and CI. It uses the `tin` extension name so you can test your application’s search queries without connecting to PlanetScale.
+
+Lead supports Postgres 17 and 18 and is built from source. Follow the [Lead README](https://github.com/planetscale/lead#build) for build prerequisites, local setup, and packaging instructions for your test database.
+
+Lead is intended for small development and test datasets. It scans table rows instead of maintaining TIN’s search index, so it is not suitable for production workloads or benchmarking TIN’s performance. Use TIN on PlanetScale for production search.
 
 ## Common pitfalls
 
