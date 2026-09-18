@@ -2,13 +2,14 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-14T20:46:03.870Z
-current_date: 2026-09-14T20:46:03.870Z
+access_date: 2026-09-18T21:18:56.067Z
+current_date: 2026-09-18T21:18:56.067Z
 ---
 
 From here, you can:
 
 - Adjust the instance sizes for [keyspaces](../sharding/keyspaces.md)
+- Enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) on sharded keyspaces
 - Create sharded or unsharded keyspaces
 - Switch between [Metal](../../plans/planetscale-skus.md#metal) and [network-attached storage](../../plans/planetscale-skus.md#network-attached-storage)
 - Adjust the number of replicas for each keyspace
@@ -39,6 +40,10 @@ A network-attached storage cluster (Amazon Elastic Block Storage or Google Persi
 You can check the status of the resize from the [database homepage](../architecture.md#resizing) in the dashboard, [CLI](../../cli/keyspace.md), or [API](../../api/reference/get_keyspace_rollout_status.md). There will be no downtime or locking during this process.
 
 For more information about selecting a cluster size, see the [Cluster sizing documentation](../../plans/cluster-sizing.md).
+
+## Per-shard sizing
+
+On a sharded keyspace, enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) from the Shards tab, then set a cluster size on individual shards. Shards you don’t set keep the keyspace default.
 
 ## Configure read-only regions
 

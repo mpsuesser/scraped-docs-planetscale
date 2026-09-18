@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/keyspaces
 title: "Keyspaces"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-18T21:18:56.067Z
+current_date: 2026-09-18T21:18:56.067Z
 ---
 
 Keyspaces are used to group MySQL instances, typically to shard certain tables in your database cluster. While a keyspace may contain several MySQL instances across many shards, to your application, it will appear as a single database.
@@ -48,7 +48,7 @@ Some frameworks and ORMs require a database name is specified. In these scenario
 
 ## Modifying keyspaces in PlanetScale
 
-Having 1 unsharded keyspace and 1 sharded is a typical setup for a database that needs sharding. On the [Clusters page](../cluster-configuration.md), you are able to customize the number of shards in the sharded keyspace. You can also adjust the instance size for each primary and replica, and you can add additional replicas beyond the default of two if needed.
+Having 1 unsharded keyspace and 1 sharded is a typical setup for a database that needs sharding. On the [Clusters page](../cluster-configuration.md), you are able to customize the number of shards in the sharded keyspace. You can also adjust the instance size for each primary and replica, and you can add additional replicas beyond the default of two if needed. On a sharded keyspace, you can enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) to size individual shards separately.
 
 To get a better sense of this, or to configure your keyspaces, click on your [Clusters](../cluster-configuration.md) tab in your dashboard. If you have an existing unsharded database, you’ll see that database listed there as an unsharded keyspace. If you click “New keyspace”, you’re able to configure a brand new keyspace here.
 

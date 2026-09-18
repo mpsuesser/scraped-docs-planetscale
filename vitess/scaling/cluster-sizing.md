@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-sizing
 title: "Cluster Sizing"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-18T21:18:56.067Z
+current_date: 2026-09-18T21:18:56.067Z
 ---
 
 You can easily upsize and downsize your database cluster from within the PlanetScale dashboard. This documentation covers some information about selecting a cluster size upon database creation as well as how to upsize and downsize.
@@ -38,7 +38,7 @@ Our self-serve plans are flexible enough to handle the majority of customers. Ho
 
 As your application scales, upgrading or downgrading your database cluster is a seamless operation that does not involve any downtime.
 
-To change cluster sizes, go to your PlanetScale dashboard, click on your database, click [“Clusters”](../cluster-configuration.md), select the new cluster size for the [keyspace](../sharding/keyspaces.md) you wish to configure, and click “Update”.
+To change cluster sizes, go to your PlanetScale dashboard, click on your database, click [“Clusters”](../cluster-configuration.md), select the new cluster size for the [keyspace](../sharding/keyspaces.md) you wish to configure, and click “Update”. On a sharded keyspace, you can also enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) and set a cluster size on individual shards.
 
 If you have [maintenance schedules](../../plans/managed/maintenance-schedules.md) enabled, changes to cluster size will roll out during your scheduled maintenance window.
 

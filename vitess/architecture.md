@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/architecture
 title: "Architecture"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-18T21:18:56.067Z
+current_date: 2026-09-18T21:18:56.067Z
 ---
 
 ## Overview
@@ -176,7 +176,7 @@ Selecting one will show you the metrics for that specific node in your database 
 
 ### Resizing
 
-You can use the [Clusters page](cluster-configuration.md) menu to resize your keyspaces. When a resize is in progress, this will be indicated at the top of the diagram.
+You can use the [Clusters page](cluster-configuration.md) menu to resize your keyspaces. On a sharded keyspace, you can also enable [per-shard sizing](cluster-configuration/per-shard-sizing.md) and resize individual shards. When a resize is in progress, this will be indicated at the top of the diagram.
 
 ![Architecture diagram with resize indicator](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/architecture/diagram-resize-darkmode.png?w=2500&fit=max&auto=format&n=pncBnOWnwAfGxG1f&q=85&s=fb5674261efa1740fea11deb41de8987)
 

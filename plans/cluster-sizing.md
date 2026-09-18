@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/cluster-sizing
 title: "Cluster Sizing"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-18T21:18:56.067Z
+current_date: 2026-09-18T21:18:56.067Z
 ---
 
 You can easily upsize and downsize your database cluster from within the PlanetScale dashboard. This documentation covers some information about selecting a cluster size upon database creation as well as how to upsize and downsize.
@@ -36,7 +36,7 @@ Our self-serve plans are flexible enough to handle the majority of customers. Ho
 
 ## Sharding with Vitess
 
-You can create sharded Vitess keyspaces on any plan by adding a new sharded keyspace using the [cluster configuration page](../vitess/cluster-configuration.md) and running an [unsharded to sharded workflow](../vitess/sharding/sharding-quickstart.md) in your dashboard.
+You can create sharded Vitess keyspaces on any plan by adding a new sharded keyspace using the [cluster configuration page](../vitess/cluster-configuration.md) and running an [unsharded to sharded workflow](../vitess/sharding/sharding-quickstart.md) in your dashboard. Sharded keyspaces can [size shards independently](../vitess/cluster-configuration/per-shard-sizing.md) after you enable per-shard sizing.
 
 If you would like additional support from our expert team, our [Enterprise plan](../planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
 
