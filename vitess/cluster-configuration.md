@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-18T21:18:56.067Z
-current_date: 2026-09-18T21:18:56.067Z
+access_date: 2026-09-18T21:28:08.308Z
+current_date: 2026-09-18T21:28:08.308Z
 ---
 
 From here, you can:
@@ -11,6 +11,7 @@ From here, you can:
 - Adjust the instance sizes for [keyspaces](sharding/keyspaces.md)
 - Enable [per-shard sizing](cluster-configuration/per-shard-sizing.md) on sharded keyspaces
 - Create sharded or unsharded keyspaces
+- Create [external keyspaces](#create-an-external-keyspace) that connect a production branch to an existing MySQL database
 - Switch between [Metal](../plans/planetscale-skus.md#metal) and [network-attached storage](../plans/planetscale-skus.md#network-attached-storage)
 - Adjust the number of replicas for each keyspace
 - Add and configure [read-only regions](scaling/read-only-regions.md) for each keyspace
@@ -72,6 +73,12 @@ Sharded keyspaces are not currently supported on databases that have foreign key
 To create a new [keyspace](sharding/keyspaces.md):
 
 The cost of adding this additional keyspace largely depends on the number of shards you choose, the cluster size, and if you’d like to add additional replicas.
+
+## Create an external keyspace
+
+An external keyspace connects a **production** branch to an existing MySQL database. PlanetScale runs an external tablet against that source so you can query it through Vitess without importing the data first. This is separate from a [database import](imports/database-imports.md).
+
+You can create the same keyspace from the CLI with [`pscale keyspace create-external`](../cli/keyspace.md#create-an-external-keyspace). Resize an existing external keyspace from this page, or with [`pscale keyspace resize`](../cli/keyspace.md).
 
 ## Modify the VSchema of a keyspace via the Clusters page
 

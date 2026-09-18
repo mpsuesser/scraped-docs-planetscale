@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/size
 title: "Size"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-18T21:28:08.308Z
+current_date: 2026-09-18T21:28:08.308Z
 ---
 
 > ## Documentation Index
@@ -80,12 +80,13 @@ pscale size cluster list [flags]
 
 ### Available flags
 
-| **Flag**          | **Description**                                                                                                     |
-| :---------------- | :------------------------------------------------------------------------------------------------------------------ |
-| `--engine string` | Filter cluster sizes by database engine. Supported values: `mysql`, `postgresql`, `neki`. Omit to list all engines. |
-| `-h`, `--help`    | Help for list                                                                                                       |
-| `--metal`         | View cluster sizes and rates for clusters with metal storage                                                        |
-| `--region string` | View cluster sizes and rates for a specific region                                                                  |
+| **Flag**          | **Description**                                                                                                        |
+| :---------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| `--engine string` | Filter cluster sizes by database engine. Supported values: `mysql`, `postgresql`, `neki`. Omit to list all engines.    |
+| `--external`      | View cluster sizes for external Vitess keyspaces. Mutually exclusive with `--metal`. Only valid with the MySQL engine. |
+| `-h`, `--help`    | Help for list                                                                                                          |
+| `--metal`         | View cluster sizes and rates for clusters with metal storage                                                           |
+| `--region string` | View cluster sizes and rates for a specific region                                                                     |
 
 ## Examples
 
@@ -147,6 +148,14 @@ For Postgres or Neki Metal clusters, use:
 pscale size cluster list --engine postgresql --metal
 pscale size cluster list --engine neki --metal
 ```
+
+### List external keyspace cluster sizes
+
+```bash theme={null}
+pscale size cluster list --external
+```
+
+`--cluster-size` is optional on `create-external`. Use these sizes with `pscale keyspace create-external --cluster-size` and `pscale keyspace resize --cluster-size` for [external keyspaces](keyspace.md#create-an-external-keyspace). `--external` is MySQL/Vitess only.
 
 For more information about PlanetScale cluster sizes and pricing, see:
 

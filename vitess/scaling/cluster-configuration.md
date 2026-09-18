@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-18T21:18:56.067Z
-current_date: 2026-09-18T21:18:56.067Z
+access_date: 2026-09-18T21:28:08.308Z
+current_date: 2026-09-18T21:28:08.308Z
 ---
 
 From here, you can:
@@ -11,6 +11,7 @@ From here, you can:
 - Adjust the instance sizes for [keyspaces](../sharding/keyspaces.md)
 - Enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) on sharded keyspaces
 - Create sharded or unsharded keyspaces
+- Create [external keyspaces](../cluster-configuration.md#create-an-external-keyspace) that connect a production branch to an existing MySQL database
 - Switch between [Metal](../../plans/planetscale-skus.md#metal) and [network-attached storage](../../plans/planetscale-skus.md#network-attached-storage)
 - Adjust the number of replicas for each keyspace
 - Add and configure [read-only regions](read-only-regions.md) for each keyspace
@@ -71,6 +72,8 @@ Sharded keyspaces are not currently supported on databases that have foreign key
 To create a new [keyspace](../sharding/keyspaces.md):
 
 The cost of adding this additional keyspace largely depends on the number of shards you choose, the cluster size, and if you’d like to add additional replicas.
+
+To attach an existing MySQL database as a keyspace instead of creating an internal one, see [Create an external keyspace](../cluster-configuration.md#create-an-external-keyspace).
 
 ## Modify the VSchema of a keyspace via Clusters page
 

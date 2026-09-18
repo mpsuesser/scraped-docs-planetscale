@@ -2,13 +2,15 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-18T21:28:08.308Z
+current_date: 2026-09-18T21:28:08.308Z
 ---
 
 ## Overview
 
 PlanetScale provides an import tool in the dashboard that allows you to painlessly import an existing internet-accessible MySQL or MariaDB database with **no downtime**.
+
+To attach an existing MySQL database as a keyspace on a Vitess production branch without running a full import, see [external keyspaces](../cluster-configuration.md#create-an-external-keyspace).
 
 You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) to use this feature.
 
