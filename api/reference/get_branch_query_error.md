@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_query_error
 title: "Get_branch_query_error"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:30:24.913Z
+current_date: 2026-09-21T21:30:24.913Z
 ---
 
 > ## Documentation Index
@@ -288,9 +288,11 @@ paths:
                   current_page:
                     type: integer
                     description: The current page number
+                    nullable: true
                   per_page:
                     type: integer
                     description: The maximum number of results per page
+                    nullable: true
                   next_page:
                     type: integer
                     description: The next page number, or null when this is the last page
@@ -416,12 +418,8 @@ paths:
                         - truncated
                 required:
                   - type
-                  - current_page
-                  - per_page
                   - next_page
-                  - next_page_url
                   - prev_page
-                  - prev_page_url
                   - data
         '401':
           description: Unauthorized
