@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/lint_branch_schema
 title: "Lint_branch_schema"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -296,9 +296,9 @@ paths:
                         subject_type:
                           type: string
                           enum:
-                            - table
-                            - vschema
-                            - routing_rules
+                            - table_error
+                            - vschema_error
+                            - routing_rules_error
                           description: The subject for the errors
                         keyspace_name:
                           type: string
@@ -306,49 +306,62 @@ paths:
                         table_name:
                           type: string
                           description: The table with the error
+                          nullable: true
                         error_description:
                           type: string
                           description: A description for the error that occurred
+                          nullable: true
                         docs_url:
                           type: string
                           description: A link to the documentation related to the error
                         column_name:
                           type: string
                           description: The column in a table relevant to the error
+                          nullable: true
                         foreign_key_column_names:
                           items:
                             type: string
                           type: array
                           description: A list of invalid foreign key columns in a table
+                          nullable: true
                         auto_increment_column_names:
                           items:
                             type: string
                           type: array
                           description: A list of invalid auto-incremented columns
+                          nullable: true
                         charset_name:
                           type: string
                           description: The charset of the schema
+                          nullable: true
                         engine_name:
                           type: string
                           description: The engine of the schema
+                          nullable: true
                         vindex_name:
                           type: string
                           description: The name of the vindex for the schema
+                          nullable: true
                         json_path:
                           type: string
                           description: The path for an invalid JSON column
+                          nullable: true
                         check_constraint_name:
                           type: string
                           description: The name of the invalid check constraint
+                          nullable: true
                         enum_value:
                           type: string
                           description: The name of the invalid enum value
+                          nullable: true
                         partitioning_type:
                           type: string
                           description: The name of the invalid partitioning type
+                          nullable: true
                         partition_name:
                           type: string
                           description: The name of the invalid partition in the schema
+                          nullable: true
                       required:
                         - lint_error
                         - subject_type

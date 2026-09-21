@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_admin_parameters
 title: "List_admin_parameters"
 description: ""
-access_date: 2026-09-10T16:32:33.433Z
-current_date: 2026-09-10T16:32:33.433Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -244,6 +244,10 @@ paths:
                 items:
                   type: object
                   properties:
+                    id:
+                      type: string
+                      description: The ID of the parameter
+                      nullable: true
                     name:
                       type: string
                       description: The name of the parameter
@@ -284,9 +288,11 @@ paths:
                     default_value:
                       type: string
                       description: The default value of the parameter
+                      nullable: true
                     value:
                       type: string
                       description: The configured value of the parameter
+                      nullable: true
                     required:
                       type: boolean
                       description: Whether the parameter is required
@@ -341,6 +347,7 @@ paths:
                         - display_name
                         - avatar_url
                   required:
+                    - id
                     - name
                     - display_name
                     - namespace

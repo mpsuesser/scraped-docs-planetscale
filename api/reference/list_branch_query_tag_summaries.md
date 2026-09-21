@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_branch_query_tag_summaries
 title: "List_branch_query_tag_summaries"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -382,9 +382,11 @@ paths:
                   current_page:
                     type: integer
                     description: The current page number
+                    nullable: true
                   per_page:
                     type: integer
                     description: The maximum number of results per page
+                    nullable: true
                   next_page:
                     type: integer
                     description: The next page number, or null when this is the last page
@@ -434,10 +436,9 @@ paths:
                           description: Fully qualified tables accessed by the query
                         table_keyspaces:
                           items:
-                            type: object
-                            additionalProperties: true
+                            type: string
                           type: array
-                          description: Mapping of tables to their keyspaces
+                          description: Keyspaces or schemas accessed by the query
                         index_usages:
                           items:
                             type: object
@@ -486,19 +487,19 @@ paths:
                           type: number
                           description: Average rows affected per query
                         sum_total_duration_millis:
-                          type: integer
+                          type: number
                           description: Total duration in milliseconds across all executions
                         sum_total_duration_percent:
                           type: number
                           description: Percentage of total query time
                         sum_cpu_duration_millis:
-                          type: integer
+                          type: number
                           description: Total CPU duration in milliseconds
                         sum_cpu_duration_percent:
                           type: number
                           description: Percentage of total CPU time
                         sum_io_duration_millis:
-                          type: integer
+                          type: number
                           description: Total IO duration in milliseconds
                         sum_io_duration_percent:
                           type: number
@@ -614,12 +615,8 @@ paths:
                         - traffic_control_checked
                 required:
                   - type
-                  - current_page
-                  - per_page
                   - next_page
-                  - next_page_url
                   - prev_page
-                  - prev_page_url
                   - data
         '400':
           description: Invalid time range

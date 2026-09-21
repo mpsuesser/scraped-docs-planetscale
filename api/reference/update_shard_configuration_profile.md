@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_shard_configuration_profile
 title: "Update_shard_configuration_profile"
 description: ""
-access_date: 2026-09-10T16:32:33.433Z
-current_date: 2026-09-10T16:32:33.433Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -248,6 +248,13 @@ paths:
                 cluster_size:
                   type: string
                   description: The new cluster size for the shard configuration profile
+                extensions:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Extensions to enable. This replaces the current set; omit it
+                    to leave them unchanged.
                 replicas:
                   type: integer
                   description: >-

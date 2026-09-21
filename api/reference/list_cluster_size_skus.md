@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_cluster_size_skus
 title: "List_cluster_size_skus"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -249,6 +249,13 @@ paths:
             database-level custom rates take precedence over organization rates.
           schema:
             type: string
+        - name: external
+          in: query
+          description: >-
+            When true, list cluster sizes for external keyspaces. Defaults to
+            false.
+          schema:
+            type: boolean
       responses:
         '200':
           description: Returns available cluster sizes with optional pricing rates
@@ -279,6 +286,11 @@ paths:
                     metal:
                       type: boolean
                       description: Whether or not the cluster SKU is Metal
+                    external:
+                      type: boolean
+                      description: >-
+                        Whether or not the cluster SKU is for an external
+                        keyspace
                     enabled:
                       type: boolean
                       description: >-
@@ -333,6 +345,7 @@ paths:
                     - storage
                     - ram
                     - metal
+                    - external
                     - enabled
                     - provider
                     - default_vtgate

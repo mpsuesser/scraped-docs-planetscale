@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_query_summary
 title: "Get_query_summary"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -315,10 +315,9 @@ paths:
                     description: Fully qualified tables accessed by the query
                   table_keyspaces:
                     items:
-                      type: object
-                      additionalProperties: true
+                      type: string
                     type: array
-                    description: Mapping of tables to their keyspaces
+                    description: Keyspaces or schemas accessed by the query
                   index_usages:
                     items:
                       type: object
@@ -365,19 +364,19 @@ paths:
                     type: number
                     description: Average rows affected per query
                   sum_total_duration_millis:
-                    type: integer
+                    type: number
                     description: Total duration in milliseconds across all executions
                   sum_total_duration_percent:
                     type: number
                     description: Percentage of total query time
                   sum_cpu_duration_millis:
-                    type: integer
+                    type: number
                     description: Total CPU duration in milliseconds
                   sum_cpu_duration_percent:
                     type: number
                     description: Percentage of total CPU time
                   sum_io_duration_millis:
-                    type: integer
+                    type: number
                     description: Total IO duration in milliseconds
                   sum_io_duration_percent:
                     type: number

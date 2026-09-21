@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_branch_change_requests
 title: "List_branch_change_requests"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -384,8 +384,8 @@ paths:
                         storage_shrinking:
                           type: boolean
                           description: >-
-                            Whether storage shrinking is enabled when
-                            autoscaling is enabled
+                            Deprecated, storage shrinking is part of storage
+                            autoscaling.
                         storage_type:
                           type: string
                           enum:
@@ -412,7 +412,9 @@ paths:
                           description: Whether storage autoscaling was previously enabled
                         previous_storage_shrinking:
                           type: boolean
-                          description: Whether storage shrinking was previously enabled
+                          description: >-
+                            Deprecated, storage shrinking is part of storage
+                            autoscaling.
                         previous_storage_type:
                           type: string
                           description: The previous storage type

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_webhook
 title: "Create_webhook"
 description: ""
-access_date: 2026-09-08T23:30:04.646Z
-current_date: 2026-09-08T23:30:04.646Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -273,9 +273,11 @@ paths:
                   last_sent_result:
                     type: string
                     description: The last result sent by the webhook
+                    nullable: true
                   last_sent_success:
                     type: boolean
                     description: Whether the last sent was successful
+                    nullable: true
                   last_sent_at:
                     type: string
                     description: When the last event was sent

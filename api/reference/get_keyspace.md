@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_keyspace
 title: "Get_keyspace"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -318,6 +318,13 @@ paths:
                     required:
                       - strategy
                       - storage_limit_bytes
+                  max_rollout:
+                    type: integer
+                    description: >-
+                      The maximum number of shards rolled out in parallel. Null
+                      uses the infrastructure default of 1. Effective
+                      concurrency is capped at 32.
+                    nullable: true
                   replication_durability_constraints:
                     type: object
                     properties:
@@ -389,6 +396,7 @@ paths:
                   - vector_pool_allocation
                   - node_ttl_strategy
                   - disk_autoscaling
+                  - max_rollout
                   - replication_durability_constraints
                   - vreplication_flags
                   - throttler

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_instant_branch_metrics
 title: "Get_instant_branch_metrics"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -318,6 +318,7 @@ paths:
                       deleted_at:
                         type: string
                         description: When the resource was deleted, if deleted
+                        nullable: true
                     required:
                       - id
                       - name

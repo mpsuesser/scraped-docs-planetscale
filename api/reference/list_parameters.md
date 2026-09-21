@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_parameters
 title: "List_parameters"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -246,9 +246,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      description: The ID of the parameter
                     name:
                       type: string
                       description: The name of the parameter
@@ -336,7 +333,6 @@ paths:
                         - display_name
                         - avatar_url
                   required:
-                    - id
                     - name
                     - display_name
                     - namespace

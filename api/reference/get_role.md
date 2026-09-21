@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_role
 title: "Get_role"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -255,6 +255,16 @@ paths:
         - name: bouncer
           in: query
           description: Return connection details for this bouncer
+          schema:
+            type: string
+        - name: router
+          in: query
+          description: Return connection details for this Neki router group
+          schema:
+            type: string
+        - name: shard
+          in: query
+          description: Return libpq options that pin this Neki shard
           schema:
             type: string
       responses:

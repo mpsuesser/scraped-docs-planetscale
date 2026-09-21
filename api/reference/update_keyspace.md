@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_keyspace
 title: "Update_keyspace"
 description: ""
-access_date: 2026-09-11T18:25:13.023Z
-current_date: 2026-09-11T18:25:13.023Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -247,6 +247,12 @@ paths:
                     vplayer_batching:
                       type: boolean
                       description: Enable VPlayer batching
+                max_rollout:
+                  type: integer
+                  description: >-
+                    The maximum number of shards rolled out in parallel, from 1
+                    to 32. Set to null to use the infrastructure default of 1.
+                  nullable: true
                 throttler:
                   type: object
                   properties:
@@ -353,6 +359,13 @@ paths:
                     required:
                       - strategy
                       - storage_limit_bytes
+                  max_rollout:
+                    type: integer
+                    description: >-
+                      The maximum number of shards rolled out in parallel. Null
+                      uses the infrastructure default of 1. Effective
+                      concurrency is capped at 32.
+                    nullable: true
                   replication_durability_constraints:
                     type: object
                     properties:
@@ -424,6 +437,7 @@ paths:
                   - vector_pool_allocation
                   - node_ttl_strategy
                   - disk_autoscaling
+                  - max_rollout
                   - replication_durability_constraints
                   - vreplication_flags
                   - throttler

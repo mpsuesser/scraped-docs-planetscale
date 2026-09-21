@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_extensions
 title: "List_extensions"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-21T21:19:48.490Z
+current_date: 2026-09-21T21:19:48.490Z
 ---
 
 > ## Documentation Index
@@ -263,27 +263,23 @@ paths:
                         - session_preload_libraries
                         - create_extension
                       description: How the extension is loaded
+                    requirements:
+                      type: object
+                      properties:
+                        postgres_image_version:
+                          type: string
+                          description: >-
+                            The Postgres image version required to use the
+                            extension
+                          nullable: true
                     url:
                       type: string
                       description: The URL of the extension
-                    available:
-                      type: boolean
-                      description: >-
-                        Whether the extension is available on the current
-                        cluster image
-                    unavailable_reason:
-                      type: string
-                      description: >-
-                        The reason the extension is unavailable (e.g.,
-                        'container_upgrade_required')
                     parameters:
                       type: array
                       items:
                         type: object
                         properties:
-                          id:
-                            type: string
-                            description: The ID of the parameter
                           name:
                             type: string
                             description: The name of the parameter
@@ -373,7 +369,6 @@ paths:
                               - display_name
                               - avatar_url
                         required:
-                          - id
                           - name
                           - display_name
                           - namespace
@@ -399,9 +394,8 @@ paths:
                     - description
                     - internal
                     - loader
+                    - requirements
                     - url
-                    - available
-                    - unavailable_reason
                     - parameters
         '401':
           description: Unauthorized
