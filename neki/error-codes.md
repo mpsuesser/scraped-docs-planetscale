@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-09-16T09:44:15.237Z
-current_date: 2026-09-16T09:44:15.237Z
+access_date: 2026-09-21T15:32:03.941Z
+current_date: 2026-09-21T15:32:03.941Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -1297,3 +1297,11 @@ SET EXPRESSION AS (region_id * 1000000 + local_id);
 ```
 
 Depends on the topology: `account_id` is both a generated column and the shard key. Changing or dropping its generation expression could send existing rows to another shard without moving them. The same change is allowed for a generated column that does not drive routing.
+
+### 338 — Temporary tables, views and sequences are unavailable.
+
+```sql
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+```
+
+A temporary relation lives in the PostgreSQL backend that created it, and the router holds no shard backend for a session. The relation would be created on each shard’s pooled backend, where no later statement could see it, so the statement is rejected instead. `CREATE TEMP TABLE ... AS`, `CREATE TEMP VIEW`, `CREATE TEMP SEQUENCE`, and a name qualified with `pg_temp` report the same code. Create a regular relation and drop it when done.
