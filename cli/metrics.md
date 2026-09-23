@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-09-17T15:58:08.632Z
-current_date: 2026-09-17T15:58:08.632Z
+access_date: 2026-09-23T07:42:47.676Z
+current_date: 2026-09-23T07:42:47.676Z
 ---
 
 ## Overview
@@ -48,8 +48,9 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vtgate\_v\_streams\_ended\_with\_errors\_total** Number of vstreams that ended with errors | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vtgate\_v\_streams\_events\_streamed\_total** Number of events sent across all vstreams | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vtgate\_v\_streams\_lag\_seconds** Difference in seconds between the current time when the vstream event was sent and the time when the binlog event occurred | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
-| **planetscale\_vtorc\_failed\_recoveries\_total** Number of failed replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_vtorc\_recovery\_type |
-| **planetscale\_vtorc\_successful\_recoveries\_total** Number of successful replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_vtorc\_recovery\_type |
+| **planetscale\_vtorc\_detected\_problems** Problems VTOrc currently detects in the cluster (1 = the problem is active). Join against the recovery counters to see what VTOrc did about it | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_vtorc\_analysis |
+| **planetscale\_vtorc\_failed\_recoveries\_total** Number of failed replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace (Vitess 23+), planetscale\_pod, planetscale\_shard (Vitess 23+), planetscale\_vtorc\_recovery\_type |
+| **planetscale\_vtorc\_successful\_recoveries\_total** Number of successful replication/recovery attempts by vtorc | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace (Vitess 23+), planetscale\_pod, planetscale\_shard (Vitess 23+), planetscale\_vtorc\_recovery\_type |
 | **planetscale\_vttablet\_connection\_pool\_active** Number of active connections in the vttablet connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_connection\_pool\_capacity** Total capacity of the vttablet connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_connection\_pool\_get\_total** Number of connection get operations from the vttablet pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
@@ -91,6 +92,8 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vttablet\_vstreamer\_throttled\_total** Number of times the vstreamer was throttled by the tablet throttler. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard |
 | **planetscale\_workflow\_vreplication\_lag** VReplication lag in seconds for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_source\_keyspace, planetscale\_source\_shard, planetscale\_workflow |
 | **planetscale\_workflow\_vreplication\_stream\_state** State of the VReplication stream for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_state, planetscale\_workflow |
+
+The planetscale\_keyspace and planetscale\_shard tags on **planetscale\_vtorc\_failed\_recoveries\_total** and **planetscale\_vtorc\_successful\_recoveries\_total** are only present on databases running Vitess 23 or later. On earlier versions these counters are reported per pod and recovery type only, and queries that group by keyspace or shard return nothing.
 
 ## Edge metrics (Single Tenant & Managed only)
 
@@ -151,6 +154,8 @@ These metrics are experimental and may be subject to changes to their name, type
 | **planetscale\_mysql\_binlog\_cache\_disk\_use\_total** Number of transactions that used temporary binary log cache but exceeded binlog\_cache\_size | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_binlog\_stmt\_cache\_use\_total** Number of non-transactional statements that used the binary log statement cache | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_binlog\_stmt\_cache\_disk\_use\_total** Number of non-transactional statements that exceeded binlog\_stmt\_cache\_size | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vitess\_emergency\_reparents\_total** Number of emergency reparents attempted on a shard, counting both successes and failures. An emergency reparent means the primary was promoted to recover from a failure rather than as part of planned work | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_reparent\_result, planetscale\_shard |
+| **planetscale\_vitess\_planned\_reparents\_total** Number of planned reparents attempted on a shard, counting both successes and failures. A planned reparent is a graceful promotion, such as the one that happens during maintenance or when you request one | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_reparent\_result, planetscale\_shard |
 | **planetscale\_vttablet\_storage\_info** An info metric for the storage type of a vttablet | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_storage\_type, planetscale\_tablet\_type |
 
 ## Tag glossary
@@ -163,7 +168,7 @@ These metrics are experimental and may be subject to changes to their name, type
 | planetscale\_cell | Availability zone or cell where the component is running |
 | planetscale\_column | Auto-increment column name |
 | planetscale\_command | VTGate command type (e.g., Select, Insert, Update) |
-| planetscale\_component | Vitess component type (vtgate, vttablet, vtctld, vtorc) |
+| planetscale\_component | Vitess component type (vtgate, vttablet, vtctld, vtorc). On the reparent metrics it says which component ran the reparent: vtorc means VTOrc recovered the shard on its own, vtctld means the reparent was requested |
 | planetscale\_container | Kubernetes container name within the pod |
 | planetscale\_database\_branch\_id | Unique identifier for the database branch |
 | planetscale\_instance | Edge instance identifier |
@@ -175,6 +180,7 @@ These metrics are experimental and may be subject to changes to their name, type
 | planetscale\_psdb\_api\_operation | PSDB API operation type |
 | planetscale\_query\_type | Query statement type (SELECT, INSERT, UPDATE, DELETE, etc.) |
 | planetscale\_region | Geographic region where the database is hosted |
+| planetscale\_reparent\_result | Whether a reparent attempt succeeded (success, failure) |
 | planetscale\_shard | Database shard identifier |
 | planetscale\_source\_keyspace | Source keyspace for VReplication workflow operations |
 | planetscale\_source\_shard | Source shard for VReplication workflow operations |
@@ -186,7 +192,8 @@ These metrics are experimental and may be subject to changes to their name, type
 | planetscale\_vtgate\_code | VTGate error code (INVALID\_ARGUMENT, etc.) |
 | planetscale\_vtgate\_operation | VTGate operation type (Execute, ExecuteBatch, etc.) |
 | planetscale\_vtgate\_plan\_type | VTGate query plan type (Passthrough, Scatter, MultiShard, Join, etc.) |
-| planetscale\_vtorc\_recovery\_type | Type of recovery operation performed by VTOrc (planned, unplanned) |
+| planetscale\_vtorc\_analysis | The problem VTOrc detected (DeadPrimary, ReplicaSemiSyncMustBeSet, etc.) |
+| planetscale\_vtorc\_recovery\_type | The recovery VTOrc performed (RecoverDeadPrimary, ElectNewPrimary, FixReplica, etc.) |
 | planetscale\_vttablet\_code | VTTablet error code (NOT\_FOUND, etc.) |
 | planetscale\_waiting\_reason | Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc.) |
 | planetscale\_workflow | VReplication workflow identifier |
