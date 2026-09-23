@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_role
 title: "Reset_role"
 description: ""
-access_date: 2026-08-18T20:17:33.766Z
-current_date: 2026-08-18T20:17:33.766Z
+access_date: 2026-09-23T17:47:26.286Z
+current_date: 2026-09-23T17:47:26.286Z
 ---
 
 POST
@@ -130,7 +130,7 @@ required
 
 The base username without branch routing suffixpassword
 
-string
+string | null
 
 required
 
@@ -178,7 +178,7 @@ required
 
 When the role was disableddrop\_failed
 
-string
+string | null
 
 required
 
@@ -202,7 +202,7 @@ required
 
 Whether the role is the default postgres userttl
 
-integer
+integer | null
 
 required
 

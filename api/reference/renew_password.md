@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/renew_password
 title: "Renew_password"
 description: ""
-access_date: 2026-09-08T23:30:04.646Z
-current_date: 2026-09-08T23:30:04.646Z
+access_date: 2026-09-23T17:47:26.286Z
+current_date: 2026-09-23T17:47:26.286Z
 ---
 
 POST
@@ -206,11 +206,11 @@ required
 
 The username for the passwordplain\_text
 
-string | null
+string
 
 required
 
-The plaintext password. Null except in the response from the create endpoint.replica
+The plaintext password returned by create and renewreplica
 
 boolean
 

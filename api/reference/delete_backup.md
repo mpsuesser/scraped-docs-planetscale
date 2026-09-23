@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_backup
 title: "Delete_backup"
 description: ""
-access_date: 2026-08-31T23:54:49.109Z
-current_date: 2026-08-31T23:54:49.109Z
+access_date: 2026-09-23T17:47:26.286Z
+current_date: 2026-09-23T17:47:26.286Z
 ---
 
 > ## Documentation Index
@@ -82,6 +82,11 @@ tags:
   - name: Databases
     description: |2
                   Resources for managing databases within an organization.
+  - name: InsightsAgentRuns
+    description: |2
+                Resources for running and viewing Insights agent analyses.
+  - name: Insights Agent schedules
+    description: Resources for managing Insights Agent schedules.
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
@@ -249,6 +254,12 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: >-
+            Too Many Requests. Reduce the frequency of requests and try again
+            soon.
         '500':
           description: Internal Server Error
 components:
@@ -273,6 +284,7 @@ components:
             branch:delete_branch: Delete a database branch
             branch:manage_passwords: Read, write, and delete branch passwords
             branch:manage_read_only_passwords: Read, write, and delete read only branch passwords
+            branch:manage_topology: Manage shard primaries and tablet serving for this branch
             branch:read_backups: Read backups
             branch:read_branch: Read a database branch
             branch:restore_backups: Restore this branch's backups to new branches
@@ -287,8 +299,14 @@ components:
             database:delete_production_branches: Delete a production database branch
             database:demote_branches: Demote production database branches
             database:deploy_deploy_requests: Deploy deploy requests in a database
+            database:manage_branch_topologies: >-
+              Manage shard primaries and tablet serving for development branches
+              in a database
             database:manage_passwords: Read, write, and delete database branch passwords
             database:manage_production_branch_passwords: Read, write, and delete production branch passwords
+            database:manage_production_branch_topologies: >-
+              Manage shard primaries and tablet serving for production branches
+              in a database
             database:manage_production_read_only_passwords: >-
               Read, write, and delete production read only branch passwords in
               an organization
@@ -302,6 +320,7 @@ components:
             database:read_database: Read database information
             database:read_deploy_requests: Read deploy requests in a database
             database:read_members: Read members
+            database:read_workflows: Read database workflows
             database:restore_backups: Restore backups to new branches
             database:restore_production_branch_backups: Restore production branch backups to new branches
             database:write_backups: Create and update backups
@@ -310,6 +329,7 @@ components:
             database:write_database: Write database
             database:write_deploy_requests: Create and update deploy requests in a database
             database:write_members: Write members
+            database:write_workflows: Create and manage database workflows
             organization:approve_deploy_requests: Approve deploy requests in an organization
             organization:create_databases: Create organization databases
             organization:delete_backups: Delete backups in an organization
@@ -320,10 +340,16 @@ components:
             organization:delete_production_branch_backups: Delete production backups in an organization
             organization:delete_production_branches: Delete a production branch in an organization
             organization:deploy_deploy_requests: Deploy deploy requests in an organization
+            organization:manage_branch_topologies: >-
+              Manage shard primaries and tablet serving for development branches
+              in an organization
             organization:manage_passwords: Read, write, and delete branch passwords in an organization
             organization:manage_production_branch_passwords: >-
               Read, write, and delete production branch passwords in an
               organization
+            organization:manage_production_branch_topologies: >-
+              Manage shard primaries and tablet serving for production branches
+              in an organization
             organization:manage_production_read_only_passwords: >-
               Read, write, and delete production read only branch passwords in
               an organization
@@ -342,6 +368,7 @@ components:
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
             organization:read_payment_method: Read organization payment method
+            organization:read_workflows: Read workflows in an organization
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
               Restore production branch backups to new branches in an
@@ -354,6 +381,7 @@ components:
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
             organization:write_payment_method: Update and delete the organization payment method
+            organization:write_workflows: Create and manage workflows in an organization
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user
