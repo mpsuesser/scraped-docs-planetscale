@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security
 title: "Security"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-24T18:40:45.778Z
+current_date: 2026-09-24T18:40:45.778Z
 ---
 
 The security of our systems is of the utmost importance. We consistently aim to improve our security posture by building security into every layer of our products.
@@ -70,9 +70,11 @@ Data in transit to PlanetScale databases is encrypted and goes through three maj
 - PlanetScale [connection strings](vitess/connecting/connection-strings.md) require the successful establishment of a TLS session before any SQL commands can be issued.
 - [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) is used to secure all data transmitted between PlanetScale and [clients using PlanetScale Connect](vitess/etl.md).
 
+All public PlanetScale endpoints use post-quantum key exchange with clients that support it.
+
 #### Additional data protection controls
 
-Communications to the PlanetScale API and Dashboard are encrypted using TLS 1.3. Certificates are issued by established third-party certificate authorities.
+Communications to the PlanetScale API and Dashboard are encrypted using TLS 1.3 with support for post-quantum key exchange. Certificates are issued by established third-party certificate authorities.
 
 ### General Data Protection Regulation (GDPR)
 
