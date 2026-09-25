@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-09-16T19:45:27.654Z
-current_date: 2026-09-16T19:45:27.654Z
+access_date: 2026-09-25T17:44:23.215Z
+current_date: 2026-09-25T17:44:23.215Z
 ---
 
 ## Getting Started
@@ -46,8 +46,8 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `resize <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>`, `--replicas <COUNT>`, `--parameters <NAMESPACE.NAME=VALUE>`, `--wait`, `--wait-timeout <DURATION>` | Change a Postgres branch’s cluster size, replica count, or configuration parameters | Postgres |
 | `resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest change request for a Postgres branch | Postgres |
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel the queued change request for a Postgres branch | Postgres |
-| `routing-rules get <DATABASE_NAME> <BRANCH_NAME>` |  | Show the keyspace routing rules of a branch | Vitess |
-| `routing-rules update <DATABASE_NAME> <BRANCH_NAME>` | `--routing-rules <FILE>` \* | Replace the keyspace routing rules of a branch | Vitess |
+| `routing-rules get <DATABASE_NAME> <BRANCH_NAME>` |  | Show the routing rules of a branch | Vitess |
+| `routing-rules update <DATABASE_NAME> <BRANCH_NAME>` | `--routing-rules <FILE>` \* | Replace the routing rules of a branch | Vitess |
 | `safe-migrations enable <DATABASE_NAME> <BRANCH_NAME>` |  | Enables safe migrations for a database branch | Vitess |
 | `safe-migrations disable <DATABASE_NAME> <BRANCH_NAME>` |  | Disables safe migrations for a database branch | Vitess |
 | `router <COMMAND>` | `create`, `delete`, `list`, `show`, `update`, `sizes`, `changes` (`list`, `show`, `cancel`) | Manage router groups for a Neki branch | Neki |
