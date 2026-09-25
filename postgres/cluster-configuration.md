@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-09-25T16:29:00.890Z
+current_date: 2026-09-25T16:29:00.890Z
 ---
 
 The Clusters page in your PlanetScale dashboard allows you to monitor your cluster utilization and configure cluster settings for each branch in your database. You can:
@@ -22,7 +22,7 @@ These settings may only be changed by a [database administrator or organization 
 
 To adjust your cluster size:
 
-You cannot change the [CPU architecture](cluster-configuration/cpu-architectures.md) (AMD, Intel, ARM) of an existing cluster. To use a different architecture, you’ll need to create a new branch with the desired cluster type.
+You cannot change the [CPU architecture](cluster-configuration/cpu-architectures.md) (`aarch64` or `x86-64`) of an existing cluster. New branches and backup restores retain the source architecture. To use a different architecture, create a new PlanetScale Postgres database and [migrate your data](imports/postgres-imports.md).
 
 Cluster resizing may take several minutes to complete and you cannot make additional configuration changes until the resize is finished.
 

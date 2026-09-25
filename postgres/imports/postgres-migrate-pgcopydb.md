@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb
 title: "Postgres Migrate Pgcopydb"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-25T16:29:00.890Z
+current_date: 2026-09-25T16:29:00.890Z
 ---
 
 [pgcopydb](https://github.com/planetscale/pgcopydb) is a tool that automates migrating data between two running PostgreSQL servers. PlanetScale maintains a fork that supports PostgreSQL 17 and 18, improved filtering, resilient retry, and improved CDC support. This guide uses PlanetScale’s fork throughout.
@@ -205,6 +205,7 @@ Once the user is created, update the `PGCOPYDB_SOURCE_PGURI` in your `~/.env` fi
 
 For CDC migrations using `--follow`, logical replication must be enabled on the source. How to enable it depends on your platform:
 
+- **PlanetScale Postgres:** Configure `wal_level = logical` and the required replication parameters in **Clusters > Parameters**. Connect with a role that has replication permissions and access to the tables being migrated. See [Logical replication and CDC](../integrations/logical-cdc.md) for configuration and role setup.
 - **Amazon RDS / Aurora:** Set `rds.logical_replication = 1` in the parameter group and reboot the instance.
 - **Google Cloud SQL:** Set the `cloudsql.logical_decoding` database flag to `on` and restart the instance.
 - **Google AlloyDB:** Set `alloydb.logical_decoding = on` and restart the instance.
