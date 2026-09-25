@@ -2,13 +2,21 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-25T00:40:36.800Z
+current_date: 2026-09-25T00:40:36.800Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
 
 The Discovery CLI also supports MySQL and MySQL-compatible database discovery. See the [MySQL setup guide](https://github.com/planetscale/ps-discovery/blob/main/docs/mysql.md) for MySQL, Vitess, and PlanetScale-specific details.
+
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=bc96d810f2d7bcf76a7ad86135abacde)
+
+Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
+
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=4a1f6f3fe78b8cc5e0b84b06390474df)
+
+Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
 
 The tool produces a structured JSON report that PlanetScale uses to provide migration guidance tailored to your environment. You can upload this report to our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on your migration readiness.
 
