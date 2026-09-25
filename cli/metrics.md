@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-09-23T07:42:47.676Z
-current_date: 2026-09-23T07:42:47.676Z
+access_date: 2026-09-25T13:22:21.299Z
+current_date: 2026-09-25T13:22:21.299Z
 ---
 
 ## Overview
@@ -90,8 +90,11 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vttablet\_vstreamer\_errors\_total** Total number of vttablet vstreamer errors. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_vstreamer\_code |
 | **planetscale\_vttablet\_vstreamer\_events\_total** Total number of vttablet vstreamer streamed events. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard |
 | **planetscale\_vttablet\_vstreamer\_throttled\_total** Number of times the vstreamer was throttled by the tablet throttler. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard |
+| **planetscale\_workflow\_vreplication\_copy\_row\_count** Number of rows copied so far for a VReplication workflow stream | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_source\_keyspace, planetscale\_source\_shard, planetscale\_workflow |
 | **planetscale\_workflow\_vreplication\_lag** VReplication lag in seconds for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_source\_keyspace, planetscale\_source\_shard, planetscale\_workflow |
 | **planetscale\_workflow\_vreplication\_stream\_state** State of the VReplication stream for workflow operations | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_state, planetscale\_workflow |
+| **planetscale\_workflow\_vreplication\_table\_copy\_row\_count** Number of rows copied so far per table for a VReplication workflow | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_source\_keyspace, planetscale\_source\_shard, planetscale\_table, planetscale\_workflow |
+| **planetscale\_workflow\_vreplication\_throttled\_total** Number of times VReplication was throttled for a workflow, by component and throttler | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_throttled\_component, planetscale\_throttler, planetscale\_workflow |
 
 The planetscale\_keyspace and planetscale\_shard tags on **planetscale\_vtorc\_failed\_recoveries\_total** and **planetscale\_vtorc\_successful\_recoveries\_total** are only present on databases running Vitess 23 or later. On earlier versions these counters are reported per pod and recovery type only, and queries that group by keyspace or shard return nothing.
 
@@ -188,6 +191,8 @@ These metrics are experimental and may be subject to changes to their name, type
 | planetscale\_storage\_type | Storage type backing a vttablet (network-attached, metal) |
 | planetscale\_table | Database table name |
 | planetscale\_tablet\_type | Vitess tablet type (primary, replica, rdonly) |
+| planetscale\_throttled\_component | VReplication component that was throttled (e.g., vcopier, vplayer, binlogplayer) |
+| planetscale\_throttler | Which throttler applied the throttle (tablet throttler name) |
 | planetscale\_vstreamer\_code | VTTablet VStreamer error code (StreamEnded, etc.) |
 | planetscale\_vtgate\_code | VTGate error code (INVALID\_ARGUMENT, etc.) |
 | planetscale\_vtgate\_operation | VTGate operation type (Execute, ExecuteBatch, etc.) |
