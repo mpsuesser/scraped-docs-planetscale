@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-09-21T15:32:03.941Z
-current_date: 2026-09-21T15:32:03.941Z
+access_date: 2026-09-28T06:33:45.799Z
+current_date: 2026-09-28T06:33:45.799Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -16,7 +16,7 @@ not implemented: [108] This subquery shape is unavailable in ORDER BY.
 
 The bracketed number is a stable catalog code. It identifies one specific implementation gap, and it keeps that meaning for the life of the product: a code is never reused for a different gap, even after the gap is closed. Quote it when you report a rejected query, and use it to match a rejection your application sees against the entry below.
 
-`NK013` means the gap is one Neki intends to close. A limit that is a design decision rather than a missing implementation is reported as `not supported` instead, and the broad ones are listed in [Platform preview limitations](platform-preview-limitations.md).
+`NK013` means the gap is one Neki intends to close. A limit that is a design decision rather than a missing implementation is reported as `not supported` instead, and the broad ones are listed in [Platform preview limitations](platform-preview-limitations.md). For how other Neki errors use the DETAIL and HINT fields, see [Error hints and details](error-hints-and-details.md).
 
 ## How to read an entry
 
