@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/highlighting
 title: "Highlighting"
 description: ""
-access_date: 2026-09-23T04:17:26.741Z
-current_date: 2026-09-23T04:17:26.741Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -22,12 +22,12 @@ current_date: 2026-09-23T04:17:26.741Z
 
 `tin.highlight(text, begin_tag, end_tag, query) → text`
 
-| Argument    | Type   | Default  | Notes                                                                                                                           |
-| ----------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `text`      | `text` | —        | Document text to highlight (usually the indexed column).                                                                        |
-| `begin_tag` | `text` | `'<b>'`  | Opening tag wrapped around each match. May contain the placeholders described under [Tag placeholders](#tag-placeholders).      |
-| `end_tag`   | `text` | `'</b>'` | Closing tag wrapped around each match.                                                                                          |
-| `query`     | `text` | `NULL`   | TINQL used to find match spans. When omitted, the `==>` predicate on the same column in the statement's `WHERE` clause is used. |
+| Argument | Type | Default | Notes |
+| - | - | - | - |
+| `text` | `text` | — | Document text to highlight (usually the indexed column). |
+| `begin_tag` | `text` | `'<b>'` | Opening tag wrapped around each match. May contain the placeholders described under [Tag placeholders](#tag-placeholders). |
+| `end_tag` | `text` | `'</b>'` | Closing tag wrapped around each match. |
+| `query` | `text` | `NULL` | TINQL used to find match spans. When omitted, the `==>` predicate on the same column in the statement's `WHERE` clause is used. |
 
 Returns document text with matched spans wrapped in tags. Highlighting marks exactly the text that produced the match. For `a BEFORE b`, only the `b` occurrences that satisfy the relation are wrapped.
 
@@ -59,10 +59,10 @@ WHERE id = 1;
 
 `begin_tag` can carry two placeholders that TIN fills in for each highlighted span.
 
-| Placeholder    | Replaced with                                                                                                                                                |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `$QUERY_PART`  | The part of the query that matched the span, HTML-escaped. For a wildcard or regular expression this is the pattern that matched, such as `MATCHES email.*`. |
-| `$QUERY_LABEL` | The same information as a token that is safe in a CSS class: lowercased, with punctuation collapsed to `-`.                                                  |
+| Placeholder | Replaced with |
+| - | - |
+| `$QUERY_PART` | The part of the query that matched the span, HTML-escaped. For a wildcard or regular expression this is the pattern that matched, such as `MATCHES email.*`. |
+| `$QUERY_LABEL` | The same information as a token that is safe in a CSS class: lowercased, with punctuation collapsed to `-`. |
 
 ```sql theme={null}
 SELECT tin.highlight('send email now', '<b title="$QUERY_PART">', '</b>', 'email*');
@@ -80,11 +80,11 @@ When two matches overlap or touch, they merge into one highlight whose placehold
 
 `tin.highlight_ansi(text, wrap_to, query) → text`
 
-| Argument  | Type      | Default | Notes                                                                                                                           |
-| --------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `text`    | `text`    | —       | Document text to highlight.                                                                                                     |
-| `wrap_to` | `integer` | `NULL`  | When set to a positive width, rewraps the text before highlighting.                                                             |
-| `query`   | `text`    | `NULL`  | TINQL used to find match spans. When omitted, the `==>` predicate on the same column in the statement's `WHERE` clause is used. |
+| Argument | Type | Default | Notes |
+| - | - | - | - |
+| `text` | `text` | — | Document text to highlight. |
+| `wrap_to` | `integer` | `NULL` | When set to a positive width, rewraps the text before highlighting. |
+| `query` | `text` | `NULL` | TINQL used to find match spans. When omitted, the `==>` predicate on the same column in the statement's `WHERE` clause is used. |
 
 Returns document text with ANSI color highlighting for matched spans.
 

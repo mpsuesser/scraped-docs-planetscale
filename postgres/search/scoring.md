@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/scoring
 title: "Scoring"
 description: ""
-access_date: 2026-09-16T16:23:24.602Z
-current_date: 2026-09-16T16:23:24.602Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -24,14 +24,14 @@ current_date: 2026-09-16T16:23:24.602Z
 
 `tin.score(tid, real, real, real, text[], text[]) → real`
 
-| Argument       | Type     | Default  | Notes                                                                                                                  |
-| -------------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `ctid`         | `tid`    | required | Heap tuple identifier for the current row (`ctid`).                                                                    |
-| `dense_ratio`  | `real`   | `0.10`   | Fraction of the document count at which a term is dense and left out of the score. A value above `1` disables elision. |
-| `k1`           | `real`   | `NULL`   | Runtime BM25 `k1` override. `NULL` inherits the index option. Domain `[0.0..10000.0]`.                                 |
-| `b`            | `real`   | `NULL`   | Runtime BM25 `b` override. `NULL` inherits the index option. Domain `[0.0..1.0]`.                                      |
-| `term_add`     | `text[]` | `NULL`   | Terms added to the scored set. Each element is analyzed with the index tokenizer and pinned so elision cannot drop it. |
-| `term_replace` | `text[]` | `NULL`   | Terms that become the entire scored set, analyzed with the index tokenizer. Cannot be combined with `term_add`.        |
+| Argument | Type | Default | Notes |
+| - | - | - | - |
+| `ctid` | `tid` | required | Heap tuple identifier for the current row (`ctid`). |
+| `dense_ratio` | `real` | `0.10` | Fraction of the document count at which a term is dense and left out of the score. A value above `1` disables elision. |
+| `k1` | `real` | `NULL` | Runtime BM25 `k1` override. `NULL` inherits the index option. Domain `[0.0..10000.0]`. |
+| `b` | `real` | `NULL` | Runtime BM25 `b` override. `NULL` inherits the index option. Domain `[0.0..1.0]`. |
+| `term_add` | `text[]` | `NULL` | Terms added to the scored set. Each element is analyzed with the index tokenizer and pinned so elision cannot drop it. |
+| `term_replace` | `text[]` | `NULL` | Terms that become the entire scored set, analyzed with the index tokenizer. Cannot be combined with `term_add`. |
 
 Returns BM25 relevance for the current row. Requires a TIN index scan in the same query (`col ==> …`). Outside that context, including DML `RETURNING` without a scan, the call raises *requires a tin index scan and cannot be used in this query context*. When the query has multiple `==>` predicates on TIN-indexed columns, the score combines relevance across those fields. Under `FOR UPDATE` / `FOR SHARE`, scores may be `NULL` on concurrently updated rows.
 
@@ -66,11 +66,11 @@ Index defaults come from `WITH (k1 = …, b = …)` on the TIN index (or `1.2` /
 `tin.full_score(tid) → real`\
 `tin.full_score(tid, real, real) → real`
 
-| Argument | Type   | Notes                                                         |
-| -------- | ------ | ------------------------------------------------------------- |
-| `ctid`   | `tid`  | Heap tuple identifier for the current row (`ctid`).           |
-| `k1`     | `real` | Runtime BM25 `k1` override. `NULL` inherits the index option. |
-| `b`      | `real` | Runtime BM25 `b` override. `NULL` inherits the index option.  |
+| Argument | Type | Notes |
+| - | - | - |
+| `ctid` | `tid` | Heap tuple identifier for the current row (`ctid`). |
+| `k1` | `real` | Runtime BM25 `k1` override. `NULL` inherits the index option. |
+| `b` | `real` | Runtime BM25 `b` override. `NULL` inherits the index option. |
 
 Returns BM25 relevance with every query term kept in the sum. Dense-term elision and `score_stop_words` do not apply, so common terms contribute to the ranking and cost more to score on a large corpus. It has the same scan requirement as `tin.score`, and you can't combine the two in a single scanned relation.
 
@@ -86,9 +86,9 @@ LIMIT 10;
 
 `tin.max_score(tid) → real`
 
-| Argument | Type  | Notes                                               |
-| -------- | ----- | --------------------------------------------------- |
-| `ctid`   | `tid` | Heap tuple identifier for the current row (`ctid`). |
+| Argument | Type | Notes |
+| - | - | - |
+| `ctid` | `tid` | Heap tuple identifier for the current row (`ctid`). |
 
 Returns the highest BM25 score over the query’s visible matches. The value is constant for the scan, which makes it the natural denominator for normalized relevance. Like `tin.score`, it must be used alongside a TIN index scan, or the query errors. It follows whichever of `tin.score` and `tin.full_score` the query uses.
 
@@ -106,13 +106,13 @@ LIMIT 10;
 
 `tin.score_inspect(regclass, text, real, text[], text[]) → setof (term text, weight real)`
 
-| Argument       | Type       | Default  | Notes                                              |
-| -------------- | ---------- | -------- | -------------------------------------------------- |
-| `index`        | `regclass` | required | The TIN index whose statistics and options to use. |
-| `query`        | `text`     | required | The TINQL query to inspect.                        |
-| `dense_ratio`  | `real`     | `0.10`   | Same meaning as in `tin.score`.                    |
-| `term_add`     | `text[]`   | `NULL`   | Same meaning as in `tin.score`.                    |
-| `term_replace` | `text[]`   | `NULL`   | Same meaning as in `tin.score`.                    |
+| Argument | Type | Default | Notes |
+| - | - | - | - |
+| `index` | `regclass` | required | The TIN index whose statistics and options to use. |
+| `query` | `text` | required | The TINQL query to inspect. |
+| `dense_ratio` | `real` | `0.10` | Same meaning as in `tin.score`. |
+| `term_add` | `text[]` | `NULL` | Same meaning as in `tin.score`. |
+| `term_replace` | `text[]` | `NULL` | Same meaning as in `tin.score`. |
 
 Returns one row per term that a `tin.score` scan with the same arguments would score, with the term's accumulated boost weight. It runs the same steps as `tin.score` without scanning anything: query terms, minus `score_stop_words`, minus dense terms, plus terms pinned by a boost or by `term_add`. Use it to see what `dense_ratio` drops on your corpus and to check that a `score_stop_words` entry matches a stored term. It requires `SELECT` on the index's table.
 

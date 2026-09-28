@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -95,12 +95,12 @@ A Postgres query can use an unqualified table name, such as `orders`, while
 `search_path` determines the schema that Postgres actually uses. Four columns
 describe the result of that resolution:
 
-| Column              | Example              | Meaning                                                          |
-| ------------------- | -------------------- | ---------------------------------------------------------------- |
-| **Table**           | `orders`             | The relation name without its database or schema.                |
+| Column | Example | Meaning |
+| - | - | - |
+| **Table** | `orders` | The relation name without its database or schema. |
 | **Qualified table** | `appdb.sales.orders` | The complete resolved relation name, as `database.schema.table`. |
-| **Table schema**    | `appdb.sales`        | The database and schema of each resolved relation.               |
-| **Schema**          | `appdb.a91f4c02`     | The connection grouping the pattern was recorded under.          |
+| **Table schema** | `appdb.sales` | The database and schema of each resolved relation. |
+| **Schema** | `appdb.a91f4c02` | The connection grouping the pattern was recorded under. |
 
 For example, `SELECT * FROM orders` can resolve to `appdb.sales.orders`. Use
 **Qualified table** when you need to know which database object Neki queried. If
@@ -118,15 +118,15 @@ different relations. Read the actual schema from **Table schema** or
 The Neki query table can show the following groups of statistics. A column is
 shown only when its data is collected for the selected branch.
 
-| Group           | Statistics                                                                                                                                     |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Query identity  | Query, Schema, Table schema, Qualified table, Table                                                                                            |
-| Time            | % of runtime, % of CPU time, % of IO time, Count, Total time, CPU time, I/O time, Last run                                                     |
-| Latency         | p50 latency, p99 latency, Max latency                                                                                                          |
-| Rows            | Rows read, Rows read per query, Rows returned, Rows returned per query, Rows affected, Rows affected per query, Rows read / returned           |
-| Routing         | Shard calls per query, Max shard calls per query, Parallel workers per query                                                                   |
-| Postgres blocks | Block cache hit ratio, Blocks hit, Blocks read, Blocks dirtied, Blocks written                                                                 |
-| Network         | Bytes returned, Bytes returned per query, Max bytes returned per query, Bytes received, Bytes received per query, Max bytes received per query |
+| Group | Statistics |
+| - | - |
+| Query identity | Query, Schema, Table schema, Qualified table, Table |
+| Time | % of runtime, % of CPU time, % of IO time, Count, Total time, CPU time, I/O time, Last run |
+| Latency | p50 latency, p99 latency, Max latency |
+| Rows | Rows read, Rows read per query, Rows returned, Rows returned per query, Rows affected, Rows affected per query, Rows read / returned |
+| Routing | Shard calls per query, Max shard calls per query, Parallel workers per query |
+| Postgres blocks | Block cache hit ratio, Blocks hit, Blocks read, Blocks dirtied, Blocks written |
+| Network | Bytes returned, Bytes returned per query, Max bytes returned per query, Bytes received, Bytes received per query, Max bytes received per query |
 
 **Shard calls per query** is the average number of shard dispatches per
 execution of the pattern, and **Max shard calls per query** is the highest
@@ -173,12 +173,12 @@ index:orders_customer_id_idx
 Four named terms filter on the relations a pattern resolved to. All of them
 match case-insensitively.
 
-| Term                       | Matches                                                                                                                                                                                                             |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `table:orders`             | Any resolved relation named `orders`, in any database and schema.                                                                                                                                                   |
-| `table:sales.orders`       | A resolved relation whose qualified name ends in `sales.orders`. A fully qualified value, such as `table:appdb.sales.orders`, narrows the match further.                                                            |
-| `table_schema:appdb.sales` | Patterns that resolved a relation in the `sales` schema of `appdb`. Neki records this value as `database.schema`, so both halves are required.                                                                      |
-| `schema:appdb.a91f4c02`    | The connection grouping described in [Table and schema names in Neki](#table-and-schema-names-in-neki). This term requires the whole value, so copy it from the **Schema** column rather than typing a schema name. |
+| Term | Matches |
+| - | - |
+| `table:orders` | Any resolved relation named `orders`, in any database and schema. |
+| `table:sales.orders` | A resolved relation whose qualified name ends in `sales.orders`. A fully qualified value, such as `table:appdb.sales.orders`, narrows the match further. |
+| `table_schema:appdb.sales` | Patterns that resolved a relation in the `sales` schema of `appdb`. Neki records this value as `database.schema`, so both halves are required. |
+| `schema:appdb.a91f4c02` | The connection grouping described in [Table and schema names in Neki](#table-and-schema-names-in-neki). This term requires the whole value, so copy it from the **Schema** column rather than typing a schema name. |
 
 `qualified_table:orders` finds patterns that name `orders` with an explicit
 qualifier in their SQL. It accepts a bare relation name only, so use `table:`

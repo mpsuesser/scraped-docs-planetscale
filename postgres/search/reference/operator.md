@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/operator
 title: "Operator"
 description: ""
-access_date: 2026-09-16T16:23:24.602Z
-current_date: 2026-09-16T16:23:24.602Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -24,9 +24,9 @@ FROM posts
 WHERE body ==> 'apple AND "fuji apple"';
 ```
 
-| Side  | Type   | Notes                                                             |
-| ----- | ------ | ----------------------------------------------------------------- |
-| Left  | `text` | Indexed text column or matching expression.                       |
+| Side | Type | Notes |
+| - | - | - |
+| Left | `text` | Indexed text column or matching expression. |
 | Right | `text` | TINQL query string. May be a prepared-statement parameter (`$1`). |
 
 Returns `true` when the document matches the TINQL expression. An input that analyzes to no tokens (`''`, whitespace, bare punctuation) matches nothing. Explicit empty syntax (`""`, `[]`) is a parse error. Combine multiple `==>` predicates and ordinary SQL filters with `AND` / `OR`. When several indexed columns appear in the same query, `tin.score(ctid)` combines BM25 relevance across those fields.

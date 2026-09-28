@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring
 title: "Monitoring"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -19,13 +19,13 @@ patterns across the database.
 
 PlanetScale provides these complementary monitoring tools:
 
-| Tool                                                              | Use it to                                                                                                                     |
-| :---------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| [Metrics](monitoring/metrics.md)                               | Track router traffic and latency, Postgres resource utilization, storage, WAL activity, replication lag, and instance health. |
-| [Logs](monitoring/logs.md)                                     | Search individual log events and filter them by shard, server, severity, and time.                                            |
-| [Query Insights](monitoring/query-insights.md)                 | Find expensive or frequently executed query patterns and inspect their shard-level cost.                                      |
-| [Anomalies](monitoring/anomalies.md)                           | Investigate periods when queries run slower than their established baseline.                                                  |
-| [Schema recommendations](monitoring/schema-recommendations.md) | Review automatic DDL suggestions from production query telemetry and schema.                                                  |
+| Tool | Use it to |
+| :- | :- |
+| [Metrics](monitoring/metrics.md) | Track router traffic and latency, Postgres resource utilization, storage, WAL activity, replication lag, and instance health. |
+| [Logs](monitoring/logs.md) | Search individual log events and filter them by shard, server, severity, and time. |
+| [Query Insights](monitoring/query-insights.md) | Find expensive or frequently executed query patterns and inspect their shard-level cost. |
+| [Anomalies](monitoring/anomalies.md) | Investigate periods when queries run slower than their established baseline. |
+| [Schema recommendations](monitoring/schema-recommendations.md) | Review automatic DDL suggestions from production query telemetry and schema. |
 
 ## Router monitoring
 

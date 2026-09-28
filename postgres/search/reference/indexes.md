@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/indexes
 title: "Indexes"
 description: ""
-access_date: 2026-09-16T16:23:24.602Z
-current_date: 2026-09-16T16:23:24.602Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -73,25 +73,25 @@ WITH (
 
 ### Scoring
 
-| Option             | Type | Default | Notes                                                                                                                                                                                                                                                           |
-| ------------------ | ---- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `k1`               | real | `1.2`   | BM25 term-frequency saturation. Domain `[0.0..10000.0]`, enforced at DDL.                                                                                                                                                                                       |
-| `b`                | real | `0.75`  | BM25 length normalization. Domain `[0.0..1.0]`.                                                                                                                                                                                                                 |
-| `score_stop_words` | text | unset   | Comma-separated terms that `tin.score` leaves out of the BM25 sum. Each entry must match the stored term exactly and is never tokenized, so write entries in analyzed form (lowercase on a case-folding index). Matching, counting, and phrases are unaffected. |
+| Option | Type | Default | Notes |
+| - | - | - | - |
+| `k1` | real | `1.2` | BM25 term-frequency saturation. Domain `[0.0..10000.0]`, enforced at DDL. |
+| `b` | real | `0.75` | BM25 length normalization. Domain `[0.0..1.0]`. |
+| `score_stop_words` | text | unset | Comma-separated terms that `tin.score` leaves out of the BM25 sum. Each entry must match the stored term exactly and is never tokenized, so write entries in analyzed form (lowercase on a case-folding index). Matching, counting, and phrases are unaffected. |
 
 Scoring options are read at query time, so `ALTER INDEX ... SET` takes effect on the next scored query without a rebuild. `k1` and `b` can also be overridden for a single query with `tin.score(ctid, k1 => …, b => …)`. [`tin.score_inspect`](../scoring.md) shows which terms a query would score after stop words and dense-term elision are applied.
 
 ### Tokenization
 
-| Option            | Type | Default    | Notes                                                                           |
-| ----------------- | ---- | ---------- | ------------------------------------------------------------------------------- |
-| `tokenizer`       | text | `unicode`  | Base token boundary policy: `unicode` or `whitespace`.                          |
-| `case_folding`    | text | `fold`     | Unicode case folding: `fold` or `preserve`.                                     |
-| `accent_folding`  | text | `fold`     | Accent/diacritic folding: `fold` or `preserve`.                                 |
-| `long_tokens`     | text | `split`    | Tokens longer than `max_token_bytes`: `split`, `truncate`, or `discard`.        |
-| `max_token_bytes` | int  | `256`      | Maximum token length in UTF-8 bytes (`[4..2692]`).                              |
-| `graphemes`       | text | `emoji`    | Standalone grapheme clusters (emoji, symbols): `emoji`, `retain`, or `discard`. |
-| `position_gaps`   | text | `preserve` | Position numbering when analysis removes tokens: `preserve` or `collapse`.      |
+| Option | Type | Default | Notes |
+| - | - | - | - |
+| `tokenizer` | text | `unicode` | Base token boundary policy: `unicode` or `whitespace`. |
+| `case_folding` | text | `fold` | Unicode case folding: `fold` or `preserve`. |
+| `accent_folding` | text | `fold` | Accent/diacritic folding: `fold` or `preserve`. |
+| `long_tokens` | text | `split` | Tokens longer than `max_token_bytes`: `split`, `truncate`, or `discard`. |
+| `max_token_bytes` | int | `256` | Maximum token length in UTF-8 bytes (`[4..2692]`). |
+| `graphemes` | text | `emoji` | Standalone grapheme clusters (emoji, symbols): `emoji`, `retain`, or `discard`. |
+| `position_gaps` | text | `preserve` | Position numbering when analysis removes tokens: `preserve` or `collapse`. |
 
 Defaults fold **case and accents**, split over-long tokens on grapheme boundaries, and emit emoji as searchable terms. Indexing and query analysis use the same pipeline, so `==>` searches agree with what the index stored.
 
@@ -119,13 +119,13 @@ Changing tokenization options on a populated index does not re-tokenize stored r
 
 A TIN index is stored as segments. The segment count sets how many parallel workers a build and a query can use, and background maintenance folds new writes into segments over time.
 
-| Option                     | Type | Default                   | Notes                                                                                                                                                  |
-| -------------------------- | ---- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `initial_segment_count`    | int  | available parallelism     | Segments created at build (`[1..4096]`). Read at `CREATE INDEX` and `REINDEX`, and used as the default for `target_segment_count`.                     |
-| `target_segment_count`     | int  | = `initial_segment_count` | Segment count that background maintenance converges to as writes add segments (`[1..4096]`).                                                           |
-| `max_mutable_segment_size` | int  | `4194304` (4 MiB)         | Bytes of new writes that accumulate before background maintenance folds them into the index (`≥ 131072`). Folding also happens every 16,384 documents. |
-| `max_merged_segment_size`  | int  | `2000`                    | Size in megabytes above which a segment is no longer merged with others (`≥ 100`).                                                                     |
-| `dead_percent_threshold`   | real | `0.5`                     | Fraction of dead rows at which a segment is rewritten to drop them. Domain `[0.0..1.0]`.                                                               |
+| Option | Type | Default | Notes |
+| - | - | - | - |
+| `initial_segment_count` | int | available parallelism | Segments created at build (`[1..4096]`). Read at `CREATE INDEX` and `REINDEX`, and used as the default for `target_segment_count`. |
+| `target_segment_count` | int | = `initial_segment_count` | Segment count that background maintenance converges to as writes add segments (`[1..4096]`). |
+| `max_mutable_segment_size` | int | `4194304` (4 MiB) | Bytes of new writes that accumulate before background maintenance folds them into the index (`≥ 131072`). Folding also happens every 16,384 documents. |
+| `max_merged_segment_size` | int | `2000` | Size in megabytes above which a segment is no longer merged with others (`≥ 100`). |
+| `dead_percent_threshold` | real | `0.5` | Fraction of dead rows at which a segment is rewritten to drop them. Domain `[0.0..1.0]`. |
 
 Changes to these options take effect on the next maintenance pass, except `initial_segment_count`, which is read only at build.
 

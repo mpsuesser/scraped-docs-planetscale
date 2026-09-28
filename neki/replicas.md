@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -72,10 +72,10 @@ For each shard, the router starts with replicas that are serving
 and have known replication lag. It then orders the candidates using recency,
 locality, and session affinity.
 
-| Policy   | Default behavior                                                                    |
-| :------- | :---------------------------------------------------------------------------------- |
-| Recency  | Prefer replicas with no more than 30 seconds of reported lag                        |
-| Locality | Within the same lag tier, prefer a replica in the router's availability zone        |
+| Policy | Default behavior |
+| :- | :- |
+| Recency | Prefer replicas with no more than 30 seconds of reported lag |
+| Locality | Within the same lag tier, prefer a replica in the router's availability zone |
 | Affinity | For reads, choose again for each statement to spread reads across eligible replicas |
 
 The default maximum reported lag is 15 minutes. A replica above that limit, or

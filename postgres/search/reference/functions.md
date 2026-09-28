@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/functions
 title: "Functions"
 description: ""
-access_date: 2026-09-16T16:23:24.602Z
-current_date: 2026-09-16T16:23:24.602Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -81,10 +81,10 @@ SELECT tin.maybe_quote('AND');
 
 Runs a read-only structural check of a TIN index. An empty result means the index passed. It never writes or repairs. Rebuild with `REINDEX`. Requires ownership of the index.
 
-| Argument    | Type       | Default | Notes                                                       |
-| ----------- | ---------- | ------- | ----------------------------------------------------------- |
-| `index`     | `regclass` | —       | TIN index to validate.                                      |
-| `heapcheck` | `boolean`  | `false` | When `true`, also cross-checks index TIDs against the heap. |
+| Argument | Type | Default | Notes |
+| - | - | - | - |
+| `index` | `regclass` | — | TIN index to validate. |
+| `heapcheck` | `boolean` | `false` | When `true`, also cross-checks index TIDs against the heap. |
 
 ```sql theme={null}
 SELECT * FROM tin.fsck('posts_body_tin');

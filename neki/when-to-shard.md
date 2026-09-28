@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/when-to-shard
 title: "When To Shard"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -20,12 +20,12 @@ Sharding allows you to spread data across multiple primary Postgres servers, all
 
 ## What sharding changes
 
-|                  | Scale up                            | Shard horizontally                                                              |
-| ---------------- | ----------------------------------- | ------------------------------------------------------------------------------- |
-| Unit of capacity | One primary                         | Many distinct primaries working together                                        |
-| Write path       | Every write hits a single primary   | Writes are spread across shard primaries                                        |
-| Row placement    | One primary stores every row        | The data topology assigns each row to a shard                                   |
-| Query path       | Postgres executes the query locally | Clients send queries to routers, which then route them to the appropriate shard |
+| | Scale up | Shard horizontally |
+| - | - | - |
+| Unit of capacity | One primary | Many distinct primaries working together |
+| Write path | Every write hits a single primary | Writes are spread across shard primaries |
+| Row placement | One primary stores every row | The data topology assigns each row to a shard |
+| Query path | Postgres executes the query locally | Clients send queries to routers, which then route them to the appropriate shard |
 
 Each shard can be configured to have a different number of replicas.
 Replicas can provide failover capacity in a multi-node profile and can offload read traffic from the primary. A shard configured with no replicas is not highly available.

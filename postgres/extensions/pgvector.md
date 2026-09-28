@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pgvector
 title: "Pgvector"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -63,11 +63,11 @@ LIMIT 5;
 
 Common distance operators:
 
-| Operator | Meaning                |
-| -------- | ---------------------- |
-| `<->`    | L2 distance            |
-| `<#>`    | Negative inner product |
-| `<=>`    | Cosine distance        |
+| Operator | Meaning |
+| - | - |
+| `<->` | L2 distance |
+| `<#>` | Negative inner product |
+| `<=>` | Cosine distance |
 
 Add an HNSW index when you need approximate search at scale:
 

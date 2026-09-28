@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/client-error-reference
 title: "Client Error Reference"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -20,21 +20,21 @@ current_date: 2026-08-03T19:45:59.089Z
 
 All errors sent by Exosphere follow the PostgreSQL ErrorResponse message format:
 
-| Field    | Description                                |
-| :------- | :----------------------------------------- |
+| Field | Description |
+| :- | :- |
 | Severity | ERROR, FATAL, PANIC, WARNING, NOTICE, etc. |
-| Code     | 5-character SQLSTATE code (e.g., "28P01")  |
-| Message  | Human-readable error description           |
-| Hint     | Optional suggestion for resolution         |
+| Code | 5-character SQLSTATE code (e.g., "28P01") |
+| Message | Human-readable error description |
+| Hint | Optional suggestion for resolution |
 
 ## Error severity levels
 
-| Severity    | Description                             | Client Action                 |
-| ----------- | --------------------------------------- | ----------------------------- |
-| **FATAL**   | Connection-terminating error            | Must reconnect                |
-| **ERROR**   | Request failed but connection remains   | Can retry or continue         |
+| Severity | Description | Client Action |
+| - | - | - |
+| **FATAL** | Connection-terminating error | Must reconnect |
+| **ERROR** | Request failed but connection remains | Can retry or continue |
 | **WARNING** | Potential issue but operation continues | Take note, prepare for action |
-| **NOTICE**  | Informational message                   | For awareness only            |
+| **NOTICE** | Informational message | For awareness only |
 
 ## Error categories
 
@@ -153,13 +153,13 @@ All errors sent by Exosphere follow the PostgreSQL ErrorResponse message format:
 
 Exosphere uses standard PostgreSQL SQLSTATE codes for compatibility:
 
-| Code      | Class                 | Description                           | Common Scenarios                    |
-| :-------- | :-------------------- | :------------------------------------ | :---------------------------------- |
-| **08006** | Connection Exception  | connection\_failure                   | Network issues, backend unavailable |
-| **22001** | Data Exception        | string\_data\_right\_truncation       | Value exceeds field length          |
-| **23505** | Integrity Constraint  | unique\_violation                     | Duplicate key violation             |
-| **28000** | Invalid Authorization | invalid\_authorization\_specification | Auth configuration issues           |
-| **28P01** | Invalid Authorization | invalid\_password                     | Authentication failure              |
+| Code | Class | Description | Common Scenarios |
+| :- | :- | :- | :- |
+| **08006** | Connection Exception | connection\_failure | Network issues, backend unavailable |
+| **22001** | Data Exception | string\_data\_right\_truncation | Value exceeds field length |
+| **23505** | Integrity Constraint | unique\_violation | Duplicate key violation |
+| **28000** | Invalid Authorization | invalid\_authorization\_specification | Auth configuration issues |
+| **28P01** | Invalid Authorization | invalid\_password | Authentication failure |
 
 ## Client library considerations
 

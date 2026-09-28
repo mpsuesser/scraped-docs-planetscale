@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/vitess-and-postgres
 title: "Vitess And Postgres"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -22,14 +22,14 @@ Neki serves a similar purpose but implements routing and cluster operations for 
 
 ## The shared model
 
-|                     | Vitess                           | Neki                                                                  |
-| ------------------- | -------------------------------- | --------------------------------------------------------------------- |
-| Client protocol     | MySQL                            | Postgres                                                              |
-| Query router        | VTGate                           | [Router](overview.md#routers)                                      |
-| Database in a shard | MySQL                            | Postgres                                                              |
-| Routing model       | Keyspaces, VSchema, and vindexes | [Data topology](data-topology.md), shard groups, and shard indexes |
-| Data movement       | VReplication                     | [Replicator](replication.md) workflows                             |
-| Cluster operations  | vtctld and related control plane | [Admin service](overview.md#the-admin)                             |
+| | Vitess | Neki |
+| - | - | - |
+| Client protocol | MySQL | Postgres |
+| Query router | VTGate | [Router](overview.md#routers) |
+| Database in a shard | MySQL | Postgres |
+| Routing model | Keyspaces, VSchema, and vindexes | [Data topology](data-topology.md), shard groups, and shard indexes |
+| Data movement | VReplication | [Replicator](replication.md) workflows |
+| Cluster operations | vtctld and related control plane | [Admin service](overview.md#the-admin) |
 
 Both systems route queries, control fanout, coordinate primary changes, and move data while continuing to serve eligible traffic.
 The implementation for each system is designed with the underlying relational database in mind.

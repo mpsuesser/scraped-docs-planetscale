@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres-vs-vitess
 title: "Postgres Vs Vitess"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -18,22 +18,22 @@ PlanetScale offers [**Vitess**](vitess.md) (our MySQL-compatible engine), [**Nek
 
 ## Feature comparison
 
-| Feature                                    | Vitess                                                              | Neki                                                                                           | Postgres                    |
-| ------------------------------------------ | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------- |
-| **Branching**                              | ✅ Schema and data branches                                          | ✅ Isolated branches                                                                            | ✅ Schema and data branches  |
-| **Deploy requests**                        | ✅ Online schema changes                                             | ❌ Not available                                                                                | ❌ Not available             |
-| **Horizontal sharding**                    | ✅                                                                   | ✅                                                                                              | ❌                           |
-| **Read replicas**                          | ✅                                                                   | ✅                                                                                              | ✅                           |
-| **Read-only regions**                      | ✅                                                                   | ❌                                                                                              | ❌                           |
-| **Serverless driver**                      | ✅                                                                   | ✅                                                                                              | ✅                           |
-| **Connection pooling**                     | ✅ Built-in                                                          | ✅ Built-in                                                                                     | ✅ Built-in (PgBouncer)      |
-| **Query Insights**                         | ✅                                                                   | ✅                                                                                              | ✅                           |
-| **Automatic and custom backups**           | ✅                                                                   | ✅                                                                                              | ✅                           |
-| **PITR**                                   | ❌                                                                   | ✅                                                                                              | ✅                           |
-| **Multi-region**                           | ✅                                                                   | ✅                                                                                              | ✅                           |
-| **SQL compatibility**                      | Some [MySQL compatibility](vitess/mysql-compatibility.md) limitations | PostgreSQL compatible; some [platform preview limitations](neki/platform-preview-limitations.md) | Fully PostgreSQL compatible |
-| **Multiple logical databases per cluster** | ❌ (use [keyspaces](vitess/terminology.md#keyspace) instead)           | ✅ Logical databases                                                                            | ✅ `CREATE DATABASE`         |
-| **Max cluster size**                       | Unlimited shards                                                    | Unlimited shards                                                                               | Single cluster              |
+| Feature | Vitess | Neki | Postgres |
+| - | - | - | - |
+| **Branching** | ✅ Schema and data branches | ✅ Isolated branches | ✅ Schema and data branches |
+| **Deploy requests** | ✅ Online schema changes | ❌ Not available | ❌ Not available |
+| **Horizontal sharding** | ✅ | ✅ | ❌ |
+| **Read replicas** | ✅ | ✅ | ✅ |
+| **Read-only regions** | ✅ | ❌ | ❌ |
+| **Serverless driver** | ✅ | ✅ | ✅ |
+| **Connection pooling** | ✅ Built-in | ✅ Built-in | ✅ Built-in (PgBouncer) |
+| **Query Insights** | ✅ | ✅ | ✅ |
+| **Automatic and custom backups** | ✅ | ✅ | ✅ |
+| **PITR** | ❌ | ✅ | ✅ |
+| **Multi-region** | ✅ | ✅ | ✅ |
+| **SQL compatibility** | Some [MySQL compatibility](vitess/mysql-compatibility.md) limitations | PostgreSQL compatible; some [platform preview limitations](neki/platform-preview-limitations.md) | Fully PostgreSQL compatible |
+| **Multiple logical databases per cluster** | ❌ (use [keyspaces](vitess/terminology.md#keyspace) instead) | ✅ Logical databases | ✅ `CREATE DATABASE` |
+| **Max cluster size** | Unlimited shards | Unlimited shards | Single cluster |
 
 ## Which product should you choose?
 

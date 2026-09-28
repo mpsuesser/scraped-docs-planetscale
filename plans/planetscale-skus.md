@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/planetscale-skus
 title: "Planetscale Skus"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -22,25 +22,25 @@ If your needs exceed what is available here, we can easily spin up additional si
 
 **Network-attached storage** databases come with autoscaling storage and have varying levels of compute power.
 
-|             | **Processor** | **Memory** |
-| :---------- | :------------ | :--------- |
-| **PS-10**   | 1/8 vCPU      | 1 GB RAM   |
-| **PS-20**   | 1/4 vCPU      | 2 GB RAM   |
-| **PS-40**   | 1/2 vCPU      | 4 GB RAM   |
-| **PS-80**   | 1 vCPU        | 8 GB RAM   |
-| **PS-160**  | 2 vCPUs       | 16 GB RAM  |
-| **PS-320**  | 4 vCPUs       | 32 GB RAM  |
-| **PS-400**  | 8 vCPUs       | 32 GB RAM  |
-| **PS-640**  | 8 vCPUs       | 64 GB RAM  |
-| **PS-700**  | 16 vCPUs      | 32 GB RAM  |
-| **PS-900**  | 16 vCPUs      | 64 GB RAM  |
-| **PS-1280** | 16 vCPUs      | 128 GB RAM |
-| **PS-1400** | 32 vCPUs      | 64 GB RAM  |
-| **PS-1800** | 32 vCPUs      | 128 GB RAM |
-| **PS-2100** | 48 vCPUs      | 96 GB RAM  |
-| **PS-2560** | 32 vCPUs      | 256 GB RAM |
-| **PS-2700** | 48 vCPUs      | 128 GB RAM |
-| **PS-2800** | 64 vCPUs      | 128 GB RAM |
+| | **Processor** | **Memory** |
+| :- | :- | :- |
+| **PS-10** | 1/8 vCPU | 1 GB RAM |
+| **PS-20** | 1/4 vCPU | 2 GB RAM |
+| **PS-40** | 1/2 vCPU | 4 GB RAM |
+| **PS-80** | 1 vCPU | 8 GB RAM |
+| **PS-160** | 2 vCPUs | 16 GB RAM |
+| **PS-320** | 4 vCPUs | 32 GB RAM |
+| **PS-400** | 8 vCPUs | 32 GB RAM |
+| **PS-640** | 8 vCPUs | 64 GB RAM |
+| **PS-700** | 16 vCPUs | 32 GB RAM |
+| **PS-900** | 16 vCPUs | 64 GB RAM |
+| **PS-1280** | 16 vCPUs | 128 GB RAM |
+| **PS-1400** | 32 vCPUs | 64 GB RAM |
+| **PS-1800** | 32 vCPUs | 128 GB RAM |
+| **PS-2100** | 48 vCPUs | 96 GB RAM |
+| **PS-2560** | 32 vCPUs | 256 GB RAM |
+| **PS-2700** | 48 vCPUs | 128 GB RAM |
+| **PS-2800** | 64 vCPUs | 128 GB RAM |
 
 ## Metal
 
@@ -49,55 +49,55 @@ The storage options vary by cloud provided, so we break out the options into AWS
 
 ### Metal options on AWS
 
-|            | **Processor** | **Memory** | **NVMe Storage options** | **Notes**     |
-| :--------- | :------------ | :--------- | :----------------------- | ------------- |
-| **M-10**   | 1/8 vCPU      | 1 GB RAM   | configurable             | Postgres only |
-| **M-20**   | 1/4 vCPU      | 2 GB RAM   | configurable             | Postgres only |
-| **M-40**   | 1/2 vCPU      | 4 GB RAM   | configurable             | Postgres only |
-| **M-80**   | 1 vCPU        | 8 GB RAM   | configurable             | Postgres only |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | configurable             |               |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 229 GB                   |               |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 929 GB                   |               |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 2,490 GB                 |               |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 466 GB                   |               |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 1,866 GB                 |               |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 4,992 GB                 |               |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 942 GB                   |               |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 3,739 GB                 |               |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 1,891 GB                 |               |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 7,492 GB                 |               |
+| | **Processor** | **Memory** | **NVMe Storage options** | **Notes** |
+| :- | :- | :- | :- | - |
+| **M-10** | 1/8 vCPU | 1 GB RAM | configurable | Postgres only |
+| **M-20** | 1/4 vCPU | 2 GB RAM | configurable | Postgres only |
+| **M-40** | 1/2 vCPU | 4 GB RAM | configurable | Postgres only |
+| **M-80** | 1 vCPU | 8 GB RAM | configurable | Postgres only |
+| **M-160** | 2 vCPUs | 16 GB RAM | configurable | |
+| **M-320** | 4 vCPUs | 32 GB RAM | 229 GB | |
+| **M-320** | 4 vCPUs | 32 GB RAM | 929 GB | |
+| **M-320** | 4 vCPUs | 32 GB RAM | 2,490 GB | |
+| **M-640** | 8 vCPUs | 64 GB RAM | 466 GB | |
+| **M-640** | 8 vCPUs | 64 GB RAM | 1,866 GB | |
+| **M-640** | 8 vCPUs | 64 GB RAM | 4,992 GB | |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 942 GB | |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 3,739 GB | |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 1,891 GB | |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 7,492 GB | |
 
 ### Metal options on GCP
 
-|            | **Processor** | **Memory** | **NVMe Storage options** |
-| :--------- | :------------ | :--------- | :----------------------- |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 367 GB                   |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 742 GB                   |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 1,492 GB                 |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 2,992 GB                 |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 5,992 GB                 |
-| **M-160**  | 2 vCPUs       | 16 GB RAM  | 8,992 GB                 |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 367 GB                   |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 742 GB                   |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 1,492 GB                 |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 2,992 GB                 |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 5,992 GB                 |
-| **M-320**  | 4 vCPUs       | 32 GB RAM  | 8,992 GB                 |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 367 GB                   |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 742 GB                   |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 1,492 GB                 |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 2,992 GB                 |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 5,992 GB                 |
-| **M-640**  | 8 vCPUs       | 64 GB RAM  | 8,992 GB                 |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 742 GB                   |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 1,492 GB                 |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 2,992 GB                 |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 5,992 GB                 |
-| **M-1280** | 16 vCPUs      | 128 GB RAM | 8,992 GB                 |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 1,492 GB                 |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 2,992 GB                 |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 5,992 GB                 |
-| **M-2560** | 32 vCPUs      | 256 GB RAM | 8,992 GB                 |
+| | **Processor** | **Memory** | **NVMe Storage options** |
+| :- | :- | :- | :- |
+| **M-160** | 2 vCPUs | 16 GB RAM | 367 GB |
+| **M-160** | 2 vCPUs | 16 GB RAM | 742 GB |
+| **M-160** | 2 vCPUs | 16 GB RAM | 1,492 GB |
+| **M-160** | 2 vCPUs | 16 GB RAM | 2,992 GB |
+| **M-160** | 2 vCPUs | 16 GB RAM | 5,992 GB |
+| **M-160** | 2 vCPUs | 16 GB RAM | 8,992 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 367 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 742 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 1,492 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 2,992 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 5,992 GB |
+| **M-320** | 4 vCPUs | 32 GB RAM | 8,992 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 367 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 742 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 1,492 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 2,992 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 5,992 GB |
+| **M-640** | 8 vCPUs | 64 GB RAM | 8,992 GB |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 742 GB |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 1,492 GB |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 2,992 GB |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 5,992 GB |
+| **M-1280** | 16 vCPUs | 128 GB RAM | 8,992 GB |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 1,492 GB |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 2,992 GB |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 5,992 GB |
+| **M-2560** | 32 vCPUs | 256 GB RAM | 8,992 GB |
 
 ## Selecting a cluster size
 
@@ -134,25 +134,25 @@ This is also known as the *transaction pool*.
 These limits are put in place as a protection mechanism for each keyspace.
 The limits for each size are shown in the table below:
 
-|                            | **Transaction Pool\*** |
-| :------------------------- | :--------------------- |
-| **PS-10** and **M-10**     | 70                     |
-| **PS-20** and **M-20**     | 75                     |
-| **PS-40** and **M-40**     | 75                     |
-| **PS-80** and **M-80**     | 110                    |
-| **PS-160** and **M-160**   | 158                    |
-| **PS-320** and **M-320**   | 211                    |
-| **PS-400**                 | 211                    |
-| **PS-640** and **M-640**   | 281                    |
-| **PS-700**                 | 211                    |
-| **PS-900**                 | 281                    |
-| **PS-1280** and **M-1280** | 375                    |
-| **PS-1400**                | 281                    |
-| **PS-1800**                | 375                    |
-| **PS-2100**                | 328                    |
-| **PS-2560** and **M-2560** | 500                    |
-| **PS-2700**                | 438                    |
-| **PS-2800**                | 375                    |
+| | **Transaction Pool\*** |
+| :- | :- |
+| **PS-10** and **M-10** | 70 |
+| **PS-20** and **M-20** | 75 |
+| **PS-40** and **M-40** | 75 |
+| **PS-80** and **M-80** | 110 |
+| **PS-160** and **M-160** | 158 |
+| **PS-320** and **M-320** | 211 |
+| **PS-400** | 211 |
+| **PS-640** and **M-640** | 281 |
+| **PS-700** | 211 |
+| **PS-900** | 281 |
+| **PS-1280** and **M-1280** | 375 |
+| **PS-1400** | 281 |
+| **PS-1800** | 375 |
+| **PS-2100** | 328 |
+| **PS-2560** and **M-2560** | 500 |
+| **PS-2700** | 438 |
+| **PS-2800** | 375 |
 
 ## Need help?
 

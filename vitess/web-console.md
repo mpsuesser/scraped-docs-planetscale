@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/web-console
 title: "Web Console"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -45,13 +45,13 @@ Switching between primary and replica reconnects the console and clears the curr
 
 ## Supported console commands
 
-| Command   | Description                       |
-| :-------- | :-------------------------------- |
-| ?, \\?    | Synonym for `help`                |
+| Command | Description |
+| :- | :- |
+| ?, \\? | Synonym for `help` |
 | clear, \c | Clear the current input statement |
-| help, \h  | Display list of commands          |
-| ego, \G   | Send command to server            |
-| go, \g    | Send command to server            |
+| help, \h | Display list of commands |
+| ego, \G | Send command to server |
+| go, \g | Send command to server |
 
 ## Enable for production branches
 

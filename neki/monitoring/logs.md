@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-28T21:23:55.111Z
+current_date: 2026-09-28T21:23:55.111Z
 ---
 
 > ## Documentation Index
@@ -25,16 +25,16 @@ then select **Logs**.
 
 The Logs page provides the following controls:
 
-| Control        | Behavior                                                                                                                                   |
-| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Branch**     | Select the database branch whose logs you want to inspect.                                                                                 |
-| **Shards**     | Show events from one or more Neki shards.                                                                                                  |
-| **Servers**    | Select individual servers, grouped by role. By default, logs from every shard primary are shown.                                           |
-| **Levels**     | Filter by `DEBUG`, `INFO`, `WARNING`, or `ERROR`. With no specific levels selected, all levels are shown.                                  |
+| Control | Behavior |
+| :- | :- |
+| **Branch** | Select the database branch whose logs you want to inspect. |
+| **Shards** | Show events from one or more Neki shards. |
+| **Servers** | Select individual servers, grouped by role. By default, logs from every shard primary are shown. |
+| **Levels** | Filter by `DEBUG`, `INFO`, `WARNING`, or `ERROR`. With no specific levels selected, all levels are shown. |
 | **Time range** | Select a preset or custom range. The custom date picker is limited to the previous seven days, and the default range is the previous hour. |
-| **Live**       | Refresh the results approximately every 10 seconds. Live mode is enabled by default.                                                       |
-| **Refresh**    | Request the latest matching events immediately.                                                                                            |
-| **Download**   | Download the results on the current page as CSV or JSON, or copy them as JSON when clipboard access is available.                          |
+| **Live** | Refresh the results approximately every 10 seconds. Live mode is enabled by default. |
+| **Refresh** | Request the latest matching events immediately. |
+| **Download** | Download the results on the current page as CSV or JSON, or copy them as JSON when clipboard access is available. |
 
 Selecting shards narrows the server menu to the servers in those shards. Neki
 routers are represented separately from shards, so selecting fewer than all
@@ -82,11 +82,11 @@ Use `OR` when either expression can match:
 
 Log entries contain structured fields that can be searched directly:
 
-| Field             | Example                                    |
-| :---------------- | :----------------------------------------- |
-| Pod               | `planetscale.pod:hzi-pod`                  |
-| Role              | `planetscale.role:replica`                 |
-| Container         | `planetscale.container:postgres`           |
+| Field | Example |
+| :- | :- |
+| Pod | `planetscale.pod:hzi-pod` |
+| Role | `planetscale.role:replica` |
+| Container | `planetscale.container:postgres` |
 | Availability zone | `planetscale.availability_zone:us-east-1a` |
 
 You can combine text, field filters, level, shard, server, and time controls
