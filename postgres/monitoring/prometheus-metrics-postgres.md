@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres
 title: "Prometheus Metrics Postgres"
 description: ""
-access_date: 2026-09-16T18:38:21.332Z
-current_date: 2026-09-16T18:38:21.332Z
+access_date: 2026-09-28T07:46:29.866Z
+current_date: 2026-09-28T07:46:29.866Z
 ---
 
 > ## Documentation Index
@@ -73,18 +73,58 @@ PlanetScale Postgres emits the following metrics to be scraped.
 
 ## Infrastructure Metrics
 
-| **Name & Description**                                                                               | **Type** | **Tags**                                                                                                                                                                         |
-| :--------------------------------------------------------------------------------------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **planetscale\_pods\_cpu\_util\_percentages**  CPU utilization percentage of database pods           | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_mem\_util\_percentages**  Memory utilization percentage of database pods        | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_iops\_total**  Total IOPS (Input/Output Operations Per Second) of database pods | Counter  | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_volume\_available\_bytes**  Available storage space in bytes on Postgres volumes      | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_role, planetscale\_cell, planetscale\_component                                                       |
-| **planetscale\_volume\_capacity\_bytes**  Total storage capacity in bytes on Postgres volumes        | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_role, planetscale\_cell, planetscale\_component                                                       |
-| **planetscale\_pods\_mem\_rss\_bytes**  RSS memory usage in bytes of database pods                   | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_mem\_mmap\_bytes**  Memory-mapped file usage in bytes of database pods          | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_mem\_active\_cache\_bytes**  Active cache memory in bytes of database pods      | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_mem\_inactive\_cache\_bytes**  Inactive cache memory in bytes of database pods  | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component                               |
-| **planetscale\_pods\_container\_restarts\_total**  Total container restart events detected           | Counter  | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component, planetscale\_restart\_reason |
+| **Name & Description**                                                                                                                                                                                                                | **Type** | **Tags**                                                                                                                                                      |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **planetscale\_pods\_cpu\_util\_percentages**  CPU utilization percentage of database pods                                                                                                                                            | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_mem\_util\_percentages**  Memory utilization percentage of database pods                                                                                                                                         | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_iops\_total**  Total IOPS (Input/Output Operations Per Second) of database pods                                                                                                                                  | Counter  | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_volume\_available\_bytes**  Available storage space in bytes on Postgres volumes                                                                                                                                       | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_role, planetscale\_cell, planetscale\_component                                    |
+| **planetscale\_volume\_capacity\_bytes**  Total storage capacity in bytes on Postgres volumes                                                                                                                                         | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_role, planetscale\_cell, planetscale\_component                                    |
+| **planetscale\_pods\_mem\_rss\_bytes**  RSS memory usage in bytes of database pods                                                                                                                                                    | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_mem\_mmap\_bytes**  Memory-mapped file usage in bytes of database pods                                                                                                                                           | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_mem\_active\_cache\_bytes**  Active cache memory in bytes of database pods                                                                                                                                       | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_mem\_inactive\_cache\_bytes**  Inactive cache memory in bytes of database pods                                                                                                                                   | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component            |
+| **planetscale\_pods\_container\_status\_restarts\_total**  Total container restarts, across all restart reasons. Join **planetscale\_pods\_container\_last\_terminated\_reason** to attribute them                                    | Counter  | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_cell, planetscale\_component                               |
+| **planetscale\_pods\_container\_last\_terminated\_reason**  Reason a container was last terminated (1 = the current reason). Join against **planetscale\_pods\_container\_status\_restarts\_total** to attribute restarts to a reason | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_cell, planetscale\_component, planetscale\_restart\_reason |
+| **planetscale\_pods\_status\_phase**  Pod status phase (Running, Pending, Failed, Succeeded, Unknown). Carries the pod's role, so join it to break container restarts down by role                                                    | Gauge    | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_phase, planetscale\_role, planetscale\_cell, planetscale\_component                |
+
+## Deprecated Metrics
+
+These metrics are deprecated and will be removed eventually.
+
+| **Name & Description**                                                                                                                                                                                                                                                                                                       | **Type** | **Tags**                                                                                                                                                                         |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **planetscale\_pods\_container\_restarts\_total**  Total container restart events detected. The reason label is attached to an all-reasons total and the counter cannot be observed at zero, so rates and increases over it are wrong in both directions. Replaced by planetscale\_pods\_container\_status\_restarts\_total. | Counter  | cluster, planetscale\_database\_branch\_id, planetscale\_pod, planetscale\_container, planetscale\_role, planetscale\_cell, planetscale\_component, planetscale\_restart\_reason |
+
+## Attributing Container Restarts
+
+`planetscale_pods_container_status_restarts_total` counts every restart and carries no role or reason label. Join the metric that carries the one you want.
+
+To break restarts down by role, join `planetscale_pods_status_phase`:
+
+```promql theme={null}
+sum by (planetscale_role) (
+  increase(planetscale_pods_container_status_restarts_total[1h])
+  * on (planetscale_pod) group_left(planetscale_role)
+  group by (planetscale_pod, planetscale_role) (planetscale_pods_status_phase)
+)
+```
+
+To break restarts down by reason as well, filter against `planetscale_pods_container_last_terminated_reason` one minute at a time and join the role onto the result:
+
+```promql theme={null}
+sum by (planetscale_role) (
+  sum_over_time((
+    increase(planetscale_pods_container_status_restarts_total[1m])
+    and on (planetscale_pod, planetscale_container)
+    planetscale_pods_container_last_terminated_reason{planetscale_restart_reason="OOMKilled"}
+  )[1h:1m])
+  * on (planetscale_pod) group_left(planetscale_role)
+  group by (planetscale_pod, planetscale_role) (planetscale_pods_status_phase)
+)
+```
+
+The gauge only reports a container's latest termination reason, so the query attributes each minute's restarts to the reason current in that minute, then sums over the hour. Change `1h` to your own window and leave the `1m` alone. A container that restarts twice inside one minute under two different reasons has both restarts attributed to the later one.
 
 ## Tag Glossary
 
@@ -93,8 +133,9 @@ PlanetScale Postgres emits the following metrics to be scraped.
 * **planetscale\_database\_branch\_id**: The unique identifier for the database branch
 * **planetscale\_pod**: The Kubernetes pod name
 * **planetscale\_container**: The container name (postgres, pgbouncer, walg-daemon)
-* **planetscale\_role**: The database role (primary, replica)
+* **planetscale\_role**: The database role (primary, replica). Absent on pods that have no role, such as pgbouncer
 * **planetscale\_cell**: The PlanetScale cell identifier
+* **planetscale\_phase**: The pod's status phase (Running, Pending, Failed, Succeeded, Unknown)
 * **planetscale\_component**: The PlanetScale component identifier
 * **planetscale\_connection\_state**: The state of database connections
 * **planetscale\_lock\_mode**: The PostgreSQL lock mode
@@ -105,7 +146,7 @@ PlanetScale Postgres emits the following metrics to be scraped.
 * **planetscale\_region**: The geographic region
 * **planetscale\_pgbouncer\_pool**: The PgBouncer connection pool identifier
 * **planetscale\_connector\_id**: The edge connector identifier
-* **planetscale\_restart\_reason**: The reason for container restart
+* **planetscale\_restart\_reason**: Reason for a container's **most recent** termination (OOMKilled, Error, Completed). Carried by **planetscale\_pods\_container\_last\_terminated\_reason**
 
 ## Need help?
 

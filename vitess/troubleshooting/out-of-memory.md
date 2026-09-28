@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-09-28T07:46:29.866Z
+current_date: 2026-09-28T07:46:29.866Z
 ---
 
 An out of memory (OOM) event occurs when a process on a tablet consumes more memory than is available on the cluster. When this happens, the affected process is automatically restarted to free up memory.
@@ -54,7 +54,19 @@ Each connection consumes memory. A large number of open connections, whether int
 ## Monitoring and prevention
 
 - **Watch for the OOM banner**: When a branch experiences OOM kills, a banner on the branch dashboard shows how many occurred in the selected period.
-- **Scrape it into your own monitoring**: The `planetscale_pods_container_restarts_total` metric carries a `planetscale_restart_reason` label; filter on `planetscale_restart_reason="OOMKilled"` to alert on OOMs. See the [Prometheus metrics](../integrations/prometheus-metrics.md) reference.
+- **Scrape it into your own monitoring**: `planetscale_pods_container_status_restarts_total` counts **all** container restarts, not only out-of-memory kills. To count OOM kills, filter it against `planetscale_pods_container_last_terminated_reason`:
+	```text
+	sum by (planetscale_keyspace, planetscale_shard, planetscale_container) (
+	  sum_over_time((
+	    increase(planetscale_pods_container_status_restarts_total[1m])
+	    and on (planetscale_pod, planetscale_container)
+	    planetscale_pods_container_last_terminated_reason{planetscale_restart_reason="OOMKilled"}
+	  )[1h:1m])
+	)
+	```
+	The gauge only reports a container’s latest termination reason, so the query attributes each minute’s restarts to the reason current in that minute, then sums over the hour. Change `1h` to your own window and leave the `1m` alone.
+	Matching the gauge against the whole window in one step gives the wrong count. A container OOM-killed once and then restarted five times for other reasons reports six kills, or none, depending on which way you write it.
+	The older `planetscale_pods_container_restarts_total` is deprecated and should not be used for this. See the [Prometheus metrics](../integrations/prometheus-metrics.md) reference.
 
 Some workloads spike memory so quickly that the increase is not captured on the memory graph, which is sampled periodically. An OOM kill is recorded as an event, so it remains visible even when no corresponding spike appears on the memory graph.
 

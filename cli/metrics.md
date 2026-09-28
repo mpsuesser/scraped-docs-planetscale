@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-09-25T13:22:21.299Z
-current_date: 2026-09-25T13:22:21.299Z
+access_date: 2026-09-28T07:46:29.866Z
+current_date: 2026-09-28T07:46:29.866Z
 ---
 
 ## Overview
@@ -31,7 +31,8 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_mysql\_replica\_lag\_seconds** Replica lag in fine-grained seconds from MySQL | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_slow\_queries\_total** Number of queries that exceeded the slow query threshold | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_threads\_running** Current number of threads executing in MySQL | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
-| **planetscale\_pods\_container\_restarts\_total** Total container restart events detected | Counter | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_restart\_reason, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_pods\_container\_last\_terminated\_reason** Reason a container was last terminated (1 = the current reason). Join against **planetscale\_pods\_container\_status\_restarts\_total** to attribute restarts to a reason | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_restart\_reason, planetscale\_shard |
+| **planetscale\_pods\_container\_status\_restarts\_total** Total container restarts, across all restart reasons. Join **planetscale\_pods\_container\_last\_terminated\_reason** to attribute them | Counter | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard |
 | **planetscale\_pods\_container\_waiting\_reason** Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc) | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_waiting\_reason |
 | **planetscale\_pods\_cpu\_util\_percentages** CPU utilization percentage of database pods | Gauge | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_pods\_iops\_total** Total IOPS (Input/Output Operations Per Second) of database pods | Counter | cluster, planetscale\_cell, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
@@ -120,6 +121,7 @@ These metrics are deprecated and will be removed eventually.
 
 | **Name & Description** | **Type** | **Tags** |
 | --- | --- | --- |
+| **planetscale\_pods\_container\_restarts\_total** Total container restart events detected. The reason label is attached to an all-reasons total and the counter cannot be observed at zero, so rates and increases over it are wrong in both directions. Replaced by planetscale\_pods\_container\_status\_restarts\_total. | Counter | cluster, planetscale\_cell, planetscale\_component, planetscale\_container, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_restart\_reason, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vtgate\_commands\_total** Number of commands processed by vtgate. Replaced by planetscale\_vtgate\_query\_executions\_total. | Counter | cluster, planetscale\_cell, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_pod |
 | **planetscale\_vttablet\_table\_storage\_bytes** Storage size of tables in bytes. Replaced by planetscale\_vttablet\_table\_storage\_all\_bytes. | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_table |
 
@@ -161,6 +163,36 @@ These metrics are experimental and may be subject to changes to their name, type
 | **planetscale\_vitess\_planned\_reparents\_total** Number of planned reparents attempted on a shard, counting both successes and failures. A planned reparent is a graceful promotion, such as the one that happens during maintenance or when you request one | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_reparent\_result, planetscale\_shard |
 | **planetscale\_vttablet\_storage\_info** An info metric for the storage type of a vttablet | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_storage\_type, planetscale\_tablet\_type |
 
+## Attributing container restarts
+
+`planetscale_pods_container_status_restarts_total` counts every restart and carries no role or reason label. Join the metric that carries the one you want.
+
+To break restarts down by role, join `planetscale_pods_status_phase`:
+
+```text
+sum by (planetscale_tablet_type) (
+  increase(planetscale_pods_container_status_restarts_total[1h])
+  * on (planetscale_pod) group_left(planetscale_tablet_type)
+  group by (planetscale_pod, planetscale_tablet_type) (planetscale_pods_status_phase)
+)
+```
+
+To break restarts down by reason as well, filter against `planetscale_pods_container_last_terminated_reason` one minute at a time and join the role onto the result:
+
+```text
+sum by (planetscale_tablet_type) (
+  sum_over_time((
+    increase(planetscale_pods_container_status_restarts_total[1m])
+    and on (planetscale_pod, planetscale_container)
+    planetscale_pods_container_last_terminated_reason{planetscale_restart_reason="OOMKilled"}
+  )[1h:1m])
+  * on (planetscale_pod) group_left(planetscale_tablet_type)
+  group by (planetscale_pod, planetscale_tablet_type) (planetscale_pods_status_phase)
+)
+```
+
+The gauge only reports a container’s latest termination reason, so the query attributes each minute’s restarts to the reason current in that minute, then sums over the hour. Change `1h` to your own window and leave the `1m` alone. A container that restarts twice inside one minute under two different reasons has both restarts attributed to the later one.
+
 ## Tag glossary
 
 | **Tag Name** | **Description** |
@@ -184,13 +216,14 @@ These metrics are experimental and may be subject to changes to their name, type
 | planetscale\_query\_type | Query statement type (SELECT, INSERT, UPDATE, DELETE, etc.) |
 | planetscale\_region | Geographic region where the database is hosted |
 | planetscale\_reparent\_result | Whether a reparent attempt succeeded (success, failure) |
+| planetscale\_restart\_reason | Reason for a container’s **most recent** termination (OOMKilled, Error, Completed). Carried by **planetscale\_pods\_container\_last\_terminated\_reason** |
 | planetscale\_shard | Database shard identifier |
 | planetscale\_source\_keyspace | Source keyspace for VReplication workflow operations |
 | planetscale\_source\_shard | Source shard for VReplication workflow operations |
 | planetscale\_state | VReplication stream state (e.g., Running, Stopped) |
 | planetscale\_storage\_type | Storage type backing a vttablet (network-attached, metal) |
 | planetscale\_table | Database table name |
-| planetscale\_tablet\_type | Vitess tablet type (primary, replica, rdonly) |
+| planetscale\_tablet\_type | Vitess tablet type (primary, replica, rdonly). Absent on components that have none, such as vtgate |
 | planetscale\_throttled\_component | VReplication component that was throttled (e.g., vcopier, vplayer, binlogplayer) |
 | planetscale\_throttler | Which throttler applied the throttle (tablet throttler name) |
 | planetscale\_vstreamer\_code | VTTablet VStreamer error code (StreamEnded, etc.) |
