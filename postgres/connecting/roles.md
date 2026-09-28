@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-09-16T19:19:11.186Z
-current_date: 2026-09-16T19:19:11.186Z
+access_date: 2026-09-28T15:24:07.023Z
+current_date: 2026-09-28T15:24:07.023Z
 ---
 
 You should not connect to the database from your application servers using the default role. If you ever need to rotate your default role credentials and you use the default role to connect to your application, you will have to take some downtime while rotating the credentials.
@@ -177,6 +177,10 @@ When you create a role via the Postgres [`CREATE ROLE`](https://www.postgresql.o
 PlanetScale’s routing layer uses the `user` to identify which database or branch we are sending queries to. For example, the user `matt.nk35mx55qq` routes to the PlanetScale database with branch id `nk35mx55qq`. When you create a new role, you do not need to specify the branch id on the user. You can simply set the user to `matt`.
 
 However, when you connect, you must append the branch id to the user so we know which branch to route to.
+
+## Roles on a restored branch
+
+Restoring a backup or point-in-time recovery copies user-defined roles onto the new branch. They keep ownership of their objects, and their passwords are reset. See [Roles on a restored branch](../backups.md#roles-on-a-restored-branch).
 
 ## Viewing, deleting, and renaming roles
 

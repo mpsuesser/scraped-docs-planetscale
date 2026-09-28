@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups
 title: "Backups"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T15:24:07.023Z
+current_date: 2026-09-28T15:24:07.023Z
 ---
 
 ## Automatic scheduled backups
@@ -72,6 +72,16 @@ For detailed examples and step-by-step instructions, see the [Point-in-time reco
 - Database extensions are **not** restored - you’ll need to reinstall any extensions
 - Restored branches can be promoted to production or used for testing
 - Backup expiration is automatically extended to ensure the restored branch can create new backups
+
+### Roles on a restored branch
+
+[User-defined roles](connecting/roles.md) created in PlanetScale are restored with the branch. They appear on the new branch’s Roles page, and they keep ownership of the objects they owned in the backup.
+
+Passwords are reset. Credentials from the source branch do not work on the restored branch. [Reset the role’s password](connecting/roles.md#resetting-role-credentials) on the restored branch to get a new one.
+
+Short-lived roles PlanetScale creates for schema recommendations and the web console are not kept. Objects they owned are reassigned to the default `postgres` role.
+
+Roles created with `CREATE ROLE` inside Postgres are part of the restored data, but they still do not appear on the Roles page.
 
 ## Backup retention
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups/point-in-time-recovery
 title: "Point In Time Recovery"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-28T15:24:07.023Z
+current_date: 2026-09-28T15:24:07.023Z
 ---
 
 ## How PITR Works
@@ -28,7 +28,7 @@ Additional backups beyond the default incur additional charges. See [Backups](..
 
 ### Create the PITR backup branch
 
-This will create a new branch with the schema and data from the selected point in time. See [Branching](../branching.md) for next steps on how to connect and potentially promote your new branch.
+This will create a new branch with the schema and data from the selected point in time. User-defined roles are restored the same way as a [backup restore](../backups.md#roles-on-a-restored-branch): they keep object ownership, and their passwords are reset. See [Branching](../branching.md) for next steps on how to connect and potentially promote your new branch.
 
 ## Restore time considerations
 
