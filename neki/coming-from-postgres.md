@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/coming-from-postgres
 title: "Coming From Postgres"
 description: ""
-access_date: 2026-09-10T17:00:58.777Z
-current_date: 2026-09-10T17:00:58.777Z
+access_date: 2026-09-28T21:33:18.542Z
+current_date: 2026-09-28T21:33:18.542Z
 ---
 
 > ## Documentation Index
@@ -122,16 +122,16 @@ If backup time is a pain in your current OLTP database, Neki and sharding is a g
 
 Familiar conventions from PlanetScale Postgres take a different path in Neki.
 
-| PlanetScale Postgres                                                                    | In Neki                                                                                                                                |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Connect to Postgres, or to PgBouncer on port `6432`                                     | Connect to a [router](connecting.md) on port `5432`                                                                                 |
-| Specify connection type by appending a replica name or PgBouncer suffix to the username | Set [`__neki.target`](connecting.md#primary-and-replica-routing) or target a connection at a router group                           |
-| One primary owns every row                                                              | The [data topology](data-topology.md) assigns each table to a shard group                                                           |
-| Adding replicas or vertical size adds capacity for the whole database                   | Adding a shard adds capacity only after topology and a [data-migration workflow](data-migration.md) place data there                |
-| A statement runs on one Postgres server                                                 | A statement can reach one shard, several shards, or every shard in a table's group                                                     |
-| Transactions execute on a single node                                                   | [Cross-shard work](query-planning.md#transactions-across-shards) does not share a snapshot or atomic commit; single-shard work does |
-| `ALTER TABLE` runs on the one database                                                  | DDL through a router [fans out](schema-changes.md) to every managed shard                                                           |
-| Size one Postgres cluster (and optional PgBouncers)                                     | Size [shards, routers, and Admin](cluster-configuration.md) separately                                                              |
+| PlanetScale Postgres | In Neki |
+| - | - |
+| Connect to Postgres, or to PgBouncer on port `6432` | Connect to a [router](connecting.md) on port `5432` |
+| Specify connection type by appending a replica name or PgBouncer suffix to the username | Set [`__neki.target`](connecting.md#primary-and-replica-routing) or target a connection at a router group |
+| One primary owns every row | The [data topology](data-topology.md) assigns each table to a shard group |
+| Adding replicas or vertical size adds capacity for the whole database | Adding a shard adds capacity only after topology and a [data-migration workflow](data-migration.md) place data there |
+| A statement runs on one Postgres server | A statement can reach one shard, several shards, or every shard in a table's group |
+| Transactions execute on a single node | [Cross-shard work](query-planning.md#transactions-across-shards) does not share a snapshot or atomic commit; single-shard work does |
+| `ALTER TABLE` runs on the one database | DDL through a router [fans out](schema-changes.md) to every managed shard |
+| Size one Postgres cluster (and optional PgBouncers) | Size [shards, routers, and Admin](cluster-configuration.md) separately |
 
 ### Send replica reads with a Neki target
 

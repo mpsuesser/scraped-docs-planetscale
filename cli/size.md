@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/size
 title: "Size"
 description: ""
-access_date: 2026-09-18T21:28:08.308Z
-current_date: 2026-09-18T21:28:08.308Z
+access_date: 2026-09-28T21:33:18.542Z
+current_date: 2026-09-28T21:33:18.542Z
 ---
 
 > ## Documentation Index
@@ -24,29 +24,29 @@ pscale size [command]
 
 ## Available commands
 
-| **Command** | **Product**            | **Description**                          |
-| :---------- | :--------------------- | :--------------------------------------- |
-| `cluster`   | Postgres, Vitess, Neki | List the sizes for PlanetScale databases |
+| **Command** | **Product** | **Description** |
+| :- | :- | :- |
+| `cluster` | Postgres, Vitess, Neki | List the sizes for PlanetScale databases |
 
 ## Flags
 
-| **Flag**       | **Description**                       |
-| :------------- | :------------------------------------ |
-| `-h`, `--help` | Help for size                         |
+| **Flag** | **Description** |
+| :- | :- |
+| `-h`, `--help` | Help for size |
 | `--org string` | The organization for the current user |
 
 ### Global flags
 
-| **Command**                 | **Description**                                                                                                    |
-| :-------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| `--api-token string`        | The API token to use for authenticating against the PlanetScale API                                                |
-| `--api-url string`          | The base URL for the PlanetScale API. (default "\<[https://api.planetscale.com/>](https://api.planetscale.com/>)") |
-| `--config string`           | Config file (default is `$HOME/.config/planetscale/pscale.yml`)                                                    |
-| `--debug`                   | Enable debug mode                                                                                                  |
-| `-f`, `--format string`     | Show output in a specific format. Possible values: \[human, json, csv] (default "human")                           |
-| `--no-color`                | Disable color output                                                                                               |
-| `--service-token string`    | The service token for authenticating                                                                               |
-| `--service-token-id string` | The service token ID for authenticating                                                                            |
+| **Command** | **Description** |
+| :- | :- |
+| `--api-token string` | The API token to use for authenticating against the PlanetScale API |
+| `--api-url string` | The base URL for the PlanetScale API. (default "\<[https://api.planetscale.com/>](https://api.planetscale.com/>)") |
+| `--config string` | Config file (default is `$HOME/.config/planetscale/pscale.yml`) |
+| `--debug` | Enable debug mode |
+| `-f`, `--format string` | Show output in a specific format. Possible values: \[human, json, csv] (default "human") |
+| `--no-color` | Disable color output |
+| `--service-token string` | The service token for authenticating |
+| `--service-token-id string` | The service token ID for authenticating |
 
 ## The `cluster` sub-command
 
@@ -62,9 +62,9 @@ pscale size cluster [command]
 
 ### Available sub-commands
 
-| **Command** | **Product**            | **Description**                                              |
-| :---------- | :--------------------- | :----------------------------------------------------------- |
-| `list`      | Postgres, Vitess, Neki | List the sizes that are available for a PlanetScale database |
+| **Command** | **Product** | **Description** |
+| :- | :- | :- |
+| `list` | Postgres, Vitess, Neki | List the sizes that are available for a PlanetScale database |
 
 ## The `list` sub-command
 
@@ -80,13 +80,13 @@ pscale size cluster list [flags]
 
 ### Available flags
 
-| **Flag**          | **Description**                                                                                                        |
-| :---------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| `--engine string` | Filter cluster sizes by database engine. Supported values: `mysql`, `postgresql`, `neki`. Omit to list all engines.    |
-| `--external`      | View cluster sizes for external Vitess keyspaces. Mutually exclusive with `--metal`. Only valid with the MySQL engine. |
-| `-h`, `--help`    | Help for list                                                                                                          |
-| `--metal`         | View cluster sizes and rates for clusters with metal storage                                                           |
-| `--region string` | View cluster sizes and rates for a specific region                                                                     |
+| **Flag** | **Description** |
+| :- | :- |
+| `--engine string` | Filter cluster sizes by database engine. Supported values: `mysql`, `postgresql`, `neki`. Omit to list all engines. |
+| `--external` | View cluster sizes for external Vitess keyspaces. Mutually exclusive with `--metal`. Only valid with the MySQL engine. |
+| `-h`, `--help` | Help for list |
+| `--metal` | View cluster sizes and rates for clusters with metal storage |
+| `--region string` | View cluster sizes and rates for a specific region |
 
 ## Examples
 
