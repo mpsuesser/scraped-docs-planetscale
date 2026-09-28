@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/query-patterns
 title: "Query Patterns"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-09-28T14:40:06.359Z
+current_date: 2026-09-28T14:40:06.359Z
 ---
 
 ## Getting Started
@@ -14,7 +14,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 List, inspect, delete, and download query pattern reports for a database branch. The `download` command creates a Query Insights report, waits for it to finish generating, and writes the CSV file locally.
 
-Query pattern reports require Query Insights to be enabled for the database.
+Query pattern reports require Query Insights to be enabled for the database. Each CSV report includes up to 25,000 query patterns.
 
 **Usage:**
 
