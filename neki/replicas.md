@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-29T05:23:47.733Z
+current_date: 2026-09-29T05:23:47.733Z
 ---
 
 > ## Documentation Index
@@ -27,6 +27,20 @@ replication. See [Replicas and backups](backups.md#replicas-and-backups).
 Neki uses Postgres physical replication to copy write-ahead log (WAL) records
 from each shard's primary to its replicas. If a primary becomes unavailable,
 Neki can promote an eligible replica and update the shard topology to use the
+new primary.
+
+Neki handles failures through a division of responsibility between the
+[admin](overview.md#the-admin) and the
+[orchestration layer](terminology.md#orchestration-layer). The orchestration
+layer owns the lifecycle of the [components that run alongside each Postgres
+instance](overview.md#what-runs-alongside-postgres), the sidecar and
+PostgresManager: it creates, restarts, and replaces them. The admin monitors
+each Postgres instance through its sidecar, not by connecting to Postgres
+directly. It directs Postgres through PostgresManager, and owns replication and
+failover: it detects a failed primary, promotes a replica, and repairs
+replicas. Some operations need both. For example, before the orchestration
+layer replaces the components of a shard's primary, it asks the admin for a
+planned switchover to a healthy replica, and waits for the admin to confirm the
 new primary.
 
 A failover can briefly interrupt queries or connections while the shard changes
