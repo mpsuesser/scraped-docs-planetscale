@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-09-11T16:24:04.711Z
-current_date: 2026-09-11T16:24:04.711Z
+access_date: 2026-09-29T05:37:27.556Z
+current_date: 2026-09-29T05:37:27.556Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -193,6 +193,8 @@ After defaults and table overrides are resolved, the `columns` list contains exa
 ```
 
 Shard indexes live in the top-level `shard_indexes` catalog. Multiple shard groups can contain the same shard.
+
+The topology’s **shard index** defines how Neki routes rows; it is not a PostgreSQL table index. Create a PostgreSQL index on the shard-key columns when they are not already covered by a primary key or another suitable index. These columns commonly appear in joins and predicates. When planning queries, Neki uses PostgreSQL’s column statistics to estimate which plan will work best. PostgreSQL’s autovacuum refreshes these statistics as data changes. After a bulk load or import, collect them explicitly with `ANALYZE`, as described in the [Postgres import guide](imports/postgres.md#restore-into-neki).
 
 A table-level primary index must produce values that fit the shard group’s range layout. Changing the index type without changing the ranges can concentrate rows on one shard or leave some values without a matching destination.
 

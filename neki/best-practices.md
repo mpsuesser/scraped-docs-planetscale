@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-09-29T05:37:27.556Z
+current_date: 2026-09-29T05:37:27.556Z
 ---
 
 > ## Documentation Index
@@ -22,6 +22,9 @@ For sharded data, choose shard keys from queries and transactions your applicati
 * Appear in the predicates of latency-sensitive queries.
 * Keep rows that are joined or updated together in the same shard group.
 * Remain stable for the lifetime of a row.
+
+Index shard-key columns and keep their statistics current for query planning.
+See [Data topology](data-topology.md#shard-indexes) for details.
 
 Use [reference tables or global secondary indexes (GSIs)](reference-tables-and-gsis.md)
 when queries need data that their shard-key route does not provide:
