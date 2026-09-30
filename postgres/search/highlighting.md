@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/highlighting
 title: "Highlighting"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 > ## Documentation Index
@@ -29,7 +29,9 @@ current_date: 2026-09-28T21:23:55.111Z
 | `end_tag` | `text` | `'</b>'` | Closing tag wrapped around each match. |
 | `query` | `text` | `NULL` | TINQL used to find match spans. When omitted, the `==>` predicate on the same column in the statement's `WHERE` clause is used. |
 
-Returns document text with matched spans wrapped in tags. Highlighting marks exactly the text that produced the match. For `a BEFORE b`, only the `b` occurrences that satisfy the relation are wrapped.
+Returns document text with matched spans wrapped in tags. Highlighting marks exactly the text that produced the match. For `a BEFORE b`, only the `b` occurrences that satisfy the relation are wrapped. Stemmed matches wrap the complete original word, so a query for `runs` highlights `running` as `<b>running</b>`.
+
+Calls on a searched column use that index's analysis options, including `stemmer`. Standalone calls accept the same analysis arguments as [`tin.tokenize`](reference/functions.md). Supplied options must match the selected index when highlighting a searched column.
 
 When `query` is omitted, the predicate is found anywhere in the same statement, including subqueries, CTEs, and DML (`RETURNING`, `MERGE` actions, `ON CONFLICT`).
 
@@ -53,6 +55,10 @@ RETURNING id, tin.highlight(body);
 SELECT tin.highlight(body, '<mark>', '</mark>', 'apple')
 FROM posts
 WHERE id = 1;
+
+-- Stemming highlights the original word
+SELECT tin.highlight('run runs running runner', query => 'runs', stemmer => 'en');
+-- <b>run</b> <b>runs</b> <b>running</b> runner
 ```
 
 ## Tag placeholders

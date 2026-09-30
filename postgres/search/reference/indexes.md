@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/indexes
 title: "Indexes"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 > ## Documentation Index
@@ -69,6 +69,10 @@ WITH (
   graphemes = discard,
   position_gaps = collapse
 );
+
+-- Optional Snowball stemming (requires case_folding = fold)
+CREATE INDEX posts_body_en_tin ON posts USING tin (body)
+WITH (stemmer = 'en');
 ```
 
 ### Scoring
@@ -77,7 +81,7 @@ WITH (
 | - | - | - | - |
 | `k1` | real | `1.2` | BM25 term-frequency saturation. Domain `[0.0..10000.0]`, enforced at DDL. |
 | `b` | real | `0.75` | BM25 length normalization. Domain `[0.0..1.0]`. |
-| `score_stop_words` | text | unset | Comma-separated terms that `tin.score` leaves out of the BM25 sum. Each entry must match the stored term exactly and is never tokenized, so write entries in analyzed form (lowercase on a case-folding index). Matching, counting, and phrases are unaffected. |
+| `score_stop_words` | text | unset | Comma-separated terms that `tin.score` leaves out of the BM25 sum. Each entry must match the stored term exactly and is never tokenized, so write entries in analyzed form (lowercase on a case-folding index, and stemmed when a stemmer is set). Matching, counting, and phrases are unaffected. |
 
 Scoring options are read at query time, so `ALTER INDEX ... SET` takes effect on the next scored query without a rebuild. `k1` and `b` can also be overridden for a single query with `tin.score(ctid, k1 => …, b => …)`. [`tin.score_inspect`](../scoring.md) shows which terms a query would score after stop words and dense-term elision are applied.
 
@@ -87,13 +91,14 @@ Scoring options are read at query time, so `ALTER INDEX ... SET` takes effect on
 | - | - | - | - |
 | `tokenizer` | text | `unicode` | Base token boundary policy: `unicode` or `whitespace`. |
 | `case_folding` | text | `fold` | Unicode case folding: `fold` or `preserve`. |
+| `stemmer` | text | unset | Snowball language code. Unset means no stemming. Requires `case_folding = fold`. See [Stemming](#stemming). |
 | `accent_folding` | text | `fold` | Accent/diacritic folding: `fold` or `preserve`. |
 | `long_tokens` | text | `split` | Tokens longer than `max_token_bytes`: `split`, `truncate`, or `discard`. |
 | `max_token_bytes` | int | `256` | Maximum token length in UTF-8 bytes (`[4..2692]`). |
 | `graphemes` | text | `emoji` | Standalone grapheme clusters (emoji, symbols): `emoji`, `retain`, or `discard`. |
 | `position_gaps` | text | `preserve` | Position numbering when analysis removes tokens: `preserve` or `collapse`. |
 
-Defaults fold **case and accents**, split over-long tokens on grapheme boundaries, and emit emoji as searchable terms. Indexing and query analysis use the same pipeline, so `==>` searches agree with what the index stored.
+Defaults fold **case and accents**, split over-long tokens on grapheme boundaries, and emit emoji as searchable terms. Stemming is off until you set `stemmer`. Indexing and query analysis use the same pipeline, so `==>` searches agree with what the index stored.
 
 ```sql theme={null}
 CREATE INDEX posts_body_tin ON posts USING tin (body);
@@ -114,6 +119,47 @@ SELECT * FROM tin.tokenize('Jalapeño 😀', accent_folding => 'preserve');
 Hyphenated surface forms may still split into multiple tokens (for example `wi-fi` becomes the phrase `"wi fi"`). Fuzzy (`term~N`) requires a single token after tokenization.
 
 Changing tokenization options on a populated index does not re-tokenize stored rows. Run `REINDEX` to apply the new policy to them.
+
+### Stemming
+
+`stemmer` applies Snowball stemming after lowercasing and before accent folding. It is unset by default. Set an ISO language code to match inflected words as the same term:
+
+```sql theme={null}
+CREATE INDEX posts_body_en_tin ON posts USING tin (body)
+WITH (stemmer = 'en');
+
+SELECT * FROM tin.tokenize('runs running runner', stemmer => 'en');
+-- run
+-- run
+-- runner
+```
+
+English `run`, `runs`, and `running` share the stored term `run`. `runner` stays a separate term. Stemming requires `case_folding = fold`; unknown language codes and `case_folding = preserve` with a stemmer fail at `CREATE` / `ALTER`.
+
+Ordinary query terms and phrases use the same stemmer as stored text. Wildcard, fuzzy, and range literals skip stemming and search the stored stems. Regular expressions are unchanged. `score_stop_words` still match stored terms exactly, so write them in stemmed form on a stemmed index.
+
+| Code | Language | Code | Language |
+| - | - | - | - |
+| `ar` | Arabic | `da` | Danish |
+| `nl` | Dutch | `en` | English |
+| `fi` | Finnish | `fr` | French |
+| `de` | German | `el` | Greek |
+| `hu` | Hungarian | `it` | Italian |
+| `no` | Norwegian | `pt` | Portuguese |
+| `ro` | Romanian | `ru` | Russian |
+| `es` | Spanish | `sv` | Swedish |
+| `ta` | Tamil | `tr` | Turkish |
+
+Enable, change, or disable stemming and rebuild together so existing rows and later queries agree:
+
+```sql theme={null}
+BEGIN;
+ALTER INDEX posts_body_tin SET (stemmer = 'en');
+REINDEX INDEX posts_body_tin;
+COMMIT;
+```
+
+`ALTER INDEX ... RESET (stemmer)` turns stemming off. That also needs `REINDEX` on a populated index.
 
 ### Segments
 

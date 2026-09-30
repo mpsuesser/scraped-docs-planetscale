@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/scoring
 title: "Scoring"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 > ## Documentation Index
@@ -133,6 +133,24 @@ ORDER BY term;
 The corpus statistics behind BM25 work differently. The document count, the number of documents containing each term, and the average document length come from the index, and they include every document the index still stores. A deleted or updated row keeps its entry in the index until `VACUUM` marks it dead and background maintenance rewrites the segment that holds it, or until you `REINDEX`. Until then, the deleted rows still count in the statistics, and the rows you do see are scored as if the deleted rows were still present. On a table with heavy update or delete churn, keep autovacuum aggressive so that maintenance can drop dead entries promptly. See [Operational guidance](operations.md).
 
 Scores are comparable within one query. They shift over time as the corpus grows and as maintenance reshapes it.
+
+## Ties and secondary sort keys
+
+Documents with the same term statistics get the same BM25 score. Ranked searches can keep a bounded top-k scan when you add more sort keys after the score:
+
+```sql theme={null}
+SELECT id, tin.score(ctid) AS score, body
+FROM posts
+WHERE body ==> 'apple OR grape'
+ORDER BY score DESC, created_at DESC, id
+LIMIT 10;
+```
+
+TIN ranks by score first. When several rows share a score, the extra keys decide which of those rows stay in the top k and in what order. A unique key such as `id` makes the ranking reproducible across runs.
+
+Without a secondary key, the order of equal-score rows can change between queries. Use a tie-break column when you paginate with `LIMIT` / `OFFSET`, or when the order must stay stable. A score threshold alone (`WHERE tin.score(ctid) < last_score`) cannot resume inside a tied group: `<` skips the rest of the group, and `<=` repeats earlier rows.
+
+A volatile key (`random()`), `FETCH ... WITH TIES`, or a `LIMIT` that is not constant at plan time keeps PostgreSQL's `Sort` instead of the top-k scan. The results stay correct; only the plan changes.
 
 ## Need help?
 

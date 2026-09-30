@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search
 title: "Search"
 description: ""
-access_date: 2026-09-17T17:35:52.931Z
-current_date: 2026-09-17T17:35:52.931Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 TIN (**T** ext **IN** dex) brings blazing-fast full-text search to PlanetScale Postgres. Enabling the `tin` extension adds an inverted index type built for search, BM25 ranking, and the **[TINQL](search/tinql.md)** query language.
@@ -32,7 +32,7 @@ TIN offers richer retrieval features and drastically better performance than typ
 | Query language | TINQL | `tsquery` | Query API | Term string |
 | Highlighting | ✅ | ✅ | ✅ | ❌ |
 | Indexes `text` directly | ✅ | ❌ | ✅ | ✅ |
-| Stemming | ❌ | ✅ | ✅ | ✅ |
+| Stemming | ✅ | ✅ | ✅ | ✅ |
 
 An external engine such as Elasticsearch has a similar feature set, but requires a second cluster and a sync path with Postgres.
 
@@ -45,7 +45,7 @@ An external engine such as Elasticsearch has a similar feature set, but requires
 - **Exact counts.** `count(*)` with `WHERE body ==> '…'` is answered from the index and stays exact under concurrent writes, `VACUUM`, and on read replicas.
 - **[Highlighting](search/highlighting.md).** `tin.highlight` adds configurable markers around the text that produced the match. When highlighted, a match on `pineapple` returns `'<b>pineapple</b>'`. `tin.highlight_ansi` does the same for terminals.
 - **[Cross-column scoring](search/reference/sql-shapes.md#several-tin-indexed-columns).** Search several TIN-indexed columns in one query, and `tin.score(ctid)` combines relevance across them.
-- **[Configurable tokenization](search/reference/indexes.md#index-options-with).** The default tokenizer runs on indexed columns and queries, splitting text on Unicode word boundaries, folding case and accents, and indexes emoji as terms.
+- **[Configurable tokenization](search/reference/indexes.md#index-options-with).** The default tokenizer runs on indexed columns and queries, splitting text on Unicode word boundaries, folding case and accents, and indexes emoji as terms. Optional [Snowball stemming](search/reference/indexes.md#stemming) matches inflected words (`runs`, `running`, `run`) as the same term.
 - **[Parallel build and parallel query](search/operations.md#parallel-query).** Index builds use parallel workers, and based on cost, queries and `count(*)` can run in parallel too.
 
 ### TIN example

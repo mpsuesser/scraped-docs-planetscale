@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/tinql
 title: "Tinql"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 > ## Documentation Index
@@ -28,6 +28,7 @@ WHERE body ==> 'apple AND "fuji apple"';
 
 * Keywords must be **UPPER CASE** (`AND`, `OR`, `THEN`). Lowercase is a search term (`and` matches the word “and”).
 * Matching **folds case and accents** under the default tokenizer (`Jalapeño` and `jalapeno` are the same term). Override with `case_folding` / `accent_folding` on the index.
+* When the index has a [`stemmer`](reference/indexes.md#stemming), ordinary terms and phrases are stemmed to match inflected forms (`runs` matches `running`). Wildcard, fuzzy, and range literals stay unstemmed and search stored stems.
 * Inputs that analyze to **no tokens** (`''`, whitespace, bare punctuation) match nothing. Explicit empty syntax (`""`, `[]`) is a parse error.
 * Query boost factors (`^N`) must be in `[0.0..10000.0]`. The system rejects out-of-range values at parse time.
 * Token positions are **0-based**. Prefer `IN FIRST N WORDS` / `IN LAST N WORDS` over raw `IN WORDS` ranges when you mean “the first/last N words.”

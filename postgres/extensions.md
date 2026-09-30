@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-09-16T16:23:24.602Z
-current_date: 2026-09-16T16:23:24.602Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 You can submit and vote for the extensions you want us to support next at [ps-extensions.io](https://ps-extensions.io/).
@@ -62,6 +62,8 @@ To update an extension to a newer version, use the `ALTER EXTENSION` command:
 ```sql
 ALTER EXTENSION pgcrypto UPDATE;
 ```
+
+Some extensions, including [TIN](search.md), also need a [cluster update](cluster-configuration/updates.md) so the new library is on the server before `ALTER EXTENSION ... UPDATE` can expose new options.
 
 ### Viewing Installed Extensions
 
@@ -260,7 +262,7 @@ Newer Postgres versions ship with newer versions of extensions. When upgrading t
 | [postgis\_topology](https://postgis.net/docs/manual-3.5/Topology.html) | The PostGIS Topology types and functions are used to manage topological objects such as faces, edges and nodes | 3.6.4 | ⭐ |  |  |
 | [roaringbitmap](https://github.com/ChenHuajun/pg_roaringbitmap) | Compressed bitmap data type for efficient set operations such as union, intersection, difference, and cardinality | 1.2.0 | ⭐ |  |  |
 | [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 |  | ✅ | [📝](extensions/timescaledb.md) |
-| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 0.9.0 | ⭐ |  | [📝](search.md) |
+| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ |  | [📝](search.md) |
 | [wal2json](https://github.com/eulerto/wal2json) | Logical decoding output plugin that produces JSON format change data capture (CDC) output for streaming database changes | 2.6 | ⭐ |  |  |
 
 #### Postgres 17.11
@@ -284,7 +286,7 @@ Newer Postgres versions ship with newer versions of extensions. When upgrading t
 | [postgis\_topology](https://postgis.net/docs/manual-3.5/Topology.html) | The PostGIS Topology types and functions are used to manage topological objects such as faces, edges and nodes | 3.6.4 | ⭐ |  |  |
 | [roaringbitmap](https://github.com/ChenHuajun/pg_roaringbitmap) | Compressed bitmap data type for efficient set operations such as union, intersection, difference, and cardinality | 1.2.0 | ⭐ |  |  |
 | [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 |  | ✅ | [📝](extensions/timescaledb.md) |
-| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 0.9.0 | ⭐ |  | [📝](search.md) |
+| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ |  | [📝](search.md) |
 | [wal2json](https://github.com/eulerto/wal2json) | Logical decoding output plugin that produces JSON format change data capture (CDC) output for streaming database changes | 2.6 | ⭐ |  |  |
 
 ### PlanetScale Extensions

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/functions
 title: "Functions"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 > ## Documentation Index
@@ -57,11 +57,12 @@ Returns the document text with matched spans in ANSI colors. See [Highlighting](
 
 `tin.tokenize(text) → setof text`
 
-Returns the tokens the analysis pipeline produces for a string. Optional named arguments match the [index tokenization options](indexes.md#index-options-with) and use the same defaults (`tokenizer`, `case_folding`, `accent_folding`, `long_tokens`, `max_token_bytes`, `graphemes`, `position_gaps`). Useful when debugging why a query does or does not match.
+Returns the tokens the analysis pipeline produces for a string. Optional named arguments match the [index tokenization options](indexes.md#index-options-with) and use the same defaults (`tokenizer`, `case_folding`, `accent_folding`, `long_tokens`, `max_token_bytes`, `graphemes`, `position_gaps`, `stemmer`). `stemmer` defaults to unset (no stemming). Useful when debugging why a query does or does not match.
 
 ```sql theme={null}
 SELECT * FROM tin.tokenize('Jalapeño 😀');
 SELECT * FROM tin.tokenize('Jalapeño 😀', accent_folding => 'preserve');
+SELECT * FROM tin.tokenize('runs running runner', stemmer => 'en');
 ```
 
 ## `tin.maybe_quote(text)`

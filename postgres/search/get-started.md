@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-09-17T17:35:52.931Z
-current_date: 2026-09-17T17:35:52.931Z
+access_date: 2026-09-30T16:24:53.887Z
+current_date: 2026-09-30T16:24:53.887Z
 ---
 
 ## Install the extension
@@ -17,6 +17,16 @@ CREATE EXTENSION IF NOT EXISTS tin;
 ```
 
 If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the “Cluster update available” indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
+
+### Upgrade the extension
+
+When a new TIN version is available, [update your cluster](../cluster-configuration/updates.md) so it restarts onto the new library. Then, in every database that already has the extension, run:
+
+```sql
+ALTER EXTENSION tin UPDATE;
+```
+
+The cluster update installs the new binary. `ALTER EXTENSION` updates the SQL catalog so new options and function signatures are visible. Changing analysis options such as [stemming](reference/indexes.md#stemming) on a populated index also needs `REINDEX`.
 
 ## Create a table and index
 
@@ -39,16 +49,17 @@ CREATE INDEX posts_body_tin ON posts USING tin (body);
 
 Each TIN index covers one text column (or a text-producing expression).
 
-The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and ”😀” is searchable. The same tokenizer applies to indexed columns and queries.
+The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and ”😀” is searchable. The same tokenizer applies to indexed columns and queries. Stemming is off by default. Add `WITH (stemmer = 'en')` so `runs`, `running`, and `run` match as the same term. See [Stemming](reference/indexes.md#stemming).
 
 You can preview how a string is tokenized with `tin.tokenize`:
 
 ```sql
 SELECT * FROM tin.tokenize('Jalapeño 😀');
 SELECT * FROM tin.tokenize('Jalapeño 😀', accent_folding => 'preserve');
+SELECT * FROM tin.tokenize('runs running runner', stemmer => 'en');
 ```
 
-You can also create [partial indexes](reference/indexes.md#partial-and-expression-indexes), [expression indexes](reference/indexes.md#partial-and-expression-indexes), and set per-index BM25 and tokenization options with [`WITH (k1, b, tokenizer, …)`](reference/indexes.md#index-options-with). After changing analysis options on a populated index, `REINDEX` so existing rows are re-tokenized.
+You can also create [partial indexes](reference/indexes.md#partial-and-expression-indexes), [expression indexes](reference/indexes.md#partial-and-expression-indexes), and set per-index BM25 and tokenization options with [`WITH (k1, b, tokenizer, stemmer, …)`](reference/indexes.md#index-options-with). After changing analysis options on a populated index, `REINDEX` so existing rows are re-tokenized.
 
 ## Your first queries
 
@@ -64,13 +75,13 @@ WHERE body ==> 'apple AND "fuji apple"';
 
 ### Ranked results (BM25)
 
-Order responses in a ranked list with `tin.score`
+Order responses in a ranked list with `tin.score`. Add more sort keys after the score when equal scores must stay in a stable order:
 
 ```sql
 SELECT id, tin.score(ctid) AS score, body
 FROM posts
 WHERE body ==> 'apple OR grape'
-ORDER BY score DESC
+ORDER BY score DESC, id
 LIMIT 10;
 ```
 
@@ -159,6 +170,7 @@ Lead is intended for small development and test datasets. It scans table rows in
 | Exclusion not working | Use `AND NOT`, not `-term`. `-` is not negation. |
 | `MATCHES` finds nothing | `MATCHES` is not folded. Match the dictionary form (usually lowercase, accents folded): `MATCHES apple.*`, not `MATCHES Apple.*`. |
 | Accent / case mismatch | Defaults fold both. Search `jalapeno` to match `Jalapeño`. Override with `WITH (case_folding = preserve, accent_folding = preserve)` if you need exact surface forms. |
+| Inflected forms miss | Stemming is off by default. Create the index `WITH (stemmer = 'en')` (or another [language code](reference/indexes.md#stemming)), then `REINDEX` if the index already has rows. |
 | Fuzzy error on hyphenated term | Fuzzy needs one token after tokenization. Prefer `wi-fi` as a phrase (`"wi fi"`) or drop `~N`. |
 | Out-of-range `k1` / `b` / boost | `k1` and query boosts must be in `[0.0..10000.0]`; `b` must be in `[0.0..1.0]`. |
 | Index keeps growing | The index relation grows to a high-water mark and does not shrink on its own. `REINDEX` shrinks it. See [limitations](reference/limitations.md). |
