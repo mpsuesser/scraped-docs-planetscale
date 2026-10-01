@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/operations-philosophy
 title: "Operations Philosophy"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -224,3 +224,6 @@ If the surge autoscaler is able to complete the resize before your disk fills, d
 If your disk fills before the new disks are ready, you will experience a longer period of downtime.
 
 We make every effort to keep your network-attached storage disk from filling, but it's important for the database administrators to pay close attention to storage and take manual intervention when necessary.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

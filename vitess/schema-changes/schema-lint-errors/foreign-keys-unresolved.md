@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-unresolved
 title: "Foreign Keys Unresolved"
 description: ""
-access_date: 2026-09-04T21:54:31.222Z
-current_date: 2026-09-04T21:54:31.222Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -51,3 +51,6 @@ For example, deploy parent table changes first, then add child constraints in a 
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

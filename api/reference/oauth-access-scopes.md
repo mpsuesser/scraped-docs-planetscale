@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/oauth-access-scopes
 title: "Oauth Access Scopes"
 description: ""
-access_date: 2026-09-28T21:33:18.542Z
-current_date: 2026-09-28T21:33:18.542Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -105,3 +105,6 @@ See the [OAuth documentation](oauth.md) for more information on creating OAuth a
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

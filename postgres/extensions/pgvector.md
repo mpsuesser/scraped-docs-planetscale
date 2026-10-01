@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pgvector
 title: "Pgvector"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -78,3 +78,6 @@ CREATE INDEX ON items USING hnsw (embedding vector_l2_ops);
 ## External documentation
 
 For indexing options, half-precision and sparse vectors, and language clients, see the [official pgvector documentation](https://github.com/pgvector/pgvector).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_shard_configuration_profile_shard
 title: "Delete_shard_configuration_profile_shard"
 description: ""
-access_date: 2026-09-23T17:47:26.286Z
-current_date: 2026-09-23T17:47:26.286Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -391,3 +391,5 @@ components:
             user:write_user: Write user
 
 ````
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

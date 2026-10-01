@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connection-resilience
 title: "Connection Resilience"
 description: ""
-access_date: 2026-09-09T08:29:12.146Z
-current_date: 2026-09-09T08:29:12.146Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -147,3 +147,6 @@ For read-heavy workloads, implementing retries in your database client or applic
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

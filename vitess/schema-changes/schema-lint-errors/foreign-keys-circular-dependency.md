@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-circular-dependency
 title: "Foreign Keys Circular Dependency"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -70,3 +70,6 @@ CREATE TABLE users (
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

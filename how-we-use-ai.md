@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/how-we-use-ai
 title: "How We Use Ai"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -34,3 +34,6 @@ All AI use is covered by PlanetScale's existing [terms of service](https://plane
 ## Opting out
 
 We understand that not every customer wants to use AI. You can disable the LLM-based features for all the databases in your account or organization on the organization settings page.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

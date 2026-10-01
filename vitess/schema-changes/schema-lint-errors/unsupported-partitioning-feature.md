@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/unsupported-partitioning-feature
 title: "Unsupported Partitioning Feature"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -75,3 +75,6 @@ If you are using partitioning to distribute data at scale, consider Vitess shard
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

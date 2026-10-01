@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres
 title: "Prometheus Metrics Postgres"
 description: ""
-access_date: 2026-09-28T21:23:55.111Z
-current_date: 2026-09-28T21:23:55.111Z
+access_date: 2026-10-01T18:05:48.418Z
+current_date: 2026-10-01T18:05:48.418Z
 ---
 
 > ## Documentation Index
@@ -151,3 +151,6 @@ The gauge only reports a container's latest termination reason, so the query att
 ## Need help?
 
 Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
