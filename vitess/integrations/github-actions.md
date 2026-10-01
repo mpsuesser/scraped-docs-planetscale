@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-09-30T23:59:00.337Z
+current_date: 2026-09-30T23:59:00.337Z
 ---
 
 See our [tech talk on Databases + CI/CD](https://planetscale.com/blog/databases-ci-cd-pipeline) to see pscale + GitHub Actions used in a real application.
@@ -17,6 +17,8 @@ With GitHub Actions, you can automate the creation of branches and deploy reques
 ## Convert GitHub branch name to PlanetScale branch name
 
 ## Create a PlanetScale branch
+
+## Recreate the branch when the pull request changes
 
 ## Create a password for a branch
 
@@ -116,6 +118,60 @@ Notice that we first check if the branch exists. If it does, we do nothing. Othe
 
 This is useful when running in CI, as the workflow may run multiple times and you’ll want the branch ready if you are running schema migrations immediately after creating the branch.
 
+### Recreate the branch when the pull request changes
+
+Skipping creation when the branch exists reuses whatever schema that branch already has. If a migration in the pull request is edited after the first workflow run, the branch and any open deploy request go stale and no longer match the code under review.
+
+Deleting and recreating the branch on every run guarantees it reflects the current pull request. Before deleting, close any open deploy requests for the branch and leave a comment on them pointing back to the pull request.
+
+```yaml
+- name: Recreate branch
+  env:
+    PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+    PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+  run: |
+    set +e
+    pscale branch show ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.PSCALE_BRANCH_NAME }} --org ${{ secrets.PLANETSCALE_ORG_NAME }}
+    exists=$?
+    set -e
+
+    if [ $exists -eq 0 ]; then
+      echo "Branch exists. Closing any open deploy requests and recreating."
+      pr_url="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+      stale_numbers=$(pscale deploy-request list ${{ secrets.PLANETSCALE_DATABASE_NAME }} --org ${{ secrets.PLANETSCALE_ORG_NAME }} -f json \
+        | jq -r --arg branch "${{ env.PSCALE_BRANCH_NAME }}" '.[] | select(.state == "open" and .branch == $branch) | .number')
+
+      for number in $stale_numbers; do
+        echo "Commenting on and closing deploy request $number"
+        jq -n --arg body "This deploy request is stale. The schema in ${pr_url} changed, so this DR is being closed and a new one will be opened." '{body: $body}' \
+          | pscale api organizations/${{ secrets.PLANETSCALE_ORG_NAME }}/databases/${{ secrets.PLANETSCALE_DATABASE_NAME }}/deploy-requests/"$number"/comments --org ${{ secrets.PLANETSCALE_ORG_NAME }} --input - \
+          || echo "Warning: could not comment on deploy request $number"
+        pscale deploy-request close ${{ secrets.PLANETSCALE_DATABASE_NAME }} "$number" --org ${{ secrets.PLANETSCALE_ORG_NAME }}
+      done
+
+      if [ -n "$stale_numbers" ]; then
+        echo "STALE_DR_NUMBERS=$(echo $stale_numbers | tr '\n' ' ')" >> "$GITHUB_ENV"
+      fi
+
+      pscale branch delete ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.PSCALE_BRANCH_NAME }} --org ${{ secrets.PLANETSCALE_ORG_NAME }} --force
+    fi
+- name: Create branch
+  env:
+    PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+    PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+  run: pscale branch create ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.PSCALE_BRANCH_NAME }} --org ${{ secrets.PLANETSCALE_ORG_NAME }} --wait
+```
+
+The numbers of any closed deploy requests are saved to `${{ env.STALE_DR_NUMBERS }}`, so a later step can mention which deploy request was replaced when commenting on the pull request.
+
+Pair this with a `concurrency` group keyed on the git branch so two pushes in quick succession don’t delete and create the same PlanetScale branch at the same time.
+
+```yaml
+concurrency:
+  group: ps-migrations-${{ github.head_ref }}
+  cancel-in-progress: true
+```
+
 ### Create a password for a branch
 
 You can use `pscale password create` to generate credentials for your database branch.
@@ -160,8 +216,14 @@ You can use `pscale deploy-request create` to open a new deploy request from Git
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
     PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
-  run: pscale deploy-request create ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.PSCALE_BRANCH_NAME }}
+  run: |
+    pscale deploy-request create ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.PSCALE_BRANCH_NAME }} \
+      --org ${{ secrets.PLANETSCALE_ORG_NAME }} \
+      --auto-delete-branch \
+      --notes "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
 ```
+
+`--auto-delete-branch` deletes the PlanetScale branch once the deploy request completes, so CI branches don’t accumulate. `--notes` links the deploy request back to the pull request that created it.
 
 ### Get deploy request by branch name
 
