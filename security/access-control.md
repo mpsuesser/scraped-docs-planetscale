@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/access-control
 title: "Access Control"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T23:44:28.301Z
+current_date: 2026-10-01T23:44:28.301Z
 ---
 
 ## Organization access control
@@ -115,7 +115,7 @@ You can follow the steps below to assign roles to your members. You must be an O
 - Click on “Members” in the sidebar on the left.
 - From here, you can click on the dropdown on the right under the “Role” column to select the role you want to apply to each member.
 
-You can also invite new members to your organization and assign roles once they accept their invitation. New members will be added with the [`Organization Member`](#organization-member) role by default.
+You can also invite new members to your organization and choose their role before sending the invitation. If you don’t pick a role, they’ll join as an [`Organization Member`](#organization-member) by default.
 
 Member role management is issued at the organization level. Each organization in your account may have different members with different access levels.
 
