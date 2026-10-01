@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhooks
 title: "Webhooks"
 description: ""
-access_date: 2026-09-04T21:54:31.222Z
-current_date: 2026-09-04T21:54:31.222Z
+access_date: 2026-10-01T20:07:30.279Z
+current_date: 2026-10-01T20:07:30.279Z
 ---
 
 ## Webhooks in PlanetScale
@@ -22,6 +22,8 @@ Webhooks in PlanetScale for Vitess are not like MySQL triggers and cannot be tri
 
 For more information about the events you can trigger a webhook with in PlanetScale, including example payloads, and supported database engines, see the [webhook event reference documentation](webhook-events.md).
 
+`branch.schema_recommendation` fires when PlanetScale creates a new schema recommendation. Vitess, Neki, and Postgres databases support this event. With an [Authorization header](#authenticating-webhook-deliveries), a delivery can start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session. See the [schema recommendation event](webhook-events.md#branch-schema-recommendation).
+
 ## Common webhook use cases
 
 There are various scenarios where webhooks can be useful, some of them include:
@@ -29,6 +31,7 @@ There are various scenarios where webhooks can be useful, some of them include:
 - Creating notifications in Slack, Microsoft Teams, GitHub, and other tools
 - Integrating with CI/CD processes for the automation of schema changes
 - Updating external issue trackers like Jira
+- Starting a Cursor or Devin agent when a new schema recommendation is created
 
 ## Managing webhooks
 

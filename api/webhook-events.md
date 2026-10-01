@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-01T20:07:30.279Z
+current_date: 2026-10-01T20:07:30.279Z
 ---
 
 ## Overview
@@ -32,6 +32,7 @@ If configured, webhook deliveries include your Authorization header value unchan
 | [Branch primary promoted](#branch-primary-promoted) | `branch.primary_promoted` | A new primary has been promoted for the branch. | Postgres |
 | [Branch out of memory](#branch-out-of-memory) | `branch.out_of_memory` | A Postgres database experienced an out of memory event. | Postgres |
 | [Branch ready](#branch-ready) | `branch.ready` | The branch is created and ready to connect. | Vitess, Neki, Postgres |
+| [Branch schema recommendation](#branch-schema-recommendation) | `branch.schema_recommendation` | A new schema recommendation has been created. | Vitess, Neki, Postgres |
 | [Branch sleeping](#branch-sleeping) | `branch.sleeping` | The branch is now sleeping. | Vitess, Neki, Postgres |
 | [Branch start maintenance](#branch-start-maintenance) | `branch.start_maintenance` | A production branch is about to start maintenance. | Vitess, Neki, Postgres |
 | [Backup failed](#backup-failed) | `backup.failed` | A backup has failed. | Vitess, Neki, Postgres |
@@ -375,6 +376,42 @@ The `branch.ready` event uses the same response body as a `200` response from th
       "current_default": true
     },
     "parent_branch": "main"
+  }
+}
+```
+
+### Branch schema recommendation
+
+A new schema recommendation has been created. This event is sent for Vitess, Neki, and Postgres databases.
+
+The `branch.schema_recommendation` event uses the same response body as a `200` response from the [Get a schema recommendation](reference/get_schema_recommendation.md) API endpoint.
+
+Set an [Authorization header](webhooks.md#authenticating-webhook-deliveries) on the webhook to send a token with each delivery. A receiving service can use that header to start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session, when a new schema recommendation is created.
+
+**Example:**
+
+```json
+{
+  "timestamp": 1698252879,
+  "event": "branch.schema_recommendation",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "sr8k2n4q1w0p",
+    "html_url": "https://app.planetscale.com/myorg/example_database/insights/recommendations/12",
+    "title": "Add an index to users",
+    "table_name": "users",
+    "keyspace": "example_database",
+    "ddl_statement": "CREATE INDEX users_email_idx ON users (email)",
+    "number": 12,
+    "state": "open",
+    "recommendation_type": "new_index",
+    "created_at": "2026-10-01T19:00:00.000Z",
+    "updated_at": "2026-10-01T19:00:00.000Z",
+    "applied_at": null,
+    "dismissed_at": null,
+    "closed_by_deploy_request": null,
+    "dismissed_by": null
   }
 }
 ```
