@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/branching
 title: "Branching"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T00:16:06.842Z
+current_date: 2026-10-01T00:16:06.842Z
 ---
 
 When your PostgreSQL database is first initialized, a single production branch is created called `main` which acts as the default branch. You can then create development branches that you can use for development before shipping schema changes to production.
@@ -23,7 +23,7 @@ PlanetScale Postgres provides two types of database branches:
 
 New branches created from the **Branches** page always start as development branches on `PS-DEV` instances. To convert a branch into a production branch, [upsize the cluster](cluster-configuration.md#adjusting-cluster-size) and [add replicas](cluster-configuration.md#managing-replicas) from the **Clusters** page. Only production branches can be set as the [default branch](#set-as-default-branch).
 
-A database can have a maximum of `100` development branches at the same time. To create additional branches, delete existing development branches that are no longer needed. If you need a higher limit, [contact support](https://planetscale.com/contact).
+Each database allows `100` development branches by default. Change the limit on the database [Settings](settings.md#development-branch-limit) page. The limit can be any number from 1 to 5,000. When a database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
 
 ## Create a branch
 

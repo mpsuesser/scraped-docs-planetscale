@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/planetscale-system-limits
 title: "Planetscale System Limits"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T00:16:06.842Z
+current_date: 2026-10-01T00:16:06.842Z
 ---
 
 We can sometimes manually adjust limits on a per-database level. If you are facing issues or have questions, the best course of action is to [open a support ticket](https://planetscale.com/contact).
@@ -18,7 +18,9 @@ Individual tables are limited to a maximum of `1017` columns each.
 
 ## Development branch limits
 
-A database can have a maximum of `100` development branches at the same time. To create additional branches, delete existing development branches that are no longer needed. If you need a higher limit, [contact support](https://planetscale.com/contact).
+Each database allows `100` development branches by default. Change the limit on the database **Settings** page. The limit can be any number from 1 to 5,000.
+
+When a database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
 
 ## Disk limits
 

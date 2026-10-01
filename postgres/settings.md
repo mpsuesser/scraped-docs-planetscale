@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/settings
 title: "Settings"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-01T00:16:06.842Z
+current_date: 2026-10-01T00:16:06.842Z
 ---
 
 To access the settings:
@@ -37,6 +37,14 @@ This setting is useful for:
 - Compliance requirements that mandate data residency
 - Cost optimization by keeping resources in a specific region
 - Reducing latency by keeping all branches in the same geographic area
+
+### Development branch limit
+
+The development branch limit controls how many development branches the database can have at the same time. The default is 100. Set any number from 1 to 5,000.
+
+To change the limit:
+
+When the database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
 
 ### Save Settings
 
