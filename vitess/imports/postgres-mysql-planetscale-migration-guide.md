@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/postgres-mysql-planetscale-migration-guide
 title: "Postgres Mysql Planetscale Migration Guide"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale’s Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
@@ -18,7 +18,7 @@ When using this script, your data will take the following path:
 
 - Data flows from your Postgres source into DMS
 - DMS does necessary type conversions and copies the data into the Aurora MySQL database
-- Using the PlanetScale import tool, your data will flow from Aurora MySQL into your destination PlanetScale database
+- Using a PlanetScale [database import](database-imports.md), your data will flow from Aurora MySQL into your destination PlanetScale database
 - After the initial copy, changes will continue to flow form Postgres, to Aurora MySQL, to PlanetScale so that your data stays in sync, even if the migration takes several hours or days.
 
 ![Import data flow](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/postgres-mysql-planetscale-darkmode.png?w=2500&fit=max&auto=format&n=g0AZZQkXmTSBYuKj&q=85&s=0f2bfad70fe3b4c34834391512b9ba3f)
@@ -200,33 +200,51 @@ start.sh --identifier "PGtoPSImport01"
 
 You can monitor the progress of the migration by comparing row counts between the source and target database. The initial data copy may range from several minutes to several hours depending on the size of your database. After the initial copy, data changes to your Postgres database will replicate to Aurora MySQL. You do not need to connect to the Aurora MySQL database form your application. We are only using it as a temporary holding-place while moving into PlanetScale.
 
-### 8\. The PlanetScale import tool
+### 8\. Import into PlanetScale
 
-To get your data into PlanetScale, we will use the import tool to migrate the data from the Aurora MySQL instance created in the previous steps into PlanetScale. Log into PlanetScale, select your organization, click “New database”, and then “Import database.”
+To get your data into PlanetScale, we will [import](database-imports.md) the data from the Aurora MySQL instance created in the previous steps into PlanetScale with the `pscale` CLI.
 
-![PlanetScale new database via import](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-new-import.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=a5ea0360cbc978505d0d3d46ac5c8ad1)
+First, create the PlanetScale database you’re importing into. For large imports, we recommend using [Metal](../../metal.md) for improved import speed.
 
-PlanetScale new database via import
+```shellscript
+pscale database create <DATABASE_NAME> --region <REGION> --cluster-size <CLUSTER_SIZE> --wait
+```
 
-Enter the name of your database and choose the type and size of database you want to import to. For large imports, we recommend using Metal for improved import speed.
+Next, connect the Aurora MySQL instance to your production branch as an external keyspace. Use the credentials that the script printed out, and the username and password for the `migration_user`. Run the command with `--dry-run` first to check the connection and schema:
 
-![PlanetScale set database name and type for import](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-database-name-type.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=ba2cb1ae4e4a24074d306215f5cd8744)
+```shellscript
+pscale keyspace create-external <DATABASE_NAME> main aurora_source \
+  --host <AURORA_HOST> \
+  --source-database <AURORA_DATABASE_NAME> \
+  --username migration_user \
+  --password <PASSWORD> \
+  --ssl-mode required \
+  --dry-run
+```
 
-PlanetScale set database name and type for import
+If you encounter any errors at this step, look carefully at the error message and address any connection or schema issues as needed. When the check passes, run the same command with `--wait` instead of `--dry-run`.
 
-Scroll down and you will see a section to add the connection information for the database to import. Enter all of the credentials that the script printed out, and use the username and password for the `migration_user`.
+Then start the import with a MoveTables workflow from the external keyspace into your PlanetScale keyspace, which has the same name as your database:
 
-![PlanetScale import connection info](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/planetscale-import-connection-info.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=beb5b321be27a4c0658bf5be117787ba)
+```shellscript
+pscale branch vtctl move-tables create <DATABASE_NAME> main \
+  --workflow import_postgres \
+  --source-keyspace aurora_source \
+  --target-keyspace <DATABASE_NAME> \
+  --all-tables \
+  --defer-secondary-keys \
+  --format json
+```
 
-PlanetScale import connection info
-
-Click “Connect to Database.” If you encounter any errors at this step, look carefully at the error message and address any connection or schema issues as needed. When the import is ready, click “Begin import.”
+Track the import with `pscale branch vtctl move-tables status`, or on the **Workflows** page in the dashboard.
 
 ### 9\. Complete the import
 
-This full import flow not only copies data, but does continuous replication of traffic from Postgres, to DMS, to Aurora MySQL, and finally to PlanetScale. Replication between these continues until you stop the DMS task using `cleanup.sh` and complete the PlanetScale import flow.
+This full import flow not only copies data, but does continuous replication of traffic from Postgres, to DMS, to Aurora MySQL, and finally to PlanetScale. Replication between these continues until you stop the DMS task using `cleanup.sh` and complete the PlanetScale import.
 
 It is up to you to determine how you want to cut over your application to use PlanetScale as your primary database instead of the old Postgres source. Before doing this, you should ensure all of your queries and/or your ORM are updated to work properly with PlanetScale. We also recommend doing some performance testing, and adding indexes if you encounter slow queries.
+
+When you’re ready, [switch traffic and complete the import](database-imports.md#step-7-switch-traffic), then delete the `aurora_source` external keyspace.
 
 ### 10\. Clean up import
 

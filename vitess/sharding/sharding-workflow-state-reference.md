@@ -2,25 +2,19 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-workflow-state-reference
 title: "Sharding Workflow State Reference"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
+This page describes the states of workflows created with the deprecated [`pscale workflow`](../../cli/workflow.md) command, the earlier dashboard workflow pages, or the `/workflows` API endpoints.
 
-# Sharding workflow state reference
+Workflows created with [`pscale branch vtctl move-tables`](../../cli/move-tables.md) report their state directly from Vitess. Run `move-tables status` to see each stream’s state (`Copying`, `Running`, `Lagging`, `Stopped`, or `Error`) and the workflow’s `traffic_state`. See the [Sharding quickstart](sharding-quickstart.md) for the full lifecycle.
 
-> This document can be used as reference when going through the [Sharding quickstart](sharding-quickstart.md). It covers the various states you may enter during the workflow.
-
-**Platform availability:** Vitess only
-
-## `copying`
+## copying
 
 During this state, Vitess is copying rows from your source keyspace to your target keyspace using a combination of `SELECT * FROM table` and binlog-based replication.
 
-## `running`
+## running
 
 Once copying is complete, we switch to `running` state. Replication lag must be low enough for VReplication to advance into the `running` state. During this state, we are running pure binlog-based replication.
 
@@ -28,17 +22,17 @@ At this point, your original source keyspace tables are serving all primary and 
 
 There are some additional substates you may enter during the `running` state:
 
-* `running` with not `verified data`: You can verify replicated data is accurate before switching any traffic
-* `running` with `verified data`: You have run the verification process in the last 24 hours
-* `running` with `verification stale`: You have run the verification process over 24 hours ago
+- `running` with not `verified data`: You can verify replicated data is accurate before switching any traffic
+- `running` with `verified data`: You have run the verification process in the last 24 hours
+- `running` with `verification stale`: You have run the verification process over 24 hours ago
 
-## `switched_replicas`
+## switched\_replicas
 
 The `switched_replicas` state is an optional intermediate step between `running` and `switched_primaries`. During the `switched_replicas` state, the new target keyspace is serving replica traffic, and the source keyspace continues serving all primary traffic.
 
 Because writes are still doing to the source keyspace, data is still being replicated to the target keyspace.
 
-## `switched_primaries`
+## switched\_primaries
 
 During the `switched_primaries` state, the target keyspace is serving replica *and* primary traffic.
 
@@ -46,52 +40,47 @@ Vitess has now created a *reverse* workflow that replicates from the target keys
 
 At this point:
 
-* The original, "forward" workflow is paused (stopped)
-* Vitess has initialized the sequence tables
-* The routing rules are in place, as they will be critical for `reversed_cutover` state.
+- The original, “forward” workflow is paused (stopped)
+- Vitess has initialized the sequence tables
+- The routing rules are in place, as they will be critical for `reversed_cutover` state.
 
-If you click "reverse traffic", here's what happens:
+If you click “reverse traffic”, here’s what happens:
 
-* The workflow goes back to a `running` state
-* Depending on which way you're reversing, "forward" workflow is started again or the "reverse" workflow is stopped
+- The workflow goes back to a `running` state
+- Depending on which way you’re reversing, “forward” workflow is started again or the “reverse” workflow is stopped
 
-## `cutover`
+## cutover
 
-* This is tantamount to `MoveTables Complete --keep-data=false --keep-routing-rules=false`
-  * User **cannot** cancel the workflow at this point. This is because the underlying workflow is actually complete, and the source tables have been deleted
-* The underlying Vitess workflow is finished.
-* We reset the routing rules to what they were before the workflow started
-* User **must have** updated their application code to no longer target a keyspace in order for their app to still work at this step.
-  * This is because the routing rules have been cleaned up, and can no longer route queries from `source_keyspace.table` to `target_keyspace.table` and we must rely on Vitess global routing.
-* If the user's app is failing at this point, have no fear! There is a `reverse cutover` button
+- This is tantamount to `MoveTables Complete --keep-data=false --keep-routing-rules=false`
+	- User **cannot** cancel the workflow at this point. This is because the underlying workflow is actually complete, and the source tables have been deleted
+- The underlying Vitess workflow is finished.
+- We reset the routing rules to what they were before the workflow started
+- User **must have** updated their application code to no longer target a keyspace in order for their app to still work at this step.
+	- This is because the routing rules have been cleaned up, and can no longer route queries from `source_keyspace.table` to `target_keyspace.table` and we must rely on Vitess global routing.
+- If the user’s app is failing at this point, have no fear! There is a `reverse cutover` button
 
 `reversed_cutover`
 
-* User has pressed "reverse cutover"
-* We put back the routing rules we saved during `switched_primaries`
-  * These rules route queries to the source keyspace table, to the target keyspace table so that queries work again
-* User now has more time to update/fix their client application code
+- User has pressed “reverse cutover”
+- We put back the routing rules we saved during `switched_primaries`
+	- These rules route queries to the source keyspace table, to the target keyspace table so that queries work again
+- User now has more time to update/fix their client application code
 
 `complete`
 
-* Does nothing except say, "I'm all done and I don't need to reverse cutover anymore".
-* Allows you to do another workflow. since we limit to 1 active workflow per branch at a time
+- Does nothing except say, “I’m all done and I don’t need to reverse cutover anymore”.
+- Allows you to do another workflow. since we limit to 1 active workflow per branch at a time
 
 `cancelled`
 
-* User clicked "cancel"
-* We issued a `MoveTables Cancel --keep-data=false --keep-routing-rules=false`
-  * target tables will be deleted
-  * routing rules will be removed
-* Vitess workflow deleted
+- User clicked “cancel”
+- We issued a `MoveTables Cancel --keep-data=false --keep-routing-rules=false`
+- Vitess workflow deleted
 
 `error`
 
-* Some sort of error happened. User can click "retry" to try again.
+- Some sort of error happened. User can click “retry” to try again.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
-
-
-This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

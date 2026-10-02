@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/import-troubleshooting
 title: "Import Troubleshooting"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 > ## Documentation Index
@@ -18,25 +18,27 @@ current_date: 2026-10-01T18:05:48.418Z
 
 This guide covers common issues you might run into when importing a database to PlanetScale and how to fix them.
 
+Most problems show up when you create the external keyspace. Run [`pscale keyspace create-external`](../../cli/keyspace.md#create-an-external-keyspace) with `--dry-run` to check your source database without creating anything. Connection, server configuration, and user grant errors stop the external keyspace from being created. Schema errors are listed for each table but don't block creation.
+
 ## Connection issues
 
 ### Can't connect to external database
 
-If the connection test fails, here's what to check:
+If PlanetScale can't connect to your database, here's what to check:
 
 **Verify your credentials locally**
 
 Try connecting with the same credentials using the MySQL CLI:
 
-```sql theme={null}
-mysql -u <USERNAME> -p <PASSWORD> -h <HOST> -P <PORT> -D <DATABASE>
+```bash theme={null}
+mysql -u <USERNAME> -p -h <HOST> -P <PORT> -D <DATABASE>
 ```
 
 If this works locally but not in PlanetScale, the issue is likely network-related.
 
 **Check IP allowlist**
 
-Make sure you've added all PlanetScale IP addresses to your database's firewall or security group. The specific IPs depend on which region you selected for your PlanetScale database. See our [Import tool public IP addresses](import-tool-migration-addresses.md) page.
+Make sure you've added all PlanetScale IP addresses to your database's firewall or security group. The specific IPs depend on which region you selected for your PlanetScale database. See our [Import public IP addresses](import-tool-migration-addresses.md) page.
 
 **Verify database is publicly accessible**
 
@@ -50,9 +52,9 @@ PlanetScale needs to reach your database over the internet. Check that:
 
 If you're getting SSL-related errors:
 
-* Try setting SSL verification mode to `Disabled` to test if SSL is the issue
+* Try `--ssl-mode disabled` to test if SSL is the issue
 * If your database uses self-signed certificates, provide the full CA certificate chain
-* For managed databases (RDS, Azure, etc.), use `Required` or `Verify CA` mode
+* For managed databases (RDS, Azure, etc.), use `--ssl-mode required` or `--ssl-mode verify_ca`
 
 ### Connection times out
 
@@ -141,11 +143,13 @@ Restart MySQL.
 
 Set `binlog_format` to `ROW` in your database configuration, then restart.
 
+If you see `"binlog_row_image" must be "FULL" or "NOBLOB"`, set `binlog_row_image` to `FULL`.
+
 For managed databases, update this in your parameter group or server parameters.
 
 ### Binlog retention too short
 
-**Error:** `"binlog_expire_logs_seconds" must be > 172800` (or similar for `expire_logs_days`)
+**Error:** `"binlog_expire_logs_seconds" must be > 172800` (or similar for `expire_logs_days`). On AWS RDS and Aurora: `"binlog retention hours" must be at least 48 hours` or `binlog retention is not set on this AWS RDS database`.
 
 **Solution:**
 
@@ -174,6 +178,42 @@ Or:
 
 ```
 expire_logs_days = 3
+```
+
+### sql\_mode is not compatible
+
+**Error:** `"sql_mode" cannot have "ANSI_QUOTES" enabled` or `PlanetScale requires "sql_mode" to have the following options set: "NO_ZERO_IN_DATE, NO_ZERO_DATE"`
+
+**Solution:**
+
+Remove `ANSI_QUOTES` from `sql_mode`, and make sure it includes `NO_ZERO_IN_DATE` and `NO_ZERO_DATE`. For managed databases, update this in your parameter group or server parameters.
+
+### max\_connections is too low
+
+**Error:** `PlanetScale requires external databases to support at least a max connection limit of 10`
+
+**Solution:**
+
+Set `max_connections` to at least 10. PlanetScale uses up to half of your `max_connections` for the import.
+
+### Unsupported MySQL version
+
+**Error:** `unsupported MySQL version detected`
+
+**Solution:**
+
+MySQL 5.6, 5.7, and 8.0 are supported. [Contact support](https://planetscale.com/contact?initial=support) if you need to import from a different version.
+
+### Existing `_vt` database
+
+**Error:** `external database may have existing Vitess state: found "_vt" Vitess state database`
+
+**Solution:**
+
+Your source database already has a `_vt` database, usually left behind by an earlier Vitess-based import or replication tool. Make sure nothing is using it, then drop it and try again:
+
+```sql theme={null}
+DROP DATABASE `_vt`;
 ```
 
 ## Schema compatibility issues
@@ -252,11 +292,11 @@ Changing storage engines has significant performance impact. [Contact us](https:
 
 ### Import slower than expected
 
-Foreign key imports hold a long-running transaction, which can be slow on large databases.
+Foreign key imports use an atomic copy (`--atomic-copy`), which holds a long-running transaction on your source database. This can be slow on large databases.
 
 **Solution:**
 
-Connect to a read replica instead of your primary database. This reduces load and can improve performance.
+Run the import during off-peak hours, and make sure your source database has enough CPU and I/O headroom for the copy.
 
 ### Import failed and won't resume
 
@@ -269,11 +309,12 @@ Before retrying:
 1. Fix any errors that caused the failure
 2. Make sure your binlog retention is long enough for the full import
 3. Consider importing during off-peak hours
-4. Ensure your replica (if using one) is healthy and has minimal replication lag
+
+To retry, [cancel the workflow](database-imports.md#cancel-an-import) with `--keep-data=false` and create it again.
 
 ### Can't select specific tables
 
-When foreign keys are detected, all tables are automatically selected to maintain referential integrity. This is expected behavior.
+When your database has foreign keys, import every table with `--all-tables` to maintain referential integrity.
 
 If you really only need specific tables, you'll need to:
 
@@ -283,25 +324,18 @@ If you really only need specific tables, you'll need to:
 
 Note: We recommend importing all tables to avoid referential integrity issues.
 
-## Validation errors with skip option
+## Schema errors when creating the external keyspace
 
-### Validation failed but can skip
+### External keyspace created with schema errors
 
-For certain validation failures, you'll see an option to skip and continue. This forces all tables to be imported.
+Schema errors, such as a table without a unique key, are listed for each table but don't stop the external keyspace from being created. Tables with schema errors will fail to import.
 
-**When to skip:**
+**Solution:**
 
-* You understand the risks
-* You'll fix the issues in PlanetScale after import
-* The validation is a false positive
+* Fix the tables on your source database, then run `create-external --dry-run` again to confirm, or
+* Leave those tables out of the import with `--exclude-tables` when you create the MoveTables workflow
 
-**When NOT to skip:**
-
-* Server configuration issues (GTID, binlog) - these will cause the import to fail later
-* You're not sure what the error means
-* Production import (always fix issues first)
-
-If you skip validation errors, you won't be able to select specific tables - everything gets imported.
+Server configuration and user grant errors always need to be fixed first, because PlanetScale won't create the external keyspace until they pass.
 
 ## Import monitoring issues
 
@@ -322,9 +356,17 @@ During the initial copy phase, high replication lag is normal. The lag should dr
 * Wait for off-peak hours
 * Check binlog retention isn't expiring before lag catches up
 
-### Logs show errors
+### Workflow stopped after a schema change
 
-Check the logs section for specific error messages. Common ones:
+With the default `--on-ddl STOP`, the workflow stops when a schema change runs on your source database. The stream's message starts with `Stopped at DDL`.
+
+**Solution:**
+
+Review the schema change, apply it to your PlanetScale database if needed, then resume the workflow with `pscale branch vtctl move-tables start`.
+
+### Streams show errors
+
+Check the `message` on each stream in the [`status`](../../cli/move-tables.md) output, or the Streams panel on the workflow page in the dashboard. Common ones:
 
 **"Access denied"** - Permission issues. See [user requirements](import-tool-user-requirements.md).
 
@@ -338,15 +380,15 @@ Check the logs section for specific error messages. Common ones:
 
 The copy phase can take a while for large databases. Check:
 
-* Look at per-table progress indicators to see if it's actually stuck or just slow
-* Check logs for any errors
+* Check `table_copy_state` in the `status` output, or the Tables panel on the workflow page, to see if it's actually stuck or just slow
+* Check the stream messages for any errors
 * Verify source database is responding
 
 If truly stuck:
 
 1. Check source database for locks or slow queries
 2. Verify network connectivity
-3. Look for errors in logs
+3. Look for errors in the stream messages
 
 ## Permission errors
 
@@ -356,7 +398,7 @@ If truly stuck:
 
 **Solution:**
 
-Check that your migration user has all required permissions. See our [import tool user requirements](import-tool-user-requirements.md).
+Check that your migration user has all required permissions. See our [import user permissions](import-tool-user-requirements.md).
 
 For foreign key imports, the user needs either:
 
@@ -369,17 +411,25 @@ Verify grants:
 SHOW GRANTS FOR 'migration_user'@'%';
 ```
 
-### Can't create *vt or ps\_import* databases
+### Required grants are missing
+
+**Error:** `external database does not have the required user grants: required privileges [...] are not present`
 
 **Solution:**
 
-Grant the migration user permissions on these databases:
+Grant the privileges listed in the error. They must be granted directly to the user at the global or database level. See [Import user permissions](import-tool-user-requirements.md).
+
+If the error says the permissions `do not match user`, the user was created for a specific host. Create it for the host `'%'` instead.
+
+### Can't create the ps\_import database
+
+**Solution:**
+
+Grant the migration user permissions on the database PlanetScale creates to track replication:
 
 ```sql theme={null}
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER
   ON `ps\_import\_%`.* TO 'migration_user'@'%';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER
-  ON `_vt`.* TO 'migration_user'@'%';
 ```
 
 ## Traffic switching issues
@@ -388,17 +438,17 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER
 
 Make sure:
 
-* Replication lag is low (under a few seconds)
-* Import is in "Running" state
-* No errors in logs
+* Replication lag is low (under a few seconds). `switch-traffic` fails if lag is above `--max-replication-lag-allowed`
+* Every stream is `Running`
+* No stream shows an error
 
 ### Can't switch primary traffic
 
 Make sure:
 
-* Replica traffic has been switched first
 * Your application is connected to PlanetScale
 * Replication lag is minimal
+* Every stream is `Running`
 
 ### Data inconsistency after switching
 
@@ -406,9 +456,19 @@ If you notice missing or stale data after switching traffic:
 
 1. Check replication lag - it may still be catching up
 2. Verify your application is actually connecting to PlanetScale
-3. Check for any errors in workflow logs
+3. Run a [VDiff](database-imports.md#verify-data-optional) to compare your source database with PlanetScale
 
 Don't complete the import until you've verified data consistency.
+
+## Completing the import
+
+### Complete fails with `keep_data must be true`
+
+**Error:** `keep_data must be true when the source keyspace is external`
+
+**Solution:**
+
+Completing an import never removes tables from your source database. Pass `--keep-data=true`, with an `=`, and leave out `--rename-tables`.
 
 ## Common provider-specific issues
 
@@ -436,7 +496,7 @@ Don't complete the import until you've verified data consistency.
 
 **Problem:** Binlog retention too short
 
-**Solution:** Set Binlog Retention Period to 86400 seconds (24 hours minimum, max available).
+**Solution:** Set Binlog Retention Period to at least 172800 seconds (48 hours).
 
 ### GCP Cloud SQL
 
@@ -451,7 +511,7 @@ If you've tried the solutions above and are still having issues:
 1. Check your database's error logs
 2. Review our [general MySQL compatibility guide](../troubleshooting/mysql-compatibility.md)
 3. Look at the specific provider guide for your database
-4. Check workflow logs in PlanetScale for detailed error messages
+4. Check the `status` output or the workflow page in the dashboard for detailed error messages
 5. [Contact PlanetScale support](https://planetscale.com/contact?initial=support)
 
 ## Need help?

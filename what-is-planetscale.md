@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/what-is-planetscale
 title: "What Is Planetscale"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 PlanetScale is a fully managed relational database platform for [Vitess](vitess.md), [Neki](neki.md), and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
@@ -79,17 +79,13 @@ If you notice your application is running slower than it should or you want to d
 - time per query
 - rows read, affected, and returned
 
-### No downtime import tool
+### No downtime imports
 
 We understand changing database providers can be a pain, from dealing with downtime to complicated dumps and restores and endless compatibility issues.
 
-We built a [database import tool](vitess/imports/database-imports.md) to make importing to Vitess as pain-free as possible.
+[Database imports](vitess/imports/database-imports.md) make moving to Vitess as pain-free as possible.
 
-With our import tool, you can connect your internet-accessible database to PlanetScale and begin the import process. During the import, your production database remains live, and both your PlanetScale and production databases are continuously synced. This means that as new or updated data hits your production database, PlanetScale will pull it in as long as the connection remains open. Once you’re ready to do the swap, the cutover happens in an instant. No downtime and no data loss.
-
-![Step 3 of database import - Primary mode](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/validate-import-workflow.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=c0ad1c520bba3f5d391dac70718b6018)
-
-Step 3 of database import - Primary mode
+You connect your internet-accessible MySQL database to PlanetScale as an [external keyspace](vitess/cluster-configuration.md#create-an-external-keyspace), then copy its tables into PlanetScale with a [Vitess MoveTables](cli/move-tables.md) workflow. During the import, your production database remains live, and every change to it keeps replicating into PlanetScale. When you’re ready, you switch traffic to PlanetScale with no downtime and no data loss.
 
 ### Connect
 

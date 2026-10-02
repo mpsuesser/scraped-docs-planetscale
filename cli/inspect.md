@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/inspect
 title: "Inspect"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Getting Started
@@ -56,8 +56,8 @@ On Postgres and Neki, pass `--dbname` to target the PostgreSQL database your app
 | `calls` | Yes\* | Via `insights queries` | Most frequently called queries |
 | `bloat` | Yes | Yes | Wasted space: estimated bloat (PostgreSQL) or fragmentation (MySQL) |
 | `vacuum-stats` | Yes | Via `inspect bloat` | Autovacuum and autoanalyze health |
-| `replication-slots` | Yes | Via `workflow list` | Replication slots: status, WAL retention, and lag |
-| `subscriptions` | Yes | Via `data-imports get` | Per-table logical replication progress on this subscriber |
+| `replication-slots` | Yes | Via `branch vtctl move-tables list` | Replication slots: status, WAL retention, and lag |
+| `subscriptions` | Yes | Via `branch vtctl move-tables list` | Per-table logical replication progress on this subscriber |
 | `all` | Yes | Yes | Run every applicable check and print a combined report |
 
 \* `outliers` and `calls` require the `pg_stat_statements` extension on PostgreSQL. If it is not installed, the check is skipped and points you at the matching `pscale insights` command.

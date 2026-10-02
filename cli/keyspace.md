@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-09-18T21:28:08.308Z
-current_date: 2026-09-18T21:28:08.308Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Getting started
@@ -98,7 +98,9 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 
 ### Create an external keyspace
 
-Attach an existing MySQL database as an external keyspace on a **production** branch. `--source-database` is the remote MySQL database name, not the PlanetScale database. `--cluster-size` is optional; if you omit it, PlanetScale chooses a size from the source storage.
+Attach an existing MySQL database as an external keyspace on a **production** branch. To [import its data into PlanetScale](../vitess/imports/database-imports.md), create a [MoveTables workflow](move-tables.md#import-from-an-external-keyspace) with the external keyspace as the source.
+
+`--source-database` is the remote MySQL database name. The `--username` user must have the [import user permissions](../vitess/imports/import-tool-user-requirements.md), and your database must allow connections from [PlanetScale’s IP addresses](../vitess/imports/import-tool-migration-addresses.md).
 
 ```shellscript
 pscale keyspace create-external <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
@@ -122,7 +124,7 @@ pscale keyspace create-external <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
   --dry-run
 ```
 
-`--dry-run` reports connection failures and schema lint errors. A source can still be created if it connects, even when lint reports table-level errors.
+`--dry-run` reports connection failures, server setting and user grant errors, and schema lint errors. Connection, server setting, and grant errors stop the keyspace from being created. Table-level schema errors don’t: fix those tables or leave them out of the import with `--exclude-tables`.
 
 ### Resize an external keyspace
 
@@ -134,6 +136,14 @@ pscale keyspace resize status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
 ```
 
 You can also create and resize external keyspaces from the [Clusters](../vitess/cluster-configuration.md) page in the dashboard.
+
+### Delete an external keyspace
+
+Deleting an external keyspace disconnects PlanetScale from your external database and removes its stored credentials. If you imported from it, complete the MoveTables workflow first.
+
+```shellscript
+pscale keyspace delete <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
 
 ### Update tablet throttler settings
 

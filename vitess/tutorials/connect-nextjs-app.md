@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-nextjs-app
 title: "Connect Nextjs App"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 In this tutorial, you’ll create a [Next.js](https://nextjs.org/) application that uses [Tailwind CSS](https://tailwindcss.com/) for styling and [Prisma](https://www.prisma.io/) to connect to a [PlanetScale](https://planetscale.com/docs) database.
@@ -23,7 +23,7 @@ If this is your first time in the dashboard, you’ll be prompted to go through 
 
 Finally, click “ **Create database** ”.
 
-If you have an existing cloud-hosted database, you can also choose the “Import” option to import your database to PlanetScale using our Import tool. If you go this route, we recommend using our [Database Imports documentation](../imports/database-imports.md).
+If you have an existing cloud-hosted MySQL database, you can import it into PlanetScale instead. See the [Database imports documentation](../imports/database-imports.md).
 
 A [production branch](../schema-changes/branching.md), `main`, is automatically created when you create your database. Production branches are highly available, protected database that you can connect your production application to. Once you are satisfied with your initial development, you may enable [safe migrations](../schema-changes/safe-migrations.md) to enable zero-downtime migrations and protect the branch from accidental data deletion.
 

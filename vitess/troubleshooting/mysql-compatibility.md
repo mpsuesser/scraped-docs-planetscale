@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility
 title: "Mysql Compatibility"
 description: ""
-access_date: 2026-08-06T21:59:03.955Z
-current_date: 2026-08-06T21:59:03.955Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Overview
@@ -16,7 +16,7 @@ New PlanetScale databases are created on MySQL 8 with character set `utf8mb4_090
 
 The following reference guide will cover some MySQL syntax, features, and more that PlanetScale either does not support or has limitations around. We are actively working on driving up compatibility, but it’s an ongoing effort and will take some time to complete. See this [project board on GitHub](https://github.com/vitessio/vitess/projects/4) to learn what the Vitess team is currently focusing on.
 
-If you’re attempting to import a database using our Import tool, there are some additional requirements that you can find in our [Database imports documentation](../imports/database-imports.md).
+If you’re importing a database, there are some additional requirements that you can find in our [Database imports documentation](../imports/database-imports.md).
 
 ### Queries, functions, syntax, data types, and SQL modes
 

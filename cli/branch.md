@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-09-25T17:44:23.215Z
-current_date: 2026-09-25T17:44:23.215Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Getting Started
@@ -64,7 +64,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
 | `vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel a queued VTGate resize for a Vitess branch | Vitess |
-| `vtctld move-tables <COMMAND>` | `list`, `create`, `show`, `status`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | Run Vitess MoveTables workflows. See the [`move-tables` reference](move-tables.md). | Vitess |
+| `vtctl move-tables <COMMAND>` | `list`, `create`, `show`, `status`, `start`, `stop`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | Run Vitess MoveTables workflows. `vtctld` also works as an alias. See the [`move-tables` reference](move-tables.md). | Vitess |
 
 ### Service token automation: branch
 
@@ -426,15 +426,15 @@ pscale branch vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>
 
 Cancels a queued VTGate resize. Only resize requests that have not started being applied can be canceled.
 
-### The vtctld move-tables sub-command
+### The vtctl move-tables sub-command
 
 **Command:**
 
 ```shellscript
-pscale branch vtctld move-tables list <DATABASE_NAME> <BRANCH_NAME>
+pscale branch vtctl move-tables list <DATABASE_NAME> <BRANCH_NAME>
 ```
 
-Lists Vitess MoveTables workflows on a branch. JSON output includes a helpful `next_steps` field. See the [`move-tables` reference](move-tables.md).
+Lists Vitess MoveTables workflows across every keyspace on a branch. Pass `--target-keyspace` to list one keyspace. The output includes a `next_steps` field with the command to run next. See the [`move-tables` reference](move-tables.md).
 
 ### The diff sub-command
 

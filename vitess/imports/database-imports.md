@@ -2,312 +2,287 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-09-18T21:28:08.308Z
-current_date: 2026-09-18T21:28:08.308Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Overview
 
-PlanetScale provides an import tool in the dashboard that allows you to painlessly import an existing internet-accessible MySQL or MariaDB database with **no downtime**.
+You can import an existing internet-accessible MySQL database into a PlanetScale Vitess database with **no downtime**. An import has two parts:
 
-To attach an existing MySQL database as a keyspace on a Vitess production branch without running a full import, see [external keyspaces](../cluster-configuration.md#create-an-external-keyspace).
+1. An [external keyspace](../cluster-configuration.md#create-an-external-keyspace) connects your production branch to your existing MySQL database.
+2. A [Vitess MoveTables](../../cli/move-tables.md) workflow copies the tables from the external keyspace into a PlanetScale keyspace, keeps them in sync while your application keeps running, and switches traffic to PlanetScale when you’re ready.
 
-You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) to use this feature.
+You run the import with the [`pscale` CLI](../../cli.md). The **Workflows** page in the dashboard shows the progress of the import, but it is read-only: every step on this page is a CLI command.
+
+You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) or a [Database Administrator](../../security/access-control.md#database-administrator) of the database to run an import. To run an import with a [service token](../../api/service-tokens.md), give it the `create_branch`, `read_workflow`, `write_workflow`, and `delete_workflow` permissions on the database, plus `delete_production_branch` to delete the external keyspace at the end.
 
 Before you begin, it may be helpful to check out our [general MySQL compatibility guide](../troubleshooting/mysql-compatibility.md).
 
 ## Import process overview
 
-The import workflow gives you visibility into every step of your database migration. You’ll see real-time progress, detailed logs, and replication metrics throughout. Here’s what the process looks like:
-
-1. **Create database** - Set up your PlanetScale database
-2. **Connect to external database** - Add connection credentials and SSL/TLS settings
-3. **Validate connection and schema** - We check connectivity, server configuration, and schema compatibility
-4. **Select tables** - Pick which tables to import (all tables imported if foreign keys detected)
-5. **Start workflow** - Kick off the import
-6. **Monitor import** - Watch progress with real-time logs, per-table progress, and replication lag information
-7. **Complete import** - Finalize and detach from your external database
+1. **Prepare your source database** - Check its server settings, create a user for PlanetScale, and allow PlanetScale’s IP addresses
+2. **Create your PlanetScale database** - Create the Vitess database you are importing into
+3. **Create an external keyspace** - Connect the production branch to your source database. PlanetScale checks connectivity, server settings, user grants, and schema compatibility first
+4. **Start the import** - Create a MoveTables workflow from the external keyspace to your PlanetScale keyspace
+5. **Monitor the import** - Watch the copy and replication progress, then verify the data
+6. **Connect your application to PlanetScale** - Test your application against PlanetScale while your source database is still serving traffic
+7. **Switch traffic** - Move reads, then writes, to PlanetScale
+8. **Complete the import** - Stop replication and disconnect your source database
 
 It’s recommended to avoid all schema changes / DDL (Data Definition Language) statements during an import on both your source database and the PlanetScale database. This includes `CREATE`, `DROP`, `ALTER`, `TRUNCATE`, etc.
 
-## Step 1: Create your PlanetScale database
+The examples on this page import a MySQL database named `commerce` into a PlanetScale database named `commerce` in the `acme` organization.
 
-## Step 2: Connect to your external database
+## Step 1: Prepare your source database
 
-You’ll be taken to the import workflow page where you can configure the connection to your external MySQL or MariaDB database.
+### Server configuration
+
+These server settings need to be set correctly for the import to work:
+
+| Variable | Required value | Documentation |
+| --- | --- | --- |
+| `gtid_mode` | `ON` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-gtids.html#sysvar_gtid_mode) |
+| `log_bin` | `ON` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_bin) |
+| `binlog_format` | `ROW` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_format) |
+| `binlog_row_image` | `FULL` or `NOBLOB` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_image) |
+| `expire_logs_days` \* | `>= 2` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_expire_logs_days) |
+| `binlog_expire_logs_seconds` \* | `>= 172800` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_expire_logs_seconds) |
+| `sql_mode` | Includes `NO_ZERO_IN_DATE` and `NO_ZERO_DATE`, and does not include `ANSI_QUOTES` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html) |
+| `max_connections` | `>= 10` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections) |
+
+**\*** Either `expire_logs_days` or `binlog_expire_logs_seconds` needs to be set. If both are set, `binlog_expire_logs_seconds` takes precedence. On Amazon RDS and Aurora, set `binlog retention hours` to at least 48 instead. See the [provider-specific migration guides](#provider-specific-migration-guides) for how to change these settings.
+
+MySQL 5.6, 5.7, and 8.0 are supported. The source database must not already contain a `_vt` database.
+
+### Create a user for PlanetScale
+
+PlanetScale connects to your source database with a single user. That user needs replication privileges, read and write access to the database you’re importing, and access to the `ps_import_*` database that PlanetScale creates on your source to track replication. See [Import user permissions](import-tool-user-requirements.md) for the full list of grants and a script that creates the user.
+
+### Allow PlanetScale’s IP addresses
+
+Allow connections from PlanetScale’s IP addresses for your database’s region in your database firewall or security group. See [Import public IP addresses](import-tool-migration-addresses.md) for where to find them.
+
+## Step 2: Create your PlanetScale database
+
+Create the Vitess database you’re importing into:
+
+```shellscript
+pscale database create commerce --org acme --region us-east --cluster-size PS_10 --wait
+```
+
+Pick a [region](../../plans/regions.md) close to your source database and a [cluster size](../scaling/cluster-sizing.md) with enough storage for your data. You can also create the database from the dashboard with “ **New database** ” > “ **Create database** ”.
+
+We recommend using the same name as the database you’re importing from to avoid updating any database name references throughout your application code. Your PlanetScale database starts with one keyspace, named after the database. That keyspace is the **target** of the import. If you’d prefer to use a different database name, make sure to update your app where applicable once you fully switch over to PlanetScale.
+
+## Step 3: Create an external keyspace
+
+An external keyspace connects your production branch to your source database. It is the **source** of the import. Give it a name that is different from your PlanetScale keyspace, such as `commerce_source`.
 
 ### Connection settings
 
-Fill in your connection info:
-
-**Host name** - The address where your database is hosted.
-
-**Port** - The port where your database is hosted. The default MySQL port is `3306`.
-
-**Database name** - The exact database name you want to import.
-
-**SSL verification mode** - Choose from these options:
-
-- **Disabled** - No SSL encryption (not recommended for production)
-- **Preferred** - Use SSL if available, otherwise connect without SSL
-- **Required** - SSL is required, but certificate is not verified
-- **Verify CA** - SSL is required and the certificate is verified against the CA
-- **Verify Identity** - SSL is required and the certificate hostname is verified
-
-If your database server has a valid SSL certificate, set this to `Required` or higher. For more information about certificates from a Certificate Authority, check out our [Secure connections documentation](../connecting/secure-connections.md#certificate-authorities).
-
-**Username** - The username to connect with. This user needs proper permissions. See our [import tool user requirements guide](import-tool-user-requirements.md) for the full list of required grants.
-
-### Authentication method
-
-Pick your authentication method:
-
-**Authenticate with password:** Provide the password for the username you entered.
-
-**Authenticate with mTLS (mutual TLS):**
-
-- **SSL client certificate** - Certificate to authenticate PlanetScale with your database server
-- **SSL client key** - The private key for the client certificate
-
-### Advanced settings (optional)
-
-Click “ **Show advanced settings** ” for more options:
-
-- **Import connections** - Maximum number of concurrent connections for the import (max 100)
-- **Minimum TLS version** - Choose from TLS 1.0, 1.1, 1.2, or 1.3
-- **SSL server name override** - Override the server name for SSL certificate verification
-- **SSL CA certificate chain** - If your database server has a certificate with a non-trusted root CA, provide the full CA certificate chain here
-
-You must have [binary logs](https://dev.mysql.com/doc/refman/8.0/en/binary-log.html) enabled on the database you’re importing. See our [provider-specific migration guides](database-imports.md) for instructions on enabling binary logging.
-
-![The connection form with SSL/TLS settings.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/external-database-connection-settings.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=54f5f4f9f7c3f8c4231bf93e2ee993bc)
-
-The connection form with SSL/TLS settings.
-
-## Step 3: Validate connection and schema
-
-Once you’ve filled in your connection info, click “ **Connect to database** ”. PlanetScale will run some checks on your external database.
-
-### Connectivity check
-
-We’ll make sure we can connect to your database with the credentials and SSL/TLS settings you provided.
-
-### Server configuration check
-
-These server configuration values need to be set correctly for the import to work:
-
-| Variable | Required Value | Documentation |
+| Setting | `pscale keyspace create-external` flag | Description |
 | --- | --- | --- |
-| `gtid_mode` | `ON` | [Documentation](https://dev.mysql.com/doc/refman/5.7/en/replication-options-gtids.html#sysvar_gtid_mode) |
-| `binlog_format` | `ROW` | [Documentation](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format) |
-| `binlog_row_image` | `FULL` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_image) |
-| `expire_logs_days` \* | `> 2` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_expire_logs_days) |
-| `binlog_expire_logs_seconds` \* | `> 172800` | [Documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_expire_logs_seconds) |
+| Host name | `--host` | The address where your database is hosted. |
+| Port | `--port` | The port where your database is hosted. The default MySQL port is `3306`. |
+| Database name | `--source-database` | The exact name of the database you want to import on your MySQL server. |
+| Username | `--username` | The [user you created for PlanetScale](import-tool-user-requirements.md). |
+| Password | `--password` | The password for that user. |
+| SSL verification mode | `--ssl-mode` | `disabled`, `preferred`, `required`, `verify_ca`, or `verify_identity`. |
+| SSL client certificate and key | `--ssl-client-certificate`, `--ssl-client-key` | Authenticate with mTLS instead of a password. Pass the PEM contents or a path to a PEM file. |
+| SSL CA certificate chain | `--ssl-certificate-authority` | If your database server has a certificate with a non-trusted root CA, provide the full CA certificate chain here. |
+| SSL server name override | `--ssl-server-name` | Override the server name for SSL certificate verification. |
+| Minimum TLS version | `--min-tls-version` | The oldest TLS version PlanetScale may use. The default is TLS 1.2. |
 
-**\*** Either `expire_logs_days` or `binlog_expire_logs_seconds` needs to be set. If both are set, `binlog_expire_logs_seconds` takes precedence.
+If your database server has a valid SSL certificate, set the SSL verification mode to `required` or higher. For more information about certificates from a Certificate Authority, check out our [Secure connections documentation](../connecting/secure-connections.md#certificate-authorities).
 
-### Schema compatibility check
+### Check your source database
 
-We’ll look for any compatibility issues with your schema:
+Run `create-external` with `--dry-run` to check your source database without creating anything:
+
+```shellscript
+pscale keyspace create-external commerce main commerce_source \
+  --org acme \
+  --host db.example.com \
+  --source-database commerce \
+  --username migration_user \
+  --password <PASSWORD> \
+  --ssl-mode required \
+  --dry-run
+```
+
+PlanetScale checks:
+
+- **Connectivity** - It can connect with the credentials and SSL/TLS settings you provided.
+- **Server configuration** - The [server settings](#server-configuration) above are correct.
+- **User grants** - The user has the [required grants](import-tool-user-requirements.md).
+- **Schema compatibility** - Every table can be imported. See [Schema compatibility](#schema-compatibility) below.
+
+If PlanetScale cannot connect, or the server settings or grants are wrong, it won’t create the external keyspace. Fix the issue on your source database and run the check again. The [Import troubleshooting guide](import-troubleshooting.md) covers each error.
+
+### Schema compatibility
+
+The check also reports tables that can’t be imported:
 
 - **Missing unique key** - All tables must have a unique, not-null key. See our [Changing unique keys documentation](../schema-changes/onlineddl-change-unique-keys.md) for more info.
 - **Invalid charset** - We support `utf8`, `utf8mb4`, `utf8mb3`, `latin1`, and `ascii`. Tables with other charsets will be flagged.
-- **Table names with special characters** - Tables with characters outside the standard ASCII set aren’t supported.
-- **Views** - Views are detected but won’t be imported. You can create them manually after the import finishes.
 - **Unsupported storage engines** - Only `InnoDB` is supported.
-- **Foreign key constraints** - Detected and flagged for special handling (see below).
+- **Unsupported partitioning** - Only `RANGE` partitioning is supported, without subpartitions.
 
-### Handling validation errors
+Schema errors don’t stop you from creating the external keyspace. Fix those tables on your source database, or leave them out of the import with `--exclude-tables` in the next step.
 
-If validation fails, you’ll see error messages with links to troubleshooting docs. You have two options:
+If your database uses foreign key constraints, PlanetScale turns on [foreign key support](../foreign-key-constraints.md) for your PlanetScale database when you create the external keyspace. See [Foreign key constraints](#foreign-key-constraints) before you start the import.
 
-1. **Fix the issues** - Go back to your external database, fix the configuration or schema issues, and try connecting again. [Contact support](https://planetscale.com/contact?initial=support) if you encounter trouble addressing the incompatibilities.
-2. **Skip and continue** - For certain failures, you can proceed anyway. Not recommended since this may cause the import to fail later.
+### Create the external keyspace
 
-**Warning**
+Once the check passes, run the same command with `--wait` instead of `--dry-run`:
 
-If you choose to skip validation errors and proceed, all tables will be imported automatically (you won’t be able to select specific tables). This may result in unexpected behavior or import failures.
+```shellscript
+pscale keyspace create-external commerce main commerce_source \
+  --org acme \
+  --host db.example.com \
+  --source-database commerce \
+  --username migration_user \
+  --password <PASSWORD> \
+  --ssl-mode required \
+  --wait
+```
 
-## Step 4: Foreign key constraints
+PlanetScale sizes the external keyspace from the size of your source data.
 
-If your database uses foreign key constraints, we’ll detect them during validation and automatically enable foreign key support.
+You can also create the external keyspace from the dashboard: open your production branch, click “ **Clusters** ”, then “ **New keyspace** ” > “ **Create external keyspace** ”. The form checks your source database the same way before it creates the keyspace, and lists the IP addresses to allow.
 
-### Important things to know
+## Step 4: Start the import
 
-When importing with foreign keys:
+Create a MoveTables workflow that copies the tables from the external keyspace into your PlanetScale keyspace:
 
-- **All tables will be imported** - You can’t select a subset of tables when foreign keys are present. This keeps referential integrity intact.
-- **Use a replica if possible** - The foreign key import holds a long-running transaction on the source database, which can increase load. We recommend connecting to a replica instead of your primary.
-- **Import retries** - If your import fails, it starts over from the beginning. Unlike regular imports, we can’t resume from where we left off.
+```shellscript
+pscale branch vtctl move-tables create commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --source-keyspace commerce_source \
+  --target-keyspace commerce \
+  --all-tables \
+  --defer-secondary-keys \
+  --format json
+```
 
-For more information about foreign key support and limitations, see our [foreign key constraints documentation](../foreign-key-constraints.md).
+The workflow starts right away. You will pass the workflow name and the target keyspace to every later command.
 
-## Step 5: Select tables to import
+### Import options
 
-After validation passes, you’ll see a workflow form with your source database on the left (with provider logo and table list) and PlanetScale on the right (with target keyspace and shard count). In Vitess a [keyspace](../sharding/keyspaces.md) is the equivalent of a single, logical MySQL databases.
-
-### Table selection
-
-**If foreign keys were detected:**
-
-- All tables are automatically selected
-- You can’t deselect individual tables
-- You’ll see: “All tables will be replicated due to foreign key constraints usage”
-
-**If no foreign keys:**
-
-- Select all tables or pick specific ones
-- You can start with a subset of tables for testing if you want
-
-### Workflow validation
-
-Before creating the workflow, click “ **Validate** ” to run pre-migration checks:
-
-- Safe migrations is enabled
-- [VSchema](../sharding/vschema.md) is valid
-- Tables will be created automatically in the target keyspace (PlanetScale database)
-- Enough storage is available
-
-Once these checks pass, the “ **Create workflow** ” button will light up.
-
-![The validation results showing checks passed and table list.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/validate-import-workflow.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=c0ad1c520bba3f5d391dac70718b6018)
-
-The validation results showing checks passed and table list.
-
-### Advanced options
-
-Click “ **Advanced options** ” to see additional settings that can optimize your import:
-
-**Defer secondary index creation**
-
-Checked by default. Creates secondary indexes (non-primary indexes) after copying data instead of during the initial copy.
-
-- Why this helps: Maintaining many indexes while inserting data is slow. By deferring index creation until after all data is copied, your import can be significantly faster (often 2-3x faster for tables with multiple indexes).
-- When it’s disabled: Import will run slower. Automatically disabled for imports with foreign keys, since foreign key constraints require indexes to exist during the copy phase.
-
-**DDL handling**
-
-Controls what happens if schema changes (like `ALTER TABLE`, `ADD INDEX`, etc.) occur on your external database while the import is running.
-
-- **STOP** (default, recommended) - The workflow stops immediately when schema changes are detected. You’ll need to manually restart the workflow after reviewing the changes. This is the safest option because it lets you verify the schema changes won’t cause issues before continuing.
-- **IGNORE** - Schema changes are skipped and won’t be applied to your PlanetScale database. Your import continues without interruption, but your schemas will diverge. Only use this if you’re confident you don’t need these changes or plan to apply them manually to your PlanetScale database later.
-- **EXEC** - Schema changes are automatically applied to your PlanetScale database while the import continues running. If applying a schema change fails (for example, if it’s not compatible with Vitess), the workflow stops and you’ll need to restart it. Use this if you need schema changes to sync automatically but want safety checks.
-- **EXEC\_IGNORE** - Attempts to apply schema changes but keeps running even if they fail.
+- **Tables** - `--all-tables` imports every table. To import only some tables, pass `--tables` with a comma-separated list instead. To import every table except a few, combine `--all-tables` with `--exclude-tables`.
+- **Defer secondary index creation** - `--defer-secondary-keys` creates secondary (non-primary) indexes after the data is copied instead of during the copy. Maintaining many indexes while inserting data is slow, so this can make your import significantly faster (often 2-3x faster for tables with multiple indexes). Secondary indexes are created during the copy unless you pass this flag. Don’t use it if your database has foreign key constraints.
+- **DDL handling** - `--on-ddl` controls what happens if schema changes (like `ALTER TABLE`, `ADD INDEX`, etc.) run on your source database while the import is running:
+	- `STOP` (default, recommended) - The workflow stops when a schema change is detected. After you review the change, restart the workflow with `pscale branch vtctl move-tables start`. This is the safest option because it lets you verify the schema changes won’t cause issues before continuing.
+		- `IGNORE` - Schema changes are skipped and won’t be applied to your PlanetScale database. Your import continues without interruption, but your schemas will diverge. Only use this if you’re confident you don’t need these changes or plan to apply them manually to your PlanetScale database later.
+		- `EXEC` - Schema changes are applied to your PlanetScale database while the import continues running. If applying a schema change fails (for example, if it’s not compatible with Vitess), the workflow stops and you’ll need to restart it.
+		- `EXEC_IGNORE` - Attempts to apply schema changes but keeps running even if they fail.
 
 `EXEC_IGNORE` can lead to schema mismatches between your external database and PlanetScale database, potentially causing data inconsistencies or unexpected behavior. Only use this if you understand the risks and have a plan to handle failures.
 
-**Important**
+See the [`move-tables` reference](../../cli/move-tables.md) for every option.
 
-Schema changes during an active import can cause problems. This setting is a safety mechanism for unexpected changes, not a way to intentionally modify schemas mid-import. If possible, avoid making schema changes until the import completes.
+### Foreign key constraints
 
-**Global keyspace**
+If your database uses foreign key constraints:
 
-Not applicable for external database imports. This setting is only used when moving tables between keyspaces within PlanetScale. When moving tables with `AUTO_INCREMENT` columns from an unsharded to a sharded keyspace, Vitess needs a place to store “sequence tables” that coordinate ID generation across shards. This setting specifies which unsharded keyspace should hold those sequence tables. You can ignore this setting for external database imports.
+- **Import all tables** - Pass `--all-tables` without `--exclude-tables` so referential integrity stays intact.
+- **Use an atomic copy** - Pass `--atomic-copy`, and don’t pass `--defer-secondary-keys`. Foreign key constraints need their indexes to exist during the copy.
+- **Import retries** - An atomic copy holds a long-running transaction on your source database, which can increase load. If it fails, it starts over from the beginning instead of resuming where it left off.
 
-## Step 6: Start the import workflow
+```shellscript
+pscale branch vtctl move-tables create commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --source-keyspace commerce_source \
+  --target-keyspace commerce \
+  --all-tables \
+  --atomic-copy \
+  --format json
+```
 
-After validation passes. click “ **Create workflow** ” to start the import process. You’ll be redirected to the workflow monitoring page where you can track your import in real-time.
+For more information about foreign key support and limitations, see our [foreign key constraints documentation](../foreign-key-constraints.md).
 
-## Step 7: Monitor your import
+## Step 5: Monitor your import
 
-The monitoring page shows you real-time progress of your import.
+Check the progress of the import with `status`:
 
-### Connection status
+```shellscript
+pscale branch vtctl move-tables status commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --target-keyspace commerce \
+  --format json
+```
 
-At the top, you’ll see:
+The output shows:
 
-- A live connection indicator (green pulsing dot when connected)
-- Your external database name and hostname
-- Workflow info (name, who started it, when)
+- **`table_copy_state`** - Rows and bytes copied so far for each table that is still copying
+- **`shard_streams`** - Each replication stream’s state and any error message
+- **`traffic_state`** - Whether reads and writes have switched to PlanetScale
 
-### Visual replication flow
+Streams are `Copying` while the initial data is copied, then `Running` once the import is replicating new changes from your source database. A `Lagging` stream is running but hasn’t caught up with recent changes. A `Stopped` or `Error` stream includes a message that explains why. The output also includes a `next_steps` field with the command to run next.
 
-The main view shows data flowing from your external database to PlanetScale:
+You can also follow the import in the dashboard. Click “ **Workflows** ” in the left nav, select your production branch, and open the workflow to see its streams, per-table copy progress, replication lag, and traffic routing.
 
-**Source keyspace (left):**
-
-- List of tables being imported
-- Progress donuts for each table during the copy phase (0-100%)
-- Row counts per table
-
-**Replication arrow (center):**
-
-- Animated arrow showing data flow direction
-- Current phase (“Copying data” or “Replicating data”)
-- Replication lag graph with current lag in seconds
-
-**Target keyspace (right):**
-
-- Your PlanetScale shards (only one shard in most cases)
-- Traffic serving status
-
-![The visual replication flow with progress indicators.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/copying-phase.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=bdfebe2169a37e599bcbb1612b531cf5)
-
-The visual replication flow with progress indicators.
-
-### Workflow phases
-
-Your import will go through these states:
-
-1. **Pending** - Workflow created, not started yet
-2. **Copying** - Copying initial data (you’ll see per-table progress here)
-3. **Running** - Replicating changes to keep databases in sync
-4. **Verifying data** - Optional data verification
-5. **Verified data** - Verification complete
-6. **Switching replicas** - Moving replica traffic to PlanetScale
-7. **Switched replicas** - Replica traffic now on PlanetScale
-8. **Switching primaries** - Moving primary traffic to PlanetScale
-9. **Switched primaries** - Primary traffic now on PlanetScale
-10. **Completed** - Import done
-11. **Error** - Something went wrong, check error messages or logs
-
-**You can now connect your application to PlanetScale**
-
-Once the workflow enters the **Running** (replication) phase, bidirectional replication is active. This means you can safely connect your application to PlanetScale for testing while your external database remains the authoritative source. Any writes to either database will be replicated to the other, allowing you to validate your application’s behavior against PlanetScale without risk.
-
-This is the ideal time to test your application end-to-end before switching traffic.
-
-### Adding a replica host name (optional)
-
-If your external database has read replicas, you can route read traffic to them instead of your primary database. This helps reduce load on your primary during the import.
-
-**How this works:**
-
-If your application is configured to send read traffic to replicas, you can continue this pattern while testing PlanetScale. Adding a replica hostname allows PlanetScale to proxy traffic to your external replicas during the import. This is useful when you want to test PlanetScale with read traffic going to your replicas while writes continue to your primary.
-
-**Important**
-
-PlanetScale doesn’t automatically detect or route read-only transactions. You control which queries go to replicas through your application’s database connection configuration. PlanetScale simply acts as a proxy, forwarding the traffic you send to replica connections through to your external replica databases.
-
-On the workflow monitoring page, under the connection status:
-
-Once added, you’ll see the replica connection listed below your primary. You can edit or delete it anytime during the import.
-
-**Why use a replica:**
-
-- Reduces load on your primary database during the copy phase
-- Especially useful for large imports or high-traffic databases
-- The replica must have the same data as your primary (replication lag should be minimal)
-
-![Connection status add replica hostname.](https://mintlify.s3.us-west-1.amazonaws.com/planetscale-2/images/assets/docs/imports/import-workflows/add-replica-hostname.png)
-
-Connection status add replica hostname.
+To pause the import, run `pscale branch vtctl move-tables stop`. Run `pscale branch vtctl move-tables start` to resume it.
 
 ### Verify data (optional)
 
-Once the initial copy completes and replication catches up, you can optionally verify that your data matches between the external database and PlanetScale.
+Once the copy completes and the streams are `Running`, you can verify that the data in PlanetScale matches your source database with a [VDiff](https://vitess.io/docs/reference/vreplication/vdiff/):
 
-Click “ **Verify data** ” on the workflow monitoring page to run a comparison. This checks that the copied data is identical between your external database and PlanetScale, giving you confidence before switching traffic.
+```shellscript
+pscale branch vtctl vdiff create commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --target-keyspace commerce \
+  --format json
+```
 
-### Switching traffic
+The output includes the VDiff’s `uuid`. Pass it to `vdiff show` and repeat until the VDiff completes:
 
-Once you’ve verified your data, you can control how traffic is routed between your external database and PlanetScale:
+```shellscript
+pscale branch vtctl vdiff show commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --target-keyspace commerce \
+  --uuid <VDIFF_UUID> \
+  --format json
+```
 
-1. **Switch replica traffic** - Serve read queries from PlanetScale while writes still go to your external database. This is an optional intermediate step that lets you test read traffic separately.
-2. **Switch primary traffic** - Serve both reads and writes from PlanetScale. This switches all traffic at once, so you don’t need to switch replica traffic first.
-3. **Complete** - Finalize the migration
+The dashboard also shows the VDiff’s progress on the workflow page. If the VDiff reports mismatches, don’t switch traffic until you’ve resolved them.
 
-You can skip directly to switching primary traffic if you prefer. Switching primary traffic handles both reads and writes simultaneously, so switching replica traffic first is optional.
+## Step 6: Connect your application to PlanetScale
+
+Once the streams are `Running`, you can connect your application to PlanetScale while your source database stays the authoritative source. Until you switch traffic, PlanetScale routes queries for the imported tables to your source database through the external keyspace, so reads and writes still happen there.
+
+[Create a password](../connecting/connection-strings.md) for your production branch and point a test deployment of your application at PlanetScale. This is the ideal time to test your application end-to-end before switching traffic.
+
+## Step 7: Switch traffic
+
+When you’re ready, switch traffic to PlanetScale. You can switch replica traffic first to test reads, then switch primary traffic.
+
+1. **Switch replica traffic** - Serve read queries sent to replicas from PlanetScale while writes still go to your source database. This is an optional intermediate step that lets you test read traffic separately.
+	```shellscript
+	pscale branch vtctl move-tables switch-traffic commerce main \
+	  --org acme \
+	  --workflow import_commerce \
+	  --target-keyspace commerce \
+	  --tablet-types REPLICA,RDONLY \
+	  --format json
+	```
+2. **Switch primary traffic** - Serve both reads and writes from PlanetScale.
+	```shellscript
+	pscale branch vtctl move-tables switch-traffic commerce main \
+	  --org acme \
+	  --workflow import_commerce \
+	  --target-keyspace commerce \
+	  --tablet-types PRIMARY \
+	  --format json
+	```
+
+Pass `--dry-run` to see what a switch would do without applying it.
 
 **Critical: Update connection strings before switching primary traffic**
 
@@ -319,32 +294,54 @@ You must update your application’s connection string to point to PlanetScale *
 
 Always verify your application is connected to PlanetScale before proceeding with the primary traffic switch.
 
-![Switch replica and primary traffice.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/switch-traffic-dropdown.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=5712c0f9607c5562ff79d01a99fde451)
+After primary traffic switches, PlanetScale replicates writes back to your source database, so both stay in sync until you complete the import. If something goes wrong, switch traffic back to your source database:
 
-Switch replica and primary traffice.
-
-### Monitoring replication lag
-
-The lag graph shows how far behind PlanetScale is from your external database. During the initial copy, lag will be high. Once the copy finishes and replication catches up, lag should drop.
-
-![The replication lag graph.](https://mintcdn.com/planetscale-2/89X51wIXzJwNfurq/images/assets/docs/imports/import-workflows/replication-phase.png?w=2500&fit=max&auto=format&n=89X51wIXzJwNfurq&q=85&s=b5615473b6d0355b755c7dfd73a468d1)
-
-The replication lag graph.
+```shellscript
+pscale branch vtctl move-tables reverse-traffic commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --target-keyspace commerce \
+  --format json
+```
 
 ## Step 8: Complete the import
 
 Once you’ve switched all traffic to PlanetScale and verified everything is working:
 
+`--keep-data` must be `true` when you complete an import. Your source database’s tables are never dropped or renamed. `--keep-routing-rules=false` removes the routing rules that sent queries to the external keyspace. Write both flags with an `=`: a space-separated value such as `--keep-data false` is read as `--keep-data=true`.
+
 **What happens when you complete:**
 
-- Replication from PlanetScale back to your external database stops
-- The connection to your external database is closed
-- All external database credentials are removed from PlanetScale
-- The workflow is marked as complete
+- Replication from PlanetScale back to your source database stops
+- The routing rules for the imported tables are removed
+- The workflow no longer appears on the Workflows page
+
+**What happens when you delete the external keyspace:**
+
+- PlanetScale disconnects from your source database
+- The source database’s credentials are removed from PlanetScale
 
 **Important**
 
-Completing the workflow is not reversible. Make sure your application is running smoothly on PlanetScale before completing the import.
+Completing the workflow is not reversible. Make sure your application is running smoothly on PlanetScale before completing the import. Don’t delete the external keyspace until the workflow is complete.
+
+Once the import is complete, you can drop the `ps_import_*` database from your source database and remove the user you created for PlanetScale.
+
+### Cancel an import
+
+To stop an import before you complete it, cancel the workflow:
+
+```shellscript
+pscale branch vtctl move-tables cancel commerce main \
+  --org acme \
+  --workflow import_commerce \
+  --target-keyspace commerce \
+  --keep-data=false \
+  --keep-routing-rules=false \
+  --format json
+```
+
+`--keep-data=false` deletes the data already copied into your PlanetScale keyspace. The external keyspace stays connected, so you can fix the problem and start a new workflow. Delete the external keyspace if you don’t plan to try again.
 
 ## Next steps
 
@@ -366,7 +363,7 @@ For detailed instructions on preparing your external database for import, see ou
 
 ## Troubleshooting
 
-For detailed troubleshooting guidance, see our [Import Troubleshooting guide](import-troubleshooting.md).
+For detailed troubleshooting guidance, see our [Import troubleshooting guide](import-troubleshooting.md).
 
 ## Need help?
 

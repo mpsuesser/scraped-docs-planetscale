@@ -2,17 +2,17 @@
 url: https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide
 title: "Aws Rds Migration Guide"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Overview
 
 This document will demonstrate how to migrate a database from AWS Relational Database Services (RDS) to PlanetScale.
 
-This guide assumes you are using MySQL on Amazon RDS. If you are using Amazon Aurora (MySQL compatible) on RDS, follow the [Amazon Aurora migration guide](amazon-aurora-migration-guide.md). Other database systems (non-MySQL or MariaDB databases) available through RDS will not work with the PlanetScale import tool.
+This guide assumes you are using MySQL on Amazon RDS. If you are using Amazon Aurora (MySQL compatible) on RDS, follow the [Amazon Aurora migration guide](amazon-aurora-migration-guide.md). Other database systems (non-MySQL or MariaDB databases) available through RDS will not work with this guide.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how our import tool works before proceeding.
+We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -113,7 +113,6 @@ CREATE USER 'migration_user'@'%' IDENTIFIED BY '<SUPER_STRONG_PASSWORD>';
 GRANT PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'migration_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE, SHOW VIEW, LOCK TABLES ON \`<DATABASE_NAME>\`.* TO 'migration_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER ON \`ps\_import\_%\`.* TO 'migration_user'@'%';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER ON \`_vt\`.* TO 'migration_user'@'%';
 GRANT EXECUTE ON PROCEDURE mysql.rds_show_configuration TO 'migration_user'@'%';
 GRANT SELECT ON mysql.db TO 'migration_user'@'%';
 GRANT SELECT ON mysql.func TO 'migration_user'@'%';
@@ -130,7 +129,7 @@ Save the username and password securely - you’ll need them for the import.
 
 Allow PlanetScale to connect by adding PlanetScale’s IP addresses to your security group.
 
-The specific IP addresses depend on your PlanetScale database region. These will be shown during the import workflow on the **Connect to external database** step. See the [Import public IP addresses](import-tool-migration-addresses.md) page for more details.
+The specific IP addresses depend on your PlanetScale database region. See [Import public IP addresses](import-tool-migration-addresses.md) for how to find them.
 
 ### Add IP addresses to security group
 
@@ -159,23 +158,23 @@ The Edit inbound rules view where source traffic can be allowed.
 
 ## Importing your database
 
-Now that your RDS database is configured, follow the [Database Imports guide](database-imports.md) to complete your import.
+Now that your RDS database is configured, follow the [Database imports guide](database-imports.md) to complete your import.
 
-When filling out the connection form in the import workflow, use:
+When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
-- **Host name** - Your RDS endpoint address (from Prerequisites)
-- **Port** - 3306 (or your custom port)
-- **Database name** - The exact database name to import
-- **Username** - `migration_user`
-- **Password** - The password you set in Step 5
-- **SSL verification mode** - Select based on your RDS SSL configuration
+- **Host name** (`--host`) - Your RDS endpoint address (from Prerequisites)
+- **Port** (`--port`) - 3306 (or your custom port)
+- **Database name** (`--source-database`) - The exact database name to import
+- **Username** (`--username`) - `migration_user`
+- **Password** (`--password`) - The password you set in Step 5
+- **SSL verification mode** (`--ssl-mode`) - Select based on your RDS SSL configuration
 
-The Database Imports guide will walk you through:
+The Database imports guide will walk you through:
 
 - Creating your PlanetScale database
-- Connecting to your RDS database
-- Validating your configuration
-- Selecting tables to import
+- Connecting to your RDS database with an external keyspace
+- Checking your server settings, user grants, and schema
+- Starting the import with MoveTables
 - Monitoring the import progress
 - Switching traffic and completing the import
 

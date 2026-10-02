@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-sizing
 title: "Cluster Sizing"
 description: ""
-access_date: 2026-09-18T21:18:56.067Z
-current_date: 2026-09-18T21:18:56.067Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 You can easily upsize and downsize your database cluster from within the PlanetScale dashboard. This documentation covers some information about selecting a cluster size upon database creation as well as how to upsize and downsize.
@@ -50,7 +50,7 @@ On Metal, this works a little differently. Instead of upgrading replicas one by 
 
 ## Sharding
 
-You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](../cluster-configuration.md) and running an [unsharded to sharded workflow](../sharding/sharding-quickstart.md) in your dashboard.
+You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](../cluster-configuration.md) and moving tables into it with [MoveTables](../sharding/sharding-quickstart.md).
 
 If you would like additional support from our expert team, our [Enterprise plan](../../planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
 

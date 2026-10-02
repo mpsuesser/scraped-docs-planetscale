@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-18T21:28:08.308Z
-current_date: 2026-09-18T21:28:08.308Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 From here, you can:
@@ -76,9 +76,9 @@ The cost of adding this additional keyspace largely depends on the number of sha
 
 ## Create an external keyspace
 
-An external keyspace connects a **production** branch to an existing MySQL database. PlanetScale runs an external tablet against that source so you can query it through Vitess without importing the data first. This is separate from a [database import](imports/database-imports.md).
+An external keyspace connects a **production** branch to an existing MySQL database. PlanetScale runs an external tablet against that source so Vitess can read from it. External keyspaces are the source of a [database import](imports/database-imports.md): once the keyspace is ready, a [MoveTables workflow](../cli/move-tables.md#import-from-an-external-keyspace) copies its tables into a PlanetScale keyspace.
 
-You can create the same keyspace from the CLI with [`pscale keyspace create-external`](../cli/keyspace.md#create-an-external-keyspace). Resize an existing external keyspace from this page, or with [`pscale keyspace resize`](../cli/keyspace.md).
+You can create the same keyspace from the CLI with [`pscale keyspace create-external`](../cli/keyspace.md#create-an-external-keyspace). Resize an existing external keyspace from this page, or with [`pscale keyspace resize`](../cli/keyspace.md). To import the data, follow [Database imports](imports/database-imports.md#step-4-start-the-import).
 
 ## Modify the VSchema of a keyspace via the Clusters page
 

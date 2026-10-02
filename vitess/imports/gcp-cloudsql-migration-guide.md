@@ -2,24 +2,24 @@
 url: https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide
 title: "Gcp Cloudsql Migration Guide"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Overview
 
-This document will demonstrate how to migrate a database from Google Cloud Platform (GCP) Cloud SQL MySQL Cluster to PlanetScale using our [Import tool](database-imports.md).
+This document will demonstrate how to migrate a database from Google Cloud Platform (GCP) Cloud SQL MySQL Cluster to PlanetScale with a [database import](database-imports.md).
 
-This guide assumes you are using MySQL on GCP. Other database systems available through GCP will not work with the PlanetScale import tool.
+This guide assumes you are using MySQL on GCP. Other database systems available through GCP will not work with this guide.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how our import tool works before proceeding.
+We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
 Before you can perform a migration, gather the following information from the GCP Console:
 
 - **Public IP address** - Found in the **Overview** tab of your Cloud SQL cluster under the **Connect to this instance** section
-- **Database name** - The name of the database you want to import
+- **Database name** (`--source-database`) - The name of the database you want to import
 - **Root username and password** - You’ll need these to create the migration user
 
 ![The GCP Cloud SQL console with the IP address highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-ip-address.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=99e852a2d99299c14cdf1350bd3729ab)
@@ -50,7 +50,6 @@ CREATE USER 'migration_user'@'%' IDENTIFIED BY '<SUPER_STRONG_PASSWORD>';
 GRANT PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'migration_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE, SHOW VIEW, LOCK TABLES ON \`<DATABASE_NAME>\`.* TO 'migration_user'@'%';
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER ON *.* TO 'migration_user'@'%';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER ON \`_vt\`.* TO 'migration_user'@'%';
 GRANT SELECT ON mysql.db TO 'migration_user'@'%';
 GRANT SELECT ON mysql.func TO 'migration_user'@'%';
 GRANT SELECT ON mysql.innodb_table_stats TO 'migration_user'@'%';
@@ -74,9 +73,9 @@ You must create the migration user on the MySQL command line and not in the GCP 
 
 ## Allow PlanetScale to connect to your Cloud SQL instance
 
-For PlanetScale to connect to your database, you’ll need to update the Authorized networks for your cluster. The specific IP addresses to permit are shown during the import workflow on the **Connect to external database** step. The list includes IP addresses specific to your PlanetScale database region.
+For PlanetScale to connect to your database, you’ll need to update the Authorized networks for your cluster. The specific IP addresses to permit depend on your PlanetScale database region. See [Import public IP addresses](import-tool-migration-addresses.md) for how to find them.
 
-See the [Import public IP addresses](import-tool-migration-addresses.md) page for more details on where to find these IP addresses in the workflow. To permit traffic from these IP addresses to your database in GCP, select **Connections** from the navigation on the left. Under **Authorized networks**, click “ **Add network** ”. This will display an inline form for you to add a network. The name of the field is arbitrary, but the **Network** field should contain the IP address that needs access to your database. Click “ **Done** ” to add the new entry. Perform this step for each IP address for the selected region, then click “ **Save** ” to apply the settings.
+To permit traffic from these IP addresses to your database in GCP, select **Connections** from the navigation on the left. Under **Authorized networks**, click “ **Add network** ”. This will display an inline form for you to add a network. The name of the field is arbitrary, but the **Network** field should contain the IP address that needs access to your database. Click “ **Done** ” to add the new entry. Perform this step for each IP address for the selected region, then click “ **Save** ” to apply the settings.
 
 ![The form to add a new authorized network in the GCP console.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/gcp-cloudsql-migration-guide/cloudsql-networking.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=8698060bf4f771dda3af9b20c7ba01f4)
 
@@ -108,23 +107,23 @@ The form to set enable point in time recovery.
 
 ## Importing your database
 
-Now that your GCP Cloud SQL database is configured and ready, follow the [Database Imports guide](database-imports.md) to complete your import.
+Now that your GCP Cloud SQL database is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
 
-When filling out the connection form in the import workflow, use the following information:
+When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
-- **Host name** - Your GCP Cloud SQL public IP address (from Prerequisites)
-- **Port** - 3306 (default for Cloud SQL)
-- **Database name** - The exact database name to import
-- **Username** - `migration_user`
-- **Password** - The password you set for the migration user
-- **SSL verification mode** - Select based on your Cloud SQL SSL configuration
+- **Host name** (`--host`) - Your GCP Cloud SQL public IP address (from Prerequisites)
+- **Port** (`--port`) - 3306 (default for Cloud SQL)
+- **Database name** (`--source-database`) - The exact database name to import
+- **Username** (`--username`) - `migration_user`
+- **Password** (`--password`) - The password you set for the migration user
+- **SSL verification mode** (`--ssl-mode`) - Select based on your Cloud SQL SSL configuration
 
-The Database Imports guide will walk you through:
+The Database imports guide will walk you through:
 
 - Creating your PlanetScale database
-- Connecting to your Cloud SQL database
-- Validating your configuration
-- Selecting tables to import
+- Connecting to your Cloud SQL database with an external keyspace
+- Checking your server settings, user grants, and schema
+- Starting the import with MoveTables
 - Monitoring the import progress
 - Switching traffic and completing the import
 

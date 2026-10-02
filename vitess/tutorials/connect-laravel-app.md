@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-laravel-app
 title: "Connect Laravel App"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Prerequisites
@@ -20,7 +20,7 @@ This guide will integrate [a simple Laravel 12 app](https://github.com/planetsca
 
 Next, you need to set up your PlanetScale database and connect to it in the Laravel application.
 
-If you have an existing cloud-hosted database, you can choose the “ **Import** ” option to import your database to PlanetScale using our Import tool. If you go this route, we recommend using our [Database Imports documentation](../imports/database-imports.md).
+If you have an existing cloud-hosted MySQL database, you can import it into PlanetScale instead. See the [Database imports documentation](../imports/database-imports.md).
 
 If this is your first time in the dashboard, you’ll be prompted to create an organization and go through the database creation walkthrough. Otherwise, click “ **New database** ” > “ **Create new database** ”.
 

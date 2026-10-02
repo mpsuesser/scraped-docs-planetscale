@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide
 title: "Azure Database For Mysql Migration Guide"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 ## Overview
 
-This document will demonstrate how to migrate a database from Azure Database for MySQL to PlanetScale. We recommend reading through the [Database import documentation](database-imports.md) to learn how our import tool works before proceeding.
+This document will demonstrate how to migrate a database from Azure Database for MySQL to PlanetScale. We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ The databases tab of the Azure dashboard.
 
 ## Configure firewall rules
 
-In order for PlanetScale to connect to your Azure database, you must allow traffic into the database through the associated security group. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import tool public IP addresses page](import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
+In order for PlanetScale to connect to your Azure database, you must allow traffic into the database through the associated security group. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
 
 ```text
 3.209.149.66
@@ -79,23 +79,23 @@ How to access gtid settings in the Azure dashboard.
 
 ## Import your database
 
-Now that your Azure Database for MySQL is configured and ready, follow the [Database Imports guide](database-imports.md) to complete your import.
+Now that your Azure Database for MySQL is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
 
-When filling out the connection form in the import workflow, use the following information:
+When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
-- **Host name** - Your Azure server name (from Prerequisites)
-- **Port** - 3306 (default for Azure MySQL)
-- **Database name** - The exact database name to import
-- **Username** - Your server admin login name
-- **Password** - Your server admin password
-- **SSL verification mode** - Select “ **Verify Identity** ” (Verify certificate and hostname)
+- **Host name** (`--host`) - Your Azure server name (from Prerequisites)
+- **Port** (`--port`) - 3306 (default for Azure MySQL)
+- **Database name** (`--source-database`) - The exact database name to import
+- **Username** (`--username`) - Your server admin login name
+- **Password** (`--password`) - Your server admin password
+- **SSL verification mode** (`--ssl-mode`) - `verify_identity` (verify the certificate and hostname)
 
-The Database Imports guide will walk you through:
+The Database imports guide will walk you through:
 
 - Creating your PlanetScale database
-- Connecting to your Azure MySQL database
-- Validating your configuration
-- Selecting tables to import
+- Connecting to your Azure MySQL database with an external keyspace
+- Checking your server settings, user grants, and schema
+- Starting the import with MoveTables
 - Monitoring the import progress
 - Switching traffic and completing the import
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-09-25T00:40:36.800Z
-current_date: 2026-09-25T00:40:36.800Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing MySQL-compatible database and cloud infrastructure to help plan your migration to PlanetScale Vitess. It collects metadata about your database configuration, schema structure, performance characteristics, replication topology, security settings, feature usage, and cloud resources. It never reads or stores actual table data.
@@ -290,7 +290,7 @@ The discovery tool runs entirely on your infrastructure. No data is sent to exte
 
 Once you have your discovery report, [share it with us](https://planetscale.com/contact) if you want tailored migration guidance. You can also follow one of our migration guides on your own:
 
-## Database import workflow
+## Database imports
 
 ## Migrate from AWS RDS
 

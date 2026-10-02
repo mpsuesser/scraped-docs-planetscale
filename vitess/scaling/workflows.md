@@ -2,64 +2,66 @@
 url: https://planetscale.com/docs/vitess/scaling/workflows
 title: "Workflows"
 description: ""
-access_date: 2026-09-16T19:45:27.654Z
-current_date: 2026-09-16T19:45:27.654Z
+access_date: 2026-10-02T19:13:10.531Z
+current_date: 2026-10-02T19:13:10.531Z
 ---
 
-PlanetScale workflows are built on top of [Vitess VReplication](https://vitess.io/docs/reference/vreplication/vreplication/) and provide a managed way to move data between database sources with real-time progress tracking, data verification, and controlled traffic switching.
+Workflows are [Vitess MoveTables](https://vitess.io/docs/user-guides/migration/move-tables/) workflows built on [Vitess VReplication](https://vitess.io/docs/reference/vreplication/vreplication/). A workflow copies tables from a source keyspace to a target keyspace, keeps them in sync with real-time replication, and lets you verify the data and switch traffic when you’re ready.
 
-There are two types of workflows available:
+You create and drive workflows with [`pscale branch vtctl move-tables`](../../cli/move-tables.md) or the MoveTables API. The dashboard shows the live state of each workflow, read directly from Vitess.
 
-## Table movement
+There are two ways to use workflows:
+
+## Move tables between keyspaces
 
 Move tables between keyspaces within your PlanetScale database. Used for sharding, resharding, and reorganizing data.
 
-## Database import
+## Import a database
 
-Import data from an external MySQL or MariaDB database into PlanetScale with no downtime.
+Import data from an external MySQL database into PlanetScale with no downtime.
 
-## Table movement workflows
+## Move tables between keyspaces
 
-Table movement workflows let you move tables from one [keyspace](../sharding/keyspaces.md) to another within your PlanetScale database. If you are familiar with [Vitess](https://vitess.io/), these are analogous to the [Vitess `MoveTables` workflow](https://vitess.io/docs/user-guides/migration/move-tables/).
+Move tables from one [keyspace](../sharding/keyspaces.md) to another within your PlanetScale database:
 
-Available table movement workflows:
+- **Unsharded to sharded**: Move tables from an unsharded keyspace to a new sharded keyspace. This is the primary way to shard existing tables. See the [Sharding quickstart](../sharding/sharding-quickstart.md).
+- **Sharded to sharded**: Move tables between sharded keyspaces to change the number of shards. See [Modifying the number of shards](../sharding/sharding-a-sharded-keyspace.md).
+- **Unsharded to unsharded**: Move tables from one unsharded keyspace to another unsharded keyspace.
 
-- **Unsharded to sharded** — Move tables from an unsharded keyspace to a new sharded keyspace. This is the primary way to shard existing tables. See the [Sharding quickstart](../sharding/sharding-quickstart.md).
-- **Sharded to sharded** — Move tables between sharded keyspaces to change the number of shards. See [Modifying the number of shards](../sharding/sharding-a-sharded-keyspace.md).
-- **Unsharded to unsharded** — Move tables from one unsharded keyspace to another unsharded keyspace.
+## Import a database
 
-Table movement workflows can be created from the dashboard, the [CLI](../../cli/workflow.md), or the [API](../../api/reference/create_workflow.md). You can also run Vitess MoveTables directly with [`pscale branch vtctld move-tables`](../../cli/move-tables.md).
-
-## Database import workflows
-
-Database import workflows let you migrate data from an **external internet-accessible MySQL or MariaDB database** into PlanetScale with no downtime. The import workflow handles connection setup, schema validation, data copying, real-time replication, and controlled traffic switching.
-
-Database import workflows are created through the PlanetScale dashboard. To get started, go to **New database** > **Import database**.
+To import an **external internet-accessible MySQL database**, you first connect it to your production branch as an [external keyspace](../cluster-configuration.md#create-an-external-keyspace). Then you run a workflow with the external keyspace as the source and your PlanetScale keyspace as the target. The import copies your data, replicates new changes in real time, and switches traffic to PlanetScale with no downtime.
 
 For a full walkthrough, see the [Database imports documentation](../imports/database-imports.md).
 
-## Shared workflow lifecycle
+## Workflow lifecycle
 
-Both workflow types follow a similar lifecycle:
+Every workflow follows the same lifecycle:
 
-1. **Copying** — Initial data copy from source to target
-2. **Running** — Real-time replication keeps source and target in sync
-3. **Switching traffic** — Controlled cutover of replica and primary traffic to the target
-4. **Complete** — Workflow finalized and source connection closed
+1. **Create**: `move-tables create` copies the table schemas to the target keyspace and starts copying rows.
+2. **Copy**: Vitess copies the existing rows from the source to the target. Streams are `Copying`.
+3. **Replicate**: Once the copy finishes, Vitess keeps the target up to date with every new write on the source. Streams are `Running`.
+4. **Verify**: Optionally compare the source and target with a [VDiff](https://vitess.io/docs/reference/vreplication/vdiff/).
+5. **Switch traffic**: `move-tables switch-traffic` moves replica traffic, then primary traffic, to the target keyspace. `move-tables reverse-traffic` moves it back.
+6. **Complete**: `move-tables complete` stops replication. Its required flags decide whether the moved tables are dropped from the source keyspace and whether the routing rules are removed. You can also `cancel` a workflow at any point before it is complete.
 
-For the full list of states specific to table movement workflows, see the [Workflow state reference](../sharding/sharding-workflow-state-reference.md). For import workflow states, see [Workflow phases](../imports/database-imports.md#workflow-phases).
+Use `move-tables status` between steps. It shows each table’s copy progress, each stream’s state, and the traffic state. JSON output includes a `next_steps` field with the command to run next. See the [`move-tables` reference](../../cli/move-tables.md) for every command and flag.
 
-## Create a workflow
+## View workflows in the dashboard
 
-To create a new workflow, select your database and click **Workflows** in the left nav, then click **New workflow**. You’ll be prompted to choose between moving tables between keyspaces or importing from an external database.
+Select your database and click **Workflows** in the left nav. Pick a branch to see the MoveTables workflows on it, across all keyspaces or filtered to one keyspace. Open a workflow to see:
 
-You can also create table movement workflows using the [`pscale workflow create`](../../cli/workflow.md) CLI command or the [Create workflow API endpoint](../../api/reference/create_workflow.md).
+- The source and target keyspaces, replication lag, and when the workflow last updated
+- Which keyspace is serving reads and writes
+- Each stream’s state, rows copied, and any error message
+- Each table’s copy progress
+- The results of the latest VDiff
 
-Database import workflows can only be created through the PlanetScale dashboard. The CLI and API `create` commands are for table movement workflows only. Once created, all other workflow lifecycle commands (`switch-traffic`, `verify-data`, `complete`, `cancel`, etc.) work with both workflow types.
+The Workflows page is read-only. To create, switch, complete, or cancel a workflow, use [`pscale branch vtctl move-tables`](../../cli/move-tables.md).
 
-## View workflow history
+## Earlier workflows
 
-To view the history of all completed or pending workflows, click on **Workflows** in the left nav. From here, you can see all previous workflows along with information such as status, duration, and the time it took to complete.
+Workflows created with `pscale workflow create`, the earlier dashboard workflow pages, or the `/workflows` API endpoints are managed separately from MoveTables workflows. [`pscale workflow`](../../cli/workflow.md) and the `/workflows` API endpoints are deprecated. Use `pscale branch vtctl move-tables` and the MoveTables API for new work.
 
 ## Need help?
 
