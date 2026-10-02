@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_neki_change_request
 title: "Get_neki_change_request"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 > ## Documentation Index
@@ -105,12 +105,18 @@ tags:
   - name: Metrics
     description: |2
                 Resources for retrieving database metrics.
+  - name: MoveTables
+    description: |2
+                API endpoints for creating and managing Vitess MoveTables workflows on a branch.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: Organization invitations
+    description: |2
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.
@@ -154,6 +160,9 @@ tags:
   - name: Users
     description: |2
                 Resources for managing users.
+  - name: VtctldOperations
+    description: |2
+                API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
   - name: Workflows
     description: |2
                 API endpoints for managing workflows.
@@ -259,6 +268,7 @@ paths:
                       - NekiAdminChangeRequest
                       - NekiClusterChangeRequest
                       - NekiConfigurationProfileChangeRequest
+                      - NekiExternalShardChangeRequest
                       - NekiRouterChangeRequest
                       - NekiSidecarChangeRequest
                     description: The type of change request
@@ -317,6 +327,7 @@ paths:
                       - NekiAdmin
                       - NekiCluster
                       - NekiConfigurationProfile
+                      - NekiExternalShard
                       - NekiRouter
                       - NekiSidecar
                     description: The type of resource being changed
@@ -368,6 +379,30 @@ paths:
                   previous_neki_image_version:
                     type: string
                     description: The previous Neki image version
+                    nullable: true
+                  replicas:
+                    type: integer
+                    description: The number of replicas
+                    nullable: true
+                  previous_replicas:
+                    type: integer
+                    description: The previous number of replicas
+                    nullable: true
+                  cluster_name:
+                    type: string
+                    description: The SKU representing the external sidecar size
+                    nullable: true
+                  cluster_display_name:
+                    type: string
+                    description: The display name of the cluster size SKU
+                    nullable: true
+                  previous_cluster_name:
+                    type: string
+                    description: The SKU representing the previous external sidecar size
+                    nullable: true
+                  previous_cluster_display_name:
+                    type: string
+                    description: The previous display name of the cluster size SKU
                     nullable: true
                   router_size:
                     type: string
@@ -433,10 +468,6 @@ paths:
                     type: string
                     description: The name of the cluster size SKU
                     nullable: true
-                  cluster_display_name:
-                    type: string
-                    description: The display name of the cluster size SKU
-                    nullable: true
                   metal:
                     type: boolean
                     description: Whether the cluster size SKU uses metal instances
@@ -444,10 +475,6 @@ paths:
                   cluster_rank:
                     type: integer
                     description: The display order of the cluster size SKU
-                    nullable: true
-                  replicas:
-                    type: integer
-                    description: The number of replicas
                     nullable: true
                   shards:
                     type: integer
@@ -491,10 +518,6 @@ paths:
                     type: string
                     description: The previous name of the cluster size SKU
                     nullable: true
-                  previous_cluster_display_name:
-                    type: string
-                    description: The previous display name of the cluster size SKU
-                    nullable: true
                   previous_metal:
                     type: boolean
                     description: Whether the previous cluster size SKU used metal instances
@@ -502,10 +525,6 @@ paths:
                   previous_cluster_rank:
                     type: integer
                     description: The previous display order of the cluster size SKU
-                    nullable: true
-                  previous_replicas:
-                    type: integer
-                    description: The previous number of replicas
                     nullable: true
                   previous_shards:
                     type: integer

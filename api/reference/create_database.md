@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database
 title: "Create_database"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 > ## Documentation Index
@@ -109,12 +109,18 @@ tags:
   - name: Metrics
     description: |2
                 Resources for retrieving database metrics.
+  - name: MoveTables
+    description: |2
+                API endpoints for creating and managing Vitess MoveTables workflows on a branch.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: Organization invitations
+    description: |2
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.
@@ -158,6 +164,9 @@ tags:
   - name: Users
     description: |2
                 Resources for managing users.
+  - name: VtctldOperations
+    description: |2
+                API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
   - name: Workflows
     description: |2
                 API endpoints for managing workflows.
@@ -304,6 +313,12 @@ paths:
                   development_branches_count:
                     type: integer
                     description: The total number of database development branches
+                  development_branches_limit:
+                    type: integer
+                    description: >-
+                      The current maximum number of development branches. Change
+                      it with development_branches_limit on the database PATCH
+                      endpoint, up to 5000.
                   production_branches_count:
                     type: integer
                     description: The total number of database production branches
@@ -325,46 +340,6 @@ paths:
                   at_development_branch_usage_limit:
                     type: boolean
                     description: If the database has reached its development branch limit
-                  data_import:
-                    type: object
-                    properties:
-                      state:
-                        type: string
-                        description: State of the data import
-                      import_check_errors:
-                        type: string
-                        description: Errors encountered during the import check
-                      started_at:
-                        type: string
-                        description: When the import started
-                        nullable: true
-                      finished_at:
-                        type: string
-                        description: When the import finished
-                        nullable: true
-                      data_source:
-                        type: object
-                        properties:
-                          hostname:
-                            type: string
-                            description: Hostname of the data source
-                          port:
-                            type: integer
-                            description: Port of the data source
-                          database:
-                            type: string
-                            description: Database name of the data source
-                        required:
-                          - hostname
-                          - port
-                          - database
-                    required:
-                      - state
-                      - import_check_errors
-                      - started_at
-                      - finished_at
-                      - data_source
-                    nullable: true
                   region:
                     type: object
                     properties:
@@ -535,6 +510,7 @@ paths:
                   - branches_count
                   - open_schema_recommendations_count
                   - development_branches_count
+                  - development_branches_limit
                   - production_branches_count
                   - multiple_admins_required_for_deletion
                   - ready

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_branch
 title: "Update_branch"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 > ## Documentation Index
@@ -105,12 +105,18 @@ tags:
   - name: Metrics
     description: |2
                 Resources for retrieving database metrics.
+  - name: MoveTables
+    description: |2
+                API endpoints for creating and managing Vitess MoveTables workflows on a branch.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: Organization invitations
+    description: |2
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.
@@ -154,6 +160,9 @@ tags:
   - name: Users
     description: |2
                 Resources for managing users.
+  - name: VtctldOperations
+    description: |2
+                API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
   - name: Workflows
     description: |2
                 API endpoints for managing workflows.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 ## Overview
@@ -22,7 +22,7 @@ Before you begin, it may be helpful to check out our [general MySQL compatibilit
 ## Import process overview
 
 1. **Prepare your source database** - Check its server settings, create a user for PlanetScale, and allow PlanetScale’s IP addresses
-2. **Create your PlanetScale database** - Create the Vitess database you are importing into
+2. **Create your PlanetScale database** - Create the Vitess database you are importing into, and tune its keyspace for the import
 3. **Create an external keyspace** - Connect the production branch to your source database. PlanetScale checks connectivity, server settings, user grants, and schema compatibility first
 4. **Start the import** - Create a MoveTables workflow from the external keyspace to your PlanetScale keyspace
 5. **Monitor the import** - Watch the copy and replication progress, then verify the data
@@ -74,6 +74,29 @@ pscale database create commerce --org acme --region us-east --cluster-size PS_10
 Pick a [region](../../plans/regions.md) close to your source database and a [cluster size](../scaling/cluster-sizing.md) with enough storage for your data. You can also create the database from the dashboard with “ **New database** ” > “ **Create database** ”.
 
 We recommend using the same name as the database you’re importing from to avoid updating any database name references throughout your application code. Your PlanetScale database starts with one keyspace, named after the database. That keyspace is the **target** of the import. If you’d prefer to use a different database name, make sure to update your app where applicable once you fully switch over to PlanetScale.
+
+### Tune the target keyspace for the import
+
+We recommend setting these [VTTablet parameters](../cluster-configuration/parameters.md) on your PlanetScale keyspace before you start the import. They speed up the copy and keep VReplication retrying through errors on your source database, which matters most for large imports.
+
+| Parameter | Value for imports | What it does |
+| --- | --- | --- |
+| `vreplication_copy_phase_duration` | `24h` | How long each copy phase runs before the next catch-up phase. Only change it if your database uses [foreign key constraints](#foreign-key-constraints). |
+| `vreplication_max_time_to_retry_on_error` | `720h` | How long VReplication keeps retrying after an error before it gives up. |
+| `vreplication-parallel-insert-workers` | `4` | Number of parallel insert workers on the target tablet during the copy. Don’t set it higher than the number of vCPUs on the keyspace’s tablets. |
+
+Set them with [`pscale keyspace parameters set`](../../cli/keyspace.md#change-keyspace-parameters). If your database uses foreign key constraints, also pass `--parameters vttablet.vreplication_copy_phase_duration=24h`:
+
+```shellscript
+pscale keyspace parameters set commerce main commerce \
+  --org acme \
+  --parameters vttablet.vreplication-parallel-insert-workers=4 \
+  --parameters vttablet.vreplication_max_time_to_retry_on_error=720h
+```
+
+The change rolls out to the keyspace’s tablets, one shard at a time by default. Wait until `pscale keyspace parameters changes list commerce main commerce --org acme` shows it as `completed` before you start the import. You can also set these parameters in the dashboard: click **Clusters** in the left nav, select the keyspace, click the **VTTablets** tab, and search for each parameter.
+
+Set these parameters back to their defaults after you [switch primary traffic](#step-7-switch-traffic) to PlanetScale.
 
 ## Step 3: Create an external keyspace
 
@@ -303,6 +326,17 @@ pscale branch vtctl move-tables reverse-traffic commerce main \
   --target-keyspace commerce \
   --format json
 ```
+
+If you [tuned the target keyspace](#tune-the-target-keyspace-for-the-import) for the import, set its VTTablet parameters back to their defaults once primary traffic has switched. Like the original change, this rolls out to the keyspace’s tablets one shard at a time.
+
+```shellscript
+pscale keyspace parameters set commerce main commerce \
+  --org acme \
+  --reset vttablet.vreplication-parallel-insert-workers \
+  --reset vttablet.vreplication_max_time_to_retry_on_error
+```
+
+Add `--reset vttablet.vreplication_copy_phase_duration` if you set it for foreign key constraints.
 
 ## Step 8: Complete the import
 

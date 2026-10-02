@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 ## Getting started
@@ -28,6 +28,11 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `create-external <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--host <HOST>` \*, `--source-database <NAME>` \*, `--username <USER>` \*, `--password <PASSWORD>` \*, `--ssl-mode <MODE>` \*, `--port <PORT>`, `--cluster-size <SIZE>`, `--ssl-certificate-authority <CA>`, `--ssl-client-certificate <CERT>`, `--ssl-client-key <KEY>`, `--ssl-server-name <NAME>`, `--min-tls-version <VERSION>`, `--tablet-cell <CELL>`, `--skip-lint-errors`, `--dry-run`, `--wait` | Vitess | Create an external keyspace by connecting a production branch to an existing MySQL database. |
 | `delete <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--force` | Vitess | Delete a keyspace from a database branch. |
 | `list <DATABASE_NAME> <BRANCH_NAME>` |  | Vitess | List all keyspaces within a database branch. |
+| `parameters list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--namespace <NAMESPACE>` | Vitess | List a keyspace’s VTTablet and MySQL [parameters](../vitess/cluster-configuration/parameters.md) with their current and default values. |
+| `parameters set <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--parameters <NAMESPACE.NAME=VALUE>`, `--reset <NAMESPACE.NAME>` | Vitess | Change VTTablet and MySQL parameters on a keyspace, or set them back to their defaults. |
+| `parameters changes list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--page <NUMBER>`, `--per-page <NUMBER>` | Vitess | List parameter changes to a keyspace and their state. |
+| `parameters changes show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> <CHANGE_ID>` |  | Vitess | Show a parameter change. |
+| `parameters changes cancel <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> <CHANGE_ID>` |  | Vitess | Cancel a parameter change that hasn’t started applying. |
 | `show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show a specific keyspace within a database branch. |
 | `read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | List [read-only regions](../vitess/scaling/read-only-regions.md) for a keyspace. |
 | `resize <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--cluster-size <SIZE>`, `--additional-replicas <NUMBER>` | Vitess | Resize a keyspace, including external keyspaces. |
@@ -64,6 +69,10 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--wait` | Wait until the keyspace is ready. | `create-external` |
 | `--force` | Delete the keyspace without a confirmation prompt. Required in non-interactive or non- `human` output modes. | `delete` |
 | `-i, --interactive` | Run the command in interactive mode. | `update-settings` |
+| `--namespace <NAMESPACE>` | Only show parameters in this namespace: `vttablet` or `mysqld`. | `parameters list` |
+| `--parameters <NAMESPACE.NAME=VALUE>` | Set a parameter, where `<NAMESPACE>` is `vttablet` or `mysqld`, for example `vttablet.vreplication-parallel-insert-workers=4`. Repeatable. | `parameters set` |
+| `--reset <NAMESPACE.NAME>` | Set a parameter back to its default, for example `vttablet.vreplication-parallel-insert-workers`. Repeatable. | `parameters set` |
+| `--page <NUMBER>`, `--per-page <NUMBER>` | Page through parameter changes. `--per-page` defaults to 25. | `parameters changes list` |
 | `--max-rollout <NUMBER>` | Maximum number of shards to update concurrently during a keyspace rollout. Accepts values from 1 to 32. | `update-settings` |
 | `--replication-durability-constraints-strategy <STRATEGY>` | Replication strategy to use. Options: maximum, dynamic, minimum (default “maximum”). | `update-settings` |
 | `--throttler-enabled` | Pause schema migrations and VReplication workflows when replication lag is above the threshold. Pass `--throttler-enabled=false` to turn the throttler off. | `update-settings` |
@@ -163,6 +172,26 @@ pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --
 ```
 
 `--max-rollout` accepts values from 1 to 32. If the API value is not set, `pscale keyspace settings` displays `not set`, and PlanetScale uses the default of 1.
+
+### Change keyspace parameters
+
+List a keyspace’s VTTablet and MySQL [parameters](../vitess/cluster-configuration/parameters.md), then change them. Changes for both namespaces are submitted together and roll out to the keyspace:
+
+```shellscript
+pscale keyspace parameters list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --namespace vttablet
+pscale keyspace parameters set <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+  --parameters vttablet.vreplication-parallel-insert-workers=4 \
+  --parameters mysqld.wait_timeout=600
+pscale keyspace parameters changes list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
+
+A change is `applying` while it rolls out and `completed` once every shard has it. A keyspace can have one unfinished change per namespace at a time. To set parameters back to their defaults, pass `--reset`:
+
+```shellscript
+pscale keyspace parameters set <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+  --reset vttablet.vreplication-parallel-insert-workers \
+  --reset mysqld.wait_timeout
+```
 
 ### List read-only regions for a keyspace
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_extensions
 title: "List_extensions"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 > ## Documentation Index
@@ -105,12 +105,18 @@ tags:
   - name: Metrics
     description: |2
                 Resources for retrieving database metrics.
+  - name: MoveTables
+    description: |2
+                API endpoints for creating and managing Vitess MoveTables workflows on a branch.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: Organization invitations
+    description: |2
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.
@@ -154,6 +160,9 @@ tags:
   - name: Users
     description: |2
                 Resources for managing users.
+  - name: VtctldOperations
+    description: |2
+                API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
   - name: Workflows
     description: |2
                 API endpoints for managing workflows.
@@ -249,25 +258,24 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
-                      type: string
-                      description: The ID of the extension
                     name:
                       type: string
                       description: The name of the extension
+                    can_enable:
+                      type: boolean
+                      description: >-
+                        Whether the extension can be enabled or disabled by the
+                        cluster
                     description:
                       type: string
                       description: The description of the extension
+                    enabled:
+                      type: boolean
+                      description: Whether the extension is enabled by the cluster
+                      nullable: true
                     internal:
                       type: boolean
                       description: The internal state of the extension
-                    loader:
-                      type: string
-                      enum:
-                        - shared_preload_libraries
-                        - session_preload_libraries
-                        - create_extension
-                      description: How the extension is loaded
                     requirements:
                       type: object
                       properties:
@@ -394,11 +402,10 @@ paths:
                           - options
                           - actor
                   required:
-                    - id
                     - name
+                    - can_enable
                     - description
                     - internal
-                    - loader
                     - requirements
                     - url
                     - parameters

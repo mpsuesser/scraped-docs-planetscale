@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
@@ -50,7 +50,7 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`insights`](cli/insights.md) | `queries`, `queries samples`, `queries show`, `queries summary`, `queries traffic-budgets`, `errors`, `errors show`, `anomalies`, `anomalies show`, `tags`, `tags show`, `tags summaries`, `recommendations`, `recommendations show`, `recommendations dismiss` | `--help`, `--org string`, `--format json` | Vitess, Postgres, Neki | Server-side query insights, anomalies, and schema recommendations from production traffic |
 | [`inspect`](cli/inspect.md) | `all`, `table-sizes`, `index-sizes`, `unused-indexes`, `redundant-indexes`, `invalid-indexes`, `seq-scans`, `long-running-queries`, `locks`, `outliers`, `calls`, `bloat`, `vacuum-stats`, `replication-slots`, `subscriptions` | `--help`, `--org string`, `--format json`, `--keyspace string`, `--dbname string`, `--role string`, `--replica` | Vitess, Postgres, Neki | Live, read-only diagnostic checks over a direct database connection |
 | [`logs`](cli/logs.md) | `<database>` `<branch>` | `--help`, `--org string`, `--query string`, `--period string`, `--from string`, `--to string`, `--level string`, `--server string`, `--shard string`, `--limit int`, `--page int` | Postgres, Neki | Query recent [Postgres](postgres/monitoring/logs.md) or [Neki](neki/monitoring/logs.md) branch logs |
-| [`keyspace`](cli/keyspace.md) | `create`, `create-external`, `delete`, `list`, `read-only-regions`, `resize`, `rollout-status`, `settings`, `show`, `update-settings`, `vschema` | `--help`, `--org string` | Vitess | Manage [keyspaces](vitess/sharding/keyspaces.md) within a database branch, including [external keyspaces](cli/keyspace.md#create-an-external-keyspace) |
+| [`keyspace`](cli/keyspace.md) | `create`, `create-external`, `delete`, `list`, `parameters`, `read-only-regions`, `resize`, `rollout-status`, `settings`, `show`, `update-settings`, `vschema` | `--help`, `--org string` | Vitess | Manage [keyspaces](vitess/sharding/keyspaces.md) within a database branch, including [external keyspaces](cli/keyspace.md#create-an-external-keyspace) |
 | [`maintenance`](cli/maintenance.md) | `list`, `show`, `windows` | `--help`, `--org string` | Vitess | View planned maintenance schedules and windows for a database |
 | [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres, Neki | Manage and switch [organizations](security/access-control.md), including members, teams, and SSO |
 | [`metrics`](cli/metrics.md) | `instant`, `keyspace-tables`, `queries`, `report`, `show`, `tables`, `tablets`, `tags` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres, Neki | Query historical and current branch metrics from PlanetScale’s metrics service |

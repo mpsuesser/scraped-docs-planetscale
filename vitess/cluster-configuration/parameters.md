@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 PlanetScale for Vitess lets you adjust a curated set of VTGate, VTTablet, and MySQL parameters directly from the [Clusters page](../cluster-configuration.md) in the dashboard.
@@ -27,6 +27,19 @@ You must be a database or organization administrator to modify these settings.
 You can stack changes across VTGate, VTTablets, and MySQL into a single batch before applying.
 
 To revert a parameter to its default, clear the override and apply the change.
+
+### Change parameters with the CLI
+
+You can also change VTTablet and MySQL parameters with [`pscale keyspace parameters`](../../cli/keyspace.md#change-keyspace-parameters). Prefix each parameter with its namespace, `vttablet` or `mysqld`:
+
+```shellscript
+pscale keyspace parameters list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+pscale keyspace parameters set <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+  --parameters vttablet.vreplication-parallel-insert-workers=4 \
+  --parameters mysqld.wait_timeout=600
+```
+
+Pass `--reset vttablet.vreplication-parallel-insert-workers` to set a parameter back to its default, and run `pscale keyspace parameters changes list <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` to follow a change as it rolls out. To change VTGate parameters, use the dashboard.
 
 ## Tracking changes
 

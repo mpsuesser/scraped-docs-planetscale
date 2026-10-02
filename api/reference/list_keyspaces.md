@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_keyspaces
 title: "List_keyspaces"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-02T22:59:04.178Z
+current_date: 2026-10-02T22:59:04.178Z
 ---
 
 > ## Documentation Index
@@ -99,12 +99,18 @@ tags:
   - name: Metrics
     description: |2
                 Resources for retrieving database metrics.
+  - name: MoveTables
+    description: |2
+                API endpoints for creating and managing Vitess MoveTables workflows on a branch.
   - name: OAuth applications
     description: |2
                 Resources for managing OAuth applications.
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: Organization invitations
+    description: |2
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.
@@ -148,6 +154,9 @@ tags:
   - name: Users
     description: |2
                 Resources for managing users.
+  - name: VtctldOperations
+    description: |2
+                API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
   - name: Workflows
     description: |2
                 API endpoints for managing workflows.
@@ -353,22 +362,29 @@ paths:
                             - node_ttl_always
                             - node_ttl_off
                           description: Controls when node TTL drains are allowed
-                        disk_autoscaling:
+                        storage:
                           type: object
                           properties:
-                            strategy:
+                            storage_bytes:
+                              type: integer
+                              description: >-
+                                The current provisioned disk size in bytes.
+                                Disks grow from and shrink to this size. Custom
+                                shards may have staff-set overrides
+                            max_storage_bytes:
+                              type: integer
+                              description: The maximum size in bytes disks may autoscale to
+                            disk_scaling_strategy:
                               type: string
                               enum:
                                 - grow
                                 - disable
                                 - shrink
-                              description: The disk autoscaling strategy
-                            storage_limit_bytes:
-                              type: integer
-                              description: The maximum size in bytes disks may autoscale to
+                              description: The disk scaling strategy
                           required:
-                            - strategy
-                            - storage_limit_bytes
+                            - storage_bytes
+                            - max_storage_bytes
+                            - disk_scaling_strategy
                         max_rollout:
                           type: integer
                           description: >-
@@ -448,7 +464,7 @@ paths:
                         - imported
                         - vector_pool_allocation
                         - node_ttl_strategy
-                        - disk_autoscaling
+                        - storage
                         - max_rollout
                         - replication_durability_constraints
                         - vreplication_flags
