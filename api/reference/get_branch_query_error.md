@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_query_error
 title: "Get_branch_query_error"
 description: ""
-access_date: 2026-10-02T22:59:04.178Z
-current_date: 2026-10-02T22:59:04.178Z
+access_date: 2026-10-03T01:44:47.289Z
+current_date: 2026-10-03T01:44:47.289Z
 ---
 
 > ## Documentation Index
@@ -67,6 +67,9 @@ tags:
   - name: Cluster parameters
     description: |2
                 Resources for managing cluster configuration parameters.
+  - name: Branch Vitess parameters
+    description: |2
+                Returns all editable Vitess parameter definitions with their current effective values for a branch.
   - name: Database branch keyspaces
     description: |2
                 Resources for managing keyspaces.
@@ -134,9 +137,9 @@ tags:
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
-  - name: Read-only replicas
+  - name: Dedicated read replicas
     description: |2
-                Resources for managing Postgres read-only replicas.
+                Resources for managing Postgres dedicated read replicas.
   - name: Roles
     description: |2
                 Resources for managing role credentials.
@@ -383,6 +386,12 @@ paths:
                         rows_returned:
                           type: integer
                           description: The number of rows returned
+                        egress_bytes:
+                          type: integer
+                          description: The number of bytes sent to the client
+                        ingress_bytes:
+                          type: integer
+                          description: The number of bytes received from the client
                         total_duration_millis:
                           type: integer
                           description: Total query duration in milliseconds
@@ -422,6 +431,8 @@ paths:
                         - rows_read
                         - rows_affected
                         - rows_returned
+                        - egress_bytes
+                        - ingress_bytes
                         - total_duration_millis
                         - error_message
                         - normalized_sql
