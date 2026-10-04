@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/workflow_complete
 title: "Workflow_complete"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-04T19:56:22.595Z
+current_date: 2026-10-04T19:56:22.595Z
 ---
 
 PATCH
@@ -47,6 +47,16 @@ header
 required
 
 The access token received from the authorization server in the OAuth 2.0 flow.
+
+FlowAuthorization Code
+
+Authorization URL
+
+https://app.planetscale.com/oauth/authorize
+
+Token URL
+
+https://auth.planetscale.com/oauth/token
 
 #### Path Parametersorganization
 
