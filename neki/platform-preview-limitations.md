@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/platform-preview-limitations
 title: "Platform Preview Limitations"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-05T22:19:03.552Z
+current_date: 2026-10-05T22:19:03.552Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -47,6 +47,12 @@ Neki rejects cluster-level objects that depend on storage or code local to one P
 - Creating Postgres large objects.
 - Creating a procedural language with a custom handler. Built-in languages and languages installed by a supported extension remain available.
 - Loading a shared library with `LOAD`.
+
+## pg\_squeeze
+
+The router rejects a `squeeze.squeeze_table()` call when Neki must plan it. Set `__neki.shard` to a shard UID returned by `__neki.list_shards()` and Neki forwards the call to that shard unchanged. The call squeezes the table on the targeted shard only. Repeat it for each shard that holds rows of the table.
+
+See [Targeting one shard directly](query-planning.md#targeting-one-shard-directly).
 
 ## External Postgres
 
