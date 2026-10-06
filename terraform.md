@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/terraform
 title: "Terraform"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-06T20:39:31.314Z
+current_date: 2026-10-06T20:39:31.314Z
 ---
 
 Terraform is an open-source infrastructure-as-code tool that lets you define and manage cloud resources through declarative configuration files. With the [PlanetScale Terraform provider](https://github.com/planetscale/terraform-provider-planetscale), you can manage PlanetScale Vitess, Neki, and Postgres databases, branches, credentials, backups, backup policies, Neki routers and shards, dedicated PgBouncers, and cluster parameters alongside the rest of your infrastructure.
@@ -208,8 +208,8 @@ The provider also offers data sources for reading existing resources:
 | `planetscale_postgres_branch_backup` | `organization`, `database`, `branch`, `id` | Fetches a specific Postgres backup by ID. |
 | `planetscale_postgres_branch_roles` | `organization`, `database`, `branch` | Lists all roles on a branch. |
 | `planetscale_postgres_branch_role` | `organization`, `database`, `branch`, `id` | Fetches a specific role by ID. Useful for importing existing roles. |
-| `planetscale_postgres_read_only_replica` | `organization`, `database`, `branch`, `name` | Fetches a specific read-only replica by name. |
-| `planetscale_postgres_read_only_replicas` | `organization`, `database`, `branch` | Lists read-only replicas for a branch. |
+| `planetscale_postgres_read_only_replica` | `organization`, `database`, `branch`, `name` | Fetches a specific dedicated read replica by name. |
+| `planetscale_postgres_read_only_replicas` | `organization`, `database`, `branch` | Lists dedicated read replicas for a branch. |
 | `planetscale_postgres_redacted_branch_role` | `organization`, `database`, `branch`, `id` | Fetches a specific role by ID without reading the password into state. |
 
 Refer to the [Terraform Registry and provider documentation](https://registry.terraform.io/providers/planetscale/planetscale/latest) for the full, up-to-date list of available resources and data sources.
@@ -460,9 +460,9 @@ resource "planetscale_postgres_bouncer" "main" {
 
 Changing `name` or `target` destroys and recreates the bouncer. Omitted `parameters` values are reset to their defaults.
 
-### Postgres read-only replicas
+### Postgres dedicated read replicas
 
-Use `planetscale_postgres_read_only_replica` to add a read-only replica in the same region as the primary or in a different region. The replica can use a different cluster size than the primary.
+Use `planetscale_postgres_read_only_replica` to add a dedicated read replica in the same region as the primary or in a different region. The replica can use a different cluster size than the primary.
 
 ```hcl
 resource "planetscale_postgres_read_only_replica" "analytics" {
@@ -739,7 +739,7 @@ terraform import planetscale_postgres_branch_role.app \
 terraform import planetscale_postgres_bouncer.app \
   '{"organization": "my-org", "database": "my-db", "branch": "main", "name": "bouncer-name"}'
 
-# Import a Postgres read-only replica
+# Import a Postgres dedicated read replica
 terraform import planetscale_postgres_read_only_replica.analytics \
   '{"organization": "my-org", "database": "my-db", "branch": "main", "name": "analytics"}'
 

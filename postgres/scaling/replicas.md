@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/scaling/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-06T20:39:31.314Z
+current_date: 2026-10-06T20:39:31.314Z
 ---
 
 ## Overview
@@ -14,6 +14,8 @@ Replicas serve two main purposes:
 - They increase database availability by enabling fast failovers for maintenance or unexpected failure.
 
 Before utilizing replicas for reducing load on the primary, it’s important to understand the trade-offs. For more information, see the [Data consistency and replication lag](#data-consistency-and-replication-lag) section.
+
+The replicas described here run within the primary cluster and its location. To create independently sized read capacity in the same or other locations, see [Postgres dedicated read replicas](dedicated-read-replicas.md).
 
 ## How to query Postgres replicas
 
@@ -78,7 +80,7 @@ Replicas are useful for offloading read-heavy workloads from the primary node. B
 
 ## Configuring replicas for your database cluster
 
-By default, production databases (excluding [single node](../cluster-configuration/single-node.md)) are created with 2 replicas. You may add additional replicas if you need to scale your read traffic. Adding additional replicase beyond the default does not guarantee an increase in availability of your database.
+By default, production databases (excluding [single node](../cluster-configuration/single-node.md)) are created with 2 replicas. You may add additional replicas if you need to scale your read traffic. Adding additional replicas beyond the default does not guarantee an increase in availability of your database.
 
 You are charged for additional replicas you add beyond the default. Billing for additional replicas begins once the replica change has completed. The additional cost is ~ 1/3 the original price of the base cluster running (initial primary + 2 replicas).
 

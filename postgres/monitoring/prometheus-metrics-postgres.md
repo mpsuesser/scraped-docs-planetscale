@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres
 title: "Prometheus Metrics Postgres"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-06T20:39:31.314Z
+current_date: 2026-10-06T20:39:31.314Z
 ---
 
 > ## Documentation Index
@@ -25,6 +25,8 @@ If you're using Datadog, see our [Datadog tutorial](prometheus-metrics-datadog-p
 ## Metrics
 
 PlanetScale Postgres emits the following metrics to be scraped.
+
+For metrics emitted by a dedicated read replica, `planetscale_database_branch_id` identifies the replica and `planetscale_upstream_database_branch_id` identifies its parent database branch.
 
 ## Database Metrics
 
@@ -131,6 +133,7 @@ The gauge only reports a container's latest termination reason, so the query att
 * **cluster**: The PlanetScale cluster identifier
 * **planetscale\_access**: The access path on bytes sent/received metrics (**public** for traffic over the public internet, or **private** for traffic over AWS PrivateLink or GCP Private Service Connect)
 * **planetscale\_database\_branch\_id**: The unique identifier for the database branch
+* **planetscale\_upstream\_database\_branch\_id**: The unique identifier for the parent database branch of a dedicated read replica. Present only on dedicated read replica metrics
 * **planetscale\_pod**: The Kubernetes pod name
 * **planetscale\_container**: The container name (postgres, pgbouncer, walg-daemon)
 * **planetscale\_role**: The database role (primary, replica). Absent on pods that have no role, such as pgbouncer

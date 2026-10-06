@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-06T20:39:31.314Z
+current_date: 2026-10-06T20:39:31.314Z
 ---
 
 ## Overview
@@ -156,7 +156,7 @@ For more details on backup functionality, see [Back up and restore](backups.md).
 
 ### Public traffic
 
-Outgoing network traffic (egress) is billed based on the amount of data transferred out of PlanetScale Postgres instances to any other host or destination. You are not charged for data transfer associated with [replicating](scaling/replicas.md) data between primaries and replicas or [backups](backups.md). Each branch has a default amount of included public network egress that is aggregated for all cluster instances in the entire branch.
+Outgoing network traffic (egress) is billed based on the amount of data transferred out of PlanetScale Postgres instances to any other host or destination. Data transfer for [backups](backups.md) and [replication within a primary cluster](scaling/replicas.md) is free. Cross-region Postgres dedicated read replica traffic is billed separately. Each branch has a default amount of included public network egress that is aggregated for all cluster instances in the entire branch.
 
 | Branch Type | Included Public Network Egress |
 | --- | --- |
@@ -177,6 +177,26 @@ For databases using [private connections](https://planetscale.com/docs/postgres/
 | Production | 100 GB per month |
 | PS-5 non-HA | 10 GB per month |
 | Development (PS-DEV) | 10 GB per month |
+
+### Cross-region dedicated read replica traffic
+
+Cross-region traffic between a Postgres primary cluster and a dedicated read replica is billed per GB with no included allowance.
+
+- **Streaming**: WAL streamed from the primary cluster to the dedicated read replica.
+- **Archive**: WAL fetched from the primary cluster’s backups after streaming is interrupted.
+- **Bootstrap**: The base backup and WAL downloaded when a dedicated read replica is created. Each replica downloads a separate copy.
+
+Traffic is billed at the higher rate of the primary cluster’s region or the dedicated read replica’s region.
+
+| Cloud provider | Regions | Streaming per GB | Archive + bootstrap per GB |
+| --- | --- | --- | --- |
+| AWS | `us-east-1` Northern Virginia   `us-east-2` Ohio   `us-west-2` Oregon   `ca-central-1` Montreal   `eu-central-1` Frankfurt   `eu-west-1` Dublin   `eu-west-2` London | $0.04 | $0.03 |
+| AWS | `ap-south-1` Mumbai   `ap-northeast-1` Tokyo   `ap-southeast-1` Singapore | $0.11 | $0.10 |
+| AWS | `ap-southeast-2` Sydney | $0.12 | $0.11 |
+| AWS | `sa-east-1` Sao Paulo | $0.16 | $0.15 |
+| GCP | `us-central1` Iowa   `us-east1` South Carolina   `us-east4` Virginia   `northamerica-northeast1` Montreal | $0.02 | $0.02 |
+| GCP | `europe-west1` Belgium   `europe-west4` Netherlands | $0.05 | $0.05 |
+| GCP | `asia-northeast3` Seoul | $0.08 | $0.08 |
 
 ## Additional replicas
 

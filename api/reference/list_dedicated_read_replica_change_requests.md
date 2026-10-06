@@ -1,6 +1,6 @@
 ---
-url: https://planetscale.com/docs/api/reference/list_read_only_regions
-title: "List_read_only_regions"
+url: https://planetscale.com/docs/api/reference/list_dedicated_read_replica_change_requests
+title: "List_dedicated_read_replica_change_requests"
 description: ""
 access_date: 2026-10-06T20:39:31.314Z
 current_date: 2026-10-06T20:39:31.314Z
@@ -10,14 +10,14 @@ current_date: 2026-10-06T20:39:31.314Z
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# List read-only regions
+# Get dedicated read replica change requests
 
-> List read-only regions for the database's default branch
+> 
 ### Authorization
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+ `read_branch`, `delete_branch`, `create_branch`, `connect_production_branch`, `connect_branch`
 
 **OAuth Scopes**
 
@@ -25,13 +25,14 @@ A service token or OAuth token must have at least one of the following access or
 | :------- | :---------- |
 | Organization | `read_branches` |
 | Database | `read_branches` |
+| Branch | `read_branch` |
 
-**Platform availability:** Vitess and [Postgres](list_dedicated_read_replicas.md)
+**Platform availability:** Postgres only
 
 
 ## OpenAPI
 
-````yaml get /organizations/{organization}/databases/{database}/read-only-regions
+````yaml get /organizations/{organization}/databases/{database}/branches/{branch}/dedicated-read-replica-changes
 openapi: 3.0.1
 info:
   title: PlanetScale API
@@ -203,13 +204,12 @@ tags:
 
                   Note: Teams managed through SSO/directory services cannot be modified via API.
 paths:
-  /organizations/{organization}/databases/{database}/read-only-regions:
+  /organizations/{organization}/databases/{database}/branches/{branch}/dedicated-read-replica-changes:
     get:
       tags:
-        - Databases
-      summary: List read-only regions
+        - api-read_only_replica_changes
+      summary: Get dedicated read replica change requests
       description: >-
-        List read-only regions for the database's default branch
 
         ### Authorization
 
@@ -218,7 +218,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+         `read_branch`, `delete_branch`, `create_branch`, `connect_production_branch`, `connect_branch`
 
         **OAuth Scopes**
 
@@ -228,7 +228,9 @@ paths:
         | Organization | `read_branches` |
 
         | Database | `read_branches` |
-      operationId: list_read_only_regions
+
+        | Branch | `read_branch` |
+      operationId: list_dedicated_read_replica_change_requests
       parameters:
         - name: organization
           in: path
@@ -240,6 +242,12 @@ paths:
           in: path
           required: true
           description: 'Database name slug from `list_databases`. Example: `app-db`.'
+          schema:
+            type: string
+        - name: branch
+          in: path
+          required: true
+          description: 'Branch name from `list_branches`. Example: `main`.'
           schema:
             type: string
         - name: page
@@ -254,9 +262,29 @@ paths:
           schema:
             type: integer
             default: 25
+        - name: period
+          in: query
+          description: Filter change requests by named period
+          schema:
+            type: string
+            enum:
+              - 15m
+              - 1h
+              - 3h
+              - 6h
+              - 12h
+              - 1d
+              - 2d
+              - 7d
+              - 8d
+        - name: completed_at
+          in: query
+          description: Filter change requests completed between two ISO 8601 timestamps
+          schema:
+            type: string
       responses:
         '200':
-          description: List of the database's read-only regions
+          description: Returns dedicated read replica change requests
           headers: {}
           content:
             application/json:
@@ -301,25 +329,115 @@ paths:
                       properties:
                         id:
                           type: string
-                          description: The ID of the read-only region
-                        display_name:
+                          description: The ID of the dedicated read replica change request
+                        state:
                           type: string
-                          description: The name of the read-only region
+                          enum:
+                            - pending
+                            - resizing
+                            - canceled
+                            - completed
+                          description: The state of the change request
+                        cluster_name:
+                          type: string
+                          description: The new cluster size SKU
+                        cluster_display_name:
+                          type: string
+                          description: The new cluster size for display
+                        cluster_rank:
+                          type: integer
+                          description: The new cluster size sort order
+                        replicas:
+                          type: integer
+                          description: The new instance count
+                        parameters:
+                          type: object
+                          additionalProperties: true
+                          description: The new parameters
+                        minimum_storage_bytes:
+                          type: integer
+                          description: The new minimum storage size in bytes
+                          nullable: true
+                        maximum_storage_bytes:
+                          type: integer
+                          description: The new maximum storage size in bytes
+                          nullable: true
+                        storage_autoscaling:
+                          type: boolean
+                          description: Whether storage autoscaling is enabled
+                          nullable: true
+                        storage_type:
+                          type: string
+                          enum:
+                            - gp3
+                            - io2
+                            - pd_ssd
+                            - hyperdisk_balanced
+                            - premium_v2_lrs
+                          description: The new storage type
+                          nullable: true
+                        storage_iops:
+                          type: integer
+                          description: The new storage IOPS
+                          nullable: true
+                        storage_throughput_mibs:
+                          type: integer
+                          description: The new storage throughput in MiB/s
+                          nullable: true
+                        previous_cluster_name:
+                          type: string
+                          description: The previous cluster size SKU
+                        previous_cluster_display_name:
+                          type: string
+                          description: The previous cluster size for display
+                        previous_cluster_rank:
+                          type: integer
+                          description: The previous cluster size sort order
+                        previous_replicas:
+                          type: integer
+                          description: The previous instance count
+                        previous_parameters:
+                          type: object
+                          additionalProperties: true
+                          description: The previous parameters
+                        previous_minimum_storage_bytes:
+                          type: integer
+                          description: The previous minimum storage size in bytes
+                          nullable: true
+                        previous_maximum_storage_bytes:
+                          type: integer
+                          description: The previous maximum storage size in bytes
+                          nullable: true
+                        previous_storage_autoscaling:
+                          type: boolean
+                          description: Whether storage autoscaling was previously enabled
+                          nullable: true
+                        previous_storage_type:
+                          type: string
+                          description: The previous storage type
+                          nullable: true
+                        previous_storage_iops:
+                          type: integer
+                          description: The previous storage IOPS
+                          nullable: true
+                        previous_storage_throughput_mibs:
+                          type: integer
+                          description: The previous storage throughput in MiB/s
+                          nullable: true
+                        started_at:
+                          type: string
+                          description: When the change started
+                          nullable: true
+                        completed_at:
+                          type: string
+                          description: When the change completed
+                          nullable: true
                         created_at:
                           type: string
-                          description: When the read-only region was created
+                          description: When the change request was created
                         updated_at:
                           type: string
-                          description: When the read-only region was last updated
-                        ready_at:
-                          type: string
-                          description: When the read-only region was ready to serve queries
-                          nullable: true
-                        ready:
-                          type: boolean
-                          description: >-
-                            Whether or not the read-only region is ready to
-                            serve queries
+                          description: When the change request was last updated
                         actor:
                           type: object
                           properties:
@@ -336,69 +454,62 @@ paths:
                             - id
                             - display_name
                             - avatar_url
-                        region:
+                        replica:
                           type: object
                           properties:
                             id:
                               type: string
-                              description: The ID of the region
-                            provider:
+                              description: The ID for the resource
+                            name:
                               type: string
-                              description: Provider for the region (ex. AWS)
-                            enabled:
-                              type: boolean
-                              description: Whether or not the region is currently active
-                            public_ip_addresses:
-                              items:
-                                type: string
-                              type: array
-                              description: Public IP addresses for the region
-                            display_name:
+                              description: The name for the resource
+                            created_at:
                               type: string
-                              description: Name of the region
-                            location:
+                              description: When the resource was created
+                            updated_at:
                               type: string
-                              description: Location of the region
-                            slug:
+                              description: When the resource was last updated
+                            deleted_at:
                               type: string
-                              description: The slug of the region
-                            current_default:
-                              type: boolean
-                              description: >-
-                                True if the region is the default for new branch
-                                creation
-                            mysql_supported:
-                              type: boolean
-                              description: >-
-                                Whether the region supports MySQL/Vitess
-                                databases
-                            postgresql_supported:
-                              type: boolean
-                              description: Whether the region supports PostgreSQL databases
-                            neki_supported:
-                              type: boolean
-                              description: Whether the region supports Neki databases
+                              description: When the resource was deleted, if deleted
+                              nullable: true
                           required:
                             - id
-                            - provider
-                            - enabled
-                            - public_ip_addresses
-                            - display_name
-                            - location
-                            - slug
-                            - current_default
-                            - mysql_supported
-                            - postgresql_supported
-                            - neki_supported
+                            - name
+                            - created_at
+                            - updated_at
+                            - deleted_at
                       required:
                         - id
-                        - display_name
+                        - state
+                        - cluster_name
+                        - cluster_display_name
+                        - cluster_rank
+                        - replicas
+                        - parameters
+                        - minimum_storage_bytes
+                        - maximum_storage_bytes
+                        - storage_autoscaling
+                        - storage_type
+                        - storage_iops
+                        - storage_throughput_mibs
+                        - previous_cluster_name
+                        - previous_cluster_display_name
+                        - previous_cluster_rank
+                        - previous_replicas
+                        - previous_parameters
+                        - previous_minimum_storage_bytes
+                        - previous_maximum_storage_bytes
+                        - previous_storage_autoscaling
+                        - previous_storage_type
+                        - previous_storage_iops
+                        - previous_storage_throughput_mibs
+                        - started_at
+                        - completed_at
                         - created_at
                         - updated_at
-                        - ready_at
-                        - ready
                         - actor
-                        - region
+                        - replica
                 required:
                   - type
                   - current_page

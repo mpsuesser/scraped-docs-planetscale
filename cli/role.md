@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/role
 title: "Role"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-06T20:39:31.314Z
+current_date: 2026-10-06T20:39:31.314Z
 ---
 
 ## Getting Started
@@ -156,7 +156,7 @@ pscale role get <database> <branch> <role-id> [flags]
 **Available flags:**
 
 - `--replica` - Return connection details for a branch replica.
-- `--read-only-replica <name>` - Return connection details for a read-only replica. Postgres only.
+- `--dedicated-read-replica <name>` - Return connection details for a dedicated read replica. Postgres only.
 - `--bouncer <name>` - Return connection details for a named PgBouncer on Postgres or Neki.
 
 These connection-target flags are mutually exclusive.

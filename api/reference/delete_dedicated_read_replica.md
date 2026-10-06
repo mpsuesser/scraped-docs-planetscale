@@ -1,6 +1,6 @@
 ---
-url: https://planetscale.com/docs/api/reference/list_read_only_regions
-title: "List_read_only_regions"
+url: https://planetscale.com/docs/api/reference/delete_dedicated_read_replica
+title: "Delete_dedicated_read_replica"
 description: ""
 access_date: 2026-10-06T20:39:31.314Z
 current_date: 2026-10-06T20:39:31.314Z
@@ -10,28 +10,28 @@ current_date: 2026-10-06T20:39:31.314Z
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# List read-only regions
+# Delete a dedicated read replica
 
-> List read-only regions for the database's default branch
+> 
 ### Authorization
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+ `write_database`
 
 **OAuth Scopes**
 
  | Resource | Scopes |
 | :------- | :---------- |
-| Organization | `read_branches` |
-| Database | `read_branches` |
+| Organization | `write_databases` |
+| Database | `write_database` |
 
-**Platform availability:** Vitess and [Postgres](list_dedicated_read_replicas.md)
+**Platform availability:** Postgres only
 
 
 ## OpenAPI
 
-````yaml get /organizations/{organization}/databases/{database}/read-only-regions
+````yaml delete /organizations/{organization}/databases/{database}/branches/{branch}/dedicated-read-replicas/{dedicated_read_replica}
 openapi: 3.0.1
 info:
   title: PlanetScale API
@@ -203,13 +203,12 @@ tags:
 
                   Note: Teams managed through SSO/directory services cannot be modified via API.
 paths:
-  /organizations/{organization}/databases/{database}/read-only-regions:
-    get:
+  /organizations/{organization}/databases/{database}/branches/{branch}/dedicated-read-replicas/{dedicated_read_replica}:
+    delete:
       tags:
-        - Databases
-      summary: List read-only regions
+        - Dedicated read replicas
+      summary: Delete a dedicated read replica
       description: >-
-        List read-only regions for the database's default branch
 
         ### Authorization
 
@@ -218,17 +217,17 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+         `write_database`
 
         **OAuth Scopes**
 
          | Resource | Scopes |
         | :------- | :---------- |
 
-        | Organization | `read_branches` |
+        | Organization | `write_databases` |
 
-        | Database | `read_branches` |
-      operationId: list_read_only_regions
+        | Database | `write_database` |
+      operationId: delete_dedicated_read_replica
       parameters:
         - name: organization
           in: path
@@ -242,172 +241,22 @@ paths:
           description: 'Database name slug from `list_databases`. Example: `app-db`.'
           schema:
             type: string
-        - name: page
-          in: query
-          description: If provided, specifies the page offset of returned results
+        - name: branch
+          in: path
+          required: true
+          description: 'Branch name from `list_branches`. Example: `main`.'
           schema:
-            type: integer
-            default: 1
-        - name: per_page
-          in: query
-          description: If provided, specifies the number of returned results
+            type: string
+        - name: dedicated_read_replica
+          in: path
+          required: true
+          description: The name of the dedicated read replica
           schema:
-            type: integer
-            default: 25
+            type: string
       responses:
-        '200':
-          description: List of the database's read-only regions
+        '204':
+          description: Deletes the dedicated read replica
           headers: {}
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  type:
-                    type: string
-                    description: The response type. Always "list" for paginated responses.
-                  current_page:
-                    type: integer
-                    description: The current page number
-                  per_page:
-                    type: integer
-                    description: The maximum number of results per page
-                  next_page:
-                    type: integer
-                    description: The next page number, or null when this is the last page
-                    nullable: true
-                  next_page_url:
-                    type: string
-                    description: >-
-                      The next page of results, or null when this is the last
-                      page
-                    nullable: true
-                  prev_page:
-                    type: integer
-                    description: >-
-                      The previous page number, or null when this is the first
-                      page
-                    nullable: true
-                  prev_page_url:
-                    type: string
-                    description: >-
-                      The previous page of results, or null when this is the
-                      first page
-                    nullable: true
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          description: The ID of the read-only region
-                        display_name:
-                          type: string
-                          description: The name of the read-only region
-                        created_at:
-                          type: string
-                          description: When the read-only region was created
-                        updated_at:
-                          type: string
-                          description: When the read-only region was last updated
-                        ready_at:
-                          type: string
-                          description: When the read-only region was ready to serve queries
-                          nullable: true
-                        ready:
-                          type: boolean
-                          description: >-
-                            Whether or not the read-only region is ready to
-                            serve queries
-                        actor:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              description: The ID of the actor
-                            display_name:
-                              type: string
-                              description: The name of the actor
-                            avatar_url:
-                              type: string
-                              description: The URL of the actor's avatar
-                          required:
-                            - id
-                            - display_name
-                            - avatar_url
-                        region:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              description: The ID of the region
-                            provider:
-                              type: string
-                              description: Provider for the region (ex. AWS)
-                            enabled:
-                              type: boolean
-                              description: Whether or not the region is currently active
-                            public_ip_addresses:
-                              items:
-                                type: string
-                              type: array
-                              description: Public IP addresses for the region
-                            display_name:
-                              type: string
-                              description: Name of the region
-                            location:
-                              type: string
-                              description: Location of the region
-                            slug:
-                              type: string
-                              description: The slug of the region
-                            current_default:
-                              type: boolean
-                              description: >-
-                                True if the region is the default for new branch
-                                creation
-                            mysql_supported:
-                              type: boolean
-                              description: >-
-                                Whether the region supports MySQL/Vitess
-                                databases
-                            postgresql_supported:
-                              type: boolean
-                              description: Whether the region supports PostgreSQL databases
-                            neki_supported:
-                              type: boolean
-                              description: Whether the region supports Neki databases
-                          required:
-                            - id
-                            - provider
-                            - enabled
-                            - public_ip_addresses
-                            - display_name
-                            - location
-                            - slug
-                            - current_default
-                            - mysql_supported
-                            - postgresql_supported
-                            - neki_supported
-                      required:
-                        - id
-                        - display_name
-                        - created_at
-                        - updated_at
-                        - ready_at
-                        - ready
-                        - actor
-                        - region
-                required:
-                  - type
-                  - current_page
-                  - per_page
-                  - next_page
-                  - next_page_url
-                  - prev_page
-                  - prev_page_url
-                  - data
         '401':
           description: Unauthorized
         '403':
