@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-09-25T00:40:36.800Z
-current_date: 2026-09-25T00:40:36.800Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
@@ -35,6 +35,8 @@ The discovery tool is open source and available on [GitHub](https://github.com/p
 **Cloud infrastructure analysis:**
 
 - Database instances, clusters, and their configurations
+- Azure Database for PostgreSQL Flexible Servers
+- Snowflake Postgres instances
 - Supabase, Heroku Postgres, and Neon project metadata
 - VPC networking, subnets, security groups, and firewall rules
 - Performance metrics from cloud monitoring services
@@ -132,11 +134,15 @@ providers:
       - us-east-1
   gcp:
     enabled: false
+  azure:
+    enabled: false
   supabase:
     enabled: false
   heroku:
     enabled: false
   neon:
+    enabled: false
+  snowflake:
     enabled: false
 
 output:
@@ -165,7 +171,7 @@ Once PostgreSQL discovery is complete, remember to [clean up](#postgresql-cleanu
 
 Each cloud provider requires specific credentials and permissions. Below is a summary of what you need for each. For detailed instructions including IAM policies and API enablement steps, see the [provider documentation](https://github.com/planetscale/ps-discovery/tree/main/docs/providers).
 
-For third-party hosted Postgres providers, the discovery tool supports Supabase, Heroku, and Neon.
+For third-party hosted Postgres providers, the discovery tool supports Snowflake, Supabase, Heroku, and Neon.
 
 ### AWS (RDS / Aurora)
 
@@ -226,6 +232,50 @@ providers:
     credentials_file: /path/to/service-account-key.json
 ```
 
+### Azure (Database for PostgreSQL)
+
+The tool discovers Azure Database for PostgreSQL Flexible Servers, virtual networks, network security groups, and firewall rules.
+
+**Authentication** (choose one):
+
+- Service principal with the Reader role (recommended)
+- Azure CLI (`az login`) or a managed identity
+- `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
+
+**Required permissions:**
+
+- Built-in Reader role at subscription or resource-group scope
+- Resource providers registered on the subscription: `Microsoft.DBforPostgreSQL` and `Microsoft.Network`
+
+**Configuration:**
+
+```yaml
+providers:
+  azure:
+    enabled: true
+    subscription_id: 22222222-2222-2222-2222-222222222222
+    credentials:
+      tenant_id: 11111111-1111-1111-1111-111111111111
+      client_id: 00000000-0000-0000-0000-000000000000
+      client_secret: your-client-secret
+    discover_all: true
+```
+
+You can also sign in with `az login` and omit the `credentials` block, or focus discovery on specific servers:
+
+```yaml
+providers:
+  azure:
+    enabled: true
+    subscription_id: 22222222-2222-2222-2222-222222222222
+    discover_all: false
+    resources:
+      postgresql_flexible_servers:
+        - pg-prod-01
+    regions:
+      - eastus
+```
+
 ### Supabase
 
 The tool discovers project metadata, database configuration, PgBouncer settings, and connection details.
@@ -278,6 +328,54 @@ providers:
   heroku:
     enabled: true
     api_key: your-heroku-api-key
+```
+
+### Snowflake
+
+The tool inventories Snowflake Postgres instances with `SHOW POSTGRES INSTANCES` and `DESCRIBE POSTGRES INSTANCE`. Results land under `cloud_results.providers.snowflake`.
+
+**Authentication** (choose one):
+
+- Key pair on a `TYPE = SERVICE` user (recommended)
+- SSO (`authentication: sso`) for an interactive one-off run
+- Password via the `SNOWFLAKE_PASSWORD` environment variable if the account still allows it. Do not put the password in the config file. Snowflake is retiring password-only sign-in.
+
+**Required permissions:**
+
+- `OPERATE` on each Snowflake Postgres instance, including read replicas. Replicas do not inherit grants from their primary.
+
+**Configuration:**
+
+```yaml
+providers:
+  snowflake:
+    enabled: true
+    account: your-account-locator
+    user: PS_DISCOVERY_SVC
+    role: PS_DISCOVERY
+    authentication: key_pair
+    private_key_path: /path/to/rsa_key.p8
+    discover_all: true
+```
+
+Do not enable `providers.aws` or `providers.gcp` for Snowflake-hosted hostnames. Those tokens in the hostname are location labels. The inventory provider is Snowflake.
+
+You can also focus inventory on specific instances:
+
+```yaml
+providers:
+  snowflake:
+    enabled: true
+    account: your-account-locator
+    user: PS_DISCOVERY_SVC
+    role: PS_DISCOVERY
+    authentication: key_pair
+    private_key_path: /path/to/rsa_key.p8
+    discover_all: false
+    resources:
+      postgres_instances:
+        - your_primary_instance
+        - your_replica_instance
 ```
 
 ## Performance and safety

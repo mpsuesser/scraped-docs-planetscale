@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](../../metal.md)
@@ -50,6 +50,8 @@ Configure the maximum input/output operations per second for your database. This
 
 The default of **3,000 IOPS** is included with all AWS gp3 network-attached storage clusters at no additional cost. You are only charged for IOPS above this baseline if you manually increase the IOPS setting.
 
+On GCP Persistent Disk clusters, IOPS are not configured manually. Instead, IOPS scale automatically with your disk size at no additional cost.
+
 ## Bandwidth
 
 The maximum amount of data that can be read or written to your database in a single second. This will be limited by your database cluster size and configured IOPS.
@@ -62,7 +64,9 @@ The maximum amount of data that can be read or written to your database in a sin
 
 The default of **125 MiB/s** throughput is included with all AWS gp3 network-attached storage clusters at no additional cost. You are only charged for throughput above this baseline if you manually increase the bandwidth setting.
 
-### Storage throughput limits
+On GCP Persistent Disk clusters, bandwidth is not configured manually. Instead, throughput scales automatically with your disk size at no additional cost.
+
+### AWS storage throughput limits
 
 For databases created on AWS-based clusters the **maximum configurable throughput** your cluster can support is based on CPU architecture and cluster size.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-09-29T05:37:27.556Z
-current_date: 2026-09-29T05:37:27.556Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -123,7 +123,7 @@ After having created one or more shards, shards are assigned to one or more shar
 ]
 ```
 
-The first one, `tenant_data`, is where we will store the `orders` table data, since we assigned that table to this shard group. This group has four shards, `shard-a`, `shard-b`, `shard-c`, and `shard-d`, and uses the `xxhash_tenant_id` shard index (more on that soon). Any table assigned to this shard group will be distributed across these shards. The way in which the row distribution happens depends on the shard index.
+The first one, `tenant_data`, is where we will store the `events` table data, since we assigned that table to this shard group. This group has four shards, `shard-a`, `shard-b`, `shard-c`, and `shard-d`, and uses the `xxhash_tenant_id` shard index (more on that soon). Any table assigned to this shard group will be distributed across these shards. The way in which the row distribution happens depends on the shard index.
 
 Here, we use `shard-?` labels as the shard id, but on a real Neki cluster in your PlanetScale dashboard, you will see these as longer, unique hashed values (e.g., `sh57wz7p7tblk2`).
 
@@ -143,7 +143,7 @@ A value from events.tenant\_id passes through the xxhash\_tenant\_id shard index
 
 A value from events.tenant\_id passes through the xxhash\_tenant\_id shard index, becomes a routing value, matches a key range in tenant\_data, and resolves to that range's shard UID
 
-The final piece, shard indexes, will control how all of the rows from `orders` get placed onto shards A-D, and in turn determine how queries will be routed from the Neki Router.
+The final piece, shard indexes, will control how all of the rows from `events` get placed onto shards A-D, and in turn determine how queries will be routed from the Neki Router.
 
 ## Shard indexes
 

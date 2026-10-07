@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 ## Dashboard overview
@@ -82,7 +82,7 @@ PlanetScale’s logging capabilities utilize Victoria Logs, which supports power
 
 - `planetscale.pod:h2l-pod` - Filter by specific pod
 - `planetscale.role:replica` - Filter by database role
-- `planetscale.container:pgbouncer` - Filter by container type
+- `planetscale.container:psbouncer` - Filter by container type
 - `planetscale.availability_zone:us-east-1a` - Filter by availability zone
 
 **Exclusion filters:**
@@ -92,7 +92,7 @@ PlanetScale’s logging capabilities utilize Victoria Logs, which supports power
 
 **Logical operators:**
 
-- `"received message" OR planetscale.container:pgbouncer` - Match either condition
+- `"received message" OR planetscale.container:psbouncer` - Match either condition
 
 For complete LogQL syntax documentation, see: [Victoria Logs LogQL Documentation](https://docs.victoriametrics.com/victorialogs/logsql/)
 

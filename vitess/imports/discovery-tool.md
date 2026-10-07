@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing MySQL-compatible database and cloud infrastructure to help plan your migration to PlanetScale Vitess. It collects metadata about your database configuration, schema structure, performance characteristics, replication topology, security settings, feature usage, and cloud resources. It never reads or stores actual table data.
@@ -36,7 +36,7 @@ The discovery tool is open source and available on [GitHub](https://github.com/p
 **Cloud infrastructure analysis:**
 
 - Database instances, clusters, and their configurations
-- RDS instances, Aurora clusters, and Cloud SQL instances
+- RDS instances, Aurora clusters, Cloud SQL instances, and Azure Database for MySQL Flexible Servers
 - VPC networking, subnets, security groups, firewall rules, and private connectivity
 - Performance metrics from cloud monitoring services
 - High availability and replica configurations
@@ -68,7 +68,7 @@ GRANT REPLICATION CLIENT ON *.* TO 'planetscale_discovery'@'%';
 FLUSH PRIVILEGES;
 ```
 
-On Amazon RDS, Aurora MySQL, Google Cloud SQL for MySQL, MariaDB, and Percona Server, create the user through your administrative database user. Some managed services restrict access to certain system tables. The discovery tool reports those gaps and continues with the data it can collect.
+On Amazon RDS, Aurora MySQL, Google Cloud SQL for MySQL, Azure Database for MySQL, MariaDB, and Percona Server, create the user through your administrative database user. Some managed services restrict access to certain system tables. The discovery tool reports those gaps and continues with the data it can collect.
 
 ### PlanetScale and Vitess credentials
 
@@ -128,6 +128,8 @@ providers:
     regions:
       - us-east-1
   gcp:
+    enabled: false
+  azure:
     enabled: false
 
 output:
@@ -272,6 +274,50 @@ providers:
       - us-central1
 ```
 
+### Azure (Database for MySQL)
+
+The tool discovers Azure Database for MySQL Flexible Servers, virtual networks, network security groups, and firewall rules.
+
+**Authentication** (choose one):
+
+- Service principal with the Reader role (recommended)
+- Azure CLI (`az login`) or a managed identity
+- `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
+
+**Required permissions:**
+
+- Built-in Reader role at subscription or resource-group scope
+- Resource providers registered on the subscription: `Microsoft.DBforMySQL` and `Microsoft.Network`
+
+**Configuration:**
+
+```yaml
+providers:
+  azure:
+    enabled: true
+    subscription_id: 22222222-2222-2222-2222-222222222222
+    credentials:
+      tenant_id: 11111111-1111-1111-1111-111111111111
+      client_id: 00000000-0000-0000-0000-000000000000
+      client_secret: your-client-secret
+    discover_all: true
+```
+
+You can also sign in with `az login` and omit the `credentials` block, or focus discovery on specific servers:
+
+```yaml
+providers:
+  azure:
+    enabled: true
+    subscription_id: 22222222-2222-2222-2222-222222222222
+    discover_all: false
+    resources:
+      mysql_flexible_servers:
+        - mysql-reporting
+    regions:
+      - eastus
+```
+
 ## Performance and safety
 
 The default database analyzers are safe to run against production databases. They use read-only queries against system catalogs and statistics views, with very low performance impact.
@@ -297,6 +343,8 @@ Once you have your discovery report, [share it with us](https://planetscale.com/
 ## Migrate from Amazon Aurora
 
 ## Migrate from Google Cloud SQL
+
+## Migrate from Azure
 
 ## Need help?
 

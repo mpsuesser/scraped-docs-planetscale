@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-07T00:07:29.963Z
+current_date: 2026-10-07T00:07:29.963Z
 ---
 
 PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
@@ -14,8 +14,9 @@ Cloud providers like AWS and GCP limit how frequently network-attached disks can
 
 We provide two growth modes:
 
-- **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages AWS EBS’s native resize capability.
-- **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing [AWS EBS resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
+- **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages the native volume-resize capability of AWS EBS and GCP Persistent Disk.
+- **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing AWS EBS and GCP Persistent Disk [resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
+- **Shrink mode** — In shrink mode, the autoscaler reduces storage capacity for underutilized volumes. This can help to optimize costs after a surge event.
 
 Autoscaling will grow the cluster’s storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed. Disks are never shrunk automatically. After usage drops, use [Manually shrinking](#manually-shrinking) to shrink the disk.
 
@@ -54,7 +55,7 @@ For example, if you have a 200 GB disk allocation and are only using 20 GB, we w
 
 ## Surge growth mode
 
-Our surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing AWS EBS resize limitations.
+Our surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing any resize rate limits.
 
 When our disk autoscaler is able to spread out disk scale-up sufficiently, no downtime is required to scale the disks. When data growth is rapid, the autoscaler may need to complete a **surge resize** to support the writes. In this case, PlanetScale creates brand new, larger network-attached storage volumes to replace the old ones. Surge growth causes a brief failover event that severs existing database connections. Applications must handle connection recovery.
 
@@ -64,7 +65,7 @@ We make every effort to keep your network-attached storage disk from filling, bu
 
 ## Manually shrinking
 
-When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as network-attached storage does not support in-place volume shrinking. This process may take up to an hour after being submitted.
+When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as neither AWS EBS nor GCP Persistent Disk supports in-place volume shrinking.
 
 Shrink operations cause a brief failover event that severs existing database connections. Applications must handle connection recovery.
 
