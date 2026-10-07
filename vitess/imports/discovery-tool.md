@@ -2,19 +2,19 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-07T00:07:29.963Z
-current_date: 2026-10-07T00:07:29.963Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing MySQL-compatible database and cloud infrastructure to help plan your migration to PlanetScale Vitess. It collects metadata about your database configuration, schema structure, performance characteristics, replication topology, security settings, feature usage, and cloud resources. It never reads or stores actual table data.
 
 The Discovery CLI also supports PostgreSQL discovery. See the [Postgres Discovery Tool guide](../../postgres/imports/discovery-tool.md) for PlanetScale Postgres-specific details.
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=bc96d810f2d7bcf76a7ad86135abacde)
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=0b31181b42b682c2fada0a094d5ac94d)
 
 Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=4a1f6f3fe78b8cc5e0b84b06390474df)
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=b123c0823d1864683cb233f335f6b692)
 
 Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
 

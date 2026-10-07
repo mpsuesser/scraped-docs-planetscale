@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-01T00:16:06.842Z
-current_date: 2026-10-01T00:16:06.842Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 When your PostgreSQL database is first initialized, a single production branch is created called `main` which acts as the default branch. You can then create development branches that you can use for development before shipping schema changes to production.
@@ -26,8 +26,6 @@ New branches created from the **Branches** page always start as development bran
 Each database allows `100` development branches by default. Change the limit on the database [Settings](settings.md#development-branch-limit) page. The limit can be any number from 1 to 5,000. When a database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
 
 ## Create a branch
-
-We are still in the process of building out our full branching functionality Postgres. You can currently create a new empty branch with no schema and no data or create a branch from a backup, which includes schema and data.
 
 There are two ways to create a new Postgres branch: from the Branches page (no schema or data included) or by restoring from a backup (schema and data included).
 

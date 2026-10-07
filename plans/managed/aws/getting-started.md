@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 ## Overview
@@ -74,7 +74,6 @@ Save the following as `planetscale-bootstrap.json`:
   "Resources": {
     "GrantPlanetscaleBootstrapAccess": {
       "Type": "AWS::IAM::Role",
-      "DeletionPolicy": "Retain",
       "Properties": {
         "RoleName": "PlanetscaleBootstrap",
         "ManagedPolicyArns": ["arn:aws:iam::aws:policy/AdministratorAccess"],
@@ -100,12 +99,12 @@ Save the following as `planetscale-bootstrap.json`:
 Next, apply the CloudFormation template as a new stack:
 
 ```shellscript
-aws cloudformation create-stack --stack-name planetscale-bootstrap \\
-  --template-body file://planetscale-bootstrap.json \\
+aws cloudformation create-stack --stack-name planetscale-bootstrap \
+  --template-body file://planetscale-bootstrap.json \
   --capabilities CAPABILITY_NAMED_IAM
 ```
 
-Let your Solutions Engineer know once the new stack reaches the `CREATED` state in AWS.
+Let your Solutions Engineer know once the new stack reaches the `CREATE_COMPLETE` state in AWS. This is a temporary stack used only for initial provisioning and you will clean it up later.
 
 ## Step 3: Requesting an initial quota increase
 
@@ -126,7 +125,7 @@ If you have AWS Enterprise Support, you can contact your account manager to expe
 
 ## Step 4: Initiating the provisioning process
 
-Once the CloudFormation stack has returned as `CREATED`, notify your Solutions Engineer, providing them the following information:
+Once the CloudFormation stack has returned as `CREATE_COMPLETE`, notify your Solutions Engineer, providing them the following information:
 
 - The name of the organization that you have created on `app.planetscale.com`.
 - The AWS Account ID of the member account, which can be found by using one of the choices in the [AWS account ID and alias documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html).
@@ -135,6 +134,12 @@ Once the CloudFormation stack has returned as `CREATED`, notify your Solutions E
 Once your Solutions Engineer receives this information, they will forward it to the team responsible for provisioning your deployment. Provisioning the deployment takes PlanetScale, on average, one business day.
 
 Once the deployment has been provisioned, your Solutions Engineer will contact you to confirm that your team can start creating databases.
+
+Finally, delete the temporary CloudFormation stack now that it’s no longer needed. During provisioning, PlanetScale creates other, permanent, IAM resources to manage your deployment.
+
+```shellscript
+aws cloudformation delete-stack --stack-name planetscale-bootstrap
+```
 
 Private database connectivity is available through [AWS PrivateLink](privatelink.md) or [AWS VPC peering](vpc-peering.md). Contact your Solutions Engineer to choose an option before provisioning.
 

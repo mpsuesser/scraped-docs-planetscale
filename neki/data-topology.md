@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -192,7 +192,7 @@ After defaults and table overrides are resolved, the `columns` list contains exa
 }
 ```
 
-`INSERT ... VALUES` into a table sharded by an expression over more than one column returns NK013 code 10 (`multi column shard index inserts are not     supported`). `INSERT ... SELECT` into that table returns NK013 code 117. A one-column expression routes. `SELECT` and `DELETE` scatter unless `=` names every base column of that expression, which returns NK013 code 115. A comparison other than `=` still scatters. `UPDATE` of a column that is not part of the expression follows the same rule. `UPDATE` of a base column of the expression returns NK013 code 145, including when there is no `WHERE`.
+`INSERT ... VALUES` into a table sharded by an expression over more than one column returns NK013 code 10. Its message is `multi column shard index inserts are not supported`. `INSERT ... SELECT` into that table returns NK013 code 117. A one-column expression routes. `SELECT` and `DELETE` scatter unless `=` names every base column of that expression, which returns NK013 code 115. A comparison other than `=` still scatters. `UPDATE` of a column that is not part of the expression follows the same rule. `UPDATE` of a base column of the expression returns NK013 code 145, including when there is no `WHERE`.
 
 Shard indexes live in the top-level `shard_indexes` catalog. Multiple shard groups can contain the same shard.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-10-02T22:59:04.178Z
-current_date: 2026-10-02T22:59:04.178Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 ## Overview
@@ -31,8 +31,6 @@ Before you begin, it may be helpful to check out our [general MySQL compatibilit
 8. **Complete the import** - Stop replication and disconnect your source database
 
 It’s recommended to avoid all schema changes / DDL (Data Definition Language) statements during an import on both your source database and the PlanetScale database. This includes `CREATE`, `DROP`, `ALTER`, `TRUNCATE`, etc.
-
-The examples on this page import a MySQL database named `commerce` into a PlanetScale database named `commerce` in the `acme` organization.
 
 ## Step 1: Prepare your source database
 
@@ -68,7 +66,7 @@ Allow connections from PlanetScale’s IP addresses for your database’s region
 Create the Vitess database you’re importing into:
 
 ```shellscript
-pscale database create commerce --org acme --region us-east --cluster-size PS_10 --wait
+pscale database create <DATABASE_NAME> --org <ORGANIZATION_NAME> --region <REGION> --cluster-size <CLUSTER_SIZE> --wait
 ```
 
 Pick a [region](../../plans/regions.md) close to your source database and a [cluster size](../scaling/cluster-sizing.md) with enough storage for your data. You can also create the database from the dashboard with “ **New database** ” > “ **Create database** ”.
@@ -88,19 +86,19 @@ We recommend setting these [VTTablet parameters](../cluster-configuration/parame
 Set them with [`pscale keyspace parameters set`](../../cli/keyspace.md#change-keyspace-parameters). If your database uses foreign key constraints, also pass `--parameters vttablet.vreplication_copy_phase_duration=24h`:
 
 ```shellscript
-pscale keyspace parameters set commerce main commerce \
-  --org acme \
+pscale keyspace parameters set <DATABASE_NAME> main <TARGET_KEYSPACE_NAME> \
+  --org <ORGANIZATION_NAME> \
   --parameters vttablet.vreplication-parallel-insert-workers=4 \
   --parameters vttablet.vreplication_max_time_to_retry_on_error=720h
 ```
 
-The change rolls out to the keyspace’s tablets, one shard at a time by default. Wait until `pscale keyspace parameters changes list commerce main commerce --org acme` shows it as `completed` before you start the import. You can also set these parameters in the dashboard: click **Clusters** in the left nav, select the keyspace, click the **VTTablets** tab, and search for each parameter.
+The change rolls out to the keyspace’s tablets, one shard at a time by default. Wait until `pscale keyspace parameters changes list <DATABASE_NAME> main <TARGET_KEYSPACE_NAME> --org <ORGANIZATION_NAME>` shows it as `completed` before you start the import. You can also set these parameters in the dashboard: click **Clusters** in the left nav, select the keyspace, click the **VTTablets** tab, and search for each parameter.
 
 Set these parameters back to their defaults after you [switch primary traffic](#step-7-switch-traffic) to PlanetScale.
 
 ## Step 3: Create an external keyspace
 
-An external keyspace connects your production branch to your source database. It is the **source** of the import. Give it a name that is different from your PlanetScale keyspace, such as `commerce_source`.
+An external keyspace connects your production branch to your source database. It is the **source** of the import. Give it a name that is different from your PlanetScale keyspace, such as `mydb_source`.
 
 ### Connection settings
 
@@ -124,11 +122,11 @@ If your database server has a valid SSL certificate, set the SSL verification mo
 Run `create-external` with `--dry-run` to check your source database without creating anything:
 
 ```shellscript
-pscale keyspace create-external commerce main commerce_source \
-  --org acme \
-  --host db.example.com \
-  --source-database commerce \
-  --username migration_user \
+pscale keyspace create-external <DATABASE_NAME> main <EXTERNAL_KEYSPACE_NAME> \
+  --org <ORGANIZATION_NAME> \
+  --host <SOURCE_HOST> \
+  --source-database <SOURCE_DATABASE_NAME> \
+  --username <SOURCE_USERNAME> \
   --password <PASSWORD> \
   --ssl-mode required \
   --dry-run
@@ -161,11 +159,11 @@ If your database uses foreign key constraints, PlanetScale turns on [foreign key
 Once the check passes, run the same command with `--wait` instead of `--dry-run`:
 
 ```shellscript
-pscale keyspace create-external commerce main commerce_source \
-  --org acme \
-  --host db.example.com \
-  --source-database commerce \
-  --username migration_user \
+pscale keyspace create-external <DATABASE_NAME> main <EXTERNAL_KEYSPACE_NAME> \
+  --org <ORGANIZATION_NAME> \
+  --host <SOURCE_HOST> \
+  --source-database <SOURCE_DATABASE_NAME> \
+  --username <SOURCE_USERNAME> \
   --password <PASSWORD> \
   --ssl-mode required \
   --wait
@@ -180,11 +178,11 @@ You can also create the external keyspace from the dashboard: open your producti
 Create a MoveTables workflow that copies the tables from the external keyspace into your PlanetScale keyspace:
 
 ```shellscript
-pscale branch vtctl move-tables create commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --source-keyspace commerce_source \
-  --target-keyspace commerce \
+pscale branch vtctl move-tables create <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --source-keyspace <EXTERNAL_KEYSPACE_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --all-tables \
   --defer-secondary-keys \
   --format json
@@ -215,11 +213,11 @@ If your database uses foreign key constraints:
 - **Import retries** - An atomic copy holds a long-running transaction on your source database, which can increase load. If it fails, it starts over from the beginning instead of resuming where it left off.
 
 ```shellscript
-pscale branch vtctl move-tables create commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --source-keyspace commerce_source \
-  --target-keyspace commerce \
+pscale branch vtctl move-tables create <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --source-keyspace <EXTERNAL_KEYSPACE_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --all-tables \
   --atomic-copy \
   --format json
@@ -232,10 +230,10 @@ For more information about foreign key support and limitations, see our [foreign
 Check the progress of the import with `status`:
 
 ```shellscript
-pscale branch vtctl move-tables status commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --target-keyspace commerce \
+pscale branch vtctl move-tables status <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --format json
 ```
 
@@ -256,20 +254,20 @@ To pause the import, run `pscale branch vtctl move-tables stop`. Run `pscale bra
 Once the copy completes and the streams are `Running`, you can verify that the data in PlanetScale matches your source database with a [VDiff](https://vitess.io/docs/reference/vreplication/vdiff/):
 
 ```shellscript
-pscale branch vtctl vdiff create commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --target-keyspace commerce \
+pscale branch vtctl vdiff create <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --format json
 ```
 
 The output includes the VDiff’s `uuid`. Pass it to `vdiff show` and repeat until the VDiff completes:
 
 ```shellscript
-pscale branch vtctl vdiff show commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --target-keyspace commerce \
+pscale branch vtctl vdiff show <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --uuid <VDIFF_UUID> \
   --format json
 ```
@@ -286,52 +284,44 @@ Once the streams are `Running`, you can connect your application to PlanetScale 
 
 When you’re ready, switch traffic to PlanetScale. You can switch replica traffic first to test reads, then switch primary traffic.
 
+**Before switching primary traffic:** Update connection strings for all production writers to PlanetScale, and verify none still writes to the source database. Otherwise, the databases can diverge and data can be lost.
+
 1. **Switch replica traffic** - Serve read queries sent to replicas from PlanetScale while writes still go to your source database. This is an optional intermediate step that lets you test read traffic separately.
 	```shellscript
-	pscale branch vtctl move-tables switch-traffic commerce main \
-	  --org acme \
-	  --workflow import_commerce \
-	  --target-keyspace commerce \
+	pscale branch vtctl move-tables switch-traffic <DATABASE_NAME> main \
+	  --org <ORGANIZATION_NAME> \
+	  --workflow <WORKFLOW_NAME> \
+	  --target-keyspace <TARGET_KEYSPACE_NAME> \
 	  --tablet-types REPLICA,RDONLY \
 	  --format json
 	```
 2. **Switch primary traffic** - Serve both reads and writes from PlanetScale.
 	```shellscript
-	pscale branch vtctl move-tables switch-traffic commerce main \
-	  --org acme \
-	  --workflow import_commerce \
-	  --target-keyspace commerce \
+	pscale branch vtctl move-tables switch-traffic <DATABASE_NAME> main \
+	  --org <ORGANIZATION_NAME> \
+	  --workflow <WORKFLOW_NAME> \
+	  --target-keyspace <TARGET_KEYSPACE_NAME> \
 	  --tablet-types PRIMARY \
 	  --format json
 	```
 
 Pass `--dry-run` to see what a switch would do without applying it.
 
-**Critical: Update connection strings before switching primary traffic**
-
-You must update your application’s connection string to point to PlanetScale **before** switching primary traffic. If you switch primary traffic while your application is still connected to your external database, you will create a split-brain scenario where:
-
-- PlanetScale believes it is serving all traffic (reads and writes)
-- Your application continues writing to the external database
-- The two databases diverge, causing data inconsistency and potential data loss
-
-Always verify your application is connected to PlanetScale before proceeding with the primary traffic switch.
-
 After primary traffic switches, PlanetScale replicates writes back to your source database, so both stay in sync until you complete the import. If something goes wrong, switch traffic back to your source database:
 
 ```shellscript
-pscale branch vtctl move-tables reverse-traffic commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --target-keyspace commerce \
+pscale branch vtctl move-tables reverse-traffic <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --format json
 ```
 
 If you [tuned the target keyspace](#tune-the-target-keyspace-for-the-import) for the import, set its VTTablet parameters back to their defaults once primary traffic has switched. Like the original change, this rolls out to the keyspace’s tablets one shard at a time.
 
 ```shellscript
-pscale keyspace parameters set commerce main commerce \
-  --org acme \
+pscale keyspace parameters set <DATABASE_NAME> main <TARGET_KEYSPACE_NAME> \
+  --org <ORGANIZATION_NAME> \
   --reset vttablet.vreplication-parallel-insert-workers \
   --reset vttablet.vreplication_max_time_to_retry_on_error
 ```
@@ -366,10 +356,10 @@ Once the import is complete, you can drop the `ps_import_*` database from your s
 To stop an import before you complete it, cancel the workflow:
 
 ```shellscript
-pscale branch vtctl move-tables cancel commerce main \
-  --org acme \
-  --workflow import_commerce \
-  --target-keyspace commerce \
+pscale branch vtctl move-tables cancel <DATABASE_NAME> main \
+  --org <ORGANIZATION_NAME> \
+  --workflow <WORKFLOW_NAME> \
+  --target-keyspace <TARGET_KEYSPACE_NAME> \
   --keep-data=false \
   --keep-routing-rules=false \
   --format json

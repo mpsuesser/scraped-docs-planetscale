@@ -2,19 +2,19 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-07T00:07:29.963Z
-current_date: 2026-10-07T00:07:29.963Z
+access_date: 2026-10-07T23:23:07.623Z
+current_date: 2026-10-07T23:23:07.623Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
 
 The Discovery CLI also supports MySQL and MySQL-compatible database discovery. See the [MySQL setup guide](https://github.com/planetscale/ps-discovery/blob/main/docs/mysql.md) for MySQL, Vitess, and PlanetScale-specific details.
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=bc96d810f2d7bcf76a7ad86135abacde)
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=0b31181b42b682c2fada0a094d5ac94d)
 
 Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/9fnSwiq6GXYm6iiG/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=9fnSwiq6GXYm6iiG&q=85&s=4a1f6f3fe78b8cc5e0b84b06390474df)
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=b123c0823d1864683cb233f335f6b692)
 
 Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
 
@@ -332,9 +332,11 @@ providers:
 
 ### Snowflake
 
-The tool inventories Snowflake Postgres instances with `SHOW POSTGRES INSTANCES` and `DESCRIBE POSTGRES INSTANCE`. Results land under `cloud_results.providers.snowflake`.
+The tool inventories Snowflake Postgres instances with `SHOW POSTGRES INSTANCES` and `DESCRIBE POSTGRES INSTANCE`. Results land under `cloud_results.providers.snowflake`. Full setup is in the [Snowflake provider guide](https://github.com/planetscale/ps-discovery/blob/main/docs/providers/snowflake.md).
 
 **Authentication** (choose one):
+
+These are Snowflake account credentials, not the Postgres instance password.
 
 - Key pair on a `TYPE = SERVICE` user (recommended)
 - SSO (`authentication: sso`) for an interactive one-off run
@@ -343,6 +345,8 @@ The tool inventories Snowflake Postgres instances with `SHOW POSTGRES INSTANCES`
 **Required permissions:**
 
 - `OPERATE` on each Snowflake Postgres instance, including read replicas. Replicas do not inherit grants from their primary.
+
+`OPERATE` can also suspend, resume, and change Postgres settings. Grant it to a dedicated `PS_DISCOVERY` role, run discovery, then drop that role and user.
 
 **Configuration:**
 
@@ -401,6 +405,8 @@ Once you have your discovery report, upload it to our [migration assessment tool
 - A recommended migration path with main steps involved and the estimated duration
 
 All analysis happens client-side in your browser — your discovery data is never sent to a server.
+
+Liftoff needs both the database and cloud sections. A cloud-only file cannot be reviewed. If you will upload the output to Liftoff, put a `database` block and an enabled cloud provider in the same config, or run the [`both`](https://github.com/planetscale/ps-discovery/blob/main/docs/advanced-usage.md#selecting-what-runs) subcommand.
 
 ## Next steps
 
