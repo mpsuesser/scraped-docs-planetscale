@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-09-28T06:33:45.799Z
-current_date: 2026-09-28T06:33:45.799Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -67,34 +67,26 @@ The `AND CHAIN` clause is the rejected part. Issue the `COMMIT` (or `ROLLBACK`, 
 ### 23 — This transaction command is unavailable.
 
 ```sql
-SAVEPOINT s;
+PREPARE TRANSACTION 'gid';
 ```
 
-Raised for a transaction-control command the router has no handler for, as opposed to an unsupported option on a command it does handle.
+Raised for a transaction-control command the router has no handler for. `BEGIN`, `COMMIT`, `ROLLBACK`, `SAVEPOINT`, `RELEASE SAVEPOINT`, and `ROLLBACK TO SAVEPOINT` succeed. `PREPARE TRANSACTION`, `COMMIT PREPARED`, and `ROLLBACK PREPARED` return this code.
 
 ### 24 — This transaction isolation level is unavailable.
 
-```sql
-BEGIN ISOLATION LEVEL SERIALIZABLE;
-```
-
-The isolation level named in the transaction characteristics is what is rejected, not the `BEGIN` itself.
+`BEGIN` accepts `READ UNCOMMITTED`, `READ COMMITTED`, `REPEATABLE READ`, and `SERIALIZABLE`. This code is reserved for an isolation name outside that list. The SQL parser only accepts those four names, so a mistyped level fails as a syntax error before this code is reached.
 
 ### 25 — This transaction option is unavailable.
 
-```sql
-BEGIN DEFERRABLE;
-```
-
-A transaction option other than the isolation level — such as `DEFERRABLE` — is not accepted in the transaction characteristics.
+`BEGIN` accepts `READ ONLY`, `READ WRITE`, `DEFERRABLE`, and `NOT DEFERRABLE`, along with an isolation level. This code is reserved for a transaction option outside that list. An unrecognized option fails as a syntax error before this code is reached.
 
 ### 26 — Atomic transaction mode is unavailable.
 
 ```sql
-SET __neki.transaction_mode = 'atomic';
+SET __neki.tx_mode = 'atomic';
 ```
 
-Atomic distributed transactions are not available; the session parameter hook rejects the value. Use the `single` or `multi` transaction mode.
+Atomic distributed transactions are not available. `__neki.tx_mode` accepts `multi` (the default) and `single`.
 
 ### 27 — This SET statement variant is unavailable.
 
@@ -168,10 +160,10 @@ Raised when a replication connection is pinned to a replica by the `__neki.targe
 ### 10 — Multi-column partitioning indexes are unavailable.
 
 ```sql
-INSERT INTO multiple_column_primary_index (user_id, tenant_id) VALUES (1, 2);
+INSERT INTO items (user_id, tenant_id) VALUES (1, 2);
 ```
 
-Not a property of the query text: the rejection comes from the table’s shard index having more than one column, or a column that is an expression such as `user_id + tenant_id`. Any statement that has to route on that index is rejected.
+A `columns` list with more than one entry is rejected when the topology is applied. An expression over one column, such as `lower(email)`, routes. An expression over more than one column, such as `user_id + tenant_id`, is stored, and `INSERT ... VALUES` returns this code. `INSERT ... SELECT` into the same table returns code 117.
 
 ### 11 — This shard index cannot route advisory locks.
 
@@ -181,29 +173,15 @@ SELECT pg_advisory_lock(1) FROM users WHERE user_id = 1;
 
 Depends on the data topology. A shard index whose routing values cannot be derived from an advisory-lock key cannot place the lock on a single shard.
 
-### 40 — COPY TO is unavailable for sharded tables.
-
-```sql
-COPY users TO STDOUT;
-```
-
-`COPY TO` is rejected because `users` is sharded — the direction of the copy plus the table’s placement, not the syntax. `COPY TO` supports unsharded tables only.
-
 ### 41 — File COPY is unavailable for sharded tables.
+
+Client `COPY TO STDOUT` works for sharded tables, reference tables, and materialized views, including text, CSV, and binary. The codes in this section are for file `COPY`.
 
 ```sql
 COPY users FROM '/tmp/users.csv';
 ```
 
 File-based `COPY` against a sharded table. Use `COPY ... FROM STDIN` for a sharded table, or an unsharded table for file `COPY`.
-
-### 42 — COPY TO is unavailable for reference tables.
-
-```sql
-COPY ref_countries TO STDOUT;
-```
-
-Same as code 40, for a reference table: the copy would have to pick one of the shard groups holding a copy of the rows.
 
 ### 43 — File COPY is unavailable for reference tables.
 
@@ -308,14 +286,6 @@ COPY notes FROM STDIN;
 ```
 
 Reachable only over the extended query protocol — that is, when the client prepares and binds the statement. The same `COPY` works over the simple query protocol.
-
-### 56 — COPY FROM a materialized view is unavailable.
-
-```sql
-COPY mv_users FROM STDIN;
-```
-
-The source is a materialized view rather than a table, so there is nothing for `COPY FROM` to write into.
 
 ## Advisory locks
 
@@ -546,14 +516,6 @@ DELETE FROM accounts WHERE account_id = 1 RETURNING account_id;
 
 Depends on the topology: `accounts` owns global secondary indexes, and this mutation shape cannot keep their lookup rows in step with the rows they point at.
 
-### 105 — This CTE execution shape is unavailable on the router.
-
-```sql
-WITH a AS (SELECT user_id FROM users WHERE user_id = 1), b AS (SELECT user_id FROM a) UPDATE orders SET status = 'x' FROM b WHERE orders.user_id = b.user_id;
-```
-
-The CTE chain — `b` reading `a`, then feeding a DML `FROM` — is a shape the router has no execution strategy for. Flatten the CTEs into one, or materialize the intermediate result in your application.
-
 ### 106 — This window-function shape is unavailable across shards.
 
 ```sql
@@ -629,10 +591,10 @@ Depends on the topology: the planner found a global secondary index for the pred
 ### 115 — Multiple routing-parameter values are unavailable.
 
 ```sql
-SELECT name FROM users WHERE user_id = ANY($1);
+SELECT note FROM items WHERE user_id = 1 AND tenant_id = 2;
 ```
 
-The routing decision would need more than one value from a single parameter. Pass one routing value, or expand the list into separate predicates.
+`items` is sharded by an expression over `user_id` and `tenant_id`. Equality on every base column of that expression returns this code. `SELECT` and `DELETE` that do not name every base column with `=` scatter, and a comparison other than `=` scatters. `user_id = ANY($1)` on a single shard-key column is a different shape and does not return this code.
 
 ### 116 — This INSERT subquery shape is unavailable.
 
@@ -648,7 +610,7 @@ The subquery is nested inside a larger expression in the `VALUES` cell rather th
 INSERT INTO users (user_id, email, name) SELECT p.product_id, p.name, p.name FROM products p ON CONFLICT (user_id) DO UPDATE SET name = excluded.name;
 ```
 
-The combination of an `INSERT ... SELECT` source with `ON CONFLICT DO UPDATE` against a sharded target is not implemented. Insert explicit `VALUES`, or drop the `DO UPDATE`.
+The combination of an `INSERT ... SELECT` source with `ON CONFLICT DO UPDATE` against a sharded target returns this code, except when the source is one table in the same shard group and the inserted shard key is copied from that table’s shard key. Insert explicit `VALUES`, or drop the `DO UPDATE`. `INSERT ... SELECT` into a table sharded by an expression over more than one column also returns this code. `INSERT ... VALUES` into that table returns code 10.
 
 ### 118 — These INSERT values cannot be materialized on the router.
 
@@ -1305,3 +1267,133 @@ CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL)
 ```
 
 A temporary relation lives in the PostgreSQL backend that created it, and the router holds no shard backend for a session. The relation would be created on each shard’s pooled backend, where no later statement could see it, so the statement is rejected instead. `CREATE TEMP TABLE ... AS`, `CREATE TEMP VIEW`, `CREATE TEMP SEQUENCE`, and a name qualified with `pg_temp` report the same code. Create a regular relation and drop it when done.
+
+### 515 — A recursive CTE with a composite-typed column is unavailable on the router.
+
+```sql
+CREATE TYPE user_location AS (region_id integer, city text);
+CREATE TABLE user_locations (user_id integer PRIMARY KEY, location user_location);
+WITH RECURSIVE r AS (SELECT c.user_id, c.location FROM user_locations c WHERE c.user_id = 1 UNION ALL SELECT c.user_id, c.location FROM user_locations c JOIN r ON c.location = r.location AND c.user_id = r.user_id + 1) SELECT * FROM r;
+```
+
+Configure `user_locations` as sharded on `user_id`. The recursive CTE crosses shards and carries a composite column, whose type the router cannot carry through this recursive plan.
+
+### 554 — A multiply referenced MATERIALIZED CTE returning an anonymous record with a non-static shape is unavailable on the router.
+
+```sql
+WITH c AS MATERIALIZED (SELECT CASE WHEN user_id > 0 THEN ROW(user_id) ELSE ROW(user_id, user_id) END AS r, user_id FROM users) SELECT r FROM c UNION ALL SELECT r FROM c;
+```
+
+The two references share a materialized result, but the record has a different number of fields in each `CASE` branch. Use a fixed record shape.
+
+### 579 — This data-modifying CTE body is unavailable on the router.
+
+```sql
+WITH m AS (MERGE INTO users t USING warehouses s ON t.user_id = s.warehouse_id WHEN MATCHED THEN UPDATE SET name = 'x' RETURNING t.user_id) SELECT * FROM m;
+```
+
+The `MERGE` body cannot be hosted by the router CTE materialization boundary. This example uses `warehouses`, sharded on `warehouse_id` in a different shard group from `users`.
+
+### 631 — Nested CTE name shadowing is unavailable on the router.
+
+```sql
+WITH c1 AS (SELECT user_id FROM users WHERE user_id = 1), c2 AS (WITH c1 AS (SELECT user_id FROM users WHERE user_id = 2), c3 AS (SELECT user_id FROM c1) SELECT * FROM c3) SELECT * FROM c2;
+```
+
+The inner `c1` shadows the outer CTE name. Give the inner CTE a distinct name.
+
+### 645 — A data-modifying CTE body whose output differs from its write’s RETURNING columns is unavailable on the router.
+
+```sql
+WITH upd AS (UPDATE users SET name='x' WHERE user_id IN (SELECT user_id FROM orders WHERE order_id IN (1,3)) RETURNING user_id, now()) SELECT * FROM upd;
+```
+
+The router-computed `now()` output does not match the write producer’s `RETURNING` columns. This rejection depends on the query plan and data topology.
+
+### 785 — A CTE body with a volatile expression is unavailable on the router.
+
+```sql
+WITH cte AS (SELECT random() IS NOT NULL AS ok FROM orders LIMIT 1) SELECT ok FROM cte;
+```
+
+The CTE body contains a volatile expression. The router cannot preserve its evaluation boundary for this plan.
+
+### 801 — A whole-row CTE reference with a target-list subquery is unavailable on the router.
+
+```sql
+WITH c AS (SELECT EXISTS(SELECT 1 FROM users) AS e FROM orders) SELECT c FROM c;
+```
+
+The whole-row reference includes a subquery that the planner has extracted from the CTE target list. Select the individual columns instead of the whole row.
+
+### 816 — A data-modifying CTE body without verifiable write output columns is unavailable on the router.
+
+```sql
+WITH u AS (UPDATE users SET name = o.status FROM orders o WHERE o.user_id = users.user_id AND o.status = 'x' RETURNING users.user_id) SELECT * FROM u;
+```
+
+The router cannot verify the write output columns for this `UPDATE ... FROM` CTE plan. This rejection depends on the data topology.
+
+### 821 — A CTE exposing an unnamed subquery column is unavailable on the router.
+
+```sql
+WITH c(x) AS MATERIALIZED (SELECT EXISTS(SELECT 1 FROM users) FROM orders) SELECT c.x FROM c;
+```
+
+The extracted subquery has no output name in the CTE body. Give the expression an explicit alias inside the CTE.
+
+### 929 — A MATERIALIZED CTE containing a function that cannot be safely inlined is unavailable on the router.
+
+```sql
+WITH cte AS MATERIALIZED (SELECT status, random() AS r FROM orders GROUP BY status) SELECT users.user_id, cte.r FROM users JOIN cte ON users.name = cte.status WHERE users.user_id = 11;
+```
+
+The materialized CTE contains a function that the router cannot safely inline while preserving the materialization boundary.
+
+### 933 — This nested CTE inside a data-modifying statement is unavailable on the router.
+
+```sql
+WITH a AS (SELECT user_id FROM users WHERE user_id = 1), b AS (SELECT user_id FROM a) UPDATE orders SET status = 'cascaded' FROM b WHERE orders.user_id = b.user_id AND orders.user_id = 1 RETURNING orders.order_id;
+```
+
+The CTE chain feeds a data-modifying statement. This rejection depends on the query plan and data topology.
+
+### 961 — This nested recursive CTE is unavailable on the router.
+
+```sql
+WITH RECURSIVE r AS (SELECT user_id FROM users WHERE user_id = 1 UNION ALL SELECT u.user_id FROM users u JOIN r ON u.user_id = r.user_id), cA AS (SELECT user_id FROM r) SELECT user_id FROM r UNION SELECT user_id FROM cA;
+```
+
+The recursive CTE is nested through another CTE reference. This rejection depends on the query plan and data topology.
+
+### 967 — A nested CTE referenced more than once is unavailable on the router.
+
+```sql
+WITH c1 AS (SELECT user_id FROM users WHERE name = 'x'), c2 AS MATERIALIZED (SELECT user_id FROM c1) SELECT user_id FROM c2 UNION ALL SELECT user_id FROM c2;
+```
+
+A CTE body references another CTE and is itself referenced more than once. This rejection depends on the query plan and data topology.
+
+### 972 — An unreferenced data-modifying CTE that references another CTE is unavailable on the router.
+
+```sql
+WITH a AS (UPDATE users SET name='a' WHERE user_id = 1 RETURNING user_id), b AS (UPDATE orders SET status='x' WHERE user_id IN (SELECT user_id FROM a) RETURNING order_id) SELECT 1;
+```
+
+The final query does not reference the second data-modifying CTE, whose body reads the first CTE. The router cannot execute this dependency chain as an unreferenced body.
+
+### 992 — A data-modifying CTE body with ON CONFLICT is unavailable on the router.
+
+```sql
+WITH x AS MATERIALIZED (INSERT INTO users (user_id, name, email) VALUES (1, 'a', 'b') ON CONFLICT (user_id) DO NOTHING RETURNING name) SELECT * FROM x;
+```
+
+The data-modifying CTE uses `ON CONFLICT`. This rejection depends on the query plan and data topology.
+
+### 1018 — A data-modifying CTE returning an anonymous record with a non-static shape is unavailable on the router.
+
+```sql
+WITH d AS (DELETE FROM users RETURNING CASE WHEN user_id % 2 = 1 THEN ROW(user_id) ELSE ROW(user_id, name) END AS r) SELECT r FROM d UNION ALL SELECT r FROM d;
+```
+
+The `RETURNING` record has a different number of fields in each `CASE` branch. The router cannot serialize this record through the CTE materialization boundary. Use a fixed record shape.

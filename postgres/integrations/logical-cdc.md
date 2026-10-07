@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/logical-cdc
 title: "Logical Cdc"
 description: ""
-access_date: 2026-08-18T19:07:15.748Z
-current_date: 2026-08-18T19:07:15.748Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 ## What is logical replication?
@@ -138,6 +138,8 @@ SELECT pg_create_logical_replication_slot(
   true                      -- failover = true (REQUIRED)
 );
 ```
+
+If PlanetScale detects a logical replication slot with `failover = false`, you will be notified and given 3 days to update the configuration. If the slot is not reconfigured with `failover = true` within that window, PlanetScale will resume performing planned failovers as normal.
 
 ### Enabling failover on an existing replication slot
 

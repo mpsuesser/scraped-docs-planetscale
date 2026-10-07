@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/schema-changes
 title: "Schema Changes"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 A statement that changes a large or busy table can hold locks, rewrite existing rows, build an index, generate large volumes of write-ahead log (WAL), and consume substantial database resources. These effects can increase query latency or stop application traffic.
@@ -20,7 +20,7 @@ SELECT __neki.wait_for_ddl(<schema_version>, <cluster_version>);
 
 The wait completes when the schema change is visible on every router. A notice or warning about router visibility does not mean that the DDL transaction failed; read the notice and use the supplied wait call to establish the cluster-wide visibility barrier.
 
-During Platform Preview, publication and subscription DDL applies to the managed shards that exist when the statement runs. Neki does not restore those objects when a shard is added or rebuilt. Contact PlanetScale Support before combining Postgres logical replication with shard lifecycle changes.
+During Platform Preview, a shard added later receives existing publications with the rest of the schema. Subscriptions are not part of that schema, so a shard added later does not receive them. Contact PlanetScale Support before combining Postgres logical replication with shard lifecycle changes.
 
 Managed DDL uses a workflow. The workflow records the requested DDL, tracks progress on every managed shard, waits until the change is ready everywhere, and gives you explicit control over completion and cleanup.
 

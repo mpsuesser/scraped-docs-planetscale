@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-09-15T23:05:23.430Z
-current_date: 2026-09-15T23:05:23.430Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 Postgres extensions add data types, functions, operators, background workers, and other capabilities to Postgres. Extensions that do not require a profile-level toggle install in a logical database with `CREATE EXTENSION`.
@@ -110,7 +110,7 @@ Install [pgvector](https://github.com/pgvector/pgvector) after you enable it on 
 CREATE EXTENSION IF NOT EXISTS vector;
 ```
 
-Nearest-neighbor search works for `vector`, `halfvec`, `sparsevec`, and binary vectors, including HNSW and IVFFlat indexes. Tenant-scoped and shard-targeted searches work. Cross-shard search works when the distance expression is projected once and the global sort references that projected value:
+Nearest-neighbor search works for `vector`, `halfvec`, `sparsevec`, and binary vectors, including HNSW and IVFFlat indexes. Tenant-scoped, shard-targeted, and cross-shard searches work. You can project the distance and order by the alias, or repeat the distance expression in `ORDER BY`:
 
 ```sql
 SELECT tenant_id, item_id, embedding <-> '[1,0,0]'::vector AS distance
@@ -119,26 +119,16 @@ ORDER BY distance
 LIMIT 20;
 ```
 
-The same alias-based shape works for cosine (`<=>`), inner product (`<#>`), L1, halfvec, sparsevec, Hamming, and Jaccard distance.
+Repeating the operator in `ORDER BY`, and ordering by an alias, both work for cosine (`<=>`), inner product (`<#>`), and L1 (`<+>`) on `vector`, `halfvec`, and `sparsevec`. Hamming (`<~>`) and Jaccard (`<%>`) work the same way on `bit`.
 
-Repeating the distance expression in `ORDER BY` fails on sharded Neki:
+These also work on a sharded table:
 
-```sql
--- Rejected: NK013 receive function vector_recv is not implemented
-SELECT tenant_id, item_id, embedding <-> '[1,0,0]'::vector AS distance
-FROM public.vector_items
-ORDER BY embedding <-> '[1,0,0]'::vector
-LIMIT 20;
-```
+- A prepared parameter declared as `vector`, and a `text` parameter cast with `$1::vector`.
+- `ARRAY[1,0,0]::vector` and a vector literal such as `'[1,0,0]'::vector`. Cast the literal when the distance is in the select list. An uncast `embedding <-> '[1,0,0]'` there fails with `operator does not exist: vector <-> text`, for every distance operator. The uncast form resolves in `ORDER BY` and `WHERE`.
+- Global `avg(vector)` and `sum(vector)`. The router scatters and combines the aggregate. Tenant-scoped and direct-shard aggregates work too.
+- `INSERT ... SELECT` of vector values, including a statement that reads more than one shard.
 
-Other current limits:
-
-- A prepared parameter declared as `vector` fails with `NK013` because `vector_in` is not implemented. Declare the parameter as `text` and cast `$1::vector` inside the query.
-- `ARRAY[...]::vector` and `ARRAY[...]::vector(8)` are rejected. Use a vector literal such as `'[1,0,0]'::vector`.
-- `l2_norm(embedding)` is rejected as ambiguous even when the column type is `vector`.
-- Global `avg(vector)` and `sum(vector)` fail on sharded tables with `vector_recv`. Tenant-scoped and direct-shard aggregates work.
-- Routed `INSERT ... SELECT` of vector values can hit the same `vector_recv` limit. Insert vector literals, or load rows with a query that stays on one shard.
-- IVFFlat recall is poor at the default `ivfflat.probes=1`. Raise `probes` when you need higher recall. HNSW recall depends on `hnsw.ef_search`.
+`l2_norm(embedding)` is ambiguous (`42725`) even when the column type is `vector`. IVFFlat recall is poor at the default `ivfflat.probes=1`. Raise `probes` when you need higher recall. HNSW recall depends on `hnsw.ef_search`.
 
 ### vectorscale
 
@@ -148,7 +138,7 @@ Other current limits:
 CREATE EXTENSION IF NOT EXISTS vectorscale;
 ```
 
-Tenant-routed and scatter searches that use a StreamingDiskANN index work when they follow the [pgvector `ORDER BY distance` shape](#pgvector). The pgvector parameter-binding, literal-cast, and `vector_recv` limits also apply, including routed `INSERT ... SELECT` of vector values.
+Tenant-routed and scatter searches that use a StreamingDiskANN index work when they follow the [pgvector `ORDER BY distance` shape](#pgvector).
 
 Enabling `vectorscale` on the **Extensions** tab exposes these DiskANN query parameters:
 

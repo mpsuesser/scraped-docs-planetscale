@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/query-planning
 title: "Query Planning"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 A query plan defines where each part of a SQL statement runs. It contains routes that send work to shards and, when needed, router operations that combine shard results. Neki builds the plan from the statement and the current [data topology](data-topology.md).
@@ -192,6 +192,8 @@ When a query plan reaches several shards, it sends the shard requests in paralle
 ### COPY routing
 
 `COPY FROM` can route rows into a sharded table when the input includes the columns needed by its primary shard indexes. It is rejected when that table has an enabled GSI because COPY does not maintain GSI lookup rows. Keep the GSI disabled during the copy, then backfill and verify the lookup table before enabling it.
+
+Client `COPY TO STDOUT` works for a sharded table, a reference table, and a materialized view, including binary. File `COPY` remains unsharded-only.
 
 ### Combining results
 

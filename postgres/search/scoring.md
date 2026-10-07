@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/scoring
 title: "Scoring"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 > ## Documentation Index
@@ -130,7 +130,7 @@ ORDER BY term;
 
 `tin.score` scores only rows your query can see. A row that is not visible to your snapshot, whether it was deleted, replaced by an update, or inserted by a transaction that has not committed, is never returned and never receives a score. It also never influences which rows make a `LIMIT k` cut.
 
-The corpus statistics behind BM25 work differently. The document count, the number of documents containing each term, and the average document length come from the index, and they include every document the index still stores. A deleted or updated row keeps its entry in the index until `VACUUM` marks it dead and background maintenance rewrites the segment that holds it, or until you `REINDEX`. Until then, the deleted rows still count in the statistics, and the rows you do see are scored as if the deleted rows were still present. On a table with heavy update or delete churn, keep autovacuum aggressive so that maintenance can drop dead entries promptly. See [Operational guidance](operations.md).
+The corpus statistics behind BM25 work differently. The document count, the number of documents containing each term, and the average document length come from the index, and they include every document the index still stores. These statistics are totaled across every segment your transaction can see, including the newest segment that is still being written to; a segment your transaction can't see yet (because it was written after your snapshot was taken) contributes nothing to those totals. For a segment your transaction can see, a deleted or updated row keeps its entry until `VACUUM` marks it dead and background maintenance rewrites the segment that holds it, or until you `REINDEX`. Until then, the deleted rows still count in the statistics, and the rows you do see are scored as if the deleted rows were still present. On a table with heavy update or delete churn, keep autovacuum aggressive so that maintenance can drop dead entries promptly. See [Operational guidance](operations.md).
 
 Scores are comparable within one query. They shift over time as the corpus grows and as maintenance reshapes it.
 

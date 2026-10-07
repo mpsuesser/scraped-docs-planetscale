@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/platform-preview-limitations
 title: "Platform Preview Limitations"
 description: ""
-access_date: 2026-10-05T22:19:03.552Z
-current_date: 2026-10-05T22:19:03.552Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -29,9 +29,9 @@ The router rejects the following operations:
 
 `COPY` must use the simple query protocol and must be the only statement in the query. Neki rejects `COPY` over the extended query protocol.
 
-The router supports `COPY FROM STDIN` for unsharded tables, sharded tables, and reference tables. For a sharded table, include the single-column shard key in the copied columns. Sharded `COPY FROM` does not support `ON_ERROR`, `REJECT_LIMIT`, or `LOG_VERBOSITY`.
+The router supports `COPY FROM STDIN` and client `COPY TO STDOUT` (text, CSV, and binary) for unsharded tables, sharded tables, and reference tables. Client `COPY TO STDOUT` also works from a materialized view. For a sharded table, include the single-column shard key in the copied columns. Sharded `COPY FROM` does not support `ON_ERROR`, `REJECT_LIMIT`, or `LOG_VERBOSITY`.
 
-`COPY TO` supports unsharded tables only. File-based `COPY` supports unsharded tables only. Neki rejects `COPY FROM PROGRAM`, `COPY TO PROGRAM`, `COPY (SELECT ...) TO`, and `COPY FROM` with a `WHERE` clause.
+File-based `COPY` supports unsharded tables only. Neki rejects `COPY FROM PROGRAM`, `COPY TO PROGRAM`, `COPY (SELECT ...) TO`, and `COPY FROM` with a `WHERE` clause.
 
 When `COPY FROM` omits an identity column or a column with a sequence-backed or router-only default, supply that column’s values explicitly.
 

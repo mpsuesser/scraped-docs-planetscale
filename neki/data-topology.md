@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-10-07T00:07:29.963Z
-current_date: 2026-10-07T00:07:29.963Z
+access_date: 2026-10-07T18:53:49.420Z
+current_date: 2026-10-07T18:53:49.420Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -158,7 +158,7 @@ A shard index is a named routing function that converts a table’s shard key (t
 }
 ```
 
-This shard index is named `xxhash_tenant_id`. Any table using this will shard rows based on an `xxhash` of all the columns listed in the array (in this case, just the `tenant_id` column, but you can specify multiple).
+This shard index is named `xxhash_tenant_id`. Any table using this will shard rows based on an `xxhash` of the single entry in `columns` (in this case, the `tenant_id` column). `columns` accepts one entry; a list of more than one column is rejected when the topology is applied with NK013 code 10.
 
 Every time the cluster receives a new row for a table using this hash index, Neki will:
 
@@ -183,7 +183,7 @@ Neki supports three shard-index types. A topology that attempts to name another 
 
 Neki rejects a shard-key definition whose Postgres type does not have a routing rule. It does not wait for the first row or query to discover an unsupported type.
 
-After defaults and table overrides are resolved, the `columns` list contains exactly one entry. That entry can be a column name or a deterministic expression over one or more unqualified columns:
+After defaults and table overrides are resolved, the `columns` list contains exactly one entry. That entry is a column name or a deterministic expression over a single unqualified column, such as `lower(email)` or `tenant_id * 1000`. An expression that names more than one column is still one entry, so the topology accepts it:
 
 ```json
 {
@@ -191,6 +191,8 @@ After defaults and table overrides are resolved, the `columns` list contains exa
   "columns": ["tenant_id * 1000 + user_id"]
 }
 ```
+
+`INSERT ... VALUES` into a table sharded by an expression over more than one column returns NK013 code 10 (`multi column shard index inserts are not     supported`). `INSERT ... SELECT` into that table returns NK013 code 117. A one-column expression routes. `SELECT` and `DELETE` scatter unless `=` names every base column of that expression, which returns NK013 code 115. A comparison other than `=` still scatters. `UPDATE` of a column that is not part of the expression follows the same rule. `UPDATE` of a base column of the expression returns NK013 code 145, including when there is no `WHERE`.
 
 Shard indexes live in the top-level `shard_indexes` catalog. Multiple shard groups can contain the same shard.
 
