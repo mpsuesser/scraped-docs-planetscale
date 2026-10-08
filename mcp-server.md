@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-08T21:36:12.832Z
+current_date: 2026-10-08T21:36:12.832Z
 ---
 
 ## What is the PlanetScale MCP server?
@@ -72,6 +72,16 @@ OAuth permissions are controlled through scopes:
 - Scopes define which organizations, databases, branches, or features the MCP server can see.
 - You choose whether the MCP server has no access, read-only access, or full access to databases at the organization or per-database level.
 - Payment method access is separate: no access, read-only (view the saved card), or full access (start Checkout and confirm the saved card). Full access is required to update the card.
+
+Organization administrators can further limit query access for everyone in the organization. In organization **Settings**, set **MCP query access**:
+
+- **No query access.** Members cannot grant read or write query tools.
+- **Read-only queries.** Members can grant read queries, but not write queries.
+- **Read and write queries.** No extra limit. This is the default.
+
+A member’s role still limits which permissions they can grant. The setting applies to new authorizations. MCP clients that were already authorized keep the access they were granted until you revoke it. Schema, Insights, billing, and other non-query tools are not affected. When a query permission is unavailable, the authorization page explains why.
+
+This setting does not change [service token](mcp/service-token.md) permissions.
 
 Most MCP clients provide a way to re-authenticate the MCP server if you need to update your permissions.
 

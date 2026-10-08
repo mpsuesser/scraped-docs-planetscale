@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-08-31T07:29:59.083Z
-current_date: 2026-08-31T07:29:59.083Z
+access_date: 2026-10-08T21:36:12.832Z
+current_date: 2026-10-08T21:36:12.832Z
 ---
 
 OAuth is the default for the [hosted MCP server](../mcp-server.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
@@ -23,6 +23,8 @@ Use the token secret only. `Authorization: Bearer <id>:<secret>` is rejected. Do
 Claude.ai, Claude for desktop, Claude Managed Agents, and Notion authenticate with OAuth only. They do not accept a service token header.
 
 ## Permissions
+
+The organization **MCP query access** setting applies when someone authorizes an MCP client with OAuth. It does not limit a service token. The token’s own permissions do.
 
 The MCP server calls the PlanetScale API with the token you send. Each tool fails if the token is missing the permission for that API call. Grant the smallest set that covers the tools you want.
 
