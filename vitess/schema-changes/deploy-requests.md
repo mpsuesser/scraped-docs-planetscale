@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-10-09T14:37:23.319Z
-current_date: 2026-10-09T14:37:23.319Z
+access_date: 2026-10-09T19:44:03.697Z
+current_date: 2026-10-09T19:44:03.697Z
 ---
 
 ## Overview
@@ -55,6 +55,8 @@ A deploy that cannot lock the table is usually due to long-running transactions.
 
 A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](column-cannot-be-null.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](earlier-migration-failed.md).
 
+If some tables fail while others are still copying or ready, the deploy stays in progress. See [Retry a partially failed deploy](#retry-a-partially-failed-deploy).
+
 ### Deploy changes
 
 ### Deploy changes instantly
@@ -69,6 +71,32 @@ If [Prefer instant](#prefer-instant) is enabled, eligible deploy requests defaul
 		- Instant deployments **cannot be reverted**.
 
 If you would like to require an administrator’s approval before a request can be deployed, go to the “ **Settings** ” page for your database and check the “ **Require administrator approval for deploy requests** ” box. You must be an Organization Administrator to enable this restriction. Please note you will not be able to approve your own deploy requests.
+
+## Retry a partially failed deploy
+
+Online schema changes copy each affected table before cutover. If some tables fail while others are still copying or ready, the deploy stays in progress. The deploy page shows that it has partially failed and cannot continue.
+
+You can retry the failed tables, or cancel the deploy request.
+
+### Retry the failed tables
+
+Retry recopies only the failed tables, in migration order. Tables that already finished stay as they are.
+
+From the [PlanetScale CLI](../../cli/deploy-request.md):
+
+```shellscript
+pscale deploy-request retry <DATABASE_NAME> <DR_NUMBER>
+```
+
+### Cancel the deploy request
+
+Cancel the deploy request on the deploy page. This discards every table in the deploy, including copies that already finished.
+
+From the CLI:
+
+```shellscript
+pscale deploy-request cancel <DATABASE_NAME> <DR_NUMBER>
+```
 
 ## Close a deploy request
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-06T20:39:31.314Z
-current_date: 2026-10-06T20:39:31.314Z
+access_date: 2026-10-09T19:44:03.697Z
+current_date: 2026-10-09T19:44:03.697Z
 ---
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
@@ -45,7 +45,7 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`connect`](cli/connect.md) | `<database_name>` `<branch_name>` | `--execute string`, `--execute-env-url string`, `--execute-protocol string`, `--help`, `--host string`, `--org string`, `--port string`, `--remote-addr string`, `--role string` | Vitess | Create a [secure connection](vitess/tutorials/connect-any-application.md#option-2-connect-using-the-planetscale-proxy) to the given database and branch |
 | [`database`](cli/database.md) | `aggressive-cutover`, `create`, `delete`, `dump`, `ip-restriction`, `list`, `read-only-regions`, `regions`, `restore-dump`, `show`, `throttler`, `update` | `--help` | Vitess, Postgres, Neki | Manage databases |
 | `dedicated-read-replica` | `create`, `delete`, `list`, `show`, `update` | `--help`, `--org string`, `--region string`, `--replicas int`, `--cluster-size string`, `--parameters stringArray`, `--force` | Postgres | Manage dedicated read replicas for a Postgres branch |
-| [`deploy-request`](cli/deploy-request.md) | `apply`, `cancel`, `close`, `create`, `deploy`, `deployment`, `diff`, `force-cutover`, `list`, `operations`, `queue`, `revert`, `review`, `reviews`, `show`, `skip-revert`, `storage-check`, `throttler`, `unblock`, `update` | `--help` | Vitess | Manage [deploy requests](vitess/schema-changes/deploy-requests.md#create-a-deploy-request) including [gated deployments](vitess/schema-changes/deploy-requests.md#gated-deployments) |
+| [`deploy-request`](cli/deploy-request.md) | `apply`, `cancel`, `close`, `create`, `deploy`, `deployment`, `diff`, `force-cutover`, `list`, `operations`, `queue`, `retry`, `revert`, `review`, `reviews`, `show`, `skip-revert`, `storage-check`, `throttler`, `unblock`, `update` | `--help` | Vitess | Manage [deploy requests](vitess/schema-changes/deploy-requests.md#create-a-deploy-request) including [gated deployments](vitess/schema-changes/deploy-requests.md#gated-deployments) |
 | `help` | `agents`, `agent-guide`, `api`, `audit-log`, `auth`, `backup`, `billing`, `branch`, `completion`, `connect`, `database`, `dedicated-read-replica`, `deploy-request`, `help`, `import`, `insights`, `inspect`, `keyspace`, `logs`, `maintenance`, `metrics`, `org`, `password`, `pgbouncer`, `ping`, `region`, `role`, `service-token`, `shell`, `signup`, `size`, `sql`, `traffic-control`, `webhook`, `workflow` | `--help` | Vitess, Postgres, Neki | View help for any command or the agent automation help topic |
 | [`import`](cli/import.md) | `d1 doctor`, `d1 lint`, `d1 convert-schema`, `d1 start`, `d1 verify`, `d1 status`, `d1 complete` | `--help`, `--org string` | Postgres | Import external databases ([Cloudflare D1](postgres/imports/postgres-imports.md)) into PlanetScale Postgres |
 | [`insights`](cli/insights.md) | `queries`, `queries samples`, `queries show`, `queries summary`, `queries traffic-budgets`, `errors`, `errors show`, `anomalies`, `anomalies show`, `tags`, `tags show`, `tags summaries`, `recommendations`, `recommendations show`, `recommendations dismiss` | `--help`, `--org string`, `--format json` | Vitess, Postgres, Neki | Server-side query insights, anomalies, and schema recommendations from production traffic |

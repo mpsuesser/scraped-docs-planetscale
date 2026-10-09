@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-10-09T19:44:03.697Z
+current_date: 2026-10-09T19:44:03.697Z
 ---
 
 ## Getting Started
@@ -38,6 +38,7 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
 | `operations <DATABASE_NAME> <DR_NUMBER>` |  | List deploy operations for a deploy request. | Vitess |
 | `queue <DATABASE_NAME>` |  | Show the deploy queue for a database. | Vitess |
+| `retry <DATABASE_NAME> <DR_NUMBER>` |  | Retry failed tables on a partially failed deploy. | Vitess |
 | `revert <DATABASE_NAME> <DR_NUMBER>` |  | Revert a deployed deploy request. | Vitess |
 | `review <DATABASE_NAME> <DR_NUMBER>` | `--web`, `--approve`, `--comment <COMMENT>` | Approve or comment on a deploy request. | Vitess |
 | `reviews <DATABASE_NAME> <DR_NUMBER>` |  | List reviews for a deploy request. | Vitess |
@@ -124,6 +125,18 @@ pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
 **Output:**
 
 Successfully requested force cutover for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>`. Vitess will attempt again momentarily.
+
+### The deploy-request command with retry subcommand
+
+When an online schema deploy fails on some tables while others are still copying or ready, the deploy stays in progress. The deploy page shows that it has partially failed and cannot continue.
+
+Retry will restart the migration for only the failed tables. Tables that already healthy will keep their existing progress.
+
+**Command:**
+
+```shellscript
+pscale deploy-request retry <DATABASE_NAME> <DR_NUMBER>
+```
 
 ### The deploy-request command with throttler update subcommand
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-cannot-be-null
 title: "Column Cannot Be Null"
 description: ""
-access_date: 2026-10-09T14:37:23.319Z
-current_date: 2026-10-09T14:37:23.319Z
+access_date: 2026-10-09T19:44:03.697Z
+current_date: 2026-10-09T19:44:03.697Z
 ---
 
 > ## Documentation Index
@@ -28,7 +28,7 @@ The column name in quotes is the one to fix. The rest of the message is the inse
 
 ## How to fix it
 
-Update the rows that still have `NULL` in that column, then retry the deploy.
+Update the rows that still have `NULL` in that column, then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deploy).
 
 ```sql theme={null}
 SELECT id FROM users WHERE email IS NULL;
@@ -38,7 +38,7 @@ UPDATE users SET email = 'unknown@example.com' WHERE email IS NULL;
 
 Use a value that is valid for the new column. Retrying before those rows are updated again will cause another failure.
 
-Retry starts the migration for the failed table over again. Tables in the same deploy that already finished copying are left as they are. Canceling the deploy request stops every migration in the deploy, including those tables.
+Retry starts the migration for the failed table over again. Tables in the same deploy that already finished copying are left as they are.
 
 ## Need help?
 

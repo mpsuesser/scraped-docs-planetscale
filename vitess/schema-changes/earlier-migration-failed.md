@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/earlier-migration-failed
 title: "Earlier Migration Failed"
 description: ""
-access_date: 2026-10-09T14:37:23.319Z
-current_date: 2026-10-09T14:37:23.319Z
+access_date: 2026-10-09T19:44:03.697Z
+current_date: 2026-10-09T19:44:03.697Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ This table did not fail on its own. The migration named after `prior migration` 
 
 ## How to fix it
 
-Find the first failed table in the deploy request and fix that error. Then retry the deploy.
+Find the first failed table in the deploy request and fix that error. Then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deploy). Retry recopies failed tables in migration order. Tables that already finished stay as they are.
 
 ## Need help?
 
