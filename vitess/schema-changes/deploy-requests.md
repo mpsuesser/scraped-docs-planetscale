@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-09T14:37:23.319Z
+current_date: 2026-10-09T14:37:23.319Z
 ---
 
 ## Overview
@@ -52,6 +52,8 @@ PlanetScale deploy request - changes on sharded keyspace
 By default, deploy requests on a branch run through a **serial deploy queue**: only one deploy runs at a time, and later requests wait until earlier ones finish. When a queue is already running, you can also [deploy in parallel](#parallel-deployments) alongside it.
 
 A deploy that cannot lock the table is usually due to long-running transactions. See [Long-running transactions](long-running-transactions.md).
+
+A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](column-cannot-be-null.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](earlier-migration-failed.md).
 
 ### Deploy changes
 
