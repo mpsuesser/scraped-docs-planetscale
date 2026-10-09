@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/long-running-transactions
 title: "Long Running Transactions"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-09T23:32:13.485Z
+current_date: 2026-10-09T23:32:13.485Z
 ---
 
 > ## Documentation Index
@@ -17,6 +17,16 @@ current_date: 2026-10-01T18:05:48.418Z
 Long-running transactions on your database can cause deploy requests to fail.
 
 When you deploy a schema change, PlanetScale copies the table in the background so the original stays available. That copy needs a brief lock on the table: once at the start, and again as copying continues. The last step, [cutover](aggressive-cutover.md), needs a lock too.
+
+A deploy that cannot get the lock fails with a lock wait timeout. The statement after `during query` shows which step was waiting:
+
+```text theme={null}
+Lock wait timeout exceeded; try restarting transaction (errno 1205) (sqlstate HY000) during query: lock tables orders read
+```
+
+* `lock tables ... read` is the lock at the start of the copy.
+* `RENAME TABLE ...` is the cutover.
+* `CREATE TABLE ...` or `ALTER TABLE ...` on a `_vt_vrp_...` table is PlanetScale building the copy. These wait on a lock when the table has [foreign key constraints](../foreign-key-constraints.md) and a transaction is open on the parent or child table.
 
 ## How to fix long-running transactions
 

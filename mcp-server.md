@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-10-08T21:36:12.832Z
-current_date: 2026-10-08T21:36:12.832Z
+access_date: 2026-10-09T23:32:13.485Z
+current_date: 2026-10-09T23:32:13.485Z
 ---
 
 ## What is the PlanetScale MCP server?
@@ -461,6 +461,7 @@ Once installed, you can ask your MCP-enabled editor or agent to:
 - “Look at my slowest queries over the last day and suggest index or query changes.”
 - “Which route tag is spending the most database time?”
 - “Check whether the CPU and memory profile for my database is appropriate for the current workload.”
+- “Is my main branch full, lagging, or close to its connection limit?”
 - “Explain what changed between yesterday’s and today’s query patterns in Insights.”
 
 You can also run these workflows on a recurring schedule using [Cursor Automations](https://cursor.com/docs/cloud-agent/automations). See [Self-improving database](self-improving-database.md) for ready-to-use prompts.
@@ -496,6 +497,7 @@ The available tools are:
 23. `planetscale_list_query_tags` - List the [query tags](postgres/monitoring/query-tags.md) seen on a database branch’s queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
 24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
 25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
+26. `planetscale_get_branch_metrics` - Infrastructure metrics for a branch: CPU, memory, disk, replication lag, and connections, for Vitess, Postgres, and Neki. The default summary covers the last hour (latest, min, average, and max) plus current disk and connection counts. Memory utilization includes page cache, so the summary also includes RSS and cache. Use `view` `series` or `instant` to drill into specific metrics. Query stats stay on `planetscale_get_insights`.
 
 The MCP server tools are [open source and available on GitHub](https://github.com/planetscale/mcp-server).
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-08T21:36:12.832Z
-current_date: 2026-10-08T21:36:12.832Z
+access_date: 2026-10-09T23:32:13.485Z
+current_date: 2026-10-09T23:32:13.485Z
 ---
 
 OAuth is the default for the [hosted MCP server](../mcp-server.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
@@ -32,7 +32,7 @@ Add organization permissions on the token, then add database permissions on each
 
 ### Read-only access
 
-This covers listing organizations, databases, branches, schema, Insights, and schema recommendations. It does not allow SQL execution.
+This covers listing organizations, databases, branches, schema, Insights, schema recommendations, and branch metrics. It does not allow SQL execution.
 
 **Organization**
 
@@ -85,7 +85,7 @@ Write query permissions can run `INSERT`, `UPDATE`, `DELETE`, and DDL. Only gran
 | `planetscale_list_organizations` | None. Any valid token can list the organization it belongs to. |  |
 | `planetscale_get_organization`, `planetscale_list_regions_for_organization`, `planetscale_list_cluster_size_skus` | `read_organization` |  |
 | `planetscale_list_databases`, `planetscale_get_database` | `read_databases` to see every database. Otherwise grant `read_database` on each database. | `read_database` |
-| `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema` |  | `read_branch` |
+| `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema`, `planetscale_get_branch_metrics` |  | `read_branch` |
 | `planetscale_get_insights`, `planetscale_list_schema_recommendations` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
 | `planetscale_list_invoices`, `planetscale_get_invoice_line_items` | `read_invoices` |  |
 | `planetscale_get_organization_billing_payment_method` | `read_payment_method` |  |

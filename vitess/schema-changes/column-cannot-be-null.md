@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-cannot-be-null
 title: "Column Cannot Be Null"
 description: ""
-access_date: 2026-10-09T19:44:03.697Z
-current_date: 2026-10-09T19:44:03.697Z
+access_date: 2026-10-09T23:32:13.485Z
+current_date: 2026-10-09T23:32:13.485Z
 ---
 
 > ## Documentation Index
@@ -25,6 +25,14 @@ vreplication: terminal error: task error: failed inserting rows: Column 'email' 
 ```
 
 The column name in quotes is the one to fix. The rest of the message is the insert that failed.
+
+The copy runs while your application keeps writing to the table. If the application inserts or updates a row with `NULL` in that column during the copy, the deploy fails with a slightly different message:
+
+```text theme={null}
+vreplication: terminal error: error applying event: Column 'email' cannot be null (errno 1048) (sqlstate 23000)
+```
+
+In that case the application is still writing `NULL`. Update it to always set the column before retrying.
 
 ## How to fix it
 

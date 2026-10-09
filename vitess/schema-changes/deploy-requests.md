@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-10-09T19:44:03.697Z
-current_date: 2026-10-09T19:44:03.697Z
+access_date: 2026-10-09T23:32:13.485Z
+current_date: 2026-10-09T23:32:13.485Z
 ---
 
 ## Overview
@@ -53,7 +53,9 @@ By default, deploy requests on a branch run through a **serial deploy queue**: o
 
 A deploy that cannot lock the table is usually due to long-running transactions. See [Long-running transactions](long-running-transactions.md).
 
-A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](column-cannot-be-null.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](earlier-migration-failed.md).
+A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](column-cannot-be-null.md), [Column has no default value](column-has-no-default.md), [Duplicate entry](duplicate-entry.md), and [Value does not fit the new column](value-does-not-fit-column.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](earlier-migration-failed.md).
+
+A deploy can fail before copying starts when the schema it was computed against no longer matches production, or when MySQL rejects the new table definition. See [Constraint not found](constraint-not-found.md) and [Foreign key missing unique key](foreign-key-missing-unique-key.md).
 
 If some tables fail while others are still copying or ready, the deploy stays in progress. See [Retry a partially failed deploy](#retry-a-partially-failed-deploy).
 
