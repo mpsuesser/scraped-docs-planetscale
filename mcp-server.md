@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-10-09T23:32:13.485Z
-current_date: 2026-10-09T23:32:13.485Z
+access_date: 2026-10-11T18:48:37.458Z
+current_date: 2026-10-11T18:48:37.458Z
 ---
 
 ## What is the PlanetScale MCP server?
@@ -497,7 +497,7 @@ The available tools are:
 23. `planetscale_list_query_tags` - List the [query tags](postgres/monitoring/query-tags.md) seen on a database branch’s queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
 24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
 25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
-26. `planetscale_get_branch_metrics` - Infrastructure metrics for a branch: CPU, memory, disk, replication lag, and connections, for Vitess, Postgres, and Neki. The default summary covers the last hour (latest, min, average, and max) plus current disk and connection counts. Memory utilization includes page cache, so the summary also includes RSS and cache. Use `view` `series` or `instant` to drill into specific metrics. Query stats stay on `planetscale_get_insights`.
+26. `planetscale_get_branch_metrics` - Infrastructure metrics for a branch: CPU, memory, disk, replication lag, and connections, for Vitess, Postgres, and Neki. The default summary covers the last hour (latest, min, average, p95, and max) plus current disk and connection counts. Memory utilization includes page cache, so the summary also includes RSS and cache. Use `view` `series` or `instant` to drill into specific metrics. Query stats stay on `planetscale_get_insights`.
 
 The MCP server tools are [open source and available on GitHub](https://github.com/planetscale/mcp-server).
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_oauth_token
 title: "Create_oauth_token"
 description: ""
-access_date: 2026-10-04T19:56:22.595Z
-current_date: 2026-10-04T19:56:22.595Z
+access_date: 2026-10-11T18:48:37.458Z
+current_date: 2026-10-11T18:48:37.458Z
 ---
 
 POST
@@ -39,16 +39,6 @@ header
 required
 
 The access token received from the authorization server in the OAuth 2.0 flow.
-
-FlowAuthorization Code
-
-Authorization URL
-
-https://app.planetscale.com/oauth/authorize
-
-Token URL
-
-https://auth.planetscale.com/oauth/token
 
 #### Path Parametersorganization
 
