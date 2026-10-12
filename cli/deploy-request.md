@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/deploy-request
 title: "Deploy Request"
 description: ""
-access_date: 2026-10-09T19:44:03.697Z
-current_date: 2026-10-09T19:44:03.697Z
+access_date: 2026-10-12T23:42:51.316Z
+current_date: 2026-10-12T23:42:51.316Z
 ---
 
 ## Getting Started
@@ -29,11 +29,11 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `apply <DATABASE_NAME> <DR_NUMBER>` |  | Trigger a deploy request to swap over to the new schema. | Vitess |
 | `cancel <DATABASE_NAME> <DR_NUMBER>` |  | Cancel a deploy request. | Vitess |
 | `close <DATABASE_NAME> <DR_NUMBER>` |  | Close the specified deploy request. | Vitess |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--into <BRANCH_NAME>`, `--notes <NOTE>`, `--enable-auto-apply`, `--disable-auto-apply` | Create a new deploy request. | Vitess |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--into <BRANCH_NAME>`, `--notes <NOTE>`, `--enable-auto-apply`, `--disable-auto-apply`, `--aggressive-cutover` | Create a new deploy request. | Vitess |
 | `deploy <DATABASE_NAME> <DR_NUMBER\|BRANCH_NAME>` | `--instant`, `--strategy <serial\|parallel>` | Deploy the specified deploy request. | Vitess |
 | `deployment <DATABASE_NAME> <DR_NUMBER>` |  | Show the deployment for a deploy request. | Vitess |
 | `diff <DATABASE_NAME> <DR_NUMBER>` | `--web` | Show the diff of the specified deploy request. | Vitess |
-| `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch` | Alias for `update`. | Vitess |
+| `edit <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch`, `--aggressive-cutover` | Alias for `update`. | Vitess |
 | `force-cutover <DATABASE_NAME> <DR_NUMBER>` | `--force` | Force cutover when a migration is delayed by a table lock. | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all deploy requests for a database. | Vitess |
 | `operations <DATABASE_NAME> <DR_NUMBER>` |  | List deploy operations for a deploy request. | Vitess |
@@ -48,7 +48,7 @@ Your database must have a production branch with [safe migrations](../vitess/sch
 | `throttler show <DATABASE_NAME> <DR_NUMBER>` |  | Show throttler configuration for a deploy request. | Vitess |
 | `throttler update <DATABASE_NAME> <DR_NUMBER>` | `--ratio <RATIO>`, `--configuration <KEYSPACE=RATIO>` | Update throttler configuration for a deploy request. | Vitess |
 | `unblock <DATABASE_NAME> <DR_NUMBER>` |  | Unblock the deploy queue after a failed deploy or revert. | Vitess |
-| `update <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch` | Update settings on a deploy request. | Vitess |
+| `update <DATABASE_NAME> <DR_NUMBER>` | `--enable-auto-apply`, `--disable-auto-apply`, `--auto-delete-branch`, `--aggressive-cutover` | Update settings on a deploy request. | Vitess |
 
 > \* *Flag is required*
 
@@ -67,6 +67,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--enable-auto-apply` | Enable auto-apply for this deploy request. When enabled, the deploy request will swap over to the new schema once ready. | `create`, `update` |
 | `--disable-auto-apply` | Disable auto-apply for this deploy request. If neither flag is provided, the setting is inherited from the previous deploy request. | `create`, `update` |
 | `--auto-delete-branch` | Delete the source branch after the deploy request completes (`--auto-delete-branch=false` to keep it). | `create`, `update` |
+| `--aggressive-cutover` | Opt this deploy request into [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md): Vitess kills blocking queries and transactions on the first cutover attempt instead of retrying for up to an hour. Does not change the database setting or other deploy requests. On `update`, pass `--aggressive-cutover=false` to turn it off. | `create`, `update` |
 | `--web` | Perform the action in your web browser | `diff`, `list`, `show` |
 | `--approve` | Approve a deploy request | `review` |
 | `--comment <COMMENT>` | Leave a comment on a deploy request | `review` |
@@ -126,6 +127,24 @@ pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
 
 Successfully requested force cutover for deploy request `<DATABASE_NAME>` / `<DR_NUMBER>`. Vitess will attempt again momentarily.
 
+### The deploy-request command with the --aggressive-cutover flag
+
+Opt a single deploy request into [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) ahead of time, so you don’t have to wait for the delay and run `force-cutover`. This is per deploy request, not the [database-level setting](database.md#database-level-aggressive-cutover), and other deploy requests are unaffected. You can change it until the deploy request is deployed.
+
+**Command:**
+
+```shellscript
+pscale deploy-request create <DATABASE_NAME> <BRANCH_NAME> --aggressive-cutover
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --aggressive-cutover
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --aggressive-cutover=false
+```
+
+**Output:**
+
+`show` and `queue` include an `AGGRESSIVE CUTOVER` column. With `--format json`, check `deployment.aggressive_cutover`.
+
+Aggressive cutover terminates active queries and transactions holding locks on the table. Make sure your application retries killed queries.
+
 ### The deploy-request command with retry subcommand
 
 When an online schema deploy fails on some tables while others are still copying or ready, the deploy stays in progress. The deploy page shows that it has partially failed and cannot continue.
@@ -172,6 +191,7 @@ Changes settings on an existing deploy request. At least one flag is required, a
 pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --enable-auto-apply
 pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --auto-delete-branch
 pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --auto-delete-branch=false
+pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --aggressive-cutover
 ```
 
 ## Need help?

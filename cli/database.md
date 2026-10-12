@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/database
 title: "Database"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-12T23:42:51.316Z
+current_date: 2026-10-12T23:42:51.316Z
 ---
 
 ## Getting Started
@@ -284,7 +284,7 @@ pscale database throttler update <DATABASE_NAME> --configuration main=10 --confi
 
 ### Database-level aggressive cutover
 
-Sets [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) for future deploy requests on the database. This is not [`deploy-request force-cutover`](deploy-request.md), which forces the cutover of a single migration that is already delayed. Vitess only.
+Sets [aggressive cutover](../vitess/schema-changes/aggressive-cutover.md) for future deploy requests on the database. This is not [`deploy-request force-cutover`](deploy-request.md), which forces the cutover of a single migration that is already delayed. To opt in a single deploy request ahead of time, use [`deploy-request create --aggressive-cutover`](deploy-request.md). Vitess only.
 
 ```shellscript
 pscale database aggressive-cutover show <DATABASE_NAME>
