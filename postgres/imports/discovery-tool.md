@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-07T23:23:07.623Z
-current_date: 2026-10-07T23:23:07.623Z
+access_date: 2026-10-12T17:26:53.947Z
+current_date: 2026-10-12T17:26:53.947Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
@@ -187,7 +187,7 @@ The tool discovers RDS instances, Aurora clusters, VPC networking, security grou
 
 - RDS: `DescribeDBInstances`, `DescribeDBClusters`, `DescribeDBSubnetGroups`
 - EC2: `DescribeVpcs`, `DescribeSubnets`, `DescribeSecurityGroups`, `DescribeRouteTables`
-- CloudWatch: `GetMetricStatistics`, `ListMetrics`
+- CloudWatch: `GetMetricData`, `ListMetrics`
 
 **Configuration:**
 
