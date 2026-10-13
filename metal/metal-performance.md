@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/metal-performance
 title: "Metal Performance"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 ## Upgrading to Metal
@@ -140,7 +140,7 @@ PlanetScale databases come in two main flavors: **Metal** and **network-attached
 
 This also means that you can pair a tiny compute instance with a large amount of storage. This works well for large data sets that are not frequently queried. The opposite is also true — you can pair a small amount of storage with a large compute instance for workloads that are heavily CPU-bound.
 
-One disadvantage of using **network-attached storage** storage is I/O latency. Reads from and writes to disk need to make network round-trips to be fulfilled. The intra-AZ network speeds in AWS and GCP data centers are generally very good, but still slower than accessing a locally-attached solid-state drive. There is also the issue of IOPS. The popular `gp3` EBS volume class provides 3000 IOPS included, but using more than this requires paying for additional IO bandwidth, leading to more expensive databases.
+One disadvantage of using **network-attached storage** storage is I/O latency. Reads from and writes to disk need to make network round-trips to be fulfilled. The intra-AZ network speeds in AWS, GCP, and Azure data centers are generally very good, but still slower than accessing a locally-attached solid-state drive. There is also the issue of IOPS. The popular `gp3` EBS volume class provides 3000 IOPS included, but using more than this requires paying for additional IO bandwidth, leading to more expensive databases.
 
 These disadvantages do not just apply to PlanetScale. Many of the popular cloud-hosted database solutions, including those offered by Amazon and Google, use network-attached storage to simplify storage scalability. This convenience and scalability comes at a performance cost.
 

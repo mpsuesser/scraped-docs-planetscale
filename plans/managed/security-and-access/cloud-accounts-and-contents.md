@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/security-and-access/cloud-accounts-and-contents
 title: "Cloud Accounts And Contents"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 > ## Documentation Index
@@ -14,11 +14,11 @@ current_date: 2026-10-01T18:05:48.418Z
 
 ## Cloud accounts
 
-PlanetScale is not responsible for the general configuration of services shared across the cloud organization in which the AWS Organizations member account or GCP project is provisioned. The customer is solely responsible for managing account access outside that granted to PlanetScale.
+PlanetScale is not responsible for the general configuration of services shared across the cloud organization in which the AWS Organizations member account, GCP project, or Azure subscription is provisioned. The customer is solely responsible for managing access outside that granted to PlanetScale.
 
 ## Content restrictions
 
-The data stored in PlanetScale Managed databases is contained entirely in the customer's AWS Organizations member account or GCP project.
+The data stored in PlanetScale Managed databases is contained entirely in the customer's AWS Organizations member account, GCP project, or Azure subscription.
 
 Customers are responsible for all content that is stored in the databases they have created.
 

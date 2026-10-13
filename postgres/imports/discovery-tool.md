@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-12T17:26:53.947Z
-current_date: 2026-10-12T17:26:53.947Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
@@ -275,6 +275,8 @@ providers:
     regions:
       - eastus
 ```
+
+When you’re ready to migrate from Azure Database for PostgreSQL, see the [pgcopydb migration guide](postgres-migrate-pgcopydb.md) — it includes an Azure Terraform template for the migration instance and Azure-specific logical replication setup.
 
 ### Supabase
 

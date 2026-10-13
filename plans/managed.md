@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/plans/managed
 title: "Managed"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 ## What is PlanetScale Managed?
 
-PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS) or Google Cloud Platform (GCP) account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own AWS or GCP account.
+PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own cloud account.
 
 We have packaged the best parts of PlanetScale into a container and can deploy and operate them in your own account, bringing you the best of SaaS with the added benefit of a deployment free of noisy neighbors, enhanced support, and additional security guarantees.
 
@@ -16,15 +16,17 @@ With PlanetScale Managed, it is more than just an on-premises deployment of your
 
 ## How does PlanetScale Managed work?
 
-PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Data_plane), deployed to an AWS Organizations member account or GCP project that you own and we operate. PlanetScale Managed supports [Vitess](../vitess.md), [Neki](../neki.md), and [Postgres](../postgres.md). Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki. For MySQL databases, the data plane is built on [Vitess and Kubernetes](https://planetscale.com/blog/scaling-hundreds-of-thousands-of-database-clusters-on-kubernetes). For Postgres databases, it runs a dedicated PostgreSQL cluster orchestrated by Kubernetes. Your database lives entirely inside a dedicated member account or project within your cloud organization. PlanetScale will not have access to other member accounts or projects nor your organization-level settings within the cloud service provider. At the same time, you still get to interact with your databases through the web application, pscale CLI, or the PlanetScale API, as you usually would with our hosted product. This includes developer experience features such as non-blocking schema changes, safe migrations, database branching, query insights, and more.
+PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Data_plane), deployed to an AWS Organizations member account, GCP project, or Azure subscription that you own and we operate. PlanetScale Managed supports [Vitess](../vitess.md), [Neki](../neki.md), and [Postgres](../postgres.md). Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki. For MySQL databases, the data plane is built on [Vitess and Kubernetes](https://planetscale.com/blog/scaling-hundreds-of-thousands-of-database-clusters-on-kubernetes). For Postgres databases, it runs a dedicated PostgreSQL cluster orchestrated by Kubernetes. Your database lives entirely inside a dedicated account, project, or subscription within your cloud organization. PlanetScale will not have access to other accounts, projects, or subscriptions nor your organization-level settings within the cloud service provider. At the same time, you still get to interact with your databases through the web application, pscale CLI, or the PlanetScale API, as you usually would with our hosted product. This includes developer experience features such as non-blocking schema changes, safe migrations, database branching, query insights, and more.
 
 If you are an existing PlanetScale user, moving to PlanetScale Managed requires no changes to your existing developer workflows.
 
-The database is deployed in a single-tenant environment and isolated in an AWS Organizations member account or GCP project from the rest of your organization’s infrastructure. By default, all connections are encrypted, but public. PlanetScale Managed supports private database connectivity through [AWS PrivateLink](managed/aws/privatelink.md) or [GCP Private Service Connect](managed/gcp/private-service-connect.md). Private connections are also available for supported databases on the [Base plan](../planetscale-plans.md#base-plan).
+The database is deployed in a single-tenant environment and isolated in an AWS Organizations member account, GCP project, or Azure subscription from the rest of your organization’s infrastructure. By default, all connections are encrypted, but public. PlanetScale Managed supports private database connectivity through [AWS PrivateLink](managed/aws/privatelink.md), [GCP Private Service Connect](managed/gcp/private-service-connect.md), or [Azure Private Link](managed/azure/private-link.md). Private connections are also available for supported databases on the [Base plan](../planetscale-plans.md#base-plan).
 
-Read more on how PlanetScale Managed works inside either cloud provider:
+Read more about PlanetScale Managed on each cloud provider:
 
 ## PlanetScale Managed on Amazon Web Services
+
+## PlanetScale Managed on Microsoft Azure
 
 ## PlanetScale Managed on Google Cloud Platform
 

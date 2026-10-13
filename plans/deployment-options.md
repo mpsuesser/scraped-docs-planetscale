@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/deployment-options
 title: "Deployment Options"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 ## Overview
@@ -31,14 +31,15 @@ Multi-tenancy is the default deployment option. When you sign up for a PlanetSca
 
 Single-tenant deployment options are available with [PlanetScale Enterprise](../planetscale-plans.md#enterprise-plan). Companies that require their PlanetScale databases to be hosted in a single-tenant environment have two options: Enterprise — Single-tenant and Managed.
 
-In both options, your database is deployed in a single-tenant environment. The main difference between Enterprise — Single-tenant and Managed is who owns the underlying account. With [Managed](managed.md), your database is deployed in your own AWS/GCP account. With Enterprise — Single-tenant, PlanetScale owns and manages the account.
+In both options, your database is deployed in a single-tenant environment. The main difference between Enterprise — Single-tenant and Managed is who owns the underlying account. With [Managed](managed.md), your database is deployed in your own AWS, GCP, or Azure account. With Enterprise — Single-tenant, PlanetScale owns and manages the account.
 
 If you’re interested in learning more, please [reach out](https://planetscale.com/contact), and we can figure out the best solution for your use case.
 
 ### Single-tenancy highlights
 
-- Your resources run on a separate isolated AWS or GCP account, apart from other customers
-- Your databases can be deployed to any cloud provider region you choose that offers three Availability Zones, even [regions](https://planetscale.com/docs/vitess/regions) that PlanetScale does not offer on our self-serve plans
+- Your resources run in a separate isolated AWS account, GCP project, or Azure subscription, apart from other customers
+- Your databases can be deployed to supported cloud provider regions that offer three availability zones, including regions that PlanetScale does not offer on our self-serve plans
+	- Azure does not make every PlanetScale-supported VM SKU available to every subscription. Coordinate region selection with your PlanetScale Solutions Engineer. PlanetScale may ask you to verify that your dedicated subscription has access to the required VM SKUs and sufficient quota across three availability zones in each requested region.
 - You can continue to use the PlanetScale UI and CLI in the same way that you would our general self-serve offerings, but the infrastructure runs in an isolated environment
 - BAAs available for HIPAA compliance
 - Support for private database connectivity via:

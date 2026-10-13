@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/regions
 title: "Regions"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 ## Overview
@@ -44,6 +44,14 @@ Currently, the following regions are supported, with their respective PlanetScal
 - GCP us-east1 (Moncks Corner, South Carolina) — `gcp-us-east1`
 - GCP europe-west1 (St Ghislain, Belgium) — `gcp-europe-west1`
 - GCP europe-west4 (Eemshaven, Netherlands) — `gcp-europe-west4`
+
+### Azure regions
+
+Azure regions support Postgres and Neki databases. Vitess databases are not currently available on Azure.
+
+- Azure centralus (Iowa, USA) — `azure-centralus`
+- Azure eastus2 (Virginia, USA) — `azure-eastus2`
+- Azure westeurope (Netherlands) — `azure-westeurope`
 
 ## Selecting the database region
 

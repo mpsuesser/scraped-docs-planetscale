@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/what-is-planetscale
 title: "What Is Planetscale"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 PlanetScale is a fully managed relational database platform for [Vitess](vitess.md), [Neki](neki.md), and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
@@ -24,7 +24,7 @@ The fastest way to understand how PlanetScale is changing the database landscape
 
 ### PlanetScale Metal
 
-When you deploy a PlanetScale database, you can choose from network-attached storage or Metal — locally-attached NVMe SSD drives. These blazing fast NVMe drives unlock unlimited IOPS, ultra-low latencies, and the [highest throughput](https://planetscale.com/blog/benchmarking-postgres) for your workloads while still running in the cloud (AWS or GCP).
+When you deploy a PlanetScale database, you can choose from network-attached storage or Metal — locally-attached NVMe SSD drives. These blazing fast NVMe drives unlock unlimited IOPS, ultra-low latencies, and the [highest throughput](https://planetscale.com/blog/benchmarking-postgres) for your workloads while still running in the cloud (AWS, GCP, or Azure).
 
 ### Non-blocking schema changes
 

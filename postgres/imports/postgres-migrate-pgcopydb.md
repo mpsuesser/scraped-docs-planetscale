@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb
 title: "Postgres Migrate Pgcopydb"
 description: ""
-access_date: 2026-09-25T16:29:00.890Z
-current_date: 2026-09-25T16:29:00.890Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 [pgcopydb](https://github.com/planetscale/pgcopydb) is a tool that automates migrating data between two running PostgreSQL servers. PlanetScale maintains a fork that supports PostgreSQL 17 and 18, improved filtering, resilient retry, and improved CDC support. This guide uses PlanetScale’s fork throughout.
@@ -51,9 +51,9 @@ If you do not need near-zero downtime and can tolerate a maintenance window, you
 
 ## 1\. Prepare your environment
 
-The migration runs from a dedicated **migration instance**, a compute instance (EC2, GCE, or similar) with network access to both your source database and PlanetScale. This instance runs pgcopydb and the helper scripts. It does not store any persistent data beyond the migration working directory.
+The migration runs from a dedicated **migration instance**, a compute instance (EC2, GCE, Azure VM, or similar) with network access to both your source database and PlanetScale. This instance runs pgcopydb and the helper scripts. It does not store any persistent data beyond the migration working directory.
 
-PlanetScale provides infrastructure-as-code templates that provision a fully configured migration instance with pgcopydb v0.18.0, PostgreSQL 17 client tools, and the helper scripts pre-installed. Choose the template that matches your cloud provider and provisioning tool:
+PlanetScale provides infrastructure-as-code templates that provision a fully configured migration instance with pgcopydb v0.20.0, PostgreSQL 18 client tools, and the helper scripts pre-installed. Choose the template that matches your cloud provider and provisioning tool:
 
 #### AWS CloudFormation
 
@@ -150,6 +150,43 @@ gcloud compute ssh $(terraform output -raw instance_name) \
 
 You can also use the GCP Console. Open the instance in Compute Engine and click **SSH** for browser-based access.
 
+#### Azure Terraform
+
+Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/azure-terraform) files (`pgcopydb-migration-instance.tf` and `custom-data.sh`) in the same directory and deploy:
+
+```shellscript
+terraform init
+terraform apply \
+  -var="subscription_id=$(az account show --query id -o tsv)" \
+  -var="vnet_resource_group_name=YOUR_NETWORK_RG" \
+  -var="vnet_name=YOUR_VNET" \
+  -var="subnet_name=YOUR_SUBNET" \
+  -var="your_public_ip=$(curl -4 icanhazip.com)"
+```
+
+**Key variables:**
+
+- `subscription_id` — Your Azure subscription ID.
+- `vnet_resource_group_name` / `vnet_name` / `subnet_name` — An existing virtual network and subnet where the VM will launch, and the resource group that holds them. Everything the template creates lands in its own `planetscale-migration-rg` resource group, so tearing it down never touches your resources.
+- `your_public_ip` — Restricts SSH access to your IP address.
+- `vm_size` — `Standard_E4bds_v5` for databases under 100 GB, `Standard_E8bds_v5` (default) for 100–500 GB, `Standard_E16bds_v5` for 500 GB+. The data disk’s provisioned IOPS are matched to the VM size.
+- `data_disk_size_gb` — Premium SSD v2 data disk size in GB (500, 1000, or 3000). Choose based on your source database size.
+- `region` / `zone` — Azure region and availability zone (default: `eastus`). The region must support zonal Premium SSD v2 disks. If `terraform apply` fails with an allocation error, retry with a different `zone`.
+
+**Connect to the instance** as the `ubuntu` user with the generated SSH key:
+
+```shellscript
+terraform output -raw generated_ssh_private_key > ./migration_key
+chmod 600 ./migration_key
+ssh -i ./migration_key ubuntu@$(terraform output -raw public_ip)
+```
+
+The generated private key is stored in `terraform.tfstate` as well as `./migration_key`. Do not commit or share either file, and delete `./migration_key` once the migration is complete. To skip the generated key entirely, pass your own key with `-var="ssh_public_key=..."`.
+
+You can also connect with Entra ID (`az ssh vm ...`, or **Connect** in the portal), which logs you in as your own user rather than `ubuntu` — run `sudo su - ubuntu` after connecting.
+
+First boot takes 10–15 minutes while pgcopydb is built from source. Watch progress with `sudo tail -f /var/log/pgcopydb-setup.log`.
+
 If you prefer to set up your own instance manually, see the [pgcopydb installation documentation](https://github.com/planetscale/pgcopydb#install) and the [helper scripts README](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-helpers) for manual installation steps.
 
 Once your migration instance is running, **connect to it** using one of the methods shown above. All commands and scripts in the remaining steps are run from the migration instance. The examples in this guide assume you are logged in as the `ubuntu` user on an instance created by the templates, with helper scripts installed in `/home/ubuntu/`.
@@ -209,6 +246,7 @@ For CDC migrations using `--follow`, logical replication must be enabled on the 
 - **Amazon RDS / Aurora:** Set `rds.logical_replication = 1` in the parameter group and reboot the instance.
 - **Google Cloud SQL:** Set the `cloudsql.logical_decoding` database flag to `on` and restart the instance.
 - **Google AlloyDB:** Set `alloydb.logical_decoding = on` and restart the instance.
+- **Azure Database for PostgreSQL (Flexible Server):** On the **Server parameters** page, set `wal_level` to `logical` and `max_worker_processes` to at least 16, then restart the server. Grant replication permissions to your migration user with `ALTER ROLE migration_user WITH REPLICATION;`. CDC from Azure sources requires pgcopydb v0.20.0 or newer — older versions send `TIMELINE_HISTORY` on the replication connection, which Azure rejects. The templates above install v0.20.0.
 - **Supabase:** Logical replication is enabled by default. Make sure you use a **direct connection** string (not pooled) from your Supabase dashboard under Project Settings > Database.
 - **Self-hosted PostgreSQL:** Set `wal_level = logical` in `postgresql.conf` and restart PostgreSQL.
 
@@ -250,13 +288,13 @@ When configuring the database:
 
 - Select the correct **cloud region**. You typically want to use the same region as your source database and application infrastructure.
 - Choose **Postgres** as the database type.
-- Choose the best **storage option** for your needs. For high-performance, low-latency I/O, use [PlanetScale Metal](../../metal.md). For more flexible storage options, choose “Elastic Block Storage” (AWS) or “Persistent Disk” (GCP).
+- Choose the best **storage option** for your needs. For high-performance, low-latency I/O, use [PlanetScale Metal](../../metal.md). For more flexible storage options, choose “Elastic Block Storage” (AWS), “Persistent Disk” (GCP), or “Azure Managed Disks” (Azure).
 
 ### Configure disk size
 
 Set your disk size to at least **150%** of your source database size. For example, if your source is 330 GB, provision at least 500 GB. The overhead accounts for data growth during import and table/index bloat that occurs during the copy process.
 
-- **Network-attached storage (EBS, Persistent Disk):** Configure the disk in advance by navigating to **Clusters > Storage** and setting the **Minimum disk size**. AWS and GCP limit how frequently disks can be resized, so the disk may not be able to resize fast enough during a large import.
+- **Network-attached storage (EBS, Persistent Disk, Azure Managed Disks):** Configure the disk in advance by navigating to **Clusters > Storage** and setting the **Minimum disk size**. Cloud providers limit how frequently disks can be resized, so the disk may not be able to resize fast enough during a large import.
 - **Metal:** Choose the disk size when creating the cluster. You can resize after import and cleanup.
 
 ### Enable extensions

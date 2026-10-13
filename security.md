@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security
 title: "Security"
 description: ""
-access_date: 2026-09-24T18:40:45.778Z
-current_date: 2026-09-24T18:40:45.778Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 The security of our systems is of the utmost importance. We consistently aim to improve our security posture by building security into every layer of our products.
@@ -22,9 +22,9 @@ Below is a breakdown of common security and compliance requirements by PlanetSca
 | [Private database connectivity](#private-database-connectivity) |  |  |  |  |
 | [Single sign-on (SSO)](security/sso.md) | Available as add-on |  |  |  |
 | [Business Associate Agreements available](#hipaa-and-business-associate-agreements) |  |  |  |  |
-| Dedicated AWS/GCP account |  |  |  |  |
+| Dedicated AWS/GCP/Azure account |  |  |  |  |
 | [PCI compliant](#pci-compliance) |  |  |  |  |
-| [Your own AWS/GCP account](#deploy-in-your-own-aws-or-gcp-account) |  |  |  |  |
+| [Your own AWS/GCP/Azure account](#deploy-in-your-own-aws-gcp-or-azure-account) |  |  |  |  |
 
 ## Available on all PlanetScale plans
 
@@ -78,7 +78,7 @@ Communications to the PlanetScale API and Dashboard are encrypted using TLS 1.3 
 
 ### General Data Protection Regulation (GDPR)
 
-PlanetScale offers database services in Amazon Web Services and Google Cloud Platform regions around the world. PlanetScale complies with the EU General Data Protection Regulation (GDPR) and other global privacy regulations, where applicable. Customers are responsible for their applications’ compliance with regulatory requirements, including as they relate to data subjects of their systems.
+PlanetScale offers database services in Amazon Web Services, Google Cloud Platform, and Microsoft Azure regions around the world. PlanetScale complies with the EU General Data Protection Regulation (GDPR) and other global privacy regulations, where applicable. Customers are responsible for their applications’ compliance with regulatory requirements, including as they relate to data subjects of their systems.
 
 #### Data Processing Addendum
 
@@ -86,7 +86,7 @@ All PlanetScale plans are covered by our [Data Processing Addendum (DPA)](https:
 
 #### Data locality
 
-The infrastructure supporting user databases, backups, etc., is in the provider (AWS or GCP) and region where the database is created. Any read-only replicas in other geographies will copy the data set to the selected regions.
+The infrastructure supporting user databases, backups, etc., is in the provider (AWS, GCP, or Azure) and region where the database is created. Any read-only replicas in other geographies will copy the data set to the selected regions.
 
 The following are two examples of data locality in PlanetScale:
 
@@ -107,22 +107,23 @@ PlanetScale offers two single-tenant deployment options: Single-tenant and Plane
 
 [Contact us](https://planetscale.com/contact) if you are interested in exploring PlanetScale single-tenant deployment options for your organization.
 
-### Dedicated AWS Organizations member account or GCP organization
+### Dedicated AWS Organizations member account, GCP organization, or Azure subscription
 
-PlanetScale single-tenant deployment options are deployed into a dedicated AWS Organizations member account or GCP organization owned by PlanetScale. If you want PlanetScale to deploy into your own AWS Organizations member account or GCP organization, owned by your organization, see PlanetScale Managed below.
+PlanetScale single-tenant deployment options are deployed into a dedicated AWS Organizations member account, GCP organization, or Azure subscription owned by PlanetScale. If you want PlanetScale to deploy into your own AWS Organizations member account, GCP organization, or Azure subscription, owned by your organization, see PlanetScale Managed below.
 
 ## Available on PlanetScale Managed
 
-PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS) or Google Cloud Platform (GCP) account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own AWS Organizations member account or GCP organization. You can learn more on the [PlanetScale Managed overview page](plans/managed.md).
+PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own AWS Organizations member account, GCP organization, or Azure subscription. You can learn more on the [PlanetScale Managed overview page](plans/managed.md).
 
-### Deploy in your own AWS or GCP account
+### Deploy in your own AWS, GCP, or Azure account
 
-PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Data_plane) that’s deployed to an AWS Organizations member account or GCP project that you own and we operate. Your database lives entirely inside a dedicated member account or project within your cloud organization. PlanetScale will not have access to other member accounts or projects nor your organization-level settings within the cloud service provider.
+PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Data_plane) that’s deployed to an AWS Organizations member account, GCP project, or Azure subscription that you own and we operate. Your database lives entirely inside a dedicated account, project, or subscription within your cloud organization. PlanetScale will not have access to other accounts, projects, or subscriptions nor your organization-level settings within the cloud service provider.
 
-Read more on how PlanetScale Managed works inside either cloud provider:
+Read more about PlanetScale Managed on each cloud provider:
 
 - [PlanetScale Managed on Amazon Web Services](plans/managed/aws.md)
 - [PlanetScale Managed on Google Cloud Platform](plans/managed/gcp.md)
+- [PlanetScale Managed on Microsoft Azure](plans/managed/azure.md)
 
 ### PCI compliance
 

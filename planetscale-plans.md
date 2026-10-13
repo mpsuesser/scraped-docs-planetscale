@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
 ## Overview
@@ -112,12 +112,12 @@ If you find the performance of a given query to be substantially inconsistent ov
 
 ## Enterprise plan
 
-PlanetScale’s Enterprise plan is great for large-scale businesses who require the enterprise-level SLAs, want expert assistance through enterprise support, and would prefer to run in your own AWS or GCP account.
+PlanetScale’s Enterprise plan is great for large-scale businesses who require enterprise-level SLAs, want expert assistance through enterprise support, and would prefer to run in their own AWS, GCP, or Azure account.
 
 We offer many different deployment options, all of which come with the same set of standard features.
 
-- **PlanetScale Single-tenant** runs in PlanetScale’s infrastructure with optional dedicated AWS/GCP accounts.
-- [**PlanetScale Managed**](plans/managed.md) is a deployment option where your database runs entirely in your own AWS or GCP account, giving you complete control over your cloud infrastructure while still benefiting from PlanetScale’s fully managed service.
+- **PlanetScale Single-tenant** runs in PlanetScale’s infrastructure with optional dedicated AWS, GCP, or Azure accounts.
+- [**PlanetScale Managed**](plans/managed.md) is a deployment option where your database runs entirely in your own AWS, GCP, or Azure account, giving you complete control over your cloud infrastructure while still benefiting from PlanetScale’s fully managed service.
 
 The table below covers those shared features, as well as the different options that vary depending on your chosen deployment.
 
@@ -126,9 +126,9 @@ The table below covers those shared features, as well as the different options t
 | Customizable feature limits |  |  |
 | [Support](support.md) | Business — Enterprise upgrade available | Enterprise |
 | PCI compliant |  |  |
-| Dedicated AWS/GCP account | Optional |  |
-| Bring your own cloud (an AWS or GCP account *you* own) |  |  |
-| Billing | Directly from PlanetScale | Partial payment through PlanetScale and infrastructure costs through AWS/GCP. Take advantage of your own discounts. Optionally, purchase through [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). |
+| Dedicated cloud account, project, or subscription | Optional |  |
+| Bring your own cloud account, project, or subscription |  |  |
+| Billing | Directly from PlanetScale | Partial payment through PlanetScale and infrastructure costs through your cloud provider. Take advantage of your own discounts. Optionally, purchase through [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). |
 
 ## How do I know if I need an Enterprise plan?
 
@@ -139,7 +139,7 @@ In general, if you need any of the following, Enterprise may be the best solutio
 - Enhanced support — our expert team becomes an extension of your own. Additional options for technical account management, Slack-based support, and phone escalation.
 - You need additional support to horizontally shard and migrate your database(s) to PlanetScale
 - You need your database deployed in a single-tenant environment
-- You need to keep your data in **your own** AWS or GCP account
+- You need to keep your data in **your own** AWS, GCP, or Azure account
 - You need a PCI DSS certified service provider
 - Mission-critical [response times](support.md#initial-response-times) including continuous support coverage
 - Any other customizations — Our Enterprise plans offer a lot of flexibility, so if you have a requirement that’s not listed here, it’s best to [reach out](https://planetscale.com/contact) and we can see how we can help

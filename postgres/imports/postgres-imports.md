@@ -2,11 +2,11 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-08-14T17:16:03.479Z
-current_date: 2026-08-14T17:16:03.479Z
+access_date: 2026-10-13T18:20:34.341Z
+current_date: 2026-10-13T18:20:34.341Z
 ---
 
-Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, Cloudflare D1, and other Postgres or SQLite instances.
+Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, Azure Database for PostgreSQL, Cloudflare D1, and other Postgres or SQLite instances.
 
 Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
 
