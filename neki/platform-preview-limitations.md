@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/platform-preview-limitations
 title: "Platform Preview Limitations"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-13T22:56:56.138Z
+current_date: 2026-10-13T22:56:56.138Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -48,11 +48,38 @@ Neki rejects cluster-level objects that depend on storage or code local to one P
 - Creating a procedural language with a custom handler. Built-in languages and languages installed by a supported extension remain available.
 - Loading a shared library with `LOAD`.
 
-## pg\_squeeze
+## Extensions that need shard targeting
 
-The router rejects a `squeeze.squeeze_table()` call when Neki must plan it. Set `__neki.shard` to a shard UID returned by `__neki.list_shards()` and Neki forwards the call to that shard unchanged. The call squeezes the table on the targeted shard only. Repeat it for each shard that holds rows of the table.
+The router rejects the extension calls in this section when Neki must plan them. Each call acts on one Postgres server, or reports the state of one server. To use these calls, target one shard directly:
+
+1. Get the shard UIDs from `__neki.list_shards()`.
+2. Set `__neki.shard` to one shard UID. Neki forwards each call to that shard unchanged.
+3. Run the call. The result covers the targeted shard only.
+4. Repeat steps 2 and 3 for each shard that the result must cover.
+5. Reset `__neki.shard` to restore normal routing.
+
+```sql
+SELECT uid, name FROM __neki.list_shards();
+SET __neki.shard = '<shard-uid>';
+-- Run the extension call here.
+RESET __neki.shard;
+```
 
 See [Targeting one shard directly](query-planning.md#targeting-one-shard-directly).
+
+### pg\_squeeze
+
+The router rejects a `squeeze.squeeze_table()` call when Neki must plan it. The call squeezes the table on the targeted shard only. Repeat it for each shard that holds rows of the table.
+
+### pgrowlocks
+
+The router rejects a `pgrowlocks()` call when Neki must plan it. On the targeted shard, the call shows the locked rows of the table on that shard only. Repeat it for each shard that holds rows of the table.
+
+### pgstattuple
+
+The router rejects the `pgstattuple` functions, for example `pgstattuple()`, when Neki must plan them. On the targeted shard, a call returns the statistics of the rows on that shard only. Repeat it for each shard that holds rows of the table.
+
+To get the statistics of the full table, add the counts and the sizes from all shards. Do not add the percentages. Calculate each percentage again from the added values.
 
 ## External Postgres
 
