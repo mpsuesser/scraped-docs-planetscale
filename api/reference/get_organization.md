@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_organization
 title: "Get_organization"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -97,6 +97,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -164,9 +167,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -323,6 +323,11 @@ paths:
                     description: >-
                       Whether or not the organization requires payment
                       information
+                  mcp_access_level:
+                    type: string
+                    description: >-
+                      The query access level MCP clients can be granted for the
+                      organization (none, read_only, or read_write)
                 required:
                   - id
                   - name
@@ -343,6 +348,7 @@ paths:
                   - neki_router_replicas_per_cell_limit
                   - has_card
                   - payment_info_required
+                  - mcp_access_level
         '401':
           description: Unauthorized
         '403':

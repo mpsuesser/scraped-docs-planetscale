@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_deploy_request
 title: "Get_deploy_request"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -98,6 +98,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -165,9 +168,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -394,6 +394,14 @@ paths:
                         description: >-
                           Whether or not to automatically delete the head branch
                           once deployment is finished
+                      aggressive_cutover:
+                        type: boolean
+                        description: >-
+                          Whether this deploy request opted in to aggressive
+                          cutover. When enabled, Vitess kills blocking queries
+                          and transactions on the first cutover attempt. A false
+                          value does not disable a database-wide aggressive
+                          cutover setting.
                       created_at:
                         type: string
                         description: When the deployment was created
@@ -415,6 +423,15 @@ paths:
                       force_cutover_requested_at:
                         type: string
                         description: When force cutover was triggered for the deployment
+                        nullable: true
+                      retry_requested:
+                        type: boolean
+                        description: >-
+                          Whether a retry of failed operations was requested
+                          within the retry window
+                      retry_requested_at:
+                        type: string
+                        description: When a retry of failed operations was last requested
                         nullable: true
                       queued_at:
                         type: string
@@ -877,11 +894,14 @@ paths:
                       - id
                       - auto_cutover
                       - auto_delete_branch
+                      - aggressive_cutover
                       - created_at
                       - cutover_at
                       - cutover_expiring
                       - finished_at
                       - force_cutover_requested_at
+                      - retry_requested
+                      - retry_requested_at
                       - queued_at
                       - ready_to_cutover_at
                       - started_at

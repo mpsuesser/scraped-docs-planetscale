@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_shard_configuration_profiles
 title: "List_shard_configuration_profiles"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -99,6 +99,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -166,9 +169,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -208,7 +208,7 @@ paths:
     get:
       tags:
         - api-neki_shard_configuration_profiles
-      summary: List shard configuration profiles for a Neki branch
+      summary: List configuration profiles for a Neki branch
       description: >-
 
         ### Authorization
@@ -252,7 +252,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Returns shard configuration profiles for the branch
+          description: Returns configuration profiles for the branch
           headers: {}
           content:
             application/json:
@@ -263,10 +263,10 @@ paths:
                   properties:
                     id:
                       type: string
-                      description: The ID of the shard configuration profile
+                      description: The ID of the configuration profile
                     name:
                       type: string
-                      description: The name of the shard configuration profile
+                      description: The name of the configuration profile
                     architecture:
                       type: string
                       description: The architecture of the cluster size SKU
@@ -278,7 +278,7 @@ paths:
                       description: The display name of the cluster size SKU
                     default:
                       type: boolean
-                      description: Whether this is the default shard configuration profile
+                      description: Whether this is the default configuration profile
                     metal:
                       type: boolean
                       description: >-
@@ -291,29 +291,27 @@ paths:
                         configuration profile
                     postgres_image_version:
                       type: string
-                      description: >-
-                        The PostgreSQL image used by the shard configuration
-                        profile
+                      description: The PostgreSQL image used by the configuration profile
                     latest_postgres_image_version:
                       type: string
                       description: >-
-                        The latest PostgreSQL image available to the shard
+                        The latest PostgreSQL image available to the
                         configuration profile
                     postgres_major_version:
                       type: integer
                       description: >-
-                        The PostgreSQL major version used by the shard
-                        configuration profile
+                        The PostgreSQL major version used by the configuration
+                        profile
                     postgres_minor_version:
                       type: integer
                       description: >-
-                        The PostgreSQL minor version used by the shard
-                        configuration profile
+                        The PostgreSQL minor version used by the configuration
+                        profile
                     latest_postgres_minor_version:
                       type: integer
                       description: >-
                         The latest PostgreSQL minor version available to the
-                        shard configuration profile
+                        configuration profile
                     shards:
                       type: integer
                       description: The number of shards using this configuration profile
@@ -353,13 +351,13 @@ paths:
                         - pending
                         - applying
                         - ready
-                      description: The current state of the shard configuration profile
+                      description: The current state of the configuration profile
                     created_at:
                       type: string
-                      description: When the shard configuration profile was created
+                      description: When the configuration profile was created
                     updated_at:
                       type: string
-                      description: When the shard configuration profile was last updated
+                      description: When the configuration profile was last updated
                   required:
                     - id
                     - name

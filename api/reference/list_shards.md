@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_shards
 title: "List_shards"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -99,6 +99,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -166,9 +169,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -264,7 +264,7 @@ paths:
             default: 25
         - name: exclude_configuration_profile
           in: query
-          description: Exclude shards in this shard configuration profile
+          description: Exclude shards in this configuration profile
           schema:
             type: string
         - name: q
@@ -335,7 +335,7 @@ paths:
                           nullable: true
                         configuration_profile:
                           type: string
-                          description: The name of the shard configuration profile
+                          description: The name of the configuration profile
                         created_at:
                           type: string
                           description: When the shard was created

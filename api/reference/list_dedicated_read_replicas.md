@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_dedicated_read_replicas
 title: "List_dedicated_read_replicas"
 description: ""
-access_date: 2026-10-06T20:39:31.314Z
-current_date: 2026-10-06T20:39:31.314Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -99,6 +99,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -166,9 +169,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -430,44 +430,63 @@ paths:
                           id:
                             type: string
                             description: The ID of the parameter
-                          namespace:
-                            type: string
-                            enum:
-                              - pgconf
-                            description: The namespace of the parameter
+                            nullable: true
                           name:
                             type: string
                             description: The name of the parameter
                           display_name:
                             type: string
                             description: The display name of the parameter
+                          namespace:
+                            type: string
+                            enum:
+                              - patroni
+                              - pgconf
+                              - pgbouncer
+                            description: The namespace of the parameter
+                          advanced:
+                            type: boolean
+                            description: Whether the parameter is advanced
                           category:
                             type: string
                             description: The category of the parameter
+                            nullable: true
                           description:
                             type: string
                             description: The description of the parameter
-                          immutable:
-                            type: boolean
-                            description: Whether the parameter can be changed
                           parameter_type:
                             type: string
                             enum:
+                              - array
+                              - boolean
+                              - bytes
+                              - float
                               - integer
+                              - seconds
+                              - select
+                              - string
                               - time
                             description: The type of the parameter
                           default_value:
                             type: string
-                            description: >-
-                              The default value of the parameter, which is the
-                              primary's current value
+                            description: The default value of the parameter
+                            nullable: true
                           disabled_reason:
                             type: string
                             description: Why the parameter cannot be changed
                             nullable: true
+                          requires_update:
+                            type: string
+                            enum:
+                              - cluster
+                            description: >-
+                              The update required before the parameter can be
+                              configured
+                            nullable: true
                           value:
                             type: string
                             description: The configured value of the parameter
+                            nullable: true
                           required:
                             type: boolean
                             description: Whether the parameter is required
@@ -482,29 +501,33 @@ paths:
                           restart:
                             type: boolean
                             description: >-
-                              True if processes require a server restart on
-                              change
+                              Whether processes require a server restart after
+                              the parameter changes
                           max:
                             type: number
                             description: The maximum value of the parameter
+                            nullable: true
                           min:
                             type: number
-                            description: >-
-                              The minimum value of the parameter, floored at the
-                              primary's current value
-                          url:
-                            type: string
-                            description: The URL of the parameter
+                            description: The minimum value of the parameter
+                            nullable: true
                           options:
                             items:
                               type: string
                             type: array
-                            description: Valid options for the parameter value
+                            description: >-
+                              Valid options for the parameter value. Null
+                              represents an unset value
+                            nullable: true
                           units:
                             items:
                               type: string
                             type: array
-                            description: Display units for the parameter value
+                            description: The units of the parameter value
+                            nullable: true
+                          url:
+                            type: string
+                            description: The URL of the parameter
                           actor:
                             type: object
                             properties:
@@ -522,25 +545,21 @@ paths:
                               - display_name
                               - avatar_url
                         required:
-                          - id
-                          - namespace
                           - name
                           - display_name
+                          - namespace
+                          - advanced
                           - category
                           - description
-                          - immutable
                           - parameter_type
                           - default_value
+                          - requires_update
                           - value
                           - required
                           - created_at
                           - updated_at
                           - restart
-                          - max
-                          - min
                           - url
-                          - options
-                          - units
                           - actor
                   required:
                     - id

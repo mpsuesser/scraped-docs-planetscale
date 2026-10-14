@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_sidecar_parameters
 title: "List_sidecar_parameters"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -99,6 +99,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -166,9 +169,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -312,6 +312,19 @@ paths:
                       type: string
                       description: The default value of the parameter
                       nullable: true
+                    disabled_reason:
+                      type: string
+                      description: Why the parameter cannot be changed
+                      nullable: true
+                    requires_update:
+                      type: string
+                      enum:
+                        - cluster
+                        - configuration_profile
+                      description: >-
+                        The update required before the parameter can be
+                        configured
+                      nullable: true
                     value:
                       type: string
                       description: The configured value of the parameter
@@ -322,9 +335,11 @@ paths:
                     created_at:
                       type: string
                       description: When the parameter was created
+                      nullable: true
                     updated_at:
                       type: string
                       description: When the parameter was last updated
+                      nullable: true
                     restart:
                       type: boolean
                       description: >-
@@ -372,7 +387,6 @@ paths:
                         - display_name
                         - avatar_url
                   required:
-                    - id
                     - name
                     - display_name
                     - namespace
@@ -381,6 +395,7 @@ paths:
                     - description
                     - parameter_type
                     - default_value
+                    - requires_update
                     - value
                     - required
                     - created_at

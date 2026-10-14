@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_keyspace
 title: "Update_keyspace"
 description: ""
-access_date: 2026-10-03T01:44:47.289Z
-current_date: 2026-10-03T01:44:47.289Z
+access_date: 2026-10-14T12:20:11.966Z
+current_date: 2026-10-14T12:20:11.966Z
 ---
 
 > ## Documentation Index
@@ -93,6 +93,9 @@ tags:
   - name: Keyspace VSchemas
     description: |2
                 Resources for managing VSchemas within a keyspace.
+  - name: MaintenanceEvents
+    description: |2
+                Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
                 Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
@@ -160,9 +163,6 @@ tags:
   - name: VtctldOperations
     description: |2
                 API endpoints for checking the result of asynchronous vtctld operations, such as MoveTables commands.
-  - name: Workflows
-    description: |2
-                API endpoints for managing workflows.
   - name: Deploy requests
     description: |2
                   Resources for managing deploy requests.
@@ -372,6 +372,12 @@ paths:
                       max_storage_bytes:
                         type: integer
                         description: The maximum size in bytes disks may autoscale to
+                      max_storage_bytes_managed_by_staff:
+                        type: boolean
+                        description: >-
+                          True when PlanetScale staff raised the limit above the
+                          organization default. The limit is read-only while
+                          this is set
                       disk_scaling_strategy:
                         type: string
                         enum:
@@ -382,6 +388,7 @@ paths:
                     required:
                       - storage_bytes
                       - max_storage_bytes
+                      - max_storage_bytes_managed_by_staff
                       - disk_scaling_strategy
                   max_rollout:
                     type: integer
