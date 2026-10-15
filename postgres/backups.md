@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups
 title: "Backups"
 description: ""
-access_date: 2026-09-28T15:24:07.023Z
-current_date: 2026-09-28T15:24:07.023Z
+access_date: 2026-10-15T22:44:11.130Z
+current_date: 2026-10-15T22:44:11.130Z
 ---
 
 ## Automatic scheduled backups
@@ -87,7 +87,7 @@ Roles created with `CREATE ROLE` inside Postgres are part of the restored data, 
 
 The default, included backup schedule retains backups for 2 days. You can set a custom retention period for custom backup schedules and manual one-off backups.
 
-Additionally, you can choose to protect any individual backup from deletion. Click on the backup you’d like to protect, and click the “ **Prevent backup deletion** ” toggle. Keep in mind that custom backups and included backups that are retained beyond the default retention policy will incur additional charges.
+Additionally, you can choose to protect any individual backup from deletion. Click on the backup you’d like to protect, and click the “ **Prevent backup deletion** ” toggle. A protected backup retains both the base backup and the Write-Ahead Log (WAL) files needed for [point-in-time recovery](backups/point-in-time-recovery.md). Keep in mind that custom backups and included backups that are retained beyond the default retention policy will incur additional charges.
 
 ## Backup pricing
 
