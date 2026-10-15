@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-hints-and-details
 title: "Error Hints And Details"
 description: ""
-access_date: 2026-09-28T06:33:45.799Z
-current_date: 2026-09-28T06:33:45.799Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -38,10 +38,10 @@ EXPLAIN SELECT user_id FROM users ORDER BY user_id;
 
 ```text
 ERROR:  This statement requires Neki router processing
-HINT:  Use \`EXPLAIN (NEKI_PLAN)\` (with ANALYZE to execute) to see Neki's plan
+HINT:  Use \`EXPLAIN (NEKI_PG_PLAN)\` (with ANALYZE to execute) to see Neki's plan
 ```
 
-This error has SQLSTATE `NK017`. It marks an `EXPLAIN` shape that has no faithful single-server answer on a sharded topology, and the HINT is always set. See [Query planning](query-planning.md) for `NEKI_PLAN`.
+This error has SQLSTATE `NK017`. It marks an `EXPLAIN` shape that has no faithful single-server answer on a sharded topology, and the HINT is always set. See [Query planning](query-planning.md#explain-neki_pg_plan) for `NEKI_PG_PLAN`.
 
 Reading `pg_locks` from a [replica](replicas.md) session fails, because advisory locks exist only on the primary. The hint names the setting to change:
 

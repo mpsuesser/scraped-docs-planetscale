@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 > ## Documentation Index
@@ -50,7 +50,7 @@ Size it for metadata, catalog work, sequence reservations, and remaining unshard
 
 Neki can route a transaction to more than one shard, but cross-shard transactions do not provide atomic commit across all shards.
 Include the shard key in transactional queries and verify the query plan before depending on multi-statement behavior.
-See [Transactions across shards](query-planning.md#transactions-across-shards).
+See [Transactions across shards](transactions.md).
 
 ## Watch for scatter queries
 

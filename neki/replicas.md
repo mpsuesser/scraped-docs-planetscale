@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 > ## Documentation Index
@@ -100,7 +100,7 @@ available.
 The `__neki.replica_recency`, `__neki.replica_locality`, and
 `__neki.replica_affinity` settings can make these preferences stricter, disable
 them, or keep a session on the same preferred replica. See [Choosing where
-reads run](query-planning.md#choosing-where-reads-run) for the supported
+reads run](shard-targeting-fanout.md#choosing-where-reads-run) for the supported
 values.
 
 When a query reaches more than one shard, Neki chooses a replica separately for

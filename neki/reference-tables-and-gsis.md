@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/reference-tables-and-gsis
 title: "Reference Tables And Gsis"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 A reference table keeps a full copy of shared data on the shards that need it. A global secondary index (GSI) maps another lookup key to the shard key of the original row. Both give Neki a way to route queries that cannot rely on a table’s shard key alone.
@@ -159,7 +159,7 @@ A unique GSI can sometimes answer the query without sending an additional query 
 
 A non-unique GSI may return several `tenant_id` values. Neki uses them to narrow the owner query to the shard(s) that contain matches. Because reading the GSI itself requires work, it’s best to use GSIs for highly selective lookups. Otherwise, if the looked up value appears across most shards, the work needed to run a GSI-assisted query approaches a scatter query, and the GSI also adds overhead on the write path.
 
-[Query planning](query-planning.md#reading-a-query-plan) shows how to inspect the resulting plan.
+[Query planning](query-planning.md#explain-in-neki) shows how to inspect the resulting plan.
 
 ## GSI mappings for writes
 

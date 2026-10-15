@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 Neki uses the Postgres wire protocol, so you can connect with `psql` or any standard Postgres driver. Your applications connect to a Neki router instead of connecting to each shard’s primary or replicas. The router plans each statement and sends it to the required Postgres shards.
@@ -78,7 +78,7 @@ postgresql://<USERNAME>:<PASSWORD>@<HOST>:5432/postgres?sslmode=verify-full&sslr
 
 For `pscale shell`, add `--replica`. That sets `__neki.target=REPLICA` for the session.
 
-See [Choosing where reads run](query-planning.md#choosing-where-reads-run) for Neki’s replica selection settings and lag behavior.
+See [Choosing where reads run](shard-targeting-fanout.md#choosing-where-reads-run) for Neki’s replica selection settings and lag behavior.
 
 ## Need help?
 

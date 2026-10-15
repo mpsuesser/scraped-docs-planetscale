@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -22,7 +22,7 @@ The bracketed number is a stable catalog code. It identifies one specific implem
 
 Each entry gives the code, the message sentence the router renders after the bracketed code, an example that triggers it, and a note on which part of the query causes the rejection.
 
-The examples use a small sharded schema: `users`, `orders`, and `products` are sharded on `user_id`, as is `user_tags`; `accounts` is sharded on `account_id` and owns [global secondary indexes](reference-tables-and-gsis.md) on `email` and `phone`; `notes` is unsharded; and tables named `ref_*` are [reference tables](reference-tables-and-gsis.md#reference-tables). A few entries name another small table whose own name describes the property that matters to that code. Where a rejection depends on how the data topology places the tables rather than on the SQL text, the note says so — the same statement can plan successfully with a different topology.
+The examples use the [example schema](example-schema.md). A few entries name another small table whose own name describes the property that matters to that code. Where a rejection depends on how the data topology places the tables rather than on the SQL text, the note says so — the same statement can plan successfully with a different topology.
 
 Codes that only an internal invariant can raise are not listed, because no query produces them. A code absent from this page is one an application is unlikely to meet.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-10-07T23:23:07.623Z
-current_date: 2026-10-07T23:23:07.623Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -216,7 +216,7 @@ Co-location means that related rows from different tables are stored on the same
 
 If Neki cannot narrow the scope of a query using a shard-key predicate, it sends the query to every shard in the table’s group. Each shard calculates its part of an aggregate such as `COUNT(*)`, and Neki combines those results before returning the answer.
 
-More about inspecting a statement’s routing reach can be found in [Query planning](query-planning.md#controlling-fanout).
+More about inspecting a statement’s routing reach can be found in [Query planning](shard-targeting-fanout.md#controlling-fanout).
 
 ## Schema and database defaults
 

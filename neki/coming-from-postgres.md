@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/coming-from-postgres
 title: "Coming From Postgres"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 > ## Documentation Index
@@ -129,7 +129,7 @@ Familiar conventions from PlanetScale Postgres take a different path in Neki.
 | One primary owns every row | The [data topology](data-topology.md) assigns each table to a shard group |
 | Adding replicas or vertical size adds capacity for the whole database | Adding a shard adds capacity only after topology and a [data-migration workflow](data-migration.md) place data there |
 | A statement runs on one Postgres server | A statement can reach one shard, several shards, or every shard in a table's group |
-| Transactions execute on a single node | [Cross-shard work](query-planning.md#transactions-across-shards) does not share a snapshot or atomic commit; single-shard work does |
+| Transactions execute on a single node | [Cross-shard work](transactions.md) does not share a snapshot or atomic commit; single-shard work does |
 | `ALTER TABLE` runs on the one database | DDL through a router [fans out](schema-changes.md) to every managed shard |
 | Size one Postgres cluster (and optional PgBouncers) | Size [shards, routers, and Admin](cluster-configuration.md) separately |
 
@@ -167,7 +167,7 @@ Use `EXPLAIN` and [Query Insights](monitoring/query-insights.md) to see how many
 
 On PlanetScale Postgres, a transaction is one Postgres transaction: one snapshot, one commit.
 
-On Neki that is still true for work that stays on a single shard. Once a transaction spans more than one shard, those shards do not share a snapshot or an atomic commit. See [Transactions across shards](query-planning.md#transactions-across-shards) for routing modes and how to keep a transaction on one shard.
+On Neki that is still true for work that stays on a single shard. Once a transaction spans more than one shard, those shards do not share a snapshot or an atomic commit. See [Transactions across shards](transactions.md) for routing modes and how to keep a transaction on one shard.
 
 ### Schema changes
 

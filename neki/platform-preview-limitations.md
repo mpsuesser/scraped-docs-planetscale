@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/neki/platform-preview-limitations
 title: "Platform Preview Limitations"
 description: ""
-access_date: 2026-10-13T22:56:56.138Z
-current_date: 2026-10-13T22:56:56.138Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
 
-During the Platform Preview, Neki’s router does not support the following Postgres features or query shapes. These broad limits can change how an application connects, writes SQL, or manages a shard. The planner can reject more specific query combinations with a `not supported` or `not implemented` error.
+During the Platform Preview, Neki’s router does not support the following Postgres features or query shapes. These broad limits can change how an application connects, writes SQL, or manages a shard. The planner can reject more specific query combinations with a `not supported` or `not implemented` error. [Neki error codes](error-codes.md) lists these rejections, the query shapes that trigger them, and what to do instead.
 
 ## High availability
 
@@ -65,7 +65,7 @@ SET __neki.shard = '<shard-uid>';
 RESET __neki.shard;
 ```
 
-See [Targeting one shard directly](query-planning.md#targeting-one-shard-directly).
+See [Targeting one shard directly](shard-targeting-fanout.md#targeting-one-shard-directly).
 
 ### pg\_squeeze
 
@@ -89,7 +89,7 @@ See [Import a Postgres database](imports/postgres.md) for the supported dump-and
 
 ## Cross-shard transactions
 
-A cross-shard transaction is a transaction that reaches more than one Postgres shard. Cross-shard transactions do not provide atomic commit across all shards. See [Transactions across shards](query-planning.md#transactions-across-shards).
+A cross-shard transaction is a transaction that reaches more than one Postgres shard. Cross-shard transactions do not provide atomic commit across all shards. See [Transactions across shards](transactions.md).
 
 Neki supports a `single` transaction routing mode that rejects an operation when a second shard would join the transaction. Atomic distributed transaction mode is not supported.
 

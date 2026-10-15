@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-15T11:57:20.597Z
+current_date: 2026-10-15T11:57:20.597Z
 ---
 
 > ## Documentation Index
@@ -83,7 +83,7 @@ inactive cache bytes.
 Increasing replication lag means replica reads may return older data. If no
 replica satisfies the router's configured health and lag requirements, a query
 targeted to replicas fails instead of running on a primary. See [Choosing where
-reads run](../query-planning.md#choosing-where-reads-run).
+reads run](../shard-targeting-fanout.md#choosing-where-reads-run).
 
 When an out-of-memory event occurs in the selected period, the page also shows
 a warning banner. Correlate the event with memory, connections, and query
