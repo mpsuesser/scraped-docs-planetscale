@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-16T13:13:00.230Z
+current_date: 2026-10-16T13:13:00.230Z
 ---
 
 Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
@@ -1286,6 +1286,14 @@ WITH c AS MATERIALIZED (SELECT CASE WHEN user_id > 0 THEN ROW(user_id) ELSE ROW(
 
 The two references share a materialized result, but the record has a different number of fields in each `CASE` branch. Use a fixed record shape.
 
+### 568 — Creating user-defined base types is unavailable.
+
+```sql
+CREATE TYPE base_type (INPUT = int4in, OUTPUT = int4out, INTERNALLENGTH = 4);
+```
+
+Neki rejects both shell declarations and complete definitions of user-defined base types. Install a custom base type through an extension available on every shard.
+
 ### 579 — This data-modifying CTE body is unavailable on the router.
 
 ```sql
@@ -1309,6 +1317,14 @@ WITH upd AS (UPDATE users SET name='x' WHERE user_id IN (SELECT user_id FROM ord
 ```
 
 The router-computed `now()` output does not match the write producer’s `RETURNING` columns. This rejection depends on the query plan and data topology.
+
+### 700 — Changing base-type I/O options is unavailable.
+
+```sql
+ALTER TYPE mood SET (RECEIVE = int4recv);
+```
+
+The `SET` option changes a base type’s input or output functions. Neki cannot refresh the router’s type metadata after that change, so it rejects the statement before it reaches a shard.
 
 ### 785 — A CTE body with a volatile expression is unavailable on the router.
 
@@ -1341,6 +1357,14 @@ WITH c(x) AS MATERIALIZED (SELECT EXISTS(SELECT 1 FROM users) FROM orders) SELEC
 ```
 
 The extracted subquery has no output name in the CTE body. Give the expression an explicit alias inside the CTE.
+
+### 896 — SECURITY LABEL statements are unavailable.
+
+```sql
+SECURITY LABEL ON TYPE mood IS 'classification';
+```
+
+Neki does not yet install a security label provider, so it rejects `SECURITY LABEL` statements for all object types.
 
 ### 929 — A MATERIALIZED CTE containing a function that cannot be safely inlined is unavailable on the router.
 
