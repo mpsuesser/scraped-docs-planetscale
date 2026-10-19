@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/coming-from-postgres
 title: "Coming From Postgres"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 > ## Documentation Index
@@ -137,7 +137,7 @@ Familiar conventions from PlanetScale Postgres take a different path in Neki.
 
 PlanetScale Postgres routes replica traffic by appending `|replica` to the username, or by using a dedicated replica PgBouncer.
 
-Neki does not use that username form. Select **Route queries to a replica** on the **Connect** page, or set the startup option `-c __neki.target=REPLICA`. You can also run `SET __neki.target = 'replica'` before a transaction.
+Neki does not use that username form. Select **Replica** under **Query target** on the **Connect** page, or set the startup option `-c __neki.target=REPLICA`. You can also run `SET __neki.target = 'replica'` before a transaction.
 
 Replica connections are read-only. Writes fail instead of going to a primary. If no eligible replica is available for a destination shard, the query fails instead of falling back to that shard's primary.
 

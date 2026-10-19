@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 The **Clusters** area in the PlanetScale dashboard controls the infrastructure for each Neki branch. It separates the Postgres instances that store data, the routers that receive application connections, and the admin service that monitors and repairs the cluster.
@@ -53,7 +53,7 @@ The Postgres major version of an existing configuration profile cannot be change
 
 ### Configure profile instances
 
-The **Instances** tab changes the profile name, Postgres minor version, cluster size, or replica count. Those changes apply to every shard assigned to the profile.
+The **Instances** tab changes the profile name, Postgres minor version, cluster size, replica count, or [read-only replica](read-only-replicas.md) count. Those changes apply to every shard assigned to the profile.
 
 See [Cluster sizing](cluster-configuration/cluster-sizing.md) to choose and apply a size, and [Database replicas](replicas.md) for high availability and read-only routing.
 

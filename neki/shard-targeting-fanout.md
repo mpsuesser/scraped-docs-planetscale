@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/shard-targeting-fanout
 title: "Shard Targeting Fanout"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 > ## Documentation Index
@@ -76,7 +76,7 @@ SET __neki.target = 'replica';
 | - | - |
 | `primary` | Send reads to the shard primary. This is the only target that accepts DML |
 | `replica` | Send reads to replicas used for live traffic |
-| `rdonly` | Send reads to `rdonly` instances used for long-running work |
+| `rdonly` | Send reads to [read-only replicas](read-only-replicas.md) used for long-running work |
 
 The following settings control how Neki chooses a `replica` or `rdonly`
 instance:

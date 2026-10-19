@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 > ## Documentation Index
@@ -21,6 +21,9 @@ replicas for a configuration profile on the **Clusters** page. The change
 applies to every shard assigned to that profile. Each new replica is restored
 from the shard's last backup, then joined to the primary to start
 replication. See [Replicas and backups](backups.md#replicas-and-backups).
+
+A shard can also have [read-only replicas](read-only-replicas.md). A
+read-only replica serves reads, but Neki never promotes it to primary.
 
 ## High availability
 
@@ -60,7 +63,7 @@ change. Send reads that require the latest committed data to the primary.
 ## Send reads to replicas
 
 Neki sends reads to shard primaries by default.
-To use replicas, select **Route queries to a replica** on the **Connect** page or set the Neki target when the connection starts.
+To use replicas, select **Replica** under **Query target** on the **Connect** page or set the Neki target when the connection starts.
 
 For `psql`, use `PGOPTIONS`:
 

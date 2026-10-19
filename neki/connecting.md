@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 Neki uses the Postgres wire protocol, so you can connect with `psql` or any standard Postgres driver. Your applications connect to a Neki router instead of connecting to each shard’s primary or replicas. The router plans each statement and sends it to the required Postgres shards.
@@ -57,7 +57,7 @@ By default, Neki sends work to shard primaries. Use that for writes and for read
 
 Set `__neki.target` to send reads to replicas.
 
-Selecting **Route queries to a replica** on the **Connect** page adds this setting to the generated connection options. It does not change the username.
+Selecting **Replica** under **Query target** on the **Connect** page adds this setting to the generated connection options. It does not change the username. To send reads to [read-only replicas](read-only-replicas.md), select **Read-only replica** instead.
 
 ```sql
 SET __neki.target = 'replica';

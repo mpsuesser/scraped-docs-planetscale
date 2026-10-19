@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 Each Neki branch has its own database infrastructure. Its estimated monthly price depends on the Postgres clusters provisioned for its shards, its router compute, and its storage, backup, and network usage.
@@ -52,6 +52,14 @@ additional replica compute = additional-replica rate × extra replicas × shards
 ```
 
 Each extra network-attached storage replica also gets its own network-attached disk. Those volumes do not receive the 10 GB included allowance; you pay for the full allocated size. See [Database replicas](replicas.md).
+
+[Read-only replicas](read-only-replicas.md) also use the additional-replica rate. The two included replicas do not cover them, so every read-only replica is billed:
+
+```text
+read-only replica compute = additional-replica rate × read-only replicas × shards on the profile
+```
+
+Each read-only replica on network-attached storage gets its own volume, billed as an additional replica volume.
 
 ## Router SKU rates
 
@@ -197,7 +205,7 @@ Restoring a backup or point-in-time recovery always creates a new branch, so the
 
 | Component | How the SKU or usage rate is applied |
 | --- | --- |
-| Shard compute | Highly available SKU rate × shards, plus additional-replica rate × extra replicas × shards |
+| Shard compute | Highly available SKU rate × shards, plus additional-replica rate × (extra replicas + read-only replicas) × shards |
 | Router compute | Production: router SKU rate × observed running routers ÷ 3. Development: router SKU rate × running routers |
 | Storage | Allocated disk and provisioned IOPS/throughput above the per-volume allowances, per shard |
 | Backups | Compressed backup and WAL above 2× allocated disk, at $0.023 per GB-month |

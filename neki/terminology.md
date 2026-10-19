@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/terminology
 title: "Terminology"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 > ## Documentation Index
@@ -111,14 +111,21 @@ primary at a time.
 
 ### Replica
 
-A replica is a read-only Postgres instance that copies changes from the
-primary through Postgres physical replication. Replicas provide read capacity
-and can be promoted during failover.
+A replica is a Postgres instance that copies changes from the primary through
+Postgres physical replication. Replicas serve reads and can be promoted during
+failover.
+
+### Read-only replica
+
+A read-only replica is a Postgres instance that copies changes from the
+primary and serves reads. Neki never promotes a read-only replica to primary,
+and it does not count for write durability. Routing targets and node roles
+call it `rdonly`. See [Read-only replicas](read-only-replicas.md).
 
 ### Shard
 
 A shard is a set of Postgres instances that replicate the same data. It has one
-primary and zero or more replicas.
+primary, zero or more replicas, and zero or more read-only replicas.
 
 Provisioning a shard creates database capacity. It does not assign tables or
 rows to that shard; the [data topology](data-topology.md) controls data

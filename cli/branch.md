@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-19T17:45:20.278Z
+current_date: 2026-10-19T17:45:20.278Z
 ---
 
 ## Getting Started
@@ -122,6 +122,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
 | `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, or shards in a Neki configuration profile. For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update` |
 | `--replicas <COUNT>` | Additional replica count for a Postgres branch resize, a Postgres or Neki backup restore, or shards in a Neki configuration profile. | `create`, `resize`, `config-profile create`, `config-profile update` |
+| `--read-only-replicas <COUNT>` | [Read-only replica](../neki/read-only-replicas.md) count for shards in a Neki configuration profile, from 0 to 8. | `config-profile create`, `config-profile update` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
 | `--wait-timeout <DURATION>` | Maximum time to wait for the change request to complete with `--wait`. Default is `10m`. | `resize` |
 | `--namespace <NAMESPACE>` | Only show parameters in this namespace (e.g. `pgconf`, `pgbouncer`, `patroni`) | `parameters list` |
