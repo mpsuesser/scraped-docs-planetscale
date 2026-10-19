@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/move-tables
 title: "Move Tables"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-19T16:24:25.207Z
+current_date: 2026-10-19T16:24:25.207Z
 ---
 
 ## Getting Started
@@ -59,7 +59,7 @@ You must be an [Organization Administrator](../security/access-control.md#organi
 | `--exclude-tables <TABLE_NAMES>` | Tables to skip when moving all tables (comma-separated) | `create` |
 | `--auto-start` | Start the workflow after creation (default `true`). Pass `--auto-start=false` and run `start` later to start it yourself | `create` |
 | `--stop-after-copy` | Stop the workflow after the copy phase | `create` |
-| `--defer-secondary-keys` | Create secondary indexes after the copy finishes instead of during it. This makes large copies much faster. Only applied when you pass the flag. Don’t use it with foreign key constraints | `create` |
+| `--defer-secondary-keys` | Create secondary indexes after the copy finishes instead of during it. Only sent when you set it explicitly; pass `--defer-secondary-keys=false` to keep indexes in place during the copy. See the warning below. | `create` |
 | `--on-ddl <ACTION>` | What to do when a schema change runs on the source during the workflow: `STOP` (default), `IGNORE`, `EXEC`, `EXEC_IGNORE` | `create` |
 | `--sharded-auto-increment-handling <ACTION>` | `AUTO_INCREMENT` handling for sharded targets: `REMOVE` (default) removes it, `REPLACE` replaces it with Vitess sequences, `LEAVE` keeps it | `create` |
 | `--global-keyspace <KEYSPACE_NAME>` | Unsharded keyspace in which to create sequence tables when `--sharded-auto-increment-handling` is `REPLACE` | `create` |
@@ -74,6 +74,19 @@ You must be an [Organization Administrator](../security/access-control.md#organi
 | `--keep-data` | On `complete`: keep the source tables (`true`) or drop them (`false`). Must be `true` when the source is an external keyspace. On `cancel`: keep the data copied into the target keyspace (`true`) or delete it (`false`) | `complete`, `cancel` |
 | `--keep-routing-rules` | Keep routing rules (`true`) or remove them (`false`) | `complete`, `cancel` |
 | `--rename-tables` | Rename source tables instead of dropping them. Not supported when the source is an external keyspace | `complete` |
+
+`--defer-secondary-keys` copies target tables without secondary indexes. After each table finishes copying, Vitess re-adds them with `ALTER TABLE ... ADD KEY`. Copies are often much faster.
+
+On large tables with many indexes, the post-copy `ALTER` can:
+
+- take a long time
+- add significant disk and I/O load
+- require enough binlog retention on the source
+- delay the workflow from reaching the replicating, cutover-ready state
+
+Cancelling or deleting the workflow can hang while that `ALTER` is running. Don’t use it with foreign key constraints.
+
+To keep indexes in place during the copy, pass `--defer-secondary-keys=false`: the copy is slower, but there’s no long rebuild at the end.
 
 Write boolean flags with an `=`, such as `--keep-data=false`. A space-separated value such as `--keep-data false` is read as `--keep-data=true`.
 
