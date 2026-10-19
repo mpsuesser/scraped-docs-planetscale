@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-19T17:45:20.278Z
-current_date: 2026-10-19T17:45:20.278Z
+access_date: 2026-10-19T18:03:33.192Z
+current_date: 2026-10-19T18:03:33.192Z
 ---
 
 Each Neki branch has its own database infrastructure. Its estimated monthly price depends on the Postgres clusters provisioned for its shards, its router compute, and its storage, backup, and network usage.
@@ -97,6 +97,8 @@ PlanetScale offers two storage options with different pricing models:
 ### Metal
 
 Local NVMe capacity is included in the Metal SKU rate. To get more local storage, choose a larger Metal size.
+
+On AWS, the smaller Metal sizes (**M-10** through **M-160**) let you select the storage capacity separately from vCPU and memory. Each storage option has its own SKU rate. To get more local storage on these sizes, choose a larger storage option. See [Metal options on AWS](../plans/planetscale-skus.md#metal-options-on-aws).
 
 ### Network-attached storage
 

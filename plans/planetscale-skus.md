@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/planetscale-skus
 title: "Planetscale Skus"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-19T18:03:33.192Z
+current_date: 2026-10-19T18:03:33.192Z
 ---
 
 > ## Documentation Index
@@ -51,10 +51,10 @@ The storage options vary by cloud provided, so we break out the options into AWS
 
 | | **Processor** | **Memory** | **NVMe Storage options** | **Notes** |
 | :- | :- | :- | :- | - |
-| **M-10** | 1/8 vCPU | 1 GB RAM | configurable | Postgres only |
-| **M-20** | 1/4 vCPU | 2 GB RAM | configurable | Postgres only |
-| **M-40** | 1/2 vCPU | 4 GB RAM | configurable | Postgres only |
-| **M-80** | 1 vCPU | 8 GB RAM | configurable | Postgres only |
+| **M-10** | 1/8 vCPU | 1 GB RAM | configurable | Postgres and Neki |
+| **M-20** | 1/4 vCPU | 2 GB RAM | configurable | Postgres and Neki |
+| **M-40** | 1/2 vCPU | 4 GB RAM | configurable | Postgres and Neki |
+| **M-80** | 1 vCPU | 8 GB RAM | configurable | Postgres and Neki |
 | **M-160** | 2 vCPUs | 16 GB RAM | configurable | |
 | **M-320** | 4 vCPUs | 32 GB RAM | 229 GB | |
 | **M-320** | 4 vCPUs | 32 GB RAM | 929 GB | |

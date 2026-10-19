@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing
 title: "Cluster Sizing"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-19T18:03:33.192Z
+current_date: 2026-10-19T18:03:33.192Z
 ---
 
 Neki separates the Postgres instances that store data, the admin service that monitors and repairs clusters, and the routers that receive application connections. These layers are independently sized.
@@ -32,6 +32,8 @@ The cluster-size menu separates network-attached storage and Metal options.
 | **Metal** | Uses fixed-capacity, locally attached NVMe storage with unlimited IOPS. Metal requires a primary with replicas. |
 
 Metal sizes have fixed storage capacity. The dashboard checks current storage usage and disables sizes that do not leave the required storage margin.
+
+On AWS, when using the smaller Metal sizes (**M-10** through **M-160**) you can select the storage capacity separately from the vCPU and memory. The capacity is still fixed after you select it and does not autoscale. To get more storage, select a larger storage option or a larger size. See [Metal options on AWS](../../plans/planetscale-skus.md#metal-options-on-aws) for the full list.
 
 Use the profile’s **Storage** tab to configure network-attached storage disk capacity, autoscaling, IOPS, and bandwidth. See [Configure profile storage](../cluster-configuration.md#configure-profile-storage).
 
