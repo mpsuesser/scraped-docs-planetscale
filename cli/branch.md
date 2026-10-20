@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-10-19T17:45:20.278Z
-current_date: 2026-10-19T17:45:20.278Z
+access_date: 2026-10-20T11:44:21.288Z
+current_date: 2026-10-20T11:44:21.288Z
 ---
 
 ## Getting Started
@@ -123,11 +123,11 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, or shards in a Neki configuration profile. For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update` |
 | `--replicas <COUNT>` | Additional replica count for a Postgres branch resize, a Postgres or Neki backup restore, or shards in a Neki configuration profile. | `create`, `resize`, `config-profile create`, `config-profile update` |
 | `--read-only-replicas <COUNT>` | [Read-only replica](../neki/read-only-replicas.md) count for shards in a Neki configuration profile, from 0 to 8. | `config-profile create`, `config-profile update` |
-| `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list` for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
+| `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list --internal=false` to find parameters you can change for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
 | `--wait-timeout <DURATION>` | Maximum time to wait for the change request to complete with `--wait`. Default is `10m`. | `resize` |
 | `--namespace <NAMESPACE>` | Only show parameters in this namespace (e.g. `pgconf`, `pgbouncer`, `patroni`) | `parameters list` |
 | `--extension` | Only show parameters that configure an extension (`--extension=false` hides them) | `parameters list` |
-| `--internal` | Only show internal (immutable) parameters (`--internal=false` hides them) | `parameters list` |
+| `--internal` | Only show internal parameters, which cannot be changed (`--internal=false` hides them) | `parameters list` |
 | `--vtgate-size <SKU>` | VTGate size SKU (e.g. `VTG_320`, `VTG_1280`). Hyphens are accepted and converted to underscores. | `vtgate resize` |
 | `--vtgate-count <COUNT>` | Number of VTGates per availability zone (minimum when autoscaling is enabled) | `vtgate resize` |
 | `--vtgate-max-count <COUNT>` | Maximum VTGates per availability zone when autoscaling is enabled | `vtgate resize` |
@@ -360,6 +360,12 @@ pscale branch parameters list <DATABASE_NAME> <BRANCH_NAME> --namespace pgconf
 
 Lists the configuration parameters of a Postgres branch, including their current values, defaults, allowed ranges, and whether changing them requires a restart. Use `--namespace` to limit the output to a single namespace such as `pgconf`, `pgbouncer`, or `patroni`.
 
+By default, the list includes both internal parameters and parameters you can change. Use `--internal=false` to list only the parameters you can change:
+
+```shellscript
+pscale branch parameters list <DATABASE_NAME> <BRANCH_NAME> --internal=false
+```
+
 ### The resize sub-command
 
 **Command:**
@@ -369,6 +375,8 @@ pscale branch resize <DATABASE_NAME> <BRANCH_NAME> --parameters pgconf.max_conne
 ```
 
 Creates a change request for a Postgres branch. A single change request can update the cluster size (`--cluster-size`), the number of replicas (`--replicas`), and configuration parameters (`--parameters`, repeatable) together. With `--wait`, the command polls until the change request completes; without it, the command returns immediately and you can follow up with `resize status`.
+
+The CLI validates `--parameters` against the parameters returned by `parameters list --internal=false`. Parameters that do not exist or cannot be changed are rejected before a change request is submitted.
 
 Some parameters require a database restart to take effect; the command tells you which ones before the change is applied.
 

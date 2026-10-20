@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T11:44:21.288Z
+current_date: 2026-10-20T11:44:21.288Z
 ---
 
 You can configure your PlanetScale Postgres cluster settings in the “ **Parameters** ” tab on the Clusters page for your database.
@@ -28,8 +28,8 @@ You must be a database or organization administrator to modify these settings.
 You can also inspect and update parameters with the [PlanetScale CLI](../../cli/branch.md):
 
 ```shellscript
-# List the available parameters, their current values, and allowed ranges
-pscale branch parameters list <DATABASE_NAME> <BRANCH_NAME>
+# List the parameters you can change, their current values, and allowed ranges
+pscale branch parameters list <DATABASE_NAME> <BRANCH_NAME> --internal=false
 
 # Queue and apply a parameter change (repeat --parameters to set several at once)
 pscale branch resize <DATABASE_NAME> <BRANCH_NAME> --parameters pgconf.max_connections=200 --wait
@@ -39,7 +39,7 @@ pscale branch resize status <DATABASE_NAME> <BRANCH_NAME>
 pscale branch resize cancel <DATABASE_NAME> <BRANCH_NAME>
 ```
 
-Parameters are addressed as `namespace.name`, for example `pgconf.max_connections` for PostgreSQL settings or `pgbouncer.default_pool_size` for PgBouncer settings. See the [`branch` command reference](../../cli/branch.md) for all flags.
+The `--internal=false` flag excludes internal parameters, which cannot be changed. Parameters are addressed as `namespace.name`, for example `pgconf.max_connections` for PostgreSQL settings or `pgbouncer.default_pool_size` for PgBouncer settings. See the [`branch` command reference](../../cli/branch.md) for all flags.
 
 ## Tracking changes to parameters
 
