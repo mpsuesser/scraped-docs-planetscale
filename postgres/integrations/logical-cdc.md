@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/logical-cdc
 title: "Logical Cdc"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-20T14:50:33.635Z
+current_date: 2026-10-20T14:50:33.635Z
 ---
 
 ## What is logical replication?
@@ -47,10 +47,6 @@ If your CDC client sleeps for long periods, a failover can proceed before slots 
 | Parameter | Default | Description |
 | --- | --- | --- |
 | `logical_slot_sync_timeout` | `300s` | Time to wait for logical slot sync on standbys before failover proceeds. |
-
-Also, in the **Cluster configuration > Parameters** tab of the dashboard UI, under the Failover section, add a comma-delimited list of the replication slot(s) you will create to preserve during any switchover or failover events.
-
-Be sure to apply the queue of configuration changes before proceeding.
 
 ### Verify configuration
 
@@ -149,7 +145,6 @@ Before following these steps, confirm the following in your cluster’s **Parame
 
 - `hot_standby_feedback` is set to `on`
 - `sync_replication_slots` is set to `on`
-- The name of the replication slot is added to the **Logical slot name** parameter in the cluster configuration
 
 Altering the slot’s failover setting without these prerequisites in place will not protect it during a switchover or failover.
 
