@@ -2,48 +2,82 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-12T17:26:53.947Z
-current_date: 2026-10-12T17:26:53.947Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Discovery Tool
+
+> Assess your MySQL, MariaDB, or Vitess database and cloud infrastructure before migrating to PlanetScale Vitess.
 
 The PlanetScale Discovery Tool analyzes your existing MySQL-compatible database and cloud infrastructure to help plan your migration to PlanetScale Vitess. It collects metadata about your database configuration, schema structure, performance characteristics, replication topology, security settings, feature usage, and cloud resources. It never reads or stores actual table data.
 
 The Discovery CLI also supports PostgreSQL discovery. See the [Postgres Discovery Tool guide](../../postgres/imports/discovery-tool.md) for PlanetScale Postgres-specific details.
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=0b31181b42b682c2fada0a094d5ac94d)
-
-Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
-
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=b123c0823d1864683cb233f335f6b692)
-
-Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?fit=max\&auto=format\&n=YxnMMno34vnTE3Ub\&q=85\&s=f2efb9d5a29c396484b0c677b60e66bf)
 
 The tool produces a structured JSON report that PlanetScale uses to provide migration guidance tailored to your environment.
 
-The discovery tool is open source and available on [GitHub](https://github.com/planetscale/ps-discovery). Essential setup steps are below. Advanced usage, troubleshooting, and detailed reference are available in the [full documentation](https://github.com/planetscale/ps-discovery/tree/main/docs).
+> [!NOTE]
+>
+> The discovery tool is open source and available on [GitHub](https://github.com/planetscale/ps-discovery). Essential setup steps are below. Advanced usage, troubleshooting, and detailed reference are available in the [full documentation](https://github.com/planetscale/ps-discovery/tree/main/docs).
 
 ## What it discovers
 
 **Database analysis:**
 
-- MySQL version, distribution, configuration, server variables, and cloud platform
-- Schema structure, including databases, tables, columns, indexes, constraints, views, stored routines, triggers, and partitioning
-- Performance statistics such as global status counter rates, process list summaries, InnoDB lock counters, and deadlock detection
-- Replication configuration, including replica status, binary log inventory, binary log retention settings, and binary log format
-- Security configuration, including SSL/TLS status, authentication plugin distribution, password policy settings, and aggregate privilege summaries
-- Feature usage: full-text indexes, geospatial data types, foreign key constraints, table partitioning, InnoDB compression, XA transactions, prepared statements, Galera Cluster, and more
+* MySQL version, distribution, configuration, server variables, and cloud platform
+* Schema structure, including databases, tables, columns, indexes, constraints, views, stored routines, triggers, and partitioning
+* Performance statistics such as global status counter rates, process list summaries, InnoDB lock counters, and deadlock detection
+* Replication configuration, including replica status, binary log inventory, binary log retention settings, and binary log format
+* Security configuration, including SSL/TLS status, authentication plugin distribution, password policy settings, and aggregate privilege summaries
+* Feature usage: full-text indexes, geospatial data types, foreign key constraints, table partitioning, InnoDB compression, XA transactions, prepared statements, Galera Cluster, and more
 
 **Cloud infrastructure analysis:**
 
-- Database instances, clusters, and their configurations
-- RDS instances, Aurora clusters, Cloud SQL instances, and Azure Database for MySQL Flexible Servers
-- VPC networking, subnets, security groups, firewall rules, and private connectivity
-- Performance metrics from cloud monitoring services
-- High availability and replica configurations
+* Database instances, clusters, and their configurations
+* RDS instances, Aurora clusters, Cloud SQL instances, and Azure Database for MySQL Flexible Servers
+* VPC networking, subnets, security groups, firewall rules, and private connectivity
+* Performance metrics from cloud monitoring services
+* High availability and replica configurations
 
 ## Installation
 
 The discovery tool requires Python 3.10 or later.
+
+**1. Download and extract**
+
+Download the latest release from [GitHub](https://github.com/planetscale/ps-discovery/releases) and extract it:
+
+```bash theme={null}
+unzip ps-discovery-2.2.0.zip
+cd ps-discovery-2.2.0
+```
+
+**2. Run setup**
+
+The setup script verifies your Python version, creates a virtual environment, installs dependencies, and writes a starter `config.yaml`:
+
+```bash theme={null}
+chmod +x setup.sh
+./setup.sh
+```
+
+Select MySQL as the database engine during setup.
+
+**3. Configure credentials**
+
+Edit the generated configuration file to include your database and cloud provider credentials:
+
+```bash theme={null}
+nano config.yaml
+```
+
+At a minimum, configure your MySQL connection. See [Configuration](#configuration) below for the full format.
 
 For advanced installation options, see the [Discovery Tool README](https://github.com/planetscale/ps-discovery/blob/main/README.md).
 
@@ -51,7 +85,7 @@ For advanced installation options, see the [Discovery Tool README](https://githu
 
 Create a dedicated read-only user for the discovery tool. Connect to your MySQL-compatible database as a privileged user and run the following:
 
-```sql
+```sql theme={null}
 -- Create a dedicated user for database discovery
 CREATE USER 'planetscale_discovery'@'%' IDENTIFIED BY 'secure_password_here';
 
@@ -68,7 +102,9 @@ GRANT REPLICATION CLIENT ON *.* TO 'planetscale_discovery'@'%';
 FLUSH PRIVILEGES;
 ```
 
-On Amazon RDS, Aurora MySQL, Google Cloud SQL for MySQL, Azure Database for MySQL, MariaDB, and Percona Server, create the user through your administrative database user. Some managed services restrict access to certain system tables. The discovery tool reports those gaps and continues with the data it can collect.
+> [!NOTE]
+>
+> On Amazon RDS, Aurora MySQL, Google Cloud SQL for MySQL, Azure Database for MySQL, MariaDB, and Percona Server, create the user through your administrative database user. Some managed services restrict access to certain system tables. The discovery tool reports those gaps and continues with the data it can collect.
 
 ### PlanetScale and Vitess credentials
 
@@ -76,7 +112,7 @@ For PlanetScale databases, your existing branch credentials are sufficient. The 
 
 Add your branch credentials to `config.yaml`:
 
-```yaml
+```yaml theme={null}
 engine: mysql
 
 mysql:
@@ -89,21 +125,23 @@ mysql:
 
 Then run discovery with the values from the config file:
 
-```shellscript
+```bash theme={null}
 ./ps-discovery --config config.yaml
 ```
 
 **PlanetScale and Vitess-specific behavior:**
 
-- The tool detects scoped `information_schema` in Vitess and automatically falls back to per-database iteration
-- System databases such as `_vt`, `mysql`, and `performance_schema` are excluded
-- Features not supported by Vitess are detected and reported
+* The tool detects scoped `information_schema` in Vitess and automatically falls back to per-database iteration
+* System databases such as `_vt`, `mysql`, and `performance_schema` are excluded
+* Features not supported by Vitess are detected and reported
 
 ### MySQL cleanup
 
-After MySQL discovery is complete, remove the `planetscale_discovery` user from your database. This user has read access to your schema and system metadata and should not be left in place.
+> [!WARNING]
+>
+> After MySQL discovery is complete, remove the `planetscale_discovery` user from your database. This user has read access to your schema and system metadata and should not be left in place.
 
-```sql
+```sql theme={null}
 DROP USER IF EXISTS 'planetscale_discovery'@'%';
 ```
 
@@ -111,7 +149,7 @@ DROP USER IF EXISTS 'planetscale_discovery'@'%';
 
 The discovery tool uses a YAML configuration file. Running `./ps-discovery` loads `./config.yaml` by default. Configure the `mysql` block for database discovery and enable any cloud providers you want included:
 
-```yaml
+```yaml theme={null}
 engine: mysql
 
 mysql:
@@ -138,7 +176,7 @@ output:
 
 Set `database` to a specific database name to focus analysis on one database:
 
-```yaml
+```yaml theme={null}
 engine: mysql
 
 mysql:
@@ -154,19 +192,21 @@ mysql:
 
 Run discovery with the generated `config.yaml`:
 
-```shellscript
+```bash theme={null}
 ./ps-discovery
 ```
 
 Or point to a specific config file:
 
-```shellscript
+```bash theme={null}
 ./ps-discovery --config config.yaml
 ```
 
 The tool produces a timestamped JSON file in your configured output directory, such as `planetscale_discovery_results_20260708T072229.json`. Share this report with PlanetScale for migration planning assistance.
 
-Once MySQL discovery is complete, remember to [clean up](#mysql-cleanup) the `planetscale_discovery` user you created on your source database.
+> [!NOTE]
+>
+> Once MySQL discovery is complete, remember to [clean up](#mysql-cleanup) the `planetscale_discovery` user you created on your source database.
 
 ## Cloud provider setup
 
@@ -178,21 +218,21 @@ The tool discovers RDS instances, Aurora clusters, VPC networking, security grou
 
 **Authentication** (choose one):
 
-- AWS profile
-- IAM instance profile when running on EC2
-- Access key and secret key
-- IAM role assumption for cross-account access
+* AWS profile
+* IAM instance profile when running on EC2
+* Access key and secret key
+* IAM role assumption for cross-account access
 
 **Required permissions:**
 
-- RDS: `DescribeDBInstances`, `DescribeDBClusters`, `DescribeDBSubnetGroups`, `DescribeDBClusterParameterGroups`, `DescribeDBParameterGroups`, `DescribeOptionGroups`
-- EC2: `DescribeVpcs`, `DescribeSubnets`, `DescribeSecurityGroups`, `DescribeRouteTables`, `DescribeInternetGateways`, `DescribeNatGateways`, `DescribeVpcEndpoints`
-- CloudWatch: `GetMetricData`, `ListMetrics`
-- STS: `GetCallerIdentity`
+* RDS: `DescribeDBInstances`, `DescribeDBClusters`, `DescribeDBSubnetGroups`, `DescribeDBClusterParameterGroups`, `DescribeDBParameterGroups`, `DescribeOptionGroups`
+* EC2: `DescribeVpcs`, `DescribeSubnets`, `DescribeSecurityGroups`, `DescribeRouteTables`, `DescribeInternetGateways`, `DescribeNatGateways`, `DescribeVpcEndpoints`
+* CloudWatch: `GetMetricData`, `ListMetrics`
+* STS: `GetCallerIdentity`
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   aws:
     enabled: true
@@ -212,7 +252,7 @@ providers:
 
 You can also focus discovery on specific AWS resources:
 
-```yaml
+```yaml theme={null}
 providers:
   aws:
     enabled: true
@@ -233,19 +273,19 @@ The tool discovers Cloud SQL instances, VPC networks, firewall rules, and Cloud 
 
 **Authentication** (choose one):
 
-- Service account key file
-- Application Default Credentials
-- Environment variables
+* Service account key file
+* Application Default Credentials
+* Environment variables
 
 **Required APIs** (must be enabled in your project):
 
-- Cloud SQL Admin API
-- Compute Engine API
-- Cloud Monitoring API
+* Cloud SQL Admin API
+* Compute Engine API
+* Cloud Monitoring API
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   gcp:
     enabled: true
@@ -260,7 +300,7 @@ providers:
 
 You can also focus discovery on specific Google Cloud resources:
 
-```yaml
+```yaml theme={null}
 providers:
   gcp:
     enabled: true
@@ -280,18 +320,18 @@ The tool discovers Azure Database for MySQL Flexible Servers, virtual networks, 
 
 **Authentication** (choose one):
 
-- Service principal with the Reader role (recommended)
-- Azure CLI (`az login`) or a managed identity
-- `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
+* Service principal with the Reader role (recommended)
+* Azure CLI (`az login`) or a managed identity
+* `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
 
 **Required permissions:**
 
-- Built-in Reader role at subscription or resource-group scope
-- Resource providers registered on the subscription: `Microsoft.DBforMySQL` and `Microsoft.Network`
+* Built-in Reader role at subscription or resource-group scope
+* Resource providers registered on the subscription: `Microsoft.DBforMySQL` and `Microsoft.Network`
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   azure:
     enabled: true
@@ -305,7 +345,7 @@ providers:
 
 You can also sign in with `az login` and omit the `credentials` block, or focus discovery on specific servers:
 
-```yaml
+```yaml theme={null}
 providers:
   azure:
     enabled: true
@@ -322,7 +362,9 @@ providers:
 
 The default database analyzers are safe to run against production databases. They use read-only queries against system catalogs and statistics views, with very low performance impact.
 
-The discovery tool can query metadata and statistics across every accessible database when the `database` field is empty. For environments with many databases or very large schemas, consider targeting one database at a time or running the tool against a replica.
+> [!WARNING]
+>
+> The discovery tool can query metadata and statistics across every accessible database when the `database` field is empty. For environments with many databases or very large schemas, consider targeting one database at a time or running the tool against a replica.
 
 ## Privacy and security
 
@@ -336,16 +378,19 @@ The discovery tool runs entirely on your infrastructure. No data is sent to exte
 
 Once you have your discovery report, [share it with us](https://planetscale.com/contact) if you want tailored migration guidance. You can also follow one of our migration guides on your own:
 
-## Database imports
+> **[Database imports](database-imports.md)**
 
-## Migrate from AWS RDS
+> **[Migrate from AWS RDS](aws-rds-migration-guide.md)**
 
-## Migrate from Amazon Aurora
+> **[Migrate from Amazon Aurora](amazon-aurora-migration-guide.md)**
 
-## Migrate from Google Cloud SQL
+> **[Migrate from Google Cloud SQL](gcp-cloudsql-migration-guide.md)**
 
-## Migrate from Azure
+> **[Migrate from Azure](azure-database-for-mysql-migration-guide.md)**
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

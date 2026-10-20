@@ -2,17 +2,19 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-dark.png?w=2500&fit=max&auto=format&n=Ez_PNQOyZBhNfDDQ&q=85&s=5f39af621dd68f69789cdc1551534e8c)
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-Insights tags
+# Tags
 
-![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-light.png?w=2500&fit=max&auto=format&n=Ez_PNQOyZBhNfDDQ&q=85&s=783690190be8b389b80b394ebae20b69)
+> Attach key-value metadata to SQL statements to filter performance data in Insights.
 
-Insights tags
+![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-light.png?fit=max\&auto=format\&n=Ez_PNQOyZBhNfDDQ\&q=85\&s=fa09e8d424f13817db98b2528dd1fc7f)
 
 ## Overview
 
@@ -24,7 +26,7 @@ Tags follow the [SQLCommenter](https://google.github.io/sqlcommenter/) specifica
 
 A tag comment is appended to the SQL statement inside `/* */` delimiters. Each tag is a `key='value'` pair, and multiple tags are separated by commas:
 
-```sql
+```sql theme={null}
 SELECT *
 FROM orders
 WHERE status = 'pending'
@@ -33,24 +35,28 @@ WHERE status = 'pending'
 
 This example would create the following tags in the PlanetScale dashboard:
 
-- **app:** `web`
-- **route:** `api-export`
+* **app:** `web`
+* **route:** `api-export`
 
 Values are URL-encoded and wrapped in single quotes, following the [SQLCommenter specification](https://google.github.io/sqlcommenter/spec/).
 
-Tags must appear **before** the semicolon that ends the SQL statement. Tags placed after the semicolon are not recognized by PlanetScale.
+> [!WARNING]
+>
+> Tags must appear **before** the semicolon that ends the SQL statement. Tags placed after the semicolon are not recognized by PlanetScale.
+>
+> ```sql theme={null}
+> -- Correct: tag before semicolon
+> SELECT 1 /*category='analytics'*/;
+>
+> -- Incorrect: tag after semicolon
+> SELECT 1; /*category='analytics'*/
+> ```
+>
+> When a tag appears after the semicolon, the database treats it as a separate statement (a no-op comment), so Insights sees only the original query without any tags.
 
-```sql
--- Correct: tag before semicolon
-SELECT 1 /*category='analytics'*/;
-
--- Incorrect: tag after semicolon
-SELECT 1; /*category='analytics'*/
-```
-
-When a tag appears after the semicolon, the database treats it as a separate statement (a no-op comment), so Insights sees only the original query without any tags.
-
-If you’re sending queries with comments using the MySQL shell, make sure you have [enabled comments with the `-c` flag](https://dev.mysql.com/doc/refman/en/mysql-command-options.html#option_mysql_comments).
+> [!NOTE]
+>
+> If you're sending queries with comments using the MySQL shell, make sure you have [enabled comments with the `-c` flag](https://dev.mysql.com/doc/refman/en/mysql-command-options.html#option_mysql_comments).
 
 ## Where tags appear in PlanetScale
 
@@ -58,13 +64,13 @@ If you’re sending queries with comments using the MySQL shell, make sure you h
 
 Queries in the Insights page can be filtered by tags by using the search bar. For example, to filter for queries with the tag `action='analytics'`, use the following syntax:
 
-```text
+```
 tag:action:analytics
 ```
 
 ### Insights → Tags
 
-“Tags” is a top-level item under [Insights](query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
+"Tags" is a top-level item under [Insights](query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
 
 You can also see the tags associated with a query on the query details page (click on the query text from the list in Insights).
 
@@ -74,8 +80,8 @@ You can attach tags with any cardinality. When a tag produces too many distinct 
 
 Tag values may be collapsed when either of these limits is exceeded:
 
-- Any query pattern has more than 20 values for the tag
-- Any query pattern has more than 50 distinct combinations of tag values within a 15-second period
+* Any query pattern has more than 20 values for the tag
+* Any query pattern has more than 50 distinct combinations of tag values within a 15-second period
 
 When a tag value is collapsed, PlanetScale removes the original value and reports it as `Collapsed` in the query details page.
 
@@ -90,7 +96,7 @@ There are two approaches to tagging queries: using an SQLCommenter integration t
 The [SQLCommenter project](https://google.github.io/sqlcommenter/) provides middleware and plugins for several frameworks and ORMs that automatically attach tags to every query:
 
 | Language | Supported frameworks / ORMs |
-| --- | --- |
+| - | - |
 | Python | Django, SQLAlchemy, Flask |
 | Java | Hibernate, Spring |
 | Node.js | Knex.js, Sequelize.js, Express.js |
@@ -102,7 +108,9 @@ The [SQLCommenter project](https://google.github.io/sqlcommenter/) provides midd
 
 These integrations typically inject framework-level context like the route, controller, and framework version. Some support adding custom key-value pairs.
 
-Several popular ORMs and query builders used with PlanetScale do not have official SQLCommenter support, including **Bun** and **Kysely**. If you use one of these, see [manual tagging](#manual-tagging) below.
+> [!NOTE]
+>
+> Several popular ORMs and query builders used with PlanetScale do not have official SQLCommenter support, including **Bun** and **Kysely**. If you use one of these, see [manual tagging](#manual-tagging) below.
 
 ### Manual tagging
 
@@ -110,7 +118,7 @@ If your ORM or query builder does not have an SQLCommenter plugin, you can appen
 
 #### Raw SQL
 
-```sql
+```sql theme={null}
 SELECT * 
 FROM orders
 WHERE user_id = ?
@@ -119,7 +127,7 @@ WHERE user_id = ?
 
 #### With a query builder
 
-```typescript
+```typescript theme={null}
 // Example using Kysely
 const result = await db
   .selectFrom('orders')
@@ -131,15 +139,17 @@ const result = await db
   });
 ```
 
-The exact mechanism for appending a comment varies by library. Some query builders support a comment or annotation option, while others require you to modify the SQL string directly. Check your library’s documentation for the best approach.
+> [!NOTE]
+>
+> The exact mechanism for appending a comment varies by library. Some query builders support a comment or annotation option, while others require you to modify the SQL string directly. Check your library's documentation for the best approach.
 
 #### Encoding rules
 
 When adding tags manually, follow these rules from the SQLCommenter specification:
 
-- **URL-encode** values that contain special characters. For example, `/api/export` becomes `%2Fapi%2Fexport`.
-- **Escape** single quotes within values with a backslash: `name='O\'Brien'`.
-- **Sort** key-value pairs lexicographically by key if you want to match the specification exactly, though PlanetScale does not require a specific order.
+* **URL-encode** values that contain special characters. For example, `/api/export` becomes `%2Fapi%2Fexport`.
+* **Escape** single quotes within values with a backslash: `name='O\'Brien'`.
+* **Sort** key-value pairs lexicographically by key if you want to match the specification exactly, though PlanetScale does not require a specific order.
 
 ## Troubleshooting
 
@@ -149,17 +159,20 @@ The most common cause is **tag placement**. Tags must appear before the semicolo
 
 If your tags are correctly placed and still not appearing:
 
-- Verify that your queries are being executed and appear in the [Insights queries table](query-insights.md)
-- Check that you are searching with the correct syntax: `tag:key:value` (for example, `tag:category:analytics`)
-- If you’re using the MySQL shell, confirm you have [enabled comments with the `-c` flag](https://dev.mysql.com/doc/refman/en/mysql-command-options.html#option_mysql_comments)
+* Verify that your queries are being executed and appear in the [Insights queries table](query-insights.md)
+* Check that you are searching with the correct syntax: `tag:key:value` (for example, `tag:category:analytics`)
+* If you're using the MySQL shell, confirm you have [enabled comments with the `-c` flag](https://dev.mysql.com/doc/refman/en/mysql-command-options.html#option_mysql_comments)
 
 ### ORM is stripping comments
 
 Some ORMs and connection poolers may strip SQL comments before sending queries to the database. If you have added tags but they are not appearing:
 
-- Check whether your ORM has a setting to preserve SQL comments
-- If you use a connection pooler, verify that it is not configured to strip comments
+* Check whether your ORM has a setting to preserve SQL comments
+* If you use a connection pooler, verify that it is not configured to strip comments
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

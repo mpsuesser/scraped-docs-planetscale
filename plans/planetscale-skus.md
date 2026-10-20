@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/planetscale-skus
 title: "Planetscale Skus"
 description: ""
-access_date: 2026-10-19T18:03:33.192Z
-current_date: 2026-10-19T18:03:33.192Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-19T18:03:33.192Z
 
 > Here you'll find a complete list of all the database sizes available to you on PlanetScale.
 
-**Platform availability:** Vitess and Postgres
+Vitess and Postgres
 
 If your needs exceed what is available here, we can easily spin up additional sizes for you. Just [reach out](https://planetscale.com/contact) and let us know. We also support [sharding](https://planetscale.com/sharding) on Vitess clusters.
 

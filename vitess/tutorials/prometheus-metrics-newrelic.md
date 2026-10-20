@@ -2,11 +2,19 @@
 url: https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-newrelic
 title: "Prometheus Metrics Newrelic"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-While this tutorial is written for New Relic, using Prometheus’ remote write is a common pattern for sending metrics to [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), [Google Cloud Managed Service for Prometheus](https://cloud.google.com/stackdriver/docs/managed-prometheus), [Grafana hosted Prometheus](https://grafana.com/products/cloud/metrics/) and many other tools.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Sending Prometheus Metrics to New Relic
+
+> If you're looking for your PlanetScale database metrics in your New Relic account, this tutorial will show how to configure a [Prometheus](https://prometheus.io/) instance to scrape PlanetScale's [Prometheus infrastructure](../integrations/prometheus.md) automatically, allowing you to collect detailed metrics for all of your PlanetScale branches.
+
+While this tutorial is written for New Relic, using Prometheus' remote write is a common pattern for sending metrics to [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), [Google Cloud Managed Service for Prometheus](https://cloud.google.com/stackdriver/docs/managed-prometheus), [Grafana hosted Prometheus](https://grafana.com/products/cloud/metrics/) and many other tools.
 
 For more information on Prometheus Remote Write and New Relic, see the [New Relic documentation on sending Prometheus metric data](https://docs.newrelic.com/docs/infrastructure/prometheus-integrations/get-started/send-prometheus-metric-data-new-relic/).
 
@@ -16,22 +24,22 @@ In this tutorial, we will be using an instance of [Prometheus](https://prometheu
 
 The default configuration we will create will send all PlanetScale metrics to New Relic, and we will cover how to filter to drop certain metrics that may not be desired.
 
-In order to proceed, you’ll need:
+In order to proceed, you'll need:
 
-- A [New Relic API Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/), make sure it is the `Ingest - License` type.
-- PlanetScale [Service token](../../api/reference/service-tokens.md) with `read_metrics_endpoints` permissions.
+* A [New Relic API Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/), make sure it is the `Ingest - License` type.
+* PlanetScale [Service token](../../api/reference/service-tokens.md) with `read_metrics_endpoints` permissions.
 
 ## Prometheus Installation
 
-First, let’s download the latest release of Prometheus and create our user that is going to run it. We’ll be using the latest 3.x release from the [GitHub Releases Page](https://github.com/prometheus/prometheus/releases).
+First, let's download the latest release of Prometheus and create our user that is going to run it. We'll be using the latest 3.x release from the [GitHub Releases Page](https://github.com/prometheus/prometheus/releases).
 
 Create a `prometheus` user:
 
-```shellscript
+```bash theme={null}
 $ sudo useradd -M -U prometheus
 ```
 
-```shellscript
+```bash theme={null}
 $ wget https://github.com/prometheus/prometheus/releases/download/v3.2.1/prometheus-3.2.1.linux-amd64.tar.gz
 $ tar xf prometheus-3.2.1.linux-amd64.tar.gz
 $ sudo mv prometheus-3.2.1.linux-amd64/ /opt/prometheus
@@ -42,9 +50,9 @@ This has put the Prometheus binary in `/opt/prometheus` along with the example c
 
 ## Create our Systemd Unit File
 
-Now that we have the binary in place, let’s setup Systemd to run Prometheus by creating a Unit File in `/etc/systemd/system/prometheus.service` with the following contents:
+Now that we have the binary in place, let's setup Systemd to run Prometheus by creating a Unit File in `/etc/systemd/system/prometheus.service` with the following contents:
 
-```ini
+```ini expandable theme={null}
 [Unit]
 Description=Prometheus Agent
 Documentation=https://prometheus.io/
@@ -66,9 +74,9 @@ WantedBy=multi-user.target
 
 ## Configure Prometheus
 
-Now that we’ve got Prometheus installed and a unit file present, let’s configure Prometheus. We will be borrowing some of our configuration from the [Prometheus Guide](../integrations/prometheus.md), and adding some New Relic specific configuration. Edit `/opt/prometheus/prometheus.yml` in your editor of choice so that it contains this, making sure to replace your org name, service token information, and New Relic API key:
+Now that we've got Prometheus installed and a unit file present, let's configure Prometheus. We will be borrowing some of our configuration from the [Prometheus Guide](../integrations/prometheus.md), and adding some New Relic specific configuration. Edit `/opt/prometheus/prometheus.yml` in your editor of choice so that it contains this, making sure to replace your org name, service token information, and New Relic API key:
 
-```yaml
+```yaml theme={null}
 global:
   scrape_interval: 1m
 scrape_configs:
@@ -87,27 +95,27 @@ remote_write:
 
 This configuration file does the following:
 
-- Configures Prometheus to discover scraping endpoints from the PlanetScale API using a service token
-- Points Prometheus to write the metrics it scrapes from PlanetScale to the New Relic API
+* Configures Prometheus to discover scraping endpoints from the PlanetScale API using a service token
+* Points Prometheus to write the metrics it scrapes from PlanetScale to the New Relic API
 
 ## Starting Prometheus
 
-Now that we have a Systemd unit file and a configured Prometheus, let’s run it!
+Now that we have a Systemd unit file and a configured Prometheus, let's run it!
 
-```shellscript
+```bash theme={null}
 $ sudo systemctl daemon-reload
 $ sudo systemctl start prometheus.service
 ```
 
 We can also tell Systemd to run Prometheus when my VM boots:
 
-```shellscript
+```bash theme={null}
 $ sudo systemctl enable prometheus.service
 ```
 
-Now, let’s check to make sure everything is running properly:
+Now, let's check to make sure everything is running properly:
 
-```shellscript
+```bash expandable theme={null}
 $ sudo systemctl status prometheus.service
 ● prometheus.service - Prometheus Agent
      Loaded: loaded (/etc/systemd/system/prometheus.service; enabled; preset: enabled)
@@ -135,9 +143,9 @@ This reports that prometheus is `active (running)`, and I can see the logs showi
 
 ## Querying on New Relic
 
-After a couple of minutes, head over to your New Relic dashboard and we can query for your database metrics. First, let’s get a list of the database branches in the `nick` organization that I’m using to test:
+After a couple of minutes, head over to your New Relic dashboard and we can query for your database metrics. First, let's get a list of the database branches in the `nick` organization that I'm using to test:
 
-```shellscript
+```bash theme={null}
 $ pscale branch list test --org nick
   ID             NAME         PARENT BRANCH   REGION    PRODUCTION   SAFE MIGRATIONS   READY   CREATED AT     UPDATED AT
  -------------- ------------ --------------- --------- ------------ ----------------- ------- -------------- ----------------
@@ -145,27 +153,25 @@ $ pscale branch list test --org nick
   6o0rr27785fl   partitions   main            us-east   No           No                Yes     2 months ago   7 minutes ago
 ```
 
-For this, we’ll use the `7wxuxewx4l0p` branch.
+For this, we'll use the `7wxuxewx4l0p` branch.
 
-Using New Relic’s NRQL, we can visualize the memory usage of my VTTablet instances with the following query:
+Using New Relic's NRQL, we can visualize the memory usage of my VTTablet instances with the following query:
 
-```sql
+```sql theme={null}
 FROM Metric SELECT average(planetscale_pods_cpu_util_percentages) WHERE planetscale_database_branch_id = '7wxuxewx4l0p' AND planetscale_component='vttablet' SINCE 30 minutes AGO TIMESERIES FACET planetscale_pod
 ```
 
 Because my `main` branch is production, we will see the memory usage for my primary and both my replicas over the last 30 minutes:
 
-![New Relic Memory Query](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-new-relic-dashboard.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=be8e23998f1f42ae6b87efb1aad5895e)
-
-New Relic Memory Query
+![New Relic Memory Query](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-new-relic-dashboard.png?fit=max\&auto=format\&n=qp-ZKr_vKb0iLpeb\&q=85\&s=63d2958ae54d53e76643c09f0db60a66)
 
 ## Filtering Metrics
 
-If you don’t want to ingest every metric into New Relic, you can tell Prometheus to drop certain metrics. For more information, see the [New Relic Documentation](https://docs.newrelic.com/docs/infrastructure/prometheus-integrations/install-configure-remote-write/set-your-prometheus-remote-write-integration/#allow-deny).
+If you don't want to ingest every metric into New Relic, you can tell Prometheus to drop certain metrics. For more information, see the [New Relic Documentation](https://docs.newrelic.com/docs/infrastructure/prometheus-integrations/install-configure-remote-write/set-your-prometheus-remote-write-integration/#allow-deny).
 
 If we adjust our Prometheus configuration that we have in `/opt/prometheus/prometheus.yml` we can instruct Prometheus to drop all metrics unless they match a certain naming convention:
 
-```yaml
+```yaml theme={null}
 remote_write:
   - url: https://metric-api.newrelic.com/prometheus/v1/write?prometheus_server=planetscale
     authorization:
@@ -175,12 +181,15 @@ remote_write:
     action: keep
 ```
 
-If you replace your `remote_write` block with what’s above, Prometheus will only forward the timeseries that match the `planetscale_pods_*` name. For a full list of metrics, see our [Metric List](../integrations/prometheus-metrics.md).
+If you replace your `remote_write` block with what's above, Prometheus will only forward the timeseries that match the `planetscale_pods_*` name. For a full list of metrics, see our [Metric List](../integrations/prometheus-metrics.md).
 
-## What’s Next?
+## What's Next?
 
 Now that you have your branch metrics in New Relic, you can create dashboards and alerts for conditions such as high CPU or replication delay.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

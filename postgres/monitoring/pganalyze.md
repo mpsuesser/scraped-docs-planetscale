@@ -2,25 +2,37 @@
 url: https://planetscale.com/docs/postgres/monitoring/pganalyze
 title: "Pganalyze"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# pganalyze collector
+
+> Set up pganalyze monitoring on your PlanetScale Postgres databases for query analysis, performance insights, log collection, and alerting through the pganalyze platform.
 
 ## Overview
 
 pganalyze is an advanced monitoring and analytics platform built specifically for PostgreSQL databases, enabling visibility into query performance, system activity, and logs. To use this with PlanetScale, you must run an instance of the [pganalyze collector](https://github.com/pganalyze/collector). This is a monitoring tool designed to collect PostgreSQL logs, query statistics, and system metrics.
 
-Data is sent to the pganalyze platform through this collector for visualization, alerting, and analysis, providing deep insights into your database’s performance.
+Data is sent to the pganalyze platform through this collector for visualization, alerting, and analysis, providing deep insights into your database's performance.
 
-PlanetScale provides [Query Insights](query-insights.md) and [detailed metrics](metrics.md) as a part of every Postgres database. These combined with our in-app logs view typically provide more than enough detail to monitor cluster health and query performance. We recommend pganalyze for those who have specific additional analytics needs not covered by our built-in tools.
+> [!NOTE]
+>
+> PlanetScale provides [Query Insights](query-insights.md) and [detailed metrics](metrics.md) as a part of every Postgres database.
+> These combined with our in-app logs view typically provide more than enough detail to monitor cluster health and query performance.
+> We recommend pganalyze for those who have specific additional analytics needs not covered by our built-in tools.
 
 ## Prerequisites
 
-Before setting up the pganalyze collector, you’ll need:
+Before setting up the pganalyze collector, you'll need:
 
-- A [pganalyze account](https://pganalyze.com/)
-- A PlanetScale Postgres database
-- If you want to use log analytics, you’ll also need a [PlanetScale Service Token](../../api/reference/service-tokens.md) with appropriate permissions. This guide assumes you will set up log analytics.
+* A [pganalyze account](https://pganalyze.com/)
+* A PlanetScale Postgres database
+* If you want to use log analytics, you'll also need a [PlanetScale Service Token](../../api/reference/service-tokens.md) with appropriate permissions. This guide assumes you will set up log analytics.
 
 ## Getting started
 
@@ -28,17 +40,52 @@ Before setting up the pganalyze collector, you’ll need:
 
 First, create a Service Token in your PlanetScale organization that the collector will use to access your database branch information and logs:
 
+**Step 1**
+
+Navigate to your Organization Settings in PlanetScale
+
+**Step 2**
+
+Go to the **Service tokens** section and click **Create service token**
+
+**Step 3**
+
+Give your token a descriptive name (e.g., "pganalyze-collector")
+
+**Step 4**
+
+Grant the token `read_branch` capabilities, which is required for pganalyze to fetch branch information
+
+**Step 5**
+
+Click **Create service token** and save both the **Token ID** and **Token** securely. You won't be able to see the token again.
+
 ### Step 2: Create a pganalyze API key
+
+**Step 1**
+
+Log in to your [pganalyze account](https://app.pganalyze.com/)
+
+**Step 2**
+
+Navigate to **Settings** > **API Keys**
+
+**Step 3**
+
+Select **Collector API key** and then create the key
 
 ### Step 3: Get your PlanetScale database connection details
 
-You’ll need the following information from your PlanetScale database: your **organization name** (the organization slug), your **database name** (the name of your Postgres database), and the **branch name** that you want to monitor (for example, `main`).
+You'll need the following information from your PlanetScale database: your **organization name** (the organization slug), your **database name** (the name of your Postgres database), and the **branch name** that you want to monitor (for example, `main`).
 
-You will also need to create a role that the pganalyze collector will connect to your database with. Follow our [connections quickstart guide](../connecting/quickstart.md) for instructions on how to create a new role. When doing so, ensure to give it a descriptive name (e.g., `pganalyze-collector`) and enable only the `pg_monitor` role permission.
+You will also need to create a role that the pganalyze collector will connect to your database with.
+Follow our [connections quickstart guide](../connecting/quickstart.md) for instructions on how to create a new role.
+When doing so, ensure to give it a descriptive name (e.g., `pganalyze-collector`) and enable only the `pg_monitor` role permission.
 
-After creating this role, you must run a few additional SQL commands to ensure it has the necessary schema and access for monitoring. Run the following to create the pganalyze schema:
+After creating this role, you must run a few additional SQL commands to ensure it has the necessary schema and access for monitoring.
+Run the following to create the pganalyze schema:
 
-```sql
+```sql theme={null}
 CREATE SCHEMA pganalyze;
 GRANT USAGE ON SCHEMA pganalyze TO your_username;
 GRANT USAGE ON SCHEMA public TO your_username;
@@ -48,7 +95,7 @@ Note that `your_username` should not include the `.branch_id` at the end of it. 
 
 Finally, add these two functions to this newly-created schema:
 
-```sql
+```sql theme={null}
 DROP FUNCTION IF EXISTS pganalyze.get_column_stats;
 CREATE FUNCTION pganalyze.get_column_stats() RETURNS TABLE(
   schemaname name, tablename name, attname name, inherited bool, null_frac real, avg_width int, n_distinct real, correlation real
@@ -84,23 +131,27 @@ On PlanetScale, you must first enable the `pg_stat_statements` extension in the 
 2. Find `pg_stat_statements` and click the checkbox to enable it, tuning parameters from the defaults if needed.
 3. Enqueue and apply the change.
 
+Applying the change to enable this extension will cause direct connections to be terminated.
+Ensure you are able to handle connection interruptions before applying this change.
+
 After enabling in the UI, you must also enable the extension in your database by running:
 
-```sql
+```sql theme={null}
 CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
 ```
 
 Verify the extension is enabled by running:
 
-```sql
+```sql theme={null}
 SELECT * FROM pg_extension WHERE extname = 'pg_stat_statements';
 ```
 
 ## Configuration
 
-The pganalyze collector is configured using a configuration file. Create a file named `pganalyze_collector.conf`:
+The pganalyze collector is configured using a configuration file.
+Create a file named `pganalyze_collector.conf`:
 
-```ini
+```ini theme={null}
 [pganalyze]
 # pganalyze API key
 api_key = your_pganalyze_api_key
@@ -126,11 +177,15 @@ planetscale_token_id = your_service_token_id
 planetscale_token_secret = your_service_token_secret
 ```
 
-The `db_username` should include your branch ID in the format `username.branch_id`. You can find this in the connection string provided by PlanetScale.
+> [!NOTE]
+>
+> The `db_username` should include your branch ID in the format `username.branch_id`. You can find this in the connection string provided by PlanetScale.
 
 ## Installation and deployment
 
-The collector can be downloaded using [pre-built packages](https://pganalyze.com/docs/collector/packages) or optionally built from source. The pganalyze website has [instructions for installing it](https://pganalyze.com/docs/install/self_managed/03_install_the_collector) on various operating systems and Docker. Choose whichever is most appropriate for your development environment.
+The collector can be downloaded using [pre-built packages](https://pganalyze.com/docs/collector/packages) or optionally built from source.
+The pganalyze website has [instructions for installing it](https://pganalyze.com/docs/install/self_managed/03_install_the_collector) on various operating systems and Docker.
+Choose whichever is most appropriate for your development environment.
 
 When deploying the collector, use the configuration options covered in the previous section.
 
@@ -138,21 +193,40 @@ When deploying the collector, use the configuration options covered in the previ
 
 After deploying the collector, you should verify that it is working correctly.
 
+**Step 1**
+
+Log in to your [pganalyze dashboard](https://app.pganalyze.com/)
+
+**Step 2**
+
+Select your PlanetScale database and branch combination from the servers dropdown list
+
+**Step 3**
+
+Navigate through the different sections to verify data collection. For example:
+
+* **Query Performance**: View slow query analysis, execution times, and optimization recommendations
+* **Log Insights**: Review parsed log entries with error detection and categorization
+* **Connections**: Check connection counts and database activity metrics
+
 If data is not appearing, check the collector logs to see if there are authentication or connectivity issues between pganalyze and PlanetScale.
 
 ## Limitations
 
 Current settings / limitations of the pganalyze integration with PlanetScale Postgres:
 
-- **System metrics**: Detailed system metrics (CPU, memory, disk I/O) from the database host are not available through the collector. Use [PlanetScale’s Prometheus metrics](prometheus-postgres.md) for system-level monitoring.
-- **Log polling interval**: Logs are collected every 30 seconds, matching the collector’s default polling interval.
+* **System metrics**: Detailed system metrics (CPU, memory, disk I/O) from the database host are not available through the collector. Use [PlanetScale's Prometheus metrics](prometheus-postgres.md) for system-level monitoring.
+* **Log polling interval**: Logs are collected every 30 seconds, matching the collector's default polling interval.
 
 ## Next steps
 
-- **Explore pganalyze**: Learn about [query performance insights](https://pganalyze.com/docs/query-performance) and [log insights](https://pganalyze.com/log-insights)
-- **Monitor additional metrics**: Complement pganalyze monitoring with [Prometheus metrics](prometheus-postgres.md)
-- **Leverage PlanetScale Insights and schema recommendations**: Use [PlanetScale Insights](query-insights.md) for actionable query analytics, and explore [schema recommendations](schema-recommendations.md) to improve your database structure alongside pganalyze monitoring.
+* **Explore pganalyze**: Learn about [query performance insights](https://pganalyze.com/docs/query-performance) and [log insights](https://pganalyze.com/log-insights)
+* **Monitor additional metrics**: Complement pganalyze monitoring with [Prometheus metrics](prometheus-postgres.md)
+* **Leverage PlanetScale Insights and schema recommendations**: Use [PlanetScale Insights](query-insights.md) for actionable query analytics, and explore [schema recommendations](schema-recommendations.md) to improve your database structure alongside pganalyze monitoring.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,41 +2,100 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-symfony-app
 title: "Connect Symfony App"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Connect a Symfony application to PlanetScale
+
+> In this tutorial, you'll learn how to connect a Symfony application to a PlanetScale MySQL database using a sample Symfony starter app.
 
 ## Prerequisites
 
-- [PHP](https://www.php.net/manual/en/install.php) — This tutorial uses `v8.1`
-- [Composer](https://getcomposer.org/)
-- A [PlanetScale account](https://auth.planetscale.com/sign-up)
-- [PlanetScale CLI](https://github.com/planetscale/cli) — You can also follow this tutorial using just the PlanetScale admin dashboard, but the CLI will make setup quicker.
+* [PHP](https://www.php.net/manual/en/install.php) — This tutorial uses `v8.1`
+* [Composer](https://getcomposer.org/)
+* A [PlanetScale account](https://auth.planetscale.com/sign-up)
+* [PlanetScale CLI](https://github.com/planetscale/cli) — You can also follow this tutorial using just the PlanetScale admin dashboard, but the CLI will make setup quicker.
 
 ## Set up the Symfony app
 
 This guide will integrate [a simple Symfony app](https://github.com/planetscale/symfony-example) with PlanetScale that will display a list of products stored in the database. If you have an existing application, you can also use that.
 
-You can view the application at [http://localhost:8000](http://localhost:8000/).
+**Step 1**
+
+Clone the starter Symfony application:
+
+```bash theme={null}
+git clone https://github.com/planetscale/symfony-example.git
+```
+
+**Step 2**
+
+Enter into the folder and install the dependencies:
+
+```bash theme={null}
+cd symfony-example
+composer install
+```
+
+**Step 3**
+
+Rename the `.env.example` file to `.env.local`:
+
+```bash theme={null}
+mv .env.example .env.local
+```
+
+Once you deploy to production, don't forget to update `.env.local` to `.env`.
+
+**Step 4**
+
+Start the application:
+
+```bash theme={null}
+symfony serve
+```
+
+You can view the application at [http://localhost:8000](http://localhost:8000).
 
 ## Set up the database
 
 Next, you need to set up your PlanetScale database and connect to it in the Symfony application.
 
-You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com/) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md) if you prefer the dashboard.
+You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md) if you prefer the dashboard.
 
-This tutorial uses `symfony_example` for `DATABASE_NAME`, but you can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don’t recommend them, as they may need to be escaped in some instances.
+**Step 1**
+
+Authenticate the CLI with the following command:
+
+```bash theme={null}
+pscale auth login
+```
+
+**Step 2**
+
+Create a new database with a default `main` branch with the following command:
+
+```bash theme={null}
+pscale database create <DATABASE_NAME> --region <REGION_SLUG>
+```
+
+This tutorial uses `symfony_example` for `DATABASE_NAME`, but you can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don't recommend them, as they may need to be escaped in some instances.
 
 For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions#available-regions) or leave it blank.
 
-That’s it! Your database is ready to use. Next, let’s connect it to the Symfony application and then add some data.
+That's it! Your database is ready to use. Next, let's connect it to the Symfony application and then add some data.
 
 ## Connect to the Symfony app
 
 There are **two ways to connect** to PlanetScale:
 
-- With an auto-generated username and password
-- Using the PlanetScale proxy with the CLI
+* With an auto-generated username and password
+* Using the PlanetScale proxy with the CLI
 
 Both options are covered below.
 
@@ -44,37 +103,126 @@ Both options are covered below.
 
 These instructions show you how to use the [PlanetScale CLI](../../cli/planetscale-environment-setup.md) to generate a set of credentials.
 
-You can also get these exact values to to copy/paste from your [PlanetScale dashboard](https://app.planetscale.com/). In the dashboard, click on the database > “ **Connect** ” > “ **Generate new password** ” > “ **General** ” dropdown > “ **Symfony** ”. If the password is blurred, click “ **New password** ”. Skip to step 3 once you have these credentials.
+You can also get these exact values to to copy/paste from your [PlanetScale dashboard](https://app.planetscale.com). In the dashboard, click on the database > "**Connect**" > "**Generate new password**" > "**General**" dropdown > "**Symfony**". If the password is blurred, click "**New password**". Skip to step 3 once you have these credentials.
 
-Refresh your Symfony homepage and you should see the message that you’re connected to your database!
+**Step 1**
+
+Create a username and password with the PlanetScale CLI by running:
+
+```bash theme={null}
+pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME>
+```
+
+A default branch, `main`, is created when you create the database, so you can use that for `BRANCH_NAME`.
+
+> [!NOTE]
+>
+> The `PASSWORD_NAME` value represents the name of the username and password being generated. You can have multiple
+> credentials for a branch, so this gives you a way to categorize them. To manage your passwords in the dashboard, go to
+> your database dashboard page, click "Settings", and then click "Passwords".
+
+Take note of the values returned to you, as you won't be able to see this password again.
+
+**Step 2**
+
+Open the `.env.local` file in your Symfony app, find the database connection section, and replace the existing `DATABASE_URL` value with:
+
+```bash theme={null}
+DATABASE_URL="mysql://<USERNAME>:<PASSWORD>@<ACCESS_HOST_URL>:3306/<DATABASE_NAME>?serverVersion=8.0"
+```
+
+Fill in `USERNAME`, `PASSWORD`, `ACCESS HOST URL` and `DATABASE_NAME` with the appropriate values from the CLI output above.
+
+Refresh your Symfony homepage and you should see the message that you're connected to your database!
 
 ### Option 2: Connect with the PlanetScale proxy
 
-To connect with the PlanetScale proxy, you’ll need the [PlanetScale CLI](https://github.com/planetscale/cli).
+To connect with the PlanetScale proxy, you'll need the [PlanetScale CLI](https://github.com/planetscale/cli).
+
+**Step 1**
+
+Open a connection by running the following:
+
+```bash theme={null}
+pscale connect <DATABASE_NAME> <BRANCH_NAME>
+```
+
+If you're following this guide exactly and haven't created any branches, you can use the default branch, `main`.
+
+**Step 2**
+
+A secure connection to your database will be established and you'll see a local address you can use to connect to your application.
+
+**Step 3**
+
+Open the `.env.local` file in your Symfony app and update it as follows:
+
+```bash theme={null}
+DB_HOST=127.0.0.1
+DB_PORT=3306 # Get this from the output of the previous step
+DB_NAME=
+DATABASE_URL=mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverVersion=5.7
+```
+
+The connection uses port `3306` by default, but if that's being used, it will pick a random port. Make sure you paste in whatever port is returned in the terminal. Fill in the database name as well.
+
+**Step 4**
+
+Open up `config/packages/doctrine.yaml`. Under `option`, you'll see a line for the SSL certificate that was used to connect with username and password:
+
+```php theme={null}
+!php/const:PDO::MYSQL_ATTR_SSL_CA: /etc/ssl/cert.pem
+```
 
 Delete that line and save.
 
-Refresh your Symfony homepage and you should see the message that you’re connected to your database!
+Refresh your Symfony homepage and you should see the message that you're connected to your database!
 
 ## Run migrations and seeder
 
-Now that you’re connected, let’s add some data to see it in action. The sample application comes with a migration file at `migrations/Version20220120102247.php` that will create `category` and `product` tables in the database.
+Now that you're connected, let's add some data to see it in action. The sample application comes with a migration file at `migrations/Version20220120102247.php` that will create `category` and `product` tables in the database.
 
-There are also two seeder files, `src/DataFixtures/CategoryFixtures.php` and `src/DataFixtures/ProductFixtures.php`, that will add ten random categories and products to the `category` and `product` tables, respectively. Let’s run those now.
+There are also two seeder files, `src/DataFixtures/CategoryFixtures.php` and `src/DataFixtures/ProductFixtures.php`, that will add ten random categories and products to the `category` and `product` tables, respectively. Let's run those now.
+
+**Step 1**
+
+Make sure your database connection has been established. You'll see the message "You are connected to your-database-name" on the [Symfony app homepage](http://localhost:8000/) if everything is configured properly.
+
+**Step 2**
+
+In your terminal in the root of the Symfony project, run the following to run the migrations:
+
+```bash theme={null}
+symfony console doctrine:migrations:migrate
+```
+
+You will get a message asking you to confirm. Type "yes" and hit enter to proceed.
+
+**Step 3**
+
+Next, seed the database by running:
+
+```bash theme={null}
+symfony console doctrine:fixtures:load
+```
+
+This will purge your database and load the placeholder data into it.
+
+**Step 4**
+
+Refresh your Symfony homepage and you'll see a list of products and their category printed out.
 
 The `templates/product/index.html.twig` file pulls this data from the `product` table with the help of the `src/Controller/ProductController.php` file.
 
-![Symfony PlanetScale starter app homepage](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-symfony-app/example.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=9a77f6d01359a94f1f4604b5a75ea846)
-
-Symfony PlanetScale starter app homepage
+![Symfony PlanetScale starter app homepage](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-symfony-app/example.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=97eb3ecc7ec5ab2161d913ede7e14122)
 
 ## Add data manually
 
 If you want to continue to play around with adding data on the fly, you have a few options:
 
-- PlanetScale CLI shell
-- PlanetScale dashboard console
-- Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
+* PlanetScale CLI shell
+* PlanetScale dashboard console
+* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
 
 The first two options are covered below.
 
@@ -82,22 +230,24 @@ The first two options are covered below.
 
 You can use the PlanetScale CLI to open a MySQL shell to interact with your database.
 
-You may need to [install the MySQL command line client](../../cli/planetscale-environment-setup.md) if you haven’t already.
+You may need to [install the MySQL command line client](../../cli/planetscale-environment-setup.md) if you haven't already.
 
 Run the following command in your terminal:
 
-```shellscript
+```bash theme={null}
 pscale shell <DATABASE_NAME> <BRANCH_NAME>
 ```
 
 This will open up a MySQL shell connected to the specified database and branch.
 
-A branch, `main`, was automatically created when you created your database, so you can use that for `BRANCH_NAME`.
+> [!NOTE]
+>
+> A branch, `main`, was automatically created when you created your database, so you can use that for `BRANCH_NAME`.
 
 Add a record to the `product` table:
 
-```sql
-INSERT INTO \`store_product\` (name, description, image, category_id)
+```sql theme={null}
+INSERT INTO `store_product` (name, description, image, category_id)
 VALUES  ('Spaceship', 'Get ready for the trip of a lifetime', 'https://via.placeholder.com/150.png', 2);
 ```
 
@@ -105,28 +255,60 @@ The value `id` will be filled with a default value.
 
 You can verify it was added in the PlanetScale CLI MySQL shell with:
 
-```sql
+```sql theme={null}
 select * from product;
 ```
 
 Type `exit` to exit the shell.
 
-You can now refresh the [Symfony homepage](http://localhost:8000/) to see the new record.
+You can now refresh the [Symfony homepage](http://localhost:8000) to see the new record.
 
 ### Add data with PlanetScale dashboard console
 
-If you don’t care to install MySQL client or the PlanetScale CLI, another quick option using the MySQL console built into the PlanetScale dashboard.
+If you don't care to install MySQL client or the PlanetScale CLI, another quick option using the MySQL console built into the PlanetScale dashboard.
 
-By default, web console access to production branches is disabled to prevent accidental deletion. From your database’s dashboard page, click on the “ **Settings** ” tab, check the box labelled “ **Allow web console access to production branches** ”, and click “ **Save database settings** ”.
+By default, web console access to production branches is disabled to prevent accidental deletion. From your database's dashboard page, click on the "**Settings**" tab, check the box labelled "**Allow web console access to production branches**", and click "**Save database settings**".
 
-You can now refresh the [Symfony homepage](http://localhost:8000/) to see the new record.
+**Step 1**
 
-## What’s next?
+Go to your [PlanetScale dashboard](https://app.planetscale.com) and select your Symfony database.
 
-Once you’re done with initial development, you can enable [safe migrations](../schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
+**Step 2**
+
+Click on the "**Branches** and select the `main` branch.
+
+**Step 3**
+
+Click on "**Console**"
+
+**Step 4**
+
+Add a new record to the `product` table with:
+
+```sql theme={null}
+INSERT INTO `store_product` (name, description, image, category_id)
+VALUES  ('Spaceship', 'Get ready for the trip of a lifetime', 'https://via.placeholder.com/150.png', 2);
+```
+
+**Step 5**
+
+You can confirm that it was added by running:
+
+```sql theme={null}
+select * from product;
+```
+
+You can now refresh the [Symfony homepage](http://localhost:8000) to see the new record.
+
+## What's next?
+
+Once you're done with initial development, you can enable [safe migrations](../schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
 
 Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,15 +2,23 @@
 url: https://planetscale.com/docs/vitess/imports/digitalocean-database-migration-guide
 title: "Digitalocean Database Migration Guide"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# DigitalOcean database migration guide
 
 ## Introduction
 
 In this article, we’ll walk through migrating a MySQL database from DigitalOcean to PlanetScale with a [database import](database-imports.md).
 
-This guide assumes you are using MySQL on DigitalOcean. Other database systems available through DigitalOcean will not work with this guide.
+> [!NOTE]
+>
+> This guide assumes you are using MySQL on DigitalOcean. Other database systems available through DigitalOcean will not work with this guide.
 
 We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
 
@@ -18,30 +26,30 @@ We recommend reading through the [Database import documentation](database-import
 
 Before you can start migrating your database, you’ll also need to collect the following information from your DigitalOcean cluster:
 
-- The admin username and password
-- The database host
-- The port
-- Database name
+* The admin username and password
+* The database host
+* The port
+* Database name
 
 Most of this information is located on the landing page of your cluster.
 
-![The Overview of the database cluster.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-overview-of-the-database-cluster.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=eb908479c13c97fd13292488104f9b03)
+![The Overview of the database cluster.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-overview-of-the-database-cluster.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=1f29311908698e9fe2b2ee1876c1556b)
 
-The Overview of the database cluster.
+You can view the list of databases in the "**Users & Databases**" tab. This article will use the default database created when the cluster was initialized, named `defaultdb`.
 
-You can view the list of databases in the “ **Users & Databases** ” tab. This article will use the default database created when the cluster was initialized, named `defaultdb`.
+![The Users & Databases view of the cluster with the Databases section highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-users-and-databases-view-of-the-cluster-with-the-databases-section-highlighted.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=d8e3ced595e14b3f8089cdb9240a27e6)
 
-![The Users & Databases view of the cluster with the Databases section highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-users-and-databases-view-of-the-cluster-with-the-databases-section-highlighted.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=026b545ca5224e3284618a7cd198b16d)
-
-The Users & Databases view of the cluster with the Databases section highlighted.
-
-If you don’t know the admin password, you can create a new set of credentials using the information on the [Import tool user permissions page](import-tool-user-requirements.md) to create an account that can be used to import your database.
+> [!NOTE]
+>
+> If you don’t know the admin password, you can create a new set of credentials using the information on the [Import
+> tool user permissions page](import-tool-user-requirements.md) to create an account that can be used to
+> import your database.
 
 ## Update trusted sources
 
 In order for PlanetScale to connect to your DigitalOcean database, you must allow network traffic into the database by adding the necessary IP addresses to the trusted sources list in DigitalOcean. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
 
-```text
+```
 3.209.149.66
 3.215.97.46
 34.193.111.15
@@ -59,41 +67,31 @@ In order for PlanetScale to connect to your DigitalOcean database, you must allo
 44.199.177.24
 ```
 
-In the DigitalOcean dashboard, navigate to the “ **Settings”** tab of your database and locate **Trusted sources** in the list of configuration items. Click “ **Edit”** and the row should change to allow edits to the setting.
+In the DigitalOcean dashboard, navigate to the “**Settings”** tab of your database and locate **Trusted sources** in the list of configuration items. Click “**Edit”** and the row should change to allow edits to the setting.
 
-![The Settings tab of the database cluster in Digital Ocean.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-settings-tab-of-the-database-cluster-in-digital-ocean.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=599f875b4c69576eb1cb647b2be4698c)
+![The Settings tab of the database cluster in Digital Ocean.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-settings-tab-of-the-database-cluster-in-digital-ocean.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=ef3106dc50ca4745df5f37c83b53d28c)
 
-The Settings tab of the database cluster in Digital Ocean.
+When you enter an IP address from the list, a message will appear below the input box asking if you want to add that IP as an address. Click that message to add it to the list. Repeat this step for each IP address that needs to be added, then click “**Save**” once you are done.
 
-When you enter an IP address from the list, a message will appear below the input box asking if you want to add that IP as an address. Click that message to add it to the list. Repeat this step for each IP address that needs to be added, then click “ **Save** ” once you are done.
-
-![The Trusted sources section of the Settings tab.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-trusted-sources-section-of-the-settings-tab.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=b8d77470a59cba94d01f79ed89318f89)
-
-The Trusted sources section of the Settings tab.
+![The Trusted sources section of the Settings tab.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-trusted-sources-section-of-the-settings-tab.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=a553916f587d5a1264a7e62b17a66b3f)
 
 ### Disable ANSI\_QUOTES setting
 
-The default settings for MySQL databases on DigitalOcean is to have `ANSI_QUOTES` enabled in the global MySQL settings, which is not supported by PlanetScale. To remove this setting, navigate to the “ **Settings** ” tab of your cluster and locate the section titled **Global SQL mode**. Click “ **Edit** ” in that section to change the configuration settings.
+The default settings for MySQL databases on DigitalOcean is to have `ANSI_QUOTES` enabled in the global MySQL settings, which is not supported by PlanetScale. To remove this setting, navigate to the "**Settings**" tab of your cluster and locate the section titled **Global SQL mode**. Click “**Edit**” in that section to change the configuration settings.
 
-![The Settings tab of the database cluster in DigitalOcean with the Global SQL mode section highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-settings-tab-of-the-database-cluster-in-digitalocean-with-the-global-sql-mode-section-highlighted.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=57ce01510a1a8a2d0dc477fae71743a2)
+![The Settings tab of the database cluster in DigitalOcean with the Global SQL mode section highlighted.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/the-settings-tab-of-the-database-cluster-in-digitalocean-with-the-global-sql-mode-section-highlighted.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=33f2966ff29f5f1e09dc640ee5d6eef5)
 
-The Settings tab of the database cluster in DigitalOcean with the Global SQL mode section highlighted.
+To remove the `ANSI_QUOTES` setting, click the “**x**” next to the tag and click “**Save**.” The change should apply immediately.
 
-To remove the `ANSI_QUOTES` setting, click the “ **x** ” next to the tag and click “ **Save**.” The change should apply immediately.
-
-![An example of removing the ANSI_QUOTES setting from the Global SQL mode settings.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/an-example-of-removing-the-ansi_quotes-setting-from-the-global-sql-mode-settings.png?w=2500&fit=max&auto=format&n=TneybaJ6MA8SGyM3&q=85&s=46871147fcd04490d6d22aa6e62fe523)
-
-An example of removing the ANSI\_QUOTES setting from the Global SQL mode settings.
+![An example of removing the ANSI\_QUOTES setting from the Global SQL mode settings.](https://mintcdn.com/planetscale-2/TneybaJ6MA8SGyM3/images/assets/docs/imports/digitalocean-database-migration-guide/an-example-of-removing-the-ansi_quotes-setting-from-the-global-sql-mode-settings.png?fit=max\&auto=format\&n=TneybaJ6MA8SGyM3\&q=85\&s=14ca6da3f6473279e13ab4fe1be4c26e)
 
 ### Set the Binlog Retention Period
 
-The binary log related [MySQL server variables](database-imports.md#server-configuration) required for PlanetScale imports are already set to acceptable values by default on Digital Ocean managed MySQL servers but there’s one more variable to check on the “ **Settings** ” tab of your existing cluster.
+The binary log related [MySQL server variables](database-imports.md#server-configuration) required for PlanetScale imports are already set to acceptable values by default on Digital Ocean managed MySQL servers but there's one more variable to check on the "**Settings**" tab of your existing cluster.
 
-Scroll down to “ **Advanced configurations** ” and ensure the “ **Binlog Retention Period** ” is set to at least `172800` seconds (48 hours).
+Scroll down to "**Advanced configurations**" and ensure the "**Binlog Retention Period**" is set to at least `172800` seconds (48 hours).
 
-![Setting the binlog retention period under Advanced Configurations](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/digitalocean-binlog-retention.png?w=2500&fit=max&auto=format&n=xsX1e-5IXCYXbX59&q=85&s=ff28a4434c6bec127a5dfa1402a742ca)
-
-Setting the binlog retention period under Advanced Configurations
+![Setting the binlog retention period under Advanced Configurations](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/imports/digitalocean-binlog-retention.png?fit=max\&auto=format\&n=xsX1e-5IXCYXbX59\&q=85\&s=cc591d82d25ad5a9a5e81a35f6d47f60)
 
 ## Importing your database
 
@@ -101,22 +99,25 @@ Now that your DigitalOcean database is configured and ready, follow the [Databas
 
 When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
-- **Host name** (`--host`) - Your DigitalOcean database host (from Prerequisites)
-- **Port** (`--port`) - Your port (typically 25060 for DigitalOcean)
-- **Database name** (`--source-database`) - The exact database name to import (e.g., `defaultdb`)
-- **Username** (`--username`) - Your admin username
-- **Password** (`--password`) - Your admin password
-- **SSL verification mode** (`--ssl-mode`) - Select based on your DigitalOcean SSL configuration
+* **Host name** (`--host`) - Your DigitalOcean database host (from Prerequisites)
+* **Port** (`--port`) - Your port (typically 25060 for DigitalOcean)
+* **Database name** (`--source-database`) - The exact database name to import (e.g., `defaultdb`)
+* **Username** (`--username`) - Your admin username
+* **Password** (`--password`) - Your admin password
+* **SSL verification mode** (`--ssl-mode`) - Select based on your DigitalOcean SSL configuration
 
 The Database imports guide will walk you through:
 
-- Creating your PlanetScale database
-- Connecting to your DigitalOcean database with an external keyspace
-- Checking your server settings, user grants, and schema
-- Starting the import with MoveTables
-- Monitoring the import progress
-- Switching traffic and completing the import
+* Creating your PlanetScale database
+* Connecting to your DigitalOcean database with an external keyspace
+* Checking your server settings, user grants, and schema
+* Starting the import with MoveTables
+* Monitoring the import progress
+* Switching traffic and completing the import
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

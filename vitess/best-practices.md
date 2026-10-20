@@ -2,13 +2,17 @@
 url: https://planetscale.com/docs/vitess/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-![Diagram showing PlanetScale workflow](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?w=2500&fit=max&auto=format&n=qp-ZKr_vKb0iLpeb&q=85&s=072a1af512e6de700a104e286cefca42)
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-Diagram showing PlanetScale workflow
+# PlanetScale workflow for Vitess
+
+![Diagram showing PlanetScale workflow](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?fit=max\&auto=format\&n=qp-ZKr_vKb0iLpeb\&q=85\&s=cd739ac76edee56fd3c0130b6edfe32c)
 
 PlanetScale databases are designed for developers and developer workflows. Deploy a fully managed database cluster with the reliability of MySQL (our databases run on MySQL 8) and the scale of open source Vitess in just minutes.
 
@@ -42,7 +46,9 @@ Learn more about [non-blocking schema changes](schema-changes.md).
 
 ## Deploy requests
 
-Your database must have a branch with [safe migrations](schema-changes/safe-migrations.md) enabled before you can create a deploy request.
+> [!NOTE]
+>
+> Your database must have a branch with [safe migrations](schema-changes/safe-migrations.md) enabled before you can create a deploy request.
 
 [Deploy requests](schema-changes/deploy-requests.md) allow you to propose schema changes and get feedback from your team. The deploy requests display DDL statements (`CREATE`, `ALTER`, and `DROP`) for each table changed, with a line-by-line schema diff, making it easy to review the changes.
 
@@ -58,8 +64,11 @@ As a part of the process of adding the schema changes to the deploy queue, Plane
 
 ## Revert a schema change
 
-If you ever deploy a schema change, only to realize you need to undo it, PlanetScale can handle that. With our [schema revert feature](schema-changes/deploy-requests.md#revert-a-schema-change), you have 30 minutes to “undo” a schema change deployment. Simply click the “Revert changes” button on the affected deploy request page and your production database will instantly revert back to the previous schema. Additionally, any data that was added to your production database in the time between deployment and reverting will be retained. Learn more about this process in our [Revert a schema change section](schema-changes/deploy-requests.md#revert-a-schema-change) of our deploy requests documentation.
+If you ever deploy a schema change, only to realize you need to undo it, PlanetScale can handle that. With our [schema revert feature](schema-changes/deploy-requests.md#revert-a-schema-change), you have 30 minutes to "undo" a schema change deployment. Simply click the "Revert changes" button on the affected deploy request page and your production database will instantly revert back to the previous schema. Additionally, any data that was added to your production database in the time between deployment and reverting will be retained. Learn more about this process in our [Revert a schema change section](schema-changes/deploy-requests.md#revert-a-schema-change) of our deploy requests documentation.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

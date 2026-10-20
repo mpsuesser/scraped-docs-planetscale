@@ -2,48 +2,138 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/deploy-to-vercel
 title: "Deploy To Vercel"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Deploy to Vercel
+
+> This guide will walk you through setting up and deploying your PlanetScale database on Vercel.
 
 It will cover two options:
 
-## Manually adding PlanetScale environment variables to your Vercel project
+> **[Manually adding PlanetScale environment variables to your Vercel project](#manually-connect-to-vercel)**
 
-## Connecting your PlanetScale database to your application using the Vercel integration
+> **[Connecting your PlanetScale database to your application using the Vercel integration](#deploy-with-the-planetscale-vercel-integration)**
 
 ## Prerequisites
 
-- A PlanetScale database — If you haven’t created a database, refer to our [PlanetScale quickstart guide](../planetscale-quick-start-guide.md) to get started
-- A [Vercel account](https://vercel.com/)
-- A project deployed to Vercel — If you’re just poking around and don’t already have an application to deploy, you can use our [Next.js + PlanetScale sample](../connect-nextjs-app.md)
+* A PlanetScale database — If you haven't created a database, refer to our [PlanetScale quickstart guide](../planetscale-quick-start-guide.md) to get started
+* A [Vercel account](https://vercel.com/)
+* A project deployed to Vercel — If you're just poking around and don't already have an application to deploy, you can use our [Next.js + PlanetScale sample](../connect-nextjs-app.md)
 
 ## Manually connect to Vercel
 
 ### Get your connection string from PlanetScale
 
+**Step 1**
+
+In your [PlanetScale dashboard](https://app.planetscale.com), click on the database you want to connect to.
+
+**Step 2**
+
+Click "**Connect**".
+
+**Step 3**
+
+Create a new password. Make sure to copy the password, as you'll only be shown it once.
+
+**Step 4**
+
+Select the framework you're using from the "**Select your language or framework**" section. This will give you the exact environment variable names you need for your selected framework. If your framework is not listed, choose "Other".
+
+![PlanetScale dashboard connect modal \{priority}](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-to-vercel/prisma.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=a0e74c1e2d55b2b86a1eb506ec0a91d4)
+
+**Step 5**
+
+Keep this page open, as you'll need to copy these to Vercel momentarily.
+
+**Step 6**
+
+If you navigate away from the page, and can no longer access the password, create a new password by repeating steps 1-5.
+
 ### Copy environment variables to Vercel
 
-For example, if you’re using Prisma, your connection string will look similar to this:
+**Step 1**
 
-```shellscript
+Go to your Vercel dashboard.
+
+**Step 2**
+
+Click on your Vercel project.
+
+**Step 3**
+
+Click "**Settings**".
+
+**Step 4**
+
+Click "**Environment variables**".
+
+**Step 5**
+
+Copy each value from your PlanetScale dashboard into a new environment variable in Vercel. Once you're done with one, click "**Add**" and continue to the next, if applicable.
+
+For example, if you're using Prisma, your connection string will look similar to this:
+
+```bash theme={null}
 DATABASE_URL='mysql://xxxxxxxxx:************@xxxxxxxxxx.us-east-3.psdb.cloud/my_database?sslaccept=strict'
 ```
 
-In Vercel, you’ll set it as follows:
+In Vercel, you'll set it as follows:
 
-- **NAME** = `DATABASE_URL`
-- **VALUE** = `mysql://xxxxxxxxx:************@xxxxxxxxxx.us-east-3.psdb.cloud/my_database?sslaccept=strict`
+* **NAME** = `DATABASE_URL`
+* **VALUE** = `mysql://xxxxxxxxx:************@xxxxxxxxxx.us-east-3.psdb.cloud/my_database?sslaccept=strict`
 
-The credentials are blurred for the example, but when you paste them in, use the actual values.
+> [!NOTE]
+>
+> The credentials are blurred for the example, but when you paste them in, use the actual values.
 
-![Vercel dashboard - Environment variables](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-to-vercel/environment-variables.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=862f384807cd468b3e519a721965c84c)
-
-Vercel dashboard - Environment variables
+![Vercel dashboard - Environment variables](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/deploy-to-vercel/environment-variables.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=e66d4f8a5e6ab9c21f7be071a3086a1c)
 
 ## Deploy with the PlanetScale Vercel integration
 
-If you don’t want to copy and paste the environment variables over to Vercel, you can use the [PlanetScale integration from the Vercel marketplace](https://vercel.com/integrations/planetscale). You can choose which database you want to connect to, and we’ll automatically pull the necessary environment variables into your Vercel project.
+If you don't want to copy and paste the environment variables over to Vercel, you can use the [PlanetScale integration from the Vercel marketplace](https://vercel.com/integrations/planetscale). You can choose which database you want to connect to, and we'll automatically pull the necessary environment variables into your Vercel project.
+
+**Step 1**
+
+You must have an existing PlanetScale database to use the integration. You can create a database in the [PlanetScale dashboard](https://app.planetscale.com).
+
+**Step 2**
+
+Click "**Add integration**" on the [Vercel integrations page](https://vercel.com/integrations/planetscale).
+
+**Step 3**
+
+Select the Vercel account you want to connect with.
+
+**Step 4**
+
+On the left, you'll see the Vercel options, and on the right, the PlanetScale options.
+
+**Step 5**
+
+Select the Vercel project you want to connect to, and beneath that, select the framework you're using. If the framework isn't listed, select "**General**". This selection is what determines the names of the environment variables.
+
+**Step 6**
+
+On the right side, choose the [PlanetScale Organization](../../../security/access-control.md) that the database is in. The integration will remain tied to this Organization and cannot be changed.
+
+**Step 7**
+
+Beneath that, select the database you want to connect to.
+
+**Step 8**
+
+Click "**Connect database**".
+
+**Step 9**
+
+Back in your Vercel dashboard, confirm the environment variables were added by going to your Vercel project > "**Settings**" > "**Environment variables**"
 
 ### Configure your connection
 
@@ -51,15 +141,34 @@ After you set up the initial connection, you also have the option to configure t
 
 To access the configuration page:
 
-If you’re modifying an existing connection on a Vercel project, these environment variable values will be regenerated and overwritten.
+**Step 1**
 
-- Environment variables are removed from all projects tied to the integration.
-- Your application will no longer be able to connect to your PlanetScale database.
+In your Vercel project dashboard, click "**Integrations**".
 
-## What’s next?
+**Step 2**
+
+Click the "**PlanetScale**" integration.
+
+**Step 3**
+
+Click the "**Configure**" button.
+
+> [!NOTE]
+>
+> If you're modifying an existing connection on a Vercel project, these environment variable values will be regenerated and overwritten.
+
+> [!NOTE]
+>
+> * Environment variables are removed from all projects tied to the integration.
+> * Your application will no longer be able to connect to your PlanetScale database.
+
+## What's next?
 
 Learn more about how PlanetScale allows you to make [non-blocking schema changes](../../schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

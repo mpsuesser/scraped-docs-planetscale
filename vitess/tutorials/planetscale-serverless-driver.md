@@ -2,9 +2,15 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver
 title: "Planetscale Serverless Driver"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale serverless driver for JavaScript
 
 ## Why use the PlanetScale serverless driver
 
@@ -12,13 +18,15 @@ Before learning how to use the PlanetScale serverless driver for JavaScript, it�
 
 Using the PlanetScale serverless driver for JavaScript provides a means of accessing your database and executing queries over an HTTP connection, which is generally not blocked by cloud providers. If you encounter issues using MySQL packages with PlanetScale, use the serverless driver instead.
 
-Be sure to check out our [F1 Championship Stats demo application](https://github.com/planetscale/f1-championship-stats) to find examples for use with Cloudflare Workers, Vercel Edge Functions, and Netlify Edge Functions.
+> [!NOTE]
+>
+> Be sure to check out our [F1 Championship Stats demo application](https://github.com/planetscale/f1-championship-stats) to find examples for use with Cloudflare Workers, Vercel Edge Functions, and Netlify Edge Functions.
 
 ## Add and use the PlanetScale serverless driver for JavaScript to your project
 
 To install the package in your project, run the following install command:
 
-```shellscript
+```bash theme={null}
 npm install @planetscale/database
 ```
 
@@ -26,17 +34,15 @@ npm install @planetscale/database
 
 The first step to using the PlanetScale serverless driver for JavaScript is to connect to your database.
 
-You can get your connection string in the PlanetScale dashboard by clicking on your database, clicking “ **Connect** ”, and selecting `database-js` from the “Select your language or framework” section.
+You can get your connection string in the PlanetScale dashboard by clicking on your database, clicking "**Connect**", and selecting `database-js` from the "Select your language or framework" section.
 
-![Database-js selection priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver/connect-serverless-credentials-database-js.png?w=2500&fit=max&auto=format&n=AJPY38bILe2zenXX&q=85&s=b4b4cd49a793d91a8f3796cc94ae3db2)
+![Database-js selection priority](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-serverless-driver/connect-serverless-credentials-database-js.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=5c2e3614d9bbca1970191da46306d547)
 
-Database-js selection priority
-
-Scroll down to the env variables. You’ll need this to connect to your database.
+Scroll down to the env variables. You'll need this to connect to your database.
 
 Use the `connect` function to create the connection and return it to an object.
 
-```javascript
+```js theme={null}
 const config = {
   host: 'aws.connect.psdb.cloud',
   username: '<PS_USERNAME>',
@@ -49,13 +55,13 @@ const conn = await connect(config)
 
 To execute a query, use the `execute` function of the connection object, with the query passed as the first parameter.
 
-```javascript
+```js theme={null}
 const results = await conn.execute('SELECT * FROM hotels')
 ```
 
 Here is the content of the `results` object from the `SELECT` statement:
 
-```javascript
+```js expandable theme={null}
 {
   headers: [ 'id', 'name', 'address', 'stars' ],
   types: {
@@ -90,20 +96,20 @@ Here is the content of the `results` object from the `SELECT` statement:
 
 For parameterized queries, there are two ways in which to pass data to the query. The first is by the order in which they appear in the query. The first step is to add a `?` in the specific locations you want the parameters passed into.
 
-```javascript
-const query = 'INSERT INTO hotels (\`name\`, \`address\`, \`stars\`) VALUES (?, ?, ?)'
+```js theme={null}
+const query = 'INSERT INTO hotels (`name`, `address`, `stars`) VALUES (?, ?, ?)'
 ```
 
 Then you can pass your parameters as an array of values. The driver package will replace the `?` entries in the query with the values passed in the array, in the order in which they were placed.
 
-```javascript
+```js theme={null}
 const params = ['The Galt House', '140 N Fourth St, Louisville, KY 40202', 4.2]
 const results = await conn.execute(query, params)
 ```
 
 Here is the content of the `results` object for the `INSERT` statement:
 
-```javascript
+```js theme={null}
 {
   headers: [],
   types: {},
@@ -112,15 +118,15 @@ Here is the content of the `results` object for the `INSERT` statement:
   insertId: '6',
   error: null,
   size: 0,
-  statement: "INSERT INTO hotels (\`name\`, \`address\`, \`stars\`) VALUES ('Montage Kapalua Bay 2', '1 Bay Dr, Lahaina, HI 96761', 4)",
+  statement: "INSERT INTO hotels (`name`, `address`, `stars`) VALUES ('Montage Kapalua Bay 2', '1 Bay Dr, Lahaina, HI 96761', 4)",
   time: 102
 }
 ```
 
 Alternately, you can name your parameters using the `:param_name` format.
 
-```javascript
-const query = 'INSERT INTO hotels (\`name\`, \`address\`, \`stars\`) VALUES (:name, :address, :stars)'
+```js theme={null}
+const query = 'INSERT INTO hotels (`name`, `address`, `stars`) VALUES (:name, :address, :stars)'
 const params = {
   name: 'The Galt House',
   address: '140 N Fourth St, Louisville, KY 40202',
@@ -131,4 +137,7 @@ const results = await conn.execute(query, params)
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,20 +2,28 @@
 url: https://planetscale.com/docs/postgres/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-10-07T00:07:29.963Z
-current_date: 2026-10-07T00:07:29.963Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Cluster Logs
+
+> The Logs dashboard provides comprehensive logging and debugging capabilities for your PlanetScale Postgres database cluster. This centralized view helps you monitor database activity, troubleshoot issues, and analyze system behavior in real-time.
 
 ## Dashboard overview
 
 The Logs dashboard displays real-time and historical log entries from your database cluster across all servers. You can filter and analyze logs by:
 
-- **Server Filter**: Monitor all servers or focus on specific replica instances
-- **Log Level**: Filter by severity (DEBUG, INFO, WARNING, ERROR)
-- **Time Range**: View logs from the past hour up to custom time ranges
-- **Branch**: Select which database branch to monitor
-- **Search**: Full-text search across log messages
-- **Live update**: Toggle on/off the auto-refresh of data every ~10 seconds
+* **Server Filter**: Monitor all servers or focus on specific replica instances
+* **Log Level**: Filter by severity (DEBUG, INFO, WARNING, ERROR)
+* **Time Range**: View logs from the past hour up to custom time ranges
+* **Branch**: Select which database branch to monitor
+* **Search**: Full-text search across log messages
+* **Live update**: Toggle on/off the auto-refresh of data every \~10 seconds
 
 ## Log filtering and navigation
 
@@ -24,7 +32,7 @@ The Logs dashboard displays real-time and historical log entries from your datab
 The server filter dropdown allows you to choose which database instances to view logs from. You can select the Primary, Replicas, or all servers. By default just the Primary is shown:
 
 | Filter Option | Purpose |
-| --- | --- |
+| :- | :- |
 | **Primary** | Monitor main database server logs |
 | **Replicas** | Monitor individual replica servers |
 
@@ -33,7 +41,7 @@ The server filter dropdown allows you to choose which database instances to view
 By default all log levels are displayed. You can filter them based on the following log levels:
 
 | Level | Color Code | Purpose |
-| --- | --- | --- |
+| :- | :- | :- |
 | **DEBUG** | Gray | Detailed system information |
 | **INFO** | Blue | General information messages |
 | **WARNING** | Yellow | Potential issues requiring attention |
@@ -43,16 +51,18 @@ By default all log levels are displayed. You can filter them based on the follow
 
 The time range selector offers several preset options:
 
-- **Past 15 minutes**
-- **Past hour**
-- **Past 3 hours**
-- **Past 6 hours**
-- **Past 12 hours**
-- **Past day**
+* **Past 15 minutes**
+* **Past hour**
+* **Past 3 hours**
+* **Past 6 hours**
+* **Past 12 hours**
+* **Past day**
 
 **Custom range**: Set specific date and time ranges for targeted analysis
 
-All log timestamps are displayed in the timezone configured in the top right of the console under the drop down ‘Timezone display’
+> [!NOTE]
+>
+> All log timestamps are displayed in the timezone configured in the top right of the console under the drop down 'Timezone display'
 
 ## Log retention
 
@@ -64,35 +74,35 @@ By default, logs are retained for **7 days**. This retention period ensures you 
 
 Use the search bar to find specific:
 
-- Error messages and stack traces
-- Connection identifiers
-- Query patterns
-- Configuration changes
+* Error messages and stack traces
+* Connection identifiers
+* Query patterns
+* Configuration changes
 
 ### LogQL search syntax
 
-PlanetScale’s logging capabilities utilize Victoria Logs, which supports powerful LogQL query syntax. Click the `?` icon in the search box to see syntax help. Common examples include:
+PlanetScale's logging capabilities utilize Victoria Logs, which supports powerful LogQL query syntax. Click the `?` icon in the search box to see syntax help. Common examples include:
 
 **Text search:**
 
-- `error` - Find logs containing “error”
-- `"received message"` - Exact phrase search
+* `error` - Find logs containing "error"
+* `"received message"` - Exact phrase search
 
 **Field filtering:**
 
-- `planetscale.pod:h2l-pod` - Filter by specific pod
-- `planetscale.role:replica` - Filter by database role
-- `planetscale.container:psbouncer` - Filter by container type
-- `planetscale.availability_zone:us-east-1a` - Filter by availability zone
+* `planetscale.pod:h2l-pod` - Filter by specific pod
+* `planetscale.role:replica` - Filter by database role
+* `planetscale.container:psbouncer` - Filter by container type
+* `planetscale.availability_zone:us-east-1a` - Filter by availability zone
 
 **Exclusion filters:**
 
-- `NOT error` - Exclude logs containing “error”
-- `NOT "received message"` - Exclude specific phrases
+* `NOT error` - Exclude logs containing "error"
+* `NOT "received message"` - Exclude specific phrases
 
 **Logical operators:**
 
-- `"received message" OR planetscale.container:psbouncer` - Match either condition
+* `"received message" OR planetscale.container:psbouncer` - Match either condition
 
 For complete LogQL syntax documentation, see: [Victoria Logs LogQL Documentation](https://docs.victoriametrics.com/victorialogs/logsql/)
 
@@ -100,17 +110,17 @@ For complete LogQL syntax documentation, see: [Victoria Logs LogQL Documentation
 
 Combine multiple filters for precise log analysis and advanced log discovery:
 
-- **Server type + Log level**: Filter Primary/Replica servers by ERROR/WARNING levels for targeted troubleshooting
-- **Time window + Search terms**: Narrow down to specific time ranges with LogQL queries for incident investigation
-- **Log level + Search bar**: Combine severity filtering with text search for comprehensive debugging
-- **Server selection + Time range + LogQL**: Use all filtering options together for precise log discovery
+* **Server type + Log level**: Filter Primary/Replica servers by ERROR/WARNING levels for targeted troubleshooting
+* **Time window + Search terms**: Narrow down to specific time ranges with LogQL queries for incident investigation
+* **Log level + Search bar**: Combine severity filtering with text search for comprehensive debugging
+* **Server selection + Time range + LogQL**: Use all filtering options together for precise log discovery
 
 ## Log message structure
 
 When you click on a log entry, a detailed view appears on the right side showing:
 
 | Field | Description | Example |
-| --- | --- | --- |
+| :- | :- | :- |
 | **Time** | Exact timestamp of the log event with timezone | `2025-06-23 17:31:27 UTC` |
 | **Level** | Log severity level with color coding | `INFO`, `DEBUG`, `ERROR`, `WARNING` |
 | **Role** | Database server role | `primary` |
@@ -123,4 +133,7 @@ The Logs dashboard serves as your primary debugging and monitoring tool, providi
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

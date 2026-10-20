@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/online-schema-change-tools-comparison
 title: "Online Schema Change Tools Comparison"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Comparison of Online Schema Change tools
 
 > Online Schema Change tools for MySQL [share a similar basic design](how-online-schema-change-tools-work.md), but differ in implementation.
-
-**Platform availability:** Vitess only
 
 Their differences imply different capabilities, different impact to production, different versatility, and different user experience. In this document, we break down several Online Schema Change tools to see how their design choices lead to different behavior.
 

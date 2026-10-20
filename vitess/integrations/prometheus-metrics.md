@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Prometheus metrics
 
 > PlanetScale exposes a Prometheus-compatible endpoint per-branch that allows you to scrape metrics for your database.
-
-**Platform availability:** Vitess and [Postgres](../../postgres/monitoring/prometheus-metrics-postgres.md)
 
 ## Overview
 

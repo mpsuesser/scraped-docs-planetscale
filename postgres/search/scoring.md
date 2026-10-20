@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/scoring
 title: "Scoring"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-07T18:53:49.420Z
 # Scoring
 
 > BM25 relevance with `tin.score`, `tin.full_score`, and `tin.max_score`.
-
-**Platform availability:** Postgres only
 
 `tin.score(ctid)` returns a BM25 score over the rows a TIN scan matched.
 

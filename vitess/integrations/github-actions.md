@@ -2,35 +2,42 @@
 url: https://planetscale.com/docs/vitess/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-09-30T23:59:00.337Z
-current_date: 2026-09-30T23:59:00.337Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-See our [tech talk on Databases + CI/CD](https://planetscale.com/blog/databases-ci-cd-pipeline) to see pscale + GitHub Actions used in a real application.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale GitHub Actions
+
+See our [tech talk on Databases + CI/CD](https://planetscale.com/blog/databases-ci-cd-pipeline) to see pscale + GitHub Actions
+used in a real application.
 
 With GitHub Actions, you can automate the creation of branches and deploy requests all within your CI workflow.
 
-## Getting Started
+> **[Getting Started](#getting-started)**
 
-## Authentication
+> **[Authentication](#authentication)**
 
-## Convert GitHub branch name to PlanetScale branch name
+> **[Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)**
 
-## Create a PlanetScale branch
+> **[Create a PlanetScale branch](#create-a-planetscale-branch)**
 
-## Recreate the branch when the pull request changes
+> **[Recreate the branch when the pull request changes](#recreate-the-branch-when-the-pull-request-changes)**
 
-## Create a password for a branch
+> **[Create a password for a branch](#create-a-password-for-a-branch)**
 
-## Open a deploy request
+> **[Open a deploy request](#open-a-deploy-request)**
 
-## Get deploy request by branch name
+> **[Get deploy request by branch name](#get-deploy-request-by-branch-name)**
 
-## Get deploy request diff and comment on pull request
+> **[Get deploy request diff and comment on pull request](#get-deploy-request-diff-and-comment-on-pull-request)**
 
-## Check for dropped columns
+> **[Check for dropped columns](#check-for-dropped-columns)**
 
-## Submit a deploy request by branch name
+> **[Submit a deploy request by branch name](#submit-a-deploy-request-by-branch-name)**
 
 ## Getting started
 
@@ -38,7 +45,7 @@ The best way to use PlanetScale within GitHub Actions is via the `pscale` CLI.
 
 Use [`planetscale/setup-pscale-action`](https://github.com/planetscale/setup-pscale-action) to make pscale available within your GitHub Actions.
 
-```yaml
+```yaml theme={null}
 - name: Setup pscale
   uses: planetscale/setup-pscale-action@v1
 ```
@@ -49,13 +56,13 @@ The action works with Linux, Windows, and Mac runners. Once installed it will be
 
 Authentication for pscale is via service token environment variables.
 
-You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you’ll be using in your workflow.
+You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
 
 Add your `PLANETSCALE_SERVICE_TOKEN_ID` and `PLANETSCALE_SERVICE_TOKEN` to your [Actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 In your Actions workflow, you will need to make the secrets available as environment variables.
 
-```yaml
+```yaml theme={null}
 - name: Run pscale command
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -65,9 +72,10 @@ In your Actions workflow, you will need to make the secrets available as environ
 
 ## Examples
 
-The following examples show how to accomplish common Actions workflows with PlanetScale. In each example, notice that we use secrets for the service token, database and organization names. You will need to set them in your GitHub repository to target your own database.
+The following examples show how to accomplish common Actions workflows with PlanetScale. In each example, notice that we use secrets for the service token, database and organization names.
+You will need to set them in your GitHub repository to target your own database.
 
-```text
+```
 PLANETSCALE_ORG_NAME
 PLANETSCALE_DATABASE_NAME
 PLANETSCALE_SERVICE_TOKEN_ID
@@ -80,7 +88,7 @@ PlanetScale branch names must be lowercase, alphanumeric characters and hyphens 
 
 Since git branch names allow more possibilities, you can use the following code to transform a git branch name into an acceptable PlanetScale branch name.
 
-```yaml
+```yaml theme={null}
 - name: Rename branch name
   run: |
     branch_name=$(printf '%s' "$HEAD_REF" | tr -cd '[:alnum:]-' | tr '[:upper:]' '[:lower:]')
@@ -89,13 +97,14 @@ Since git branch names allow more possibilities, you can use the following code 
     HEAD_REF: ${{ github.head_ref }}
 ```
 
-This makes `${{ env.PSCALE_BRANCH_NAME }}` available for use in the rest of the workflow. This is useful to run in any scenario where you are creating a PlanetScale branch to correspond with a git branch.
+This makes `${{ env.PSCALE_BRANCH_NAME }}` available for use in the rest of the workflow. This is useful to run in any scenario where you are creating
+a PlanetScale branch to correspond with a git branch.
 
 ### Create a PlanetScale branch
 
 You can use `pscale branch create` to create a branch that matches your GitHub branch name.
 
-```yaml
+```yaml theme={null}
 - name: Create branch
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -116,7 +125,7 @@ You can use `pscale branch create` to create a branch that matches your GitHub b
 
 Notice that we first check if the branch exists. If it does, we do nothing. Otherwise we create it and pass the `--wait` flag.
 
-This is useful when running in CI, as the workflow may run multiple times and you’ll want the branch ready if you are running schema migrations immediately after creating the branch.
+This is useful when running in CI, as the workflow may run multiple times and you'll want the branch ready if you are running schema migrations immediately after creating the branch.
 
 ### Recreate the branch when the pull request changes
 
@@ -124,7 +133,7 @@ Skipping creation when the branch exists reuses whatever schema that branch alre
 
 Deleting and recreating the branch on every run guarantees it reflects the current pull request. Before deleting, close any open deploy requests for the branch and leave a comment on them pointing back to the pull request.
 
-```yaml
+```yaml expandable theme={null}
 - name: Recreate branch
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -164,9 +173,9 @@ Deleting and recreating the branch on every run guarantees it reflects the curre
 
 The numbers of any closed deploy requests are saved to `${{ env.STALE_DR_NUMBERS }}`, so a later step can mention which deploy request was replaced when commenting on the pull request.
 
-Pair this with a `concurrency` group keyed on the git branch so two pushes in quick succession don’t delete and create the same PlanetScale branch at the same time.
+Pair this with a `concurrency` group keyed on the git branch so two pushes in quick succession don't delete and create the same PlanetScale branch at the same time.
 
-```yaml
+```yaml theme={null}
 concurrency:
   group: ps-migrations-${{ github.head_ref }}
   cancel-in-progress: true
@@ -176,7 +185,7 @@ concurrency:
 
 You can use `pscale password create` to generate credentials for your database branch.
 
-```yaml
+```yaml expandable theme={null}
 - name: Generate password for branch
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -205,13 +214,16 @@ You can use `pscale password create` to generate credentials for your database b
 
 This example shows creating the password and getting back a response in json. The json is then parsed to create a `DATABASE_URL` which can be used in later steps.
 
-`pscale password create` can also accept a `ttl` flag which lets you limit the number of minutes the password is valid for.
+> [!NOTE]
+>
+> `pscale password create` can also accept a `ttl` flag which lets you limit the number of minutes the password is valid for.
 
 ### Open a deploy request
 
-You can use `pscale deploy-request create` to open a new deploy request from GitHub Actions. This can be useful after running migrations against a branch.
+You can use `pscale deploy-request create` to open a new deploy request from GitHub Actions.
+This can be useful after running migrations against a branch.
 
-```yaml
+```yaml theme={null}
 - name: Open DR if migrations
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -223,15 +235,16 @@ You can use `pscale deploy-request create` to open a new deploy request from Git
       --notes "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
 ```
 
-`--auto-delete-branch` deletes the PlanetScale branch once the deploy request completes, so CI branches don’t accumulate. `--notes` links the deploy request back to the pull request that created it.
+`--auto-delete-branch` deletes the PlanetScale branch once the deploy request completes, so CI branches don't accumulate. `--notes` links the deploy request back to the pull request that created it.
 
 ### Get deploy request by branch name
 
 You can use `pscale deploy-requests show` to grab the latest deploy request by branch name.
 
-This can be useful when deploying your application. You can first check if there are any deploy requests open for the branch being deployed. If there are, you can trigger the deploy request to run before you deploy your application.
+This can be useful when deploying your application. You can first check if there are any deploy requests open for the branch being deployed. If there are, you can
+trigger the deploy request to run before you deploy your application.
 
-```yaml
+```yaml theme={null}
 - name: Get Deploy Requests
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -249,7 +262,7 @@ We can use `pscale deploy-request diff` to see the full schema diff of a deploy 
 
 This example is useful when combined with opening a deploy request for a git branch. You can then automatically comment the diff back to the GitHub pull request.
 
-```yaml
+```yaml theme={null}
 - name: Comment on PR
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -257,9 +270,9 @@ This example is useful when combined with opening a deploy request for a git bra
   run: |
     echo "Deploy request opened: https://app.planetscale.com/${{ secrets.PLANETSCALE_ORG_NAME }}/${{ secrets.PLANETSCALE_DATABASE_NAME }}/deploy-requests/${{ env.DEPLOY_REQUEST_NUMBER }}" >> migration-message.txt
     echo "" >> migration-message.txt
-    echo "\\`\\`\\`diff" >> migration-message.txt
+    echo "\`\`\`diff" >> migration-message.txt
     pscale deploy-request diff ${{ secrets.PLANETSCALE_DATABASE_NAME }} ${{ env.DEPLOY_REQUEST_NUMBER }} --org ${{ secrets.PLANETSCALE_ORG_NAME }} -f json | jq -r '.[].raw' >> migration-message.txt
-    echo "\\`\\`\\`" >> migration-message.txt
+    echo "\`\`\`" >> migration-message.txt
 - name: Comment PR - db migrated
   uses: thollander/actions-comment-pull-request@v2
   with:
@@ -272,9 +285,10 @@ This writes the diff to the `migration-message.txt` file. And then creates a com
 
 PlanetScale sets a `can_drop_data` boolean for any schema change that drop a column or table. We can make use of this to emit a warning into our pull requests.
 
-In this example, we first wait for the deployment check to be `ready`. During this time, PlanetScale is examining the schema change, verifying that it is safe and generating the DDL statements to make the change. Once it’s done, we then use this information to put a comment on the deploy request with tips on how to deploy it safely.
+In this example, we first wait for the deployment check to be `ready`. During this time, PlanetScale is examining the schema change, verifying that it is safe and
+generating the DDL statements to make the change. Once it's done, we then use this information to put a comment on the deploy request with tips on how to deploy it safely.
 
-```yaml
+```yaml expandable theme={null}
 - name: Check deployment state
     id: check-state
     env:
@@ -322,9 +336,9 @@ In this example, we first wait for the deployment check to be `ready`. During th
         echo "" >> migration-message.txt
       fi
 
-      echo "\\`\\`\\`diff" >> migration-message.txt
+      echo "\`\`\`diff" >> migration-message.txt
       pscale deploy-request diff ${{ secrets.PLANETSCALE_ORG_NAME }} ${{ env.DEPLOY_REQUEST_NUMBER }} -f json | jq -r '.[].raw' >> migration-message.txt
-      echo "\\`\\`\\`" >> migration-message.txt
+      echo "\`\`\`" >> migration-message.txt
   - name: Comment PR - db migrated
     uses: thollander/actions-comment-pull-request@v2
     if: ${{ env.DR_OPENED }}
@@ -336,11 +350,11 @@ In this example, we first wait for the deployment check to be `ready`. During th
 
 To trigger a deploy, we can use `pscale deploy-request deploy`. This command will accept either the deploy request number, or the name of the branch that the deploy request was created from.
 
-When using with GitHub Actions, it’s often easier to use the branch name.
+When using with GitHub Actions, it's often easier to use the branch name.
 
 The `--wait` flag will let the command run until the deployment is complete. This is important if you want your schema change to run before the next step in your workflow.
 
-```yaml
+```yaml theme={null}
 - name: Deploy schema migrations
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -351,4 +365,7 @@ The `--wait` flag will let the command run until the deployment is complete. Thi
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

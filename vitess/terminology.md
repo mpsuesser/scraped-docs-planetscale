@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/terminology
 title: "Terminology"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # PlanetScale terminology
 
 > Here we provide definitions for technologies and concepts you will see throughout our documentation and product. Some of these are common terms in the databases space, while others are Vitess or PlanetScale specific.
-
-**Platform availability:** Vitess only
 
 ## Database technologies
 

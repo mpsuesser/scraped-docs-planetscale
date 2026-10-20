@@ -2,21 +2,27 @@
 url: https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work
 title: "How Online Schema Change Tools Work"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# How Online Schema Change tools work
 
 ## The schema change problem
 
-Changing a table’s schema is one of the most challenging problems in relational databases, and in MySQL in particular. In today’s accelerated and rapid development cycles, engineers find that they need to make schema changes sometimes on a daily basis. Direct `ALTER TABLE` is a blocking operation, which renders the table completely inaccessible, even for reads.
+Changing a table's schema is one of the most challenging problems in relational databases, and in MySQL in particular. In today's accelerated and rapid development cycles, engineers find that they need to make schema changes sometimes on a daily basis. Direct `ALTER TABLE` is a blocking operation, which renders the table completely inaccessible, even for reads.
 
-MySQL’s InnoDB engine supports Online DDL for most operations. However, it is only *online* on the primary. On replicas, it executes sequentially to other statements, leading to unacceptable replication lag. On the primary, it is aggressive and uncontrollable. It will compete with production traffic over resources. InnoDB also offers Instant DDL, which is available for a small subset of schema change operations. See the full breakdown on the [MySQL documentation](https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl-operations.html).
+MySQL's InnoDB engine supports Online DDL for most operations. However, it is only *online* on the primary. On replicas, it executes sequentially to other statements, leading to unacceptable replication lag. On the primary, it is aggressive and uncontrollable. It will compete with production traffic over resources. InnoDB also offers Instant DDL, which is available for a small subset of schema change operations. See the full breakdown on the [MySQL documentation](https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl-operations.html).
 
 ## Schema change solutions
 
-In today’s world, the vast majority of users use one of the Online Schema Change tools. These are external, small tools or scripts, that hook onto the database and run a migration through emulation. Common external tools are [gh-ost](https://github.com/github/gh-ost), [pt-online-schema-change](https://www.percona.com/doc/percona-toolkit/3.0/pt-online-schema-change.html) and [Facebook’s OSC](https://web.archive.org/web/2023/http://bazaar.launchpad.net/~mysqlatfacebook/mysqlatfacebook/tools/annotate/head:/osc/OnlineSchemaChange.php). This document describes the general technical operation of these tools.
+In today's world, the vast majority of users use one of the Online Schema Change tools. These are external, small tools or scripts, that hook onto the database and run a migration through emulation. Common external tools are [gh-ost](https://github.com/github/gh-ost), [pt-online-schema-change](https://www.percona.com/doc/percona-toolkit/3.0/pt-online-schema-change.html) and [Facebook's OSC](https://web.archive.org/web/2023/http://bazaar.launchpad.net/~mysqlatfacebook/mysqlatfacebook/tools/annotate/head:/osc/OnlineSchemaChange.php). This document describes the general technical operation of these tools.
 
-It’s worth noting an alternative to using Online Schema Change tools, via rolling changes on replicas. In this technique, the user runs either straight or Online DDL on replicas, typically one or a few replicas at a time. Then, once all replicas have been updated with the new schema, the user demotes the primary and promotes one of the replicas. The demoted primary, now a replica, can then be updated, as well. This technique requires no external tooling. However, it takes substantially longer to complete the overall operation and requires running a promotion, which is typically disruptive to the applications.
+It's worth noting an alternative to using Online Schema Change tools, via rolling changes on replicas. In this technique, the user runs either straight or Online DDL on replicas, typically one or a few replicas at a time. Then, once all replicas have been updated with the new schema, the user demotes the primary and promotes one of the replicas. The demoted primary, now a replica, can then be updated, as well. This technique requires no external tooling. However, it takes substantially longer to complete the overall operation and requires running a promotion, which is typically disruptive to the applications.
 
 ## The general logic behind Online Schema Change tools
 
@@ -24,21 +30,21 @@ The Online Schema Change tools have many differences, covered in our [Comparison
 
 All tools work by *emulating* a schema change. The general flow is:
 
-- Create a new, empty table, in the likeness of the original table. We title this the *ghost* table.
-- `ALTER` the ghost table. Since the table is empty, there is no overhead to this operation.
-- Validate the structural change is compatible with tooling requirements.
-- Analyze the diff.
-- Begin a long running process of copying existing rows from the original tables to the ghost table. Rows are copied in small batches.
-- Capture or react to ongoing changes to the original table, and continuously apply them onto the ghost table.
-- Monitor general database and replication metric, and throttle so as to prioritize production traffic as needed.
-- When the existing data copy is complete, the migration is generally considered as ready to cut-over, give or take some small backlog or state of the replication topology.
-- Final step is the cut-over: renaming away of the original table, and renaming the ghost table in its place. Up to some locking or small table outage time, the users and apps are largely ignorant that the table has been swapped under their feet.
+* Create a new, empty table, in the likeness of the original table. We title this the *ghost* table.
+* `ALTER` the ghost table. Since the table is empty, there is no overhead to this operation.
+* Validate the structural change is compatible with tooling requirements.
+* Analyze the diff.
+* Begin a long running process of copying existing rows from the original tables to the ghost table. Rows are copied in small batches.
+* Capture or react to ongoing changes to the original table, and continuously apply them onto the ghost table.
+* Monitor general database and replication metric, and throttle so as to prioritize production traffic as needed.
+* When the existing data copy is complete, the migration is generally considered as ready to cut-over, give or take some small backlog or state of the replication topology.
+* Final step is the cut-over: renaming away of the original table, and renaming the ghost table in its place. Up to some locking or small table outage time, the users and apps are largely ignorant that the table has been swapped under their feet.
 
 In the following sections, we break down these steps to understand better the requirements, limitations, and correctness of the flow.
 
 ## Initializing the ghost table schema
 
-The schema migration flow never changes or updates the original table. We only ever operate on the *ghost* table. We create a ghost table with an exact copy of the original table’s schema, then we run the user’s `ALTER TABLE` command on the ghost table.
+The schema migration flow never changes or updates the original table. We only ever operate on the *ghost* table. We create a ghost table with an exact copy of the original table's schema, then we run the user's `ALTER TABLE` command on the ghost table.
 
 First and foremost, we are able to validate that the statement is valid. For example, if the user requests an `ALTER TABLE foo DROP COLUMN bar`, executing that statement on the ghost table *successfully* validates that the column `bar` did, in fact, exist in the first place. Similarly we can catch any lower level errors such as an oversized index, invalid `DEFAULT` values, etc.
 
@@ -48,10 +54,12 @@ This is also a place to check whether we want to enforce a change to `AUTO_INCRE
 
 On top of validating the raw MySQL change, all Online Schema Change tools come with their own restrictions. A couple notable restrictions are:
 
-- **Existence of relevant keys** — All tools copy data from the original table onto the ghost table by slow iteration. The iteration utilizes a `UNIQUE KEY`, ideally the `PRIMARY KEY`. The different tools have somewhat different constraints, but they all require some form of `UNIQUE KEY` or `PRIMARY KEY` to exist on the ghost table, maybe even require a *shared key* between the two tables. The existence of a key on the target table is required to satisfy the following:
-	- When applying an ongoing change on the original table, for example an `UPDATE`, how do we efficiently find the row on the target table?
-		- When copying a chunk of data from the original table onto the ghost table, how do we resolve conflicts? By way of example, by the time we copy the last chunk of data, we may have already captured and applied the `INSERT` change, so that the rows already exists on the ghost table. More on that logic later on, but it is the `UNIQUE KEY` that helps us resolve the conflict.
-- **Existence/addition of `FOREIGN KEY` constraints** — Foreign keys do not play well with the Online Schema Change flow, and there are either severe limitations on, or rejection of, tables that have foreign key constraints.
+* **Existence of relevant keys** — All tools copy data from the original table onto the ghost table by slow iteration. The iteration utilizes a `UNIQUE KEY`, ideally the `PRIMARY KEY`. The different tools have somewhat different constraints, but they all require some form of `UNIQUE KEY` or `PRIMARY KEY` to exist on the ghost table, maybe even require a *shared key* between the two tables. The existence of a key on the target table is required to satisfy the following:
+
+  * When applying an ongoing change on the original table, for example an `UPDATE`, how do we efficiently find the row on the target table?
+  * When copying a chunk of data from the original table onto the ghost table, how do we resolve conflicts? By way of example, by the time we copy the last chunk of data, we may have already captured and applied the `INSERT` change, so that the rows already exists on the ghost table. More on that logic later on, but it is the `UNIQUE KEY` that helps us resolve the conflict.
+
+* **Existence/addition of `FOREIGN KEY` constraints** — Foreign keys do not play well with the Online Schema Change flow, and there are either severe limitations on, or rejection of, tables that have foreign key constraints.
 
 ## Analyzing the diff
 
@@ -65,32 +73,93 @@ This is the single most time consuming part of the migration. Transferring all r
 
 Copy is done via a statement of the form:
 
-```sql
+```sql theme={null}
 INSERT [IGNORE] INTO <ghost_table> (<columns...>) SELECT <columns...> FROM <original_table> WHERE <range...>
 ```
 
 It is impractical, or inefficient, to copy all rows from the original table to the ghost table in one pass. The tools work by iterating the original table start-to-end using some chosen `UNIQUE KEY` (typically the `PRIMARY KEY`). They only copy `n` rows at a time, where common values are around `100` or `1000` rows per chunk, though based on row data size and on workload, these can also be on the range `10...10000`.
 
-We reasonably know where the table starts. But where does it “end”? Consider a table with an `AUTO_INCREMENT PRIMARY KEY` column. As we work to copy the table rows, the app writes more rows into the table, pushing the end farther and farther. This creates an illusion of a never ending flow. However, this is not the case. The tools evaluate the first and last rows (as ordered by the iteration key), and only copy rows in that range. Any excessive rows beyond that range will be captured by following the ongoing changes. It is imperative then to begin capturing changes *before* evaluating row range.
+We reasonably know where the table starts. But where does it "end"? Consider a table with an `AUTO_INCREMENT PRIMARY KEY` column. As we work to copy the table rows, the app writes more rows into the table, pushing the end farther and farther. This creates an illusion of a never ending flow. However, this is not the case. The tools evaluate the first and last rows (as ordered by the iteration key), and only copy rows in that range. Any excessive rows beyond that range will be captured by following the ongoing changes. It is imperative then to begin capturing changes *before* evaluating row range.
 
 Copying, say, `100` rows at a time will very likely yield with an image inconsistent with a single snapshot of all rows. As we copy the first `100` rows, new rows can be added, removed or updated in the next `100` rows range. As we advance in our copy phase, the data gets more and more skewed from the original imaginary snapshot from the migration starting point. That is in fact not a problem, as the skew serves us to reflect an even more updated image of the data. We are interested not in the data snapshot at the *start* of the migration, but at the *end* of it. We want the ghost table to be aligned with the original table at such point when we can swap the two without data loss. Applying the ongoing changes is of course the key to achieving that. More on the interaction of row copy and ongoing changes later on.
 
-It’s simple to consider how we may iterate a table with, say, a `AUTO_INCREMENT PRIMARY KEY`. It’s easy to imagine iterating rows `[1..100]`, `[101..200]`, `[201..300]` and so forth. But we must then also consider real life situations:
+It's simple to consider how we may iterate a table with, say, a `AUTO_INCREMENT PRIMARY KEY`. It's easy to imagine iterating rows `[1..100]`, `[101..200]`, `[201..300]` and so forth. But we must then also consider real life situations:
 
-- We might have huge punctures in the `AUTO_INCREMENT` sequence. Rows `200..5000000` may be altogether missing, and iterating that range could be extremely wasteful.
-- Can we miss out on unforseen gaps? If we copied row `100`, does it follow that the next row is `101`? Could there be some `100.5`? Not if the data type is an `INT`, but what if it’s another type?
-- Our iteration key may not necessarily be numeric. It may in fact contain multiple columns. How can you iterate a `PRIMARY KEY (file_name, submitted_at)` where `name` is a `VARCHAR` and `submitted_at` is a `TIMESTAMP`?
+* We might have huge punctures in the `AUTO_INCREMENT` sequence. Rows `200..5000000` may be altogether missing, and iterating that range could be extremely wasteful.
+* Can we miss out on unforseen gaps? If we copied row `100`, does it follow that the next row is `101`? Could there be some `100.5`? Not if the data type is an `INT`, but what if it's another type?
+* Our iteration key may not necessarily be numeric. It may in fact contain multiple columns. How can you iterate a `PRIMARY KEY (file_name, submitted_at)` where `name` is a `VARCHAR` and `submitted_at` is a `TIMESTAMP`?
 
-We illustrate below the *pseudo code* used by Online Schema Change tools to iterate a table using a key with any number and type of columns. For clarity, let’s assume two columns `(file_name, submitted_at)`; the logic remains similar, though somewhat more detailed, the more columns we iterate by.
+We illustrate below the *pseudo code* used by Online Schema Change tools to iterate a table using a key with any number and type of columns. For clarity, let's assume two columns `(file_name, submitted_at)`; the logic remains similar, though somewhat more detailed, the more columns we iterate by.
 
-The above pseudo-code is just a simplification of the process.
+**Step 1**
+
+Grab the minimum value via:
+
+```sql theme={null}
+SELECT file_name, submitted_at FROM original_table ORDER BY file_name, submitted_at ASC LIMIT 1 INTO @first_entry_file_name, @first_entry_submitted_at`
+```
+
+**Step 2**
+
+Grab the maximum value via:
+
+```sql theme={null}
+SELECT file_name, submitted_at FROM original_table ORDER BY file_name DESC, submitted_at DESC LIMIT 1 INTO @last_entry_file_name, @last_entry_submitted_at`
+```
+
+**Step 3**
+
+Assign `(@previous_iteration_end_entry_file_name, @previous_iteration_end_entry_submitted_at) := (@first_entry_file_name, @first_entry_submitted_at)` and repeat.
+
+**Step 4**
+
+For any iteration: evaluate the next range:
+
+```sql theme={null}
+SELECT file_name, submitted_at FROM (
+  SELECT file_name, submitted_at FROM original_table
+  WHERE
+    (file_name, submitted_at) > (@previous_iteration_end_entry_file_name, @previous_iteration_end_entry_submitted_at)
+    AND
+    (file_name, submitted_at) <>= (@last_entry_file_name, @last_entry_submitted_at)
+  ORDER BY file_name, submitted_at LIMIT 100
+) ORDER BY file_name DESC, submitted_at DESC LIMIT 1
+INTO @this_iteration_end_entry_file_name, @this_iteration_end_entry_submitted_at
+```
+
+In words, get the last `file_name, submitted_at` values counting `100` rows starting immediately after end of previous iteration, but also don't exceed our "end" position.
+
+**Step 5**
+
+Follow up with copy:
+
+```sql theme={null}
+INSERT INTO ghost_table (<columns...>)
+  SELECT <columns...>
+  FROM original_table
+    WHERE
+      (file_name, submitted_at) > (@previous_iteration_end_entry_file_name, @previous_iteration_end_entry_submitted_at)
+      AND
+      (file_name, submitted_at) <= (@this_iteration_end_entry_file_name, @this_iteration_end_entry_submitted_at)
+  ORDER BY file_name, submitted_at
+```
+
+The two queries could have been executed as one, but by first evaluating the range using only the key columns, this process is actually more efficient.
+
+**Step 6**
+
+Assign `(@previous_iteration_end_entry_file_name, @previous_iteration_end_entry_submitted_at) := (@this_iteration_end_entry_file_name, @this_iteration_end_entry_submitted_at)` and repeat.
+
+> [!NOTE]
+>
+> The above pseudo-code is just a simplification of the process.
 
 There are several extra considerations that go into the full process, such as:
 
-- Care needed to capture the very first row in iteration.
-- Missing from the above is identifying the stop condition (empty row set found).
-- MySQL actually performs poorly with tuple comparison. The condition `(a, b) > (x, y)` must actually be phrased as `a > x OR a = x AND b > y`. This explodes fast the more columns are at play.
-- Most implementations will actually use a `INSERT IGNORE` rather than `INSERT`, to play well with ongoing updates.
+* Care needed to capture the very first row in iteration.
+* Missing from the above is identifying the stop condition (empty row set found).
+* MySQL actually performs poorly with tuple comparison. The condition `(a, b) > (x, y)` must actually be phrased as `a > x OR a = x AND b > y`. This explodes fast the more columns are at play.
+* Most implementations will actually use a `INSERT IGNORE` rather than `INSERT`, to play well with ongoing updates.
 
 ## Ongoing changes
 
@@ -102,12 +171,12 @@ The ongoing changes always represent the latest and most up-to-date image of the
 
 Some of the tools achieve this like so:
 
-- Row copy only issues a `INSERT IGNORE INTO <ghost_table> ... SELECT ... FROM <original_table>`
-- Changes applied via `REPLACE INTO <ghost_table> ...`
+* Row copy only issues a `INSERT IGNORE INTO <ghost_table> ... SELECT ... FROM <original_table>`
+* Changes applied via `REPLACE INTO <ghost_table> ...`
 
-Consider a counter example to our previous scenario. Imagine we’re now intercepting a change to row `1024`, but row copy has not reached that row yet. We apply the change. When we finally reach and copy the range that includes row `1024`, that specific row does *not* get overwritten. Now, what if by that time of row copy the row has been updated again? Isn’t the row copy now even more up-to-date than the existing `1024` row on the ghost table? It is, in fact. But if that is the case, then there must have been a change, an `UPDATE` to row `1024`, that we just haven’t applied yet, and are yet to discover and apply via `REPLACE INTO`.
+Consider a counter example to our previous scenario. Imagine we're now intercepting a change to row `1024`, but row copy has not reached that row yet. We apply the change. When we finally reach and copy the range that includes row `1024`, that specific row does *not* get overwritten. Now, what if by that time of row copy the row has been updated again? Isn't the row copy now even more up-to-date than the existing `1024` row on the ghost table? It is, in fact. But if that is the case, then there must have been a change, an `UPDATE` to row `1024`, that we just haven't applied yet, and are yet to discover and apply via `REPLACE INTO`.
 
-Different tools tackle this issue differently. A synchronous solution like `pt-online-schema-change` is *always* up-to-date with ongoing changes, while [Vitess’s VReplication](https://vitess.io/docs/reference/vreplication/vreplication/) takes a completely different approach by marking GTID positions that have been or not have been already covered. The above should serve as a good illustration to the flow, regardless of the actual implementation.
+Different tools tackle this issue differently. A synchronous solution like `pt-online-schema-change` is *always* up-to-date with ongoing changes, while [Vitess's VReplication](https://vitess.io/docs/reference/vreplication/vreplication/) takes a completely different approach by marking GTID positions that have been or not have been already covered. The above should serve as a good illustration to the flow, regardless of the actual implementation.
 
 ## Monitor and throttle
 
@@ -127,13 +196,13 @@ However, the general state of the replication topology can also be a factor. It 
 
 By far the most critical point of the migration, this is where the changes take effect and the new, changed schema, tastes first production traffic.
 
-It’s first important to realize some migrations do not go as planned. Some drop the wrong column, or change the wrong index, and such is life. The cut-over point is where the user might expect trouble. When some queries suddenly fail, or others suddenly perform poorly. Some of the tools will cut-over automatically when they deem the migration is complete, and others will allow the user to choose the timing.
+It's first important to realize some migrations do not go as planned. Some drop the wrong column, or change the wrong index, and such is life. The cut-over point is where the user might expect trouble. When some queries suddenly fail, or others suddenly perform poorly. Some of the tools will cut-over automatically when they deem the migration is complete, and others will allow the user to choose the timing.
 
-Replacing the table is also a point of contention. MySQL-wise, we need to acquire a table lock, also known as a metadata lock. As internal MySQL implementation goes, one cannot acquire a metadata lock while a query still runs on the table. This means a long running query may block the cut-over for a substantial time. This is why it’s good to either consult with the running workload, or let the user choose the cut-over time.
+Replacing the table is also a point of contention. MySQL-wise, we need to acquire a table lock, also known as a metadata lock. As internal MySQL implementation goes, one cannot acquire a metadata lock while a query still runs on the table. This means a long running query may block the cut-over for a substantial time. This is why it's good to either consult with the running workload, or let the user choose the cut-over time.
 
-Once metadata lock is acquired, application connections start noticing something goes on. Depending on the cut-over implementation, the metadata lock can be held up to a few seconds. During that time more queries will pile up, leading to increased number of connections on the server. It’s not unreasonable that the number of connections will surpass the configured database connections threshold, at which time no new connections and queries are allowed. This is again obviously noticeable to the apps. Trigger based tools suffer from an even increased metadata lock, and under heavy workloads this can cause seconds or minutes long stalls.
+Once metadata lock is acquired, application connections start noticing something goes on. Depending on the cut-over implementation, the metadata lock can be held up to a few seconds. During that time more queries will pile up, leading to increased number of connections on the server. It's not unreasonable that the number of connections will surpass the configured database connections threshold, at which time no new connections and queries are allowed. This is again obviously noticeable to the apps. Trigger based tools suffer from an even increased metadata lock, and under heavy workloads this can cause seconds or minutes long stalls.
 
-Depending on the implementation, the tables will either swap atomically, such that the connections are suddenly unblocked and “magically” proceed to run on the new (previously *ghost*) table; or, there will be a “puncture” in time, where the table ceases to exist, which leads to query errors for a brief time.
+Depending on the implementation, the tables will either swap atomically, such that the connections are suddenly unblocked and "magically" proceed to run on the new (previously *ghost*) table; or, there will be a "puncture" in time, where the table ceases to exist, which leads to query errors for a brief time.
 
 At long last, the migration is complete with the *ghost* table assuming the role of the original table. Production traffic proceeds to run on the new table. The old table is then normally left for a while, to be dropped later on by the database engineer.
 
@@ -141,11 +210,14 @@ At long last, the migration is complete with the *ghost* table assuming the role
 
 Most tools stop their operation and their interest at cut-over. Vitess, in particular, goes beyond that point to:
 
-- allow the migration to be *reverted*
-- clean up the left over tables
+* allow the migration to be *reverted*
+* clean up the left over tables
 
 For more information about how Vitess handles schema changes, check out the [Vitess Schema Changes documentation](https://vitess.io/docs/user-guides/schema-changes/).
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pgvector
 title: "Pgvector"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Extensions: pgvector
 
 > Open-source vector similarity search for Postgres, Store embeddings and run nearest-neighbor queries
-
-**Platform availability:** [Vitess](../../vitess/vectors.md) and Postgres
 
 ## Overview
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Query Insights
 
 > Analyze query latency, resource use, and cross-shard execution in Neki.
-
-**Platform availability:** [Vitess](../../vitess/monitoring/query-insights.md) and [Postgres](../../postgres/monitoring/query-insights.md)
 
 Query Insights groups executions of the same normalized SQL into query patterns.
 Use it to find queries that run frequently, consume a large share of database

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/duplicate-enum-value
 title: "Duplicate Enum Value"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # DUPLICATE_ENUM_VALUE schema lint error
 
 > Fix MySQL enum definitions that repeat the same enum value.
-
-**Platform availability:** Vitess only
 
 ## What this error means
 

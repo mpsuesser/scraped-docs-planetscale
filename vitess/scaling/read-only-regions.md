@@ -2,9 +2,15 @@
 url: https://planetscale.com/docs/vitess/scaling/read-only-regions
 title: "Read Only Regions"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Read-only regions
 
 ## Overview
 
@@ -16,15 +22,63 @@ Read-only regions are configured per [keyspace](../sharding/keyspaces.md). Each 
 
 ## How to create a read-only region
 
-To add more than one region, click “ **Add another region** ” and configure each region before saving.
+**Step 1**
 
-## How to change a read-only region’s cluster size or replica count
+In the [PlanetScale dashboard](https://app.planetscale.com), select the database you want to add a read-only region to.
+
+**Step 2**
+
+Click "**Clusters**" in the left nav and make sure your production branch is selected.
+
+**Step 3**
+
+Select the keyspace you want to add a read-only region to. If you only have one keyspace, it will be selected by default.
+
+**Step 4**
+
+In the "**Read-only regions**" section, select the desired region from the dropdown of [available regions](https://planetscale.com/docs/vitess/regions).
+
+**Step 5**
+
+Choose a cluster size and the number of replicas for the region. The monthly cost of the region is shown alongside your selections.
+
+**Step 6**
+
+Click "**Save**" and wait for your data to finish initially replicating across regions.
+
+To add more than one region, click "**Add another region**" and configure each region before saving.
+
+## How to change a read-only region's cluster size or replica count
 
 Each read-only region has its own cluster size and replica count. For example, a region that serves less read traffic than your primary region can run a smaller cluster size.
+
+**Step 1**
+
+Go to the "**Clusters**" page for your production branch and select the keyspace.
+
+**Step 2**
+
+In the "**Read-only regions**" section, choose a new cluster size or number of replicas for the region.
+
+**Step 3**
+
+Review the updated monthly cost and click "**Save**".
 
 If a read-only region runs a single replica, that replica is replaced during a cluster size change, and reads routed to the region will fail until the replacement completes. With two or more replicas, the region continues to serve reads while its replicas are replaced. We recommend running at least two replicas in any read-only region where uninterrupted reads are important.
 
 ## How to remove a read-only region
+
+**Step 1**
+
+Go to the "**Clusters**" page for your production branch and select the keyspace.
+
+**Step 2**
+
+In the "**Read-only regions**" section, click "**Remove region**" next to the region you want to remove.
+
+**Step 3**
+
+Click "**Save**".
 
 Once you remove a region, you will no longer be charged for the storage or row reads associated with that region. If you were using global replica credentials, you do not need to take any additional action. Read queries will still be sent to the closest replica for any queries that are using global replica credentials.
 
@@ -32,27 +86,43 @@ Once you remove a region, you will no longer be charged for the storage or row r
 
 ### Global replica credentials
 
-A [global replica credential](replicas.md) routes queries to the nearest replica among your branch’s primary-region replicas and read-only regions.
+A [global replica credential](replicas.md) routes queries to the nearest replica among your branch's primary-region replicas and read-only regions.
+
+**Step 1**
+
+Go to your database's production branch.
+
+**Step 2**
+
+Click on the "Connect" button in the top right
+
+**Step 3**
+
+On the "Connect" page, select "Replica" as the connection type.
+
+**Step 4**
+
+Click "Create password" to generate a new username and password pair.
 
 Alternatively, create the credential from the CLI:
 
-```shellscript
+```bash theme={null}
 pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME> --replica
 ```
 
-You can also create a connection string by going to your database settings page > “ **Passwords** ” > “ **New password** ”.
+You can also create a connection string by going to your database settings page > "**Passwords**" > "**New password**".
 
 ### Region-scoped credentials
 
 To always connect to a specific read-only region, create a region-scoped password from the CLI:
 
-```shellscript
+```bash theme={null}
 pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME> --read-only-region eu-west
 ```
 
 Pass a region slug, display name, or id. List the regions configured for a keyspace with:
 
-```shellscript
+```bash theme={null}
 pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
 ```
 
@@ -60,7 +130,7 @@ pscale keyspace read-only-regions <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
 
 ### Direct host selection
 
-If you already have a password, open it on the “ **Passwords** ” page within your database’s settings. Under “ **Database endpoint** ”, select “ **Direct** ” and choose your desired host from the “ **Host** ” dropdown.
+If you already have a password, open it on the "**Passwords**" page within your database's settings. Under "**Database endpoint**", select "**Direct**" and choose your desired host from the "**Host**" dropdown.
 
 ## Concepts
 
@@ -72,9 +142,9 @@ For sharded keyspaces, the configuration applies to every shard in the keyspace.
 
 ### Replication across regions
 
-PlanetScale replicates your data across regions with an asynchronous strategy, first storing your changes in the primary region and then forwarding them to your read-only region(s). The time that it takes those changes to propagate to your read-only region can be defined as “replication lag” and be measured by issuing the following statement to your read-only regions:
+PlanetScale replicates your data across regions with an asynchronous strategy, first storing your changes in the primary region and then forwarding them to your read-only region(s). The time that it takes those changes to propagate to your read-only region can be defined as "replication lag" and be measured by issuing the following statement to your read-only regions:
 
-```sql
+```sql theme={null}
 SELECT max_repl_lag();
 ```
 
@@ -92,276 +162,283 @@ Read-only regions are available on the [Base and Enterprise plans](../../planets
 
 The prices in the tables below cover a read-only region running a single replica at the selected cluster size. Each replica beyond the first is billed at the standard additional replica rate for that cluster size. This is the same rate as additional [replicas](replicas.md) in your primary region. The total monthly cost for a region is shown in the app as you configure it.
 
-For sharded keyspaces, read-only region charges apply to each shard in the keyspace. As with all cluster charges, read-only region charges are prorated, so changing a region’s cluster size or replica count mid-month only bills the new configuration for the time it was running.
+For sharded keyspaces, read-only region charges apply to each shard in the keyspace. As with all cluster charges, read-only region charges are prorated, so changing a region's cluster size or replica count mid-month only bills the new configuration for the time it was running.
 
 ### Storage costs
 
-Your storage costs will increase linearly with the amount of read-only regions added. Adding new read-only regions will always be billed as standalone storage and will not count toward your included storage.
+Your storage costs will increase linearly with the amount of read-only regions added.
+Adding new read-only regions will always be billed as standalone storage and will not count toward your included storage.
 
-As an example, let’s say you’re on our Base plan with 10 GB of included storage and your primary contains 7 GB of data. If you have two read-only regions, each one will be charged at our additional storage rate, for a total of 14 GB. The read-only region storage rate is $0.75 per GB, and in this case would lead to an additional storage charge of $10.50.
+As an example, let's say you're on our Base plan with 10 GB of included storage and your primary contains 7 GB of data.
+If you have two read-only regions, each one will be charged at our additional storage rate, for a total of 14 GB.
+The read-only region storage rate is \$0.75 per GB, and in this case would lead to an additional storage charge of \$10.50.
 
 For more information on storage billing costs, see our [Billing documentation](../../planetscale-plans.md).
 
 ## Pricing
 
-Below we include the costs for read-only regions in each available region up to `400` -level instances. Larger sizes are available in the app.
+Below we include the costs for read-only regions in each available region up to `400`-level instances.
+Larger sizes are available in the app.
 
 ### AWS ap-northeast-1 (Tokyo)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $19 |
-| PS-20RR | $28 |
-| PS-40RR | $48 |
-| PS-80RR | $86 |
-| PS-160RR | $168 |
-| PS-320RR | $336 |
-| PS-400RR | $480 |
+| - | - |
+| PS-10RR | \$19 |
+| PS-20RR | \$28 |
+| PS-40RR | \$48 |
+| PS-80RR | \$86 |
+| PS-160RR | \$168 |
+| PS-320RR | \$336 |
+| PS-400RR | \$480 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $296 |
-| M-160RR | 460 GB | $324 |
-| M-320RR | 229 GB | $588 |
-| M-320RR | 929 GB | $640 |
+| - | - | - |
+| M-160RR | 110 GB | \$296 |
+| M-160RR | 460 GB | \$324 |
+| M-320RR | 229 GB | \$588 |
+| M-320RR | 929 GB | \$640 |
 
 ### AWS ap-south-1 (Mumbai)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $10 |
-| PS-20RR | $15 |
-| PS-40RR | $26 |
-| PS-80RR | $46 |
-| PS-160RR | $91 |
-| PS-320RR | $182 |
-| PS-400RR | $260 |
+| - | - |
+| PS-10RR | \$10 |
+| PS-20RR | \$15 |
+| PS-40RR | \$26 |
+| PS-80RR | \$46 |
+| PS-160RR | \$91 |
+| PS-320RR | \$182 |
+| PS-400RR | \$260 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $256 |
-| M-160RR | 460 GB | $312 |
-| M-320RR | 229 GB | $508 |
-| M-320RR | 929 GB | $620 |
+| - | - | - |
+| M-160RR | 110 GB | \$256 |
+| M-160RR | 460 GB | \$312 |
+| M-320RR | 229 GB | \$508 |
+| M-320RR | 929 GB | \$620 |
 
 ### AWS ap-southeast-1 (Singapore)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $19 |
-| PS-20RR | $28 |
-| PS-40RR | $48 |
-| PS-80RR | $86 |
-| PS-160RR | $168 |
-| PS-320RR | $336 |
-| PS-400RR | $480 |
+| - | - |
+| PS-10RR | \$19 |
+| PS-20RR | \$28 |
+| PS-40RR | \$48 |
+| PS-80RR | \$86 |
+| PS-160RR | \$168 |
+| PS-320RR | \$336 |
+| PS-400RR | \$480 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $296 |
-| M-160RR | 460 GB | $332 |
-| M-320RR | 229 GB | $588 |
-| M-320RR | 929 GB | $656 |
+| - | - | - |
+| M-160RR | 110 GB | \$296 |
+| M-160RR | 460 GB | \$332 |
+| M-320RR | 229 GB | \$588 |
+| M-320RR | 929 GB | \$656 |
 
 ### AWS ap-southeast-2 (Sydney)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $19 |
-| PS-20RR | $28 |
-| PS-40RR | $48 |
-| PS-80RR | $86 |
-| PS-160RR | $168 |
-| PS-320RR | $336 |
-| PS-400RR | $480 |
+| - | - |
+| PS-10RR | \$19 |
+| PS-20RR | \$28 |
+| PS-40RR | \$48 |
+| PS-80RR | \$86 |
+| PS-160RR | \$168 |
+| PS-320RR | \$336 |
+| PS-400RR | \$480 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $280 |
-| M-160RR | 460 GB | $332 |
-| M-320RR | 229 GB | $560 |
-| M-320RR | 929 GB | $656 |
+| - | - | - |
+| M-160RR | 110 GB | \$280 |
+| M-160RR | 460 GB | \$332 |
+| M-320RR | 229 GB | \$560 |
+| M-320RR | 929 GB | \$656 |
 
 ### AWS eu-central-1 (Frankfurt)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $19 |
-| PS-20RR | $28 |
-| PS-40RR | $48 |
-| PS-80RR | $86 |
-| PS-160RR | $168 |
-| PS-320RR | $336 |
-| PS-400RR | $480 |
+| - | - |
+| PS-10RR | \$19 |
+| PS-20RR | \$28 |
+| PS-40RR | \$48 |
+| PS-80RR | \$86 |
+| PS-160RR | \$168 |
+| PS-320RR | \$336 |
+| PS-400RR | \$480 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $292 |
-| M-160RR | 460 GB | $328 |
-| M-320RR | 229 GB | $584 |
-| M-320RR | 929 GB | $652 |
+| - | - | - |
+| M-160RR | 110 GB | \$292 |
+| M-160RR | 460 GB | \$328 |
+| M-320RR | 229 GB | \$584 |
+| M-320RR | 929 GB | \$652 |
 
 ### AWS eu-west-1 (Dublin)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $18 |
-| PS-20RR | $26 |
-| PS-40RR | $44 |
-| PS-80RR | $80 |
-| PS-160RR | $156 |
-| PS-320RR | $313 |
-| PS-400RR | $448 |
+| - | - |
+| PS-10RR | \$18 |
+| PS-20RR | \$26 |
+| PS-40RR | \$44 |
+| PS-80RR | \$80 |
+| PS-160RR | \$156 |
+| PS-320RR | \$313 |
+| PS-400RR | \$448 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $272 |
-| M-160RR | 460 GB | $304 |
-| M-320RR | 229 GB | $540 |
-| M-320RR | 929 GB | $604 |
+| - | - | - |
+| M-160RR | 110 GB | \$272 |
+| M-160RR | 460 GB | \$304 |
+| M-320RR | 229 GB | \$540 |
+| M-320RR | 929 GB | \$604 |
 
 ### AWS eu-west-2 (London)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $18 |
-| PS-20RR | $28 |
-| PS-40RR | $46 |
-| PS-80RR | $84 |
-| PS-160RR | $163 |
-| PS-320RR | $327 |
-| PS-400RR | $468 |
+| - | - |
+| PS-10RR | \$18 |
+| PS-20RR | \$28 |
+| PS-40RR | \$46 |
+| PS-80RR | \$84 |
+| PS-160RR | \$163 |
+| PS-320RR | \$327 |
+| PS-400RR | \$468 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $288 |
-| M-160RR | 460 GB | $320 |
-| M-320RR | 229 GB | $568 |
-| M-320RR | 929 GB | $632 |
+| - | - | - |
+| M-160RR | 110 GB | \$288 |
+| M-160RR | 460 GB | \$320 |
+| M-320RR | 229 GB | \$568 |
+| M-320RR | 929 GB | \$632 |
 
 ### AWS sa-east-1 (Sao Paulo)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $25 |
-| PS-20RR | $38 |
-| PS-40RR | $63 |
-| PS-80RR | $114 |
-| PS-160RR | $223 |
-| PS-320RR | $447 |
-| PS-400RR | $639 |
+| - | - |
+| PS-10RR | \$25 |
+| PS-20RR | \$38 |
+| PS-40RR | \$63 |
+| PS-80RR | \$114 |
+| PS-160RR | \$223 |
+| PS-320RR | \$447 |
+| PS-400RR | \$639 |
 
 ### AWS us-east-1 (N. Virginia)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $244 |
-| M-160RR | 460 GB | $276 |
-| M-160RR | 1,241 GB | $404 |
-| M-320RR | 229 GB | $484 |
-| M-320RR | 929 GB | $584 |
-| M-320RR | 2,490 GB | $804 |
+| - | - | - |
+| M-160RR | 110 GB | \$244 |
+| M-160RR | 460 GB | \$276 |
+| M-160RR | 1,241 GB | \$404 |
+| M-320RR | 229 GB | \$484 |
+| M-320RR | 929 GB | \$584 |
+| M-320RR | 2,490 GB | \$804 |
 
 ### AWS us-east-2 (Ohio)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $244 |
-| M-160RR | 460 GB | $276 |
-| M-160RR | 1,241 GB | $404 |
-| M-320RR | 229 GB | $484 |
-| M-320RR | 929 GB | $584 |
-| M-320RR | 2,490 GB | $804 |
+| - | - | - |
+| M-160RR | 110 GB | \$244 |
+| M-160RR | 460 GB | \$276 |
+| M-160RR | 1,241 GB | \$404 |
+| M-320RR | 229 GB | \$484 |
+| M-320RR | 929 GB | \$584 |
+| M-320RR | 2,490 GB | \$804 |
 
 ### AWS us-west-2 (Oregon)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 | Metal read-only region | Storage | Price |
-| --- | --- | --- |
-| M-160RR | 110 GB | $244 |
-| M-160RR | 460 GB | $276 |
-| M-160RR | 1,241 GB | $404 |
-| M-320RR | 229 GB | $484 |
-| M-320RR | 929 GB | $584 |
-| M-320RR | 2,490 GB | $804 |
+| - | - | - |
+| M-160RR | 110 GB | \$244 |
+| M-160RR | 460 GB | \$276 |
+| M-160RR | 1,241 GB | \$404 |
+| M-320RR | 229 GB | \$484 |
+| M-320RR | 929 GB | \$584 |
+| M-320RR | 2,490 GB | \$804 |
 
 ### GCP asia-northeast3 (Seoul, South Korea)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $19 |
-| PS-20RR | $28 |
-| PS-40RR | $48 |
-| PS-80RR | $86 |
-| PS-160RR | $168 |
-| PS-320RR | $336 |
-| PS-400RR | $480 |
+| - | - |
+| PS-10RR | \$19 |
+| PS-20RR | \$28 |
+| PS-40RR | \$48 |
+| PS-80RR | \$86 |
+| PS-160RR | \$168 |
+| PS-320RR | \$336 |
+| PS-400RR | \$480 |
 
 ### GCP northamerica-northeast1 (Montréal, Québec)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 ### GCP us-central1 (Council Bluffs, Iowa)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 ### GCP us-east4 (Ashburn, Virginia)
 
 | Read-only region | Price |
-| --- | --- |
-| PS-10RR | $16 |
-| PS-20RR | $24 |
-| PS-40RR | $40 |
-| PS-80RR | $72 |
-| PS-160RR | $140 |
-| PS-320RR | $280 |
-| PS-400RR | $400 |
+| - | - |
+| PS-10RR | \$16 |
+| PS-20RR | \$24 |
+| PS-40RR | \$40 |
+| PS-80RR | \$72 |
+| PS-160RR | \$140 |
+| PS-320RR | \$280 |
+| PS-400RR | \$400 |
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,40 +2,50 @@
 url: https://planetscale.com/docs/plans/managed/azure/private-link
 title: "Private Link"
 description: ""
-access_date: 2026-10-13T18:20:34.341Z
-current_date: 2026-10-13T18:20:34.341Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Set up Azure Private Link with PlanetScale Managed
+
+> Connect an application virtual network privately to a PlanetScale Managed deployment in Azure.
 
 [Azure Private Link](https://learn.microsoft.com/azure/private-link/private-link-overview) connects an application virtual network to your PlanetScale Managed deployment without sending database traffic over the public internet.
 
 ## How the connection works
 
-PlanetScale operates an Azure Private Link Service in your Managed subscription. You create a Private Endpoint in an application VNet and manage the endpoint’s private IP address and DNS.
+PlanetScale operates an Azure Private Link Service in your Managed subscription. You create a Private Endpoint in an application VNet and manage the endpoint's private IP address and DNS.
 
 PlanetScale provides:
 
-- The Private Link Service alias
-- Confirmation that each application subscription is allowed to discover and connect to the service
+* The Private Link Service alias
+* Confirmation that each application subscription is allowed to discover and connect to the service
 
 You manage:
 
-- The Private Endpoint in the application subscription
-- Network access from your applications to the endpoint
-- Optional private DNS zones and DNS records
+* The Private Endpoint in the application subscription
+* Network access from your applications to the endpoint
+* Optional private DNS zones and DNS records
 
-The Private Link Service alias identifies the Azure service. It is not a database hostname and cannot be used in a connection string.
+> [!WARNING]
+>
+> The Private Link Service alias identifies the Azure service. It is not a database hostname and cannot be used in a connection string.
 
 ## Prerequisites
 
 Before you begin, you need:
 
-- A [provisioned PlanetScale Managed deployment on Azure](getting-started.md)
-- The Azure subscription and VNet where the applications that will connect to PlanetScale run
-- A subnet in that VNet where Azure can create the Private Endpoint
-- Permission to create Private Endpoints and network interfaces
-- The `Microsoft.Network` resource provider registered in the application subscription
-- Network access from your applications to the database ports supplied by PlanetScale
-- If you plan to use private DNS, permission to create Private DNS zones, VNet links, and DNS records
+* A [provisioned PlanetScale Managed deployment on Azure](getting-started.md)
+* The Azure subscription and VNet where the applications that will connect to PlanetScale run
+* A subnet in that VNet where Azure can create the Private Endpoint
+* Permission to create Private Endpoints and network interfaces
+* The `Microsoft.Network` resource provider registered in the application subscription
+* Network access from your applications to the database ports supplied by PlanetScale
+* If you plan to use private DNS, permission to create Private DNS zones, VNet links, and DNS records
 
 ## Step 1: Ask PlanetScale to enable the application subscription
 
@@ -43,12 +53,14 @@ Give your PlanetScale Solutions Engineer the subscription ID for each Azure subs
 
 PlanetScale configures the Private Link Service and gives you:
 
-- A Private Link Service alias, such as `SERVICE.GUID.REGION.azure.privatelinkservice`
-- Confirmation that your application subscription is configured for automatic approval
+* A Private Link Service alias, such as `SERVICE.GUID.REGION.azure.privatelinkservice`
+* Confirmation that your application subscription is configured for automatic approval
 
 If your deployment spans multiple Azure regions, PlanetScale provides a separate service alias for each region. Create a Private Endpoint for each region your applications use.
 
-Wait for PlanetScale to confirm that the application subscription is configured before creating the endpoint. Azure does not retroactively auto-approve an endpoint created before its subscription was added.
+> [!WARNING]
+>
+> Wait for PlanetScale to confirm that the application subscription is configured before creating the endpoint. Azure does not retroactively auto-approve an endpoint created before its subscription was added.
 
 ## Step 2: Create a Private Endpoint
 
@@ -56,11 +68,31 @@ You can create the endpoint in the Azure portal or with the Azure CLI.
 
 ### Azure portal
 
+**Step 1**
+
+In the Azure portal, open **Private Link Center**, select **Private endpoints**, and then select **Create**.
+
+**Step 2**
+
+Select the application subscription and resource group where you want to create the endpoint. Enter an endpoint name and select its region.
+
+**Step 3**
+
+On the resource page, select the option to connect by resource ID or alias. Enter the Private Link Service alias supplied by PlanetScale.
+
+**Step 4**
+
+Select the VNet and subnet used by your applications. Complete the endpoint creation without configuring automatic DNS integration.
+
+**Step 5**
+
+Open the new endpoint and confirm that its connection status is **Approved**. Record the private IP address assigned to its network interface.
+
 ### Azure CLI
 
 Set values for your environment and retrieve the endpoint subnet ID:
 
-```shellscript
+```bash theme={null}
 ENDPOINT_RESOURCE_GROUP="<private-endpoint-resource-group>"
 LOCATION="<azure-region>"
 VNET_RESOURCE_GROUP="<vnet-resource-group>"
@@ -79,7 +111,7 @@ SUBNET_ID=$(az network vnet subnet show \
 
 Create the endpoint by using the service alias and the manual-request flow. Azure automatically approves the request when PlanetScale has configured the application subscription:
 
-```shellscript
+```bash theme={null}
 az network private-endpoint create \
   --resource-group "$ENDPOINT_RESOURCE_GROUP" \
   --name "$ENDPOINT_NAME" \
@@ -93,7 +125,7 @@ az network private-endpoint create \
 
 Confirm that the connection is approved:
 
-```shellscript
+```bash theme={null}
 az network private-endpoint show \
   --resource-group "$ENDPOINT_RESOURCE_GROUP" \
   --name "$ENDPOINT_NAME" \
@@ -103,9 +135,9 @@ az network private-endpoint show \
 
 The expected result is `Approved`.
 
-Get the endpoint’s private IP address:
+Get the endpoint's private IP address:
 
-```shellscript
+```bash theme={null}
 NIC_ID=$(az network private-endpoint show \
   --resource-group "$ENDPOINT_RESOURCE_GROUP" \
   --name "$ENDPOINT_NAME" \
@@ -122,13 +154,13 @@ PRIVATE_ENDPOINT_IP=$(az network nic show \
 
 Applications can connect through the Private Endpoint IP directly or through a private DNS hostname.
 
-### Use hostaddr for Postgres without private DNS
+### Use `hostaddr` for Postgres without private DNS
 
 Private DNS is optional for Postgres. Start with the connection string provided by the PlanetScale dashboard and add `hostaddr=<private-endpoint-ip>`. Keep the existing `host` value so PostgreSQL can use it for TLS hostname verification while connecting to the Private Endpoint IP.
 
 For example:
 
-```shellscript
+```bash theme={null}
 psql "host=<hostname-from-planetscale> hostaddr=$PRIVATE_ENDPOINT_IP port=5432 user=<username> password=<password> dbname=<database> sslnegotiation=direct sslmode=verify-full sslrootcert=system"
 ```
 
@@ -142,13 +174,13 @@ Public connectivity is not automatically disabled when Private Link is enabled. 
 
 Choose a single DNS record label for the Private Endpoint. The resulting private hostname is:
 
-```text
+```text theme={null}
 <record-name>.<private-dns-zone-from-planetscale>
 ```
 
 Create the private zone, link it to your application VNet, and add an A record for the Private Endpoint IP:
 
-```shellscript
+```bash theme={null}
 DNS_RESOURCE_GROUP="<dns-resource-group>"
 PRIVATE_DNS_ZONE="<private-dns-zone-from-planetscale>"
 DNS_RECORD_NAME="<record-name>"
@@ -184,14 +216,14 @@ Run these checks from a host that uses the application VNet.
 
 Confirm that the Private Endpoint accepts connections on the required database port. For direct PostgreSQL and PgBouncer connections:
 
-```shellscript
+```bash theme={null}
 nc -vz "$PRIVATE_ENDPOINT_IP" 5432
 nc -vz "$PRIVATE_ENDPOINT_IP" 6432
 ```
 
 If you configured private DNS, confirm that the private hostname resolves to the Private Endpoint IP:
 
-```shellscript
+```bash theme={null}
 dig +short <record-name>.<private-dns-zone-from-planetscale>
 ```
 
@@ -199,11 +231,13 @@ Then use either the dashboard hostname with `hostaddr=$PRIVATE_ENDPOINT_IP` or t
 
 ## Public and private access
 
-Creating a Private Endpoint does not disable the deployment’s public database endpoint. Private connectivity and public ingress are configured separately. After you verify private connectivity and update your applications, contact your PlanetScale Solutions Engineer if your deployment should accept private connections only.
+> [!WARNING]
+>
+> Creating a Private Endpoint does not disable the deployment's public database endpoint. Private connectivity and public ingress are configured separately. After you verify private connectivity and update your applications, contact your PlanetScale Solutions Engineer if your deployment should accept private connections only.
 
 ## Troubleshooting
 
-### The endpoint creation fails with LinkedAuthorizationFailed
+### The endpoint creation fails with `LinkedAuthorizationFailed`
 
 For a cross-tenant connection, use the Private Link Service alias rather than its Azure resource ID. Set `--manual-request true` when using the Azure CLI.
 
@@ -215,10 +249,10 @@ Confirm that PlanetScale configured the application subscription before you crea
 
 The public `<deployment>.pg.psdb.cloud` hostname continues to resolve to the public endpoint while public ingress is enabled. If you ask PlanetScale to disable public ingress, PlanetScale removes the public DNS record. For private DNS, confirm that:
 
-- You created the separate private DNS zone supplied by PlanetScale
-- The A record points to the Private Endpoint’s network-interface IP
-- The private DNS zone is linked to the VNet used by your application
-- Custom DNS servers forward or resolve the private zone correctly
+* You created the separate private DNS zone supplied by PlanetScale
+* The A record points to the Private Endpoint's network-interface IP
+* The private DNS zone is linked to the VNet used by your application
+* Custom DNS servers forward or resolve the private zone correctly
 
 This DNS configuration is not required when Postgres clients use both the dashboard `host` value and `hostaddr=<private-endpoint-ip>`.
 
@@ -232,9 +266,13 @@ Confirm that network security groups, user-defined routes, firewalls, and applic
 
 ## Next steps
 
-- [Connect to PlanetScale Postgres](../../../postgres/connecting.md)
-- [Configure connection pooling with PgBouncer](../../../postgres/connecting/pgbouncer.md)
+* [Connect to PlanetScale Postgres](../../../postgres/connecting.md)
+* [Configure connection pooling with PgBouncer](../../../postgres/connecting/pgbouncer.md)
+* [Learn about PlanetScale Managed on Azure](../azure.md)
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

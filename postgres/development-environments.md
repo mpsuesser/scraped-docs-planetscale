@@ -2,21 +2,31 @@
 url: https://planetscale.com/docs/postgres/development-environments
 title: "Development Environments"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-Schema and code changes must be deployed in the correct sequence. When adding a new column to a table along with a new application feature, you likely want to execute the schema change before deploying the corresponding code changes. In other cases, such as removing a feature and with it a table in your database, you would make your code changes first and then drop the table second.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-We recommend reviewing [this blog post](https://planetscale.com/blog/safely-making-database-schema-changes) for more information about deploying database schema changes alongside application changes.
+# Development Environments
+
+> When using development environments, it's important to have a way to work with your database and test schema changes in isolation from production. We have several recommendations for how to accomplish this when using PlanetScale Postgres.
+
+> [!NOTE]
+>
+> Schema and code changes must be deployed in the correct sequence. When adding a new column to a table along with a new application feature, you likely want to execute the schema change before deploying the corresponding code changes. In other cases, such as removing a feature and with it a table in your database, you would make your code changes first and then drop the table second.
+>
+> We recommend reviewing [this blog post](https://planetscale.com/blog/safely-making-database-schema-changes) for more information about deploying database schema changes alongside application changes.
 
 ## Use local Postgres
 
 Since PlanetScale uses standard PostgreSQL, one option is to use locally-running Postgres servers for all of your development work.
 
-In this case, you would create a new local database for each branch a developer is working on. After creating the database, run your database migration scripts to populate it with your project’s schema. Optionally, you could have a script to populate your tables with dummy data to improve local testing. When you are ready to commit your code changes, execute the necessary schema changes on your production branch, being [careful about ordering](https://planetscale.com/blog/safely-making-database-schema-changes).
+In this case, you would create a new local database for each branch a developer is working on. After creating the database, run your database migration scripts to populate it with your project's schema. Optionally, you could have a script to populate your tables with dummy data to improve local testing. When you are ready to commit your code changes, execute the necessary schema changes on your production branch, being [careful about ordering](https://planetscale.com/blog/safely-making-database-schema-changes).
 
-While this is a convenient option in some cases, local databases can make it difficult for multiple developers to collaborate on shared branches, as schema changes must be manually synchronized across each developer’s local environment.
+While this is a convenient option in some cases, local databases can make it difficult for multiple developers to collaborate on shared branches, as schema changes must be manually synchronized across each developer's local environment.
 
 ## Use PlanetScale branches
 
@@ -36,4 +46,7 @@ Another consideration is cost. Each branch is its own, isolated database and use
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,25 +2,31 @@
 url: https://planetscale.com/docs/postgres/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale GitHub Actions
 
 With GitHub Actions, you can automate branch creation and role credentials within your CI workflow.
 
-## Getting Started
+> **[Getting Started](#getting-started)**
 
-## Authentication
+> **[Authentication](#authentication)**
 
-## Convert GitHub branch name to PlanetScale branch name
+> **[Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)**
 
-## Create a PlanetScale branch
+> **[Create a PlanetScale branch](#create-a-planetscale-branch)**
 
-## Create a role for a branch
+> **[Create a role for a branch](#create-a-role-for-a-branch)**
 
-## Delete a role
+> **[Delete a role](#delete-a-role)**
 
-## Delete a PlanetScale branch
+> **[Delete a PlanetScale branch](#delete-a-planetscale-branch)**
 
 ## Getting started
 
@@ -28,7 +34,7 @@ The best way to use PlanetScale within GitHub Actions is via the `pscale` CLI.
 
 Use [`planetscale/setup-pscale-action`](https://github.com/planetscale/setup-pscale-action) to make pscale available within your GitHub Actions.
 
-```yaml
+```yaml theme={null}
 - name: Setup pscale
   uses: planetscale/setup-pscale-action@v1
 ```
@@ -39,13 +45,13 @@ The action works with Linux, Windows, and Mac runners. Once installed it will be
 
 Authentication for pscale is via service token environment variables.
 
-You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you’ll be using in your workflow.
+You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
 
 Add your `PLANETSCALE_SERVICE_TOKEN_ID` and `PLANETSCALE_SERVICE_TOKEN` to your [Actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 In your Actions workflow, you will need to make the secrets available as environment variables.
 
-```yaml
+```yaml theme={null}
 - name: Run pscale command
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -55,9 +61,10 @@ In your Actions workflow, you will need to make the secrets available as environ
 
 ## Examples
 
-The following examples show how to accomplish common Actions workflows with PlanetScale. In each example, notice that we use secrets for the service token, database and organization names. You will need to set them in your GitHub repository to target your own database.
+The following examples show how to accomplish common Actions workflows with PlanetScale. In each example, notice that we use secrets for the service token, database and organization names.
+You will need to set them in your GitHub repository to target your own database.
 
-```text
+```
 PLANETSCALE_ORG_NAME
 PLANETSCALE_DATABASE_NAME
 PLANETSCALE_SERVICE_TOKEN_ID
@@ -70,7 +77,7 @@ PlanetScale branch names must be lowercase, alphanumeric characters and hyphens 
 
 Since git branch names allow more possibilities, you can use the following code to transform a git branch name into an acceptable PlanetScale branch name.
 
-```yaml
+```yaml theme={null}
 - name: Rename branch name
   run: |
     branch_name=$(printf '%s' "$HEAD_REF" | tr -cd '[:alnum:]-' | tr '[:upper:]' '[:lower:]')
@@ -79,13 +86,14 @@ Since git branch names allow more possibilities, you can use the following code 
     HEAD_REF: ${{ github.head_ref }}
 ```
 
-This makes `${{ env.PSCALE_BRANCH_NAME }}` available for use in the rest of the workflow. This is useful to run in any scenario where you are creating a PlanetScale branch to correspond with a git branch.
+This makes `${{ env.PSCALE_BRANCH_NAME }}` available for use in the rest of the workflow. This is useful to run in any scenario where you are creating
+a PlanetScale branch to correspond with a git branch.
 
 ### Create a PlanetScale branch
 
 You can use `pscale branch create` to create a branch that matches your GitHub branch name.
 
-```yaml
+```yaml theme={null}
 - name: Create branch
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -106,15 +114,17 @@ You can use `pscale branch create` to create a branch that matches your GitHub b
 
 Notice that we first check if the branch exists. If it does, we do nothing. Otherwise we create it and pass the `--wait` flag.
 
-This is useful when running in CI, as the workflow may run multiple times and you’ll want the branch ready before creating roles or running migrations.
+This is useful when running in CI, as the workflow may run multiple times and you'll want the branch ready before creating roles or running migrations.
 
-New branches created this way start empty (no schema or data). To create a branch that includes schema and data, restore from a [backup](../backups.md) with `--restore`. See [Branching](../branching.md).
+> [!NOTE]
+>
+> New branches created this way start empty (no schema or data). To create a branch that includes schema and data, restore from a [backup](../backups.md) with `--restore`. See [Branching](../branching.md).
 
 ### Create a role for a branch
 
 You can use `pscale role create` to generate [credentials](../connecting/roles.md) for your database branch.
 
-```yaml
+```yaml expandable theme={null}
 - name: Generate role for branch
   env:
     PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
@@ -146,13 +156,15 @@ You can use `pscale role create` to generate [credentials](../connecting/roles.m
 
 This example shows creating the role and getting back a response in JSON. The JSON is then parsed to create a `DATABASE_URL` which can be used in later steps.
 
-`pscale role create` accepts a `--ttl` flag which lets you limit how long the role is valid. In CI, a short TTL (such as `1h`) is recommended so credentials expire automatically if cleanup does not run.
+> [!NOTE]
+>
+> `pscale role create` accepts a `--ttl` flag which lets you limit how long the role is valid. In CI, a short TTL (such as `1h`) is recommended so credentials expire automatically if cleanup does not run.
 
 ### Delete a role
 
 When your workflow finishes, you can delete the temporary role with `pscale role delete`.
 
-```yaml
+```yaml theme={null}
 - name: Delete role
   if: always()
   env:
@@ -171,7 +183,7 @@ When your workflow finishes, you can delete the temporary role with `pscale role
 
 You can clean up ephemeral CI branches with `pscale branch delete`.
 
-```yaml
+```yaml theme={null}
 - name: Delete branch
   if: always()
   env:
@@ -187,4 +199,7 @@ You can clean up ephemeral CI branches with `pscale branch delete`.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/operations-philosophy
 title: "Operations Philosophy"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # PlanetScale Postgres operations philosophy
 
 > PlanetScale has a high standard for uptime and availability of Postgres databases.
-
-**Platform availability:** Postgres only
 
 The foundation of achieving this goal in the cloud is our custom Kubernetes operator, the software that manages new database creation, version upgrades, resizes, failovers, and other operations in an inherently failure-prone environment. For more detail on how the operator orchestrates clusters, see the [Postgres architecture overview](postgres-architecture.md#custom-operator).
 
@@ -34,7 +32,7 @@ This allows us to embrace server failures through failovers.
 Some consider failovers as a problem, but we see that as a fundamental building block for operating reliable databases.
 Tolerating the brief disruptions produced by failovers has huge upside: PlanetScale can rapidly deliver changes which continuously increase the quality, reliability, and performance of customer databases.
 
-<img src="https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-arch-diagram.png?fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=c20f53698428814045e9bc242956ffd9" alt="Primary and Replicas" width="1754" height="1200" data-path="postgres/postgres-arch-diagram.png" />
+![Primary and Replicas](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-arch-diagram.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=c20f53698428814045e9bc242956ffd9)
 
 This is the most proven architecture for highly-available database clusters for several reasons:
 
@@ -99,7 +97,7 @@ Because we have a primary and two replicas, we typically start these configurati
 Once these are ready, we do a switchover from the old primary to one of the replicas with the upgraded configuration.
 The config is then applied and the final instance restarted, now demoted to a replica.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/config-change-restart.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=f4424ed370e5b727bc300b5bade335fe" alt="Config change with restart" width="3501" height="1169" data-path="postgres/config-change-restart.png" />
+![Config change with restart](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/config-change-restart.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=f4424ed370e5b727bc300b5bade335fe)
 
 This process allows us to minimize end-user downtime.
 There remains an unavoidable several-second window of unavailability.
@@ -138,14 +136,14 @@ Consider the case where you need to upgrade from an `M-160` database cluster to 
 After applying the upgrade, three new `M-320` nodes are created.
 These are caught up with the primary through a combination of a backup restore and data replication.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-1.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=75487a1f038e75172bac84e1af3a424c" alt="Cluster Resize 1" width="2162" height="1187" data-path="postgres/cluster-resize-1.png" />
+![Cluster Resize 1](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-1.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=75487a1f038e75172bac84e1af3a424c)
 
 Once these new `M-320` replicas are sufficiently caught up, the operator transitions primaryship to one of the new `M-320` nodes.
 After this, the old `M-160` replicas are decommissioned, using the new ones for all replica traffic.
 During each node replacement, connections to the decommissioned node will be destroyed.
 New connections will need to be made to re-establish with one of the new nodes.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-2.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=a9f1f7f07b884fa33ab45a8b2a587e22" alt="Cluster Resize 2" width="2181" height="932" data-path="postgres/cluster-resize-2.png" />
+![Cluster Resize 2](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/cluster-resize-2.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=a9f1f7f07b884fa33ab45a8b2a587e22)
 
 During the upgrade process, all database connections will be terminated.
 Normally a primary promotion proceeds in a fast and orderly manner in less than 5 seconds.
@@ -171,7 +169,7 @@ Replica failures are automatically detected and automatically replaced.
 There will be a period of time where your cluster has only the primary and a single replica while the replacement replica is created and data restored to it.
 This time varies from minutes to hours depending on database size and your instance type.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/failed-replica.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=0ab7de4bfa00c15e925e8aff8fa48540" alt="Failed replica" width="1784" height="1008" data-path="postgres/failed-replica.png" />
+![Failed replica](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/failed-replica.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=0ab7de4bfa00c15e925e8aff8fa48540)
 
 Any connections routed to the failed replica will be terminated and need to be re-established.
 When re-established, we will route the connections to the other available replica.
@@ -183,7 +181,7 @@ The new primary is chosen based on which one is the most caught-up from the stat
 All Postgres databases are run with semi-sync replication, meaning that at least one replica should have received all the writes that the primary had seen.
 Once chosen, this replica is promoted to primary and a new node is brought up to replace it.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/failed-primary.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=38b162ee4ab9e2d09c23199d99e3daed" alt="Failed primary" width="2717" height="1047" data-path="postgres/failed-primary.png" />
+![Failed primary](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/failed-primary.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=38b162ee4ab9e2d09c23199d99e3daed)
 
 The primary failure, detection, and election process typically takes 10 seconds or less when all other components of the cluster are healthy.
 During this time your primary database will be inaccessible and no connections can be made.
@@ -197,7 +195,7 @@ We have fast iteration cycles at PlanetScale, always aiming to improve the featu
 Postgres minor version updates, PgBouncer updates, and adding support for new extensions all require us to update the container images for your database.
 When this happens, the Kubernetes pods that power your primary and replicas are updated.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/image-upgrade.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=f2f03e225e63fc1d0606456053b21490" alt="Image upgrade" width="3153" height="1113" data-path="postgres/image-upgrade.png" />
+![Image upgrade](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/image-upgrade.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=f2f03e225e63fc1d0606456053b21490)
 
 As with other operations described earlier, this leads to terminated connections and a brief period of database inaccessibility.
 Image upgrades are performed in cases of emergencies (such as patching security issues) or when initiated by the user via the PlanetScale application or API.
@@ -208,7 +206,7 @@ For databases using network-attached storage, autoscaling is enabled by default.
 This is to protect availability of your database.
 Reaching 100% full on a storage volume leads to database downtime.
 
-<img src="https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/disk-autoscaling.png?fit=max&auto=format&n=o_cHHlFu3sW-NBEp&q=85&s=9c69d1e0e590defb94d73d0633ea0aab" alt="Disk autoscaling" width="2000" height="1378" data-path="postgres/disk-autoscaling.png" />
+![Disk autoscaling](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/disk-autoscaling.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=9c69d1e0e590defb94d73d0633ea0aab)
 
 Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized.
 In both cases, there is a multi-hour cooldown period between resizing operations.

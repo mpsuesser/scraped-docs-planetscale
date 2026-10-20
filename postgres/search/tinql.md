@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/tinql
 title: "Tinql"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # TINQL
 
 > A fully-featured query language unique to TIN.
-
-**Platform availability:** Postgres only
 
 TIN adds [the `==>` operator](reference/operator.md). The query on the right-hand side of it is **TINQL**.
 

@@ -2,35 +2,45 @@
 url: https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace
 title: "Targeting Correct Keyspace"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-If you originally set up your application configuration code with something like `DATABASE_NAME=your_database_name`, where `your_database_name` is the name of your original unsharded keyspace, you will need to update your configuration code so that all queries don’t go straight to that keyspace.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Targeting the correct keyspace
+
+> Once you have more than one keyspace, with tables distributed across both keyspaces, your application may not know how to properly route queries to the correct keyspace.
+
+If you originally set up your application configuration code with something like `DATABASE_NAME=your_database_name`, where `your_database_name` is the name of your original unsharded keyspace, you will need to update your configuration code so that all queries don't go straight to that keyspace.
 
 The preferred way to do this is to just leave off the database name completely in your application configuration code. PlanetScale will be able to route traffic correctly just using the connection username and password.
 
-While this is the preferred way, it’s sometimes not possible. For example, many frameworks and ORMs require that you include a database name.
+While this is the preferred way, it's sometimes not possible. For example, many frameworks and ORMs require that you include a database name.
 
-In those cases, you should use `@primary`. This will send any incoming queries first to our [Global Edge Network](https://planetscale.com/blog/introducing-global-replica-credentials#building-planetscale-global-network), which will see that you’re targeting a primary. Edge will then send the request to the VTGate(s)/load balancer. We typically will use [Vitess’s Global Routing](https://vitess.io/docs/reference/features/global-routing/) to direct the query to the correct keyspace and, optionally, correct shard.
+In those cases, you should use `@primary`. This will send any incoming queries first to our [Global Edge Network](https://planetscale.com/blog/introducing-global-replica-credentials#building-planetscale-global-network), which will see that you're targeting a primary. Edge will then send the request to the VTGate(s)/load balancer. We typically will use [Vitess's Global Routing](https://vitess.io/docs/reference/features/global-routing/) to direct the query to the correct keyspace and, optionally, correct shard.
 
-If you explicitly wish to target a replica for some or all reads, using `@replica` will have the same effect as `@primary` in that it will automatically route the request to the correct keyspace.
+> [!NOTE]
+>
+> If you explicitly wish to target a replica for some or all reads, using `@replica` will have the same effect as `@primary` in that it will automatically route the request to the correct keyspace.
 
 [Global Replica Credentials](../scaling/replicas.md#1-create-a-global-replica-credential-recommended) are not currently supported in this context. You can still target replicas instead of your primary with `@replica`, but it will not automatically route the query to the *closest* replica.
 
 ## Framework examples
 
-Using `@primary` is simple, but there are slight variations for each framework. The following code snippets show how to target `@primary` in some of the popular languages/frameworks. If you don’t see your framework on here and are unsure of how to proceed, please [reach out to support](https://planetscale.com/contact?initial=support).
+Using `@primary` is simple, but there are slight variations for each framework. The following code snippets show how to target `@primary` in some of the popular languages/frameworks. If you don't see your framework on here and are unsure of how to proceed, please [reach out to support](https://planetscale.com/contact?initial=support).
 
 ### MySQL CLI
 
-```sql
+```sql theme={null}
 mysql -h aws.connect.psdb.cloud -D @primary -u your_username -p pscale_pw_xxxxxxxxxxxxxxx --ssl-mode=VERIFY_IDENTITY --ssl-ca=/etc/ssl/cert.pem
 ```
 
 ### Rails
 
-```ruby
+```ruby theme={null}
 # database.yml
 production:
   <<: *default
@@ -43,7 +53,7 @@ production:
 
 ### Django
 
-```python
+```python theme={null}
 # Connect to the database
 connection = MySQLdb.connect(
   host=os.getenv("DATABASE_HOST"),
@@ -58,7 +68,7 @@ connection = MySQLdb.connect(
 
 ### Laravel
 
-```php
+```php expandable theme={null}
 'mysql' => [
   'driver' => 'mysql',
   'url' => env('DB_URL'),
@@ -82,7 +92,7 @@ connection = MySQLdb.connect(
 
 ### PHP MySQLi
 
-```php
+```php expandable theme={null}
 # .env
 DATABASE_HOST=aws.connect.psdb.cloud
 DATABASE=@primary
@@ -103,7 +113,7 @@ $mysqli->real_connect(
 
 ### PHP PDO
 
-```php
+```php theme={null}
 # .env
 DATABASE_HOST=aws.connect.psdb.cloud
 DATABASE=@primary
@@ -121,7 +131,7 @@ $pdo = new PDO($dsn, $_ENV["DATABASE_USERNAME"], $_ENV["DATABASE_PASSWORD"], $op
 
 ### Elixir
 
-```elixir
+```elixir expandable theme={null}
 defmodule Connect do
 
   def main do
@@ -154,4 +164,7 @@ Connect.main
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

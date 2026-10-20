@@ -2,15 +2,23 @@
 url: https://planetscale.com/docs/vitess/schema-changes/duplicate-entry
 title: "Duplicate Entry"
 description: ""
-access_date: 2026-10-09T23:32:13.485Z
-current_date: 2026-10-09T23:32:13.485Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Duplicate entry for unique key
+
+> Fix a deploy that fails while copying rows because existing rows violate a new unique key.
 
 A deploy request can fail while copying a table because existing rows do not satisfy a unique key in the new schema.
 
 PlanetScale copies the table in the background and inserts existing rows into a new table that uses the deployed schema. If that schema adds a `UNIQUE` key, or changes the primary key, and two existing rows have the same value for those columns, the second insert is rejected:
 
-```text
+```text theme={null}
 vreplication: terminal error: task error: failed inserting rows: Duplicate entry 'acme-1' for key 'uniq_org_priority' (errno 1062) (sqlstate 23000)
 ```
 
@@ -20,7 +28,7 @@ The first quoted value is one of the duplicates. The key name tells you which co
 
 Find the rows that share a value for the columns in the key, then remove or change them so each combination is unique:
 
-```sql
+```sql theme={null}
 SELECT org_id, priority, COUNT(*)
 FROM packaging_rules
 GROUP BY org_id, priority
@@ -31,8 +39,13 @@ Then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deplo
 
 If the duplicates are expected, change the key on your branch so it is no longer unique, or add a column to it that makes each row distinct, and open a new deploy request.
 
-The copy runs while your application keeps writing to the table. If the application inserts a duplicate during the copy, the deploy fails with the same error. Make sure new writes also satisfy the unique key before retrying.
+> [!NOTE]
+>
+> The copy runs while your application keeps writing to the table. If the application inserts a duplicate during the copy, the deploy fails with the same error. Make sure new writes also satisfy the unique key before retrying.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

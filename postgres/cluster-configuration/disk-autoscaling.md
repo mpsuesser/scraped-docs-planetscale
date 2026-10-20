@@ -2,25 +2,39 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-07T00:07:29.963Z
-current_date: 2026-10-07T00:07:29.963Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized. In both cases, there is a multi-hour cooldown period between resizing operations. These volumes also typically do not support shrinking. PlanetScale disk autoscaling grows disks past those limits. To shrink, we copy your data onto a new, smaller disk and replace the old one.
+# Disk autoscaling
+
+> Disk autoscaling automatically increases storage when your database approaches a disk size utilization threshold, preventing storage-related outages without manual intervention. You can also manually shrink your disk allocation.
+
+> [!NOTE]
+>
+> PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale
+> Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
+
+Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized.
+In both cases, there is a multi-hour cooldown period between resizing operations. These volumes also typically do not support shrinking. PlanetScale disk autoscaling grows disks past those limits. To shrink, we copy your data onto a new, smaller disk and replace the old one.
 
 **Disk autoscaling is enabled by default upon database creation.**
 
 We provide two growth modes:
 
-- **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages the native volume-resize capability of AWS EBS and GCP Persistent Disk.
-- **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing AWS EBS and GCP Persistent Disk [resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
-- **Shrink mode** — In shrink mode, the autoscaler reduces storage capacity for underutilized volumes. This can help to optimize costs after a surge event.
+* **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages the native volume-resize capability of AWS EBS and GCP Persistent Disk.
+* **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing AWS EBS and GCP Persistent Disk [resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
+* **Shrink mode** — In shrink mode, the autoscaler reduces storage capacity for underutilized volumes. This can help to optimize costs after a surge event.
 
-Autoscaling will grow the cluster’s storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed. Disks are never shrunk automatically. After usage drops, use [Manually shrinking](#manually-shrinking) to shrink the disk.
+Autoscaling will grow the cluster's storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed. Disks are never shrunk automatically. After usage drops, use [Manually shrinking](#manually-shrinking) to shrink the disk.
 
-You’re billed for the allocated disk, not how much data you have.
+> [!NOTE]
+>
+> You're billed for the allocated disk, not how much data you have.
 
 ## Autoscaling thresholds and behaviors
 
@@ -30,40 +44,58 @@ When enabled, disk growth kicks in when your disk utilization reaches the follow
 
 Automatic disk growth activates when disk utilization reaches these thresholds:
 
-- **70%** for disks smaller than 4 TB
-- **25%** for disks larger than or equal to 4 TB
+* **70%** for disks smaller than 4 TB
+* **25%** for disks larger than or equal to 4 TB
 
 ### Suggested shrink thresholds
 
-A disk shrink will be suggested in the “Clusters” configuration storage tab when disk utilization falls below these thresholds:
+A disk shrink will be suggested in the "Clusters" configuration storage tab when disk utilization falls below these thresholds:
 
-- **12.5%** for disks smaller than 1 TB
-- **15%** for disks between 1 TB and 2 TB
-- **25%** for disks larger than 2 TB
+* **12.5%** for disks smaller than 1 TB
+* **15%** for disks between 1 TB and 2 TB
+* **25%** for disks larger than 2 TB
 
-For example, if you have a 200 GB disk allocation and are only using 20 GB, we will suggest the disk can be shrunk because it’s below the existing 12.5% threshold.
+For example, if you have a 200 GB disk allocation and are only using 20 GB, we will suggest the disk can be shrunk because it's below the existing 12.5% threshold.
 
 ### Key disk autoscaling behavior:
 
-- Cluster storage can only scale once in a multi-hour period
-- Cluster storage scales proportionally based on current size
-	- Smaller disks receive larger percentage increases, while larger disks receive smaller percentage increases
-- All disks grow by a minimum of 50% when autoscaling occurs
-- A disk is never shrunk automatically and disk shrinking must be initiated manually
-- If you need to scale cluster storage by more than 200% within 24 hours, manually scale disk size ahead of time
-- Autoscaling will not scale past your configured [**Storage limits**](#storage-limits)
+* Cluster storage can only scale once in a multi-hour period
+* Cluster storage scales proportionally based on current size
+  * Smaller disks receive larger percentage increases, while larger disks receive smaller percentage increases
+* All disks grow by a minimum of 50% when autoscaling occurs
+* A disk is never shrunk automatically and disk shrinking must be initiated manually
+* If you need to scale cluster storage by more than 200% within 24 hours, manually scale disk size ahead of time
+* Autoscaling will not scale past your configured [**Storage limits**](#storage-limits)
 
 ## Surge growth mode
 
 Our surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing any resize rate limits.
 
-When our disk autoscaler is able to spread out disk scale-up sufficiently, no downtime is required to scale the disks. When data growth is rapid, the autoscaler may need to complete a **surge resize** to support the writes. In this case, PlanetScale creates brand new, larger network-attached storage volumes to replace the old ones. Surge growth causes a brief failover event that severs existing database connections. Applications must handle connection recovery.
+When our disk autoscaler is able to spread out disk scale-up sufficiently, no downtime is required to scale the disks. When data growth is rapid, the autoscaler may need to complete a **surge resize** to support the writes.
+In this case, PlanetScale creates brand new, larger network-attached storage volumes to replace the old ones. Surge growth causes a brief failover event that severs existing database connections. Applications must handle connection recovery.
 
-If the surge autoscaler is able to complete the resize before your disk fills, downtime will be minimal for growing the disk (seconds). If your disk fills before the new disks are ready, you will experience a longer period of downtime.
+If the surge autoscaler is able to complete the resize before your disk fills, downtime will be minimal for growing the disk (seconds).
+If your disk fills before the new disks are ready, you will experience a longer period of downtime.
 
-We make every effort to keep your network-attached storage disk from filling, but it’s important for the database administrators to pay close attention to storage and take manual intervention when necessary.
+We make every effort to keep your network-attached storage disk from filling, but it's important for the database administrators to pay close attention to storage and take manual intervention when necessary.
 
 ## Manually shrinking
+
+**Step 1**
+
+Open the database, go to **Clusters**, pick the branch, and open the **Storage** tab
+
+**Step 2**
+
+Lower **Minimum disk size** to the size you want
+
+**Step 3**
+
+Click **Queue storage changes**
+
+**Step 4**
+
+Click **Apply changes**
 
 When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as neither AWS EBS nor GCP Persistent Disk supports in-place volume shrinking.
 
@@ -71,7 +103,7 @@ Shrink operations cause a brief failover event that severs existing database con
 
 ## Enable or disable disk autoscaling
 
-Disk autoscaling is enabled by default upon database creation. Turn it on or off from “Clusters” > “Storage” with the “Enable autoscaling” checkbox.
+Disk autoscaling is enabled by default upon database creation. Turn it on or off from "Clusters" > "Storage" with the "Enable autoscaling" checkbox.
 
 ## Storage limits
 
@@ -79,4 +111,9 @@ The storage limit sets the maximum amount of storage that can be allocated to yo
 
 When autoscaling is enabled, your storage can grow from the minimum disk size up to the storage limit you specify. The storage limit should be set higher than your initial disk size to allow for growth while providing a reasonable upper bound for your storage costs.
 
-The maximum disk size for network-attached storage is 65536 GB (64 TB).
+> [!NOTE]
+>
+> The maximum disk size for network-attached storage is 65536 GB (64 TB).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

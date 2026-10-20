@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/long-running-transactions
 title: "Long Running Transactions"
 description: ""
-access_date: 2026-10-09T23:32:13.485Z
-current_date: 2026-10-09T23:32:13.485Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -11,8 +11,6 @@ current_date: 2026-10-09T23:32:13.485Z
 > Use this file to discover all available pages before exploring further.
 
 # Long-running transactions
-
-**Platform availability:** Vitess only
 
 Long-running transactions on your database can cause deploy requests to fail.
 

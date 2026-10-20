@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/postgres/extensions/pginsights
 title: "Pginsights"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Extensions: pginsights
+
+> The pginsights extension is a PlanetScale Insights plugin that provides query performance monitoring and analysis capabilities. This extension is always enabled for PlanetScale databases and integrates with the Query Insights feature.
 
 ## Dashboard Configuration
 
@@ -12,40 +20,70 @@ This extension is always enabled for PlanetScale databases and requires activati
 
 To configure pginsights parameters:
 
+**Step 1**
+
+From the PlanetScale organization dashboard, select the desired database
+
+**Step 2**
+
+Navigate to the **Clusters** page from the menu on the left
+
+**Step 3**
+
+Choose the branch whose extensions you'd like to configure in the "**Branch**" dropdown
+
+**Step 4**
+
+Select the **Extensions** tab
+
+**Step 5**
+
+Enable pginsights and configure its parameters
+
+**Step 6**
+
+Click **Queue extension changes** to apply the configuration
+
+**Step 7**
+
+Once you're ready to apply the changes, click "**Apply changes**"
+
 ## Parameters
 
 ### Raw query collection
 
-- **Setting:** `pginsights.raw_queries`
-- **Type:** Boolean
-- **Default:** `false`
+* **Setting:** `pginsights.raw_queries`
+* **Type:** Boolean
+* **Default:** `false`
 
 When enabled, Insights collects the full query text for notable queries, including all literal values. When disabled, only the normalized SQL, with literals removed, will be collected.
 
 Enabling complete query collection can be helpful when performance varies significantly within the same query pattern, and you need to see the full SQL statement without placeholders to troubleshoot the underlying issue.
 
-Enabling this setting may result in sensitive data that appears in queries being sent to PlanetScale, where it will be processed and stored in accordance with our privacy policy.
+> [!NOTE]
+>
+> Enabling this setting may result in sensitive data that appears in queries being sent to PlanetScale, where it will be processed and stored in accordance with our privacy policy.
 
 ### Schema name normalization
 
-- **Setting:** `pginsights.normalize_schema_names`
-- **Type:** Boolean
-- **Default:** `false`
+* **Setting:** `pginsights.normalize_schema_names`
+* **Type:** Boolean
+* **Default:** `false`
 
 When enabled, [schema](https://www.postgresql.org/docs/current/ddl-schemas.html) names appearing in queries are normalized as if they were literal values.
 
 Consider the following example query: `select * from myschema.users where id = 1`.
 
-- With `pginsights.normalize_schema_names` set to false, the query will be reported in insights as `select * from myschema.users where id = $1`
-- With `pginsights.normalize_schema_names` set to true, the query will be reported in insights as `select * from $1.users where id = $2`
+* With `pginsights.normalize_schema_names` set to false, the query will be reported in insights as `select * from myschema.users where id = $1`
+* With `pginsights.normalize_schema_names` set to true, the query will be reported in insights as `select * from $1.users where id = $2`
 
-This setting is useful for databases using a schema-per-tenant design, where each user or tenant’s data is stored in an isolated Postgres schema. With this feature enabled, query patterns that are identical except for the namespace will be grouped together, resulting in fewer distinct query patterns and more navigable insights.
+This setting is useful for databases using a schema-per-tenant design, where each user or tenant's data is stored in an isolated Postgres schema. With this feature enabled, query patterns that are identical except for the namespace will be grouped together, resulting in fewer distinct query patterns and more navigable insights.
 
 ### Database Traffic Control shared memory size
 
-- **Setting:** `traffic_control.shm_size`
-- **Type:** Integer (bytes)
-- **Default:** `64kB`
+* **Setting:** `traffic_control.shm_size`
+* **Type:** Integer (bytes)
+* **Default:** `64kB`
 
 Controls how much shared memory is allocated to store [Database Traffic Control](../traffic-control.md) resource budgets.
 
@@ -55,15 +93,18 @@ Active budget entries are stored in an LRU cache. The limit applies to recently 
 
 ## Usage
 
-The pginsights extension is automatically installed and enabled for all PlanetScale databases. You don’t need to manually create the extension - it’s always active and collecting query insights.
+The pginsights extension is automatically installed and enabled for all PlanetScale databases. You don't need to manually create the extension - it's always active and collecting query insights.
 
-The extension integrates with PlanetScale’s Query Insights dashboard to provide:
+The extension integrates with PlanetScale's Query Insights dashboard to provide:
 
-- Query performance metrics
-- Slow query identification
-- Query pattern analysis
-- Resource usage tracking
+* Query performance metrics
+* Slow query identification
+* Query pattern analysis
+* Resource usage tracking
 
 ## External Documentation
 
 For more information about Query Insights and how to use the collected data, see the [Query Insights documentation](../monitoring/query-insights.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

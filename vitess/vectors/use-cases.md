@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors/use-cases
 title: "Use Cases"
 description: ""
-access_date: 2026-10-01T17:57:19.152Z
-current_date: 2026-10-01T17:57:19.152Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -11,8 +11,6 @@ current_date: 2026-10-01T17:57:19.152Z
 > Use this file to discover all available pages before exploring further.
 
 # Common use cases for Vector search
-
-**Platform availability:** Vitess only
 
 The ability to store and search vector data in your MySQL database, right alongside the rest of your relational data, is a powerful tool when applied correctly.
 Some are already keenly familiar with the types of features and products that you can build with this.

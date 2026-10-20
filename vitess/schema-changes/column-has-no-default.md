@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-has-no-default
 title: "Column Has No Default"
 description: ""
-access_date: 2026-10-09T23:32:13.485Z
-current_date: 2026-10-09T23:32:13.485Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-09T23:32:13.485Z
 # Column has no default value
 
 > Fix a deploy that fails while copying rows because a new NOT NULL column has no DEFAULT.
-
-**Platform availability:** Vitess only
 
 A deploy request can fail while copying a table because a column added by the deploy has no value for the existing rows.
 

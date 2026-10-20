@@ -2,31 +2,54 @@
 url: https://planetscale.com/docs/neki/schema-changes
 title: "Schema Changes"
 description: ""
-access_date: 2026-10-07T18:53:49.420Z
-current_date: 2026-10-07T18:53:49.420Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-A statement that changes a large or busy table can hold locks, rewrite existing rows, build an index, generate large volumes of write-ahead log (WAL), and consume substantial database resources. These effects can increase query latency or stop application traffic.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Schema changes
+
+> Native DDL and managed workflows across Neki shards
+
+A statement that changes a large or busy table can hold locks, rewrite existing
+rows, build an index, generate large volumes of write-ahead log (WAL), and
+consume substantial database resources. These effects can increase query
+latency or stop application traffic.
 
 Sharding adds another requirement: every shard must end with the same table definition. Applying a change independently on each shard makes progress and failure difficult to track. It can also leave some shards on the old definition and others on the new definition.
 
 Neki supports both native DDL and managed DDL. Native DDL means issuing a supported statement such as `ALTER TABLE` through a router. Neki sends the statement to every managed shard, where Postgres executes it immediately. Native DDL has no workflow record, progress tracking, readiness gate, or explicit completion step.
 
-After native DDL commits, the change is committed across the managed shards, but another router may not have refreshed its local schema view yet. The router that accepts the DDL emits a notice containing the exact `__neki.wait_for_ddl(schema_version, cluster_version)` call for that change. Run that call before sending dependent SQL through other router instances:
+After native DDL commits, the change is committed across the managed shards,
+but another router may not have refreshed its local schema view yet. The router
+that accepts the DDL emits a notice containing the exact
+`__neki.wait_for_ddl(schema_version, cluster_version)` call for that change.
+Run that call before sending dependent SQL through other router instances:
 
-```sql
+```sql theme={null}
 SELECT __neki.wait_for_ddl(<schema_version>, <cluster_version>);
 ```
 
-The wait completes when the schema change is visible on every router. A notice or warning about router visibility does not mean that the DDL transaction failed; read the notice and use the supplied wait call to establish the cluster-wide visibility barrier.
+The wait completes when the schema change is visible on every router. A notice
+or warning about router visibility does not mean that the DDL transaction
+failed; read the notice and use the supplied wait call to establish the
+cluster-wide visibility barrier.
 
-During Platform Preview, a shard added later receives existing publications with the rest of the schema. Subscriptions are not part of that schema, so a shard added later does not receive them. Contact PlanetScale Support before combining Postgres logical replication with shard lifecycle changes.
+> [!WARNING]
+>
+> During Platform Preview, a shard added later receives existing publications
+> with the rest of the schema. Subscriptions are not part of that schema, so a
+> shard added later does not receive them. Contact PlanetScale Support before
+> combining Postgres logical replication with shard lifecycle changes.
 
 Managed DDL uses a workflow. The workflow records the requested DDL, tracks progress on every managed shard, waits until the change is ready everywhere, and gives you explicit control over completion and cleanup.
 
 ## Online and direct schema changes
 
-Neki’s managed DDL supports two execution paths.
+Neki's managed DDL supports two execution paths.
 
 **Online DDL** is designed for changes that would be disruptive when applied to the live table. Examples include changes that rewrite many rows and index creation on a large table. Neki builds an updated shadow table in the background while the application continues to use the original table.
 
@@ -64,25 +87,19 @@ A Neki database has one logical table definition across its managed shards. Some
 
 For most online-compatible table changes:
 
-- Data-bearing shards copy and catch up a shadow table with Online DDL.
-- Schema-only shards wait to apply the same change directly.
+* Data-bearing shards copy and catch up a shadow table with Online DDL.
+* Schema-only shards wait to apply the same change directly.
 
 For a direct schema change, every managed shard waits on the direct path.
 
-The workflow reports each shard’s progress and does not become ready to complete until every shard is ready:
+The workflow reports each shard's progress and does not become ready to complete until every shard is ready:
 
-- An online shard is ready when its shadow table is copied and caught up.
-- A direct shard is ready when it is waiting to apply its transaction.
+* An online shard is ready when its shadow table is copied and caught up.
+* A direct shard is ready when it is waiting to apply its transaction.
 
 When every shard is ready, complete the workflow once. Neki tells each shard to cut over or apply its direct DDL.
 
-![A schema-change workflow prepares and catches up shadow tables on data-bearing shards while schema-only shards wait for direct DDL. After every shard reports ready, each shard commits independently. Online shards atomically swap tables and schema-only shards apply direct DDL before the Postgres schema converges across managed shards.](https://mintcdn.com/planetscale-2/6i1lJ6cNfB-VSsaH/neki/schema-changes/online-change.png?w=2500&fit=max&auto=format&n=6i1lJ6cNfB-VSsaH&q=85&s=a06886a462f14a56a8277361cacc86b0)
-
-A schema-change workflow prepares and catches up shadow tables on data-bearing shards while schema-only shards wait for direct DDL. After every shard reports ready, each shard commits independently. Online shards atomically swap tables and schema-only shards apply direct DDL before the Postgres schema converges across managed shards.
-
-![A schema-change workflow prepares and catches up shadow tables on data-bearing shards while schema-only shards wait for direct DDL. After every shard reports ready, each shard commits independently. Online shards atomically swap tables and schema-only shards apply direct DDL before the Postgres schema converges across managed shards.](https://mintcdn.com/planetscale-2/6i1lJ6cNfB-VSsaH/neki/schema-changes/online-change-darkmode.png?w=2500&fit=max&auto=format&n=6i1lJ6cNfB-VSsaH&q=85&s=4ecd09ccbab7ce425d033da45485fe56)
-
-A schema-change workflow prepares and catches up shadow tables on data-bearing shards while schema-only shards wait for direct DDL. After every shard reports ready, each shard commits independently. Online shards atomically swap tables and schema-only shards apply direct DDL before the Postgres schema converges across managed shards.
+![A schema-change workflow prepares and catches up shadow tables on data-bearing shards while schema-only shards wait for direct DDL. After every shard reports ready, each shard commits independently. Online shards atomically swap tables and schema-only shards apply direct DDL before the Postgres schema converges across managed shards.](https://mintcdn.com/planetscale-2/6i1lJ6cNfB-VSsaH/neki/schema-changes/online-change.png?fit=max\&auto=format\&n=6i1lJ6cNfB-VSsaH\&q=85\&s=98241d0d143e60b6c5a7462922d507df)
 
 Each shard commits its own Postgres transaction. Completion is coordinated, but it is not one atomic transaction across the whole Neki database. In normal operation, shards finish within seconds of one another, although failures can extend that interval.
 
@@ -96,9 +113,10 @@ A schema-change workflow has a small lifecycle.
 
 Creating the workflow records the DDL and starts the requested work on every managed shard. Status reports show overall progress and per-shard progress.
 
-Create a workflow from any Postgres client connected through a Neki router. Double the single quotes inside the DDL string:
+Create a workflow from any Postgres client connected through a Neki router.
+Double the single quotes inside the DDL string:
 
-```sql
+```sql theme={null}
 SELECT *
 FROM __neki.online_ddl_create(
   'add-refund-state',
@@ -108,16 +126,20 @@ FROM __neki.online_ddl_create(
 );
 ```
 
-The arguments are the workflow name, database name, DDL, and migration ID. An empty migration ID tells Neki to generate one. The function returns the workflow name and migration ID.
+The arguments are the workflow name, database name, DDL, and migration ID. An
+empty migration ID tells Neki to generate one. The function returns the
+workflow name and migration ID.
 
 Check the aggregate and per-shard status:
 
-```sql
+```sql theme={null}
 SELECT workflow, ddl, status, jsonb_pretty(status_by_shard)
 FROM __neki.online_ddl_status('add-refund-state');
 ```
 
-Wait until every shard reports `ddl_status: "running"`, `current_readiness: true`, and `controller_state: "running"`. A `postgres_error` means Neki could not read that shard’s state.
+Wait until every shard reports `ddl_status: "running"`,
+`current_readiness: true`, and `controller_state: "running"`. A
+`postgres_error` means Neki could not read that shard's state.
 
 Reissuing Create for an interrupted workflow can restore missing controllers and resume work from persisted state. Depending on where the interruption occurred, a shard may resume or restart its copy and streaming work. A failed attempt must be cleaned up before it can restart.
 
@@ -125,7 +147,7 @@ Reissuing Create for an interrupted workflow can restore missing controllers and
 
 Completion is a separate, explicit action. Neki first verifies that every shard is ready and that no shard has failed. Online shards then cut over, and direct shards apply their DDL.
 
-```sql
+```sql theme={null}
 SELECT __neki.workflow_complete('add-refund-state');
 
 SELECT workflow, status, jsonb_pretty(status_by_shard)
@@ -136,33 +158,44 @@ Repeated completion requests are safe. A shard that has already completed does n
 
 ### Cancel
 
-Cancel abandons the workflow before completion. In the normal path, Neki marks each shard cancelled, removes its Online DDL artifacts, and deletes the workflow record only after every shard reaches a safe final state.
+Cancel abandons the workflow before completion. In the normal path, Neki marks
+each shard cancelled, removes its Online DDL artifacts, and deletes the
+workflow record only after every shard reaches a safe final state.
 
-```sql
+```sql theme={null}
 SELECT __neki.workflow_cancel('add-refund-state');
 ```
 
-Cancellation is rejected while a shard is actively cutting over because its final table state is not yet known. Wait for cutover to settle, inspect `online_ddl_status`, and retry Cancel.
+Cancellation is rejected while a shard is actively cutting over because its
+final table state is not yet known. Wait for cutover to settle, inspect
+`online_ddl_status`, and retry Cancel.
 
-If some shards completed while others cancelled, Neki retains the workflow record instead of hiding the schema skew. Reissue Create with the stored configuration, allow the remaining shards to become ready, and Complete the workflow so every shard converges on the new definition. Do not run blind artifact cleanup across a mixed final state.
+If some shards completed while others cancelled, Neki retains the workflow
+record instead of hiding the schema skew. Reissue Create with the stored
+configuration, allow the remaining shards to become ready, and Complete the
+workflow so every shard converges on the new definition. Do not run blind
+artifact cleanup across a mixed final state.
 
 ### Clean up
 
 Cleanup is a separate action. After a successful complete, it drops the retained original table and the remaining Online DDL artifacts, then removes the workflow record when every shard has completed.
 
-```sql
+```sql theme={null}
 SELECT __neki.online_ddl_cleanup('add-refund-state');
 ```
 
-After a failed shard, cleanup removes that shard’s artifacts so you can reissue Create. Neki keeps the workflow in that case. Normal cancellation performs its own cleanup; do not follow a successful Cancel with a separate Cleanup.
+After a failed shard, cleanup removes that shard's artifacts so you can reissue
+Create. Neki keeps the workflow in that case. Normal cancellation performs its
+own cleanup; do not follow a successful Cancel with a separate Cleanup.
 
 If cancellation or cleanup is interrupted, reissuing the operation is safe. Neki uses persisted workflow and per-shard state to resume, retry, or reject an action that would conflict with the recorded outcome.
 
 ### Retry a failed shard
 
-Clean up the failed attempt, then reissue Create with the stored workflow configuration:
+Clean up the failed attempt, then reissue Create with the stored workflow
+configuration:
 
-```sql
+```sql theme={null}
 SELECT __neki.online_ddl_cleanup('add-refund-state');
 
 SELECT *
@@ -174,7 +207,8 @@ FROM __neki.online_ddl_create(
 );
 ```
 
-Completed shards do not apply the change again. After all shards become ready, run `workflow_complete` and `online_ddl_cleanup` as above.
+Completed shards do not apply the change again. After all shards become ready,
+run `workflow_complete` and `online_ddl_cleanup` as above.
 
 ## Choosing a path
 
@@ -184,12 +218,26 @@ Use managed Online DDL when direct execution could block traffic, rewrite a larg
 
 Use managed direct DDL when the statement cannot use the shadow-table process, when no copy is needed, or when you want workflow coordination for a change that is safe to run in place.
 
-Common single-table `ALTER TABLE` changes can use the online path, including adding or dropping columns, changing a column type, adding or dropping constraints, and adding an index. `CREATE INDEX` and `DROP INDEX` also use the online path. Do not include `CONCURRENTLY` when creating an index through Online DDL.
+Common single-table `ALTER TABLE` changes can use the online path, including
+adding or dropping columns, changing a column type, adding or dropping
+constraints, and adding an index. `CREATE INDEX` and `DROP INDEX` also use
+the online path. Do not include `CONCURRENTLY` when creating an index through
+Online DDL.
 
-Statements that do not need a shadow-table copy use the managed direct path. These include `CREATE TABLE`, `DROP TABLE`, and operations on types, sequences, and views. A table change can also be forced onto the direct path by passing `'{"applyDirect": true}'` as the fifth argument to `online_ddl_create`.
+Statements that do not need a shadow-table copy use the managed direct path.
+These include `CREATE TABLE`, `DROP TABLE`, and operations on types, sequences,
+and views. A table change can also be forced onto the direct path by passing
+`'{"applyDirect": true}'` as the fifth argument to
+`online_ddl_create`.
 
-Each workflow must resolve to one affected table and one execution category. Split changes across workflows when they affect multiple tables or combine online and direct work. Changing a table’s shard key or primary routing index is a data-movement operation; use a resharding workflow instead.
+Each workflow must resolve to one affected table and one execution category.
+Split changes across workflows when they affect multiple tables or combine
+online and direct work. Changing a table's shard key or primary routing index
+is a data-movement operation; use a resharding workflow instead.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

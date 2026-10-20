@@ -2,15 +2,25 @@
 url: https://planetscale.com/docs/vitess/imports/postgres
 title: "Postgres"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-**PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale’s Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Postgres to Vitess imports
+
+> [!WARNING]
+>
+> **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale's Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
 
 Many customers choose to migrate from Postgres to PlanetScale for Vitess in order to leverage the performance and scalability offered by PlanetScale and Vitess.
 
 Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, and other Postgres instances.
+
+[Data drop: Migrate from Postgres → PlanetScale](https://www.youtube-nocookie.com/embed/UPMinBnujmo?rel=0)
 
 ## Postgres to MySQL
 
@@ -33,4 +43,7 @@ If you encounter issues while importing from a Postgres database, please [reach 
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

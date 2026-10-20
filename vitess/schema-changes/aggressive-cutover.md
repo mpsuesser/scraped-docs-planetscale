@@ -2,9 +2,15 @@
 url: https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover
 title: "Aggressive Cutover"
 description: ""
-access_date: 2026-10-12T23:42:51.316Z
-current_date: 2026-10-12T23:42:51.316Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Aggressive deploy request cutover
 
 ## Overview
 
@@ -20,13 +26,15 @@ When cutover is blocked, Vitess retries for up to **1 hour**, then automatically
 
 To complete the cutover sooner, use the **Force cutover now** button on the deploy request page, or run:
 
-```shellscript
+```bash theme={null}
 pscale deploy-request force-cutover <DATABASE_NAME> <DR_NUMBER>
 ```
 
 This triggers force cutover immediately without waiting for the 1 hour timeout. Pass `--force` to skip the confirmation prompt.
 
-Force cutover terminates active queries and transactions holding locks on the table. Understand which queries will be affected before using this option.
+> [!WARNING]
+>
+> Force cutover terminates active queries and transactions holding locks on the table. Understand which queries will be affected before using this option.
 
 Having retry logic or a strategy to handle re-running killed queries is advised.
 
@@ -34,7 +42,7 @@ Having retry logic or a strategy to handle re-running killed queries is advised.
 
 If you expect one deploy request to be blocked, opt it into aggressive cutover when you create it or any time before you deploy it. Vitess kills blocking queries and transactions on the first cutover attempt for that deploy request only. The database setting and other deploy requests are unchanged.
 
-```shellscript
+```bash theme={null}
 pscale deploy-request create <DATABASE_NAME> <BRANCH_NAME> --aggressive-cutover
 pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --aggressive-cutover
 pscale deploy-request update <DATABASE_NAME> <DR_NUMBER> --aggressive-cutover=false
@@ -48,7 +56,7 @@ For databases that regularly hit cutover delays, admins can enable **aggressive 
 
 ### When to enable aggressive cutover
 
-1. **Migration delayed notice**: Deploy requests showing “Migration delayed due to long-running transactions”
+1. **Migration delayed notice**: Deploy requests showing "Migration delayed due to long-running transactions"
 2. **Slow or long-running workloads**: Applications that consistently block cutover with slow queries or open transactions
 3. **Frequent manual force cutover**: Regular use of **Force cutover now** on deploy requests
 
@@ -56,15 +64,18 @@ For databases that regularly hit cutover delays, admins can enable **aggressive 
 
 **Normal cutover behavior:**
 
-- Vitess attempts to acquire a metadata lock (MDL) on the table
-- If blocked, it waits and retries for up to 1 hour
-- After 1 hour, Vitess automatically runs force cutover
+* Vitess attempts to acquire a metadata lock (MDL) on the table
+* If blocked, it waits and retries for up to 1 hour
+* After 1 hour, Vitess automatically runs force cutover
 
 **Aggressive cutover behavior:**
 
-- Vitess kills blocking queries and transactions on the first cutover attempt
-- The cutover proceeds without waiting for blocking operations to complete
+* Vitess kills blocking queries and transactions on the first cutover attempt
+* The cutover proceeds without waiting for blocking operations to complete
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

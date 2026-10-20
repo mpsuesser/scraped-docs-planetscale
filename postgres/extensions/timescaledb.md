@@ -2,11 +2,21 @@
 url: https://planetscale.com/docs/postgres/extensions/timescaledb
 title: "Timescaledb"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-Only features from the [Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/) of TimescaleDB are supported.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Extensions: TimescaleDB
+
+> TimescaleDB is a time-series database for high-performance real-time analytics packaged as a Postgres extension.
+
+> [!NOTE]
+>
+> Only features from the [Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/) of TimescaleDB are supported.
 
 ## Dashboard Configuration
 
@@ -14,11 +24,39 @@ This extension requires activation via the PlanetScale Dashboard before it can b
 
 To enable TimescaleDB:
 
+**Step 1**
+
+From the PlanetScale organization dashboard, select the desired database
+
+**Step 2**
+
+Navigate to the **Clusters** page from the menu on the left
+
+**Step 3**
+
+Choose the branch whose extensions you'd like to configure in the "**Branch**" dropdown
+
+**Step 4**
+
+Select the **Extensions** tab
+
+**Step 5**
+
+Enable timescaledb and configure its parameters
+
+**Step 6**
+
+Click **Queue extension changes** to apply the configuration
+
+**Step 7**
+
+Once you're ready to apply the changes, click "**Apply changes**"
+
 ## Usage
 
-After enabling the extension through the dashboard, you’ll be able to install it in your Postgres cluster:
+After enabling the extension through the dashboard, you'll be able to install it in your Postgres cluster:
 
-```sql
+```sql theme={null}
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 ```
 
@@ -30,124 +68,127 @@ For more detailed information about TimescaleDB usage, see the [official documen
 
 ### timescaledb.enable\_chunk\_append
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable chunk append node
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable chunk append node
 
 ### timescaledb.enable\_chunk\_skipping
 
-- **Type**: Boolean
-- **Default**: `false`
-- **Description**: Enable chunk skipping functionality
+* **Type**: Boolean
+* **Default**: `false`
+* **Description**: Enable chunk skipping functionality
 
 ### timescaledb.enable\_constraint\_aware\_append
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable constraint-aware append scans
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable constraint-aware append scans
 
 ### timescaledb.enable\_constraint\_exclusion
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable constraint exclusion
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable constraint exclusion
 
 ### timescaledb.enable\_custom\_hashagg
 
-- **Type**: Boolean
-- **Default**: `false`
-- **Description**: Enable custom hash aggregation
+* **Type**: Boolean
+* **Default**: `false`
+* **Description**: Enable custom hash aggregation
 
 ### timescaledb.enable\_deprecation\_warnings
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable warnings when using deprecated functionality
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable warnings when using deprecated functionality
 
 ### timescaledb.enable\_event\_triggers
 
-- **Type**: Boolean
-- **Default**: `false`
-- **Description**: Enable event triggers for chunks creation
+* **Type**: Boolean
+* **Default**: `false`
+* **Description**: Enable event triggers for chunks creation
 
 ### timescaledb.enable\_foreign\_key\_propagation
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable foreign key propagation
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable foreign key propagation
 
 ### timescaledb.enable\_job\_execution\_logging
 
-- **Type**: Boolean
-- **Default**: `false`
-- **Description**: Enable job execution logging
+* **Type**: Boolean
+* **Default**: `false`
+* **Description**: Enable job execution logging
 
 ### timescaledb.enable\_now\_constify
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable now() constify
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable now() constify
 
 ### timescaledb.enable\_optimizations
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable TimescaleDB query optimizations
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable TimescaleDB query optimizations
 
 ### timescaledb.enable\_ordered\_append
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable ordered append scans
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable ordered append scans
 
 ### timescaledb.enable\_parallel\_chunk\_append
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable parallel chunk append node
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable parallel chunk append node
 
 ### timescaledb.enable\_qual\_propagation
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable qualifier propagation
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable qualifier propagation
 
 ### timescaledb.enable\_runtime\_exclusion
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable runtime chunk exclusion
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable runtime chunk exclusion
 
 ### timescaledb.enable\_tiered\_reads
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable tiered data reads
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable tiered data reads
 
 ### timescaledb.enable\_tss\_callbacks
 
-- **Type**: Boolean
-- **Default**: `true`
-- **Description**: Enable ts\_stat\_statements callbacks
+* **Type**: Boolean
+* **Default**: `true`
+* **Description**: Enable ts\_stat\_statements callbacks
 
 ### timescaledb.max\_cached\_chunks\_per\_hypertable
 
-- **Type**: Integer
-- **Default**: `1024`
-- **Min**: `0`
-- **Max**: `65536`
-- **Description**: Maximum cached chunks
+* **Type**: Integer
+* **Default**: `1024`
+* **Min**: `0`
+* **Max**: `65536`
+* **Description**: Maximum cached chunks
 
 ### timescaledb.max\_open\_chunks\_per\_insert
 
-- **Type**: Integer
-- **Default**: `1024`
-- **Min**: `0`
-- **Max**: `32767`
-- **Description**: Maximum open chunks per insert
+* **Type**: Integer
+* **Default**: `1024`
+* **Min**: `0`
+* **Max**: `32767`
+* **Description**: Maximum open chunks per insert
 
 ### timescaledb.restoring
 
-- **Type**: Boolean
-- **Default**: `false`
-- **Description**: Enable restoring mode for TimescaleDB
+* **Type**: Boolean
+* **Default**: `false`
+* **Description**: Enable restoring mode for TimescaleDB
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

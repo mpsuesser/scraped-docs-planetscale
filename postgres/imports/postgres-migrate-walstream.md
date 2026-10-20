@@ -2,32 +2,63 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream
 title: "Postgres Migrate Walstream"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Postgres Imports - WAL Streaming
+
+> [!NOTE]
+>
+> Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
 
 [Write-Ahead Logging (WAL)](https://www.postgresql.org/docs/current/wal-intro.html) streaming provides a near-zero downtime migration method by continuously replicating changes from your source PostgreSQL database to PlanetScale Postgres using [logical replication](https://www.postgresql.org/docs/current/logical-replication.html).
 
-Want expert guidance for your migration? PlanetScale’s [migration services](https://planetscale.com/migrate) are available to help you plan and execute a smooth, successful move.
+> [!NOTE]
+>
+> Want expert guidance for your migration? PlanetScale's [migration services](https://planetscale.com/migrate) are available to help you plan and execute a smooth, successful move.
 
 ## Overview
 
 This migration method involves:
 
-This method requires administrative access to your source PostgreSQL database to configure replication settings.
+**Step 1**
+
+Setting up logical replication from your source database
+
+**Step 2**
+
+Creating an initial data snapshot
+
+**Step 3**
+
+Continuously streaming WAL changes to keep databases synchronized
+
+**Step 4**
+
+Performing a quick cutover when ready
+
+> [!WARNING]
+>
+> This method requires administrative access to your source PostgreSQL database to configure replication settings.
 
 ## Prerequisites
 
 Before starting the migration:
 
-- PostgreSQL 10+ on the source database (logical replication support)
-- Administrative access to source database configuration
-- Network connectivity between source and PlanetScale Postgres
-- Connection details for your PlanetScale Postgres database from the console
-- Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database. If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the “Minimum disk size.” If you are using Metal, you will need to select a size when first creating your database. For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
-- Understanding of your application’s write patterns for cutover planning
+* PostgreSQL 10+ on the source database (logical replication support)
+* Administrative access to source database configuration
+* Network connectivity between source and PlanetScale Postgres
+* Connection details for your PlanetScale Postgres database from the console
+* Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database.
+  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
+  If you are using Metal, you will need to select a size when first creating your database.
+  For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
+* Understanding of your application's write patterns for cutover planning
 
 ## Step 1: Configure Source Database
 
@@ -35,7 +66,7 @@ Before starting the migration:
 
 Edit your PostgreSQL configuration (`postgresql.conf`):
 
-```ini
+```ini theme={null}
 # Enable logical replication
 wal_level = logical
 
@@ -49,18 +80,18 @@ max_wal_senders = 10
 max_logical_replication_workers = 10
 ```
 
-### Configure authentication (pg\_hba.conf):
+### Configure authentication (`pg_hba.conf`):
 
 Add an entry to allow replication connections:
 
-```ini
+```ini theme={null}
 # Allow replication connections
 host replication replication_user source_ip/32 md5
 ```
 
 ### Restart PostgreSQL service:
 
-```shellscript
+```bash theme={null}
 # On systemd systems
 sudo systemctl restart postgresql
 
@@ -72,7 +103,7 @@ sudo service postgresql restart
 
 Connect to your source database and create a replication user:
 
-```sql
+```sql theme={null}
 -- Create replication user
 CREATE USER replication_user WITH REPLICATION LOGIN;
 
@@ -90,7 +121,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public
 
 Create a publication for the tables you want to replicate:
 
-```sql
+```sql theme={null}
 -- Create publication for all tables
 CREATE PUBLICATION planetscale_migration FOR ALL TABLES;
 
@@ -106,11 +137,29 @@ SELECT * FROM pg_publication;
 
 From your PlanetScale console:
 
+**Step 1**
+
+Navigate to your PlanetScale Postgres database
+
+**Step 2**
+
+Go to the "Connect" section
+
+**Step 3**
+
+Copy the connection details including:
+
+* Host
+* Port
+* Database name
+* Username
+* Password
+
 ## Step 5: Create Initial Schema on PlanetScale
 
 Export and import the schema structure:
 
-```shellscript
+```bash theme={null}
 # Export schema from source
 pg_dump -h source-host \
         -p source-port \
@@ -133,7 +182,7 @@ psql -h planetscale-host \
 
 Before exporting data, create the replication slot on the source database. This captures a consistent snapshot you will use for export so the dump and replication start point stay aligned with no gaps or duplicates.
 
-```sql
+```sql theme={null}
 -- Run on source database in a dedicated session
 -- This creates the slot and returns a snapshot name
 SELECT slot_name, snapshot_name, confirmed_flush_lsn
@@ -142,13 +191,15 @@ FROM pg_create_logical_replication_slot('planetscale_slot', 'pgoutput');
 
 Record the `snapshot_name` value from the output and use it in the next step.
 
-Keep the source database session open after running this command. The snapshot is valid only while the creating session remains open. If the session closes, drop the slot and repeat this step to get a new snapshot.
+> [!WARNING]
+>
+> Keep the source database session open after running this command. The snapshot is valid only while the creating session remains open. If the session closes, drop the slot and repeat this step to get a new snapshot.
 
 ## Step 7: Export and import initial data
 
 Use the snapshot captured in Step 6 when running `pg_dump` so the data export matches the replication slot start position:
 
-```shellscript
+```bash theme={null}
 # Export data using the consistent snapshot from Step 6
 pg_dump -h source-host \
         -p source-port \
@@ -174,9 +225,11 @@ After import completes, close the source session that was holding the snapshot.
 
 Create the subscription on PlanetScale referencing the existing slot from Step 6:
 
-Always include `copy_data = false` when creating a subscription after a manual data import. Without it, PostgreSQL attempts to copy table data again and can trigger duplicate key errors.
+> [!WARNING]
+>
+> Always include `copy_data = false` when creating a subscription after a manual data import. Without it, PostgreSQL attempts to copy table data again and can trigger duplicate key errors.
 
-```sql
+```sql theme={null}
 -- Create subscription referencing the pre-created slot
 CREATE SUBSCRIPTION planetscale_subscription
     CONNECTION 'host=source-host port=source-port
@@ -201,7 +254,7 @@ FROM pg_stat_subscription;
 
 ### Check replication lag:
 
-```sql
+```sql theme={null}
 -- On source database
 SELECT * FROM pg_replication_slots;
 
@@ -216,7 +269,7 @@ FROM pg_stat_subscription;
 
 ### Monitor for conflicts:
 
-```sql
+```sql theme={null}
 -- Check for subscription errors
 SELECT * FROM pg_stat_subscription
 WHERE last_msg_failure_time IS NOT NULL;
@@ -226,7 +279,7 @@ WHERE last_msg_failure_time IS NOT NULL;
 
 ### Verify data consistency:
 
-```sql
+```sql theme={null}
 -- Compare row counts between source and target
 -- Run on both databases
 SELECT
@@ -247,7 +300,7 @@ Logical replication synchronizes table data, but it does not synchronize the `ne
 
 You can see all sequences and their corresponding `nextval` values on your source database using this command:
 
-```sql
+```sql theme={null}
 SELECT schemaname, sequencename, last_value + increment_by
   AS next_value
   FROM pg_sequences;
@@ -255,8 +308,8 @@ SELECT schemaname, sequencename, last_value + increment_by
 
 Example output:
 
-```text
-schemaname |   sequencename   | next_value
+```
+ schemaname |   sequencename   | next_value
 ------------+------------------+------------
  public     | users_id_seq     |        105
  public     | posts_id_seq     |       1417
@@ -267,14 +320,14 @@ In this example, the database has three sequences used for auto-incrementing pri
 
 If you switch traffic to PlanetScale while sequences are behind, inserts can fail with duplicate key errors:
 
-```shellscript
+```bash theme={null}
 ERROR:  duplicate key value violates unique constraint "XXXX"
 DETAIL:  Key (id)=(ZZZZ) already exists.
 ```
 
 Before switching over, advance these sequences so the `nextval` values produced on PlanetScale are greater than any values previously produced on the source database. A simple approach is to run this query on your source database:
 
-```sql
+```sql theme={null}
 SELECT 'SELECT setval(''' || schemaname || '.' || sequencename || ''', '
        || (last_value + 10000) || ');' AS query
 FROM pg_sequences;
@@ -282,8 +335,8 @@ FROM pg_sequences;
 
 This generates queries that advance each sequence by 10,000:
 
-```sql
-query
+```sql theme={null}
+                      query
 --------------------------------------------------
  SELECT setval('public.users_id_seq', 10104);
  SELECT setval('public.posts_id_seq', 11416);
@@ -296,9 +349,29 @@ Execute the generated queries on your PlanetScale database. Advance each sequenc
 
 When ready to switch to PlanetScale Postgres:
 
+**Step 1**
+
+**Stop application writes** to the source database
+
+**Step 2**
+
+**Wait for replication to catch up** (monitor lag)
+
+**Step 3**
+
+**Update application connection strings** to point to PlanetScale
+
+**Step 4**
+
+**Start application** with new connection
+
+**Step 5**
+
+**Monitor** for any issues
+
 ### Verify cutover success:
 
-```sql
+```sql theme={null}
 -- Check that latest data is present
 SELECT count(*), max(updated_at) FROM your_main_table;
 ```
@@ -307,13 +380,13 @@ SELECT count(*), max(updated_at) FROM your_main_table;
 
 ### Drop subscription on PlanetScale:
 
-```sql
+```sql theme={null}
 DROP SUBSCRIPTION planetscale_subscription;
 ```
 
 ### Drop publication on source:
 
-```sql
+```sql theme={null}
 DROP PUBLICATION planetscale_migration;
 ```
 
@@ -323,7 +396,7 @@ DROP PUBLICATION planetscale_migration;
 
 **Replication slot conflicts:**
 
-```sql
+```sql theme={null}
 -- Check existing slots
 SELECT * FROM pg_replication_slots;
 
@@ -333,18 +406,18 @@ SELECT pg_drop_replication_slot('slot_name');
 
 **Permission errors:**
 
-- Verify replication user has correct permissions
-- Check pg\_hba.conf configuration
-- Ensure network connectivity
+* Verify replication user has correct permissions
+* Check pg\_hba.conf configuration
+* Ensure network connectivity
 
 **Large transaction delays:**
 
-- Monitor for long-running transactions on source
-- Consider breaking large operations into smaller batches
+* Monitor for long-running transactions on source
+* Consider breaking large operations into smaller batches
 
 **Subscription conflicts:**
 
-```sql
+```sql theme={null}
 -- Check subscription worker status
 SELECT * FROM pg_stat_subscription;
 
@@ -357,13 +430,13 @@ ALTER SUBSCRIPTION planetscale_subscription ENABLE;
 
 The subscription was likely created without `copy_data = false` after manual data import. Drop the subscription immediately to stop retry loops:
 
-```sql
+```sql theme={null}
 DROP SUBSCRIPTION planetscale_subscription;
 ```
 
 Clean up leaked replication origins:
 
-```sql
+```sql theme={null}
 DO $$
 DECLARE r RECORD;
 BEGIN
@@ -396,20 +469,39 @@ This is commonly caused by the duplicate key crash loop above. Each unclean work
 
 Before migration, review:
 
-## PostgreSQL version compatibility
+> **[PostgreSQL version compatibility](postgres-imports.md#postgresql-version-compatibility)**
 
-## Extension support limitations
+> **[Extension support limitations](postgres-imports.md#extension-support)**
 
-## Third-party enhancement restrictions
+> **[Third-party enhancement restrictions](postgres-imports.md#third-party-enhancements-and-tools)**
 
 ## Next Steps
 
 After successful migration:
 
-For simpler migrations or if you don’t have administrative access to your source database, consider the [pg\_dump/restore method](postgres-migrate-dumprestore.md). For more complex scenarios, explore [Amazon DMS](postgres-migrate-dms.md).
+**Step 1**
+
+Monitor replication performance and lag
+
+**Step 2**
+
+Test application functionality thoroughly
+
+**Step 3**
+
+Set up monitoring and alerting for the new database
+
+**Step 4**
+
+Plan for ongoing maintenance and optimization
+
+For simpler migrations or if you don't have administrative access to your source database, consider the [pg\_dump/restore method](postgres-migrate-dumprestore.md). For more complex scenarios, explore [Amazon DMS](postgres-migrate-dms.md).
 
 If you encounter issues during migration, please [reach out to support](https://planetscale.com/contact?initial=support) for assistance.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

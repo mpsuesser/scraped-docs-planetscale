@@ -2,138 +2,317 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart
 title: "Planetscale Postgres Quickstart"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-We’ll cover:
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-- Creating a new Postgres database
-- Cluster configuration options
-- Connecting to your database
+# PlanetScale Postgres quickstart
+
+> This guide will walk you through how to create a new PlanetScale Postgres database.
+
+We'll cover:
+
+* Creating a new Postgres database
+* Cluster configuration options
+* Connecting to your database
 
 ## Prerequisites
 
-Before you begin, make sure you have a [PlanetScale account](https://auth.planetscale.com/sign-up). After you create an account, you’ll be prompted to create a new organization, which is essentially a container for your databases, settings, and members.
+Before you begin, make sure you have a [PlanetScale account](https://auth.planetscale.com/sign-up). After you create an account, you'll be prompted to create a new organization, which is essentially a container for your databases, settings, and members.
 
-After creating your organization, it’s important to understand the relationship between databases, branches, and clusters.
+After creating your organization, it's important to understand the relationship between databases, branches, and clusters.
 
-- **Database**: Your overall project (e.g., “my-ecommerce-app”)
-- **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](../branching.md)
-- **Cluster**: The underlying compute and storage infrastructure that powers each branch
+* **Database**: Your overall project (e.g., "my-ecommerce-app")
+* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](../branching.md)
+* **Cluster**: The underlying compute and storage infrastructure that powers each branch
 
 PlanetScale Postgres clusters use real Postgres in a [high-availability architecture with one primary and two replicas](../postgres-architecture.md#cluster-design).
 
 ## Create a new database
 
-#### Dashboard
+**Dashboard**
+
+[Create a database on PlanetScale](https://www.youtube-nocookie.com/embed/6BBrgJcpTBY?rel=0)
 
 ### Step 1: Navigate to database creation
 
+**Step 1**
+
+Log in to your [PlanetScale dashboard](https://app.planetscale.com)
+
+**Step 2**
+
+Select your organization from the dropdown
+
+**Step 3**
+
+Click **"New database"** button or navigate to `/new`
+
 ### Step 2: Choose database engine
+
+**Step 1**
+
+On the database creation form, you'll see two engine options:
+
+* **Vitess** (MySQL-compatible)
+* **Postgres** (PostgreSQL-compatible)
+
+**Step 2**
+
+Select **Postgres** to create a PostgreSQL database
 
 ### Step 3: Configure your database cluster
 
+**Step 1**
+
+**Database name**: Enter a unique name for your database
+
+> [!NOTE]
+>
+> This "name" is referenced in the PlanetScale Dashboard and APIs and not created as a logical database inside of Postgres.
+
+**Step 2**
+
+**Region**: Choose the primary region where your database will be hosted. For the lowest latency, select a region near you or your application's hosting location.
+
+**Step 3**
+
+**Cluster configuration**: Select your preferred cluster size and [CPU architecture](../cluster-configuration/cpu-architectures.md)
+
 ### Step 4: Create the database cluster
 
-#### CLI
+**Step 1**
+
+Review your configuration settings
+
+**Step 2**
+
+Click **"Create database"** to provision your Postgres database
+
+**Step 3**
+
+Your database will be created with a `main` branch by default
+
+**CLI**
 
 If you are creating an automation, or are an LLM, you may prefer to create new databases using the PlanetScale CLI.
 
 ### Step 1: Install the CLI
 
+**Step 1**
+
+Check to see if the PlanetScale CLI is installed already by running:
+
+```bash theme={null}
+pscale --version
+```
+
+**Step 2**
+
+Alternatively, follow the instructions in the [PlanetScale CLI GitHub repository](https://github.com/planetscale/cli#installation)
+
 ### Step 2: Log in or sign up
 
+**Step 1**
+
+If you do not already have a PlanetScale account, [sign up for one](https://auth.planetscale.com/sign-up) by running:
+
+```bash theme={null}
+pscale signup
+```
+
+**Step 2**
+
+Log in to the PlanetScale CLI by running:
+
+```bash theme={null}
+pscale auth login
+```
+
+You’ll be taken to a screen in the browser where you’ll be asked to confirm the code displayed in your terminal. If the confirmation codes match, click the **"Confirm code"** button in your browser.
+
+You should receive the message "Successfully logged in" in your terminal. You can now close the confirmation page in the browser and proceed in the terminal.
+
 ### Step 3: Create a database
+
+**Step 1**
+
+Configure the CLI to use the **organization** in which you want to create the database if you have more than one. List organizations by running:
+
+```bash theme={null}
+pscale org list
+```
+
+Switch organizations by running:
+
+```bash theme={null}
+pscale org switch <ORGANIZATION_NAME>
+```
+
+**Step 2**
+
+Find the **region** closest to your application's hosting.
+
+List available regions by running:
+
+```bash theme={null}
+pscale region list
+```
+
+> [!NOTE]
+>
+> If you do not specify a **region**, your database will automatically be deployed to `us-east` (US East — Northern Virginia).
+
+**Step 3**
+
+Create a new Postgres database by running:
+
+```bash theme={null}
+pscale database create <DATABASE_NAME>  --region <REGION_SLUG> --engine postgres
+```
+
+> [!NOTE]
+>
+> Your **database name** can contain lowercase, alphanumeric characters, or underscores. We allow dashes, but don't recommend them, as they may need to be escaped in some instances.
 
 ## What happens during creation
 
 When you create a Postgres database cluster, PlanetScale automatically:
 
-- Provisions a PostgreSQL cluster in your selected region
-- Creates the initial `main` branch
-- Prepopulates Postgres with required default databases
-- Sets up monitoring and metrics collection
-- Configures backup and high availability settings
+* Provisions a PostgreSQL cluster in your selected region
+* Creates the initial `main` branch
+* Prepopulates Postgres with required default databases
+* Sets up monitoring and metrics collection
+* Configures backup and high availability settings
 
 ## Create credentials and connect
 
-## Postgres
+> **Postgres**
+>
+> Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](../connecting/quickstart.md).
+>
+> `pscale connect` is not supported.
 
-Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](../connecting/quickstart.md).
+> **Vitess / MySQL**
+>
+> Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](../../vitess/connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
 
-`pscale connect` is not supported.
+In this section you'll create the "Default role" in your PlanetScale dashboard to create connection credentials for your database branch.
 
-## Vitess / MySQL
+> [!NOTE]
+>
+> The "Default role" is meant purely for administrative purposes. You can only create one and it has significant privileges for your database cluster and you should treat these credentials carefully. After completing this quickstart, it is *strongly recommended* that you [create another role](../connecting/roles.md) for your application use-cases.
 
-Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](../../vitess/connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
+**Dashboard**
 
-In this section you’ll create the “Default role” in your PlanetScale dashboard to create connection credentials for your database branch.
+![Database dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/new-database.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=0dc877c9af2d9be252c165c0c16274b8)
 
-The “Default role” is meant purely for administrative purposes. You can only create one and it has significant privileges for your database cluster and you should treat these credentials carefully. After completing this quickstart, it is *strongly recommended* that you [create another role](../connecting/roles.md) for your application use-cases.
+**Step 1**
 
-#### Dashboard
+Navigate to your database in the [PlanetScale dashboard](https://app.planetscale.com)
 
-![Database dashboard](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/new-database.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=5f0bb654347b6ee3e49b4d6ac19cc962)
+**Step 2**
 
-Database dashboard
+Click on the **"Connect"** button in the top right
 
-#### CLI
+**Step 3**
 
-Create a new “Default role” in your PlanetScale CLI to create connection credentials for your database branch.
+Select **"Default role"**
 
-Passwords are shown only once. If you lose your record of the password, you must [reset the password](../connecting/roles.md).
+**Step 4**
+
+Click **"Create default role"**. A new default role is created for your database branch.
+
+**Step 5**
+
+Record the "Host", "Username", and "Password" for the "Default role" someplace secure.
+
+![Create a new role](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/create-role.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=dd760b8bac6d56d7ea96ef3bb981c666)
+
+**Step 6**
+
+You can generate connection strings under **"How are you connecting?"** for major languages, frameworks, and tools.
+
+![Connection strings](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/tutorials/langs-and-frames.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=709ecbea3be475aeadf8c19fae75dc87)
+
+Your connection details will include:
+
+* **Host**: the DNS name of your database endpoint
+* **Username**: automatically formatted for routing to the correct `branch`
+* **Password**: A securely generated password
+* **Database**: `postgres` (default database)
+* **Port**: `5432` (standard PostgreSQL port) or `6432` (for using [PgBouncer](../connecting/pgbouncer.md))
+
+**CLI**
+
+Create a new "Default role" in your PlanetScale CLI to create connection credentials for your database branch.
+
+**Step 1**
+
+Run the following command to create the "Default role" for your database branch.
+
+```bash theme={null}
+pscale role reset-default <DATABASE_NAME> <BRANCH_NAME>
+```
+
+**Step 2**
+
+Record the "Host", "Username", and "Password" for the "Default role" somewhere secure.
+
+> [!NOTE]
+>
+> Passwords are shown only once. If you lose your record of the password, you must [reset the password](../connecting/roles.md).
 
 ### Connection strings
 
 PlanetScale provides connection strings in various formats for different frameworks and languages. Here are some common examples:
 
-General PostgreSQL URL
+> **General PostgreSQL URL**
+>
+> ```bash theme={null}
+> postgresql://postgres.{branch-id}:{password}@{host}.horizon.psdb.cloud:5432/postgres?sslmode=verify-full
+> ```
 
-```shellscript
-postgresql://postgres.{branch-id}:{password}@{host}.horizon.psdb.cloud:5432/postgres?sslmode=verify-full
-```
+> **psql command line**
+>
+> ```bash terminal theme={null}
+> psql 'host={host} port=5432 user={user} password={password} dbname=postgres sslnegotiation=direct sslmode=verify-full sslrootcert=system'
+> ```
 
-psql command line
+> **Node.js (node-postgres)**
+>
+> ```typescript db.ts theme={null}
+> const { Client } = require('pg');
+> const client = new Client({
+>   host: '{host}',
+>   port: 5432,
+>   user: '{user}',
+>   password: '{your-password}',
+>   database: 'postgres',
+>   ssl: { rejectUnauthorized: true }
+> });
+> ```
 
-terminal
-
-```shellscript
-psql 'host={host} port=5432 user={user} password={password} dbname=postgres sslnegotiation=direct sslmode=verify-full sslrootcert=system'
-```
-
-Node.js (node-postgres)
-
-db.ts
-
-```typescript
-const { Client } = require('pg');
-const client = new Client({
-  host: '{host}',
-  port: 5432,
-  user: '{user}',
-  password: '{your-password}',
-  database: 'postgres',
-  ssl: { rejectUnauthorized: true }
-});
-```
-
-Rails
-
-```ruby
-planetscale:
-  username: {user}
-  host: {host}
-  port: 5432
-  database: postgres
-  password: {your-password}
-```
+> **Rails**
+>
+> ```ruby theme={null}
+> planetscale:
+>   username: {user}
+>   host: {host}
+>   port: 5432
+>   database: postgres
+>   password: {your-password}
+> ```
 
 ## Default databases
 
 When your database branch is first created, there are a number of default databases that are created at the same time.
 
-```sql
+```sql theme={null}
 postgres=> \l
                     List of databases
       Name       |      Owner       | Removed columns...
@@ -150,7 +329,7 @@ postgres=> \l
 These databases include those that are used by various PlanetScale platform features such as metrics and logs collection, backups, Insights, or are used by PGBouncer (as examples). They cannot be removed.
 
 | Database | Purpose |
-| --- | --- |
+| - | - |
 | postgres | Default user database |
 | pscale\_admin | PlanetScale platform |
 | pscale\_exporter | PlanetScale platform |
@@ -161,15 +340,15 @@ These databases include those that are used by various PlanetScale platform feat
 
 All connections to Postgres databases require:
 
-- **SSL/TLS encryption** - Use `sslmode=verify-full` (recommended, with `sslrootcert=system`); `sslmode=require` is the weaker minimum
-- **Certificate verification** - Connections verify PlanetScale’s SSL certificates
-- **Secure passwords** - Generated passwords use cryptographically secure random generation
+* **SSL/TLS encryption** - Use `sslmode=verify-full` (recommended, with `sslrootcert=system`); `sslmode=require` is the weaker minimum
+* **Certificate verification** - Connections verify PlanetScale's SSL certificates
+* **Secure passwords** - Generated passwords use cryptographically secure random generation
 
 ### Password management
 
-- **Password reset**: You can [reset your default user password](../connecting/roles.md) anytime from the dashboard
-- **No password rotation required**: Passwords don’t expire unless you set them to
-- **Single credential per branch**: Each branch has one default user credential
+* **Password reset**: You can [reset your default user password](../connecting/roles.md) anytime from the dashboard
+* **No password rotation required**: Passwords don't expire unless you set them to
+* **Single credential per branch**: Each branch has one default user credential
 
 ## Next steps
 
@@ -177,4 +356,7 @@ Your database is ready. See [Next steps](../day-one-with-planetscale-postgres.md
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

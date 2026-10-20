@@ -2,15 +2,25 @@
 url: https://planetscale.com/docs/vitess/how-to-make-different-types-of-schema-changes
 title: "How To Make Different Types Of Schema Changes"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# How to make different types of schema changes
+
+> Your database has to grow and change with your application and product.
 
 ## Overview
 
 So schema changes are inevitable. Luckily, PlanetScale has features like [branching](schema-changes/branching.md), [deploy requests](schema-changes/deploy-requests.md), and [revert](schema-changes/deploy-requests.md#revert-a-schema-change) to help give you more confidence when making schema changes. But you still have to consider though how to make the schema change. Some schema changes are more complex than others. This document will help you understand how to make different types of schema changes and associated risks.
 
-Most of the following applies to any relational database and not only to PlanetScale.
+> [!NOTE]
+>
+> Most of the following applies to any relational database and not only to PlanetScale.
 
 ## Adding a table
 
@@ -24,13 +34,25 @@ The one exception is if you want to add a column with a `NOT NULL` constraint an
 
 To work around this, you can do the following:
 
+**Step 1**
+
+Add the new column without defining a DEFAULT value, allowing NULL values.
+
+**Step 2**
+
+Write a script to backfill the new column for all missing data rows.
+
+**Step 3**
+
+Add the `NOT NULL` constraint once the data is backfilled.
+
 ## Changing a column or table
 
 Some examples of changing a column or table include:
 
-- Renaming an existing column or table
-- Changing the data type of an existing column
-- Splitting and other modifications to the data of an existing column or table
+* Renaming an existing column or table
+* Changing the data type of an existing column
+* Splitting and other modifications to the data of an existing column or table
 
 This includes modifying your application to use a different column or table in existing code. For example, if you are using `username` in the code but instead want to start using a new `user_id` column in the existing code.
 
@@ -52,4 +74,7 @@ This is not an exhaustive list of schema changes. Remember, making smaller incre
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

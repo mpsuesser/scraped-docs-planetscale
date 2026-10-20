@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/dashboard
 title: "Dashboard"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # PlanetScale Postgres database dashboard
 
 > When you navigate to a database in your PlanetScale organization, you'll see a comprehensive view of your cluster health, performance metrics, and management options. You can filter this view by [branch](branching.md) by selecting from the branch dropdown at the top.
-
-**Platform availability:** Postgres only
 
 From the dashboard you can review:
 

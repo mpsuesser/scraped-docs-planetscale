@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/anomalies
 title: "Anomalies"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Anomalies
 
 > Periods when a high share of queries run slower than the established baseline.
-
-**Platform availability:** [Vitess](../../vitess/monitoring/anomalies.md) and [Postgres](../../postgres/monitoring/anomalies.md)
 
 PlanetScale Insights continuously analyzes query performance to establish a
 baseline. When a high enough percentage of queries run more slowly than that

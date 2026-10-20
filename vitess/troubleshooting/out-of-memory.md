@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-09-28T07:46:29.866Z
-current_date: 2026-09-28T07:46:29.866Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Out of memory (OOM)
+
+> Understanding and resolving out of memory events on PlanetScale (Vitess) clusters.
 
 An out of memory (OOM) event occurs when a process on a tablet consumes more memory than is available on the cluster. When this happens, the affected process is automatically restarted to free up memory.
 
@@ -14,9 +22,9 @@ Each tablet runs two main processes in separate containers: **`vttablet`** (the 
 
 When an OOM event occurs:
 
-- **Process restart required**: The affected container (`vttablet` or `mysqld`) is restarted to recover. Repeated OOMs show up as a container that keeps restarting (`CrashLoopBackOff`).
-- **Brief unavailability**: The affected tablet is unavailable while it restarts. If a shard’s primary is repeatedly OOM-killed, writes to that shard can be disrupted until it recovers or is resized.
-- **In-flight queries fail**: Queries and uncommitted transactions running on the affected tablet at the time of the restart are terminated.
+* **Process restart required**: The affected container (`vttablet` or `mysqld`) is restarted to recover. Repeated OOMs show up as a container that keeps restarting (`CrashLoopBackOff`).
+* **Brief unavailability**: The affected tablet is unavailable while it restarts. If a shard's primary is repeatedly OOM-killed, writes to that shard can be disrupted until it recovers or is resized.
+* **In-flight queries fail**: Queries and uncommitted transactions running on the affected tablet at the time of the restart are terminated.
 
 ## Primary resolution: Upgrade cluster size
 
@@ -30,17 +38,17 @@ Large writes, deletes, or backfills can drive `vttablet` memory up sharply. A si
 
 **Recommendations:**
 
-- Break large `DELETE` / `UPDATE` /backfill operations into smaller batches.
-- Avoid running several large bulk operations concurrently.
+* Break large `DELETE`/`UPDATE`/backfill operations into smaller batches.
+* Avoid running several large bulk operations concurrently.
 
 ### Memory-intensive queries
 
-Certain query patterns can consume large amounts of memory, for example large `ORDER BY` sorts, `GROUP BY` / `DISTINCT` over large result sets, hash joins on large tables, and queries that return very large result sets.
+Certain query patterns can consume large amounts of memory, for example large `ORDER BY` sorts, `GROUP BY`/`DISTINCT` over large result sets, hash joins on large tables, and queries that return very large result sets.
 
 **Recommendations:**
 
-- Add indexes so sorts and lookups don’t have to be done in memory.
-- Use `LIMIT` and pagination instead of returning large result sets at once.
+* Add indexes so sorts and lookups don't have to be done in memory.
+* Use `LIMIT` and pagination instead of returning large result sets at once.
 
 ### Too many connections
 
@@ -48,28 +56,37 @@ Each connection consumes memory. A large number of open connections, whether int
 
 **Recommendations:**
 
-- Ensure your application closes connections and uses a connection pool.
-- Reduce the number of concurrent connections where possible.
+* Ensure your application closes connections and uses a connection pool.
+* Reduce the number of concurrent connections where possible.
 
 ## Monitoring and prevention
 
-- **Watch for the OOM banner**: When a branch experiences OOM kills, a banner on the branch dashboard shows how many occurred in the selected period.
-- **Scrape it into your own monitoring**: `planetscale_pods_container_status_restarts_total` counts **all** container restarts, not only out-of-memory kills. To count OOM kills, filter it against `planetscale_pods_container_last_terminated_reason`:
-	```text
-	sum by (planetscale_keyspace, planetscale_shard, planetscale_container) (
-	  sum_over_time((
-	    increase(planetscale_pods_container_status_restarts_total[1m])
-	    and on (planetscale_pod, planetscale_container)
-	    planetscale_pods_container_last_terminated_reason{planetscale_restart_reason="OOMKilled"}
-	  )[1h:1m])
-	)
-	```
-	The gauge only reports a container’s latest termination reason, so the query attributes each minute’s restarts to the reason current in that minute, then sums over the hour. Change `1h` to your own window and leave the `1m` alone.
-	Matching the gauge against the whole window in one step gives the wrong count. A container OOM-killed once and then restarted five times for other reasons reports six kills, or none, depending on which way you write it.
-	The older `planetscale_pods_container_restarts_total` is deprecated and should not be used for this. See the [Prometheus metrics](../integrations/prometheus-metrics.md) reference.
+* **Watch for the OOM banner**: When a branch experiences OOM kills, a banner on the branch dashboard shows how many occurred in the selected period.
+* **Scrape it into your own monitoring**: `planetscale_pods_container_status_restarts_total` counts **all** container restarts, not only out-of-memory kills. To count OOM kills, filter it against `planetscale_pods_container_last_terminated_reason`:
 
-Some workloads spike memory so quickly that the increase is not captured on the memory graph, which is sampled periodically. An OOM kill is recorded as an event, so it remains visible even when no corresponding spike appears on the memory graph.
+  ```promql theme={null}
+  sum by (planetscale_keyspace, planetscale_shard, planetscale_container) (
+    sum_over_time((
+      increase(planetscale_pods_container_status_restarts_total[1m])
+      and on (planetscale_pod, planetscale_container)
+      planetscale_pods_container_last_terminated_reason{planetscale_restart_reason="OOMKilled"}
+    )[1h:1m])
+  )
+  ```
+
+  The gauge only reports a container's latest termination reason, so the query attributes each minute's restarts to the reason current in that minute, then sums over the hour. Change `1h` to your own window and leave the `1m` alone.
+
+  Matching the gauge against the whole window in one step gives the wrong count. A container OOM-killed once and then restarted five times for other reasons reports six kills, or none, depending on which way you write it.
+
+  The older `planetscale_pods_container_restarts_total` is deprecated and should not be used for this. See the [Prometheus metrics](../integrations/prometheus-metrics.md) reference.
+
+> [!NOTE]
+>
+> Some workloads spike memory so quickly that the increase is not captured on the memory graph, which is sampled periodically. An OOM kill is recorded as an event, so it remains visible even when no corresponding spike appears on the memory graph.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/postgres/monitoring/authentication-attempts
 title: "Authentication Attempts"
 description: ""
-access_date: 2026-08-11T16:46:50.137Z
-current_date: 2026-08-11T16:46:50.137Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Authentication attempts
+
+> Export a report of every attempt to authenticate against your Postgres databases, including the real client IP, the credential used, and whether access was allowed or denied.
 
 Authentication attempt reports provide a record of attempts to authenticate against your Postgres databases. You can use them to review connection activity, troubleshoot authentication failures, investigate unexpected access, or export authentication data for further analysis.
 
@@ -12,44 +20,46 @@ Each record includes information such as the client IP address, credential used,
 
 The `source_ip` in the report is the address of the client that connected to PlanetScale. This is especially useful for connections routed through a pooler, where Postgres server logs may show a PlanetScale infrastructure address instead of the original client address.
 
-Generating a report is limited to [Organization Administrators](../../security/access-control.md#organization-administrator). Service tokens cannot generate reports.
+> [!NOTE]
+>
+> Generating a report is limited to [Organization Administrators](../../security/access-control.md#organization-administrator). Service tokens cannot generate reports.
 
 ## Generate a report
 
 Use the [`pscale` CLI](../../cli/audit-log.md) to generate and download a report. Specify a time window and, optionally, filters:
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download --since 24h --output auth-attempts.zip
 ```
 
-```shellscript
+```bash theme={null}
 Generating authentication-attempt export for acme...
 Successfully downloaded auth attempts (csv) to auth-attempts.zip
 ```
 
 The download link expires 24 hours after the report is generated. If you need to download the report again after that, generate a new report.
 
-## What’s in the archive
+## What's in the archive
 
 Every archive contains exactly two files:
 
 | File | Contents |
-| --- | --- |
+| :- | :- |
 | `auth-attempts.csv` (or `.jsonl`, `.parquet`) | One row per authentication attempt |
 | `manifest.json` | The time window, filters, format, and other metadata for the report |
 
 ### The data
 
 | Column | Description |
-| --- | --- |
+| :- | :- |
 | `occurred_at` | When the attempt happened, UTC, to the millisecond |
 | `source_ip` | The IP address the client connected from |
-| `source_port` | The client’s source port |
+| `source_port` | The client's source port |
 | `organization_id`, `organization_name` | The organization |
 | `database_id`, `database_name` | The database the attempt targeted |
 | `branch_id`, `branch_name` | The branch the attempt targeted |
 | `username` | The credential used |
-| `startup_database` | The database named in the connection’s startup message |
+| `startup_database` | The database named in the connection's startup message |
 | `outcome` | `allow` or `deny` |
 | `failure_reason` | Why it was denied. Empty when the attempt succeeded |
 | `sqlstate` | The Postgres SQLSTATE returned on failure |
@@ -59,7 +69,7 @@ Every archive contains exactly two files:
 Denials carry one of these reasons:
 
 | `failure_reason` | Meaning |
-| --- | --- |
+| :- | :- |
 | `bad_password` | The credential exists but the password did not match |
 | `unknown_user` | No such credential |
 | `authorization_failed` | Authenticated, but not permitted to proceed |
@@ -70,7 +80,7 @@ Denials carry one of these reasons:
 
 `manifest.json` records how the report was generated:
 
-```json
+```json theme={null}
 {
   "schema_version": 1,
   "format": "csv",
@@ -96,12 +106,12 @@ The report window uses `[start_at,end_at)` semantics: `start_at` is inclusive an
 
 Pass a single address or a whole CIDR range:
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download --since 7d \
   --source-ip 203.0.113.10 --output suspect-ip.zip
 ```
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download --since 7d \
   --source-ip 203.0.113.0/24 --source-ip 198.51.100.0/24 --output suspect-range.zip
 ```
@@ -110,7 +120,7 @@ pscale audit-log auth-attempts download --since 7d \
 
 Use `--username` to find attempts made with a particular credential. For example, to return only denied attempts:
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download --since 7d \
   --username app_readonly --outcome deny --output credential.zip
 ```
@@ -121,7 +131,7 @@ Omit filters to export all authentication attempts in a time window.
 
 For larger datasets, Parquet can be useful for analysis with tools such as DuckDB:
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download \
   --start-at 2026-07-29T00:00:00Z --end-at 2026-07-30T00:00:00Z \
   --export-format parquet --output window.zip
@@ -140,9 +150,9 @@ Because the archive includes its manifest, you can also share or retain the comp
 
 ## Combining filters
 
-Filters combine with AND across different flags, and OR within a repeated flag. This request means “denied attempts, from either of these two ranges, using either of these two credentials”:
+Filters combine with AND across different flags, and OR within a repeated flag. This request means "denied attempts, from either of these two ranges, using either of these two credentials":
 
-```shellscript
+```bash theme={null}
 pscale audit-log auth-attempts download --since 24h \
   --outcome deny \
   --source-ip 203.0.113.0/24 --source-ip 198.51.100.0/24 \
@@ -152,7 +162,7 @@ pscale audit-log auth-attempts download --since 24h \
 ## Choosing a format
 
 | Format | Good for |
-| --- | --- |
+| :- | :- |
 | `csv` | Spreadsheets, quick inspection, most SIEM ingest paths |
 | `jsonl` | Log pipelines and tools that process one object per line |
 | `parquet` | Analysis over larger datasets and querying with tools such as DuckDB or a data warehouse |
@@ -161,4 +171,7 @@ CSV is the default. JSONL is selected by `--format json`, and Parquet must be re
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

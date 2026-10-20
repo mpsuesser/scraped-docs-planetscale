@@ -2,46 +2,85 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-dms
 title: "Postgres Migrate Dms"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Postgres Imports - Amazon DMS
+
+> [!NOTE]
+>
+> Before beginning your migration, we recommend running our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
 
 [Amazon Database Migration Service (DMS)](https://aws.amazon.com/dms/) provides a managed migration service that can handle complex database migrations with built-in monitoring, error handling, and data validation. This method is ideal for large, complex databases that require robust migration capabilities.
 
-Want expert guidance for your migration? PlanetScale’s [migration services](https://planetscale.com/migrate) are available to help you plan and execute a smooth, successful move.
+> [!NOTE]
+>
+> Want expert guidance for your migration? PlanetScale's [migration services](https://planetscale.com/migrate) are available to help you plan and execute a smooth, successful move.
 
 ## Overview
 
 This migration method involves:
 
-**Critical: AWS DMS Schema Object Limitations**
+**Step 1**
 
-AWS DMS **only migrates table data and primary keys**. All other PostgreSQL schema objects must be handled separately:
+**Pre-migration schema setup** (strongly recommended for production)
 
-- Secondary indexes
-- Sequences and their current values
-- Views, functions, and stored procedures
-- Constraints (foreign keys, unique, check)
-- Triggers and custom data types
+**Step 2**
 
-Deploy your complete schema to PlanetScale BEFORE starting DMS migration to preserve performance and avoid application errors.
+Setting up AWS DMS replication instance and endpoints
 
-This method requires an AWS account and will incur AWS DMS charges. Review [AWS DMS pricing](https://aws.amazon.com/dms/pricing/) before proceeding.
+**Step 3**
 
-**For Aurora users**: Consider the [Aurora to PlanetScale CloudFormation & DMS tutorial](aurora-dms.md) for a fully automated approach using CloudFormation templates and Step Functions workflows instead of manual DMS setup.
+Configuring source and target database connections
+
+**Step 4**
+
+Creating and running migration tasks with full load and CDC
+
+**Step 5**
+
+Monitoring migration progress and performing cutover
+
+> [!WARNING]
+>
+> **Critical: AWS DMS Schema Object Limitations**
+>
+> AWS DMS **only migrates table data and primary keys**. All other PostgreSQL schema objects must be handled separately:
+>
+> * Secondary indexes
+> * Sequences and their current values
+> * Views, functions, and stored procedures
+> * Constraints (foreign keys, unique, check)
+> * Triggers and custom data types
+>
+> Deploy your complete schema to PlanetScale BEFORE starting DMS migration to preserve performance and avoid application errors.
+
+> [!NOTE]
+>
+> This method requires an AWS account and will incur AWS DMS charges. Review [AWS DMS pricing](https://aws.amazon.com/dms/pricing/) before proceeding.
+
+> [!NOTE]
+>
+> **For Aurora users**: Consider the [Aurora to PlanetScale CloudFormation & DMS tutorial](aurora-dms.md) for a fully automated approach using CloudFormation templates and Step Functions workflows instead of manual DMS setup.
 
 ## Prerequisites
 
 Before starting the migration:
 
-- Active AWS account with appropriate DMS permissions
-- Source PostgreSQL database accessible from AWS (consider VPC configuration)
-- Connection details for your PlanetScale Postgres database from the console
-- Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database. If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the “Minimum disk size.” If you are using Metal, you will need to select a size when first creating your database. For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
-- Understanding of your data transformation requirements (if any)
-- Network connectivity between AWS and both source and target databases
+* Active AWS account with appropriate DMS permissions
+* Source PostgreSQL database accessible from AWS (consider VPC configuration)
+* Connection details for your PlanetScale Postgres database from the console
+* Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database.
+  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
+  If you are using Metal, you will need to select a size when first creating your database.
+  For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
+* Understanding of your data transformation requirements (if any)
+* Network connectivity between AWS and both source and target databases
 
 ## Step 1: Pre-Migration Schema Setup
 
@@ -49,15 +88,35 @@ Deploy your complete schema to PlanetScale BEFORE starting DMS migration. This e
 
 ### Extract and Apply Schema
 
-**Foreign Key Constraints**
+**Step 1**
 
-If the schema application fails due to foreign key constraint issues, you can temporarily remove them from the schema file and apply them after DMS completes the data migration.
+Extract your complete schema from the source PostgreSQL database:
+
+```bash theme={null}
+pg_dump -h your-postgres-host -p 5432 -U username -d database \
+        --schema-only --no-owner --no-privileges \
+        --exclude-table-data='*' -f schema_objects.sql
+```
+
+**Step 2**
+
+Apply the schema to PlanetScale:
+
+```bash theme={null}
+psql -h your-planetscale-host -p 5432 -U username -d database -f schema_objects.sql
+```
+
+> [!NOTE]
+>
+> **Foreign Key Constraints**
+>
+> If the schema application fails due to foreign key constraint issues, you can temporarily remove them from the schema file and apply them after DMS completes the data migration.
 
 ### Verify Schema Application
 
 Quickly verify your schema was applied successfully:
 
-```sql
+```sql theme={null}
 -- Check that tables and sequences exist
 SELECT
     (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public') as tables,
@@ -69,21 +128,62 @@ SELECT
 
 ### Create DMS Replication Instance
 
+**Step 1**
+
+Navigate to the [AWS DMS Console](https://console.aws.amazon.com/dms/)
+
+**Step 2**
+
+Click "Create replication instance"
+
+**Step 3**
+
+Configure the instance:
+
+```yaml theme={null}
+Name: planetscale-postgres-migration
+Description: Migration to PlanetScale Postgres
+Instance class: dms.t3.medium (adjust based on your needs)
+Engine version: Latest available
+VPC: Select appropriate VPC
+Multi-AZ: No (for cost savings, Yes for production)
+Publicly accessible: Yes (if needed for connectivity)
+```
+
 ### Configure Security Groups
 
 Ensure your replication instance can connect to:
 
-- Source PostgreSQL database (port 5432)
-- PlanetScale Postgres (port 5432)
-- Internet for PlanetScale connectivity
+* Source PostgreSQL database (port 5432)
+* PlanetScale Postgres (port 5432)
+* Internet for PlanetScale connectivity
 
 ## Step 3: Create Source Endpoint
 
 ### Configure PostgreSQL source endpoint:
 
+**Step 1**
+
+In DMS Console, go to "Endpoints" > "Create endpoint"
+
+**Step 2**
+
+Configure source endpoint:
+
+```yaml theme={null}
+Endpoint type: Source endpoint
+Endpoint identifier: postgres-source
+Source engine: postgres
+Server name: your-postgres-host
+Port: 5432
+Database name: your-database-name
+Username: your-username
+Password: your-password
+```
+
 ### Advanced settings for PostgreSQL:
 
-```yaml
+```yaml theme={null}
 Extra connection attributes:
 pluginName=test_decoding;
 slotName=dms_slot_planetscale;
@@ -95,23 +195,66 @@ maxFileSize=32768;
 
 ### Configure PlanetScale Postgres target endpoint:
 
+**Step 1**
+
+Create target endpoint with PlanetScale connection details:
+
+```yaml theme={null}
+Endpoint type: Target endpoint
+Endpoint identifier: planetscale-target
+Target engine: postgres
+Server name: [from PlanetScale console]
+Port: [from PlanetScale console]
+Database name: [from PlanetScale console]
+Username: [from PlanetScale console]
+Password: [from PlanetScale console]
+```
+
 ### SSL Configuration:
 
-```yaml
+```yaml theme={null}
 SSL mode: require
 ```
 
 ## Step 5: Test Endpoints
 
+**Step 1**
+
+Select your source endpoint and click "Test connection"
+
+**Step 2**
+
+Select your target endpoint and click "Test connection"
+
+**Step 3**
+
+Ensure both tests pass before proceeding
+
 ## Step 6: Create Migration Task
 
 ### Configure the migration task:
+
+**Step 1**
+
+Go to "Database migration tasks" > "Create task"
+
+**Step 2**
+
+Configure task settings:
+
+```yaml theme={null}
+Task identifier: postgres-to-planetscale
+Replication instance: planetscale-postgres-migration
+Source database endpoint: postgres-source
+Target database endpoint: planetscale-target
+Migration type: Migrate existing data and replicate ongoing changes
+```
 
 ### Task Settings
 
 **Option 1: Schema-first approach** (recommended for production):
 
-```json
+```json expandable theme={null}
 {
   "TargetMetadata": {
     "TargetSchema": "",
@@ -189,7 +332,7 @@ SSL mode: require
 
 **Option 2: Standard approach** (matches CloudFormation template):
 
-```json
+```json expandable theme={null}
 {
   "TargetMetadata": {
     "SupportLobs": true,
@@ -244,7 +387,7 @@ SSL mode: require
 **Configuration Comparison:**
 
 | Setting | Schema-First | Standard | Notes |
-| --- | --- | --- | --- |
+| - | - | - | - |
 | TargetTablePrepMode | DO\_NOTHING | DROP\_AND\_CREATE | Schema-first uses existing schema |
 | ChangeProcessingTuning | Included | Not needed | Extra optimization for manual setup |
 | Logging Components | 5 components | 5 components | Both include all DMS components |
@@ -252,14 +395,14 @@ SSL mode: require
 
 **When to use each approach:**
 
-- **Schema-First**: Production systems, complex schemas, performance-critical applications
-- **Standard**: Simple migrations, dev/test environments, when schema objects aren’t critical during migration
+* **Schema-First**: Production systems, complex schemas, performance-critical applications
+* **Standard**: Simple migrations, dev/test environments, when schema objects aren't critical during migration
 
 ## Step 7: Configure Table Mappings
 
 ### Basic table mapping (migrate all tables):
 
-```json
+```json theme={null}
 {
   "rules": [
     {
@@ -279,7 +422,7 @@ SSL mode: require
 
 ### Advanced table mapping with transformations:
 
-```json
+```json expandable theme={null}
 {
   "rules": [
     {
@@ -309,24 +452,36 @@ SSL mode: require
 
 ## Step 8: Start Migration Task
 
+**Step 1**
+
+Review all task configurations
+
+**Step 2**
+
+Click "Create task" to start the migration
+
+**Step 3**
+
+Monitor the task status in the DMS console
+
 ## Step 9: Monitor Migration Progress
 
 ### Key metrics to monitor:
 
-- **Full load progress**: Percentage of tables loaded
-- **CDC lag**: Latency between source and target
-- **Error count**: Any migration errors
-- **Throughput**: Records per second
+* **Full load progress**: Percentage of tables loaded
+* **CDC lag**: Latency between source and target
+* **Error count**: Any migration errors
+* **Throughput**: Records per second
 
 ### Using CloudWatch:
 
 Set up [CloudWatch alarms](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Monitoring.html) for:
 
-- High CDC latency
-- Migration errors
-- Task failures
+* High CDC latency
+* Migration errors
+* Task failures
 
-```shellscript
+```bash theme={null}
 # CLI command to check task status
 aws dms describe-replication-tasks \
     --filters Name=replication-task-id,Values=your-task-id
@@ -336,7 +491,7 @@ aws dms describe-replication-tasks \
 
 ### Check table counts and data integrity:
 
-```sql
+```sql theme={null}
 -- Run on both source and target databases
 SELECT
     schemaname,
@@ -350,7 +505,7 @@ ORDER BY schemaname, tablename;
 
 ### Validate specific data:
 
-```sql
+```sql theme={null}
 -- Compare checksums for critical tables
 SELECT count(*), md5(string_agg(column_name::text, ''))
 FROM your_important_table
@@ -363,7 +518,7 @@ ORDER BY primary_key;
 
 Ensure CDC latency is minimal (under 5 seconds) before cutover:
 
-```sql
+```sql theme={null}
 -- Check DMS validation status
 SELECT * FROM awsdms_validation_failures_v1;
 ```
@@ -379,13 +534,15 @@ SELECT * FROM awsdms_validation_failures_v1;
 
 After DMS completes, sequences need their values synchronized:
 
-**Critical: Sequence Synchronization**
-
-Sequence values must be set ahead of source database values to prevent duplicate key errors when applications start using PlanetScale.
+> [!WARNING]
+>
+> **Critical: Sequence Synchronization**
+>
+> Sequence values must be set ahead of source database values to prevent duplicate key errors when applications start using PlanetScale.
 
 ### Get Current Sequence Values from Source
 
-```sql
+```sql theme={null}
 -- Run on source database to get all current sequence values
 SELECT
     sequence_name,
@@ -398,7 +555,7 @@ ORDER BY sequence_name;
 
 ### Update Sequences in PlanetScale
 
-```sql
+```sql theme={null}
 -- For each sequence, run the update command from above
 -- Example commands (values set ahead of source):
 SELECT setval('users_id_seq', 16234);  -- Source value + 1000
@@ -416,7 +573,7 @@ ORDER BY sequence_name;
 
 Now apply foreign key constraints that were deferred:
 
-```sql
+```sql theme={null}
 -- Apply foreign key constraints
 \i constraints.sql
 
@@ -430,11 +587,13 @@ ORDER BY conrelid::regclass::text;
 
 ## Step 13: Comprehensive Pre-Cutover Validation
 
-**Complete Validation Required**
+> [!WARNING]
+>
+> **Complete Validation Required**
+>
+> Validate ALL schema objects and data integrity before cutover. Missing objects will cause application failures.
 
-Validate ALL schema objects and data integrity before cutover. Missing objects will cause application failures.
-
-```sql
+```sql theme={null}
 -- Validate table row counts match source
 SELECT
     schemaname,
@@ -449,9 +608,33 @@ ORDER BY tablename;
 
 When ready to switch to PlanetScale Postgres:
 
+**Step 1**
+
+**Stop application writes** to source database
+
+**Step 2**
+
+**Wait for CDC to catch up** (monitor lag in DMS console)
+
+**Step 3**
+
+**Verify final data consistency**
+
+**Step 4**
+
+**Update application connection strings** to point to PlanetScale
+
+**Step 5**
+
+**Start application** with new connections
+
+**Step 6**
+
+**Stop DMS task** once satisfied with cutover
+
 ### Stop the migration task:
 
-```shellscript
+```bash theme={null}
 aws dms stop-replication-task \
     --replication-task-arn arn:aws:dms:region:account:task:task-id
 ```
@@ -460,18 +643,36 @@ aws dms stop-replication-task \
 
 The task configuration above is already optimized for schema-first migrations. Key settings:
 
-- **DO\_NOTHING** prep mode preserves your existing schema
-- **Row-level validation** ensures data integrity
-- **Batch processing** optimizations improve performance
-- **Memory tuning** handles large datasets efficiently
+* **DO\_NOTHING** prep mode preserves your existing schema
+* **Row-level validation** ensures data integrity
+* **Batch processing** optimizations improve performance
+* **Memory tuning** handles large datasets efficiently
 
-**Automated vs Manual Configuration**
-
-For Aurora migrations, consider using the [automated CloudFormation approach](aurora-dms.md) which includes these optimized settings and additional automation features.
+> [!NOTE]
+>
+> **Automated vs Manual Configuration**
+>
+> For Aurora migrations, consider using the [automated CloudFormation approach](aurora-dms.md) which includes these optimized settings and additional automation features.
 
 After successful cutover and schema migration:
 
-```shellscript
+**Step 1**
+
+**Delete DMS task**
+
+**Step 2**
+
+**Delete replication instance** (to stop charges)
+
+**Step 3**
+
+**Remove source and target endpoints**
+
+**Step 4**
+
+**Clean up security groups** if created specifically for migration
+
+```bash theme={null}
 # Cleanup commands
 aws dms delete-replication-task --replication-task-arn your-task-arn
 aws dms delete-replication-instance --replication-instance-arn your-instance-arn
@@ -485,24 +686,24 @@ aws dms delete-endpoint --endpoint-arn your-target-endpoint-arn
 
 **Connectivity problems:**
 
-- Check security groups and network ACLs
-- Verify endpoint configurations
-- Test network connectivity from replication instance
+* Check security groups and network ACLs
+* Verify endpoint configurations
+* Test network connectivity from replication instance
 
 **Performance issues:**
 
-- Increase replication instance size
-- Adjust parallel load settings
-- Monitor source database performance
+* Increase replication instance size
+* Adjust parallel load settings
+* Monitor source database performance
 
 **Data type mapping issues:**
 
-- Review [DMS data type mapping](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Reference.DataTypes.html)
-- Use transformation rules for custom mappings
+* Review [DMS data type mapping](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Reference.DataTypes.html)
+* Use transformation rules for custom mappings
 
 **Large object (LOB) handling:**
 
-```json
+```json theme={null}
 {
   "TargetMetadata": {
     "SupportLobs": true,
@@ -515,9 +716,9 @@ aws dms delete-endpoint --endpoint-arn your-target-endpoint-arn
 
 ### Schema-Related Troubleshooting:
 
-**“sequence does not exist” errors:**
+**"sequence does not exist" errors:**
 
-```sql
+```sql theme={null}
 -- Check if sequence exists
 SELECT * FROM information_schema.sequences WHERE sequence_name = 'your_sequence';
 
@@ -528,7 +729,7 @@ SELECT setval('your_sequence', (SELECT MAX(id) FROM your_table));
 
 **Missing indexes causing performance issues:**
 
-```sql
+```sql theme={null}
 -- Find missing indexes by comparing to source
 -- Run on source database to get index list
 SELECT indexname, indexdef FROM pg_indexes WHERE schemaname = 'public';
@@ -539,7 +740,7 @@ EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM your_table WHERE indexed_column = 'valu
 
 **Foreign key constraint violations:**
 
-```sql
+```sql theme={null}
 -- Check for constraint violations before applying
 SELECT COUNT(*) FROM child_table c
 WHERE NOT EXISTS (SELECT 1 FROM parent_table p WHERE p.id = c.parent_id);
@@ -550,7 +751,7 @@ ALTER TABLE child_table ADD CONSTRAINT fk_name FOREIGN KEY (parent_id) REFERENCE
 
 **Functions/views with dependency errors:**
 
-```sql
+```sql theme={null}
 -- Check dependencies
 SELECT * FROM pg_depend WHERE objid = 'your_function'::regproc;
 
@@ -559,13 +760,13 @@ SELECT * FROM pg_depend WHERE objid = 'your_function'::regproc;
 
 **Permission errors during schema application:**
 
-- Ensure PlanetScale database user has CREATE permissions
-- Check if objects already exist and need DROP statements
-- Verify user has permissions on referenced objects
+* Ensure PlanetScale database user has CREATE permissions
+* Check if objects already exist and need DROP statements
+* Verify user has permissions on referenced objects
 
 **Sequence values too low causing duplicate key errors:**
 
-```sql
+```sql theme={null}
 -- Check current sequence value vs max table value
 SELECT last_value FROM your_sequence;
 SELECT MAX(id) FROM your_table;
@@ -583,20 +784,20 @@ SELECT setval('your_sequence', (SELECT MAX(id) FROM your_table));
 
 ## Cost Optimization
 
-- **Instance sizing**: Start with smaller instances and scale up if needed
-- **Multi-AZ**: Disable for dev/test migrations
-- **Task lifecycle**: Delete resources immediately after successful migration
-- **Data transfer**: Consider AWS region placement to minimize transfer costs
+* **Instance sizing**: Start with smaller instances and scale up if needed
+* **Multi-AZ**: Disable for dev/test migrations
+* **Task lifecycle**: Delete resources immediately after successful migration
+* **Data transfer**: Consider AWS region placement to minimize transfer costs
 
 ## Schema Considerations
 
 Before migration, review:
 
-## PostgreSQL version compatibility
+> **[PostgreSQL version compatibility](postgres-imports.md#postgresql-version-compatibility)**
 
-## Extension support limitations
+> **[Extension support limitations](postgres-imports.md#extension-support)**
 
-## Third-party enhancement restrictions
+> **[Third-party enhancement restrictions](postgres-imports.md#third-party-enhancements-and-tools)**
 
 **Important:** Plan additional time for post-migration schema object setup. Complex databases may require several hours for index recreation and sequence synchronization.
 
@@ -606,13 +807,41 @@ Before migration, review:
 
 After successful migration and schema setup:
 
+**Step 1**
+
+**Run comprehensive post-cutover validation** using all verification queries above
+
+**Step 2**
+
+**Monitor application logs** for any sequence or constraint errors
+
+**Step 3**
+
+**Performance baseline comparison** - compare query performance to source database
+
+**Step 4**
+
+**Test critical business workflows** end-to-end
+
+**Step 5**
+
+Set up monitoring and alerting for PlanetScale Postgres
+
+**Step 6**
+
+Plan for ongoing maintenance and backup strategies
+
+**Step 7**
+
+Consider implementing additional PlanetScale features
+
 **Success Criteria:**
 
-- ✅ All schema objects validated and functional
-- ✅ Sequence values synchronized and tested
-- ✅ Query performance matches or exceeds source database
-- ✅ No application errors in logs for 24+ hours
-- ✅ All foreign key constraints working correctly
+* ✅ All schema objects validated and functional
+* ✅ Sequence values synchronized and tested
+* ✅ Query performance matches or exceeds source database
+* ✅ No application errors in logs for 24+ hours
+* ✅ All foreign key constraints working correctly
 
 For simpler migrations, consider [pg\_dump/restore](postgres-migrate-dumprestore.md) or [WAL streaming](postgres-migrate-walstream.md) methods.
 
@@ -620,4 +849,7 @@ If you encounter issues during migration, please [reach out to support](https://
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/switchovers
 title: "Switchovers"
 description: ""
-access_date: 2026-08-19T20:12:19.089Z
-current_date: 2026-08-19T20:12:19.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Switchovers
+
+> Move the primary of a Postgres branch to a replica on demand.
 
 ## Overview
 
@@ -12,10 +20,12 @@ A switchover moves the primary of a Postgres branch to one of its replicas on de
 
 Switchovers are useful when you want to:
 
-- Verify that your application tolerates a primary change before you depend on it during an unplanned failover
-- Move the primary ahead of planned work, instead of waiting for routine maintenance to switch over the primary for you
+* Verify that your application tolerates a primary change before you depend on it during an unplanned failover
+* Move the primary ahead of planned work, instead of waiting for routine maintenance to switch over the primary for you
 
-A branch without replicas has nothing to promote. Requesting a switchover on a single-node branch **restarts the instance in place** instead, and the branch is unreachable while it comes back. Check the `method` field on the switchover (`switchover` or `restart`) to see which one a branch got.
+> [!NOTE]
+>
+> A branch without replicas has nothing to promote. Requesting a switchover on a single-node branch **restarts the instance in place** instead, and the branch is unreachable while it comes back. Check the `method` field on the switchover (`switchover` or `restart`) to see which one a branch got.
 
 ## Start a switchover
 
@@ -27,13 +37,13 @@ On the branch page, open the cluster actions menu (the kebab icon next to the cl
 
 ### CLI
 
-```shellscript
+```bash theme={null}
 pscale branch switchover $DATABASE $BRANCH
 ```
 
 ### API
 
-```shellscript
+```bash theme={null}
 curl -X POST \
   "https://api.planetscale.com/v1/organizations/$ORG/databases/$DATABASE/branches/$BRANCH/switchovers" \
   -H "Authorization: $API_TOKEN"
@@ -45,11 +55,11 @@ See the [create switchover API reference](../../api/reference/create_switchover.
 
 By default, an eligible replica is selected automatically. To pick one yourself, first find replica names with `pscale branch infra $DATABASE $BRANCH` or on the branch page in the dashboard, then pass the exact replica `name` as the candidate:
 
-```shellscript
+```bash theme={null}
 pscale branch switchover $DATABASE $BRANCH --candidate $REPLICA_NAME
 ```
 
-```shellscript
+```bash theme={null}
 curl -X POST \
   "https://api.planetscale.com/v1/organizations/$ORG/databases/$DATABASE/branches/$BRANCH/switchovers" \
   -H "Authorization: $API_TOKEN" \
@@ -62,13 +72,18 @@ A candidate can only be specified for a branch with replicas.
 
 A switchover moves through `pending`, `running`, and a terminal state of `succeeded` or `failed`. List or fetch switchovers via the API:
 
-```shellscript
+```bash theme={null}
 curl "https://api.planetscale.com/v1/organizations/$ORG/databases/$DATABASE/branches/$BRANCH/switchovers" \
   -H "Authorization: $API_TOKEN"
 ```
 
-A switchover that ends in the `failed` state has an **unconfirmed outcome**: the primary may still have moved, and nothing is rolled back. Check which instance is currently primary (with `pscale branch infra` or the dashboard) before retrying.
+> [!WARNING]
+>
+> A switchover that ends in the `failed` state has an **unconfirmed outcome**: the primary may still have moved, and nothing is rolled back. Check which instance is currently primary (with `pscale branch infra` or the dashboard) before retrying.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

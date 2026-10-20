@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/invalid-routing-rules
 title: "Invalid Routing Rules"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # INVALID_ROUTING_RULES schema lint error
 
 > Fix invalid Vitess routing rules in PlanetScale.
-
-**Platform availability:** Vitess only
 
 ## What this error means
 

@@ -2,37 +2,68 @@
 url: https://planetscale.com/docs/vitess/security/password-roles
 title: "Password Roles"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Password roles
+
+> PlanetScale allows you to [create and manage passwords](../connecting/connection-strings.md) for each branch of your database.
 
 ## Overview
 
-The “roles” on this page are the four **access levels of a Vitess/MySQL branch password** (Read-only, Write-only, Read/Write, Admin). They are **not** the same as Postgres **roles**, which are the credential system for PlanetScale Postgres databases. If your database is Postgres, see [Managing roles](../../postgres/connecting/roles.md) instead.
+> [!NOTE]
+>
+> The "roles" on this page are the four **access levels of a Vitess/MySQL branch
+> password** (Read-only, Write-only, Read/Write, Admin). They are **not** the same
+> as Postgres **roles**, which are the credential system for PlanetScale Postgres
+> databases. If your database is Postgres, see [Managing
+> roles](../../postgres/connecting/roles.md) instead.
 
 PlanetScale passwords can be created with one of four roles:
 
-- **Read-only** — Can query rows
-- **Write-only** — Can modify rows
-- **Read/Write** — Can query and modify rows
-- **Admin** — All read/write permissions and can modify schema\*
+* **Read-only** — Can query rows
+* **Write-only** — Can modify rows
+* **Read/Write** — Can query and modify rows
+* **Admin** — All read/write permissions and can modify schema\*
 
 \* *This does not apply to production branches with [safe migrations](../schema-changes/safe-migrations.md) enabled, as we [do not allow direct DDL](../schema-changes/how-online-schema-change-tools-work.md) on those branches, even if your password has the `Admin` role.*
 
 ## Create a password with custom role
+
+**Step 1**
+
+Go to your database settings page.
+
+**Step 2**
+
+Click "**Passwords**" > "**New password**".
+
+**Step 3**
+
+Give it a name, select the role from the dropdown, select the branch, and click "**Generate password**".
+
+![PlanetScale password roles priority](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/password-roles/roles.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=10bccb8f7e7678d0ff93f9779dff17d8)
 
 Once a password is created, **its role cannot be changed**.
 
 The access level available to these roles is shown in the table below.
 
 | Role name | Can create/edit schema | Can insert/update/delete rows | Can query rows |
-| --- | --- | --- | --- |
-| Read-only |  |  |  |
-| Write-only |  |  |  |
-| Read/write |  |  |  |
-| Admin |  |  |  |
+| :- | :- | :- | :- |
+| Read-only | | | |
+| Write-only | | | |
+| Read/write | | | |
+| Admin | | | |
 
-The default role for all passwords created by the **Connect** button is `Administrator`. Passwords with custom roles must be created from your database settings page.
+> [!NOTE]
+>
+> The default role for all passwords created by the **Connect** button is `Administrator`. Passwords with custom roles
+> must be created from your database settings page.
 
 ## Troubleshooting
 
@@ -54,8 +85,14 @@ The following errors indicate that you do not have the permissions needed to per
 
 `DDL command denied to user ‘planetscale-writer' for table my-new-table’ (ACL check error) (CallerID: planetscale-writer)`
 
-If your pscale CLI version is less than 0.94.0, please upgrade your installation by following [this document](../../cli/planetscale-environment-setup.md)
+> [!NOTE]
+>
+> If your pscale CLI version is less than 0.94.0, please upgrade your installation by following [this
+> document](../../cli/planetscale-environment-setup.md)
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

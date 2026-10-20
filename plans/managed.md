@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/plans/managed
 title: "Managed"
 description: ""
-access_date: 2026-10-13T18:20:34.341Z
-current_date: 2026-10-13T18:20:34.341Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale Managed overview
+
+> Run PlanetScale in your own AWS, GCP, or Azure account, operated by our team with your data in your cloud.
+
+Vitess, Neki, and Postgres
 
 ## What is PlanetScale Managed?
 
@@ -20,25 +30,25 @@ PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Dat
 
 If you are an existing PlanetScale user, moving to PlanetScale Managed requires no changes to your existing developer workflows.
 
-The database is deployed in a single-tenant environment and isolated in an AWS Organizations member account, GCP project, or Azure subscription from the rest of your organization’s infrastructure. By default, all connections are encrypted, but public. PlanetScale Managed supports private database connectivity through [AWS PrivateLink](managed/aws/privatelink.md), [GCP Private Service Connect](managed/gcp/private-service-connect.md), or [Azure Private Link](managed/azure/private-link.md). Private connections are also available for supported databases on the [Base plan](../planetscale-plans.md#base-plan).
+The database is deployed in a single-tenant environment and isolated in an AWS Organizations member account, GCP project, or Azure subscription from the rest of your organization's infrastructure. By default, all connections are encrypted, but public. PlanetScale Managed supports private database connectivity through [AWS PrivateLink](managed/aws/privatelink.md), [GCP Private Service Connect](managed/gcp/private-service-connect.md), or [Azure Private Link](managed/azure/private-link.md). Private connections are also available for supported databases on the [Base plan](../planetscale-plans.md#base-plan).
 
 Read more about PlanetScale Managed on each cloud provider:
 
-## PlanetScale Managed on Amazon Web Services
+> **[PlanetScale Managed on Amazon Web Services](managed/aws.md)**
 
-## PlanetScale Managed on Microsoft Azure
+> **[PlanetScale Managed on Microsoft Azure](managed/azure.md)**
 
-## PlanetScale Managed on Google Cloud Platform
+> **[PlanetScale Managed on Google Cloud Platform](managed/gcp.md)**
 
 ## Benefits of PlanetScale Managed
 
 Single-tenancy is one of many benefits when it comes to PlanetScale Managed. Still, with this PlanetScale Enterprise service, you also get:
 
-- Assistance with [horizontal sharding](../vitess/sharding.md) for MySQL and [Neki](../neki.md) for Postgres
-- Deployment to additional regions
-- [PCI compliance](../security.md#pci-compliance)
-- Additional [support options](../support.md#enterprise)
-- Available on [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). Your PlanetScale purchase through the AWS Marketplace and the resources you use on PlanetScale will qualify against your EDP commitment.
+* Assistance with [horizontal sharding](../vitess/sharding.md) for MySQL and [Neki](../neki.md) for Postgres
+* Deployment to additional regions
+* [PCI compliance](../security.md#pci-compliance)
+* Additional [support options](../support.md#enterprise)
+* Available on [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). Your PlanetScale purchase through the AWS Marketplace and the resources you use on PlanetScale will qualify against your EDP commitment.
 
 ## How do I get PlanetScale Managed?
 
@@ -46,4 +56,7 @@ If you are interested in seeing if PlanetScale Managed fits your needs, [contact
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

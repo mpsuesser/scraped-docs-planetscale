@@ -2,9 +2,15 @@
 url: https://planetscale.com/docs/vitess/handling-table-and-column-renames
 title: "Handling Table And Column Renames"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Handling table and column renames
 
 ## Overview
 
@@ -15,6 +21,30 @@ PlanetScale does not support this method of table and column renames.
 If you do need to rename a column or table, the following section covers how you should do it with PlanetScale using [Deploy Requests](schema-changes/deploy-requests.md).
 
 ## How to rename a column on PlanetScale
+
+**Step 1**
+
+Create a new column with the new name.
+
+**Step 2**
+
+Update the application to write to both columns with new data.
+
+**Step 3**
+
+Backfill all the data in the new column for rows that are still missing that information.
+
+**Step 4**
+
+Optionally, add constraints like `NOT NULL` to the new column once all the data is backfilled.
+
+**Step 5**
+
+Update the application to only use the new column, and remove any references to the old column name.
+
+**Step 6**
+
+Drop the old column.
 
 This means at least two deploy requests are needed (potentially more if you want to enforce `NOT NULL` without a `DEFAULT`), where you first add the newly named column and then drop the old one.
 
@@ -28,7 +58,7 @@ PlanetScale uses a declarative model to determine schema changes. This means tha
 
 It would be possible to apply heuristics to determine if something looks like a rename, but this is not 100% guaranteed to be correct. For example, if a column is renamed and a second column is dropped adjacent to the one that was renamed, it is impossible to determine which column to rename with certainty.
 
-Because of this, we only detect simple cases that look like a rename and alert the user on that in a deploy request. While it would be possible to generate a `RENAME` in such a case, we don’t know if that is correct, and do not want to execute any schema changes that are not requested.
+Because of this, we only detect simple cases that look like a rename and alert the user on that in a deploy request. While it would be possible to generate a `RENAME` in such a case, we don't know if that is correct, and do not want to execute any schema changes that are not requested.
 
 ### Downtime with renames
 
@@ -38,4 +68,7 @@ Usually the only way to handle a column rename is to simultaneously deploy the a
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

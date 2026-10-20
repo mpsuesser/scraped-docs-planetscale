@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-datadog-postgres
 title: "Prometheus Metrics Datadog Postgres"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Sending Prometheus Metrics to Datadog for PlanetScale Postgres
 
 > If you're looking for more metrics than PlanetScale's native Datadog integration provides, this tutorial will show how to configure your [Datadog agent](https://docs.datadoghq.com/agent/) to scrape PlanetScale's [Prometheus infrastructure](../../vitess/integrations/prometheus-metrics.md) automatically, allowing you to collect detailed metrics for all of your PlanetScale Postgres branches.
-
-**Platform availability:** [Vitess](../../vitess/monitoring/prometheus-metrics-datadog.md) and Postgres
 
 ## Overview
 

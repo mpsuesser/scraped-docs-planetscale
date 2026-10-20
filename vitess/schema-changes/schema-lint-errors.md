@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors
 title: "Schema Lint Errors"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Schema lint errors
 
 > Schema lint errors explain why a PlanetScale Vitess schema change, deploy request, or import cannot be safely applied.
-
-**Platform availability:** Vitess only
 
 ## Overview
 

@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale Managed on AWS overview
+
+> PlanetScale Managed on Amazon Web Services (AWS) is a single-tenant deployment of PlanetScale in your AWS organization within an isolated AWS Organizations member account.
+
+Vitess, Neki, and Postgres
 
 ## Overview
 
@@ -12,25 +22,31 @@ In this configuration, you can use the same API, CLI, and web interface that Pla
 
 ## Architecture
 
-The PlanetScale data plane is deployed inside of a PlanetScale-controlled AWS Organizations member account in your AWS organization. The database cluster will run within this member account, orchestrated via Kubernetes. PlanetScale Managed supports Vitess (MySQL-compatible), Neki, and Postgres clusters. Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki.
+The PlanetScale data plane is deployed inside of a PlanetScale-controlled AWS Organizations member account in your AWS organization.
+The database cluster will run within this member account, orchestrated via Kubernetes. PlanetScale Managed supports Vitess (MySQL-compatible), Neki, and Postgres clusters. Existing Managed customers should [contact us](https://planetscale.com/contact) to enable Neki.
 
-We distribute components of the cluster across three AWS availability zones within your selected region to ensure high availability. You can deploy PlanetScale Managed to any AWS region with at least three availability zones, including those not supported by the PlanetScale self-serve product.
+We distribute components of the cluster across three AWS availability zones within your selected region to ensure high availability.
+You can deploy PlanetScale Managed to any AWS region with at least three availability zones, including those not supported by the PlanetScale self-serve product.
 
-Backups, part of the data plane, are stored in S3 inside the same member account. PlanetScale Managed uses isolated Amazon Elastic Compute Cloud (Amazon EC2) instances as part of the deployment.
+Backups, part of the data plane, are stored in S3 inside the same member account.
+PlanetScale Managed uses isolated Amazon Elastic Compute Cloud (Amazon EC2) instances as part of the deployment.
 
-![Architecture diagram for PlanetScale Managed in AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-arch-diagram.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=9c2d324a4e0c4f9f0d5765886df58338)
+![Architecture diagram for PlanetScale Managed in AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-arch-diagram.png?fit=max\&auto=format\&n=UzFO5Pe10M0-W-uW\&q=85\&s=36a9f1e69370e041a7ee576e3f0f42ba)
 
-Architecture diagram for PlanetScale Managed in AWS
+Your database lives entirely inside a dedicated AWS Organizations member account within your AWS organization.
+PlanetScale will not have access to other member accounts nor your organization-level settings within AWS.
+Outside of your AWS organization, we run the PlanetScale control plane, which includes the PlanetScale API and web application, including the dashboard you see at `app.planetscale.com`.
 
-Your database lives entirely inside a dedicated AWS Organizations member account within your AWS organization. PlanetScale will not have access to other member accounts nor your organization-level settings within AWS. Outside of your AWS organization, we run the PlanetScale control plane, which includes the PlanetScale API and web application, including the dashboard you see at `app.planetscale.com`.
+In a MySQL deployment, the Vitess cluster running inside Kubernetes is composed of a number of Vitess components.
+All incoming queries are received by one of the **VTGates**, which then routes them to the appropriate **VTTablet**.
+The VTGates, VTTablets, and MySQL instances are distributed across 3 availability zones.
 
-In a MySQL deployment, the Vitess cluster running inside Kubernetes is composed of a number of Vitess components. All incoming queries are received by one of the **VTGates**, which then routes them to the appropriate **VTTablet**. The VTGates, VTTablets, and MySQL instances are distributed across 3 availability zones.
+![Diagram of Vitess cluster on AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-vitess.png?fit=max\&auto=format\&n=UzFO5Pe10M0-W-uW\&q=85\&s=8963ce811fda1505db16f995ea7d0d26)
 
-![Diagram of Vitess cluster on AWS](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/aws-vitess.png?w=2500&fit=max&auto=format&n=UzFO5Pe10M0-W-uW&q=85&s=2eca59b4b27e446cacb5e135e92d40e9)
-
-Diagram of Vitess cluster on AWS
-
-Several additional required Vitess components are run in the Kubernetes cluster as well. The topology server keeps track of cluster configuration. **VTOrc** monitors cluster health and handles repairs, including managing automatic failover in case of an issue with a primary. **vtctld** along with the client **vtctl** can be used to make changes to the cluster configuration and run workflows.
+Several additional required Vitess components are run in the Kubernetes cluster as well.
+The topology server keeps track of cluster configuration.
+**VTOrc** monitors cluster health and handles repairs, including managing automatic failover in case of an issue with a primary.
+**vtctld** along with the client **vtctl** can be used to make changes to the cluster configuration and run workflows.
 
 In a Postgres deployment, the architecture uses a dedicated PostgreSQL cluster with similar high-availability and distribution across availability zones.
 
@@ -40,20 +56,24 @@ PlanetScale Managed is an excellent option for organizations with specific secur
 
 You own the AWS organization and member account that PlanetScale is deployed within an isolated architecture. This differs from when your PlanetScale database is deployed within our AWS organizations.
 
-PlanetScale manages the entire member account and can NOT support customers running Terraform or other configuration management in the member account.
+> [!NOTE]
+>
+> PlanetScale manages the entire member account and can NOT support customers running Terraform or other configuration management in the member account.
 
 ### PCI compliance
 
 Along with System and Organization Controls (SOC) 2 Type 2 and other [security and compliance](../../security.md) practices that PlanetScale has been issued and follows, PlanetScale Managed has been issued an Attestation of Compliance (AoC) and Report on Compliance (RoC), certifying our compliance with the PCI DSS 4.0 as a [Level 1 Service Provider](https://www.pcisecuritystandards.org/glossary/service-provider/). This enables PlanetScale Managed to be used via a shared responsibility model across merchants, acquirers, issuers, and other roles in storing and processing cardholder data.
 
-If you have any questions or concerns related to the security and compliance of PlanetScale Managed, please [contact us](https://planetscale.com/contact), and we will be happy to discuss them further.
+> [!NOTE]
+>
+> If you have any questions or concerns related to the security and compliance of PlanetScale Managed, please [contact us](https://planetscale.com/contact), and we will be happy to discuss them further.
 
 ### Private database connectivity
 
 By default, all database connections are encrypted but use public endpoints. [AWS PrivateLink](aws/privatelink.md) and [AWS VPC peering](aws/vpc-peering.md) keep database traffic on private AWS networks, but they use different network models.
 
-|  | AWS PrivateLink | AWS VPC peering |
-| --- | --- | --- |
+| | AWS PrivateLink | AWS VPC peering |
+| - | - | - |
 | Connectivity | Exposes a specific service through interface endpoints | Routes private traffic directly between two VPCs |
 | CIDR requirements | Overlapping VPC CIDR blocks are supported | VPC CIDR blocks must not overlap |
 | Routing | No route to the service VPC is required | Both VPC owners maintain routes |
@@ -68,7 +88,7 @@ See the AWS documentation for current [AWS PrivateLink pricing](https://aws.amaz
 
 ### Fully private network isolation
 
-You can also turn off public database access with a dual AWS PrivateLink setup. PlanetScale’s control plane will talk to your member account over AWS PrivateLink, and your VPCs will also communicate with your database over AWS PrivateLink. Please get in touch with your PlanetScale Account Manager for more information on how to set up fully private network isolation.
+You can also turn off public database access with a dual AWS PrivateLink setup. PlanetScale's control plane will talk to your member account over AWS PrivateLink, and your VPCs will also communicate with your database over AWS PrivateLink. Please get in touch with your PlanetScale Account Manager for more information on how to set up fully private network isolation.
 
 ### Third-account customer-controlled public key infrastructure
 
@@ -78,7 +98,9 @@ PlanetScale Managed on AWS supports public key infrastructure (PKI) services. Pl
 
 With any of the PlanetScale Enterprise offerings, including PlanetScale Managed, you have the option to purchase PlanetScale through the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-luy3krhkpjne4). In addition to this, the resources you use on PlanetScale will qualify against your EDP commitment.
 
-If you have any billing-related questions for PlanetScale Managed, please [contact us](https://planetscale.com/contact), and we will be happy to discuss them further.
+> [!NOTE]
+>
+> If you have any billing-related questions for PlanetScale Managed, please [contact us](https://planetscale.com/contact), and we will be happy to discuss them further.
 
 ## Getting started with PlanetScale Managed in AWS
 
@@ -88,4 +110,7 @@ If you are interested in exploring PlanetScale Managed further, please [contact 
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

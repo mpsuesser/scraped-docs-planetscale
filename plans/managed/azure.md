@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/plans/managed/azure
 title: "Azure"
 description: ""
-access_date: 2026-10-13T18:20:34.341Z
-current_date: 2026-10-13T18:20:34.341Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale Managed on Azure overview
+
+> A single-tenant deployment of PlanetScale in a dedicated Azure subscription that you own and PlanetScale operates.
 
 ## Overview
 
@@ -16,7 +24,7 @@ PlanetScale deploys the data plane to a dedicated subscription in your Microsoft
 
 The subscription also contains the networking, managed identities, Azure Key Vaults, Azure Container Registry, storage accounts, and other resources required to operate the deployment. Backups are encrypted and stored in Azure Blob Storage in the same subscription.
 
-PlanetScale’s control plane runs outside your Azure subscription. It provides the PlanetScale dashboard, API, automation, and operational workflows used to manage your databases.
+PlanetScale's control plane runs outside your Azure subscription. It provides the PlanetScale dashboard, API, automation, and operational workflows used to manage your databases.
 
 PlanetScale receives access only to the dedicated subscription. It does not receive administrative access to your Microsoft Entra tenant or other Azure subscriptions.
 
@@ -34,7 +42,9 @@ The dedicated subscription is the security and operational boundary for the depl
 
 PlanetScale Managed is designed for organizations with additional security, compliance, and isolation requirements. PlanetScale maintains [security and compliance](../../security.md) programs including SOC 2 Type 2 and PCI DSS 4.0 Level 1 Service Provider compliance.
 
-If you have questions about the security or compliance of PlanetScale Managed on Azure, contact your PlanetScale Solutions Engineer.
+> [!NOTE]
+>
+> If you have questions about the security or compliance of PlanetScale Managed on Azure, contact your PlanetScale Solutions Engineer.
 
 ## Private database connectivity
 
@@ -58,4 +68,7 @@ If you are interested in PlanetScale Managed on Azure, [contact us](https://plan
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,49 +2,81 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-13T18:20:34.341Z
-current_date: 2026-10-13T18:20:34.341Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Discovery Tool
+
+> Assess your PostgreSQL database and cloud infrastructure before migrating to PlanetScale Postgres.
 
 The PlanetScale Discovery Tool analyzes your existing PostgreSQL database and cloud infrastructure to help plan your migration to PlanetScale Postgres. It collects metadata about your database configuration, schema structure, performance characteristics, security settings, and cloud resources. It never reads or stores actual table data.
 
 The Discovery CLI also supports MySQL and MySQL-compatible database discovery. See the [MySQL setup guide](https://github.com/planetscale/ps-discovery/blob/main/docs/mysql.md) for MySQL, Vitess, and PlanetScale-specific details.
 
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=0b31181b42b682c2fada0a094d5ac94d)
-
-Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
-
-![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology-dark.png?w=2500&fit=max&auto=format&n=YxnMMno34vnTE3Ub&q=85&s=b123c0823d1864683cb233f335f6b692)
-
-Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery
+![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?fit=max\&auto=format\&n=YxnMMno34vnTE3Ub\&q=85\&s=f2efb9d5a29c396484b0c677b60e66bf)
 
 The tool produces a structured JSON report that PlanetScale uses to provide migration guidance tailored to your environment. You can upload this report to our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on your migration readiness.
 
-The discovery tool is open source and available on [GitHub](https://github.com/planetscale/ps-discovery). Essential setup steps are below. Advanced usage, troubleshooting, and detailed reference are available in the [full documentation](https://github.com/planetscale/ps-discovery/tree/main/docs).
+> [!NOTE]
+>
+> The discovery tool is open source and available on [GitHub](https://github.com/planetscale/ps-discovery). Essential setup steps are below. Advanced usage, troubleshooting, and detailed reference are available in the [full documentation](https://github.com/planetscale/ps-discovery/tree/main/docs).
 
 ## What it discovers
 
 **Database analysis:**
 
-- PostgreSQL version, configuration, and installed extensions
-- Schema structure, including schemas, tables, columns, indexes, constraints, and sizes
-- Performance statistics such as cache hit ratios, table/index usage, and active locks
-- Security configuration: roles, permissions, and SSL settings
-- Feature usage: foreign data wrappers, partitioning, PostGIS, and more
+* PostgreSQL version, configuration, and installed extensions
+* Schema structure, including schemas, tables, columns, indexes, constraints, and sizes
+* Performance statistics such as cache hit ratios, table/index usage, and active locks
+* Security configuration: roles, permissions, and SSL settings
+* Feature usage: foreign data wrappers, partitioning, PostGIS, and more
 
 **Cloud infrastructure analysis:**
 
-- Database instances, clusters, and their configurations
-- Azure Database for PostgreSQL Flexible Servers
-- Snowflake Postgres instances
-- Supabase, Heroku Postgres, and Neon project metadata
-- VPC networking, subnets, security groups, and firewall rules
-- Performance metrics from cloud monitoring services
-- High availability and replica configurations
+* Database instances, clusters, and their configurations
+* Azure Database for PostgreSQL Flexible Servers
+* Snowflake Postgres instances
+* Supabase, Heroku Postgres, and Neon project metadata
+* VPC networking, subnets, security groups, and firewall rules
+* Performance metrics from cloud monitoring services
+* High availability and replica configurations
 
 ## Installation
 
 The discovery tool requires Python 3.10 or later.
+
+**1. Download and extract**
+
+Download the latest release from [GitHub](https://github.com/planetscale/ps-discovery/releases) and extract it:
+
+```bash theme={null}
+unzip ps-discovery-2.2.0.zip
+cd ps-discovery-2.2.0
+```
+
+**2. Run setup**
+
+The setup script verifies your Python version, creates a virtual environment, installs dependencies, and writes a starter `config.yaml`:
+
+```bash theme={null}
+chmod +x setup.sh
+./setup.sh
+```
+
+**3. Configure credentials**
+
+Edit the generated configuration file to include your database and cloud provider credentials:
+
+```bash theme={null}
+nano config.yaml
+```
+
+At a minimum, configure your database connection. See [Configuration](#configuration) below for the full format.
 
 For advanced installation options, see the [Discovery Tool README](https://github.com/planetscale/ps-discovery/blob/main/README.md).
 
@@ -52,7 +84,7 @@ For advanced installation options, see the [Discovery Tool README](https://githu
 
 Create a dedicated read-only user for the discovery tool. Connect to your PostgreSQL database as a superuser or privileged role and run the following:
 
-```sql
+```sql theme={null}
 -- Create a dedicated user for database discovery
 CREATE USER planetscale_discovery WITH PASSWORD 'secure_password_here';
 
@@ -94,19 +126,23 @@ GRANT pg_read_all_stats TO planetscale_discovery;
 GRANT pg_read_all_settings TO planetscale_discovery;
 ```
 
-If your database has additional schemas beyond `public`, repeat the `GRANT USAGE ON SCHEMA` and `GRANT SELECT ON ALL TABLES IN SCHEMA` statements for each schema you want analyzed.
+> [!NOTE]
+>
+> If your database has additional schemas beyond `public`, repeat the `GRANT USAGE ON SCHEMA` and `GRANT SELECT ON ALL TABLES IN SCHEMA` statements for each schema you want analyzed.
 
 ### PostgreSQL cleanup
 
-After PostgreSQL discovery is complete, remove the `planetscale_discovery` user from your database. This user has read access to your schema and system catalogs and should not be left in place.
+> [!WARNING]
+>
+> After PostgreSQL discovery is complete, remove the `planetscale_discovery` user from your database. This user has read access to your schema and system catalogs and should not be left in place.
 
-```sql
+```sql theme={null}
 DROP USER IF EXISTS planetscale_discovery;
 ```
 
 If the user owns any objects, reassign ownership first:
 
-```sql
+```sql theme={null}
 REASSIGN OWNED BY planetscale_discovery TO postgres;
 DROP OWNED BY planetscale_discovery;
 DROP USER planetscale_discovery;
@@ -116,7 +152,7 @@ DROP USER planetscale_discovery;
 
 The discovery tool uses a YAML configuration file. Running `./ps-discovery` loads `./config.yaml` by default. Configure the `database` block for database discovery and enable any cloud providers you want included:
 
-```yaml
+```yaml theme={null}
 engine: postgres
 
 database:
@@ -153,19 +189,21 @@ output:
 
 Run discovery with the generated `config.yaml`:
 
-```shellscript
+```bash theme={null}
 ./ps-discovery
 ```
 
 Or point to a specific config file:
 
-```shellscript
+```bash theme={null}
 ./ps-discovery --config config.yaml
 ```
 
 The tool produces a timestamped JSON file in your configured output directory, such as `planetscale_discovery_results_20260708T072229.json`. Upload this report to the [migration assessment tool](https://planetscale.com/liftoff) for instant feedback, or share it with PlanetScale for migration planning assistance.
 
-Once PostgreSQL discovery is complete, remember to [clean up](#postgresql-cleanup) the `planetscale_discovery` user you created on your source database.
+> [!NOTE]
+>
+> Once PostgreSQL discovery is complete, remember to [clean up](#postgresql-cleanup) the `planetscale_discovery` user you created on your source database.
 
 ## Cloud provider setup
 
@@ -179,19 +217,19 @@ The tool discovers RDS instances, Aurora clusters, VPC networking, security grou
 
 **Authentication** (choose one):
 
-- IAM instance profile (recommended when running on EC2)
-- Access key and secret key
-- IAM role assumption (for cross-account access)
+* IAM instance profile (recommended when running on EC2)
+* Access key and secret key
+* IAM role assumption (for cross-account access)
 
 **Required permissions:**
 
-- RDS: `DescribeDBInstances`, `DescribeDBClusters`, `DescribeDBSubnetGroups`
-- EC2: `DescribeVpcs`, `DescribeSubnets`, `DescribeSecurityGroups`, `DescribeRouteTables`
-- CloudWatch: `GetMetricData`, `ListMetrics`
+* RDS: `DescribeDBInstances`, `DescribeDBClusters`, `DescribeDBSubnetGroups`
+* EC2: `DescribeVpcs`, `DescribeSubnets`, `DescribeSecurityGroups`, `DescribeRouteTables`
+* CloudWatch: `GetMetricData`, `ListMetrics`
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   aws:
     enabled: true
@@ -211,19 +249,19 @@ The tool discovers Cloud SQL instances, AlloyDB clusters, VPC networks, firewall
 
 **Authentication** (choose one):
 
-- Application Default Credentials (recommended)
-- Service account key file
+* Application Default Credentials (recommended)
+* Service account key file
 
 **Required APIs** (must be enabled in your project):
 
-- Cloud SQL Admin API
-- Compute Engine API
-- Cloud Monitoring API
-- AlloyDB API (if using AlloyDB)
+* Cloud SQL Admin API
+* Compute Engine API
+* Cloud Monitoring API
+* AlloyDB API (if using AlloyDB)
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   gcp:
     enabled: true
@@ -238,18 +276,18 @@ The tool discovers Azure Database for PostgreSQL Flexible Servers, virtual netwo
 
 **Authentication** (choose one):
 
-- Service principal with the Reader role (recommended)
-- Azure CLI (`az login`) or a managed identity
-- `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
+* Service principal with the Reader role (recommended)
+* Azure CLI (`az login`) or a managed identity
+* `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment variables
 
 **Required permissions:**
 
-- Built-in Reader role at subscription or resource-group scope
-- Resource providers registered on the subscription: `Microsoft.DBforPostgreSQL` and `Microsoft.Network`
+* Built-in Reader role at subscription or resource-group scope
+* Resource providers registered on the subscription: `Microsoft.DBforPostgreSQL` and `Microsoft.Network`
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   azure:
     enabled: true
@@ -263,7 +301,7 @@ providers:
 
 You can also sign in with `az login` and omit the `credentials` block, or focus discovery on specific servers:
 
-```yaml
+```yaml theme={null}
 providers:
   azure:
     enabled: true
@@ -276,7 +314,7 @@ providers:
       - eastus
 ```
 
-When you’re ready to migrate from Azure Database for PostgreSQL, see the [pgcopydb migration guide](postgres-migrate-pgcopydb.md) — it includes an Azure Terraform template for the migration instance and Azure-specific logical replication setup.
+When you're ready to migrate from Azure Database for PostgreSQL, see the [pgcopydb migration guide](postgres-migrate-pgcopydb.md) — it includes an Azure Terraform template for the migration instance and Azure-specific logical replication setup.
 
 ### Supabase
 
@@ -284,11 +322,11 @@ The tool discovers project metadata, database configuration, PgBouncer settings,
 
 **Authentication:**
 
-- [Personal Access Token](https://supabase.com/dashboard/account/tokens) (recommended, read-only)
+* [Personal Access Token](https://supabase.com/dashboard/account/tokens) (recommended, read-only)
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   supabase:
     enabled: true
@@ -301,12 +339,12 @@ The tool discovers Neon project metadata, branch topology, compute endpoints, au
 
 **Authentication:**
 
-- API key from Neon. See [Manage API keys](https://neon.com/docs/manage/api-keys) in the Neon docs.
-- Or the `NEON_API_KEY` environment variable
+* API key from Neon. See [Manage API keys](https://neon.com/docs/manage/api-keys) in the Neon docs.
+* Or the `NEON_API_KEY` environment variable
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   neon:
     enabled: true
@@ -320,12 +358,12 @@ The tool discovers Heroku Postgres add-ons across all your apps, including plan 
 
 **Authentication:**
 
-- API key from the [Heroku dashboard](https://dashboard.heroku.com/account)
-- Or a Heroku CLI authorization token
+* API key from the [Heroku dashboard](https://dashboard.heroku.com/account)
+* Or a Heroku CLI authorization token
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   heroku:
     enabled: true
@@ -340,19 +378,21 @@ The tool inventories Snowflake Postgres instances with `SHOW POSTGRES INSTANCES`
 
 These are Snowflake account credentials, not the Postgres instance password.
 
-- Key pair on a `TYPE = SERVICE` user (recommended)
-- SSO (`authentication: sso`) for an interactive one-off run
-- Password via the `SNOWFLAKE_PASSWORD` environment variable if the account still allows it. Do not put the password in the config file. Snowflake is retiring password-only sign-in.
+* Key pair on a `TYPE = SERVICE` user (recommended)
+* SSO (`authentication: sso`) for an interactive one-off run
+* Password via the `SNOWFLAKE_PASSWORD` environment variable if the account still allows it. Do not put the password in the config file. Snowflake is retiring password-only sign-in.
 
 **Required permissions:**
 
-- `OPERATE` on each Snowflake Postgres instance, including read replicas. Replicas do not inherit grants from their primary.
+* `OPERATE` on each Snowflake Postgres instance, including read replicas. Replicas do not inherit grants from their primary.
 
-`OPERATE` can also suspend, resume, and change Postgres settings. Grant it to a dedicated `PS_DISCOVERY` role, run discovery, then drop that role and user.
+> [!NOTE]
+>
+> `OPERATE` can also suspend, resume, and change Postgres settings. Grant it to a dedicated `PS_DISCOVERY` role, run discovery, then drop that role and user.
 
 **Configuration:**
 
-```yaml
+```yaml theme={null}
 providers:
   snowflake:
     enabled: true
@@ -368,7 +408,7 @@ Do not enable `providers.aws` or `providers.gcp` for Snowflake-hosted hostnames.
 
 You can also focus inventory on specific instances:
 
-```yaml
+```yaml theme={null}
 providers:
   snowflake:
     enabled: true
@@ -388,7 +428,9 @@ providers:
 
 The default database analyzers are safe to run against production databases. They use read-only queries against system catalogs and statistics views, with very low performance impact.
 
-The optional **data size analyzer** performs sampling queries against actual tables and can have a significant performance impact on large databases. If you need this analysis, consider running it against a read replica and starting with a low sampling percentage. This analyzer is disabled by default and must be explicitly opted into via configuration.
+> [!WARNING]
+>
+> The optional **data size analyzer** performs sampling queries against actual tables and can have a significant performance impact on large databases. If you need this analysis, consider running it against a read replica and starting with a low sampling percentage. This analyzer is disabled by default and must be explicitly opted into via configuration.
 
 ## Privacy and security
 
@@ -402,26 +444,31 @@ The discovery tool runs entirely on your infrastructure. No data is sent to exte
 
 Once you have your discovery report, upload it to our [migration assessment tool](https://planetscale.com/liftoff) for immediate feedback. The tool analyzes your report and provides:
 
-- An overview of your existing database and optionally hosting provider
-- Extension compatibility issues, schema defects, and any migration blockers
-- A recommended migration path with main steps involved and the estimated duration
+* An overview of your existing database and optionally hosting provider
+* Extension compatibility issues, schema defects, and any migration blockers
+* A recommended migration path with main steps involved and the estimated duration
 
 All analysis happens client-side in your browser — your discovery data is never sent to a server.
 
-Liftoff needs both the database and cloud sections. A cloud-only file cannot be reviewed. If you will upload the output to Liftoff, put a `database` block and an enabled cloud provider in the same config, or run the [`both`](https://github.com/planetscale/ps-discovery/blob/main/docs/advanced-usage.md#selecting-what-runs) subcommand.
+> [!NOTE]
+>
+> Liftoff needs both the database and cloud sections. A cloud-only file cannot be reviewed. If you will upload the output to Liftoff, put a `database` block and an enabled cloud provider in the same config, or run the [`both`](https://github.com/planetscale/ps-discovery/blob/main/docs/advanced-usage.md#selecting-what-runs) subcommand.
 
 ## Next steps
 
 If you want tailored guidance from our migration team, [share your discovery report with us](https://planetscale.com/contact). You can also follow one of our migration guides on your own:
 
-## Migrate using pgdump/restore
+> **[Migrate using pgdump/restore](postgres-migrate-dumprestore.md)**
 
-## Migrate using WAL streaming
+> **[Migrate using WAL streaming](postgres-migrate-walstream.md)**
 
-## Migrate using Amazon DMS
+> **[Migrate using Amazon DMS](postgres-migrate-dms.md)**
 
-## Migrate from Heroku
+> **[Migrate from Heroku](heroku.md)**
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

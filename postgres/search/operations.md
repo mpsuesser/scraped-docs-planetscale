@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/operations
 title: "Operations"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Operational guidance
 
 > Best practices running TIN in production.
-
-**Platform availability:** Postgres only
 
 ## Memory for index builds
 

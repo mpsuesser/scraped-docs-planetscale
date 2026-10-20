@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/web-console
 title: "Web Console"
 description: ""
-access_date: 2026-10-01T17:57:19.152Z
-current_date: 2026-10-01T17:57:19.152Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T17:57:19.152Z
 # Web console
 
 > The PlanetScale web console is an interactive interface for running MySQL queries and DDL (Create, Alter, and Delete) against your PlanetScale database branches.
-
-**Platform availability:** Vitess and [Postgres](../postgres/web-console.md)
 
 ## Get started
 

@@ -2,11 +2,23 @@
 url: https://planetscale.com/docs/plans/managed/proof-of-concept
 title: "Proof Of Concept"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# The proof of concept phase of an enterprise contract
+
+> We get many customers that come to us with existing large, production databases.
+
+Vitess and Postgres
+
 ## PlanetScale proof of concept
+
+[How we do PoCs with customers (Proof of Concept)](https://www.youtube-nocookie.com/embed/yj7nylLeyog?rel=0)
 
 These databases can be many terabytes of data, serving millions or billions of queries per day. Such customers would like an opportunity to build confidence that PlanetScale will meet and exceed their expectations for database performance, reliability, and compatibility with their existing systems. To help build this confidence, we often include a **Proof of Concept** (PoC) phase as a part of our contract with enterprise customers. These are also sometimes referred to as a **Proof of Value** phases (PoV).
 
@@ -20,27 +32,54 @@ The last day of the PoC phase is known as the opt-out date. If a customer decide
 
 Before signing a contract, customers typically have discussions with one of our Solutions Architects to gather the information needed to create your contract:
 
-- Which database(s) you want to bring in to PlanetScale
-- Your database storage and resource requirements
-- Whether or not vertical or horizontal sharding will be needed
-- The load that the database will need to be able to handle
-- Other details about your database infrastructure
+* Which database(s) you want to bring in to PlanetScale
+* Your database storage and resource requirements
+* Whether or not vertical or horizontal sharding will be needed
+* The load that the database will need to be able to handle
+* Other details about your database infrastructure
 
 After signing a contract with PlanetScale, you will start working with your Solutions Architects on implementation and testing. Though the details change from customer to customer, the flow of work during the first few weeks or months of an enterprise contract is as follows:
 
+**Step 1**
+
+First, it's good to determine which database you want to start with. Long term, you may intend to move multiple databases and workloads into PlanetScale, but during the proof-of-concept phase it is often useful to focus on one specific database and workload to begin testing with.
+
+**Step 2**
+
+Based on this choice, your Solutions Architect will help you get the infrastructure set up for your database, and configured appropriately.
+
+**Step 3**
+
+For MySQL databases that require sharding, you will also work with us to determine your [sharding strategy](../../vitess/sharding.md), and we will help you decide the best [VSchema](https://vitess.io/reference/features/vschema/) for your tables.
+
+**Step 4**
+
+The next step is to get your data imported. We have a [self-serve tool for importing databases](../../vitess/imports/database-imports.md) into PlanetScale, but we often provide direct assistance with this, and for larger, more complex workloads our team can handle running the migration for you.
+
+**Step 5**
+
+After this, customers typically want to start testing the capabilities of their imported database. Testing can be done in a number of ways. Some customers have testing scripts they have already developed, which can be run against the PlanetScale database. You may also want to do more specific testing with queries or workloads that you know to be problematic to see how PlanetScale handles them. You can use our powerful [Insights panel](../../vitess/monitoring/query-insights.md) as well as your own custom tooling to assess how well these workloads are handled.
+
+**Step 6**
+
+If any issues arise during the testing phase, you can work with our team to come up with solutions before going into production.
+
 Ideally, customers have had sufficient time to test their database and build confidence in our platform before the opt-out date.
 
-We often see customers completely cut over to PlanetScale during this phase as well — making PlanetScale their production database before the opt-out period is even over. The process has been optimized to quickly prove that PlanetScale can handle your workloads while still providing flexibility to ensure you’re able to test everything you want to before the opt-out date.
+We often see customers completely cut over to PlanetScale during this phase as well — making PlanetScale their production database before the opt-out period is even over. The process has been optimized to quickly prove that PlanetScale can handle your workloads while still providing flexibility to ensure you're able to test everything you want to before the opt-out date.
 
 ## After the opt-out date
 
 After a phase of testing has completed, our customers continue to work with our Customer Engineering team to continue onboarding. This process includes:
 
-- Migrating other database(s) that you intend to use PlanetScale for
-- Continued testing
-- Performance tuning where needed
-- Setting a cutover date to get your database into production
+* Migrating other database(s) that you intend to use PlanetScale for
+* Continued testing
+* Performance tuning where needed
+* Setting a cutover date to get your database into production
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

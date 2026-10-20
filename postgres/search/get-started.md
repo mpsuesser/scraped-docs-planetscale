@@ -2,9 +2,17 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-09-30T16:24:53.887Z
-current_date: 2026-09-30T16:24:53.887Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Get started with TIN
+
+> Install the `tin` extension, create a TIN index, and run TINQL queries with BM25 ranking.
 
 ## Install the extension
 
@@ -12,17 +20,19 @@ On PlanetScale, enable TIN with the SQL below. For a local or CI database, first
 
 The database encoding must be `UTF8` or `SQL_ASCII`. `CREATE EXTENSION tin` refuses other encodings (for example, `LATIN1`).
 
-```sql
+```sql theme={null}
 CREATE EXTENSION IF NOT EXISTS tin;
 ```
 
-If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the “Cluster update available” indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
+> [!WARNING]
+>
+> If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the "Cluster update available" indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
 
 ### Upgrade the extension
 
 When a new TIN version is available, [update your cluster](../cluster-configuration/updates.md) so it restarts onto the new library. Then, in every database that already has the extension, run:
 
-```sql
+```sql theme={null}
 ALTER EXTENSION tin UPDATE;
 ```
 
@@ -32,7 +42,7 @@ The cluster update installs the new binary. `ALTER EXTENSION` updates the SQL ca
 
 The example below creates a table, inserts rows, and creates a TIN index on the `text` column:
 
-```sql
+```sql theme={null}
 CREATE TABLE posts (
   id bigint PRIMARY KEY,
   category text NOT NULL,
@@ -49,11 +59,11 @@ CREATE INDEX posts_body_tin ON posts USING tin (body);
 
 Each TIN index covers one text column (or a text-producing expression).
 
-The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and ”😀” is searchable. The same tokenizer applies to indexed columns and queries. Stemming is off by default. Add `WITH (stemmer = 'en')` so `runs`, `running`, and `run` match as the same term. See [Stemming](reference/indexes.md#stemming).
+The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and "😀" is searchable. The same tokenizer applies to indexed columns and queries. Stemming is off by default. Add `WITH (stemmer = 'en')` so `runs`, `running`, and `run` match as the same term. See [Stemming](reference/indexes.md#stemming).
 
 You can preview how a string is tokenized with `tin.tokenize`:
 
-```sql
+```sql theme={null}
 SELECT * FROM tin.tokenize('Jalapeño 😀');
 SELECT * FROM tin.tokenize('Jalapeño 😀', accent_folding => 'preserve');
 SELECT * FROM tin.tokenize('runs running runner', stemmer => 'en');
@@ -63,11 +73,11 @@ You can also create [partial indexes](reference/indexes.md#partial-and-expressio
 
 ## Your first queries
 
-TINQL keywords are UPPERCASE. Lowercase tokens are terms. Quote a multi-word phrase (“fuji apple”).
+TINQL keywords are UPPERCASE. Lowercase tokens are terms. Quote a multi-word phrase ("fuji apple").
 
 ### Filter
 
-```sql
+```sql theme={null}
 SELECT id, body
 FROM posts
 WHERE body ==> 'apple AND "fuji apple"';
@@ -77,7 +87,7 @@ WHERE body ==> 'apple AND "fuji apple"';
 
 Order responses in a ranked list with `tin.score`. Add more sort keys after the score when equal scores must stay in a stable order:
 
-```sql
+```sql theme={null}
 SELECT id, tin.score(ctid) AS score, body
 FROM posts
 WHERE body ==> 'apple OR grape'
@@ -85,9 +95,9 @@ ORDER BY score DESC, id
 LIMIT 10;
 ```
 
-To normalize scores against the query’s best match, divide by `tin.max_score(ctid)`, which is constant for the scan and identical on every row:
+To normalize scores against the query's best match, divide by `tin.max_score(ctid)`, which is constant for the scan and identical on every row:
 
-```sql
+```sql theme={null}
 SELECT id,
        tin.score(ctid) AS score,
        tin.score(ctid) / tin.max_score(ctid) AS relative
@@ -103,7 +113,7 @@ LIMIT 10;
 
 `count(*)` over a TIN predicate is answered from the index, not a heap scan.
 
-```sql
+```sql theme={null}
 SELECT count(*)
 FROM posts
 WHERE body ==> 'juicy';
@@ -113,7 +123,7 @@ WHERE body ==> 'juicy';
 
 `tin.highlight` adds markers around the text that produced the match. A match on `apple` returns `'<b>apple</b>'`.
 
-```sql
+```sql theme={null}
 SELECT id, tin.highlight(body)
 FROM posts
 WHERE body ==> 'apple'
@@ -122,7 +132,7 @@ LIMIT 20;
 
 `tin.highlight` is configurable, pass in additional arguments to customize the markers and perform the search.
 
-```sql
+```sql theme={null}
 SELECT tin.highlight(body, '<mark>', '</mark>', 'apple')
 FROM posts
 WHERE id = 1;
@@ -130,11 +140,11 @@ WHERE id = 1;
 
 ### Search across columns
 
-Each TIN index covers one text column. Index every column you want to search, then combine `==>` in SQL. `tin.score(ctid)` combines BM25 relevance across those fields for the row. To weight one column higher than another, use TINQL boost (`^N`) on that field’s query.
+Each TIN index covers one text column. Index every column you want to search, then combine `==>` in SQL. `tin.score(ctid)` combines BM25 relevance across those fields for the row. To weight one column higher than another, use TINQL boost (`^N`) on that field's query.
 
 For example, `name ==> 'fuji^1.5'` makes a `name` match count 1.5 times an unboosted `notes` match.
 
-```sql
+```sql theme={null}
 CREATE TABLE fruits (
   id bigint PRIMARY KEY,
   name text NOT NULL,
@@ -154,16 +164,18 @@ LIMIT 10;
 
 ## Local development and CI
 
-[Lead](https://github.com/planetscale/lead) is a Postgres extension for exercising TIN-compatible application SQL in local development and CI. It uses the `tin` extension name so you can test your application’s search queries without connecting to PlanetScale.
+[Lead](https://github.com/planetscale/lead) is a Postgres extension for exercising TIN-compatible application SQL in local development and CI. It uses the `tin` extension name so you can test your application's search queries without connecting to PlanetScale.
 
 Lead supports Postgres 17 and 18 and is built from source. Follow the [Lead README](https://github.com/planetscale/lead#build) for build prerequisites, local setup, and packaging instructions for your test database.
 
-Lead is intended for small development and test datasets. It scans table rows instead of maintaining TIN’s search index, so it is not suitable for production workloads or benchmarking TIN’s performance. Use TIN on PlanetScale for production search.
+> [!WARNING]
+>
+> Lead is intended for small development and test datasets. It scans table rows instead of maintaining TIN's search index, so it is not suitable for production workloads or benchmarking TIN's performance. Use TIN on PlanetScale for production search.
 
 ## Common pitfalls
 
 | Symptom | Fix |
-| --- | --- |
+| - | - |
 | Parse error on `==>` | Fix TINQL syntax. Keywords must be UPPERCASE (`AND`, not `and` as an operator). Explicit empty syntax (`""`, `[]`) is a parse error. |
 | Zero rows | Broaden the query (`OR`, fewer required terms, wildcards). Confirm you indexed the column you are searching. Check tokenization with `tin.tokenize`. Inputs that analyze to no tokens (`''`, whitespace, bare punctuation) match nothing. |
 | Score / max\_score error | Call `tin.score(ctid)` / `tin.max_score(ctid)` on a query that also has `col ==> …`. They require a TIN index scan and error in other contexts (including DML `RETURNING` without a scan). On a **partitioned parent**, every planned leaf needs a usable TIN index — see [limitations](reference/limitations.md). |
@@ -177,4 +189,7 @@ Lead is intended for small development and test datasets. It scans table rows in
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

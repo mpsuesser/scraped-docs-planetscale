@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/import-troubleshooting
 title: "Import Troubleshooting"
 description: ""
-access_date: 2026-10-02T19:13:10.531Z
-current_date: 2026-10-02T19:13:10.531Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -11,8 +11,6 @@ current_date: 2026-10-02T19:13:10.531Z
 > Use this file to discover all available pages before exploring further.
 
 # Import troubleshooting
-
-**Platform availability:** Vitess only
 
 ## Overview
 

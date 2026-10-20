@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/earlier-migration-failed
 title: "Earlier Migration Failed"
 description: ""
-access_date: 2026-10-09T19:44:03.697Z
-current_date: 2026-10-09T19:44:03.697Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-09T19:44:03.697Z
 # Earlier migration failed
 
 > A later table in a deploy request stops when an earlier migration in that deploy has failed.
-
-**Platform availability:** Vitess only
 
 PlanetScale runs the migrations in one deploy request in order. If an earlier migration fails or is cancelled, every later migration in that deploy stops:
 

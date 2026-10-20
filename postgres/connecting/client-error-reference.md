@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/client-error-reference
 title: "Client Error Reference"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # PostgreSQL Proxy - Client Error Reference
 
 > This document provides a comprehensive reference of all error messages that the Exosphere PostgreSQL proxy may send to clients. These errors follow the PostgreSQL wire protocol format and include standard SQLSTATE error codes.
-
-**Platform availability:** Postgres only
 
 ## Error format
 

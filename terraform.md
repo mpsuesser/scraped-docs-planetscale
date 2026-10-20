@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/terraform
 title: "Terraform"
 description: ""
-access_date: 2026-10-06T20:39:31.314Z
-current_date: 2026-10-06T20:39:31.314Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale Terraform provider
+
+> A resource model for Vitess, Neki, and Postgres databases, designed for Terraform and OpenTofu.
+
+Vitess, Neki, and Postgres
 
 Terraform is an open-source infrastructure-as-code tool that lets you define and manage cloud resources through declarative configuration files. With the [PlanetScale Terraform provider](https://github.com/planetscale/terraform-provider-planetscale), you can manage PlanetScale Vitess, Neki, and Postgres databases, branches, credentials, backups, backup policies, Neki routers and shards, dedicated PgBouncers, and cluster parameters alongside the rest of your infrastructure.
 
@@ -12,22 +22,22 @@ Terraform is an open-source infrastructure-as-code tool that lets you define and
 
 The PlanetScale Terraform provider is organized around a clear distinction between **Vitess**, **Neki**, and **Postgres** resources and is focused on long-lived infrastructure objects.
 
-- There are separate resources for each **database kind** —Vitess, Neki, or Postgres.
-- The provider maps cleanly onto PlanetScale’s public API while exposing Terraform-friendly fields and lifecycle behavior.
+* There are separate resources for each **database kind**—Vitess, Neki, or Postgres.
+* The provider maps cleanly onto PlanetScale's public API while exposing Terraform-friendly fields and lifecycle behavior.
 
 PlanetScale databases do not have a dedicated Terraform resource. Their lifecycle is managed implicitly through branch resources:
 
-- Applying a `planetscale_vitess_branch`, `planetscale_neki_branch`, or `planetscale_postgres_branch` creates the parent database if it does not already exist.
-- Destroying the last branch in a database also destroys the database. See [Deletion protection](#deletion-protection) for safeguards.
+* Applying a `planetscale_vitess_branch`, `planetscale_neki_branch`, or `planetscale_postgres_branch` creates the parent database if it does not already exist.
+* Destroying the last branch in a database also destroys the database. See [Deletion protection](#deletion-protection) for safeguards.
 
-Creating a Neki branch also provisions a default [configuration profile](neki/cluster-configuration.md#configuration-profiles), [shard](neki/cluster-configuration.md#manage-shards), [router group](neki/cluster-configuration.md#configure-router-groups), [admin](neki/cluster-configuration.md#configure-the-admin-service), and [sidecar](neki/overview.md#what-runs-alongside-postgres). Import those objects if Terraform should manage them. Do not recreate the defaults with `planetscale_neki_configuration_profile` or `planetscale_neki_shard`. Creating a Vitess branch likewise provisions the branch’s default [keyspace](vitess/sharding/keyspaces.md); import it to manage its size or replicas.
+Creating a Neki branch also provisions a default [configuration profile](neki/cluster-configuration.md#configuration-profiles), [shard](neki/cluster-configuration.md#manage-shards), [router group](neki/cluster-configuration.md#configure-router-groups), [admin](neki/cluster-configuration.md#configure-the-admin-service), and [sidecar](neki/overview.md#what-runs-alongside-postgres). Import those objects if Terraform should manage them. Do not recreate the defaults with `planetscale_neki_configuration_profile` or `planetscale_neki_shard`. Creating a Vitess branch likewise provisions the branch's default [keyspace](vitess/sharding/keyspaces.md); import it to manage its size or replicas.
 
 ### Credential models
 
 **Vitess**, **Neki**, and **Postgres** use different terminology for database credentials:
 
 | Database Type | Resource | How permissions work |
-| --- | --- | --- |
+| - | - | - |
 | Vitess | `planetscale_vitess_branch_password` | Set the `role` attribute to `reader`, `writer`, `readwriter`, or `admin` |
 | Neki | `planetscale_neki_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](neki/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
 | Postgres | `planetscale_postgres_branch_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](postgres/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
@@ -37,7 +47,7 @@ Creating a Neki branch also provisions a default [configuration profile](neki/cl
 
 This complete example creates a Postgres branch with application credentials. Vitess and Neki follow the same pattern with their own branch and credential resources.
 
-```hcl
+```hcl theme={null}
 terraform {
   required_providers {
     planetscale = {
@@ -72,7 +82,7 @@ output "connection_string" {
 
 Run:
 
-```shellscript
+```bash theme={null}
 export PLANETSCALE_SERVICE_TOKEN_ID="your-token-id"
 export PLANETSCALE_SERVICE_TOKEN="your-token"
 terraform init
@@ -86,32 +96,32 @@ The provider offers resources for the most common automation scenarios:
 
 **Vitess**
 
-- `planetscale_vitess_backup_policy`
-- `planetscale_vitess_branch`
-- `planetscale_vitess_branch_backup`
-- `planetscale_vitess_branch_password`
-- `planetscale_vitess_keyspace`
+* `planetscale_vitess_backup_policy`
+* `planetscale_vitess_branch`
+* `planetscale_vitess_branch_backup`
+* `planetscale_vitess_branch_password`
+* `planetscale_vitess_keyspace`
 
 **Neki**
 
-- `planetscale_neki_admin`
-- `planetscale_neki_backup_policy`
-- `planetscale_neki_branch`
-- `planetscale_neki_configuration_profile`
-- `planetscale_neki_role`
-- `planetscale_neki_router`
-- `planetscale_neki_shard`
-- `planetscale_neki_sidecar`
+* `planetscale_neki_admin`
+* `planetscale_neki_backup_policy`
+* `planetscale_neki_branch`
+* `planetscale_neki_configuration_profile`
+* `planetscale_neki_role`
+* `planetscale_neki_router`
+* `planetscale_neki_shard`
+* `planetscale_neki_sidecar`
 
 **Postgres**
 
-- `planetscale_postgres_backup_policy`
-- `planetscale_postgres_bouncer`
-- `planetscale_postgres_branch`
-- `planetscale_postgres_branch_backup`
-- `planetscale_postgres_branch_role`
-- `planetscale_postgres_read_only_replica`
-- `planetscale_postgres_redacted_branch_role`
+* `planetscale_postgres_backup_policy`
+* `planetscale_postgres_bouncer`
+* `planetscale_postgres_branch`
+* `planetscale_postgres_branch_backup`
+* `planetscale_postgres_branch_role`
+* `planetscale_postgres_read_only_replica`
+* `planetscale_postgres_redacted_branch_role`
 
 ## Data sources
 
@@ -119,59 +129,59 @@ The provider also offers data sources for reading existing resources:
 
 **Organization and databases**
 
-- `planetscale_databases`
-- `planetscale_database_postgres`
-- `planetscale_database_vitess`
-- `planetscale_organization`
-- `planetscale_organizations`
+* `planetscale_databases`
+* `planetscale_database_postgres`
+* `planetscale_database_vitess`
+* `planetscale_organization`
+* `planetscale_organizations`
 
 **Vitess**
 
-- `planetscale_vitess_backup_policies`
-- `planetscale_vitess_backup_policy`
-- `planetscale_vitess_branch`
-- `planetscale_vitess_branch_backup`
-- `planetscale_vitess_branch_backups`
-- `planetscale_vitess_branch_password`
-- `planetscale_vitess_branch_passwords`
-- `planetscale_vitess_keyspace`
-- `planetscale_vitess_keyspaces`
+* `planetscale_vitess_backup_policies`
+* `planetscale_vitess_backup_policy`
+* `planetscale_vitess_branch`
+* `planetscale_vitess_branch_backup`
+* `planetscale_vitess_branch_backups`
+* `planetscale_vitess_branch_password`
+* `planetscale_vitess_branch_passwords`
+* `planetscale_vitess_keyspace`
+* `planetscale_vitess_keyspaces`
 
 **Neki**
 
-- `planetscale_neki_admin`
-- `planetscale_neki_backup_policies`
-- `planetscale_neki_backup_policy`
-- `planetscale_neki_branch`
-- `planetscale_neki_configuration_profile`
-- `planetscale_neki_configuration_profiles`
-- `planetscale_neki_role`
-- `planetscale_neki_roles`
-- `planetscale_neki_router`
-- `planetscale_neki_routers`
-- `planetscale_neki_shard`
-- `planetscale_neki_shards`
-- `planetscale_neki_sidecar`
+* `planetscale_neki_admin`
+* `planetscale_neki_backup_policies`
+* `planetscale_neki_backup_policy`
+* `planetscale_neki_branch`
+* `planetscale_neki_configuration_profile`
+* `planetscale_neki_configuration_profiles`
+* `planetscale_neki_role`
+* `planetscale_neki_roles`
+* `planetscale_neki_router`
+* `planetscale_neki_routers`
+* `planetscale_neki_shard`
+* `planetscale_neki_shards`
+* `planetscale_neki_sidecar`
 
 **Postgres**
 
-- `planetscale_postgres_backup_policies`
-- `planetscale_postgres_backup_policy`
-- `planetscale_postgres_bouncer`
-- `planetscale_postgres_bouncers`
-- `planetscale_postgres_branch`
-- `planetscale_postgres_branch_backup`
-- `planetscale_postgres_branch_backups`
-- `planetscale_postgres_branch_role`
-- `planetscale_postgres_branch_roles`
-- `planetscale_postgres_read_only_replica`
-- `planetscale_postgres_read_only_replicas`
-- `planetscale_postgres_redacted_branch_role`
+* `planetscale_postgres_backup_policies`
+* `planetscale_postgres_backup_policy`
+* `planetscale_postgres_bouncer`
+* `planetscale_postgres_bouncers`
+* `planetscale_postgres_branch`
+* `planetscale_postgres_branch_backup`
+* `planetscale_postgres_branch_backups`
+* `planetscale_postgres_branch_role`
+* `planetscale_postgres_branch_roles`
+* `planetscale_postgres_read_only_replica`
+* `planetscale_postgres_read_only_replicas`
+* `planetscale_postgres_redacted_branch_role`
 
 ### Data source behavior
 
 | Data Source | Required Inputs | Notes |
-| --- | --- | --- |
+| - | - | - |
 | `planetscale_databases` | `organization` | Lists Vitess, Neki, and Postgres databases. Optional `q` parameter for filtering by name. |
 | `planetscale_database_postgres` | `organization` | Returns Postgres database info. Does not accept a database name filter. |
 | `planetscale_database_vitess` | `organization` | Returns Vitess database info. Does not accept a database name filter. |
@@ -220,7 +230,7 @@ The provider supports authentication using [service tokens](api/reference/servic
 
 Example configuration:
 
-```hcl
+```hcl theme={null}
 terraform {
   required_providers {
     planetscale = {
@@ -242,7 +252,7 @@ provider "planetscale" {
 ```
 
 | Provider Attribute | Environment Variable | Description |
-| --- | --- | --- |
+| - | - | - |
 | `service_token_id` | `PLANETSCALE_SERVICE_TOKEN_ID` | PlanetScale Service Token ID |
 | `service_token` | `PLANETSCALE_SERVICE_TOKEN` | PlanetScale Service Token |
 | `server_url` | `PLANETSCALE_SERVER_URL` | Optional server URL override |
@@ -251,7 +261,7 @@ provider "planetscale" {
 
 ### Vitess branch and password
 
-```hcl
+```hcl theme={null}
 resource "planetscale_vitess_branch" "app" {
   organization = "my-org"
   database     = "my-vitess-db"
@@ -287,9 +297,9 @@ resource "planetscale_vitess_branch_password" "app_rw" {
 
 ### Vitess keyspace
 
-Creating a `planetscale_vitess_branch` already provisions the branch’s default keyspace. Use `planetscale_vitess_keyspace` for additional keyspaces, or import the default keyspace to manage its size or replicas. `cluster_size` and `extra_replicas` update in place. Changing `planetscale_vitess_branch.cluster_size` still replaces the branch.
+Creating a `planetscale_vitess_branch` already provisions the branch's default keyspace. Use `planetscale_vitess_keyspace` for additional keyspaces, or import the default keyspace to manage its size or replicas. `cluster_size` and `extra_replicas` update in place. Changing `planetscale_vitess_branch.cluster_size` still replaces the branch.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_vitess_keyspace" "metrics" {
   organization   = planetscale_vitess_branch.app.organization
   database       = planetscale_vitess_branch.app.database
@@ -302,7 +312,7 @@ resource "planetscale_vitess_keyspace" "metrics" {
 
 ### Neki branch and role
 
-```hcl
+```hcl theme={null}
 resource "planetscale_neki_branch" "main" {
   organization = "my-org"
   database     = "my-neki-db"
@@ -335,7 +345,9 @@ resource "planetscale_neki_role" "app" {
 }
 ```
 
-**Immutable attributes:** Changing `region`, `parent_branch`, `backup_id`, or `restore_point` on a Neki branch will **destroy and recreate** the branch. Set `deletion_protected = true` or use `lifecycle { prevent_destroy = true }` to protect production branches from accidental replacement.
+> [!WARNING]
+>
+> **Immutable attributes:** Changing `region`, `parent_branch`, `backup_id`, or `restore_point` on a Neki branch will **destroy and recreate** the branch. Set `deletion_protected = true` or use `lifecycle { prevent_destroy = true }` to protect production branches from accidental replacement.
 
 ### Neki routers and cluster configuration
 
@@ -343,7 +355,7 @@ Creating a Neki branch already provisions a default configuration profile, shard
 
 Clients connect through an additional router group by appending the group name to the username, e.g. `user|analytics`. See [Connect to Neki](neki/connecting.md).
 
-```hcl
+```hcl theme={null}
 resource "planetscale_neki_router" "analytics" {
   organization = planetscale_neki_branch.main.organization
   database     = planetscale_neki_branch.main.database
@@ -363,7 +375,7 @@ See [Neki cluster configuration](neki/cluster-configuration.md) for configuratio
 
 ### Postgres branch and role
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_branch" "main" {
   organization = "my-org"
   database     = "my-postgres-db"
@@ -404,13 +416,15 @@ resource "planetscale_postgres_branch_role" "app_role" {
 }
 ```
 
-**Immutable attributes:** Changing `region`, `parent_branch`, `major_version`, `backup_id`, or `restore_point` will **destroy and recreate** the branch. Use `lifecycle { prevent_destroy = true }` to protect production branches from accidental replacement.
+> [!WARNING]
+>
+> **Immutable attributes:** Changing `region`, `parent_branch`, `major_version`, `backup_id`, or `restore_point` will **destroy and recreate** the branch. Use `lifecycle { prevent_destroy = true }` to protect production branches from accidental replacement.
 
 ### Backups and backup policies
 
 Use backup policy resources to define automatic backup schedules. Use branch backup resources to create managed backups. Vitess, Neki, and Postgres support backup policies. Vitess and Postgres also support branch backup resources. Postgres branch backups also support the `emergency` option.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_backup_policy" "daily" {
   organization    = "my-org"
   database        = "my-postgres-db"
@@ -439,7 +453,7 @@ For Vitess databases, use `planetscale_vitess_backup_policy` and `planetscale_vi
 
 Use `planetscale_postgres_bouncer` to manage a dedicated PgBouncer for a Postgres branch. Clients connect through it by appending the bouncer name to the username, e.g. `postgres.abc123|my-bouncer`.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_bouncer" "main" {
   organization = planetscale_postgres_branch.main.organization
   database     = planetscale_postgres_branch.main.database
@@ -458,13 +472,15 @@ resource "planetscale_postgres_bouncer" "main" {
 }
 ```
 
-Changing `name` or `target` destroys and recreates the bouncer. Omitted `parameters` values are reset to their defaults.
+> [!WARNING]
+>
+> Changing `name` or `target` destroys and recreates the bouncer. Omitted `parameters` values are reset to their defaults.
 
 ### Postgres dedicated read replicas
 
 Use `planetscale_postgres_read_only_replica` to add a dedicated read replica in the same region as the primary or in a different region. The replica can use a different cluster size than the primary.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_read_only_replica" "analytics" {
   organization = planetscale_postgres_branch.main.organization
   database     = planetscale_postgres_branch.main.database
@@ -482,7 +498,7 @@ resource "planetscale_postgres_read_only_replica" "analytics" {
 
 Postgres branches support a `parameters` map for cluster settings, PgBouncer settings, Patroni settings, and supported extension settings. Parameters are nested by namespace: `pgconf`, `pgbouncer`, and `patroni`.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_branch" "configured" {
   organization = "my-org"
   database     = "my-postgres-db"
@@ -498,9 +514,13 @@ resource "planetscale_postgres_branch" "configured" {
 }
 ```
 
-Omitted values are reset to their defaults.
+> [!WARNING]
+>
+> Omitted values are reset to their defaults.
 
-Some Postgres parameter and extension changes require a restart. See [Postgres parameters](postgres/cluster-configuration/parameters.md) and [Postgres extensions](postgres/extensions.md) for details.
+> [!WARNING]
+>
+> Some Postgres parameter and extension changes require a restart. See [Postgres parameters](postgres/cluster-configuration/parameters.md) and [Postgres extensions](postgres/extensions.md) for details.
 
 ## Retrieving connection details
 
@@ -508,7 +528,7 @@ After creating a role or password, use Terraform outputs to retrieve connection 
 
 ### Vitess
 
-```hcl
+```hcl theme={null}
 output "vitess_connection" {
   description = "Vitess connection details"
   sensitive   = true
@@ -522,7 +542,7 @@ output "vitess_connection" {
 
 ### Neki
 
-```hcl
+```hcl theme={null}
 output "neki_connection" {
   description = "Neki connection details"
   sensitive   = true
@@ -539,7 +559,7 @@ Generated Neki connections use the `postgres` logical database by default. See [
 
 ### Postgres
 
-```hcl
+```hcl theme={null}
 output "postgres_connection" {
   description = "Postgres connection details"
   sensitive   = true
@@ -552,15 +572,17 @@ output "postgres_connection" {
 }
 ```
 
-The `password` (Neki and Postgres) and `plain_text` (Vitess) fields are only available after the initial `terraform apply`. They are marked as sensitive and stored in Terraform state. To manage a Postgres role without storing its password in state, use `planetscale_postgres_redacted_branch_role` instead.
+> [!NOTE]
+>
+> The `password` (Neki and Postgres) and `plain_text` (Vitess) fields are only available after the initial `terraform apply`. They are marked as sensitive and stored in Terraform state. To manage a Postgres role without storing its password in state, use `planetscale_postgres_redacted_branch_role` instead.
 
 ## Practical examples
 
 ### Development branch workflow
 
-Create a development branch forked from your main branch. Optionally specify a larger cluster size if you need more resources than the default. Neki development branches start empty and do not copy the parent branch’s schema or data; restore a [backup](neki/backups.md) when you need existing data.
+Create a development branch forked from your main branch. Optionally specify a larger cluster size if you need more resources than the default. Neki development branches start empty and do not copy the parent branch's schema or data; restore a [backup](neki/backups.md) when you need existing data.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_branch" "feature_auth" {
   organization  = "my-org"
   database      = "my-db"
@@ -574,7 +596,7 @@ resource "planetscale_postgres_branch" "feature_auth" {
 
 Create a role with read-only access for analytics and reporting. Neki uses the same `inherited_roles` pattern with `planetscale_neki_role`:
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_branch_role" "reporting" {
   organization    = "my-org"
   database        = "my-db"
@@ -588,7 +610,7 @@ resource "planetscale_postgres_branch_role" "reporting" {
 
 Create credentials that automatically expire for CI/CD pipelines:
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_branch_role" "ci_runner" {
   organization    = "my-org"
   database        = "my-db"
@@ -603,7 +625,7 @@ resource "planetscale_postgres_branch_role" "ci_runner" {
 
 Use `planetscale_postgres_redacted_branch_role` when Terraform should manage the role but the password should live in your secret manager instead of Terraform state. After creating the role, reset its password through the [reset role API](api/reference/reset_role.md) and store the new credential in your secret manager.
 
-```hcl
+```hcl theme={null}
 resource "planetscale_postgres_redacted_branch_role" "app" {
   organization    = "my-org"
   database        = "my-db"
@@ -616,7 +638,7 @@ resource "planetscale_postgres_redacted_branch_role" "app" {
 ## Configuration reference
 
 | Attribute | Valid Values |
-| --- | --- |
+| - | - |
 | `cluster_size` | Use the [Clusters API](api/reference/list_cluster_size_skus.md#list-available-cluster-sizes) to get the list of available cluster sizes |
 | `region` | See [available regions](plans/regions.md) |
 | `major_version` (Postgres) | `17`, `18` |
@@ -635,9 +657,9 @@ resource "planetscale_postgres_redacted_branch_role" "app" {
 
 ## Deletion protection
 
-Branch deletion is one of the most sensitive operations in infrastructure automation. To reduce risk, use Terraform’s `lifecycle` block to prevent accidental destruction of critical resources. Neki branches also support a native `deletion_protected` attribute:
+Branch deletion is one of the most sensitive operations in infrastructure automation. To reduce risk, use Terraform's `lifecycle` block to prevent accidental destruction of critical resources. Neki branches also support a native `deletion_protected` attribute:
 
-```hcl
+```hcl theme={null}
 resource "planetscale_vitess_branch" "production" {
   organization = "my-org"
   database     = "my-vitess-db"
@@ -669,24 +691,24 @@ The original [PlanetScale Terraform provider](https://registry.terraform.io/prov
 Because the new v1 provider is a **breaking rewrite**, migration from v0.x to v1.x is a one-time, manual transition. Projects using the v0 provider will continue to work as normal, but this version will not receive further updates.
 
 1. **Pin v0.x in existing workloads**
-	- Ensure all existing Terraform projects using the PlanetScale provider are pinned to `~> 0.6.1` (or a specific v0.x version) to avoid unintentional upgrades.
+   * Ensure all existing Terraform projects using the PlanetScale provider are pinned to `~> 0.6.1` (or a specific v0.x version) to avoid unintentional upgrades.
 2. **Create a new Terraform project for v1.x**
-	- Create a separate directory with a new configuration using the v1 provider.
-		- Use the v1 resource types for Vitess, Neki, and Postgres branches, roles, passwords, and other supported resources.
-		- Run `terraform init` to download the v1 provider and initialize your working directory. This creates a new, independent state file.
+   * Create a separate directory with a new configuration using the v1 provider.
+   * Use the v1 resource types for Vitess, Neki, and Postgres branches, roles, passwords, and other supported resources.
+   * Run `terraform init` to download the v1 provider and initialize your working directory. This creates a new, independent state file.
 3. **Import existing resources into v1.x state**
-	- For each resource that you want Terraform to manage going forward, run `terraform import` for the corresponding v1 resource.
-		- Expect import to use IDs that align with the v1 API design (for example, IDs rather than purely name-based identifiers).
+   * For each resource that you want Terraform to manage going forward, run `terraform import` for the corresponding v1 resource.
+   * Expect import to use IDs that align with the v1 API design (for example, IDs rather than purely name-based identifiers).
 4. **Cut over automation**
-	- After resources are imported and `terraform plan` shows no unexpected changes, switch your automation (CI pipelines, etc.) to apply the v1 project.
+   * After resources are imported and `terraform plan` shows no unexpected changes, switch your automation (CI pipelines, etc.) to apply the v1 project.
 5. **Sunset v0.x usage**
-	- Once you have validated v1.x in production, retire the v0.x configurations and keep them only for historical reference, if needed.
+   * Once you have validated v1.x in production, retire the v0.x configurations and keep them only for historical reference, if needed.
 
 ## Importing existing resources
 
 Resources are imported using JSON-encoded identifiers:
 
-```shellscript
+```bash theme={null}
 # Import a Neki branch
 terraform import planetscale_neki_branch.main \
   '{"organization": "my-org", "database": "my-db", "id": "branch-id"}'
@@ -768,4 +790,7 @@ You can find resource IDs in the PlanetScale dashboard URL or via the API.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

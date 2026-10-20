@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/errors
 title: "Errors"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
 > ## Documentation Index
@@ -13,8 +13,6 @@ current_date: 2026-10-01T18:05:48.418Z
 # Errors
 
 > The Errors page surfaces any errors that have been captured on your database in a 24 hour period.
-
-**Platform availability:** [Vitess](../../vitess/monitoring/errors.md) and Postgres
 
 ## Overview
 

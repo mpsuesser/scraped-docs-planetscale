@@ -2,19 +2,27 @@
 url: https://planetscale.com/docs/vitess/connecting/secure-connections
 title: "Secure Connections"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
 
-When you are using passwords to connect to PlanetScale, it is essential to correctly validate the server side certificate that PlanetScale provides. If you don’t configure it properly, your connection will be vulnerable to man-in-the-middle attacks. The server certificates that PlanetScale uses are signed by a commonly available system root. How to configure this properly depends on the client you are using to connect to MySQL.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-We don’t guarantee we will continue to sign our certificates using the same CA. We reserve the right to change our CA but guarantee that we will use one that is provided on all common systems by default.
+# Connecting to PlanetScale securely
+
+When you are using passwords to connect to PlanetScale, it is essential to correctly validate the server side certificate that PlanetScale provides. If you don't configure it properly, your connection will be vulnerable to man-in-the-middle attacks. The server certificates that PlanetScale uses are signed by a commonly available system root. How to configure this properly depends on the client you are using to connect to MySQL.
+
+> [!NOTE]
+>
+> We don't guarantee we will continue to sign our certificates using the same CA. We reserve the right to change our CA but guarantee that we will use one that is provided on all common systems by default.
 
 ## MySQL command line client
 
 With the MySQL command line client, you need to use the `VERIFY_IDENTITY` mode and provide the path to the system roots on your system. The examples below use the most common Linux configuration, but the path might be different in your case. Please check the [CA root configuration](#ca-root-configuration) below to find the appropriate path for your operating system and distribution.
 
-```shellscript
+```bash theme={null}
 mysql --ssl-mode=VERIFY_IDENTITY --ssl-ca=/etc/ssl/certs/ca-certificates.crt
 ```
 
@@ -22,11 +30,13 @@ mysql --ssl-mode=VERIFY_IDENTITY --ssl-ca=/etc/ssl/certs/ca-certificates.crt
 
 Many clients are based on `libmysqlclient`. These clients require configuration options similar to the command line MySQL client, as they are using the same driver to connect to PlanetScale. Please reference the documentation of the driver that you are using for how to configure the SSL CA path. The value provided can be found in the [CA root configuration](#ca-root-configuration).
 
-Again, if you don’t configure this, things will work but your connection to PlanetScale will be vulnerable to man-in-the-middle attacks.
+Again, if you don't configure this, things will work but your connection to PlanetScale will be vulnerable to man-in-the-middle attacks.
 
 For a list of tested MySQL GUI clients, review our article on [how to connect MySQL GUI applications](../tutorials/connect-mysql-gui.md).
 
-Some MySQL clients, like Sequel Pro, do not have full SSL support and will not work with PlanetScale.
+> [!NOTE]
+>
+> Some MySQL clients, like Sequel Pro, do not have full SSL support and will not work with PlanetScale.
 
 ## Certificate Authorities
 
@@ -36,21 +46,21 @@ A [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authori
 
 ### Why is a Certificate Authority (CA) needed for TLS / SSL?
 
-Encryption alone won’t provide trust, only confidentiality. Without a way to verify the entity at the other end of a secure connection, you risk establishing an encrypted connection to a malicious party. This means that TLS / SSL only provides real security when certificates are validated against specific trusted Certificate Authorities.
+Encryption alone won't provide trust, only confidentiality. Without a way to verify the entity at the other end of a secure connection, you risk establishing an encrypted connection to a malicious party. This means that TLS / SSL only provides real security when certificates are validated against specific trusted Certificate Authorities.
 
 ### What is a CA root store?
 
-In day-to-day browsing you don’t need to specify which CAs to trust, your operating system and / or browser come with a list of trusted authorities. These trusted authorities verify the identities of domain owners creating HTTPS certificates, and sign those certificates so that you can trust them as well. The root store of certificates from Certificate Authorities is a collection of certificates that are trusted to sign other certificates.
+In day-to-day browsing you don't need to specify which CAs to trust, your operating system and / or browser come with a list of trusted authorities. These trusted authorities verify the identities of domain owners creating HTTPS certificates, and sign those certificates so that you can trust them as well. The root store of certificates from Certificate Authorities is a collection of certificates that are trusted to sign other certificates.
 
 ### Why do I need to care about a CA when connecting to PlanetScale?
 
 PlanetScale uses certificates from a [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authority) that is part of the system root available on almost all platforms. We do this so that we can provide the easiest possible way for you to connect securely to PlanetScale. No one should be able to listen in on traffic, and no one should be able to impersonate PlanetScale to trick you into connecting to them.
 
-Operating systems all come with CA root stores, but not every MySQL driver uses these. Drivers like those for Go, Java or.NET will use the system roots. This means they can provide an experience similar to your browser when connecting to PlanetScale. For these drivers you only have to indicate that you want to use TLS / SSL and that you want to run it in a mode that verifies the identity of PlanetScale. That way you can trust that you are safely connected to PlanetScale when the handshake completes.
+Operating systems all come with CA root stores, but not every MySQL driver uses these. Drivers like those for Go, Java or .NET will use the system roots. This means they can provide an experience similar to your browser when connecting to PlanetScale. For these drivers you only have to indicate that you want to use TLS / SSL and that you want to run it in a mode that verifies the identity of PlanetScale. That way you can trust that you are safely connected to PlanetScale when the handshake completes.
 
-Many other drivers don’t automatically load the system roots. Most notably, the `libmysqlclient` C driver and all other drivers that use it, such as the drivers often used in Ruby (`mysql2`) and Python (`mysqlclient`). This means you will need to specify the path to the CA certificates you want to trust. The best option is to point the driver at your system roots.
+Many other drivers don't automatically load the system roots. Most notably, the `libmysqlclient` C driver and all other drivers that use it, such as the drivers often used in Ruby (`mysql2`) and Python (`mysqlclient`). This means you will need to specify the path to the CA certificates you want to trust. The best option is to point the driver at your system roots.
 
-Below we have listed common paths on which the CA root store can be found in various operating systems and distributions. Only configure this path if your driver absolutely needs it and it won’t work without it. If you are using a driver where the system roots are loaded by default, such as Go, Java or.NET, we strongly recommend not configuring this option and depending on the default behavior of your driver.
+Below we have listed common paths on which the CA root store can be found in various operating systems and distributions. Only configure this path if your driver absolutely needs it and it won't work without it. If you are using a driver where the system roots are loaded by default, such as Go, Java or .NET, we strongly recommend not configuring this option and depending on the default behavior of your driver.
 
 ### CA root configuration
 
@@ -62,7 +72,7 @@ On Linux, the path to the system CA roots depends on the distribution that you a
 
 This path also applies to Debian or Ubuntu derivatives. You need to make sure the `ca-certificates` package is installed.
 
-```text
+```
 /etc/ssl/certs/ca-certificates.crt
 ```
 
@@ -70,7 +80,7 @@ This path also applies to Debian or Ubuntu derivatives. You need to make sure th
 
 This path also applies to RedHat or Fedora derivatives like Amazon Linux and Oracle Linux. This is the path to use for applications deployed on Vercel and Netlify.
 
-```text
+```
 /etc/pki/tls/certs/ca-bundle.crt
 ```
 
@@ -78,7 +88,7 @@ This path also applies to RedHat or Fedora derivatives like Amazon Linux and Ora
 
 This is a commonly used distribution for Docker containers.
 
-```text
+```
 /etc/ssl/cert.pem
 ```
 
@@ -86,7 +96,7 @@ This is a commonly used distribution for Docker containers.
 
 This also applies to OpenSUSE derivatives.
 
-```text
+```
 /etc/ssl/ca-bundle.pem
 ```
 
@@ -94,18 +104,24 @@ This also applies to OpenSUSE derivatives.
 
 MacOS provides an extracted version of the system roots on disk that can be used for the CA roots. On FreeBSD you need to install the `ca_root_nss` package for this path to be available.
 
-```text
+```
 /etc/ssl/cert.pem
 ```
 
 #### Windows
 
-Windows does not provide a file with the CA roots that can be used by your driver. Many languages often used on Windows like C#, Java or Go do not need the CA root path and will use the Windows internal system roots by default. In those environments, you don’t need to specify a root CA list.
+Windows does not provide a file with the CA roots that can be used by your driver. Many languages often used on Windows like C#, Java or Go do not need the CA root path and will use the Windows internal system roots by default. In those environments, you don't need to specify a root CA list.
 
-If you are using a language that requires specifying the CA root path, like C or PHP, the [`curl`](https://curl.se/) project provides an extracted bundle of root certificates from the [Mozilla CA Certificate program](https://wiki.mozilla.org/CA). You can download the bundle at [https://curl.se/docs/caextract.html](https://curl.se/docs/caextract.html). Once you download the file, you can point at it with the correct configuration options for the driver that you are using.
+If you are using a language that requires specifying the CA root path, like C or PHP, the [`curl`](https://curl.se) project provides an extracted bundle of root certificates from the [Mozilla CA Certificate program](https://wiki.mozilla.org/CA). You can download the bundle at [https://curl.se/docs/caextract.html](https://curl.se/docs/caextract.html). Once you download the file, you can point at it with the correct configuration options for the driver that you are using.
 
-We strongly discourage downloading only the current CA that we are using, as PlanetScale reserves the right to change our CA. We will however always use a CA that is commonly available.
+> [!NOTE]
+>
+> We strongly discourage downloading only the current CA that we are using, as PlanetScale reserves the right to change
+> our CA. We will however always use a CA that is commonly available.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

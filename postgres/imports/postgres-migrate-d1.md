@@ -2,15 +2,25 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-d1
 title: "Postgres Migrate D1"
 description: ""
-access_date: 2026-08-14T17:16:03.479Z
-current_date: 2026-08-14T17:16:03.479Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Postgres Imports - Cloudflare D1
+
+> Migrate a Cloudflare D1 (SQLite) database to PlanetScale Postgres using wrangler and pscale import d1.
 
 Use this guide to move an existing **Cloudflare D1** database to **PlanetScale Postgres**. The PlanetScale CLI converts SQLite schema to Postgres, loads your data, and verifies the result.
 
 This is an **offline** migration: export D1, import into PlanetScale, then point your app at the new database.
 
-Want help planning the move? PlanetScale’s [migration services](https://planetscale.com/migrate) can walk through export, import, and cutover with you.
+> [!NOTE]
+>
+> Want help planning the move? PlanetScale's [migration services](https://planetscale.com/migrate) can walk through export, import, and cutover with you.
 
 ## Overview
 
@@ -24,21 +34,21 @@ The workflow has three parts:
 
 Before you start, install and configure:
 
-- **[PlanetScale CLI](../../cli.md)** — authenticated to your org (`pscale auth login`, then `pscale org set <org>`)
-- **[Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/)** — to export the remote D1 database
-- **[pgloader](https://pgloader.io/)** — required for loading data (used for all import sizes)
-- **`psql`** — PostgreSQL client (version 10 or newer)
-- **`sqlite3`** *(optional)* — helps with deeper verification checks
+* **[PlanetScale CLI](../../cli.md)** — authenticated to your org (`pscale auth login`, then `pscale org set <org>`)
+* **[Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/)** — to export the remote D1 database
+* **[pgloader](https://pgloader.io/)** — required for loading data (used for all import sizes)
+* **`psql`** — PostgreSQL client (version 10 or newer)
+* **`sqlite3`** *(optional)* — helps with deeper verification checks
 
 You also need:
 
-- A **PlanetScale Postgres** database with enough storage for the imported data
-- A **target branch** that is empty or disposable (the import replaces schema on that branch)
-- **Cloudflare credentials** for remote export (`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`), unless you already have a D1 SQL export file
+* A **PlanetScale Postgres** database with enough storage for the imported data
+* A **target branch** that is empty or disposable (the import replaces schema on that branch)
+* **Cloudflare credentials** for remote export (`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`), unless you already have a D1 SQL export file
 
 Check that your machine is ready:
 
-```shellscript
+```bash theme={null}
 pscale import d1 doctor
 ```
 
@@ -48,7 +58,7 @@ Fix anything marked as failed before continuing.
 
 Export your production D1 database to a SQL file:
 
-```shellscript
+```bash theme={null}
 wrangler d1 export <database-name> --remote --output ./d1-export.sql
 ```
 
@@ -58,7 +68,7 @@ Keep this file — every later `pscale import d1` command uses `--input ./d1-exp
 
 Review schema and data compatibility issues before touching Postgres:
 
-```shellscript
+```bash theme={null}
 pscale import d1 lint --input ./d1-export.sql
 ```
 
@@ -68,7 +78,7 @@ Fix **errors** before importing. **Warnings** (for example integer booleans or t
 
 Run a dry run on the default branch to lint again, build the import plan, and get a migration ID:
 
-```shellscript
+```bash theme={null}
 pscale import d1 start my-database --input ./d1-export.sql --dbname myapp --dry-run
 ```
 
@@ -78,7 +88,7 @@ Use `--format json` if you want machine-readable output. Save the `migration_id`
 
 The command above targets the default branch (`main`). To target a different branch, include the branch name after the database name:
 
-```shellscript
+```bash theme={null}
 pscale import d1 start my-database <branch> --input ./d1-export.sql --dbname myapp --dry-run
 ```
 
@@ -86,7 +96,7 @@ pscale import d1 start my-database <branch> --input ./d1-export.sql --dbname mya
 
 Run the import against your PlanetScale database:
 
-```shellscript
+```bash theme={null}
 pscale import d1 start my-database --input ./d1-export.sql --dbname myapp --migration-id <migration-id>
 ```
 
@@ -98,13 +108,13 @@ Use `--force` to skip the confirmation prompt in scripts.
 
 Compare source and destination row counts and run spot checks:
 
-```shellscript
+```bash theme={null}
 pscale import d1 verify my-database --migration-id <migration-id> --input ./d1-export.sql --dbname myapp
 ```
 
 Check migration progress at any time:
 
-```shellscript
+```bash theme={null}
 pscale import d1 status my-database --migration-id <migration-id>
 ```
 
@@ -112,7 +122,7 @@ pscale import d1 status my-database --migration-id <migration-id>
 
 When verification passes, mark the migration complete:
 
-```shellscript
+```bash theme={null}
 pscale import d1 complete my-database --migration-id <migration-id>
 ```
 
@@ -126,12 +136,12 @@ Update your application to use the PlanetScale Postgres connection string from t
 
 Examples the linter detects and the importer skips:
 
-- Drizzle — `__drizzle_migrations` and related tables
-- Prisma — `_prisma_migrations`
-- Knex — `knex_migrations`, `knex_migrations_lock`
-- Rails — `schema_migrations`, `ar_internal_metadata`
-- Django — `django_migrations`
-- Sequelize, Flyway, Liquibase, Alembic, TypeORM, Goose — their version/history tables
+* Drizzle — `__drizzle_migrations` and related tables
+* Prisma — `_prisma_migrations`
+* Knex — `knex_migrations`, `knex_migrations_lock`
+* Rails — `schema_migrations`, `ar_internal_metadata`
+* Django — `django_migrations`
+* Sequelize, Flyway, Liquibase, Alembic, TypeORM, Goose — their version/history tables
 
 **After import, re-baseline your ORM on Postgres** (for example `prisma db pull` + a fresh migration, or `drizzle-kit push`). Do not expect SQLite migration history to carry over.
 
@@ -151,8 +161,11 @@ If you have an application table named `schema_migrations` that is **not** Rails
 
 ## Next steps
 
-## Postgres import overview
+> **[Postgres import overview](postgres-imports.md)**
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

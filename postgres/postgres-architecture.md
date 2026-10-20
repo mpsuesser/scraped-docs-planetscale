@@ -2,13 +2,21 @@
 url: https://planetscale.com/docs/postgres/postgres-architecture
 title: "Postgres Architecture"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-10-20T18:01:41.586Z
+current_date: 2026-10-20T18:01:41.586Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale Postgres architecture
+
+> PlanetScale Postgres is a managed PostgreSQL service built on modern cloud infrastructure.
 
 ## Overview
 
-Our architecture provides high availability through availability zone distribution, automated failover, and redundancy across multiple components. PlanetScale Postgres is built around a `shared nothing` architecture in alignment with PlanetScale’s [principles of extreme fault tolerance](https://planetscale.com/blog/the-principles-of-extreme-fault-tolerance).
+Our architecture provides high availability through availability zone distribution, automated failover, and redundancy across multiple components. PlanetScale Postgres is built around a `shared nothing` architecture in alignment with PlanetScale's [principles of extreme fault tolerance](https://planetscale.com/blog/the-principles-of-extreme-fault-tolerance).
 
 This document explains the core components of our PostgreSQL infrastructure, from regional deployment patterns to cluster configuration options and operational capabilities.
 
@@ -18,14 +26,12 @@ This document explains the core components of our PostgreSQL infrastructure, fro
 
 PlanetScale Postgres deploys database clusters across multiple availability zones within a single region. This design provides:
 
-- **Zone-level fault tolerance**: Database instances are automatically distributed across separate availability zones
-- **Network isolation**: Each availability zone operates independently with its own network infrastructure
+* **Zone-level fault tolerance**: Database instances are automatically distributed across separate availability zones
+* **Network isolation**: Each availability zone operates independently with its own network infrastructure
 
 ### Cluster design
 
-![PlanetScale Postgres cluster topology](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-arch-diagram.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=75d3b8d73ba0db0cb8c3a3343fd2be9d)
-
-PlanetScale Postgres cluster topology
+![PlanetScale Postgres cluster topology](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-arch-diagram.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=c20f53698428814045e9bc242956ffd9)
 
 PlanetScale Postgres uses a primary-replica architecture distributed across availability zones to provide high availability without compromising performance. This design ensures that your database can survive infrastructure failures while maintaining fast read and write operations.
 
@@ -35,17 +41,17 @@ Each production PostgreSQL cluster consists of:
 
 **Primary instance (1)**:
 
-- Handles all write operations
-- Located in one availability zone
-- Serves read operations when replicas are unavailable
-- Source of truth for data replication
+* Handles all write operations
+* Located in one availability zone
+* Serves read operations when replicas are unavailable
+* Source of truth for data replication
 
 **Replica instances (2)**:
 
-- Handle read-only operations
-- Located in separate availability zones from primary
-- Continuously synchronized with primary through streaming replication
-- Available for promotion to primary during failover events
+* Handle read-only operations
+* Located in separate availability zones from primary
+* Continuously synchronized with primary through streaming replication
+* Available for promotion to primary during failover events
 
 ## Orchestration layer
 
@@ -55,55 +61,54 @@ The orchestration layer manages the lifecycle, health, and operations of Postgre
 
 Our PostgreSQL clusters run on Kubernetes infrastructure, providing:
 
-- **Automated deployment**: Consistent cluster provisioning across availability zones
-- **Health monitoring**: Continuous monitoring of database instance health
-- **Resource management**: Dynamic allocation of compute and storage resources
-- **Configuration management**: Centralized management of PostgreSQL parameters and settings
+* **Automated deployment**: Consistent cluster provisioning across availability zones
+* **Health monitoring**: Continuous monitoring of database instance health
+* **Resource management**: Dynamic allocation of compute and storage resources
+* **Configuration management**: Centralized management of PostgreSQL parameters and settings
 
 ### Custom operator
 
 Our custom [Kubernetes operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/) manages all cluster nodes and handles PostgreSQL operations that would otherwise require deep database knowledge. Based on our extensive experience running databases at massive scale, our operator was built for rock-solid handling of PostgreSQL replication, backup requirements, and the specific steps needed for safe failover operations:
 
-- **Failover coordination**: Automated promotion of replica instances when primary fails
-- **Backup scheduling**: Coordinated backup operations across all instances
-- **Configuration synchronization**: Ensures consistent settings across primary and replicas
-- **Scaling operations**: Manages instance resizing and replica addition/removal
+* **Failover coordination**: Automated promotion of replica instances when primary fails
+* **Backup scheduling**: Coordinated backup operations across all instances
+* **Configuration synchronization**: Ensures consistent settings across primary and replicas
+* **Scaling operations**: Manages instance resizing and replica addition/removal
 
 ## Data replication
 
-**Streaming replication**: PostgreSQL’s built-in streaming replication keeps replicas synchronized with the primary in near real-time. Changes are continuously streamed to replicas, ensuring data consistency across all instances:
+**Streaming replication**:
+PostgreSQL's built-in streaming replication keeps replicas synchronized with the primary in near real-time. Changes are continuously streamed to replicas, ensuring data consistency across all instances:
 
-- Continuous data streaming from primary to replicas
-- Changes confirmed by at least one replica
-- Automatic lag monitoring and alerting
+* Continuous data streaming from primary to replicas
+* Changes confirmed by at least one replica
+* Automatic lag monitoring and alerting
 
 **Connection routing**:
 
-- Port 5432: Direct PostgreSQL connections
-- Port 6432: [PgBouncer](connecting/pgbouncer.md) connection pooling for optimized connection management
-- SSL/TLS encryption required for all connections
+* Port 5432: Direct PostgreSQL connections
+* Port 6432: [PgBouncer](connecting/pgbouncer.md) connection pooling for optimized connection management
+* SSL/TLS encryption required for all connections
 
 ## Instance configurability
 
 PlanetScale Postgres offers flexible instance configuration to match your workload requirements and cost constraints. You can choose different CPU architectures, storage types, and performance characteristics to optimize for your specific use case.
 
-![Creating a database](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-create-config.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=b71965b73aff18ab9c69cc1c494babf2)
-
-Creating a database
+![Creating a database](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-create-config.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=94073bce12d09880d08626279e653d03)
 
 ### CPU architecture options
 
 **ARM64 (AWS Graviton)**:
 
-- Cost-optimized instances with good performance characteristics
-- Compatible with all PostgreSQL features and extensions
-- Lower power consumption and cost per compute unit
+* Cost-optimized instances with good performance characteristics
+* Compatible with all PostgreSQL features and extensions
+* Lower power consumption and cost per compute unit
 
 **x86-64 (Intel/AMD)**:
 
-- Traditional architecture with broad compatibility
-- Optimized for single-threaded performance requirements
-- Full compatibility with existing tooling and applications
+* Traditional architecture with broad compatibility
+* Optimized for single-threaded performance requirements
+* Full compatibility with existing tooling and applications
 
 Learn more about [CPU architecture selection](cluster-configuration/cpu-architectures.md).
 
@@ -113,40 +118,38 @@ Storage choice significantly impacts database performance and cost. PlanetScale 
 
 **PlanetScale Metal**:
 
-- Direct-attached NVMe storage for maximum performance
-- Lower I/O latency compared to network-attached storage
-- Fixed storage capacity based on instance size
-- Optimal for I/O-intensive workloads
+* Direct-attached NVMe storage for maximum performance
+* Lower I/O latency compared to network-attached storage
+* Fixed storage capacity based on instance size
+* Optimal for I/O-intensive workloads
 
 **Network-attached storage (EBS)**:
 
-- Flexible storage scaling up to 64 TB
-- Configurable IOPS and throughput settings
-- Automatic storage scaling based on usage patterns
-- Cost-effective for variable storage requirements
+* Flexible storage scaling up to 64 TB
+* Configurable IOPS and throughput settings
+* Automatic storage scaling based on usage patterns
+* Cost-effective for variable storage requirements
 
 Learn more about [storage configuration](cluster-configuration/cluster-storage.md).
 
 ### Performance and scaling relationships
 
-![Database dashboard summary](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-dashboard-summary-metal.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=97572840d235e12488b712072fd69551)
-
-Database dashboard summary
+![Database dashboard summary](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-dashboard-summary-metal.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=4e48e13d3af6eb8460d9617af8131113)
 
 Understanding how different configuration choices affect performance helps you optimize your database for both cost and performance. These relationships guide capacity planning and scaling decisions:
 
 **Compute scaling**:
 
-- Instance size directly affects CPU, memory, and network capacity
-- Larger instances support more concurrent connections
-- Memory allocation affects query performance and caching efficiency
+* Instance size directly affects CPU, memory, and network capacity
+* Larger instances support more concurrent connections
+* Memory allocation affects query performance and caching efficiency
 
 **Storage performance**:
 
-- Network-attached storage can autoscale to meet storage needs
-- Network-attached storage allows for configurable IOPS and disk bandwidth
-- PlanetScale Metal provides increased IOPS and ultra-low latency storage
-- Throughput limits vary by instance size and storage configuration
+* Network-attached storage can autoscale to meet storage needs
+* Network-attached storage allows for configurable IOPS and disk bandwidth
+* PlanetScale Metal provides increased IOPS and ultra-low latency storage
+* Throughput limits vary by instance size and storage configuration
 
 ## Operational capabilities
 
@@ -154,16 +157,14 @@ PlanetScale Postgres provides comprehensive operational tools that give you visi
 
 ### Insights and query analysis
 
-![PlanetScale Insights](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-insights.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=20f6acaaa66a6eabf675c78a25d4f8c8)
-
-PlanetScale Insights
+![PlanetScale Insights](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-insights.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=9ecdae873efd3bca8329b8f3494c54d8)
 
 **Query performance insights**:
 
-- Automatic detection of slow-running queries and anomalies
-- Query execution plan analysis and recommendations
-- Historical query performance tracking
-- Identification of resource-intensive operations
+* Automatic detection of slow-running queries and anomalies
+* Query execution plan analysis and recommendations
+* Historical query performance tracking
+* Identification of resource-intensive operations
 
 ### Metrics and monitoring
 
@@ -171,9 +172,9 @@ Comprehensive metrics collection provides real-time visibility into database hea
 
 **Built-in metrics collection**:
 
-- CPU, memory, and storage utilization across all instances
-- Connection count and pooling efficiency
-- Replication lag and synchronization status
+* CPU, memory, and storage utilization across all instances
+* Connection count and pooling efficiency
+* Replication lag and synchronization status
 
 Learn more about [monitoring and metrics](monitoring/metrics.md).
 
@@ -183,50 +184,46 @@ Centralized logging aggregates all database-related logs in a searchable format 
 
 **Centralized logging**:
 
-- PostgreSQL server logs from all instances
-- Query execution logs with configurable detail levels
-- Error logs with automatic categorization and alerting
-- Connection and authentication logs for security monitoring
+* PostgreSQL server logs from all instances
+* Query execution logs with configurable detail levels
+* Error logs with automatic categorization and alerting
+* Connection and authentication logs for security monitoring
 
 **Log analysis tools**:
 
-- Search and filtering capabilities across all log sources
-- Export capabilities for external analysis tools
+* Search and filtering capabilities across all log sources
+* Export capabilities for external analysis tools
 
 ### Cluster configuration options
 
-![Tracking changes](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-config-changes.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=65c5ade9a3dbed00ef05247ac814070b)
-
-Tracking changes
+![Tracking changes](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-config-changes.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=ad1554779e5fba5ddd2144d44bad095d)
 
 Flexible configuration options allow you to customize PostgreSQL behavior, enable additional functionality, and optimize performance for your specific workload requirements:
 
 **Extension management**:
 
-- Curated set of PostgreSQL extensions tested for compatibility
-- Both Native and Community extensions available
-- Managed through dashboard or CLI
+* Curated set of PostgreSQL extensions tested for compatibility
+* Both Native and Community extensions available
+* Managed through dashboard or CLI
 
 Learn more about [extension configuration](extensions.md).
 
 **Parameter tuning**:
 
-- Pre-configured parameter sets optimized for different workload types
-- Customizable PostgreSQL configuration parameters
-- Automatic parameter adjustment based on instance size changes
-- Configuration change tracking
+* Pre-configured parameter sets optimized for different workload types
+* Customizable PostgreSQL configuration parameters
+* Automatic parameter adjustment based on instance size changes
+* Configuration change tracking
 
 Learn more about [parameter configuration](cluster-configuration/parameters.md).
 
 **Custom Backups and Point-in-time recovery**:
 
-![Postgres PITR](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-pitr.png?w=2500&fit=max&auto=format&n=NAfHErQ6-kE8SaMw&q=85&s=6226cf8b85899c6282d82370375f5e20)
+![Postgres PITR](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/postgres-pitr.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=ab0d860a3f430875b0544458371dc534)
 
-Postgres PITR
-
-- Automated backup scheduling with configurable retention periods
-- Custom backup timing to minimize impact on production workloads
-- Point-in-time recovery capabilities within retention windows
+* Automated backup scheduling with configurable retention periods
+* Custom backup timing to minimize impact on production workloads
+* Point-in-time recovery capabilities within retention windows
 
 Learn more about [backup and restore operations](backups.md).
 
@@ -238,10 +235,10 @@ PlanetScale Postgres integrates with development workflows through database bran
 
 **Environment isolation**:
 
-- Create isolated database environments from production backups
-- Independent schema and data changes without affecting production
-- Cost-optimized single-instance architecture for development branches
-- Automatic promotion to full high-availability architecture when needed
+* Create isolated database environments from production backups
+* Independent schema and data changes without affecting production
+* Cost-optimized single-instance architecture for development branches
+* Automatic promotion to full high-availability architecture when needed
 
 ### Third-party integrations
 
@@ -249,27 +246,30 @@ PlanetScale Postgres integrates with popular monitoring and development tools th
 
 **Monitoring system integrations**:
 
-- [Prometheus endpoints](monitoring/prometheus-postgres.md) for custom metrics collection
-- [Datadog integration](monitoring/prometheus-metrics-datadog-postgres.md) for unified monitoring dashboards
+* [Prometheus endpoints](monitoring/prometheus-postgres.md) for custom metrics collection
+* [Datadog integration](monitoring/prometheus-metrics-datadog-postgres.md) for unified monitoring dashboards
 
 **Development tool integrations**:
 
-- Standard PostgreSQL connection protocols for universal tool compatibility
-- Support for popular database administration tools
-- API access for programmatic management and monitoring
+* Standard PostgreSQL connection protocols for universal tool compatibility
+* Support for popular database administration tools
+* API access for programmatic management and monitoring
 
 ## Related documentation
 
-## Cluster Configuration
+> **[Cluster Configuration](cluster-configuration.md)**
 
-## Scaling with Replicas
+> **[Scaling with Replicas](scaling/replicas.md)**
 
-## Backup and Recovery
+> **[Backup and Recovery](backups.md)**
 
-## Monitoring and Metrics
+> **[Monitoring and Metrics](monitoring/metrics.md)**
 
-## Database Branching
+> **[Database Branching](branching.md)**
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
