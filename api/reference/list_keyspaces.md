@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_keyspaces
 title: "List_keyspaces"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -21,7 +21,6 @@ A service token   must have at least one of the following access   in order to u
 
 
 
-**Platform availability:** Vitess only
 
 
 ## OpenAPI

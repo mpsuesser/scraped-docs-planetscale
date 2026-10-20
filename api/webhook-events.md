@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-10-01T20:07:30.279Z
-current_date: 2026-10-01T20:07:30.279Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Webhook events reference
+
+> Webhooks in PlanetScale allow you to trigger an HTTP POST callback to a configured URL when specific events happen within your PlanetScale organization.
+
+Vitess, Neki, and Postgres
 
 ## Overview
 
@@ -19,7 +29,7 @@ If configured, webhook deliveries include your Authorization header value unchan
 ## Webhook request body parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
+| :- | :- | :- |
 | `timestamp` | integer | Unix epoch time. |
 | `event` | string | Name of the webhook event, see [webhook events](#webhook-events) for more info about each event. |
 | `resource` | object | Information about the event, uses the same response body as the API responses for the same resource. See examples below. |
@@ -27,7 +37,7 @@ If configured, webhook deliveries include your Authorization header value unchan
 ## Webhook events
 
 | Webhook event | `event` parameter | Trigger | Engines |
-| --- | --- | --- | --- |
+| :- | :- | :- | :- |
 | [Branch anomaly](#branch-anomaly) | `branch.anomaly` | The branch has a new anomaly in insights. | Vitess, Neki, Postgres |
 | [Branch primary promoted](#branch-primary-promoted) | `branch.primary_promoted` | A new primary has been promoted for the branch. | Postgres |
 | [Branch out of memory](#branch-out-of-memory) | `branch.out_of_memory` | A Postgres database experienced an out of memory event. | Postgres |
@@ -50,7 +60,9 @@ If configured, webhook deliveries include your Authorization header value unchan
 | [Keyspace storage](#keyspace-storage) | `keyspace.storage` | A Vitess keyspace has reached a storage threshold (60%, 75%, 85%, 90%, 95%). | Vitess |
 | [Webhook test](#webhook-test) | `webhook.test` | A webhook test is triggered. | Vitess, Neki, Postgres |
 
-If there is an event you want to use that is not included in this list, please [contact us](https://planetscale.com/contact) and let us know what event you want to trigger a webhook on.
+> [!NOTE]
+>
+> If there is an event you want to use that is not included in this list, please [contact us](https://planetscale.com/contact) and let us know what event you want to trigger a webhook on.
 
 ### Branch anomaly
 
@@ -60,7 +72,7 @@ The `branch.anomaly` event uses the same response body as a `200` response from 
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.anomaly",
@@ -139,7 +151,7 @@ The `branch.primary_promoted` event uses the same response body as a `200` respo
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.primary_promoted",
@@ -226,7 +238,7 @@ The `branch.out_of_memory` event uses the same response body as a `200` response
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.out_of_memory",
@@ -309,7 +321,7 @@ The `branch.ready` event uses the same response body as a `200` response from th
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.ready",
@@ -390,7 +402,7 @@ Set an [Authorization header](webhooks.md#authenticating-webhook-deliveries) on 
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.schema_recommendation",
@@ -424,7 +436,7 @@ The `branch.sleeping` event uses the same response body as a `200` response from
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1697739653,
   "event": "branch.sleeping",
@@ -499,15 +511,15 @@ The `branch.sleeping` event uses the same response body as a `200` response from
 
 A production branch is about to start maintenance. This webhook is available for Vitess, Neki, and Postgres databases, with different behaviors:
 
-#### Vitess
+**Vitess**
 
 Vitess maintenance webhooks are available for enterprise customers with maintenance windows configured. During maintenance, Vitess and security upgrades are rolled out. Any queued cluster configuration changes are applied.
 
-#### Neki
+**Neki**
 
 Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](../neki/cluster-configuration/maintenance-windows.md) for more information.
 
-#### Postgres
+**Postgres**
 
 Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](../postgres/cluster-configuration/maintenance-windows.md) for more information.
 
@@ -517,7 +529,7 @@ The `branch.start_maintenance` event uses the same response body as a `200` resp
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "branch.start_maintenance",
@@ -600,7 +612,7 @@ The `backup.failed` event uses the same response body as a `200` response from t
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "backup.failed",
@@ -656,7 +668,7 @@ The `backup.succeeded` event uses the same response body as a `200` response fro
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252879,
   "event": "backup.succeeded",
@@ -708,7 +720,7 @@ The `backup.succeeded` event uses the same response body as a `200` response fro
 
 A storage threshold (60%, 75%, 85%, 90%, 95%) has been crossed for a Postgres database.
 
-```json
+```json theme={null}
 {
   "timestamp": 1745526125,
   "event": "cluster.storage",
@@ -737,7 +749,7 @@ The `database.access_request` event is triggered when PlanetScale staff initiate
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1745617110,
   "event": "database.access_request",
@@ -791,7 +803,7 @@ The `deploy_request.opened` event uses the same response body as a `200` respons
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252899,
   "event": "deploy_request.opened",
@@ -871,7 +883,7 @@ The `deploy_request.queued` event uses the same response body as a `200` respons
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252953,
   "event": "deploy_request.queued",
@@ -924,8 +936,8 @@ The `deploy_request.queued` event uses the same response body as a `200` respons
           "eta_seconds": null,
           "progress_percentage": null,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:55:26.562Z",
           "updated_at": "2023-10-25T16:55:26.562Z",
           "can_drop_data": true,
@@ -971,7 +983,7 @@ The `deploy_request_in_progress` event uses the same response body as a `200` re
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252961,
   "event": "deploy_request.in_progress",
@@ -1024,8 +1036,8 @@ The `deploy_request_in_progress` event uses the same response body as a `200` re
           "eta_seconds": null,
           "progress_percentage": null,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:55:26.562Z",
           "updated_at": "2023-10-25T16:55:26.562Z",
           "can_drop_data": true,
@@ -1071,7 +1083,7 @@ The `deploy_request.errored` event uses the same response body as a `200` respon
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1697736651,
   "event": "deploy_request.errored",
@@ -1181,7 +1193,7 @@ The `deploy_request.pending_cutover` event uses the same response body as a `200
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252961,
   "event": "deploy_request.pending_cutover",
@@ -1234,8 +1246,8 @@ The `deploy_request.pending_cutover` event uses the same response body as a `200
           "eta_seconds": null,
           "progress_percentage": 100,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:55:26.562Z",
           "updated_at": "2023-10-25T16:55:26.562Z",
           "can_drop_data": true,
@@ -1292,7 +1304,7 @@ The deploy request has finished applying the schema.
 
 The `deploy_request.schema_applied` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698252989,
   "event": "deploy_request.schema_applied",
@@ -1355,8 +1367,8 @@ The `deploy_request.schema_applied` event uses the same response body as a `200`
           "eta_seconds": 0,
           "progress_percentage": 100,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:56:01.399Z",
           "updated_at": "2023-10-25T16:56:28.745Z",
           "can_drop_data": true,
@@ -1385,7 +1397,7 @@ The `deploy_request.schema_applied` event uses the same response body as a `200`
           {
             "id": "p3r4o6t4wr7x",
             "type": "DeployRevertOperation",
-            "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
+            "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
             "operation_name": "ALTER",
             "state": "submit",
             "table_name": "Persons",
@@ -1425,7 +1437,7 @@ The deploy request has been reverted.
 
 The `deploy_request.reverted` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698253029,
   "event": "deploy_request.reverted",
@@ -1488,8 +1500,8 @@ The `deploy_request.reverted` event uses the same response body as a `200` respo
           "eta_seconds": 0,
           "progress_percentage": 100,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:56:01.399Z",
           "updated_at": "2023-10-25T16:56:28.745Z",
           "can_drop_data": true,
@@ -1518,7 +1530,7 @@ The `deploy_request.reverted` event uses the same response body as a `200` respo
           {
             "id": "p3r4o6t4wr7x",
             "type": "DeployRevertOperation",
-            "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
+            "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
             "operation_name": "ALTER",
             "state": "complete",
             "table_name": "Persons",
@@ -1558,7 +1570,7 @@ The deploy request has been closed.
 
 The `deploy_request.closed` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1698253030,
   "event": "deploy_request.closed",
@@ -1626,8 +1638,8 @@ The `deploy_request.closed` event uses the same response body as a `200` respons
           "eta_seconds": 0,
           "progress_percentage": 100,
           "deploy_error_docs_url": null,
-          "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
-          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">\`Persons\`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">\`Address\`</span></div>",
+          "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
+          "syntax_highlighted_ddl": "<div class=\"line line-1\"><span class=\"k\">ALTER</span> <span class=\"k\">TABLE</span> <span class=\"nv\">`Persons`</span> </div><div class=\"line line-2\">  <span class=\"k\">DROP</span> <span class=\"k\">COLUMN</span> <span class=\"nv\">`Address`</span></div>",
           "created_at": "2023-10-25T16:56:01.399Z",
           "updated_at": "2023-10-25T16:56:28.745Z",
           "can_drop_data": true,
@@ -1656,7 +1668,7 @@ The `deploy_request.closed` event uses the same response body as a `200` respons
           {
             "id": "p3r4o6t4wr7x",
             "type": "DeployRevertOperation",
-            "ddl_statement": "ALTER TABLE \`Persons\` DROP COLUMN \`Address\`",
+            "ddl_statement": "ALTER TABLE `Persons` DROP COLUMN `Address`",
             "operation_name": "ALTER",
             "state": "complete",
             "table_name": "Persons",
@@ -1694,9 +1706,11 @@ The `deploy_request.closed` event uses the same response body as a `200` respons
 
 A storage threshold (60%, 75%, 85%, 90%, 95%) has been crossed for a keyspace.
 
-These webhooks are only sent for Vitess databases on PlanetScale Metal instances.
+> [!NOTE]
+>
+> These webhooks are only sent for Vitess databases on PlanetScale Metal instances.
 
-```json
+```json theme={null}
 {
   "timestamp": 1745526125,
   "event": "keyspace.storage",
@@ -1727,7 +1741,7 @@ You can only send one webhook test every 20 seconds.
 
 **Example:**
 
-```json
+```json expandable theme={null}
 {
   "timestamp": 1697738828,
   "event": "webhook.test",
@@ -1780,4 +1794,7 @@ You can only send one webhook test every 20 seconds.
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

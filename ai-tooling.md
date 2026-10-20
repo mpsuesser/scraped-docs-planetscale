@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-09-15T19:21:39.360Z
-current_date: 2026-09-15T19:21:39.360Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# AI-enhanced development
+
+> Improve your database development experience with AI-powered tooling specifically designed for PlanetScale
+
+Vitess and Postgres
 
 ## Agents
 
@@ -14,13 +24,13 @@ Use the [PlanetScale Bot for Grok Bot](agents/grok-bot.md) to answer database qu
 
 Official bootstrap instructions for AI agents — install skills, configure MCP, and authenticate the CLI. Fetch as Markdown for agent sessions:
 
-## Agent setup prompt
-
-Copy or fetch the [Markdown export](https://planetscale.com/docs/agent-setup/prompt.md) (`https://planetscale.com/docs/agent-setup/prompt.md` on production)
+> **[Agent setup prompt](agent-setup/prompt.md)**
+>
+> Copy or fetch the [Markdown export](https://planetscale.com/docs/agent-setup/prompt.md) (`https://planetscale.com/docs/agent-setup/prompt.md` on production)
 
 If the PlanetScale CLI is installed (**`pscale` 0.292.0+**), agents can also run:
 
-```shellscript
+```bash theme={null}
 pscale agent-guide --format json
 pscale auth check --format json
 ```
@@ -31,40 +41,41 @@ See [CLI agent-guide](cli/agent-guide.md) for the JSON response fields.
 
 ## PlanetScale MCP Server
 
-Authenticated MCP servers allow your AI tools to access information specific to your PlanetScale account. Access your PlanetScale organizations, databases, branches, schema, and Insights data from within your development tools.
+Authenticated MCP servers allow your AI tools to access information specific to your PlanetScale account.
+Access your PlanetScale organizations, databases, branches, schema, and Insights data from within your development tools.
 
 The hosted MCP server can be installed in development tools as well as other MCP-accessible tools like Claude in the web browser and desktop app.
 
-## PlanetScale MCP Server
-
-Install in Claude Code, Cursor, VS Code and more
+> **[PlanetScale MCP Server](mcp-server.md)**
+>
+> Install in Claude Code, Cursor, VS Code and more
 
 ## Automated Database Optimization
 
 Use the MCP server with AI coding agents to continuously optimize your database. Agents can review production Insights data and Schema Recommendations, then open pull requests with performance improvements — on a recurring schedule.
 
-## Self-improving database
-
-Set up automated agents that optimize your database daily
+> **[Self-improving database](self-improving-database.md)**
+>
+> Set up automated agents that optimize your database daily
 
 ## PlanetScale Skills
 
 Operational workflows for agents — read-only assessment, safety review, Insights analysis, schema recommendations, Traffic Control, and change gates — live in the public skills pack:
 
-## planetscale/skills
-
-Install assessment and automation skills for Cursor, Claude Code, and more
+> **[planetscale/skills](https://github.com/planetscale/skills)**
+>
+> Install assessment and automation skills for Cursor, Claude Code, and more
 
 **Setup script (recommended):**
 
-```shellscript
+```bash theme={null}
 git clone https://github.com/planetscale/skills.git
 cd skills && script/setup
 ```
 
 **Skills CLI:**
 
-```shellscript
+```bash theme={null}
 npx skills add planetscale/skills -g -y
 ```
 
@@ -74,7 +85,7 @@ Load **`planetscale-pscale-cli-automation`** for CLI conventions and **`planetsc
 
 For MySQL- and Vitess-specific query and schema guidance (separate from the operational skills pack above):
 
-```shellscript
+```bash theme={null}
 npx skills add planetscale/database-skills
 ```
 
@@ -86,7 +97,7 @@ The [PlanetScale Claude Code Plugin](https://github.com/planetscale/claude-plugi
 
 In Claude Code, add this GitHub repository as a marketplace, then install the plugin:
 
-```shellscript
+```bash theme={null}
 /plugin marketplace add planetscale/claude-plugin
 /plugin install planetscale@planetscale-plugins
 ```
@@ -95,4 +106,7 @@ You may need to restart your Claude Code session before the MCP server is availa
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

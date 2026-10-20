@@ -2,40 +2,48 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-09T19:44:03.697Z
-current_date: 2026-10-09T19:44:03.697Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# PlanetScale CLI
 
 To interact with PlanetScale and manage your databases, you can use the `pscale` CLI to do the following:
 
-- Create, delete and list your Vitess, Neki, and Postgres databases and branches
-- Run non-interactive SQL for agents and scripts (`pscale sql`)
-- Open a secure MySQL or PostgreSQL shell instance, including Neki router and replica routing
-- Manage Neki configuration profiles, shards, routers, sidecars, and data topology
-- Manage your deploy requests
-- Bootstrap AI agents (`pscale agent-guide`)
-- …and more!
+* Create, delete and list your Vitess, Neki, and Postgres databases and branches
+* Run non-interactive SQL for agents and scripts (`pscale sql`)
+* Open a secure MySQL or PostgreSQL shell instance, including Neki router and replica routing
+* Manage Neki configuration profiles, shards, routers, sidecars, and data topology
+* Manage your deploy requests
+* Bootstrap AI agents (`pscale agent-guide`)
+* ...and more!
 
-## Install pscale
-
-Install or upgrade the PlanetScale CLI for macOS, Linux, or Windows.
+> **[Install pscale](cli/planetscale-environment-setup.md)**
+>
+> Install or upgrade the PlanetScale CLI for macOS, Linux, or Windows.
 
 Agents and automation should start with the [Agent setup prompt](agent-setup/prompt.md), `pscale --skill`, or `pscale agent-guide --format json`. Agent automation commands require `pscale` 0.292.0 or later; run `brew upgrade pscale` if `agent-guide` is unknown. Always pass `--format json` in automation.
 
-`pscale` can use the MySQL command-line client to quickly open an interactive shell for a database branch. Optional instructions for installing the MySQL client can be found for each platform below.
+> [!NOTE]
+>
+> `pscale` can use the MySQL command-line client to quickly open an interactive shell for a database branch. Optional instructions for installing the MySQL client can be found for each platform below.
 
 ## Getting Started
 
-Make sure to first [set up your PlanetScale developer environment](cli/planetscale-environment-setup.md). Once you’ve installed the `pscale` CLI, you can interact with PlanetScale and manage your databases straight from the command line.
+Make sure to first [set up your PlanetScale developer environment](cli/planetscale-environment-setup.md). Once you've installed the `pscale` CLI, you can interact with PlanetScale and manage your databases straight from the command line.
 
 ## Available Commands
 
 Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 
 | **Command** | **Subcommands/Options** | **Flags** | **Product** | **Description** |
-| --- | --- | --- | --- | --- |
-| [`agent-guide`](cli/agent-guide.md) |  | `--format json`, `--skill` | Vitess, Postgres, Neki | Bootstrap JSON for AI agents or print the installable agent skill |
-| [`api`](cli/api.md) |  | `--help`, `--org string`, `--database string`, `--branch string`, `--field key=value`, `--header stringArray`, `--input string`, `--method string`, `--query key=value` | Vitess, Postgres, Neki | Performs authenticated calls against the PlanetScale API and prints the response to stdout. |
+| :- | :- | :- | :- | :- |
+| [`agent-guide`](cli/agent-guide.md) | | `--format json`, `--skill` | Vitess, Postgres, Neki | Bootstrap JSON for AI agents or print the installable agent skill |
+| [`api`](cli/api.md) | | `--help`, `--org string`, `--database string`, `--branch string`, `--field key=value`, `--header stringArray`, `--input string`, `--method string`, `--query key=value` | Vitess, Postgres, Neki | Performs authenticated calls against the PlanetScale API and prints the response to stdout. |
 | [`audit-log`](cli/audit-log.md) | `list`, `auth-attempts download` | `--help`, `--org string` | Vitess, Postgres, Neki | List all [audit logs](security/audit-log.md#review-your-organization-audit-log) and download authentication-attempt exports |
 | [`auth`](cli/auth.md) | `login`, `logout`, `check` | `--help`, `--format json` | Vitess, Postgres, Neki | Authenticate via console or JSON device login for agents |
 | [`backup`](cli/backup.md) | `create`, `delete`, `list`, `policy`, `restore`, `restore show`, `show`, `update` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage [Vitess](vitess/backups.md), [Postgres](postgres/backups.md), and [Neki](neki/backups.md) branch backups |
@@ -54,18 +62,18 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`keyspace`](cli/keyspace.md) | `create`, `create-external`, `delete`, `list`, `parameters`, `read-only-regions`, `resize`, `rollout-status`, `settings`, `show`, `update-settings`, `vschema` | `--help`, `--org string` | Vitess | Manage [keyspaces](vitess/sharding/keyspaces.md) within a database branch, including [external keyspaces](cli/keyspace.md#create-an-external-keyspace) |
 | [`maintenance`](cli/maintenance.md) | `list`, `show`, `windows` | `--help`, `--org string` | Vitess | View planned maintenance schedules and windows for a database |
 | [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres, Neki | Manage and switch [organizations](security/access-control.md), including members, teams, and SSO |
-| [`metrics`](cli/metrics.md) | `instant`, `keyspace-tables`, `queries`, `report`, `show`, `tables`, `tablets`, `tags` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres, Neki | Query historical and current branch metrics from PlanetScale’s metrics service |
+| [`metrics`](cli/metrics.md) | `instant`, `keyspace-tables`, `queries`, `report`, `show`, `tables`, `tablets`, `tags` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres, Neki | Query historical and current branch metrics from PlanetScale's metrics service |
 | [`move-tables`](cli/move-tables.md) | `list`, `create`, `show`, `status`, `start`, `stop`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | `--help`, `--org string` | Vitess | Move tables between keyspaces and [import external MySQL databases](vitess/imports/database-imports.md) with [Vitess MoveTables](cli/move-tables.md) (`pscale branch vtctl move-tables`) |
 | [`password`](cli/password.md) | `create`, `delete`, `list`, `renew`, `show`, `update` | `--help`, `--org string`, `--name string`, `--new-name string`, `--cidrs strings`, `--status string` | Vitess | Manage [branch credentials](vitess/connecting/connection-strings.md) |
 | [`pgbouncer`](cli/pgbouncer.md) | `create`, `delete`, `list`, `resize`, `show` | `--help`, `--org string` | Postgres | Manage dedicated [PgBouncers](postgres/connecting/pgbouncer.md) for a Postgres branch |
-| [`ping`](cli/ping.md) |  | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres, Neki | Check [latency](vitess/connecting/network-latency.md) between your machine and PlanetScale’s public regions |
+| [`ping`](cli/ping.md) | | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres, Neki | Check [latency](vitess/connecting/network-latency.md) between your machine and PlanetScale's public regions |
 | [`region`](cli/region.md) | `list` | `--org string` | Vitess, Postgres, Neki | View available [regions](https://planetscale.com/docs/vitess/regions) |
 | [`role`](cli/role.md) | `create`, `default`, `delete`, `get`, `list`, `reassign`, `renew`, `reset`, `reset-default`, `update` | `--help`, `--org string`, `--inherited-roles string`, `--ttl duration`, `--force`, `--successor string`, `--name string`, `--web` | Postgres, Neki | Manage [Postgres](postgres/connecting/roles.md) and [Neki](neki/connecting/roles.md) roles |
 | [`service-token`](cli/service-token.md) | `add-access`, `create`, `delete`, `delete-access`, `list`, `show-access` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage access of [service tokens](api/reference/service-tokens.md) |
 | [`size`](cli/size.md) | `cluster list` | `--help`, `--org string`, `--engine string`, `--region string`, `--metal`, `--external` | Vitess, Postgres, Neki | View available [cluster sizes](planetscale-plans.md), including [external keyspace sizes](cli/size.md#list-external-keyspace-cluster-sizes) |
 | [`traffic-control`](cli/traffic-control.md) | `budget`, `rule` | `--help`, `--org string` | Postgres | Manage [Database Traffic Control](postgres/traffic-control.md) budgets and rules for a Postgres database branch |
 | [`shell`](cli/shell.md) | `<database_name>` `[branch_name]` `[db_name]` | `--help`, `--db-name string`, `--local-addr string`, `--org string`, `--remote-addr string`, `--role string`, `--replica`, `--router` | Vitess, Postgres, Neki | Open an interactive shell to the specified database and branch |
-| [`signup`](cli/signup.md) |  | `--help` | Vitess, Postgres, Neki | Sign up for a new PlanetScale account |
+| [`signup`](cli/signup.md) | | `--help` | Vitess, Postgres, Neki | Sign up for a new PlanetScale account |
 | [`sql`](cli/sql.md) | `<database>` `<branch>` | `--org string`, `--query string`, `--role string`, `--replica`, `--dbname string`, `--keyspace string`, `--force`, `--vertical`, `--format json` | Vitess, Postgres, Neki | Execute a SQL query without an interactive shell (agents/scripts) |
 | [`webhook`](cli/webhook.md) | `create`, `delete`, `list`, `show`, `test`, `update` | `--help`, `--org string`, `--events string`, `--url string`, `--enabled` | Vitess, Postgres, Neki | Manage [webhooks](api/webhooks.md) for databases |
 | [`workflow`](cli/workflow.md) | `cancel`, `complete`, `create`, `cutover`, `list`, `retry`, `reverse-cutover`, `reverse-traffic`, `show`, `switch-traffic`, `verify-data` | `--help`, `--org string` | Vitess | Deprecated. Use [`move-tables`](cli/move-tables.md) instead |
@@ -75,12 +83,12 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 You may use the following flags with the PlanetScale CLI commands.
 
 | **Flag** | **Description** |
-| --- | --- |
+| :- | :- |
 | `--api-token string` | The API token to use for authenticating against the PlanetScale API |
-| `--api-url string` | The base URL for the PlanetScale API. (default “ [https://api.planetscale.com/](https://api.planetscale.com/) “) |
+| `--api-url string` | The base URL for the PlanetScale API. (default "[https://api.planetscale.com/](https://api.planetscale.com/)") |
 | `--config string` | Config file *(default: `$HOME/.config/planetscale/pscale.yml`)* |
 | `--debug` | Enable debug mode |
-| `-f, --format string` | Show output in specific format. Possible values: *\[human, json, csv\] (default: “human”)* |
+| `-f, --format string` | Show output in specific format. Possible values: *\[human, json, csv] (default: "human")* |
 | `-h, --help` | Get more information about a command |
 | `--no-color` | Disable color output |
 | `--service-token string` | Service Token for authenticating |
@@ -96,7 +104,7 @@ A complete list of access permissions available for use with service tokens can 
 
 Running `pscale` in CI or an AI agent uses a [service token](cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
 
-```shellscript
+```bash theme={null}
 # Environment variables (recommended for CI and agents)
 export PLANETSCALE_SERVICE_TOKEN_ID="<SERVICE_TOKEN_ID>"
 export PLANETSCALE_SERVICE_TOKEN="<SERVICE_TOKEN>"
@@ -109,13 +117,15 @@ pscale database list --org <org> \
 
 A service token has **no active organization**, so resource commands need the org supplied explicitly. Set it with `PLANETSCALE_ORG`, the `--org` flag on the subcommand, or `pscale org switch <org>` (which works with a service token):
 
-```shellscript
+```bash theme={null}
 export PLANETSCALE_ORG="<org>"
 pscale database list --format json          # uses PLANETSCALE_ORG
 pscale database list --org <org> --format json   # explicit flag
 ```
 
-`--org` goes on the **resource subcommand** (`database`, `branch`, `sql`, `api`, …), never on root `pscale`. `pscale --org <org> database list` fails with `unknown flag: --org`.
+> [!WARNING]
+>
+> `--org` goes on the **resource subcommand** (`database`, `branch`, `sql`, `api`, …), never on root `pscale`. `pscale --org <org> database list` fails with `unknown flag: --org`.
 
 Per-command-family matrices (env-var auth, `--service-token` flag, required `--org`, Postgres/Vitess, `--format json`, API equivalent): [`org`](cli/org.md#service-token-automation-org) · [`service-token`](cli/service-token.md#service-token-automation-service-token) · [`database`](cli/database.md#service-token-automation-database) · [`branch`](cli/branch.md#service-token-automation-branch) · [`role`](cli/role.md#service-token-automation-role) · [`password`](cli/password.md#service-token-automation-password).
 
@@ -124,23 +134,25 @@ Per-command-family matrices (env-var auth, `--service-token` flag, required `--o
 Do not retry these with service-token auth. The failure is by design, not transient. This is the most common cause of agent retry loops.
 
 | Command | Why | Do this instead | Exact error |
-| --- | --- | --- | --- |
-| `pscale org show` | A service token has no “current” organization | `pscale org list --format json`, then pass `--org` or `PLANETSCALE_ORG` | `not authenticated yet. Please run 'pscale auth login'` |
+| :- | :- | :- | :- |
+| `pscale org show` | A service token has no "current" organization | `pscale org list --format json`, then pass `--org` or `PLANETSCALE_ORG` | `not authenticated yet. Please run 'pscale auth login'` |
 | `pscale service-token list` | Token management is blocked when authenticated with a token | `pscale api organizations/<org>/service-tokens --format json` | `pscale service-token list is unavailable when authenticated with a service token` |
 | `pscale service-token show-access` | Same as `list` | `pscale api organizations/<org>/service-tokens/<id> --format json` | `pscale service-token show-access is unavailable when authenticated with a service token` |
 | `pscale service-token` (other sub-commands) | Create/manage tokens blocked under service-token auth | `pscale auth login`, then CLI; or [Service tokens API](api/reference/service-tokens.md) | `pscale service-token <sub-command> is unavailable when authenticated with a service token` |
 | `pscale auth login` / `logout` | Not needed; the token is the credential | Set the token env vars; run `pscale auth check --format json` to confirm | requires an interactive browser device flow |
 | `pscale shell` / `connect` | Interactive sessions | Use [`pscale sql`](cli/sql.md) for non-interactive queries | opens an interactive session |
 
-`pscale org show` prints `not authenticated yet. Please run 'pscale auth login'` under a valid service token. This is the **no-current-org** state, not an auth failure. Do **not** respond by running `pscale auth login`. Discover the org with `pscale org list` and pass it with `--org` or `PLANETSCALE_ORG`.
+> [!WARNING]
+>
+> `pscale org show` prints `not authenticated yet. Please run 'pscale auth login'` under a valid service token. This is the **no-current-org** state, not an auth failure. Do **not** respond by running `pscale auth login`. Discover the org with `pscale org list` and pass it with `--org` or `PLANETSCALE_ORG`.
 
-`pscale auth check --format json` confirms a token is wired up. Expect `"authenticated": true`, `"auth_method": "service_token"`, and (until an org is set) an `action_required` status with a `NO_ORG` issue and a non-zero exit code. Resolve it by passing `--org` / `PLANETSCALE_ORG` on your commands.
+`pscale auth check --format json` confirms a token is wired up. Expect `"authenticated": true`, `"auth_method": "service_token"`, and (until an org is set) an `action_required` status with a `NO_ORG` issue and a non-zero exit code. Resolve it by passing `--org`/`PLANETSCALE_ORG` on your commands.
 
-### pscale api fallback for hard-to-parse output
+### `pscale api` fallback for hard-to-parse output
 
-When a command’s human output is hard to parse, prefer `--format json`, or drop to the raw API with `pscale api`, which returns the API response verbatim and uses the same token:
+When a command's human output is hard to parse, prefer `--format json`, or drop to the raw API with `pscale api`, which returns the API response verbatim and uses the same token:
 
-```shellscript
+```bash theme={null}
 # org list
 pscale api organizations --format json
 
@@ -159,4 +171,7 @@ pscale api organizations/<org>/service-tokens/<id> --format json
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

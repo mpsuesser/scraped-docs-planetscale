@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_deploy_queue
 title: "Get_deploy_queue"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -15,7 +15,6 @@ current_date: 2026-10-14T12:20:11.966Z
 > The deploy queue returns the current list of deploy requests in the order they will be deployed.
 
 
-**Platform availability:** Vitess only
 
 
 ## OpenAPI

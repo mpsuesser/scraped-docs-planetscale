@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_branch
 title: "Create_branch"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ A service token or OAuth token must have at least one of the following access or
 | Database | `write_branches`, `restore_production_branch_backups`, `restore_backups` |
 | Branch | `restore_backups` |
 
-**Platform availability:** Vitess and Postgres
+Vitess and Postgres
 
 This endpoint also facilitates backup restores: pass a `backup_id` (from a backup in the `success` state) together with a required `cluster_size` to restore that backup's schema and data into the new branch. There is no separate restore endpoint. When `backup_id` is set, `region` is ignored — restored branches use the backup's region.
 

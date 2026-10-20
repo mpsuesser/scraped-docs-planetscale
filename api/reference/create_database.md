@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database
 title: "Create_database"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -25,7 +25,7 @@ A service token or OAuth token must have at least one of the following access or
 | :------- | :---------- |
 | Organization | `create_databases` |
 
-**Platform availability:** Vitess and Postgres
+Vitess and Postgres
 
 Do not hard-code cluster size SKU names — discover them with `list_cluster_size_skus` (filter by the matching `engine` and `enabled: true`; the first enabled non-metal SKU, typically `PS_10`, is a safe default for temporary databases). `cluster_size` is **required for MySQL/Vitess** databases and optional for PostgreSQL.
 

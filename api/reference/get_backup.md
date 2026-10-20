@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_backup
 title: "Get_backup"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ A service token or OAuth token must have at least one of the following access or
 | Database | `read_backups` |
 | Branch | `read_backups` |
 
-**Platform availability:** Vitess and Postgres
+Vitess and Postgres
 
 Poll this endpoint after `create_backup` until `state` is `success` before restoring. `pending` and `running` are transient; `failed`, `canceled`, and `ignored` are terminal — stop retrying.
 

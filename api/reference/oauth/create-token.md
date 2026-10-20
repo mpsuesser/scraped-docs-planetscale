@@ -2,13 +2,21 @@
 url: https://planetscale.com/docs/api/reference/oauth/create-token
 title: "Create Token"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Create or refresh OAuth token
+
+> Exchange an authorization code for an access token or refresh an expired token
 
 ## Endpoint
 
-```text
+```
 POST https://auth.planetscale.com/oauth/token
 ```
 
@@ -18,51 +26,51 @@ This is the standard OAuth 2.0 token endpoint for creating and refreshing access
 
 The request body should be sent as `application/x-www-form-urlencoded`.
 
-### For authorization code exchangestring
+### For authorization code exchange
 
-required
+**grant\_type** `string` *required*
 
-Must be `authorization_code`string
+Must be `authorization_code`
 
-required
+**code** `string` *required*
 
-The authorization code received from the authorization flowstring
+The authorization code received from the authorization flow
 
-required
+**redirect\_uri** `string` *required*
 
-The redirect URI used in the authorization requeststring
+The redirect URI used in the authorization request
 
-required
+**client\_id** `string` *required*
 
-Your OAuth application’s client IDstring
+Your OAuth application's client ID
 
-required
+**client\_secret** `string` *required*
 
-Your OAuth application’s client secret
+Your OAuth application's client secret
 
-### For token refreshstring
+### For token refresh
 
-required
+**grant\_type** `string` *required*
 
-Must be `refresh_token`string
+Must be `refresh_token`
 
-required
+**refresh\_token** `string` *required*
 
-The refresh token from a previous token responsestring
+The refresh token from a previous token response
 
-required
+**client\_id** `string` *required*
 
-Your OAuth application’s client IDstring
+Your OAuth application's client ID
 
-required
+**client\_secret** `string` *required*
 
-Your OAuth application’s client secret
+Your OAuth application's client secret
 
 ## Response
 
 ### Success Response (200 OK)
 
-```json
+```json theme={null}
 {
   "access_token": "<PLANETSCALE_OAUTH_ACCESS_TOKEN>",
   "token_type": "Bearer",
@@ -70,21 +78,31 @@ Your OAuth application’s client secret
   "refresh_token": "<PLANETSCALE_OAUTH_REFRESH_TOKEN>",
   "scope": "read_user read_databases"
 }
-```string
+```
 
-The OAuth access token to use for API requestsstring
+**access\_token** `string`
 
-Will always be “Bearer”integer
+The OAuth access token to use for API requests
 
-Number of seconds until the access token expiresstring
+**token\_type** `string`
 
-Token to use for refreshing the access token when it expiresstring
+Will always be "Bearer"
+
+**expires\_in** `integer`
+
+Number of seconds until the access token expires
+
+**refresh\_token** `string`
+
+Token to use for refreshing the access token when it expires
+
+**scope** `string`
 
 Space-separated list of scopes granted to this token
 
 ## Example
 
-```shellscript
+```bash theme={null}
 # Exchange authorization code for access token
 curl -X POST https://auth.planetscale.com/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
@@ -116,3 +134,6 @@ Invalid client credentials (client\_id or client\_secret is incorrect).
 ### 400 Invalid Grant
 
 The authorization code or refresh token is invalid, expired, or already used.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

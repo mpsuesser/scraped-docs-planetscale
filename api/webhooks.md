@@ -2,18 +2,26 @@
 url: https://planetscale.com/docs/api/webhooks
 title: "Webhooks"
 description: ""
-access_date: 2026-10-01T20:07:30.279Z
-current_date: 2026-10-01T20:07:30.279Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Webhooks
+
+Vitess and Postgres
 
 ## Webhooks in PlanetScale
 
 With a webhook in PlanetScale, you can trigger an HTTP POST callback to a configured URL when a specific event occurs within your PlanetScale organization. The callback payload will contain useful data related to the event. With this data, webhooks can be used to build custom integrations, notifications, and automate other workflows.
 
-Webhooks in PlanetScale for Vitess are not like MySQL triggers and cannot be triggered on database table events like `INSERT`, `UPDATE`, or `DELETE`. Instead, think of events for your database cluster’s life cycle such as:
+Webhooks in PlanetScale for Vitess are not like MySQL triggers and cannot be triggered on database table events like `INSERT`, `UPDATE`, or `DELETE`. Instead, think of events for your database cluster's life cycle such as:
 
 | Webhook event | Trigger |
-| --- | --- |
+| :- | :- |
 | Branch ready | The branch is created and ready to connect. |
 | Deploy request opened | The deploy request has been opened. |
 | Deploy request queued | The deploy request has been added to the deploy queue. |
@@ -28,37 +36,81 @@ For more information about the events you can trigger a webhook with in PlanetSc
 
 There are various scenarios where webhooks can be useful, some of them include:
 
-- Creating notifications in Slack, Microsoft Teams, GitHub, and other tools
-- Integrating with CI/CD processes for the automation of schema changes
-- Updating external issue trackers like Jira
-- Starting a Cursor or Devin agent when a new schema recommendation is created
+* Creating notifications in Slack, Microsoft Teams, GitHub, and other tools
+* Integrating with CI/CD processes for the automation of schema changes
+* Updating external issue trackers like Jira
+* Starting a Cursor or Devin agent when a new schema recommendation is created
 
 ## Managing webhooks
 
 You can manage webhooks in PlanetScale using three different methods:
 
-- **Dashboard** — Create and manage webhooks through the web interface (instructions below)
-- **CLI** — Use the [`pscale webhook`](../cli/webhook.md) command to manage webhooks from your terminal
-- **API** — Use the [webhook API endpoints](reference/list_webhooks.md) for managing webhooks in your applications
+* **Dashboard** — Create and manage webhooks through the web interface (instructions below)
+* **CLI** — Use the [`pscale webhook`](../cli/webhook.md) command to manage webhooks from your terminal
+* **API** — Use the [webhook API endpoints](reference/list_webhooks.md) for managing webhooks in your applications
 
 ## Setting up a webhook using the dashboard
 
 You must be a [database administrator](../security/access-control.md#database-administrator) to create a webhook for a database.
 
+**Step 1**
+
+From the PlanetScale organization dashboard, select your database
+
+**Step 2**
+
+Click on **Settings** from the menu on the left
+
+**Step 3**
+
+Navigate to the **Webhooks** page from the sub-menu on the left under **Settings**
+
+**Step 4**
+
+Click **"Add webhook"**.
+
+**Step 5**
+
+Add an unique URL for the webhook to send events to. The URL must:
+
+* Use HTTPS. You can use sites like [https://webhook.site](https://webhook.site/) or tools like [ngrok](https://ngrok.com/docs/getting-started/) to create a HTTPS URL to test webhooks locally.
+* Be reachable from the internet, no local hosts.
+* Be able to handle incoming HTTP callbacks.
+
+**Step 6**
+
+Optional: Add an **Authorization header** if the receiving service requires authentication. Enter the complete value, including the authentication scheme. For example, `Bearer <token>`. PlanetScale sends this value unchanged. This supports webhook triggered Cursor and Devin automations.
+
+**Step 7**
+
+Select the events you want to trigger the webhook. See the [webhook events reference](webhook-events.md) for more information on the events and example response bodies.
+
+**Step 8**
+
+Click **"Save webhook"**.
+
+**Step 9**
+
+Select the **...** ellipsis and click **"Test webhook"** to send a test event to the webhook. You should receive a POST request with the event type `webhook.test`.
+
+**Step 10**
+
+On the **"Webhooks"** page, you can see the status of the last sent webhook under each webhook you set up.
+
 ## Handling deliveries
 
 There are a few things to remember when receiving a webhook from PlanetScale:
 
-- You must receive events with an HTTPS server.
-- Your server must [quickly respond](#responding-to-webhooks-quickly) with a `2xx` successful status code to indicate that the webhook was received successfully.
-- PlanetScale will not follow any redirects from the server.
-- PlanetScale’s webhooks will originate from one of the following IP addresses:
-	```text
-	3.209.149.66
-	3.215.97.46
-	34.193.111.15
-	```
-- We recommend [validating all webhook signatures](#validating-a-webhook-signature) to ensure the webhook came from PlanetScale, not from a third party, and was not tampered with.
+* You must receive events with an HTTPS server.
+* Your server must [quickly respond](#responding-to-webhooks-quickly) with a `2xx` successful status code to indicate that the webhook was received successfully.
+* PlanetScale will not follow any redirects from the server.
+* PlanetScale's webhooks will originate from one of the following IP addresses:
+  ```
+  3.209.149.66
+  3.215.97.46
+  34.193.111.15
+  ```
+* We recommend [validating all webhook signatures](#validating-a-webhook-signature) to ensure the webhook came from PlanetScale, not from a third party, and was not tampered with.
 
 ### Responding to webhooks quickly
 
@@ -66,21 +118,21 @@ To protect your service from being overloaded by webhook deliveries, we recommen
 
 ### Limits
 
-- Each database can have up to **5 webhooks**. If you need more webhooks per database, please [contact us](https://planetscale.com/contact).
-- You can only send one webhook test **every 20 seconds**.
-- Webhooks that repeatedly fail will be disabled.
+* Each database can have up to **5 webhooks**. If you need more webhooks per database, please [contact us](https://planetscale.com/contact).
+* You can only send one webhook test **every 20 seconds**.
+* Webhooks that repeatedly fail will be disabled.
 
 ### Authenticating webhook deliveries
 
 If the receiving service requires authentication, configure an Authorization header when you create or update the webhook. Enter the complete value, including the authentication scheme—for example, `Bearer <token>`. PlanetScale sends this value unchanged:
 
-```http
+```http theme={null}
 Authorization: Bearer <token>
 ```
 
 The Authorization header value is write-only. API responses and the dashboard edit form indicate whether a header is configured without revealing its value. When editing a webhook in the dashboard, leave the configured header unchanged to preserve it, choose **Replace** to enter a new value, or choose **Remove** to clear it when you save. In the CLI, omit `--authorization-header` to preserve the configured value, or use `pscale webhook update <DATABASE_NAME> <WEBHOOK_ID> --clear-authorization-header` to clear it.
 
-The Authorization header authenticates PlanetScale to the receiving service. It does not replace the `X-PlanetScale-Signature` header, which lets your own endpoint verify the payload’s origin and integrity.
+The Authorization header authenticates PlanetScale to the receiving service. It does not replace the `X-PlanetScale-Signature` header, which lets your own endpoint verify the payload's origin and integrity.
 
 ### Validating a webhook signature
 
@@ -90,7 +142,7 @@ All webhooks from PlanetScale will have an `X-PlanetScale-Signature` header. Thi
 
 To do this, you need to:
 
-1. Retrieve your webhook secret from PlanetScale. Go to your database’s settings page > **“Webhooks”** page. Click the **…** ellipsis next to the webhook you want to validate and click **“Show secret”**.
+1. Retrieve your webhook secret from PlanetScale. Go to your database's settings page > **"Webhooks"** page. Click the **...** ellipsis next to the webhook you want to validate and click **"Show secret"**.
 2. Copy and securely store your webhook secret on your server. Never hard code the secret into your application or check it into source control. Follow the best practices for your deployment provider and framework for storing secrets.
 3. Validate incoming webhook payloads against the secret to verify that the payload was sent by PlanetScale. You should calculate a hash using the JSON payload and the webhook secret. Then, compare the calculated hash to the `X-PlanetScale-Signature` header. If the two hashes match, the webhook payload is valid.
 
@@ -100,7 +152,7 @@ The following are examples of validating a webhook signature that uses a SHA-256
 
 #### JavaScript
 
-```javascript
+```javascript theme={null}
 const crypto = require('crypto')
 
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
@@ -121,18 +173,22 @@ const verify_signature = (req) => {
 
 You can then call `verifySignature` in any JavaScript environment when you receive a webhook.
 
-You must create the digest using the *exact* body string sent in the POST request. If you are using [Express](https://expressjs.com/), you need to ensure that you grab the raw body string. You’ll want to use `bodyParser.raw` instead of `express.json` for getting the POST request body:
-
-```javascript
-const app = express()
-app.use(bodyParser.raw({ inflate: true, type: 'application/json' }))
-```
+> [!WARNING]
+>
+> You must create the digest using the *exact* body string sent in the POST request.
+> If you are using [Express](https://expressjs.com/), you need to ensure that you grab the raw body string.
+> You'll want to use `bodyParser.raw` instead of `express.json` for getting the POST request body:
+>
+> ```javascript theme={null}
+> const app = express()
+> app.use(bodyParser.raw({ inflate: true, type: 'application/json' }))
+> ```
 
 Then you can access the body with `req.body` as shown above.
 
 #### TypeScript
 
-```typescript
+```typescript theme={null}
 import crypto from 'crypto'
 
 const WEBHOOK_SECRET: string = process.env.WEBHOOK_SECRET
@@ -153,7 +209,7 @@ const verify_signature = (req: Request): boolean => {
 
 You can then call `verify_signature` when you receive a webhook.
 
-```typescript
+```typescript theme={null}
 const handleWebhook = (req: Request, res: Response) => {
   if (!verify_signature(req)) {
     res.status(401).send('Unauthorized')
@@ -167,7 +223,7 @@ const handleWebhook = (req: Request, res: Response) => {
 
 This example shows how to validate the webhook in a Flask app.
 
-```python
+```python expandable theme={null}
 from flask import Flask, request
 from hashlib import sha256
 import hmac
@@ -206,7 +262,7 @@ if __name__ == '__main__':
 
 #### Ruby on Rails
 
-```ruby
+```ruby theme={null}
 SECRET = Rails.application.credentials.planetscale.fetch(:webhook_secret)
 
 # Private method in your controller
@@ -224,10 +280,13 @@ end
 
 You can then call `verify_signature` on each request to validate the webhook.
 
-```ruby
+```ruby theme={null}
 before_action :verify_signature, only: [:create]
 ```
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-09T23:32:13.485Z
-current_date: 2026-10-09T23:32:13.485Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Authenticate the MCP server with a service token
+
+> Use a PlanetScale service token to authenticate the hosted MCP server in CI, headless agents, and clients that send a custom HTTP header
+
+Vitess and Postgres
 
 OAuth is the default for the [hosted MCP server](../mcp-server.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
 
@@ -18,13 +28,15 @@ The hosted MCP server accepts the token secret as a Bearer token.
 
 The same header works for the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`.
 
-Use the token secret only. `Authorization: Bearer <id>:<secret>` is rejected. Do not commit the token in a config file.
+> [!WARNING]
+>
+> Use the token secret only. `Authorization: Bearer <id>:<secret>` is rejected. Do not commit the token in a config file.
 
 Claude.ai, Claude for desktop, Claude Managed Agents, and Notion authenticate with OAuth only. They do not accept a service token header.
 
 ## Permissions
 
-The organization **MCP query access** setting applies when someone authorizes an MCP client with OAuth. It does not limit a service token. The token’s own permissions do.
+The organization **MCP query access** setting applies when someone authorizes an MCP client with OAuth. It does not limit a service token. The token's own permissions do.
 
 The MCP server calls the PlanetScale API with the token you send. Each tool fails if the token is missing the permission for that API call. Grant the smallest set that covers the tools you want.
 
@@ -36,13 +48,13 @@ This covers listing organizations, databases, branches, schema, Insights, schema
 
 **Organization**
 
-- `read_organization`
-- `read_databases`
+* `read_organization`
+* `read_databases`
 
 **Database**
 
-- `read_database`
-- `read_branch`
+* `read_database`
+* `read_branch`
 
 `read_database` returns metadata about a database (name, state, default branch). It does not connect to MySQL or Postgres, and it does not run queries. Connecting and executing SQL requires the `connect_*` permissions below.
 
@@ -54,10 +66,10 @@ Add `read_invoices` on the organization if you want the invoice tools. Add `read
 
 Add these database permissions on top of the read-only set. The MCP server creates a short-lived reader password or Postgres role, runs the query, then deletes the credential.
 
-- `connect_branch` (development branches)
-- `connect_production_read_only_branch` (production branches)
-- `delete_branch_password` (development branches)
-- `delete_production_read_only_branch_password` (production branches)
+* `connect_branch` (development branches)
+* `connect_production_read_only_branch` (production branches)
+* `delete_branch_password` (development branches)
+* `delete_production_read_only_branch_password` (production branches)
 
 If you only query production, you can leave off `connect_branch` and `delete_branch_password`. If you only query development branches, leave off the production pair. `delete_production_branch_password` also works for deleting reader credentials on production.
 
@@ -69,40 +81,40 @@ Do not grant `connect_production_branch`. That permission can create write crede
 
 Add these on top of the read-only set:
 
-- `connect_branch`
-- `connect_production_branch`
-- `delete_branch_password`
-- `delete_production_branch_password`
+* `connect_branch`
+* `connect_production_branch`
+* `delete_branch_password`
+* `delete_production_branch_password`
 
 The full connect permissions can also run read queries. You do not need the read-only connect pair if you already grant these.
 
-Write query permissions can run `INSERT`, `UPDATE`, `DELETE`, and DDL. Only grant them on databases where that is acceptable.
+> [!WARNING]
+>
+> Write query permissions can run `INSERT`, `UPDATE`, `DELETE`, and DDL. Only grant them on databases where that is acceptable.
 
 ### Tool permissions
 
 | Tools | Organization permissions | Database permissions |
-| --- | --- | --- |
-| `planetscale_list_organizations` | None. Any valid token can list the organization it belongs to. |  |
-| `planetscale_get_organization`, `planetscale_list_regions_for_organization`, `planetscale_list_cluster_size_skus` | `read_organization` |  |
+| - | - | - |
+| `planetscale_list_organizations` | None. Any valid token can list the organization it belongs to. | |
+| `planetscale_get_organization`, `planetscale_list_regions_for_organization`, `planetscale_list_cluster_size_skus` | `read_organization` | |
 | `planetscale_list_databases`, `planetscale_get_database` | `read_databases` to see every database. Otherwise grant `read_database` on each database. | `read_database` |
-| `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema`, `planetscale_get_branch_metrics` |  | `read_branch` |
+| `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema`, `planetscale_get_branch_metrics` | | `read_branch` |
 | `planetscale_get_insights`, `planetscale_list_schema_recommendations` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
-| `planetscale_list_invoices`, `planetscale_get_invoice_line_items` | `read_invoices` |  |
-| `planetscale_get_organization_billing_payment_method` | `read_payment_method` |  |
-| `planetscale_update_payment_method`, `planetscale_get_payment_method_setup` | `write_payment_method` |  |
-| `planetscale_execute_read_query` |  | Read-only set, plus the read-query connect and delete permissions above |
-| `planetscale_execute_write_query` |  | Read-only set, plus the write-query connect and delete permissions above |
+| `planetscale_list_invoices`, `planetscale_get_invoice_line_items` | `read_invoices` | |
+| `planetscale_get_organization_billing_payment_method` | `read_payment_method` | |
+| `planetscale_update_payment_method`, `planetscale_get_payment_method_setup` | `write_payment_method` | |
+| `planetscale_execute_read_query` | | Read-only set, plus the read-query connect and delete permissions above |
+| `planetscale_execute_write_query` | | Read-only set, plus the write-query connect and delete permissions above |
 | `planetscale_search_documentation` | None | None |
 
 ## Client configuration
 
-#### Cursor
+**Cursor**
 
 Add the header to `.cursor/mcp.json` or `~/.cursor/mcp.json`. Cursor and the Cursor CLI (`agent`) read `PLANETSCALE_API_TOKEN` from the environment at connect time.
 
-.cursor/mcp.json
-
-```json
+```json .cursor/mcp.json theme={null}
 {
   "mcpServers": {
     "planetscale": {
@@ -115,20 +127,20 @@ Add the header to `.cursor/mcp.json` or `~/.cursor/mcp.json`. Cursor and the Cur
 }
 ```
 
-#### Claude Code
+**Claude Code**
 
-```shellscript
+```bash theme={null}
 claude mcp add --transport http "planetscale" https://mcp.pscale.dev/mcp/planetscale \
   --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}"
 ```
 
-The shell expands the variable when you run the command, so the token is written into your Claude MCP config. Don’t commit that file.
+The shell expands the variable when you run the command, so the token is written into your Claude MCP config. Don't commit that file.
 
-#### Codex
+**Codex**
 
 Codex reads the env var name and sends it as a Bearer token. The variable should be the `pscale_tkn_...` secret, not `Bearer ...`.
 
-```shellscript
+```bash theme={null}
 codex mcp add planetscale \
   --url https://mcp.pscale.dev/mcp/planetscale \
   --bearer-token-env-var PLANETSCALE_API_TOKEN
@@ -136,19 +148,17 @@ codex mcp add planetscale \
 
 Or in `~/.codex/config.toml`:
 
-```toml
+```toml theme={null}
 [mcp_servers.planetscale]
 url = "https://mcp.pscale.dev/mcp/planetscale"
 bearer_token_env_var = "PLANETSCALE_API_TOKEN"
 ```
 
-#### VS Code
+**VS Code**
 
 Add the header to `.vscode/mcp.json`. VS Code reads `PLANETSCALE_API_TOKEN` from the environment at connect time.
 
-.vscode/mcp.json
-
-```json
+```json .vscode/mcp.json theme={null}
 {
   "servers": {
     "planetscale": {
@@ -162,23 +172,21 @@ Add the header to `.vscode/mcp.json`. VS Code reads `PLANETSCALE_API_TOKEN` from
 }
 ```
 
-#### Gemini CLI
+**Gemini CLI**
 
-```shellscript
+```bash theme={null}
 gemini mcp add --transport http \
   --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}" \
   planetscale https://mcp.pscale.dev/mcp/planetscale
 ```
 
-The shell expands the variable when you run the command, so the token is written into your Gemini MCP config. Don’t commit that file.
+The shell expands the variable when you run the command, so the token is written into your Gemini MCP config. Don't commit that file.
 
-#### OpenCode
+**OpenCode**
 
 Set `oauth` to `false` so OpenCode uses the header instead of starting a browser login.
 
-~/.config/opencode/opencode.json
-
-```json
+```json ~/.config/opencode/opencode.json theme={null}
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -202,4 +210,7 @@ If a tool returns permission denied, the token is missing the grant for that API
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

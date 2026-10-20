@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_default_role
 title: "Reset_default_role"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,6 @@ A service token or OAuth token must have at least one of the following access or
 | Database | `manage_passwords`, `manage_production_branch_passwords`, `manage_read_only_passwords`, `manage_production_read_only_passwords` |
 | Branch | `manage_passwords`, `manage_read_only_passwords` |
 
-**Platform availability:** Postgres only
 
 
 ## OpenAPI

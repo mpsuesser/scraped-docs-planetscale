@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_cluster_size_skus
 title: "List_cluster_size_skus"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | User | `read_organizations` |
 | Organization | `read_organization` |
 
-**Platform availability:** Vitess and Postgres
+Vitess and Postgres
 
 SKU names are not a closed enum and vary by organization, engine, and region. Always discover them from this endpoint rather than hard-coding values.
 

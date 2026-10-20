@@ -2,13 +2,21 @@
 url: https://planetscale.com/docs/api/reference/oauth/revoke-token
 title: "Revoke Token"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Revoke OAuth token
+
+> Revoke an OAuth access token or refresh token
 
 ## Endpoint
 
-```text
+```
 POST https://auth.planetscale.com/oauth/revoke
 ```
 
@@ -16,19 +24,19 @@ This is the standard OAuth 2.0 token revocation endpoint. Once revoked, a token 
 
 ## Request Body
 
-The request body should be sent as `application/x-www-form-urlencoded`.string
+The request body should be sent as `application/x-www-form-urlencoded`.
 
-required
+**token** `string` *required*
 
-The access token or refresh token to revokestring
+The access token or refresh token to revoke
 
-required
+**client\_id** `string` *required*
 
-Your OAuth application’s client IDstring
+Your OAuth application's client ID
 
-required
+**client\_secret** `string` *required*
 
-Your OAuth application’s client secret
+Your OAuth application's client secret
 
 ## Response
 
@@ -36,13 +44,13 @@ Your OAuth application’s client secret
 
 Returns an empty response with status 200 when the token is successfully revoked.
 
-```json
+```json theme={null}
 {}
 ```
 
 ## Example
 
-```shellscript
+```bash theme={null}
 curl -X POST https://auth.planetscale.com/oauth/revoke \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "token=YOUR_ACCESS_TOKEN" \
@@ -58,6 +66,9 @@ Invalid client credentials (client\_id or client\_secret is incorrect).
 
 ## Notes
 
-- Revoking an access token does not automatically revoke its associated refresh token
-- You can revoke either access tokens or refresh tokens using this endpoint
-- Once revoked, the token cannot be used again and cannot be un-revoked
+* Revoking an access token does not automatically revoke its associated refresh token
+* You can revoke either access tokens or refresh tokens using this endpoint
+* Once revoked, the token cannot be used again and cannot be un-revoked
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

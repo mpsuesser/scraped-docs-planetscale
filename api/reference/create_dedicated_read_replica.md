@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_dedicated_read_replica
 title: "Create_dedicated_read_replica"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,6 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `write_databases` |
 | Database | `write_database` |
 
-**Platform availability:** Postgres only
 
 
 ## OpenAPI

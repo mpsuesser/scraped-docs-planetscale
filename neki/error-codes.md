@@ -2,31 +2,62 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-16T13:13:00.230Z
-current_date: 2026-10-16T13:13:00.230Z
+access_date: 2026-10-20T18:26:07.257Z
+current_date: 2026-10-20T18:26:07.257Z
 ---
 
-Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
+> ## Documentation Index
+> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-When Neki’s router cannot plan or execute a statement because an implementation is still missing, it returns SQLSTATE `NK013` and a message in this form:
+# Neki error codes
 
-```text
+> The numeric codes Neki reports with a not implemented error, the query shapes that trigger them, and what to do instead.
+
+> [!NOTE]
+>
+> Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
+
+When Neki's router cannot plan or execute a statement because an
+implementation is still missing, it returns SQLSTATE `NK013` and a message in
+this form:
+
+```
 not implemented: [108] This subquery shape is unavailable in ORDER BY.
 ```
 
-The bracketed number is a stable catalog code. It identifies one specific implementation gap, and it keeps that meaning for the life of the product: a code is never reused for a different gap, even after the gap is closed. Quote it when you report a rejected query, and use it to match a rejection your application sees against the entry below.
+The bracketed number is a stable catalog code. It identifies one specific
+implementation gap, and it keeps that meaning for the life of the product: a
+code is never reused for a different gap, even after the gap is closed. Quote
+it when you report a rejected query, and use it to match a rejection your
+application sees against the entry below.
 
-`NK013` means the gap is one Neki intends to close. A limit that is a design decision rather than a missing implementation is reported as `not supported` instead, and the broad ones are listed in [Platform preview limitations](platform-preview-limitations.md). For how other Neki errors use the DETAIL and HINT fields, see [Error hints and details](error-hints-and-details.md).
+`NK013` means the gap is one Neki intends to close. A limit that is a design
+decision rather than a missing implementation is reported as `not supported`
+instead, and the broad ones are listed in [Platform preview
+limitations](platform-preview-limitations.md). For how other Neki errors use
+the DETAIL and HINT fields, see [Error hints and
+details](error-hints-and-details.md).
 
 ## How to read an entry
 
-Each entry gives the code, the message sentence the router renders after the bracketed code, an example that triggers it, and a note on which part of the query causes the rejection.
+Each entry gives the code, the message sentence the router renders after the
+bracketed code, an example that triggers it, and a note on which part of the
+query causes the rejection.
 
-The examples use the [example schema](example-schema.md). A few entries name another small table whose own name describes the property that matters to that code. Where a rejection depends on how the data topology places the tables rather than on the SQL text, the note says so — the same statement can plan successfully with a different topology.
+The examples use the [example schema](example-schema.md). A few
+entries name another small table whose own name describes the property that
+matters to that code. Where a rejection depends on how the data topology places
+the tables rather than on the SQL text, the note says so — the same statement
+can plan successfully with a different topology.
 
-Codes that only an internal invariant can raise are not listed, because no query produces them. A code absent from this page is one an application is unlikely to meet.
+Codes that only an internal invariant can raise are not listed, because no
+query produces them. A code absent from this page is one an application is
+unlikely to meet.
 
-A single statement can be rejected by more than one of these codes. Which one you see is the first gap the planner reaches, so fixing one can reveal another.
+A single statement can be rejected by more than one of these codes. Which one
+you see is the first gap the planner reaches, so fixing one can reveal
+another.
 
 ## Statements, transactions, and sessions
 
@@ -34,7 +65,7 @@ Codes raised while the router decides what a statement is and how the session sh
 
 ### 1 — SELECT INTO statements are unavailable.
 
-```sql
+```sql theme={null}
 SELECT user_id INTO users_copy FROM users WHERE user_id = 1;
 ```
 
@@ -42,7 +73,7 @@ The `INTO` clause is what Neki rejects. At the top level Postgres treats `SELECT
 
 ### 20 — This statement type is unavailable.
 
-```sql
+```sql theme={null}
 ALTER SYSTEM SET work_mem = '4MB';
 ```
 
@@ -50,7 +81,7 @@ The fallback for a statement no plan builder handles and for which the DDL surfa
 
 ### 21 — Reading an inheritance parent without ONLY is unavailable.
 
-```sql
+```sql theme={null}
 SELECT inheritance_id FROM inheritance_parent;
 ```
 
@@ -58,7 +89,7 @@ Depends on the schema: the rejection only occurs when `inheritance_parent` actua
 
 ### 22 — AND CHAIN is unavailable for this transaction command.
 
-```sql
+```sql theme={null}
 COMMIT AND CHAIN;
 ```
 
@@ -66,7 +97,7 @@ The `AND CHAIN` clause is the rejected part. Issue the `COMMIT` (or `ROLLBACK`, 
 
 ### 23 — This transaction command is unavailable.
 
-```sql
+```sql theme={null}
 PREPARE TRANSACTION 'gid';
 ```
 
@@ -82,7 +113,7 @@ Raised for a transaction-control command the router has no handler for. `BEGIN`,
 
 ### 26 — Atomic transaction mode is unavailable.
 
-```sql
+```sql theme={null}
 SET __neki.tx_mode = 'atomic';
 ```
 
@@ -90,7 +121,7 @@ Atomic distributed transactions are not available. `__neki.tx_mode` accepts `mul
 
 ### 27 — This SET statement variant is unavailable.
 
-```sql
+```sql theme={null}
 SET SESSION AUTHORIZATION 'someone';
 ```
 
@@ -98,7 +129,7 @@ A `SET` variant the router does not model, rather than an unsupported target var
 
 ### 28 — SET FROM CURRENT is unavailable.
 
-```sql
+```sql theme={null}
 ALTER DATABASE db SET work_mem FROM CURRENT;
 ```
 
@@ -106,15 +137,15 @@ The `FROM CURRENT` form is rejected; give the parameter an explicit value.
 
 ### 29 — SET TRANSACTION SNAPSHOT is unavailable.
 
-```sql
+```sql theme={null}
 SET TRANSACTION SNAPSHOT '00000003-0000001B-1';
 ```
 
-Importing another session’s snapshot would have to be coordinated across every shard, so the statement is rejected outright.
+Importing another session's snapshot would have to be coordinated across every shard, so the statement is rejected outright.
 
 ### 30 — This statement cannot be analyzed with EXPLAIN neki\_plan.
 
-```sql
+```sql theme={null}
 EXPLAIN neki_plan LISTEN c;
 ```
 
@@ -122,7 +153,7 @@ The statement inside `EXPLAIN neki_plan` has no router plan to show. The stateme
 
 ### 31 — Data-modifying CTEs cannot be analyzed with EXPLAIN neki\_plan.
 
-```sql
+```sql theme={null}
 EXPLAIN neki_plan WITH u AS (UPDATE users SET name = 'x' WHERE user_id = 1 RETURNING user_id) SELECT * FROM u;
 ```
 
@@ -130,15 +161,15 @@ The data-modifying CTE is the rejected part: `EXPLAIN neki_plan` does not render
 
 ### 32 — This EXPLAIN option is unavailable.
 
-```sql
+```sql theme={null}
 EXPLAIN (BUFFERS) SELECT user_id FROM users;
 ```
 
-An option in the `EXPLAIN` option list is not supported by the router’s `EXPLAIN` handling.
+An option in the `EXPLAIN` option list is not supported by the router's `EXPLAIN` handling.
 
 ### 33 — This EXPLAIN format is unavailable.
 
-```sql
+```sql theme={null}
 EXPLAIN (FORMAT YAML) SELECT user_id FROM users;
 ```
 
@@ -150,7 +181,7 @@ Codes that depend on how the data topology is configured, or on the context the 
 
 ### 2 — Replication from a replica is unavailable.
 
-```sql
+```sql theme={null}
 SET __neki.target = 'replica';
 CREATE PUBLICATION p FOR TABLE users;
 ```
@@ -159,7 +190,7 @@ Raised when a replication connection is pinned to a replica by the `__neki.targe
 
 ### 10 — Multi-column partitioning indexes are unavailable.
 
-```sql
+```sql theme={null}
 INSERT INTO items (user_id, tenant_id) VALUES (1, 2);
 ```
 
@@ -167,7 +198,7 @@ A `columns` list with more than one entry is rejected when the topology is appli
 
 ### 11 — This shard index cannot route advisory locks.
 
-```sql
+```sql theme={null}
 SELECT pg_advisory_lock(1) FROM users WHERE user_id = 1;
 ```
 
@@ -177,7 +208,7 @@ Depends on the data topology. A shard index whose routing values cannot be deriv
 
 Client `COPY TO STDOUT` works for sharded tables, reference tables, and materialized views, including text, CSV, and binary. The codes in this section are for file `COPY`.
 
-```sql
+```sql theme={null}
 COPY users FROM '/tmp/users.csv';
 ```
 
@@ -185,15 +216,15 @@ File-based `COPY` against a sharded table. Use `COPY ... FROM STDIN` for a shard
 
 ### 43 — File COPY is unavailable for reference tables.
 
-```sql
+```sql theme={null}
 COPY ref_countries FROM '/tmp/countries.csv';
 ```
 
 File-based `COPY` into a reference table. Use `COPY ... FROM STDIN` instead.
 
-### 44 — COPY FROM cannot maintain this table’s secondary index.
+### 44 — COPY FROM cannot maintain this table's secondary index.
 
-```sql
+```sql theme={null}
 COPY public.accounts (account_id, label) FROM STDIN;
 ```
 
@@ -201,7 +232,7 @@ Depends on the topology: the rejection occurs because the target table owns an a
 
 ### 45 — COPY does not support a multi-column primary shard index.
 
-```sql
+```sql theme={null}
 COPY multiple_column_primary_index (user_id, tenant_id) FROM STDIN;
 ```
 
@@ -209,15 +240,15 @@ Depends on the topology. `COPY FROM` into a sharded table needs a single-column 
 
 ### 46 — COPY FROM cannot evaluate this reference-table default consistently.
 
-```sql
+```sql theme={null}
 COPY ref_countries (country_id, name) FROM STDIN;
 ```
 
-The omitted column’s default is volatile, and a reference table stores the same logical row in several shard groups, so each copy could receive a different value. Supply the column explicitly.
+The omitted column's default is volatile, and a reference table stores the same logical row in several shard groups, so each copy could receive a different value. Supply the column explicitly.
 
 ### 47 — COPY TO PROGRAM is unavailable.
 
-```sql
+```sql theme={null}
 COPY users TO PROGRAM 'cat';
 ```
 
@@ -225,7 +256,7 @@ The `TO PROGRAM` destination is rejected; it would run a command on a Postgres h
 
 ### 48 — COPY from a query is unavailable.
 
-```sql
+```sql theme={null}
 COPY (SELECT user_id FROM users) FROM STDIN;
 ```
 
@@ -233,7 +264,7 @@ Copying *from* a query is not a supported source.
 
 ### 49 — COPY of a SELECT result is unavailable.
 
-```sql
+```sql theme={null}
 COPY (SELECT user_id FROM users) TO STDOUT;
 ```
 
@@ -241,7 +272,7 @@ The parenthesized `SELECT` source is what is rejected. Copy a table, or run the 
 
 ### 50 — COPY FROM with a WHERE clause is unavailable.
 
-```sql
+```sql theme={null}
 COPY public.notes FROM STDIN WHERE id > 1;
 ```
 
@@ -249,7 +280,7 @@ The `WHERE` clause on `COPY FROM` is rejected. Filter the data before feeding it
 
 ### 51 — COPY FROM cannot evaluate this column default on the router.
 
-```sql
+```sql theme={null}
 COPY notes_with_identity (msg) FROM STDIN;
 ```
 
@@ -257,7 +288,7 @@ The identity column `id` is omitted from the column list, and its default has to
 
 ### 52 — This COPY option is unavailable for sharded COPY.
 
-```sql
+```sql theme={null}
 COPY users (user_id, name) FROM STDIN WITH (ON_ERROR ignore);
 ```
 
@@ -265,7 +296,7 @@ Depends on the topology: for a sharded target, `COPY` options such as `ON_ERROR`
 
 ### 53 — This input encoding is unavailable for sharded COPY.
 
-```sql
+```sql theme={null}
 COPY users (user_id, name) FROM STDIN WITH (ENCODING 'LATIN1');
 ```
 
@@ -273,7 +304,7 @@ The input encoding of a sharded `COPY` stream is what is rejected; send UTF-8.
 
 ### 54 — COPY is unavailable in a multi-statement query.
 
-```sql
+```sql theme={null}
 SELECT 1; COPY notes FROM STDIN;
 ```
 
@@ -281,7 +312,7 @@ SELECT 1; COPY notes FROM STDIN;
 
 ### 55 — COPY is unavailable in the extended query protocol.
 
-```sql
+```sql theme={null}
 COPY notes FROM STDIN;
 ```
 
@@ -293,7 +324,7 @@ Codes raised when the router cannot place an advisory lock on a single shard, or
 
 ### 60 — A session cannot hold session advisory locks on multiple shards.
 
-```sql
+```sql theme={null}
 SELECT pg_advisory_lock(1) FROM users WHERE user_id = 1;
 SELECT pg_advisory_lock(2) FROM users WHERE user_id = 900;
 ```
@@ -302,7 +333,7 @@ Depends on the data topology: rejected only when the second key routes to a diff
 
 ### 61 — Mixing session and transaction advisory locks is unavailable.
 
-```sql
+```sql theme={null}
 SELECT pg_advisory_lock(1), pg_advisory_xact_lock(1) FROM users WHERE user_id = 1;
 ```
 
@@ -310,7 +341,7 @@ The statement mixes a session-scoped and a transaction-scoped advisory lock. Use
 
 ### 62 — Advisory locks are unavailable in this evaluation context.
 
-```sql
+```sql theme={null}
 SELECT pg_advisory_xact_lock(user_id) FROM users;
 ```
 
@@ -318,7 +349,7 @@ The advisory-lock call sits in an evaluation context the engine cannot take a lo
 
 ### 139 — Advisory locks are unavailable in this plan position.
 
-```sql
+```sql theme={null}
 CREATE TABLE users_adv_lock AS SELECT pg_advisory_xact_lock(1);
 ```
 
@@ -330,7 +361,7 @@ Codes raised while translating or executing a PL/pgSQL routine on the router.
 
 ### 80 — Composite FOREACH targets are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$DECLARE r record; BEGIN FOREACH r IN ARRAY ARRAY[1] LOOP END LOOP; END$$;
 ```
 
@@ -338,7 +369,7 @@ The `FOREACH` loop variable is a composite (record) type. Loop over a scalar tar
 
 ### 81 — This FOREACH target type is unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$DECLARE c cursor FOR SELECT 1; BEGIN FOREACH c IN ARRAY ARRAY[1] LOOP END LOOP; END$$;
 ```
 
@@ -346,7 +377,7 @@ The declared type of the `FOREACH` target is one the translator cannot use as a 
 
 ### 82 — Nested and array-slice assignment targets are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$DECLARE a int[]; BEGIN a[1:2] := ARRAY[1,2]; END$$;
 ```
 
@@ -354,7 +385,7 @@ A nested or array-slice assignment target in PL/pgSQL. Assign the whole variable
 
 ### 83 — Non-scalar assignment targets are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$DECLARE r record; BEGIN r := ROW(1,2); END$$;
 ```
 
@@ -362,7 +393,7 @@ The assignment target is a record or other non-scalar. Assign to its fields thro
 
 ### 84 — Record-field references in embedded SQL are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS int LANGUAGE plpgsql AS $$DECLARE r record; BEGIN SELECT r.a INTO r; RETURN 1; END$$;
 ```
 
@@ -370,7 +401,7 @@ A record *field* is referenced inside an embedded SQL statement. Copy the field 
 
 ### 85 — Composite INTO targets are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$DECLARE r users; BEGIN SELECT * INTO r FROM users WHERE user_id = 1; END$$;
 ```
 
@@ -378,7 +409,7 @@ The `INTO` target is a composite variable. Select into a list of scalar variable
 
 ### 86 — Record fields with varying runtime types are unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS int LANGUAGE plpgsql AS $$DECLARE r record; BEGIN FOR r IN SELECT 1 AS a UNION SELECT 'x' AS a LOOP END LOOP; RETURN 1; END$$;
 ```
 
@@ -386,7 +417,7 @@ A record field whose runtime type differs between iterations. Give the field one
 
 ### 87 — Function configuration parameters are unavailable for router-side execution.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS int LANGUAGE plpgsql SET work_mem = '4MB' AS $$BEGIN RETURN 1; END$$;
 ```
 
@@ -394,15 +425,15 @@ The `SET` clause attached to the routine is what blocks it: a function with conf
 
 ### 88 — Polymorphic routines are unavailable for router-side execution.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f(anyelement) RETURNS anyelement LANGUAGE plpgsql AS $$BEGIN RETURN $1; END$$;
 ```
 
-The routine’s polymorphic signature (`anyelement`, `anyarray`, and similar) is what is rejected for router-side execution. Declare concrete argument types.
+The routine's polymorphic signature (`anyelement`, `anyarray`, and similar) is what is rejected for router-side execution. Declare concrete argument types.
 
 ### 90 — This PL/pgSQL statement is unavailable.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$BEGIN GET DIAGNOSTICS STACKED x = RETURNED_SQLSTATE; END$$;
 ```
 
@@ -410,15 +441,15 @@ A PL/pgSQL statement the executor has no implementation for, as opposed to an un
 
 ### 91 — EXIT to a block label is unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$<<outer>> BEGIN EXIT outer; END$$;
 ```
 
-`EXIT` naming a *block* label. `EXIT` from a loop, optionally naming the loop’s label.
+`EXIT` naming a *block* label. `EXIT` from a loop, optionally naming the loop's label.
 
 ### 92 — A bare RAISE is unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$BEGIN RAISE; END$$;
 ```
 
@@ -426,7 +457,7 @@ A bare `RAISE`, which re-raises the current exception, has no supported meaning 
 
 ### 93 — RAISE USING is unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS void LANGUAGE plpgsql AS $$BEGIN RAISE EXCEPTION 'bad' USING HINT = 'fix it'; END$$;
 ```
 
@@ -434,7 +465,7 @@ The `USING` option list on `RAISE` is what is rejected; the plain `RAISE EXCEPTI
 
 ### 94 — RETURN NEXT without an expression requires OUT parameters.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS SETOF int LANGUAGE plpgsql AS $$BEGIN RETURN NEXT; END$$;
 ```
 
@@ -442,7 +473,7 @@ CREATE FUNCTION f() RETURNS SETOF int LANGUAGE plpgsql AS $$BEGIN RETURN NEXT; E
 
 ### 95 — RETURN QUERY EXECUTE is unavailable in PL/pgSQL.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS SETOF int LANGUAGE plpgsql AS $$BEGIN RETURN QUERY EXECUTE 'SELECT 1'; END$$;
 ```
 
@@ -454,7 +485,7 @@ The largest group: codes raised while the planner turns a query into routed work
 
 ### 63 — This join type is unavailable.
 
-```sql
+```sql theme={null}
 SELECT 1 FROM users u FULL JOIN products p ON u.user_id > p.user_id;
 ```
 
@@ -462,7 +493,7 @@ The join *type* required by the plan has no router implementation at this point 
 
 ### 67 — Array-slice and multidimensional array assignment are unavailable.
 
-```sql
+```sql theme={null}
 UPDATE user_tags SET tag_ids[1:2] = ARRAY[7,8] WHERE user_id = 1;
 ```
 
@@ -470,7 +501,7 @@ The array *slice* on the assignment target is the rejected part. Assign to a sin
 
 ### 69 — Subqueries in VALUES are unavailable.
 
-```sql
+```sql theme={null}
 VALUES ((SELECT 1));
 ```
 
@@ -478,7 +509,7 @@ A subquery inside a `VALUES` cell. Compute the value in a `SELECT` and feed it i
 
 ### 100 — Subqueries are unavailable in this DML clause.
 
-```sql
+```sql theme={null}
 UPDATE users SET name = (SELECT 'x') FROM orders WHERE users.user_id = orders.user_id;
 ```
 
@@ -486,7 +517,7 @@ A subquery appears in a DML clause that cannot host one — here the `SET` value
 
 ### 101 — Per-row router-only expression evaluation is unavailable here.
 
-```sql
+```sql theme={null}
 UPDATE users SET name = 'x' WHERE current_setting(name, true) = 'foo';
 ```
 
@@ -494,23 +525,23 @@ The expression must be evaluated on the router, but its value depends on each ro
 
 ### 102 — This RETURNING expression extraction is unavailable.
 
-```sql
+```sql theme={null}
 UPDATE users SET name = 'x' WHERE user_id = 1 RETURNING WITH (OLD AS o) now();
 ```
 
-`RETURNING` mixes an `OLD` / `NEW` row alias with an expression the router must evaluate itself. Return the columns and compute the router-side expression in your application.
+`RETURNING` mixes an `OLD`/`NEW` row alias with an expression the router must evaluate itself. Return the columns and compute the router-side expression in your application.
 
 ### 103 — This DML source join cannot be planned safely.
 
-```sql
+```sql theme={null}
 DELETE FROM users USING orders WHERE users.created_at < orders.created_at + (extract(epoch from now()) || ' seconds')::interval;
 ```
 
-The predicate bridging the DML target to its `USING` / `FROM` source is not something the planner can evaluate on one side, so the join cannot be executed safely.
+The predicate bridging the DML target to its `USING`/`FROM` source is not something the planner can evaluate on one side, so the join cannot be executed safely.
 
 ### 104 — This mutation cannot maintain active secondary indexes.
 
-```sql
+```sql theme={null}
 DELETE FROM accounts WHERE account_id = 1 RETURNING account_id;
 ```
 
@@ -518,7 +549,7 @@ Depends on the topology: `accounts` owns global secondary indexes, and this muta
 
 ### 106 — This window-function shape is unavailable across shards.
 
-```sql
+```sql theme={null}
 SELECT p.user_id, row_number() OVER (PARTITION BY p.user_id ORDER BY p.product_id) FROM users u JOIN products p ON u.user_id % 2 = p.user_id % 2;
 ```
 
@@ -526,7 +557,7 @@ The window function would have to be computed after a cross-shard join, so no sh
 
 ### 107 — Expression extraction is unavailable in this clause.
 
-```sql
+```sql theme={null}
 SELECT count(*), date_trunc('day', now()) FROM users GROUP BY date_trunc('day', now());
 ```
 
@@ -534,7 +565,7 @@ A router-only expression (`now()`) appears in a clause the planner cannot lift i
 
 ### 108 — This subquery shape is unavailable in ORDER BY.
 
-```sql
+```sql theme={null}
 SELECT name FROM users WHERE nextval('public.my_sequence') > 0 ORDER BY (SELECT max(total_amount) FROM orders);
 ```
 
@@ -542,7 +573,7 @@ The `ORDER BY` subquery cannot be evaluated once up front because the volatile `
 
 ### 109 — This quantified-subquery shape is unavailable.
 
-```sql
+```sql theme={null}
 SELECT * FROM users WHERE (user_id, name) > ALL(SELECT user_id, name FROM orders);
 ```
 
@@ -550,7 +581,7 @@ The quantified comparison uses a row constructor, so the `ALL` cannot be rewritt
 
 ### 110 — This correlated-subquery shape cannot be decorrelated safely.
 
-```sql
+```sql theme={null}
 SELECT u.user_id FROM users u WHERE u.name = (SELECT min(o.status) FROM orders o WHERE o.total_amount = u.user_id GROUP BY o.status);
 ```
 
@@ -558,7 +589,7 @@ The correlated subquery has its own `GROUP BY`, so decorrelating it would change
 
 ### 111 — This lateral or range-function shape is unavailable.
 
-```sql
+```sql theme={null}
 SELECT * FROM users, LATERAL (VALUES (users.user_id)) t(x);
 ```
 
@@ -566,7 +597,7 @@ The `LATERAL` item is a `VALUES` list referencing the outer row, which the plann
 
 ### 112 — This full outer join has no usable equality key.
 
-```sql
+```sql theme={null}
 SELECT t1.user_id, t2.user_id FROM user_tags t1 FULL OUTER JOIN user_tags t2 ON ROW(t1.user_id::smallint) = ROW(t2.user_id::numeric);
 ```
 
@@ -574,7 +605,7 @@ A full outer join needs an equality key it can hash on both sides; the row-const
 
 ### 113 — This cross-shard join expression cannot be assigned to one input.
 
-```sql
+```sql theme={null}
 SELECT 1 FROM users u JOIN products p ON u.user_id + p.user_id = 5;
 ```
 
@@ -582,7 +613,7 @@ The join predicate mixes columns from both inputs in a way that cannot be attrib
 
 ### 114 — This secondary-index routing shape is unavailable.
 
-```sql
+```sql theme={null}
 SELECT phone FROM accounts WHERE email = 'a@example.com' AND category = 2;
 ```
 
@@ -590,7 +621,7 @@ Depends on the topology: the planner found a global secondary index for the pred
 
 ### 115 — Multiple routing-parameter values are unavailable.
 
-```sql
+```sql theme={null}
 SELECT note FROM items WHERE user_id = 1 AND tenant_id = 2;
 ```
 
@@ -598,7 +629,7 @@ SELECT note FROM items WHERE user_id = 1 AND tenant_id = 2;
 
 ### 116 — This INSERT subquery shape is unavailable.
 
-```sql
+```sql theme={null}
 INSERT INTO users (user_id, name) VALUES (1, 'a' || (SELECT 'b'));
 ```
 
@@ -606,15 +637,15 @@ The subquery is nested inside a larger expression in the `VALUES` cell rather th
 
 ### 117 — This INSERT SELECT shape is unavailable.
 
-```sql
+```sql theme={null}
 INSERT INTO users (user_id, email, name) SELECT p.product_id, p.name, p.name FROM products p ON CONFLICT (user_id) DO UPDATE SET name = excluded.name;
 ```
 
-The combination of an `INSERT ... SELECT` source with `ON CONFLICT DO UPDATE` against a sharded target returns this code, except when the source is one table in the same shard group and the inserted shard key is copied from that table’s shard key. Insert explicit `VALUES`, or drop the `DO UPDATE`. `INSERT ... SELECT` into a table sharded by an expression over more than one column also returns this code. `INSERT ... VALUES` into that table returns code 10.
+The combination of an `INSERT ... SELECT` source with `ON CONFLICT DO UPDATE` against a sharded target returns this code, except when the source is one table in the same shard group and the inserted shard key is copied from that table's shard key. Insert explicit `VALUES`, or drop the `DO UPDATE`. `INSERT ... SELECT` into a table sharded by an expression over more than one column also returns this code. `INSERT ... VALUES` into that table returns code 10.
 
 ### 118 — These INSERT values cannot be materialized on the router.
 
-```sql
+```sql theme={null}
 INSERT INTO users (user_id) VALUES (generate_series(1,3));
 ```
 
@@ -622,15 +653,15 @@ A set-returning function in a `VALUES` cell means the router cannot know the row
 
 ### 119 — This ON CONFLICT shape is unavailable.
 
-```sql
+```sql theme={null}
 INSERT INTO orders (order_id, user_id, order_date, status) VALUES (91021, 91020, DATE '2026-09-09', 'new'), (91022, 91020, DATE '2026-09-09', 'held') ON CONFLICT (order_id) DO NOTHING RETURNING order_id, user_id;
 ```
 
-Depends on the topology: the `ON CONFLICT` arbiter index (`order_id`) does not cover the table’s shard key (`user_id`), so a conflict cannot be resolved on one shard. Arbitrate on an index that includes the shard key.
+Depends on the topology: the `ON CONFLICT` arbiter index (`order_id`) does not cover the table's shard key (`user_id`), so a conflict cannot be resolved on one shard. Arbitrate on an index that includes the shard key.
 
 ### 120 — This column default cannot be materialized on the router.
 
-```sql
+```sql theme={null}
 INSERT INTO users (name) VALUES ('foo');
 ```
 
@@ -638,15 +669,15 @@ The omitted column is the shard key and its default can only be evaluated on a s
 
 ### 121 — This MERGE shape is unavailable.
 
-```sql
+```sql theme={null}
 MERGE INTO users t USING (SELECT 1 AS user_id) s ON t.user_id = s.user_id WHEN MATCHED THEN UPDATE SET name = 'x';
 ```
 
-The `MERGE` source is a derived table, so the planner cannot route the merge to the target’s shards. Use a `MERGE` whose source is a table in the same shard group.
+The `MERGE` source is a derived table, so the planner cannot route the merge to the target's shards. Use a `MERGE` whose source is a table in the same shard group.
 
 ### 122 — This view cannot be routed safely.
 
-```sql
+```sql theme={null}
 UPDATE view_users SET name = 'x' WHERE user_id = 1;
 ```
 
@@ -654,7 +685,7 @@ Depends on the topology: Neki does not route a write through a view whose underl
 
 ### 123 — This materialized view cannot be routed safely.
 
-```sql
+```sql theme={null}
 SELECT * FROM mv_users WHERE user_id = 1;
 ```
 
@@ -662,7 +693,7 @@ Depends on the topology. A materialized view over sharded data has no routing in
 
 ### 124 — This set-operation shape is unavailable.
 
-```sql
+```sql theme={null}
 SELECT account_id FROM accounts WHERE email = 'a@example.com' INTERSECT SELECT user_id FROM products WHERE user_id = 500;
 ```
 
@@ -670,15 +701,15 @@ SELECT account_id FROM accounts WHERE email = 'a@example.com' INTERSECT SELECT u
 
 ### 125 — This grouping-set form is unavailable.
 
-```sql
+```sql theme={null}
 SELECT name, count(*) FROM users GROUP BY GROUPING SETS ((name), ());
 ```
 
-The `GROUPING SETS` (or `ROLLUP` / `CUBE`) form passes validation but has no cross-shard execution: each grouping set would need its own aggregation pass. Issue the grouping levels as separate queries.
+The `GROUPING SETS` (or `ROLLUP`/`CUBE`) form passes validation but has no cross-shard execution: each grouping set would need its own aggregation pass. Issue the grouping levels as separate queries.
 
 ### 126 — TABLESAMPLE is unavailable.
 
-```sql
+```sql theme={null}
 SELECT * FROM users TABLESAMPLE bernoulli(50);
 ```
 
@@ -686,7 +717,7 @@ The `TABLESAMPLE` clause is rejected; a per-shard sample would not be a sample o
 
 ### 127 — Explicit derived-table column names are unavailable.
 
-```sql
+```sql theme={null}
 SELECT x FROM (SELECT user_id FROM users) v(x);
 ```
 
@@ -694,7 +725,7 @@ The explicit column-name list `v(x)` on the derived table is the rejected part. 
 
 ### 128 — WHERE CURRENT OF is unavailable for DML.
 
-```sql
+```sql theme={null}
 DELETE FROM users WHERE CURRENT OF c;
 ```
 
@@ -702,7 +733,7 @@ DELETE FROM users WHERE CURRENT OF c;
 
 ### 129 — DISTINCT cannot safely evaluate this volatile record expression.
 
-```sql
+```sql theme={null}
 SELECT DISTINCT ROW(random()) FROM users;
 ```
 
@@ -710,7 +741,7 @@ SELECT DISTINCT ROW(random()) FROM users;
 
 ### 130 — This combination of select-list subqueries is unavailable.
 
-```sql
+```sql theme={null}
 SELECT nextval('public.my_sequence') + (SELECT max(order_id) FROM orders WHERE orders.user_id = users.user_id) FROM users;
 ```
 
@@ -718,7 +749,7 @@ One select-list expression combines a router-only value with a correlated subque
 
 ### 131 — TRUNCATE RESTART IDENTITY with CASCADE is unavailable.
 
-```sql
+```sql theme={null}
 TRUNCATE users RESTART IDENTITY CASCADE;
 ```
 
@@ -726,7 +757,7 @@ TRUNCATE users RESTART IDENTITY CASCADE;
 
 ### 132 — TRUNCATE RESTART IDENTITY cannot include descendant tables.
 
-```sql
+```sql theme={null}
 TRUNCATE inheritance_parent RESTART IDENTITY;
 ```
 
@@ -734,7 +765,7 @@ Depends on the schema: rejected when the table has descendants, since `TRUNCATE`
 
 ### 133 — This whole-row reference is ambiguous to the SQL builder.
 
-```sql
+```sql theme={null}
 SELECT json_agg(t.*) FROM (SELECT order_id AS t FROM orders) t;
 ```
 
@@ -742,15 +773,15 @@ The whole-row reference `t.*` is shadowed by a column also named `t`, so the SQL
 
 ### 135 — Aggregates over columns of an enclosing query are unavailable.
 
-```sql
+```sql theme={null}
 SELECT (SELECT max(u.user_id)) FROM users u;
 ```
 
-The aggregate’s argument belongs to the enclosing query, so the aggregation happens at the outer level from inside the subquery. Compute the aggregate in the outer select list.
+The aggregate's argument belongs to the enclosing query, so the aggregation happens at the outer level from inside the subquery. Compute the aggregate in the outer select list.
 
 ### 136 — Correlated column references are unavailable in this clause.
 
-```sql
+```sql theme={null}
 SELECT user_id FROM users WHERE EXISTS (SELECT 1 FROM orders LIMIT users.user_id);
 ```
 
@@ -758,15 +789,15 @@ The correlated reference sits in `LIMIT` (or `OFFSET`), a clause that is evaluat
 
 ### 137 — Reading a sequence or index as a relation is unavailable.
 
-```sql
+```sql theme={null}
 SELECT * FROM public.my_sequence;
 ```
 
-The relation named in `FROM` is a sequence (or an index), not a table. Read a sequence with `nextval` / `currval`, or query `pg_catalog` for its metadata.
+The relation named in `FROM` is a sequence (or an index), not a table. Read a sequence with `nextval`/`currval`, or query `pg_catalog` for its metadata.
 
 ### 138 — FETCH FIRST WITH TIES is unavailable across shards.
 
-```sql
+```sql theme={null}
 SELECT name FROM users ORDER BY name FETCH FIRST 2 ROWS WITH TIES;
 ```
 
@@ -774,7 +805,7 @@ SELECT name FROM users ORDER BY name FETCH FIRST 2 ROWS WITH TIES;
 
 ### 140 — Set-returning functions are unavailable in router-side ORDER BY.
 
-```sql
+```sql theme={null}
 SELECT u.user_id FROM users u LEFT JOIN orders o ON u.user_id = o.user_id ORDER BY generate_series(u.user_id::int, (u.user_id + 1)::int) LIMIT 2;
 ```
 
@@ -782,7 +813,7 @@ A set-returning function in `ORDER BY` must be expanded on the router, which can
 
 ### 141 — INSERT OVERRIDING USER VALUE is unavailable.
 
-```sql
+```sql theme={null}
 INSERT INTO audit_log (user_id, action) OVERRIDING USER VALUE VALUES (100, 'login');
 ```
 
@@ -790,7 +821,7 @@ The `OVERRIDING USER VALUE` clause is the rejected part. Omit it, or use `OVERRI
 
 ### 142 — Parameterized subscripts are unavailable in INSERT targets.
 
-```sql
+```sql theme={null}
 INSERT INTO user_tags (user_id, tag_ids[$1]) VALUES (1, 2);
 ```
 
@@ -798,31 +829,31 @@ The subscript in the `INSERT` target list is a parameter, so the router does not
 
 ### 143 — OLD and NEW references are unavailable in sharded INSERT ON CONFLICT RETURNING.
 
-```sql
+```sql theme={null}
 INSERT INTO users (user_id, name, email) VALUES (91035, 'a', 'a@x') ON CONFLICT (user_id) DO NOTHING RETURNING old.user_id;
 ```
 
-Depends on the topology: for a sharded target, `OLD` / `NEW` aliases in the `RETURNING` of an `ON CONFLICT` statement are not available. Return plain columns.
+Depends on the topology: for a sharded target, `OLD`/`NEW` aliases in the `RETURNING` of an `ON CONFLICT` statement are not available. Return plain columns.
 
 ### 144 — Router-only expressions are unavailable in sharded INSERT ON CONFLICT RETURNING.
 
-```sql
+```sql theme={null}
 INSERT INTO users (user_id, name, email) VALUES (1, 'a', 'a@x') ON CONFLICT (user_id) DO NOTHING RETURNING now();
 ```
 
-As code 143, for an expression the router must evaluate itself rather than an `OLD` / `NEW` reference. Return columns and compute the expression in your application.
+As code 143, for an expression the router must evaluate itself rather than an `OLD`/`NEW` reference. Return columns and compute the expression in your application.
 
 ### 145 — Updating an index column is unavailable.
 
-```sql
+```sql theme={null}
 UPDATE users SET user_id = nextval('public.my_sequence') WHERE user_id = 1;
 ```
 
-The statement assigns to `user_id`, which is the table’s shard index column — changing it could move the row to another shard. Delete the row and insert the new one.
+The statement assigns to `user_id`, which is the table's shard index column — changing it could move the row to another shard. Delete the row and insert the new one.
 
 ### 146 — This volatile router-only WHERE expression is unavailable.
 
-```sql
+```sql theme={null}
 UPDATE users SET name = 'x' WHERE COALESCE(nextval('public.my_sequence') > 0, false);
 ```
 
@@ -830,7 +861,7 @@ The volatile router-only call is buried inside another expression in `WHERE`, so
 
 ### 147 — This volatile router-only UPDATE assignment is unavailable.
 
-```sql
+```sql theme={null}
 UPDATE users SET name = nextval('public.my_sequence')::text WHERE random() < 0.5;
 ```
 
@@ -838,7 +869,7 @@ Both the assigned value and the predicate are volatile router-only expressions, 
 
 ### 149 — Window functions inside aggregates are unavailable.
 
-```sql
+```sql theme={null}
 SELECT count(*), row_number() OVER () FROM products;
 ```
 
@@ -846,7 +877,7 @@ A plain aggregate and a window function appear in the same select list, which wo
 
 ### 150 — This ORDER BY expression is unavailable for VALUES.
 
-```sql
+```sql theme={null}
 SELECT x FROM (VALUES (1),(2) ORDER BY column1 + 1) v(x);
 ```
 
@@ -854,15 +885,15 @@ The `ORDER BY` attached to a `VALUES` list is an expression rather than a plain 
 
 ### 151 — INTERSECT and EXCEPT subqueries are unavailable.
 
-```sql
+```sql theme={null}
 SELECT cardinality(ARRAY(SELECT unnest(ARRAY['a','b']) INTERSECT SELECT unnest(ARRAY['b','c'])));
 ```
 
-The subquery’s top level is an `INTERSECT` (or `EXCEPT`). Rewrite it as a join or an `IN` / `NOT IN` predicate, or use array functions.
+The subquery's top level is an `INTERSECT` (or `EXCEPT`). Rewrite it as a join or an `IN`/`NOT IN` predicate, or use array functions.
 
 ### 152 — This subquery statement type is unavailable.
 
-```sql
+```sql theme={null}
 SELECT (INSERT INTO users (user_id) VALUES (1) RETURNING user_id);
 ```
 
@@ -870,7 +901,7 @@ The statement used as a subquery is not a `SELECT`. Put a data-modifying stateme
 
 ### 153 — ARRAY subqueries are unavailable.
 
-```sql
+```sql theme={null}
 SELECT ARRAY(SELECT user_id FROM users WHERE user_id < 10);
 ```
 
@@ -882,7 +913,7 @@ Codes raised when the router — rather than a shard — has to compute an expre
 
 ### 200 — This built-in function is unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 SELECT eqsel(NULL, 0, NULL, 0);
 ```
 
@@ -890,7 +921,7 @@ The built-in function has a catalog entry but no router implementation, so it ca
 
 ### 202 — This built-in type input function is unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 SELECT 'x'::gtsvector;
 ```
 
@@ -898,7 +929,7 @@ The literal has to be parsed by `gtsvectorin`, which the evaluation engine does 
 
 ### 203 — This type cast is unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 SELECT '1'::unknown::int2vector;
 ```
 
@@ -906,7 +937,7 @@ The cast itself has no implementation in the evaluation engine. Cast through a t
 
 ### 210 — User-defined functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION double(int) RETURNS int LANGUAGE sql AS 'SELECT $1 * 2';
 SELECT name FROM users WHERE user_id = double(2);
 ```
@@ -915,7 +946,7 @@ Rejected only when the call has to be evaluated on the router — here to derive
 
 ### 211 — User-defined operators are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE OPERATOR === (LEFTARG = int, RIGHTARG = int, FUNCTION = int4eq);
 SELECT name FROM users WHERE user_id === 1;
 ```
@@ -924,7 +955,7 @@ As code 210, for a user-defined operator the router would have to apply itself.
 
 ### 212 — User-defined aggregate transition functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE AGGREGATE my_sum(int) (SFUNC = int4pl, STYPE = int);
 SELECT my_sum(user_id) FROM users;
 ```
@@ -933,16 +964,16 @@ A user-defined aggregate whose transition function the router would have to run 
 
 ### 213 — User-defined aggregate final functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE AGGREGATE my_sum(int) (SFUNC = int4pl, STYPE = int);
 SELECT my_sum(user_id) FROM users;
 ```
 
-As code 212, for the aggregate’s final function — the step that turns the combined transition state into the result.
+As code 212, for the aggregate's final function — the step that turns the combined transition state into the result.
 
 ### 214 — User-defined aggregate moving transition functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE AGGREGATE my_sum(int) (SFUNC = int4pl, STYPE = int, MSFUNC = int4pl, MINVFUNC = int4mi, MSTYPE = int);
 SELECT my_sum(user_id) OVER (ORDER BY user_id ROWS 1 PRECEDING) FROM users;
 ```
@@ -951,7 +982,7 @@ The moving-aggregate transition function of a user-defined aggregate, needed for
 
 ### 215 — User-defined aggregate moving inverse functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE AGGREGATE my_sum(int) (SFUNC = int4pl, STYPE = int, MSFUNC = int4pl, MINVFUNC = int4mi, MSTYPE = int);
 SELECT my_sum(user_id) OVER (ORDER BY user_id ROWS 1 PRECEDING) FROM users;
 ```
@@ -960,7 +991,7 @@ As code 214, for the moving-aggregate inverse function, which removes rows leavi
 
 ### 216 — User-defined aggregate moving final functions are unavailable in the evaluation engine.
 
-```sql
+```sql theme={null}
 CREATE AGGREGATE my_sum(int) (SFUNC = int4pl, STYPE = int, MSFUNC = int4pl, MINVFUNC = int4mi, MSTYPE = int);
 SELECT my_sum(user_id) OVER (ORDER BY user_id ROWS 1 PRECEDING) FROM users;
 ```
@@ -973,7 +1004,7 @@ Codes raised by the DDL surface, mostly for objects that are local to one Postgr
 
 ### 300 — Creating an operator class is unavailable.
 
-```sql
+```sql theme={null}
 CREATE OPERATOR CLASS cls DEFAULT FOR TYPE int USING btree AS OPERATOR 1 <;
 ```
 
@@ -981,7 +1012,7 @@ An operator class created through the router is not carried to a shard that join
 
 ### 301 — Creating an operator family is unavailable.
 
-```sql
+```sql theme={null}
 CREATE OPERATOR FAMILY fam USING btree;
 ```
 
@@ -989,15 +1020,15 @@ As code 300: an operator family created here would not reach a later-joining sha
 
 ### 302 — Creating a text search configuration is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TEXT SEARCH CONFIGURATION public.neki_config (COPY = pg_catalog.simple);
 ```
 
-Router-side text-search evaluation supports only Postgres’s built-in configurations, so a user-created one could not be used by a routed text-search expression.
+Router-side text-search evaluation supports only Postgres's built-in configurations, so a user-created one could not be used by a routed text-search expression.
 
 ### 303 — Creating a text search dictionary is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TEXT SEARCH DICTIONARY public.neki_simple (TEMPLATE = pg_catalog.simple);
 ```
 
@@ -1005,31 +1036,31 @@ As code 302, for a text-search dictionary.
 
 ### 304 — Event triggers are unavailable.
 
-```sql
+```sql theme={null}
 CREATE EVENT TRIGGER e ON ddl_command_start EXECUTE FUNCTION f();
 ```
 
-Event triggers fire on DDL, which the router executes on every shard, so the trigger’s behavior is not well defined. `ALTER EVENT TRIGGER` is rejected the same way.
+Event triggers fire on DDL, which the router executes on every shard, so the trigger's behavior is not well defined. `ALTER EVENT TRIGGER` is rejected the same way.
 
 ### 305 — Rewrite rules are unavailable.
 
-```sql
+```sql theme={null}
 CREATE RULE r AS ON DELETE TO public.users DO INSTEAD NOTHING;
 ```
 
-A rewrite rule would change a statement’s meaning below the router, after planning and routing. Use a trigger, or do the rewrite in your application.
+A rewrite rule would change a statement's meaning below the router, after planning and routing. Use a trigger, or do the rewrite in your application.
 
 ### 306 — Large objects are unavailable.
 
-```sql
+```sql theme={null}
 SELECT lo_create(0);
 ```
 
-Large objects live in one Postgres host’s `pg_largeobject` and are not carried to a shard that joins later. Store the data in a Neki table or in object storage.
+Large objects live in one Postgres host's `pg_largeobject` and are not carried to a shard that joins later. Store the data in a Neki table or in object storage.
 
 ### 307 — Creating a procedural language is unavailable.
 
-```sql
+```sql theme={null}
 CREATE LANGUAGE plperl;
 ```
 
@@ -1037,7 +1068,7 @@ A procedural language created through the router is not carried to a later-joini
 
 ### 308 — Creating a tablespace is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TABLESPACE ts LOCATION '/tmp/ts';
 ```
 
@@ -1045,7 +1076,7 @@ A tablespace is storage local to one Postgres host, so it is not carried to a la
 
 ### 309 — Creating an access method is unavailable.
 
-```sql
+```sql theme={null}
 CREATE ACCESS METHOD am TYPE INDEX HANDLER f;
 ```
 
@@ -1053,7 +1084,7 @@ An access method needs a C handler local to the host and is not carried to a lat
 
 ### 310 — Creating a collation is unavailable.
 
-```sql
+```sql theme={null}
 CREATE COLLATION c (LOCALE = 'C');
 ```
 
@@ -1061,7 +1092,7 @@ A collation created through the router is not carried to a later-joining shard, 
 
 ### 311 — Creating a conversion is unavailable.
 
-```sql
+```sql theme={null}
 CREATE CONVERSION cv FOR 'UTF8' TO 'LATIN1' FROM f;
 ```
 
@@ -1069,7 +1100,7 @@ As code 310, for an encoding conversion.
 
 ### 312 — Foreign data wrappers are unavailable.
 
-```sql
+```sql theme={null}
 CREATE FOREIGN DATA WRAPPER w;
 ```
 
@@ -1077,7 +1108,7 @@ Foreign data wrappers reach outside the cluster from a single host. Import the d
 
 ### 313 — Creating a foreign server is unavailable.
 
-```sql
+```sql theme={null}
 CREATE SERVER srv FOREIGN DATA WRAPPER w;
 ```
 
@@ -1085,15 +1116,15 @@ A foreign server exists only to serve foreign data wrappers and foreign tables, 
 
 ### 314 — Foreign tables are unavailable.
 
-```sql
+```sql theme={null}
 CREATE FOREIGN TABLE ft (a int) SERVER srv;
 ```
 
-A foreign table’s data lives outside the cluster, so the router has no topology for it and cannot route to it.
+A foreign table's data lives outside the cluster, so the router has no topology for it and cannot route to it.
 
 ### 315 — User mappings are unavailable.
 
-```sql
+```sql theme={null}
 CREATE USER MAPPING FOR testuser SERVER srv;
 ```
 
@@ -1101,7 +1132,7 @@ User mappings apply only to foreign data wrappers, which Neki does not support. 
 
 ### 316 — Creating a text search parser is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TEXT SEARCH PARSER p (START = f, GETTOKEN = g, END = h, LEXTYPES = i);
 ```
 
@@ -1109,7 +1140,7 @@ A text-search parser needs host-local C functions and is not carried to a later-
 
 ### 317 — Creating a text search template is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TEXT SEARCH TEMPLATE tm (LEXIZE = f);
 ```
 
@@ -1117,7 +1148,7 @@ As code 316, for a text-search template.
 
 ### 318 — Creating a transform is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TRANSFORM FOR int LANGUAGE sql (FROM SQL WITH FUNCTION f(int), TO SQL WITH FUNCTION g(int));
 ```
 
@@ -1125,15 +1156,15 @@ A transform created through the router is not carried to a later-joining shard. 
 
 ### 319 — Changing composite-type attributes is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TYPE pair ADD ATTRIBUTE third int;
 ```
 
-Changing a composite type’s attributes rewrites every table using that type, which the router does not coordinate across shards. Create a new type and migrate to it.
+Changing a composite type's attributes rewrites every table using that type, which the router does not coordinate across shards. Create a new type and migrate to it.
 
 ### 320 — Shared library loading is unavailable.
 
-```sql
+```sql theme={null}
 LOAD 'libexample';
 ```
 
@@ -1141,7 +1172,7 @@ LOAD 'libexample';
 
 ### 321 — IMPORT FOREIGN SCHEMA is unavailable.
 
-```sql
+```sql theme={null}
 IMPORT FOREIGN SCHEMA remote FROM SERVER srv INTO public;
 ```
 
@@ -1149,7 +1180,7 @@ IMPORT FOREIGN SCHEMA remote FROM SERVER srv INTO public;
 
 ### 323 — Per-column statistics overrides are unavailable.
 
-```sql
+```sql theme={null}
 ALTER TABLE t ALTER COLUMN a SET STATISTICS 100;
 ```
 
@@ -1157,7 +1188,7 @@ A per-column statistics target is planner tuning local to one Postgres instance,
 
 ### 324 — Per-column foreign-table options are unavailable.
 
-```sql
+```sql theme={null}
 ALTER FOREIGN TABLE ft ALTER COLUMN a OPTIONS (ADD b 'c');
 ```
 
@@ -1165,15 +1196,15 @@ Per-column foreign-table options presuppose foreign tables, which Neki does not 
 
 ### 325 — This function language is unavailable.
 
-```sql
+```sql theme={null}
 CREATE FUNCTION f() RETURNS int LANGUAGE c AS 'lib', 'sym';
 ```
 
-The function’s language is the rejected part: only SQL and PL/pgSQL are supported. A language other than those needs a handler local to the host.
+The function's language is the rejected part: only SQL and PL/pgSQL are supported. A language other than those needs a handler local to the host.
 
 ### 326 — This procedure language is unavailable.
 
-```sql
+```sql theme={null}
 CREATE PROCEDURE p() LANGUAGE plperl AS 'return 1';
 ```
 
@@ -1181,7 +1212,7 @@ As code 325, for `CREATE PROCEDURE`.
 
 ### 327 — CREATE LANGUAGE with a handler is unavailable.
 
-```sql
+```sql theme={null}
 CREATE LANGUAGE l HANDLER h;
 ```
 
@@ -1189,7 +1220,7 @@ The `HANDLER` clause names a host-local C function. Install the language through
 
 ### 328 — Renaming a domain constraint is unavailable.
 
-```sql
+```sql theme={null}
 ALTER DOMAIN positive_int RENAME CONSTRAINT positive_int_check TO positive_check;
 ```
 
@@ -1197,15 +1228,15 @@ Renaming a domain constraint is rejected, while `ALTER DOMAIN ... RENAME TO`, `S
 
 ### 329 — ALTER DOMAIN is unavailable.
 
-```sql
+```sql theme={null}
 ALTER DOMAIN positive_int SET DEFAULT 1;
 ```
 
-Changing a domain’s default or constraints affects every column using the domain, across shards, so the statement is rejected.
+Changing a domain's default or constraints affects every column using the domain, across shards, so the statement is rejected.
 
 ### 330 — The IS\_TEMPLATE database option is unavailable.
 
-```sql
+```sql theme={null}
 CREATE DATABASE db IS_TEMPLATE true;
 ```
 
@@ -1213,7 +1244,7 @@ The `IS_TEMPLATE` option is what is rejected; `ALTER DATABASE ... IS_TEMPLATE` r
 
 ### 331 — Database tablespace selection is unavailable.
 
-```sql
+```sql theme={null}
 CREATE DATABASE db TABLESPACE ts;
 ```
 
@@ -1221,7 +1252,7 @@ The `TABLESPACE` option on a database selects host-local storage (code 308). `AL
 
 ### 332 — This database locale is unavailable to the router.
 
-```sql
+```sql theme={null}
 CREATE DATABASE db LOCALE 'xx_not_a_locale';
 ```
 
@@ -1229,7 +1260,7 @@ The named locale cannot be resolved by the routers, so the database would exist 
 
 ### 333 — Renaming an enum label used as a sharding key is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TYPE mood RENAME VALUE 'sad' TO 'unhappy';
 ```
 
@@ -1237,23 +1268,23 @@ Depends on the topology: rejected only when that enum label is used as a shardin
 
 ### 334 — Column storage selection is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TABLE t ALTER COLUMN a SET STORAGE EXTERNAL;
 ```
 
-The `SET STORAGE` action is the rejected part: Neki cannot preserve a column’s storage setting for a shard that joins the cluster later, so the setting would not be uniform across shards.
+The `SET STORAGE` action is the rejected part: Neki cannot preserve a column's storage setting for a shard that joins the cluster later, so the setting would not be uniform across shards.
 
 ### 335 — Column compression selection is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TABLE t ALTER COLUMN a SET COMPRESSION pglz;
 ```
 
-As code 334, for a column’s compression method.
+As code 334, for a column's compression method.
 
-### 336 — Changing a routing column’s generated expression is unavailable.
+### 336 — Changing a routing column's generated expression is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TABLE regional_accounts ALTER COLUMN account_id
 SET EXPRESSION AS (region_id * 1000000 + local_id);
 ```
@@ -1262,15 +1293,15 @@ Depends on the topology: `account_id` is both a generated column and the shard k
 
 ### 338 — Temporary tables, views and sequences are unavailable.
 
-```sql
+```sql theme={null}
 CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
 ```
 
-A temporary relation lives in the PostgreSQL backend that created it, and the router holds no shard backend for a session. The relation would be created on each shard’s pooled backend, where no later statement could see it, so the statement is rejected instead. `CREATE TEMP TABLE ... AS`, `CREATE TEMP VIEW`, `CREATE TEMP SEQUENCE`, and a name qualified with `pg_temp` report the same code. Create a regular relation and drop it when done.
+A temporary relation lives in the PostgreSQL backend that created it, and the router holds no shard backend for a session. The relation would be created on each shard's pooled backend, where no later statement could see it, so the statement is rejected instead. `CREATE TEMP TABLE ... AS`, `CREATE TEMP VIEW`, `CREATE TEMP SEQUENCE`, and a name qualified with `pg_temp` report the same code. Create a regular relation and drop it when done.
 
 ### 515 — A recursive CTE with a composite-typed column is unavailable on the router.
 
-```sql
+```sql theme={null}
 CREATE TYPE user_location AS (region_id integer, city text);
 CREATE TABLE user_locations (user_id integer PRIMARY KEY, location user_location);
 WITH RECURSIVE r AS (SELECT c.user_id, c.location FROM user_locations c WHERE c.user_id = 1 UNION ALL SELECT c.user_id, c.location FROM user_locations c JOIN r ON c.location = r.location AND c.user_id = r.user_id + 1) SELECT * FROM r;
@@ -1280,7 +1311,7 @@ Configure `user_locations` as sharded on `user_id`. The recursive CTE crosses sh
 
 ### 554 — A multiply referenced MATERIALIZED CTE returning an anonymous record with a non-static shape is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH c AS MATERIALIZED (SELECT CASE WHEN user_id > 0 THEN ROW(user_id) ELSE ROW(user_id, user_id) END AS r, user_id FROM users) SELECT r FROM c UNION ALL SELECT r FROM c;
 ```
 
@@ -1288,15 +1319,17 @@ The two references share a materialized result, but the record has a different n
 
 ### 568 — Creating user-defined base types is unavailable.
 
-```sql
+```sql theme={null}
 CREATE TYPE base_type (INPUT = int4in, OUTPUT = int4out, INTERNALLENGTH = 4);
 ```
 
-Neki rejects both shell declarations and complete definitions of user-defined base types. Install a custom base type through an extension available on every shard.
+Neki rejects both shell declarations and complete definitions of user-defined
+base types. Install a custom base type through an extension available on every
+shard.
 
 ### 579 — This data-modifying CTE body is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH m AS (MERGE INTO users t USING warehouses s ON t.user_id = s.warehouse_id WHEN MATCHED THEN UPDATE SET name = 'x' RETURNING t.user_id) SELECT * FROM m;
 ```
 
@@ -1304,31 +1337,33 @@ The `MERGE` body cannot be hosted by the router CTE materialization boundary. Th
 
 ### 631 — Nested CTE name shadowing is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH c1 AS (SELECT user_id FROM users WHERE user_id = 1), c2 AS (WITH c1 AS (SELECT user_id FROM users WHERE user_id = 2), c3 AS (SELECT user_id FROM c1) SELECT * FROM c3) SELECT * FROM c2;
 ```
 
 The inner `c1` shadows the outer CTE name. Give the inner CTE a distinct name.
 
-### 645 — A data-modifying CTE body whose output differs from its write’s RETURNING columns is unavailable on the router.
+### 645 — A data-modifying CTE body whose output differs from its write's RETURNING columns is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH upd AS (UPDATE users SET name='x' WHERE user_id IN (SELECT user_id FROM orders WHERE order_id IN (1,3)) RETURNING user_id, now()) SELECT * FROM upd;
 ```
 
-The router-computed `now()` output does not match the write producer’s `RETURNING` columns. This rejection depends on the query plan and data topology.
+The router-computed `now()` output does not match the write producer's `RETURNING` columns. This rejection depends on the query plan and data topology.
 
 ### 700 — Changing base-type I/O options is unavailable.
 
-```sql
+```sql theme={null}
 ALTER TYPE mood SET (RECEIVE = int4recv);
 ```
 
-The `SET` option changes a base type’s input or output functions. Neki cannot refresh the router’s type metadata after that change, so it rejects the statement before it reaches a shard.
+The `SET` option changes a base type's input or output functions. Neki cannot
+refresh the router's type metadata after that change, so it rejects the
+statement before it reaches a shard.
 
 ### 785 — A CTE body with a volatile expression is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH cte AS (SELECT random() IS NOT NULL AS ok FROM orders LIMIT 1) SELECT ok FROM cte;
 ```
 
@@ -1336,7 +1371,7 @@ The CTE body contains a volatile expression. The router cannot preserve its eval
 
 ### 801 — A whole-row CTE reference with a target-list subquery is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH c AS (SELECT EXISTS(SELECT 1 FROM users) AS e FROM orders) SELECT c FROM c;
 ```
 
@@ -1344,7 +1379,7 @@ The whole-row reference includes a subquery that the planner has extracted from 
 
 ### 816 — A data-modifying CTE body without verifiable write output columns is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH u AS (UPDATE users SET name = o.status FROM orders o WHERE o.user_id = users.user_id AND o.status = 'x' RETURNING users.user_id) SELECT * FROM u;
 ```
 
@@ -1352,7 +1387,7 @@ The router cannot verify the write output columns for this `UPDATE ... FROM` CTE
 
 ### 821 — A CTE exposing an unnamed subquery column is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH c(x) AS MATERIALIZED (SELECT EXISTS(SELECT 1 FROM users) FROM orders) SELECT c.x FROM c;
 ```
 
@@ -1360,15 +1395,16 @@ The extracted subquery has no output name in the CTE body. Give the expression a
 
 ### 896 — SECURITY LABEL statements are unavailable.
 
-```sql
+```sql theme={null}
 SECURITY LABEL ON TYPE mood IS 'classification';
 ```
 
-Neki does not yet install a security label provider, so it rejects `SECURITY LABEL` statements for all object types.
+Neki does not yet install a security label provider, so it rejects `SECURITY
+LABEL` statements for all object types.
 
 ### 929 — A MATERIALIZED CTE containing a function that cannot be safely inlined is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH cte AS MATERIALIZED (SELECT status, random() AS r FROM orders GROUP BY status) SELECT users.user_id, cte.r FROM users JOIN cte ON users.name = cte.status WHERE users.user_id = 11;
 ```
 
@@ -1376,7 +1412,7 @@ The materialized CTE contains a function that the router cannot safely inline wh
 
 ### 933 — This nested CTE inside a data-modifying statement is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH a AS (SELECT user_id FROM users WHERE user_id = 1), b AS (SELECT user_id FROM a) UPDATE orders SET status = 'cascaded' FROM b WHERE orders.user_id = b.user_id AND orders.user_id = 1 RETURNING orders.order_id;
 ```
 
@@ -1384,7 +1420,7 @@ The CTE chain feeds a data-modifying statement. This rejection depends on the qu
 
 ### 961 — This nested recursive CTE is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH RECURSIVE r AS (SELECT user_id FROM users WHERE user_id = 1 UNION ALL SELECT u.user_id FROM users u JOIN r ON u.user_id = r.user_id), cA AS (SELECT user_id FROM r) SELECT user_id FROM r UNION SELECT user_id FROM cA;
 ```
 
@@ -1392,7 +1428,7 @@ The recursive CTE is nested through another CTE reference. This rejection depend
 
 ### 967 — A nested CTE referenced more than once is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH c1 AS (SELECT user_id FROM users WHERE name = 'x'), c2 AS MATERIALIZED (SELECT user_id FROM c1) SELECT user_id FROM c2 UNION ALL SELECT user_id FROM c2;
 ```
 
@@ -1400,7 +1436,7 @@ A CTE body references another CTE and is itself referenced more than once. This 
 
 ### 972 — An unreferenced data-modifying CTE that references another CTE is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH a AS (UPDATE users SET name='a' WHERE user_id = 1 RETURNING user_id), b AS (UPDATE orders SET status='x' WHERE user_id IN (SELECT user_id FROM a) RETURNING order_id) SELECT 1;
 ```
 
@@ -1408,7 +1444,7 @@ The final query does not reference the second data-modifying CTE, whose body rea
 
 ### 992 — A data-modifying CTE body with ON CONFLICT is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH x AS MATERIALIZED (INSERT INTO users (user_id, name, email) VALUES (1, 'a', 'b') ON CONFLICT (user_id) DO NOTHING RETURNING name) SELECT * FROM x;
 ```
 
@@ -1416,8 +1452,15 @@ The data-modifying CTE uses `ON CONFLICT`. This rejection depends on the query p
 
 ### 1018 — A data-modifying CTE returning an anonymous record with a non-static shape is unavailable on the router.
 
-```sql
+```sql theme={null}
 WITH d AS (DELETE FROM users RETURNING CASE WHEN user_id % 2 = 1 THEN ROW(user_id) ELSE ROW(user_id, name) END AS r) SELECT r FROM d UNION ALL SELECT r FROM d;
 ```
 
 The `RETURNING` record has a different number of fields in each `CASE` branch. The router cannot serialize this record through the CTE materialization boundary. Use a fixed record shape.
+
+## Need help?
+
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
