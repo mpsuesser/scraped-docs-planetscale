@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/keyspace
 title: "Keyspace"
 description: ""
-access_date: 2026-10-02T22:59:04.178Z
-current_date: 2026-10-02T22:59:04.178Z
+access_date: 2026-10-21T12:54:15.756Z
+current_date: 2026-10-21T12:54:15.756Z
 ---
 
 ## Getting started
@@ -12,7 +12,7 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The keyspace command
 
-This command allows you to view your keyspaces, create internal or [external keyspaces](#create-an-external-keyspace), resize them, and view or update your Vitess VSchemas. This command is not available for Postgres databases.
+This command allows you to view your keyspaces, create internal or [external keyspaces](#create-an-external-keyspace), resize them, [configure disk scaling](#configure-disk-scaling), and view or update your Vitess VSchemas. This command is not available for Postgres databases.
 
 **Usage:**
 
@@ -39,7 +39,7 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `resize cancel <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Cancel an ongoing keyspace resize. |
 | `resize status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the status of the keyspace’s last resize. |
 | `settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the settings for a keyspace. |
-| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--max-rollout <NUMBER>`, `--replication-durability-constraints-strategy <STRATEGY>`, `--throttler-enabled`, `--throttler-threshold <SECONDS>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
+| `update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `-i`, `--interactive`, `--disk-scaling-strategy <STRATEGY>`, `--max-rollout <NUMBER>`, `--max-storage <SIZE>`, `--replication-durability-constraints-strategy <STRATEGY>`, `--storage <SIZE>`, `--throttler-enabled`, `--throttler-threshold <SECONDS>`, `--vreplication-batch-replication-events`, `--vreplication-enable-noblob-binlog-mode`, `--vreplication-optimize-inserts` | Vitess | Update the settings for a keyspace. |
 | `vschema show <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Show the VSchema for a sharded keyspace. Empty on non-sharded keyspaces. |
 | `vschema update <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` | `--vschema <FILE>` \* | Vitess | Update a VSchema of a keyspace. |
 | `rollout-status <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>` |  | Vitess | Check the status of a keyspace resize request. |
@@ -68,15 +68,18 @@ pscale keyspace <SUB-COMMAND> <FLAG>
 | `--username <USER>` | Username to connect to the external MySQL server. | `create-external` |
 | `--wait` | Wait until the keyspace is ready. | `create-external` |
 | `--force` | Delete the keyspace without a confirmation prompt. Required in non-interactive or non- `human` output modes. | `delete` |
+| `--disk-scaling-strategy <STRATEGY>` | How disk size is managed: `grow` automatically increases disk size as needed, up to `--max-storage`. `disable` turns off automatic disk growth. `shrink` resizes disks to `--storage` and then turns off automatic disk growth. | `update-settings` |
 | `-i, --interactive` | Run the command in interactive mode. | `update-settings` |
 | `--namespace <NAMESPACE>` | Only show parameters in this namespace: `vttablet` or `mysqld`. | `parameters list` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a parameter, where `<NAMESPACE>` is `vttablet` or `mysqld`, for example `vttablet.vreplication-parallel-insert-workers=4`. Repeatable. | `parameters set` |
 | `--reset <NAMESPACE.NAME>` | Set a parameter back to its default, for example `vttablet.vreplication-parallel-insert-workers`. Repeatable. | `parameters set` |
 | `--page <NUMBER>`, `--per-page <NUMBER>` | Page through parameter changes. `--per-page` defaults to 25. | `parameters changes list` |
 | `--max-rollout <NUMBER>` | Maximum number of shards to update concurrently during a keyspace rollout. Accepts values from 1 to 32. | `update-settings` |
+| `--max-storage <SIZE>` | Maximum size disks can automatically grow to, in bytes or with a unit such as `200GiB` or `1TiB`. Must be at least the size of the largest current disk and no more than the organization’s storage limit (4 TB by default). | `update-settings` |
 | `--replication-durability-constraints-strategy <STRATEGY>` | Replication strategy to use. Options: maximum, dynamic, minimum (default “maximum”). | `update-settings` |
 | `--throttler-enabled` | Pause schema migrations and VReplication workflows when replication lag is above the threshold. Pass `--throttler-enabled=false` to turn the throttler off. | `update-settings` |
 | `--throttler-threshold <SECONDS>` | Replication lag in seconds above which migrations and workflows are paused. Default is 5. | `update-settings` |
+| `--storage <SIZE>` | Disk size to shrink to, in bytes or with a unit such as `200GiB`. Must be a multiple of 1 GiB and no more than the organization’s storage limit. Only accepted when the disk scaling strategy is `shrink`, either passed with `--disk-scaling-strategy` or already set on the keyspace. Rejected if any disk is using more than 80% of the requested size. | `update-settings` |
 | `--shards <NUMBER>` | Number of shards in the keyspace (default 1). | `create` |
 | `--vreplication-batch-replication-events` | When enabled, sends fewer queries to MySQL to improve performance. | `update-settings` |
 | `--vreplication-enable-noblob-binlog-mode` | When enabled, omits changed BLOB and TEXT columns from replication events, which reduces binlog sizes. (default true) | `update-settings` |
@@ -172,6 +175,38 @@ pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --
 ```
 
 `--max-rollout` accepts values from 1 to 32. If the API value is not set, `pscale keyspace settings` displays `not set`, and PlanetScale uses the default of 1.
+
+### Configure disk scaling
+
+Show the keyspace’s current disk scaling strategy and storage sizes:
+
+```shellscript
+pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
+```
+
+Let disks grow automatically, up to a limit:
+
+```shellscript
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+  --disk-scaling-strategy grow \
+  --max-storage 1TiB
+```
+
+Turn off automatic disk growth:
+
+```shellscript
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --disk-scaling-strategy disable
+```
+
+Shrink disks to a smaller size. Automatic disk growth is turned off afterwards:
+
+```shellscript
+pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+  --disk-scaling-strategy shrink \
+  --storage 200GiB
+```
+
+The shrink is rejected if any disk is using more than 80% of the requested size. Settings you don’t pass keep their current values. See [Disk autoscaling](../vitess/cluster-configuration/disk-autoscaling.md) for how each option works.
 
 ### Change keyspace parameters
 
