@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_router
 title: "Create_router"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -136,9 +136,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -255,11 +261,11 @@ paths:
                 name:
                   type: string
                   description: >-
-                    The name of the router group. Letters, digits, dashes, and
-                    underscores; 1-64 characters; cannot start or end with a
-                    dash or underscore. `new`, `primary`, and `replica` are
-                    reserved. Clients connect through the group by appending it
-                    to the username, e.g. `user|my-router`.
+                    The name of the router group. Lowercase letters, digits, and
+                    dashes (an RFC 1123 DNS label); 1-16 characters; cannot
+                    start or end with a dash. `new`, `primary`, and `replica`
+                    are reserved. Clients connect through the group by appending
+                    it to the username, e.g. `user|my-router`.
                 router_size:
                   type: string
                   description: >-

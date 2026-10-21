@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_audit_logs
 title: "List_audit_logs"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -135,9 +135,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.

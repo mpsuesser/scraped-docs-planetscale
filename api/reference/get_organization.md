@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_organization
 title: "Get_organization"
 description: ""
-access_date: 2026-10-14T12:20:11.966Z
-current_date: 2026-10-14T12:20:11.966Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -136,9 +136,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -323,6 +329,17 @@ paths:
                     description: >-
                       Whether or not the organization requires payment
                       information
+                  allow_llm_usage:
+                    type: boolean
+                    description: >-
+                      Whether or not LLM-powered features are enabled for the
+                      organization
+                  llm_usage_blocked:
+                    type: boolean
+                    description: >-
+                      Whether or not LLM usage is blocked for the organization.
+                      When true, LLM-powered features are disabled and can't be
+                      enabled
                   mcp_access_level:
                     type: string
                     description: >-
@@ -348,6 +365,8 @@ paths:
                   - neki_router_replicas_per_cell_limit
                   - has_card
                   - payment_info_required
+                  - allow_llm_usage
+                  - llm_usage_blocked
                   - mcp_access_level
         '401':
           description: Unauthorized

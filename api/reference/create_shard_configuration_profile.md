@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_shard_configuration_profile
 title: "Create_shard_configuration_profile"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -136,9 +136,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -261,6 +267,11 @@ paths:
                 replicas:
                   type: integer
                   description: The number of replicas for the configuration profile
+                read_only_replicas:
+                  type: integer
+                  description: >-
+                    The number of read-only replicas for the configuration
+                    profile
                 postgres_major_version:
                   type: string
                   description: The PostgreSQL major version for the configuration profile

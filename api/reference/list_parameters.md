@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_parameters
 title: "List_parameters"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -138,9 +138,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -251,6 +257,14 @@ paths:
           description: 'Branch name from `list_branches`. Example: `main`.'
           schema:
             type: string
+        - name: internal
+          in: query
+          description: >-
+            Set to true to return only internal parameters, which cannot be
+            changed. Set to false to return only parameters you can change. Omit
+            to return both.
+          schema:
+            type: boolean
       responses:
         '200':
           description: Returns cluster parameters
@@ -276,12 +290,15 @@ paths:
                       type: string
                       enum:
                         - patroni
-                        - pgconf
                         - pgbouncer
+                        - pgconf
                       description: The namespace of the parameter
                     advanced:
                       type: boolean
                       description: Whether the parameter is advanced
+                    internal:
+                      type: boolean
+                      description: Whether the parameter is internal and cannot be changed
                     category:
                       type: string
                       description: The category of the parameter
@@ -297,7 +314,6 @@ paths:
                         - bytes
                         - float
                         - integer
-                        - seconds
                         - select
                         - string
                         - time
@@ -306,10 +322,9 @@ paths:
                       type: string
                       description: The default value of the parameter
                       nullable: true
-                    disabled_reason:
-                      type: string
-                      description: Why the parameter cannot be changed
-                      nullable: true
+                    disabled:
+                      type: boolean
+                      description: Whether the parameter is disabled
                     requires_update:
                       type: string
                       enum:
@@ -339,20 +354,20 @@ paths:
                         Whether processes require a server restart after the
                         parameter changes
                     max:
-                      type: number
-                      description: The maximum value of the parameter
+                      type: string
+                      description: The maximum value of the parameter, e.g. `800` or `1h`
                       nullable: true
                     min:
-                      type: number
-                      description: The minimum value of the parameter
+                      type: string
+                      description: The minimum value of the parameter, e.g. `0` or `1ms`
                       nullable: true
                     options:
                       items:
                         type: string
                       type: array
                       description: >-
-                        Valid options for the parameter value. Null represents
-                        an unset value
+                        Options, including disabled ones, for the parameter
+                        value. Null means unset
                       nullable: true
                     units:
                       items:
@@ -384,10 +399,12 @@ paths:
                     - display_name
                     - namespace
                     - advanced
+                    - internal
                     - category
                     - description
                     - parameter_type
                     - default_value
+                    - disabled
                     - requires_update
                     - value
                     - required

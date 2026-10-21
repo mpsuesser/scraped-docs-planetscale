@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_branch_metrics
 title: "Get_branch_metrics"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-21T07:56:55.555Z
+current_date: 2026-10-21T07:56:55.555Z
 ---
 
 > ## Documentation Index
@@ -167,9 +167,15 @@ tags:
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
+  - name: QueryPatternComments
+    description: |2
+                Comments attached to an Insights query pattern.
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
+  - name: Dedicated read replica promotions
+    description: |2
+                Resources for promoting Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -375,6 +381,13 @@ paths:
                 - planetscale_neki_router_query_latency_p95_by_database
                 - planetscale_neki_router_query_latency_p99
                 - planetscale_neki_router_query_latency_p99_by_database
+                - planetscale_neki_sidecar_pool_capacity
+                - planetscale_neki_sidecar_pool_connections_active
+                - planetscale_neki_sidecar_pool_connections_available
+                - planetscale_neki_sidecar_pool_connections_in_use
+                - planetscale_neki_sidecar_pool_connections_waiting
+                - planetscale_neki_sidecar_pool_wait_time_avg
+                - planetscale_neki_sidecar_pool_waits_rate
                 - planetscale_pgbouncer_current_connections
                 - planetscale_pgbouncer_pools_client
                 - planetscale_pgbouncer_pools_server
