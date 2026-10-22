@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_neki_change_request
 title: "Get_neki_change_request"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T08:33:14.509Z
+current_date: 2026-10-22T08:33:14.509Z
 ---
 
 > ## Documentation Index
@@ -278,7 +278,6 @@ paths:
                       - NekiConfigurationProfileChangeRequest
                       - NekiExternalShardChangeRequest
                       - NekiRouterChangeRequest
-                      - NekiSidecarChangeRequest
                     description: The type of change request
                   id:
                     type: string
@@ -337,7 +336,6 @@ paths:
                       - NekiConfigurationProfile
                       - NekiExternalShard
                       - NekiRouter
-                      - NekiSidecar
                     description: The type of resource being changed
                   target_name:
                     type: string

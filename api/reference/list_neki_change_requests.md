@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_neki_change_requests
 title: "List_neki_change_requests"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T08:33:14.509Z
+current_date: 2026-10-22T08:33:14.509Z
 ---
 
 > ## Documentation Index
@@ -281,7 +281,7 @@ paths:
           description: >-
             Filter change requests by target type. Must contain one or more of:
             NekiAdmin, NekiCluster, NekiConfigurationProfile, NekiExternalShard,
-            NekiRouter, or NekiSidecar
+            or NekiRouter
           style: form
           explode: false
           schema:
@@ -290,7 +290,9 @@ paths:
               type: string
         - name: target_id
           in: query
-          description: Filter change requests by target ID. Requires target_types
+          description: >-
+            Filter change requests for one target. Requires exactly one target
+            type
           schema:
             type: string
         - name: period
@@ -366,7 +368,6 @@ paths:
                             - NekiConfigurationProfileChangeRequest
                             - NekiExternalShardChangeRequest
                             - NekiRouterChangeRequest
-                            - NekiSidecarChangeRequest
                           description: The type of change request
                         id:
                           type: string
@@ -425,7 +426,6 @@ paths:
                             - NekiConfigurationProfile
                             - NekiExternalShard
                             - NekiRouter
-                            - NekiSidecar
                           description: The type of resource being changed
                         target_name:
                           type: string
