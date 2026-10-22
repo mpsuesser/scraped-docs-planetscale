@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-09-28T07:46:29.866Z
-current_date: 2026-09-28T07:46:29.866Z
+access_date: 2026-10-22T14:51:40.294Z
+current_date: 2026-10-22T14:51:40.294Z
 ---
 
 ## Overview
@@ -21,6 +21,7 @@ PlanetScale emits the following metrics to be scraped.
 | **Name & Description** | **Type** | **Tags** |
 | --- | --- | --- |
 | **planetscale\_edge\_active\_connections** The number of active MySQL connections to the branch | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_region |
+| **planetscale\_edge\_mysql\_queries\_by\_branch\_total** Total number of queries processed by Edge for the branch, per Edge instance | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_instance, planetscale\_region |
 | **planetscale\_mysql\_bytes\_received\_total** Total number of bytes received from MySQL clients | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_bytes\_sent\_total** Total number of bytes sent to MySQL clients | Counter | cluster, planetscale\_component, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_mysql\_innodb\_data\_writes\_total** Total number of InnoDB data write operations | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
