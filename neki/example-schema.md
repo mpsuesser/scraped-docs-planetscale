@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/example-schema
 title: "Example Schema"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-22T09:51:35.727Z
+current_date: 2026-10-22T09:51:35.727Z
 ---
 
 > ## Documentation Index
@@ -24,6 +24,9 @@ page defines its tables and the data topology that places them on shards.
 | `accounts_by_email`, `accounts_by_phone` | Unsharded lookup tables for the `accounts` GSIs, in the `meta` shard group |
 | `notes` | Unsharded, in the `meta` shard group |
 | `ref_countries` | A reference table, with a copy on every shard in the `user_data` shard group |
+| `regional_users` | Sharded on the enum column `region` in the `user_data` shard group |
+| `regional_accounts` | Sharded on the generated column `account_id` in the `user_data` shard group |
+| `devices` | Sharded on the expression `owner_id + device_no` in the `user_data` shard group |
 
 ## Tables
 
@@ -89,6 +92,26 @@ CREATE TABLE public.ref_countries (
     country_id integer PRIMARY KEY,
     name       text NOT NULL
 );
+
+CREATE TYPE public.region AS ENUM ('eu', 'us');
+
+CREATE TABLE public.regional_users (
+    region  public.region NOT NULL,
+    user_id bigint NOT NULL,
+    PRIMARY KEY (region, user_id)
+);
+
+CREATE TABLE public.regional_accounts (
+    region_id  integer NOT NULL,
+    local_id   bigint NOT NULL,
+    account_id bigint GENERATED ALWAYS AS (region_id * 1000000 + local_id) STORED PRIMARY KEY
+);
+
+CREATE TABLE public.devices (
+    owner_id  bigint NOT NULL,
+    device_no bigint NOT NULL,
+    PRIMARY KEY (owner_id, device_no)
+);
 ```
 
 `users`, `orders`, `products`, and `user_tags` share the shard key `user_id`.
@@ -103,6 +126,10 @@ it.
 `account_id`. Its rows are not co-located with the rows of the tables sharded
 on `user_id`.
 
+`regional_users`, `regional_accounts`, and `devices` show other ways to choose
+a shard key: an enum column, a generated column, and an expression over two
+columns.
+
 ## Data topology
 
 ```json theme={null}
@@ -116,6 +143,14 @@ on `user_id`.
     "xxhash_account_id": {
       "type": "xxhash",
       "columns": ["account_id"]
+    },
+    "xxhash_region": {
+      "type": "xxhash",
+      "columns": ["region"]
+    },
+    "xxhash_device": {
+      "type": "xxhash",
+      "columns": ["owner_id + device_no"]
     }
   },
   "shard_groups": [
@@ -134,6 +169,7 @@ on `user_id`.
   ],
   "databases": {
     "app": {
+      "advisory_lock_shard_group": "user_data",
       "global_secondary_indexes": {
         "by_email": {
           "schema": "public",
@@ -185,6 +221,18 @@ on `user_id`.
                 }
               ]
             },
+            "regional_users": {
+              "shard_group": "user_data",
+              "primary_indexes": [{ "shard_index": "xxhash_region" }]
+            },
+            "regional_accounts": {
+              "shard_group": "user_data",
+              "primary_indexes": [{ "shard_index": "xxhash_account_id" }]
+            },
+            "devices": {
+              "shard_group": "user_data",
+              "primary_indexes": [{ "shard_index": "xxhash_device" }]
+            },
             "accounts_by_email": {
               "shard_group": "meta"
             },
@@ -210,8 +258,11 @@ on `user_id`.
 The topology has two shard groups:
 
 * `user_data` places the sharded tables on `shard-a` and `shard-b`. Its
-  default shard index, `xxhash_user_id`, hashes `user_id`. The `accounts`
-  entry overrides it with `xxhash_account_id`, which hashes `account_id`.
+  default shard index, `xxhash_user_id`, hashes `user_id`. The `accounts` and
+  `regional_accounts` entries override it with `xxhash_account_id`, which
+  hashes `account_id`; `regional_users` and `devices` override it with
+  `xxhash_region` and `xxhash_device`. It is also the advisory-lock shard
+  group, so Neki hashes each advisory-lock key to one of its shards.
 * `meta` is the [authoritative shard
   group](data-topology.md#authoritative-shard-group). Its one shard,
   `shard-meta`, holds the unsharded tables: `notes` and the two GSI lookup
