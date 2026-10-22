@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ If you have any questions while working through this documentation, contact your
 
 > [!NOTE]
 >
-> This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](../../managed.md), please [contact us](https://planetscale.com/contact).
+> This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](https://planetscale.com/docs/plans/managed.md), please [contact us](https://planetscale.com/contact).
 
 ## Step 1: Account requirements
 
@@ -155,7 +155,7 @@ aws cloudformation delete-stack --stack-name planetscale-bootstrap
 
 > [!NOTE]
 >
-> Private database connectivity is available through [AWS PrivateLink](privatelink.md) or [AWS VPC peering](vpc-peering.md). Contact your Solutions Engineer to choose an option before provisioning.
+> Private database connectivity is available through [AWS PrivateLink](https://planetscale.com/docs/plans/managed/aws/privatelink.md) or [AWS VPC peering](https://planetscale.com/docs/plans/managed/aws/vpc-peering.md). Contact your Solutions Engineer to choose an option before provisioning.
 
 ## Need help?
 

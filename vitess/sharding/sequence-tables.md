@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sequence-tables
 title: "Sequence Tables"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,9 +24,9 @@ Each time you create a new horizontally sharded table, you should create the cor
 
 ## Creating a horizontally-sharded table
 
-We recommend keeping [safe migrations](../schema-changes/safe-migrations.md) enabled for all production databases.
-Thus, the first step to make schema modifications is to create a new [branch](../schema-changes/branching.md),
-and connect to it via the [command line](../../cli.md).
+We recommend keeping [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled for all production databases.
+Thus, the first step to make schema modifications is to create a new [branch](https://planetscale.com/docs/vitess/schema-changes/branching.md),
+and connect to it via the [command line](https://planetscale.com/docs/cli.md).
 
 Next, to create a horizontally-sharded table, switch to your desired sharded keyspace.
 Create a new table in this keyspace, and do *not* use `AUTO_INCREMENT` for your ID column.
@@ -47,7 +47,7 @@ USE test_unsharded;
 CREATE TABLE test_seq(id bigint, next_id bigint, cache bigint, primary key(id)) comment 'vitess_sequence';
 ```
 
-We also need to update the [VSchema](vschema.md) of our database.
+We also need to update the [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md) of our database.
 We need to tell Vitess about this new `SEQUENCE`, let it know to use the `id` column as the shard key, and tell it to use the `test_seq` table for fetching auto incrementing IDs.
 
 ```sql theme={null}
@@ -58,7 +58,7 @@ ALTER VSCHEMA ON `test_sharded`.`test` ADD VINDEX xxhash(id) USING xxhash;
 ALTER VSCHEMA ON `test_sharded`.`test` ADD auto_increment id USING `test_unsharded`.`test_seq`;
 ```
 
-When you are comfortable with your schema changes, create a [deploy request](../schema-changes/deploy-requests.md) and merge.
+When you are comfortable with your schema changes, create a [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) and merge.
 
 ## Sequence table values
 

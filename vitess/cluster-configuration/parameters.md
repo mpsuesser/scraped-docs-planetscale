@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > Tune VTGate, VTTablet, and MySQL settings for your PlanetScale for Vitess cluster.
 
-PlanetScale for Vitess lets you adjust a curated set of VTGate, VTTablet, and MySQL parameters directly from the [Clusters page](../cluster-configuration.md) in the dashboard.
+PlanetScale for Vitess lets you adjust a curated set of VTGate, VTTablet, and MySQL parameters directly from the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) in the dashboard.
 
 The defaults for each parameter depend on the size of your cluster. They are chosen to optimize performance, resource usage, and connection handling for each cluster size, but you can fine-tune them when your workload calls for it.
 
@@ -158,7 +158,7 @@ PlanetScale for Vitess exposes the following parameters. Defaults vary by cluste
 | | `innodb_buffer_pool_dump_pct` | Percentage of the buffer pool's most recent pages dumped at shutdown. |
 | | `innodb_io_capacity` | Baseline I/O operations per second available to InnoDB background tasks. |
 | | `innodb_io_capacity_max` | Maximum I/O operations per second available to InnoDB background tasks. |
-| | `innodb_adaptive_hash_index` | Enable the InnoDB adaptive hash index (AHI). Can block queries during deploy request cutovers on tables with many foreign key child tables; see [Adaptive hash index](../foreign-key-constraints.md#adaptive-hash-index). |
+| | `innodb_adaptive_hash_index` | Enable the InnoDB adaptive hash index (AHI). Can block queries during deploy request cutovers on tables with many foreign key child tables; see [Adaptive hash index](https://planetscale.com/docs/vitess/foreign-key-constraints.md#adaptive-hash-index). |
 | | `innodb_log_buffer_size` | Size of the buffer that holds redo log data before flushing. |
 | | `innodb_max_purge_lag` | Delay DML when the history list exceeds this length. |
 | | `innodb_max_purge_lag_delay` | Maximum delay, in microseconds, applied when `innodb_max_purge_lag` is exceeded. |

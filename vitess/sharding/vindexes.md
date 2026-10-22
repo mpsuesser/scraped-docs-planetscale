@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/vindexes
 title: "Vindexes"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,9 +16,9 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!NOTE]
 >
-> You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](../cluster-configuration.md) and moving tables into it with [MoveTables](sharding-quickstart.md).
+> You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) and moving tables into it with [MoveTables](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
 >
-> If you would like additional support from our expert team, our [Enterprise plan](../../planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
+> If you would like additional support from our expert team, our [Enterprise plan](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
 
 To do this, we must select a **Vindex** (Vitess index) for each table.
 
@@ -87,7 +87,7 @@ Each row will also have other IDs acting as foreign keys to other tables:
 > [!NOTE]
 >
 > You can't use an `auto_increment` primary key in a sharded keyspace.
-> Instead you'll need to use a [sequence table](sequence-tables.md).
+> Instead you'll need to use a [sequence table](https://planetscale.com/docs/vitess/sharding/sequence-tables.md).
 
 * `user_id` is a foreign key to a `user` table
 * `exercise_id` is a foreign key to an `exercise` table
@@ -195,7 +195,7 @@ If the set of mappings is large, you can opt for something like `consistent_look
 ## Next steps
 
 This page mostly focuses on Vindexes conceptually.
-If you want to see an example of how to update your Vschema to use a Vindex, check out the [sharding walkthrough](sharding-quickstart.md).
+If you want to see an example of how to update your Vschema to use a Vindex, check out the [sharding walkthrough](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
 
 ## Need help?
 

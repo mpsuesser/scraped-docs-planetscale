@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/safe-migrations
 title: "Safe Migrations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,15 +16,15 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Zero-downtime schema migrations
 
-Safe migrations enable the [PlanetScale workflow](../best-practices.md) on a given branch and allow your team to create deploy requests to merge schema changes into that branch. When changes are merged using deploy requests, a ghost table will be created with the desired schema changes. Your data will be continuously synchronized with that table until you decide to apply the changes.
+Safe migrations enable the [PlanetScale workflow](https://planetscale.com/docs/vitess/best-practices.md) on a given branch and allow your team to create deploy requests to merge schema changes into that branch. When changes are merged using deploy requests, a ghost table will be created with the desired schema changes. Your data will be continuously synchronized with that table until you decide to apply the changes.
 
 ## Schema revert
 
-Safe migrations and deploy requests provide the option to quickly [revert schema changes](deploy-requests.md#revert-a-schema-change) if you discover that they are not compatible with your application. With schema revert enabled for a database, the old table is retained. You’re provided a 30-minute window where data will still be synchronized as writes occur on the new table. If you decide to revert your changes, the status of the two tables is flipped, bringing the former table back.
+Safe migrations and deploy requests provide the option to quickly [revert schema changes](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) if you discover that they are not compatible with your application. With schema revert enabled for a database, the old table is retained. You’re provided a 30-minute window where data will still be synchronized as writes occur on the new table. If you decide to revert your changes, the status of the two tables is flipped, bringing the former table back.
 
 ## Protection against accidental schema changes
 
-To prevent accidental changes to the database schema, which may cause downtime, safe migrations enforce the use of [branching](branching.md) and [deploy requests](deploy-requests.md). This requires that changes be made safely and allows all team members to check and comment on schema changes before they are applied.
+To prevent accidental changes to the database schema, which may cause downtime, safe migrations enforce the use of [branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) and [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). This requires that changes be made safely and allows all team members to check and comment on schema changes before they are applied.
 
 With safe migrations enabled, Data Definition Language (DDL) statements issued to branches with safe migrations enabled will automatically be rejected by PlanetScale. Any `CREATE`, `ALTER`, or `DELETE` commands, whether sent using the PlanetScale built-in console, terminal, or MySQL GUI, will fail when we receive them.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ If you have any questions while working through this documentation, contact your
 
 > [!NOTE]
 >
-> This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](../../managed.md), please [contact us](https://planetscale.com/contact).
+> This guide is only intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot set PlanetScale Managed up on your own without PlanetScale enabling it for your organization. If you are interested in [PlanetScale Managed](https://planetscale.com/docs/plans/managed.md), please [contact us](https://planetscale.com/contact).
 
 ## Step 1: Account requirements
 
@@ -153,7 +153,7 @@ Once the deployment has been provisioned, your Solutions Engineer will contact y
 
 > [!NOTE]
 >
-> Optionally, PlanetScale can connect you to your databases via [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) with PlanetScale Managed. See the [GCP Private Service Connect documentation](private-service-connect.md) for more information on establishing a Private Service Connect connection.
+> Optionally, PlanetScale can connect you to your databases via [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) with PlanetScale Managed. See the [GCP Private Service Connect documentation](https://planetscale.com/docs/plans/managed/gcp/private-service-connect.md) for more information on establishing a Private Service Connect connection.
 
 ## Need help?
 

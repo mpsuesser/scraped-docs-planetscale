@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ Branches are completely isolated databases. Changes made in one branch, whether 
 
 > [!NOTE]
 >
-> New branches incur additional charges. The cost depends on the selected resources for the branch. The monthly price for the new branch will be shown during branch creation. See [pricing](pricing.md) for more information.
+> New branches incur additional charges. The cost depends on the selected resources for the branch. The monthly price for the new branch will be shown during branch creation. See [pricing](https://planetscale.com/docs/postgres/pricing.md) for more information.
 
 > [!WARNING]
 >
@@ -32,11 +32,11 @@ PlanetScale Postgres provides two types of database branches:
 
 * **Development branches** — Development branches run on `PS-DEV` instances that have limited performance capabilities, different egress rates, and no replicas. This is great for experimentation, testing new schemas, and limited exploration of your data.
 
-* **Production branches** — Production branches are intended for production traffic and include optional replicas for high availability. Production branches can be created on non-HA ([single node](cluster-configuration/single-node.md)) or HA (primary + 2 replicas) nodes.
+* **Production branches** — Production branches are intended for production traffic and include optional replicas for high availability. Production branches can be created on non-HA ([single node](https://planetscale.com/docs/postgres/cluster-configuration/single-node.md)) or HA (primary + 2 replicas) nodes.
 
-New branches created from the **Branches** page always start as development branches on `PS-DEV` instances. To convert a branch into a production branch, [upsize the cluster](cluster-configuration.md#adjusting-cluster-size) and [add replicas](cluster-configuration.md#managing-replicas) from the **Clusters** page. Only production branches can be set as the [default branch](#set-as-default-branch).
+New branches created from the **Branches** page always start as development branches on `PS-DEV` instances. To convert a branch into a production branch, [upsize the cluster](https://planetscale.com/docs/postgres/cluster-configuration.md#adjusting-cluster-size) and [add replicas](https://planetscale.com/docs/postgres/cluster-configuration.md#managing-replicas) from the **Clusters** page. Only production branches can be set as the [default branch](#set-as-default-branch).
 
-Each database allows `100` development branches by default. Change the limit on the database [Settings](settings.md#development-branch-limit) page. The limit can be any number from 1 to 5,000. When a database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
+Each database allows `100` development branches by default. Change the limit on the database [Settings](https://planetscale.com/docs/postgres/settings.md#development-branch-limit) page. The limit can be any number from 1 to 5,000. When a database is at its limit, delete development branches you no longer need, or raise the limit, before creating another one. For a limit above 5,000, [contact support](https://planetscale.com/contact).
 
 ## Create a branch
 
@@ -78,7 +78,7 @@ Click **Create branch**
 
 > [!NOTE]
 >
-> If [Restrict branch regions](settings.md#restrict-branch-regions) is enabled in database settings, new branches can only be created in the same region as the default branch.
+> If [Restrict branch regions](https://planetscale.com/docs/postgres/settings.md#restrict-branch-regions) is enabled in database settings, new branches can only be created in the same region as the default branch.
 
 ### From a backup
 
@@ -129,11 +129,11 @@ Apply your schema to the new branch using standard PostgreSQL DDL.
 
 **Step 3**
 
-Copy data from the existing branch using a tool such as `pg_dump`/`pg_restore` or [pgcopydb](imports/postgres-migrate-pgcopydb.md).
+Copy data from the existing branch using a tool such as `pg_dump`/`pg_restore` or [pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md).
 
 **Step 4**
 
-[Upsize the cluster](cluster-configuration.md#adjusting-cluster-size) and [add replicas](cluster-configuration.md#managing-replicas) to make it a production branch.
+[Upsize the cluster](https://planetscale.com/docs/postgres/cluster-configuration.md#adjusting-cluster-size) and [add replicas](https://planetscale.com/docs/postgres/cluster-configuration.md#managing-replicas) to make it a production branch.
 
 **Step 5**
 
@@ -193,7 +193,7 @@ If you haven't already, follow the instructions to **Create the default role**
 
 **Step 4**
 
-Choose your preferred connection method ([direct or PgBouncer](connecting.md))
+Choose your preferred connection method ([direct or PgBouncer](https://planetscale.com/docs/postgres/connecting.md))
 
 **Step 5**
 
@@ -207,7 +207,7 @@ You should create new roles for specific use-cases and tailor their permissions 
 
 In your application, use the specific role(s) and the preferred connection method.
 
-For detailed connection instructions, see the [PostgreSQL connection documentation](connecting.md).
+For detailed connection instructions, see the [PostgreSQL connection documentation](https://planetscale.com/docs/postgres/connecting.md).
 
 ## Rename a branch
 
@@ -243,7 +243,7 @@ Renaming a branch does not affect that branch's credentials. You do not need to 
 
 The default branch serves as the source branch when creating new development branches.
 
-Only production branches can be the default branch. New branches created from the **Branches** page start as development branches, so before a branch can be promoted to the default, you must first [upsize the cluster](cluster-configuration.md#adjusting-cluster-size) and [add replicas](cluster-configuration.md#managing-replicas) from the **Clusters** page to turn it into a production branch.
+Only production branches can be the default branch. New branches created from the **Branches** page start as development branches, so before a branch can be promoted to the default, you must first [upsize the cluster](https://planetscale.com/docs/postgres/cluster-configuration.md#adjusting-cluster-size) and [add replicas](https://planetscale.com/docs/postgres/cluster-configuration.md#managing-replicas) from the **Clusters** page to turn it into a production branch.
 
 To change the default branch:
 
@@ -313,12 +313,12 @@ Confirm the deletion
 
 * You cannot delete the default branch. You must first set another branch as the default branch.
 * You cannot set development branches as the default branch.
-* Only [Organization Administrators and Database Administrators](../security/access-control.md) have permission to delete production branches. Database Members can delete non-production branches.
+* Only [Organization Administrators and Database Administrators](https://planetscale.com/docs/security/access-control.md) have permission to delete production branches. Database Members can delete non-production branches.
 * Development branches are billed only for the time they are used, so it's beneficial to delete them when no longer needed.
 
 ## Schema changes
 
-Since PlanetScale Postgres branches don't use [deploy requests like in Vitess](../vitess/schema-changes/deploy-requests.md), you make schema changes directly on each branch:
+Since PlanetScale Postgres branches don't use [deploy requests like in Vitess](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md), you make schema changes directly on each branch:
 
 **Step 1**
 

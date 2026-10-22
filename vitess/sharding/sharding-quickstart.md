@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-quickstart
 title: "Sharding Quickstart"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,18 +14,18 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > Move **existing tables** in your PlanetScale database from an unsharded keyspace to a sharded keyspace with a Vitess MoveTables [workflow](../scaling/workflows.md).
 
-* If you are creating a new table that you want in a sharded keyspace, follow the instructions in the [Sharding new tables doc](sharding-new-tables.md).
-* If you are moving tables from one sharded keyspace to another sharded keyspace, follow the instructions in the [Sharding a sharded keyspace doc](sharding-a-sharded-keyspace.md).
+* If you are creating a new table that you want in a sharded keyspace, follow the instructions in the [Sharding new tables doc](https://planetscale.com/docs/vitess/sharding/sharding-new-tables.md).
+* If you are moving tables from one sharded keyspace to another sharded keyspace, follow the instructions in the [Sharding a sharded keyspace doc](https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace.md).
 
 Before you begin, we recommend the following reading:
 
-> **[Workflows overview](../scaling/workflows.md)**
+> **[Workflows overview](https://planetscale.com/docs/vitess/scaling/workflows.md)**
 
-> **[What is a keyspace?](../sharding.md)**
+> **[What is a keyspace?](https://planetscale.com/docs/vitess/sharding.md)**
 
-> **[Vindexes](vindexes.md)**
+> **[Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)**
 
-> **[Avoiding cross-shard queries](avoiding-cross-shard-queries.md)**
+> **[Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md)**
 
 > [!NOTE]
 >
@@ -33,15 +33,15 @@ Before you begin, we recommend the following reading:
 
 > [!WARNING]
 >
-> These are advanced configuration settings that expose some of the underlying Vitess configuration of your cluster. Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](../sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
+> These are advanced configuration settings that expose some of the underlying Vitess configuration of your cluster. Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](https://planetscale.com/docs/vitess/sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
 
 Throughout this guide, we will refer to the source keyspace and target keyspace, which are defined as follows:
 
 * **Source keyspace**: The original unsharded keyspace from which you are moving the tables you wish to shard.
 * **Target keyspace**: The new sharded keyspace that you are moving the selected tables to.
-* **Global keyspace**: An unsharded keyspace that holds the [sequence tables](sequence-tables.md) that replace `AUTO_INCREMENT` on the sharded tables. This is usually the source keyspace.
+* **Global keyspace**: An unsharded keyspace that holds the [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md) that replace `AUTO_INCREMENT` on the sharded tables. This is usually the source keyspace.
 
-You run the move itself with [`pscale branch vtctl move-tables`](../../cli/move-tables.md). Make sure you have the [`pscale` CLI installed and authenticated](../../cli/planetscale-environment-setup.md) before you start. You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) or a [Database Administrator](../../security/access-control.md#database-administrator) of the database to create and change workflows.
+You run the move itself with [`pscale branch vtctl move-tables`](../../cli/move-tables.md). Make sure you have the [`pscale` CLI installed and authenticated](../../cli/planetscale-environment-setup.md) before you start. You must be an [Organization Administrator](https://planetscale.com/docs/security/access-control.md#organization-administrator) or a [Database Administrator](https://planetscale.com/docs/security/access-control.md#database-administrator) of the database to create and change workflows.
 
 ## Prepare to shard
 
@@ -61,7 +61,7 @@ Once you know the tables that you are going to move to a sharded keyspace, you a
 
 As an example, if you have an `exercise_logs` table that has become extremely large and continues to grow, you may decide to move this to a sharded keyspace. Perhaps this table is frequently joined with the `users` table. In this scenario, we recommend moving both the `exercise_logs` and `users` tables to the new sharded keyspace and sharding both tables.
 
-The goal here is to avoid cross-keyspace or cross-shard queries. For more information about this, see the [Avoiding cross-shard queries](avoiding-cross-shard-queries.md) documentation.
+The goal here is to avoid cross-keyspace or cross-shard queries. For more information about this, see the [Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md) documentation.
 
 ### 3. Create a sharded keyspace
 
@@ -78,7 +78,7 @@ The goal here is to avoid cross-keyspace or cross-shard queries. For more inform
 > }
 > ```
 >
-> Otherwise, queries will fail. [Learn more about VSchema.](vschema.md)
+> Otherwise, queries will fail. [Learn more about VSchema.](https://planetscale.com/docs/vitess/sharding/vschema.md)
 
 To set up the sharded keyspace:
 
@@ -137,11 +137,11 @@ pscale keyspace create <DATABASE_NAME> main metal-sharded --shards 4 --cluster-s
 >
 > This will instruct Vitess's global routing to exclude your second keyspace from routing until explicitly targeted. Make sure to remove this field *before* completing the workflow.
 
-When configuring a sharded keyspace, you must think about *how* to distribute the data across shards. This is done by selecting a [Vindex](vindexes.md) (Vitess index) for each table.
+When configuring a sharded keyspace, you must think about *how* to distribute the data across shards. This is done by selecting a [Vindex](https://planetscale.com/docs/vitess/sharding/vindexes.md) (Vitess index) for each table.
 
 A Vindex provides a way to map incoming rows of data to the appropriate shard in your keyspace. Similar to how every MySQL table must have a primary key, every sharded table must additionally have a **primary Vindex**.
 
-The primary Vindex is the Vindex that determines which shard each row of data will reside on. For more information about choosing a Vindex, see the [Vindexes documentation](vindexes.md). You can also see an example in the [Avoiding cross-shard queries](avoiding-cross-shard-queries.md) documentation.
+The primary Vindex is the Vindex that determines which shard each row of data will reside on. For more information about choosing a Vindex, see the [Vindexes documentation](https://planetscale.com/docs/vitess/sharding/vindexes.md). You can also see an example in the [Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md) documentation.
 
 To specify the vindex for the tables you want to shard:
 
@@ -167,7 +167,7 @@ ALTER VSCHEMA ON exercise_logs ADD VINDEX xxhash(user_id) USING xxhash;
 ALTER VSCHEMA ON users ADD VINDEX xxhash(id) USING xxhash;
 ```
 
-You do not need to create sequence tables yourself. MoveTables creates them in the global keyspace when you create the workflow in the next section. See the [pre-sharding checklist](pre-sharding-checklist.md) if you would rather set them up by hand.
+You do not need to create sequence tables yourself. MoveTables creates them in the global keyspace when you create the workflow in the next section. See the [pre-sharding checklist](https://planetscale.com/docs/vitess/sharding/pre-sharding-checklist.md) if you would rather set them up by hand.
 
 ### 5. Deploy the changes to production
 
@@ -215,7 +215,7 @@ pscale branch vtctl move-tables create mydb main \
 
 This creates a MoveTables workflow named `shard_users` and starts it right away. You will use the workflow name and the target keyspace in every later command.
 
-* `--sharded-auto-increment-handling REPLACE` removes `AUTO_INCREMENT` from the target tables and replaces it with Vitess [sequence tables](sequence-tables.md). Because you passed `--global-keyspace metal`, MoveTables creates those sequence tables in the `metal` keyspace.
+* `--sharded-auto-increment-handling REPLACE` removes `AUTO_INCREMENT` from the target tables and replaces it with Vitess [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md). Because you passed `--global-keyspace metal`, MoveTables creates those sequence tables in the `metal` keyspace.
 * `--defer-secondary-keys` creates the target tables' secondary indexes after the copy finishes instead of during it, which makes the copy much faster.
 
 By default, the workflow stops if a schema change runs on a moved table in the source keyspace while the workflow is running, so you can review it before continuing. See [`move-tables`](../../cli/move-tables.md) for `--on-ddl` and the other options.
@@ -297,7 +297,7 @@ After primary traffic switches, Vitess starts a reverse workflow that replicates
 
 ### Step 5: Check traffic in your application
 
-You should now go check out your production application that uses this database to make sure everything is running as expected. You can also check the [Insights](../monitoring/query-insights.md) tab in the dashboard for errors or slow queries on the moved tables.
+You should now go check out your production application that uses this database to make sure everything is running as expected. You can also check the [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) tab in the dashboard for errors or slow queries on the moved tables.
 
 If something looks wrong, switch traffic back to the source keyspace with `reverse-traffic`:
 
@@ -335,7 +335,7 @@ production:
 
 You can safely update and deploy this application code before completing the workflow. When you only have one keyspace, `@primary` will automatically route queries to that keyspace. Likewise, if you have queries that you specifically send to replicas or read-only regions, you can use `@replica` for those to have them automatically routed to the correct keyspace/shard.
 
-For more framework-specific examples, see [Targeting the correct keyspace documentation](targeting-correct-keyspace.md).
+For more framework-specific examples, see [Targeting the correct keyspace documentation](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md).
 
 Once you deploy this code change, double check that everything in your production application is working correctly.
 
@@ -377,7 +377,7 @@ Write boolean flags as `--keep-data=false`, with an `=`. A space-separated value
 
 ### Step 8: Check that your production application is working as expected
 
-Finally, check your production application to make sure everything is working as expected. You can check your [Insights](../monitoring/query-insights.md) tab to see if queries are being properly routed to your new keyspace. Insights will also show you any errors, query performance issues, and more.
+Finally, check your production application to make sure everything is working as expected. You can check your [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) tab to see if queries are being properly routed to your new keyspace. Insights will also show you any errors, query performance issues, and more.
 
 That's it! The tables you selected at the beginning are now being served by the sharded keyspace.
 

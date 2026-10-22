@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys
 title: "Onlineddl Change Unique Keys"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-To migrate data safely and [without downtime](../schema-changes.md), PlanetScale requires that all tables have a unique, not-null key. Note that a `PRIMARY KEY` satisfies this condition, and it is generally recommended to always have a `PRIMARY KEY` on all tables.
+To migrate data safely and [without downtime](https://planetscale.com/docs/vitess/schema-changes.md), PlanetScale requires that all tables have a unique, not-null key. Note that a `PRIMARY KEY` satisfies this condition, and it is generally recommended to always have a `PRIMARY KEY` on all tables.
 
 When you modify a table, both the old and the new schema must have a unique key as described, and the columns covered by those keys must exist in both the old and the new schema.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/development-environments
 title: "Development Environments"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,15 +30,15 @@ While this is a convenient option in some cases, local databases can make it dif
 
 ## Use PlanetScale branches
 
-PlanetScale Postgres supports [branching](branching.md). This allows you to spin up lightweight Postgres databases separate from production that can be used for development and testing. Creating a new branch produces a completely empty Postgres database. No schema or data is copied to the branch, unless restoring from a backup (more on this later).
+PlanetScale Postgres supports [branching](https://planetscale.com/docs/postgres/branching.md). This allows you to spin up lightweight Postgres databases separate from production that can be used for development and testing. Creating a new branch produces a completely empty Postgres database. No schema or data is copied to the branch, unless restoring from a backup (more on this later).
 
 Branches can be used similarly to local Postgres instances. The advantage is, since they are hosted by PlanetScale, they can be easily shared amongst development teams.
 
-If using branches for your development environments, you would [create new database branch](branching.md#create-a-branch) for each code branch a developer/team is working on. You would then run your schema migrations and any data loading scripts you need to initialize the branch. When you are ready to commit your code changes, execute the necessary schema changes on your production branch, and then [delete the branch](branching.md#delete-a-branch).
+If using branches for your development environments, you would [create new database branch](https://planetscale.com/docs/postgres/branching.md#create-a-branch) for each code branch a developer/team is working on. You would then run your schema migrations and any data loading scripts you need to initialize the branch. When you are ready to commit your code changes, execute the necessary schema changes on your production branch, and then [delete the branch](https://planetscale.com/docs/postgres/branching.md#delete-a-branch).
 
 ## Use PlanetScale branches + backups
 
-PlanetScale gives you the ability to create new branches that are [initialized from a recent backup](branching.md#from-a-backup). This can be used instead of empty branches to create development environments that are pre-populated with schema and data.
+PlanetScale gives you the ability to create new branches that are [initialized from a recent backup](https://planetscale.com/docs/postgres/branching.md#from-a-backup). This can be used instead of empty branches to create development environments that are pre-populated with schema and data.
 
 There are some downsides to this approach, however. This approach copies production data to development branches, which may pose security risks if your database contains sensitive customer information.
 

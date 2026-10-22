@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ Schema recommendations use query-level telemetry data, PostgreSQL system tables,
 
 > [!NOTE]
 >
-> Schema recommendations are also available through the [PlanetScale MCP server](../../mcp-server.md), and can be automatically evaluated and implemented by AI coding agents on a recurring schedule. See [Self-improving database](../../self-improving-database.md).
+> Schema recommendations are also available through the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md), and can be automatically evaluated and implemented by AI coding agents on a recurring schedule. See [Self-improving database](https://planetscale.com/docs/self-improving-database.md).
 
 ![Schema recommendations](https://mintcdn.com/planetscale-2/NAfHErQ6-kE8SaMw/postgres/monitoring/schema-recommendations-postgres.png?fit=max\&auto=format\&n=NAfHErQ6-kE8SaMw\&q=85\&s=d4d4061daf0784da45c5d675962f093f)
 
@@ -87,7 +87,7 @@ To find indexes that will improve database performance, Insights scans query tel
 * Indexes can dramatically improve read query performance, but they also increase write costs, memory usage, and the size of tables on disk. Evaluating these additional costs against your application’s improvement in read performance is always a good idea.
 * Indexing is a complicated topic and depends on many factors, such as the distribution of values in your database and the particular queries your database receives. If you decide to deploy a suggested index to production, it is a good idea to use Insights to verify that your index has the desired effect on relevant queries.
 * Query performance with a suggested index is estimated with the [HypoPG extension](https://github.com/HypoPG/hypopg). This extension is installed by default on all PlanetScale Postgres databases. Removing this extension will disable new index recommendations.
-* Index suggestions are generated using AI tools. [Learn more about how PlanetScale uses AI here](../../how-we-use-ai.md).
+* Index suggestions are generated using AI tools. [Learn more about how PlanetScale uses AI here](https://planetscale.com/docs/how-we-use-ai.md).
 * New index suggestions, and other LLM-based features, can be disabled in the organization settings page.
 * By default, cost estimates use placeholder parameter values for each normalized query pattern. These values may not match your actual workload, which makes index suggestions less accurate. To improve accuracy, enable the [`pginsights.raw_queries` setting](../extensions/pginsights.md#raw-query-collection). When enabled, candidate indexes are evaluated using actual parameter values from slow queries, resulting in better suggestions. Note: Full query text is only used for generating `EXPLAIN` plans. No parameter values are sent to the LLM.
 
@@ -140,7 +140,7 @@ Assuming table unavailability is not an option for your application, the best ap
 
 Dropping unused tables can help clean up data that is no longer needed and reduce storage. If the table is large, it can also decrease backup and restore time.
 
-If you are unsure if a table should be retained but decide to drop the table, make sure to [create a manual backup](../backups.md#manual-backups) of your database before you deploy the change.
+If you are unsure if a table should be retained but decide to drop the table, make sure to [create a manual backup](https://planetscale.com/docs/postgres/backups.md#manual-backups) of your database before you deploy the change.
 
 If you determine that the table should be retained, close the recommendation, preventing the suggestion from being remade.
 

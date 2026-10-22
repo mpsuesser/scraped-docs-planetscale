@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/mariadb-migration-guide
 title: "Mariadb Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,12 +20,12 @@ In this article, you’ll learn how to migrate a database from MariaDB, a fork o
 >
 > The steps outlined in this guide used MariaDB version 10.6.12 on an Ubuntu host. Depending on the version of MariaDB you are using, your results may vary. Don't hesitate to [reach out to us](https://planetscale.com/contact) for further assistance.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
+We recommend reading through the [Database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md) to learn how imports work before proceeding.
 
 ### Prerequisites
 
 * A PlanetScale account
-* A MariaDB server with traffic permitted from our [import IP addresses](import-tool-migration-addresses.md)
+* A MariaDB server with traffic permitted from our [import IP addresses](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md)
 
 ## Configure MariaDB
 
@@ -37,7 +37,7 @@ Before you can start migrating data, there are a number of configuration options
 
 > [!NOTE]
 >
-> The steps below edit the configuration file on a self-managed server. If your MariaDB database is hosted on Amazon RDS, you cannot edit these values directly. Instead, set them through a DB parameter group, enable binary logging by turning on automated backups, and set your binlog retention period, as described in the [AWS RDS migration guide](aws-rds-migration-guide.md). Skip the GTID parameters in that guide, since MariaDB uses its own GTID implementation and does not have a `gtid_mode` setting. Then return here to configure the migration account.
+> The steps below edit the configuration file on a self-managed server. If your MariaDB database is hosted on Amazon RDS, you cannot edit these values directly. Instead, set them through a DB parameter group, enable binary logging by turning on automated backups, and set your binlog retention period, as described in the [AWS RDS migration guide](https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide.md). Skip the GTID parameters in that guide, since MariaDB uses its own GTID implementation and does not have a `gtid_mode` setting. Then return here to configure the migration account.
 
 You may run the following query to check these values:
 
@@ -110,13 +110,13 @@ SHOW GRANTS FOR 'migration_user'@'%';
 
 You should see all of the `GRANT` statements listed. If you only see one or two lines, the grants didn't apply correctly.
 
-For a full explanation on what each of these grants do, [our article on configuring a migration account for MySQL databases](import-tool-user-requirements.md) details each requirement.
+For a full explanation on what each of these grants do, [our article on configuring a migration account for MySQL databases](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md) details each requirement.
 
 ## Importing your database
 
-Now that your MariaDB database is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
+Now that your MariaDB database is configured and ready, follow the [Database imports guide](https://planetscale.com/docs/vitess/imports/database-imports.md) to complete your import.
 
-When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
+When you [create the external keyspace](https://planetscale.com/docs/vitess/imports/database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
 * **Host name** (`--host`) - Your MariaDB server hostname or IP address
 * **Port** (`--port`) - 3306 (default for MariaDB)

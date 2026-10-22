@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide
 title: "Planetscale Quick Start Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -19,7 +19,7 @@ current_date: 2026-10-20T18:01:41.586Z
 ### Prerequisites
 
 1. You will need [a PlanetScale account](https://auth.planetscale.com/sign-up).
-2. An administrator of your PlanetScale organization must [join the Neki Platform Preview](../../neki.md#availability-and-access).
+2. An administrator of your PlanetScale organization must [join the Neki Platform Preview](https://planetscale.com/docs/neki.md#availability-and-access).
 
 ### Create a Neki database
 
@@ -60,7 +60,7 @@ Click "**Create database**" to deploy your database.
 
 **CLI**
 
-Install and authenticate the [PlanetScale CLI](../../cli/planetscale-environment-setup.md).
+Install and authenticate the [PlanetScale CLI](https://planetscale.com/docs/cli/planetscale-environment-setup.md).
 
 **Step 1**
 
@@ -113,13 +113,13 @@ database](#connect-to-your-database).
 **Step 1**
 
 [Enable web console access for production
-branches](../web-console.md#enable-for-production-branches).
+branches](https://planetscale.com/docs/neki/web-console.md#enable-for-production-branches).
 
 **Step 2**
 
 Select **Console** and connect to the `main` branch. The console connects to
 the **Primary** server and the `postgres` database by default. See [Web
-console](../web-console.md) for connection controls and supported commands.
+console](https://planetscale.com/docs/neki/web-console.md) for connection controls and supported commands.
 
 ![Web console connected to the main branch](https://mintcdn.com/planetscale-2/gWONWhlM_S1jInv7/neki/tutorials/web-console-main.png?fit=max\&auto=format\&n=gWONWhlM_S1jInv7\&q=85\&s=9c900b11594e861e011a75c953a4c041)
 
@@ -210,7 +210,7 @@ With the default branch selected, click **Connect** from your database dashboard
 **Step 2**
 
 Click **Create new role**. A role determines which operations the connection can
-perform. See [Roles and credentials](../connecting/roles.md) for more details.
+perform. See [Roles and credentials](https://planetscale.com/docs/neki/connecting/roles.md) for more details.
 
 **Step 3**
 
@@ -229,7 +229,7 @@ pscale shell <DATABASE_NAME> main
 
 For a persistent role that your application can reuse, create one from the
 dashboard **Connect** tab or with `pscale role`. See [Roles and
-credentials](../connecting/roles.md).
+credentials](https://planetscale.com/docs/neki/connecting/roles.md).
 
 When the `postgres` prompt appears, query the data you added:
 
@@ -244,15 +244,15 @@ JOIN products AS p ON p.category_id = c.id;
 Open the **Connect** page and select a framework or language to configure your
 application.
 
-See [Connect to Neki](../connecting.md) for connection parameters, replica
+See [Connect to Neki](https://planetscale.com/docs/neki/connecting.md) for connection parameters, replica
 routing, and router groups.
 
 A new Neki database starts on one shard.
-Continue with the [Sharding quickstart](sharding-quick-start-guide.md) to see how sharding works in Neki.
+Continue with the [Sharding quickstart](https://planetscale.com/docs/neki/tutorials/sharding-quick-start-guide.md) to see how sharding works in Neki.
 
 When you want to continue developing your database, create a [development
-branch](../branching.md) from `main` so you can work independently of the
-production branch. See [Development environments](../development-environments.md)
+branch](https://planetscale.com/docs/neki/branching.md) from `main` so you can work independently of the
+production branch. See [Development environments](https://planetscale.com/docs/neki/development-environments.md)
 to initialize an empty branch for schema work and tests.
 
 ### Clean up

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/proof-of-concept
 title: "Proof Of Concept"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -50,15 +50,15 @@ Based on this choice, your Solutions Architect will help you get the infrastruct
 
 **Step 3**
 
-For MySQL databases that require sharding, you will also work with us to determine your [sharding strategy](../../vitess/sharding.md), and we will help you decide the best [VSchema](https://vitess.io/reference/features/vschema/) for your tables.
+For MySQL databases that require sharding, you will also work with us to determine your [sharding strategy](https://planetscale.com/docs/vitess/sharding.md), and we will help you decide the best [VSchema](https://vitess.io/reference/features/vschema/) for your tables.
 
 **Step 4**
 
-The next step is to get your data imported. We have a [self-serve tool for importing databases](../../vitess/imports/database-imports.md) into PlanetScale, but we often provide direct assistance with this, and for larger, more complex workloads our team can handle running the migration for you.
+The next step is to get your data imported. We have a [self-serve tool for importing databases](https://planetscale.com/docs/vitess/imports/database-imports.md) into PlanetScale, but we often provide direct assistance with this, and for larger, more complex workloads our team can handle running the migration for you.
 
 **Step 5**
 
-After this, customers typically want to start testing the capabilities of their imported database. Testing can be done in a number of ways. Some customers have testing scripts they have already developed, which can be run against the PlanetScale database. You may also want to do more specific testing with queries or workloads that you know to be problematic to see how PlanetScale handles them. You can use our powerful [Insights panel](../../vitess/monitoring/query-insights.md) as well as your own custom tooling to assess how well these workloads are handled.
+After this, customers typically want to start testing the capabilities of their imported database. Testing can be done in a number of ways. Some customers have testing scripts they have already developed, which can be run against the PlanetScale database. You may also want to do more specific testing with queries or workloads that you know to be problematic to see how PlanetScale handles them. You can use our powerful [Insights panel](https://planetscale.com/docs/vitess/monitoring/query-insights.md) as well as your own custom tooling to assess how well these workloads are handled.
 
 **Step 6**
 

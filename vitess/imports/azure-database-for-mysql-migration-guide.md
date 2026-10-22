@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide
 title: "Azure Database For Mysql Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-This document will demonstrate how to migrate a database from Azure Database for MySQL to PlanetScale. We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
+This document will demonstrate how to migrate a database from Azure Database for MySQL to PlanetScale. We recommend reading through the [Database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ To view your available databases, select the **Databases** tab from the sidebar.
 
 ## Configure firewall rules
 
-In order for PlanetScale to connect to your Azure database, you must allow traffic into the database through the associated security group. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
+In order for PlanetScale to connect to your Azure database, you must allow traffic into the database through the associated security group. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
 
 ```
 3.209.149.66
@@ -79,9 +79,9 @@ To access these settings in Azure, select “**Server parameters**” from the s
 
 ## Import your database
 
-Now that your Azure Database for MySQL is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
+Now that your Azure Database for MySQL is configured and ready, follow the [Database imports guide](https://planetscale.com/docs/vitess/imports/database-imports.md) to complete your import.
 
-When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
+When you [create the external keyspace](https://planetscale.com/docs/vitess/imports/database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
 * **Host name** (`--host`) - Your Azure server name (from Prerequisites)
 * **Port** (`--port`) - 3306 (default for Azure MySQL)

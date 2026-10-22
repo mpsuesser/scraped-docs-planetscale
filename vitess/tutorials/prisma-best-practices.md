@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prisma-best-practices
 title: "Prisma Best Practices"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -56,7 +56,7 @@ If you want to learn more about MySQL indexes, check out the [MySQL for Develope
 
 With Prisma, there are two ways to apply schema changes to your database: `prisma migrate` and `prisma db push`. We recommend `prisma db push` over `prisma migrate dev` for the following reasons:
 
-PlanetScale automatically provides built-in [Online Schema Change tools](../schema-changes/how-online-schema-change-tools-work.md) when you merge a deploy request and prevents [blocking schema changes](../schema-changes.md) that can lead to downtime. This differs from the typical Prisma workflow, which uses `prisma migrate` to generate SQL migrations for you based on changes in your Prisma schema. When using PlanetScale with Prisma, the responsibility of applying the changes is on the PlanetScale side. Therefore, there is little value to using `prisma migrate` with PlanetScale.
+PlanetScale automatically provides built-in [Online Schema Change tools](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md) when you merge a deploy request and prevents [blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) that can lead to downtime. This differs from the typical Prisma workflow, which uses `prisma migrate` to generate SQL migrations for you based on changes in your Prisma schema. When using PlanetScale with Prisma, the responsibility of applying the changes is on the PlanetScale side. Therefore, there is little value to using `prisma migrate` with PlanetScale.
 
 Also, the migrations table created when `prisma migrate` runs can be misleading since PlanetScale does the actual migration when the deploy request is merged, not when `prisma migrate` is run, which only updates the schema in the development database branch. You can still see the history of your schema changes in PlanetScale.
 
@@ -116,13 +116,13 @@ Example `DATABASE_URL`: `mysql://USER:PASSWORD@HOST:PORT/DATABASE?pool_timeout=3
 
 The default is `10`. The `pool_timeout` is the maximum number of seconds to wait for a new connection from the pool, `0` means no timeout. We recommend increasing this only after you've tuned the `connection_limit`. See the [Prisma documentation on optimizing the connection pool timeout](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#optimizing-the-connection-pool) for more info.
 
-* Decrease query duration, which might include asking for less data in the query or improving performance with an index or other methods. Start by looking at your [Insights](../monitoring/query-insights.md) page within your PlanetScale database to see which queries might be performing poorly.
+* Decrease query duration, which might include asking for less data in the query or improving performance with an index or other methods. Start by looking at your [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) page within your PlanetScale database to see which queries might be performing poorly.
 
 Lastly, this [discussion topic response on Prisma connection pooling](https://github.com/planetscale/discussion/discussions/188#discussioncomment-3808093) can be helpful if you are experiencing these errors.
 
 ## Other resources:
 
-> **[Using PlanetScale with Prisma](using-planetscale-with-prisma.md)**
+> **[Using PlanetScale with Prisma](https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma.md)**
 
 > **[Prisma quickstart for adding Prisma to an existing project](https://www.prisma.io/docs/getting-started/quickstart)**
 

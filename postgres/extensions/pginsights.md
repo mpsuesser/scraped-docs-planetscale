@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pginsights
 title: "Pginsights"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -85,7 +85,7 @@ This setting is useful for databases using a schema-per-tenant design, where eac
 * **Type:** Integer (bytes)
 * **Default:** `64kB`
 
-Controls how much shared memory is allocated to store [Database Traffic Control](../traffic-control.md) resource budgets.
+Controls how much shared memory is allocated to store [Database Traffic Control](https://planetscale.com/docs/postgres/traffic-control.md) resource budgets.
 
 This setting matters most for Traffic Control rules that match each unique value for a tag key. The default `64kB` size tracks about 600 active budget entries at once. The maximum `1MB` size tracks about 10,000 active budget entries.
 
@@ -104,7 +104,7 @@ The extension integrates with PlanetScale's Query Insights dashboard to provide:
 
 ## External Documentation
 
-For more information about Query Insights and how to use the collected data, see the [Query Insights documentation](../monitoring/query-insights.md).
+For more information about Query Insights and how to use the collected data, see the [Query Insights documentation](https://planetscale.com/docs/postgres/monitoring/query-insights.md).
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

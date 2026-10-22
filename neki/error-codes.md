@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-22T09:51:35.727Z
-current_date: 2026-10-22T09:51:35.727Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -35,9 +35,9 @@ application sees against the entry below.
 `NK013` means the gap is one Neki intends to close. A limit that is a design
 decision rather than a missing implementation is reported as `not supported`
 instead, and the broad ones are listed in [Platform preview
-limitations](platform-preview-limitations.md). For how other Neki errors use
+limitations](https://planetscale.com/docs/neki/platform-preview-limitations.md). For how other Neki errors use
 the DETAIL and HINT fields, see [Error hints and
-details](error-hints-and-details.md).
+details](https://planetscale.com/docs/neki/error-hints-and-details.md).
 
 ## How to read an entry
 
@@ -45,7 +45,7 @@ Each entry gives the code, the message sentence the router renders after the
 bracketed code, an example that triggers it, and a note on which part of the
 query causes the rejection.
 
-The examples use the [example schema](example-schema.md). A few
+The examples use the [example schema](https://planetscale.com/docs/neki/example-schema.md). A few
 entries name another small table whose own name describes the property that
 matters to that code. Where a rejection depends on how the data topology places
 the tables rather than on the SQL text, the note says so — the same statement

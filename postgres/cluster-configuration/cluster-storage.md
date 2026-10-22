@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,11 +16,11 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!NOTE]
 >
-> For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](../../metal.md)
+> For PlanetScale Postgres clusters launched on PlanetScale Metal instances, storage is scaled by directly scaling the cluster instance size. Storage autoscaling is not available for Metal clusters. To learn more see the documentation for [PlanetScale Metal](https://planetscale.com/docs/metal.md)
 
 ## Configuring storage settings
 
-You must be a database or organization administrator to modify these settings. Adjusting these settings may incur additional charges. To learn more about pricing for storage, see [pricing](../pricing.md).
+You must be a database or organization administrator to modify these settings. Adjusting these settings may incur additional charges. To learn more about pricing for storage, see [pricing](https://planetscale.com/docs/postgres/pricing.md).
 
 **Step 1**
 
@@ -58,7 +58,7 @@ Once you're ready to apply the changes, click "**Apply changes**"
 
 Configure the minimum disk size for your database cluster. This setting determines the initial storage capacity allocated to your database. The disk size is specified in GB and serves as the baseline storage allocation for your cluster.
 
-You're billed for the allocated size, which can be larger after the disk grows via autoscaling. To shrink, lower the minimum, then queue and apply the change. See [Manually shrinking](disk-autoscaling.md#manually-shrinking).
+You're billed for the allocated size, which can be larger after the disk grows via autoscaling. To shrink, lower the minimum, then queue and apply the change. See [Manually shrinking](https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling.md#manually-shrinking).
 
 > [!NOTE]
 >
@@ -68,13 +68,13 @@ You're billed for the allocated size, which can be larger after the disk grows v
 
 > [!NOTE]
 >
-> PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](../../metal.md) based clusters you will need to increase the cluster instance size.
+> PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale Metal](https://planetscale.com/docs/metal.md) based clusters you will need to increase the cluster instance size.
 
 Disk autoscaling is enabled by default upon database creation. Disk autoscaling automatically increases storage when your database approaches a disk size utilization threshold, preventing storage-related outages without manual intervention. You can also manually shrink your disk.
 
 Autoscaling can be configured by going to "Clusters" > "Storage" > and clicking the "Enable autoscaling" checkbox.
 
-For more information, see the [Disk autoscaling documentation](disk-autoscaling.md).
+For more information, see the [Disk autoscaling documentation](https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling.md).
 
 ## Storage limit
 

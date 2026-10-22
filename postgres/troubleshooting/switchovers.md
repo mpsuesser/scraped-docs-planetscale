@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/switchovers
 title: "Switchovers"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-A switchover moves the primary of a Postgres branch to one of its replicas on demand. The current primary steps down and a replica is promoted in its place, using the same battle-tested mechanism PlanetScale uses for [automatic failovers](../operations-philosophy.md). Writes are briefly interrupted (on the order of seconds) while the switch completes.
+A switchover moves the primary of a Postgres branch to one of its replicas on demand. The current primary steps down and a replica is promoted in its place, using the same battle-tested mechanism PlanetScale uses for [automatic failovers](https://planetscale.com/docs/postgres/operations-philosophy.md). Writes are briefly interrupted (on the order of seconds) while the switch completes.
 
 Switchovers are useful when you want to:
 
@@ -49,7 +49,7 @@ curl -X POST \
   -H "Authorization: $API_TOKEN"
 ```
 
-See the [create switchover API reference](../../api/reference/create_switchover.md) for details.
+See the [create switchover API reference](https://planetscale.com/docs/api/reference/create_switchover.md) for details.
 
 ## Choose the replica to promote
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,13 +16,13 @@ current_date: 2026-10-20T18:26:07.257Z
 
 Vitess and Postgres
 
-OAuth is the default for the [hosted MCP server](../mcp-server.md). Use a [service token](../api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
+OAuth is the default for the [hosted MCP server](https://planetscale.com/docs/mcp-server.md). Use a [service token](https://planetscale.com/docs/api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
 
 The hosted MCP server accepts the token secret as a Bearer token.
 
 1. Create a service token in your organization settings.
 2. Copy the **token** value. It starts with `pscale_tkn_`. Do not use the token ID, and do not send `id:secret`.
-3. Grant only the [organization and database permissions](../api/service-tokens.md#assign-service-token-permissions) you want the MCP tools to have. Leave the rest off.
+3. Grant only the [organization and database permissions](https://planetscale.com/docs/api/service-tokens.md#assign-service-token-permissions) you want the MCP tools to have. Leave the rest off.
 4. Set `PLANETSCALE_API_TOKEN` to that token value in the environment where the client runs.
 5. Send it as `Authorization: Bearer pscale_tkn_...` to `https://mcp.pscale.dev/mcp/planetscale`.
 
@@ -40,7 +40,7 @@ The organization **MCP query access** setting applies when someone authorizes an
 
 The MCP server calls the PlanetScale API with the token you send. Each tool fails if the token is missing the permission for that API call. Grant the smallest set that covers the tools you want.
 
-Add organization permissions on the token, then add database permissions on each database the token should see, or use [permissions for all databases](../api/service-tokens.md#add-permissions-for-all-databases).
+Add organization permissions on the token, then add database permissions on each database the token should see, or use [permissions for all databases](https://planetscale.com/docs/api/service-tokens.md#add-permissions-for-all-databases).
 
 ### Read-only access
 

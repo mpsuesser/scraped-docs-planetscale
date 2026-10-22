@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_role
 title: "Create_role"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -31,19 +31,19 @@ A service token or OAuth token must have at least one of the following access or
 >
 > This endpoint creates **Postgres role credentials**. Roles are the credential
 > system for PlanetScale **Postgres** databases. If your database is
-> **Vitess/MySQL**, create a [branch password](create_password.md)
+> **Vitess/MySQL**, create a [branch password](https://planetscale.com/docs/api/reference/create_password.md)
 > instead — Vitess/MySQL databases do not have roles.
 
 > [!WARNING]
 >
 > The `password` returned in the response is shown **only once** and cannot be
 > retrieved later. Record it securely as soon as the role is created. If it is
-> lost, rotate it with [Reset role credentials](reset_role.md).
+> lost, rotate it with [Reset role credentials](https://planetscale.com/docs/api/reference/reset_role.md).
 
-**Cleanup:** delete a role with [Delete a role](delete_role.md). If
+**Cleanup:** delete a role with [Delete a role](https://planetscale.com/docs/api/reference/delete_role.md). If
 the role owns objects, has extra permissions, or created other roles, you must
 designate a successor — see [Managing
-roles](../../postgres/connecting/roles.md#deleting-a-role).
+roles](https://planetscale.com/docs/postgres/connecting/roles.md#deleting-a-role).
 
 
 ## OpenAPI

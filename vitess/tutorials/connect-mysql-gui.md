@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui
 title: "Connect Mysql Gui"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -37,7 +37,7 @@ In the application you are using, enter the access information you gathered in t
 
 ![The new connection window in Sequel Ace.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-mysql-gui/ace-connect.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=917a6f3faaaa65eca280742f4db0e73e)
 
-If the connection is successful, you should be able to query your database and perform other [supported operations](../troubleshooting/mysql-compatibility.md).
+If the connection is successful, you should be able to query your database and perform other [supported operations](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md).
 
 ![A sample query in Sequel Ace.](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/connect-mysql-gui/ace-query.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=e7b77e5ea7ca4d1b2f825004497b3910)
 
@@ -51,7 +51,7 @@ Each branch of a PlanetScale database is considered an isolated MySQL database. 
 
 **Step 2**
 
-Production branches with [safe migrations](../schema-changes/safe-migrations.md) enforce the use of [branching](../schema-changes/branching.md) and [deploy requests](../schema-changes/deploy-requests.md) to safely make schema changes and do not support direct DDL as a result. However, DDL is supported on development branches and production branches without safe migrations enabled (not recommended).
+Production branches with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enforce the use of [branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) and [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) to safely make schema changes and do not support direct DDL as a result. However, DDL is supported on development branches and production branches without safe migrations enabled (not recommended).
 
 **Step 3**
 

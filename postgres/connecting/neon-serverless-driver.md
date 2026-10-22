@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/neon-serverless-driver
 title: "Neon Serverless Driver"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -29,13 +29,13 @@ Use the Neon serverless driver when your deployment platform cannot maintain TCP
 | [Netlify Functions](https://docs.netlify.com/functions/overview/) | Neon serverless driver (this page) |
 | [Deno Deploy](https://deno.com/deploy/docs) | Neon serverless driver (this page) |
 | [Cloudflare Workers](https://developers.cloudflare.com/workers/) (without Hyperdrive) | Neon serverless driver (this page) |
-| [Vercel](https://vercel.com/docs/functions) | [`pg`](https://node-postgres.com/) with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) and [PgBouncer on port 6432](pgbouncer.md) |
+| [Vercel](https://vercel.com/docs/functions) | [`pg`](https://node-postgres.com/) with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) and [PgBouncer on port 6432](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) |
 | [Cloudflare Workers](https://developers.cloudflare.com/workers/) + Hyperdrive | [`pg` with Hyperdrive](../tutorials/planetscale-postgres-cloudflare-workers.md) |
-| AWS Lambda, Railway, Render, VPS, Docker | [`pg`](../tutorials/planetscale-postgres-node.md) with [PgBouncer on port 6432](pgbouncer.md) |
+| AWS Lambda, Railway, Render, VPS, Docker | [`pg`](../tutorials/planetscale-postgres-node.md) with [PgBouncer on port 6432](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) |
 
 ### Vercel
 
-[Vercel Fluid compute](https://vercel.com/docs/functions/fluid-compute) reuses warm function instances, making TCP connection pooling safe. For Vercel deployments, connect with [`pg`](https://node-postgres.com/) through [PgBouncer](pgbouncer.md) on port **6432** and pool connections with [`attachDatabasePool`](https://vercel.com/guides/connection-pooling-with-functions) from `@vercel/functions`.
+[Vercel Fluid compute](https://vercel.com/docs/functions/fluid-compute) reuses warm function instances, making TCP connection pooling safe. For Vercel deployments, connect with [`pg`](https://node-postgres.com/) through [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) on port **6432** and pool connections with [`attachDatabasePool`](https://vercel.com/guides/connection-pooling-with-functions) from `@vercel/functions`.
 
 The Neon serverless driver remains an option on Vercel when you cannot use connection pooling (for example, classic serverless without Fluid). See [Neon's Vercel connection guide](https://neon.com/docs/guides/vercel-connection-methods) for a comparison of TCP, HTTP, and WebSocket latency on that platform.
 
@@ -84,7 +84,7 @@ npm install @neondatabase/serverless
 
 **Step 2**
 
-You'll need to create a [Postgres role](roles.md) to use with the driver.
+You'll need to create a [Postgres role](https://planetscale.com/docs/postgres/connecting/roles.md) to use with the driver.
 Once you have these credentials, place them in environment variables:
 
 ```bash theme={null}

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/client-error-reference
 title: "Client Error Reference"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -69,7 +69,7 @@ All errors sent by Exosphere follow the PostgreSQL ErrorResponse message format:
 * **Code:** 42501 (insufficient\_privilege)
 * **Message:** "permission denied for schema public"
 * **When:** A role runs DDL (such as `CREATE TABLE`) in a schema where it lacks the `CREATE` privilege. Data permissions like `pg_read_all_data`/`pg_write_all_data` do not grant DDL rights.
-* **Resolution:** Grant the role `CREATE` on the schema (`GRANT CREATE ON SCHEMA public TO "<role>";`) as the default `postgres` role, or run DDL as the `postgres` role. See [Managing roles](roles.md#user-defined-roles).
+* **Resolution:** Grant the role `CREATE` on the schema (`GRANT CREATE ON SCHEMA public TO "<role>";`) as the default `postgres` role, or run DDL as the `postgres` role. See [Managing roles](https://planetscale.com/docs/postgres/connecting/roles.md#user-defined-roles).
 
 ### Connection and network errors
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/connecting/network-latency
 title: "Network Latency"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ One of the primary causes of network latency is the distance between two endpoin
 
 ### Choosing a region for your database
 
-The most optimal location for your database is in the same region and cloud provider as your application. PlanetScale has [regions available in both AWS and GCP](https://planetscale.com/docs/vitess/regions). If your application is hosted outside of AWS or GCP, then we recommend
+The most optimal location for your database is in the same region and cloud provider as your application. PlanetScale has [regions available in both AWS and GCP](https://planetscale.com/docs/vitess/regions.md). If your application is hosted outside of AWS or GCP, then we recommend
 choosing the PlanetScale region that is geographically closest to your application servers.
 
 #### Using `pscale ping`
@@ -69,7 +69,7 @@ The following example shows a more optimal traffic path. The application connect
 
 When experiencing slow query times, it's important to rule out any potential networking issues. First, you need to be able to measure the time your application is spending waiting on the query. The best sources of this data are application performance monitoring (APM) services or query-level logging from your application. Since applications can be complex and many different factors can influence a performance problem, it's important to isolate and measure only the time spent on the query from the application's perspective.
 
-Once you have a measurement of the query in your application, you can then compare the query to the data in [Query Insights](../monitoring/query-insights.md). The difference between the numbers can give you an idea of how much time was spent transferring the data across the network. If you see a large difference, it is likely due to network latency between the application and database.
+Once you have a measurement of the query in your application, you can then compare the query to the data in [Query Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md). The difference between the numbers can give you an idea of how much time was spent transferring the data across the network. If you see a large difference, it is likely due to network latency between the application and database.
 
 If you can access your application's host machine, you can also use `netcat` to understand the latency between the host and PlanetScale.
 
@@ -88,7 +88,7 @@ When connecting to PlanetScale, you have the option of two different hostnames: 
 
 > [!NOTE]
 >
-> This does not apply to [PlanetScale Managed](../../plans/managed.md) and single-tenant customers who have a single hostname for their account.
+> This does not apply to [PlanetScale Managed](https://planetscale.com/docs/plans/managed.md) and single-tenant customers who have a single hostname for their account.
 
 ## Optimized hostname
 

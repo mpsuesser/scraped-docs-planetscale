@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security
 title: "Security"
 description: ""
-access_date: 2026-10-21T13:47:46.526Z
-current_date: 2026-10-21T13:47:46.526Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -25,12 +25,12 @@ Below is a breakdown of common security and compliance requirements by PlanetSca
 | [Encryption of data (at rest and in transit)](#encryption-of-data) | | | | |
 | [SOC 1 Type 2 available](#soc-1-type-2-&-soc-2-type-2+-hipaa) | | | | |
 | [SOC 2 Type 2+ HIPAA available](#soc-1-type-2-&-soc-2-type-2+-hipaa) | | | | |
-| [IP restrictions](vitess/connecting/connection-strings.md#ip-restrictions) (Vitess only) | | | | |
-| [Audit logs](security/audit-log.md) | | | | |
-| [Security logs](security/security-log.md) | | | | |
+| [IP restrictions](https://planetscale.com/docs/vitess/connecting/connection-strings.md#ip-restrictions) (Vitess only) | | | | |
+| [Audit logs](https://planetscale.com/docs/security/audit-log.md) | | | | |
+| [Security logs](https://planetscale.com/docs/security/security-log.md) | | | | |
 | [Data Processing Addendum available](#data-processing-addendum) | | | | |
 | [Private database connectivity](#private-database-connectivity) | | | | |
-| [Single sign-on (SSO)](security/sso.md) | Available as add-on | | | |
+| [Single sign-on (SSO)](https://planetscale.com/docs/security/sso.md) | Available as add-on | | | |
 | [Business Associate Agreements available](#hipaa-and-business-associate-agreements) | | | | |
 | Dedicated AWS/GCP/Azure account | | | | |
 | [PCI compliant](#pci-compliance) | | | | |
@@ -40,7 +40,7 @@ Below is a breakdown of common security and compliance requirements by PlanetSca
 
 ### Private database connectivity
 
-By default, all PlanetScale connections are encrypted and routed through the public Internet. Optionally, you can connect privately to databases through [AWS PrivateLink](vitess/connecting/private-connections.md) or [GCP Private Service Connect](vitess/connecting/private-connections-gcp.md).
+By default, all PlanetScale connections are encrypted and routed through the public Internet. Optionally, you can connect privately to databases through [AWS PrivateLink](https://planetscale.com/docs/vitess/connecting/private-connections.md) or [GCP Private Service Connect](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md).
 
 ### SOC 1 Type 2 & SOC 2 Type 2+ HIPAA
 
@@ -76,9 +76,9 @@ Data is encrypted at rest on the underlying storage media that serves database b
 
 Data in transit to PlanetScale databases is encrypted and goes through three major paths:
 
-* The [PlanetScale CLI](cli.md), leverages [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) when initiating a connection to PlanetScale's API and Edge.
-* PlanetScale [connection strings](vitess/connecting/connection-strings.md) require the successful establishment of a TLS session before any SQL commands can be issued.
-* [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) is used to secure all data transmitted between PlanetScale and [clients using PlanetScale Connect](vitess/etl.md).
+* The [PlanetScale CLI](https://planetscale.com/docs/cli.md), leverages [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) when initiating a connection to PlanetScale's API and Edge.
+* PlanetScale [connection strings](https://planetscale.com/docs/vitess/connecting/connection-strings.md) require the successful establishment of a TLS session before any SQL commands can be issued.
+* [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) is used to secure all data transmitted between PlanetScale and [clients using PlanetScale Connect](https://planetscale.com/docs/vitess/etl.md).
 
 All public PlanetScale endpoints use post-quantum key exchange with clients that support it.
 
@@ -107,7 +107,7 @@ The following are two examples of data locality in PlanetScale:
 
 ### Additional audit logging features
 
-In addition to the [audit log](security/audit-log.md) feature available to all PlanetScale plans, Enterprise plans can use our EventBridge configuration to send logs to your AWS account. Ask your PlanetScale account manager for more information on how to set it up.
+In addition to the [audit log](https://planetscale.com/docs/security/audit-log.md) feature available to all PlanetScale plans, Enterprise plans can use our EventBridge configuration to send logs to your AWS account. Ask your PlanetScale account manager for more information on how to set it up.
 
 > [!NOTE]
 >
@@ -115,7 +115,7 @@ In addition to the [audit log](security/audit-log.md) feature available to all P
 
 ## Available on Enterprise single-tenant plans
 
-PlanetScale offers two single-tenant deployment options: Single-tenant and PlanetScale Managed for organizations that require a single-tenant environment. See the [section below](https://planetscale.com/docs/#available-on-planetscale-managed) for more information on PlanetScale Managed-only security and compliance features.
+PlanetScale offers two single-tenant deployment options: Single-tenant and PlanetScale Managed for organizations that require a single-tenant environment. See the [section below](https://planetscale.com/docs/index.md#available-on-planetscale-managed) for more information on PlanetScale Managed-only security and compliance features.
 
 > [!NOTE]
 >
@@ -127,7 +127,7 @@ PlanetScale single-tenant deployment options are deployed into a dedicated AWS O
 
 ## Available on PlanetScale Managed
 
-PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own AWS Organizations member account, GCP organization, or Azure subscription. You can learn more on the [PlanetScale Managed overview page](plans/managed.md).
+PlanetScale Managed is a single-tenant deployment of PlanetScale within your Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure account. In this configuration, you can use the same API, CLI, and web interface that PlanetScale offers, with the benefit of running entirely in your own AWS Organizations member account, GCP organization, or Azure subscription. You can learn more on the [PlanetScale Managed overview page](https://planetscale.com/docs/plans/managed.md).
 
 ### Deploy in your own AWS, GCP, or Azure account
 
@@ -135,9 +135,9 @@ PlanetScale Managed is a packaged [data plane](https://en.wikipedia.org/wiki/Dat
 
 Read more about PlanetScale Managed on each cloud provider:
 
-* [PlanetScale Managed on Amazon Web Services](plans/managed/aws.md)
-* [PlanetScale Managed on Google Cloud Platform](plans/managed/gcp.md)
-* [PlanetScale Managed on Microsoft Azure](plans/managed/azure.md)
+* [PlanetScale Managed on Amazon Web Services](https://planetscale.com/docs/plans/managed/aws.md)
+* [PlanetScale Managed on Google Cloud Platform](https://planetscale.com/docs/plans/managed/gcp.md)
+* [PlanetScale Managed on Microsoft Azure](https://planetscale.com/docs/plans/managed/azure.md)
 
 ### PCI compliance
 
@@ -151,8 +151,8 @@ PlanetScale Managed supports customer counter-approval for access to Managed env
 
 PlanetScale Managed on AWS also supports:
 
-* [Fully private network isolation](plans/managed/aws.md#fully-private-network-isolation)
-* [Third-account customer-controlled public key infrastructure (PKI)](plans/managed/aws.md#third-account-customer-controlled-public-key-infrastructure)
+* [Fully private network isolation](https://planetscale.com/docs/plans/managed/aws.md#fully-private-network-isolation)
+* [Third-account customer-controlled public key infrastructure (PKI)](https://planetscale.com/docs/plans/managed/aws.md#third-account-customer-controlled-public-key-infrastructure)
 
 ## Corporate security
 

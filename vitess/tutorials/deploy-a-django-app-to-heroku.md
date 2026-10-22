@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deploy-a-django-app-to-heroku
 title: "Deploy A Django App To Heroku"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ This article will describe how to deploy a Django app to Heroku, which includes 
 
 ## Prerequisites
 
-* A PlanetScale database — If you haven't created a database, refer to our [PlanetScale quickstart guide](planetscale-quick-start-guide.md) to get started.
+* A PlanetScale database — If you haven't created a database, refer to our [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md) to get started.
 
 * A Heroku account.
 
@@ -36,7 +36,7 @@ There are a few requirements for running a Django application in Heroku:
 
 > [!NOTE]
 >
-> This article will make use of the [django-example GitHub repository](https://github.com/planetscale/django-example) that is built for the [Connect a Django application to PlanetScale document](connect-django-app.md)
+> This article will make use of the [django-example GitHub repository](https://github.com/planetscale/django-example) that is built for the [Connect a Django application to PlanetScale document](https://planetscale.com/docs/vitess/tutorials/connect-django-app.md)
 
 ### Set up the Heroku Config Vars
 

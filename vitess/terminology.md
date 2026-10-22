@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/terminology
 title: "Terminology"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -32,7 +32,7 @@ A Vitess-powered MySQL database can scale to petabytes of data and millions of q
 ### PlanetScale
 
 PlanetScale is a complete database platform that emphasizes reliability, scalability, and developer productivity.
-PlanetScale offers three database engines: [Vitess](../vitess.md) (MySQL-compatible), [Neki](../neki.md) (sharded Postgres), and [Postgres](../postgres.md).
+PlanetScale offers three database engines: [Vitess](https://planetscale.com/docs/vitess.md) (MySQL-compatible), [Neki](https://planetscale.com/docs/neki.md) (sharded Postgres), and [Postgres](https://planetscale.com/docs/postgres.md).
 PlanetScale Vitess databases are powered by Vitess and MySQL. PlanetScale makes it easy to spin up, resize, manage, and work with databases both for small organizations and large enterprises. Additionally, PlanetScale employs the majority of the Vitess core maintainers.
 
 ## PlanetScale concepts
@@ -41,20 +41,20 @@ PlanetScale Vitess databases are powered by Vitess and MySQL. PlanetScale makes 
 
 In the PlanetScale app, users can create one or more **Databases**.
 Each database belongs to an **Organization**.
-Each database uses [Vitess](../vitess.md), [Neki](../neki.md), or [Postgres](../postgres.md).
+Each database uses [Vitess](https://planetscale.com/docs/vitess.md), [Neki](https://planetscale.com/docs/neki.md), or [Postgres](https://planetscale.com/docs/postgres.md).
 
 Vitess databases use MySQL under the hood. If you've used vanilla MySQL in the past, you may be used to one MySQL server managing multiple logical databases. In a PlanetScale Vitess database, you cannot use `CREATE DATABASE` to create multiple logical databases. Instead, you can achieve a similar outcome by creating multiple **keyspaces**.
 
-[PlanetScale Postgres](../postgres.md) databases do not have this limitation. You can use `CREATE DATABASE` to create multiple PostgreSQL databases within a single PlanetScale Postgres database.
+[PlanetScale Postgres](https://planetscale.com/docs/postgres.md) databases do not have this limitation. You can use `CREATE DATABASE` to create multiple PostgreSQL databases within a single PlanetScale Postgres database.
 
 ### Keyspace
 
 A **Keyspace** represents a single, logical database.
 When you create a new PlanetScale database, it contains a single, default keyspace of the same name as your database.
-More keyspaces can be added using the [Clusters](cluster-configuration.md) page.
+More keyspaces can be added using the [Clusters](https://planetscale.com/docs/vitess/cluster-configuration.md) page.
 Each keyspace has its own primary and replicas.
 The "keyspace" terminology [comes from Vitess](https://vitess.io/docs/concepts/keyspace/).
-[Read more about keyspaces](sharding/keyspaces.md).
+[Read more about keyspaces](https://planetscale.com/docs/vitess/sharding/keyspaces.md).
 
 ### Branch
 
@@ -85,9 +85,9 @@ VTGates handle query buffering, distributing your queries across shards, and oth
 
 ### Shard
 
-Vitess keyspaces can be unsharded or [sharded](sharding.md).
+Vitess keyspaces can be unsharded or [sharded](https://planetscale.com/docs/vitess/sharding.md).
 A sharded keyspace is one where the data of tables is spread out across multiple primaries, rather than all going to one.
-The way data is sharded is specified via the [Vindex](sharding/vindexes.md).
+The way data is sharded is specified via the [Vindex](https://planetscale.com/docs/vitess/sharding/vindexes.md).
 
 ## Need help?
 

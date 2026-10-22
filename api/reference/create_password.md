@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_password
 title: "Create_password"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -31,7 +31,7 @@ A service token or OAuth token must have at least one of the following access or
 >
 > This endpoint creates a **Vitess/MySQL branch password**. Branch passwords are
 > the credential system for PlanetScale **Vitess/MySQL** databases. If your
-> database is **Postgres**, create [role credentials](create_role.md)
+> database is **Postgres**, create [role credentials](https://planetscale.com/docs/api/reference/create_role.md)
 > instead — Postgres databases do not have branch passwords.
 
 > [!WARNING]
@@ -39,11 +39,11 @@ A service token or OAuth token must have at least one of the following access or
 > The `plain_text` password returned in the response is shown **only once** and
 > cannot be retrieved later. Record it securely as soon as the password is
 > created. If it is lost, you must [create a new
-> password](create_password.md) — renewing only extends expiration and
+> password](https://planetscale.com/docs/api/reference/create_password.md) — renewing only extends expiration and
 > does not reissue the secret.
 
 **Cleanup:** delete a password with [Delete a
-password](delete_password.md). Deleting a password immediately
+password](https://planetscale.com/docs/api/reference/delete_password.md). Deleting a password immediately
 disconnects any clients using it.
 
 

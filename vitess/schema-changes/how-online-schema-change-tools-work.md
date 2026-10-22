@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work
 title: "How Online Schema Change Tools Work"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ It's worth noting an alternative to using Online Schema Change tools, via rollin
 
 ## The general logic behind Online Schema Change tools
 
-The Online Schema Change tools have many differences, covered in our [Comparison of Online Schema change tools doc](online-schema-change-tools-comparison.md). However, they all share a similar fundamental logic and flow.
+The Online Schema Change tools have many differences, covered in our [Comparison of Online Schema change tools doc](https://planetscale.com/docs/vitess/schema-changes/online-schema-change-tools-comparison.md). However, they all share a similar fundamental logic and flow.
 
 All tools work by *emulating* a schema change. The general flow is:
 
@@ -184,7 +184,7 @@ Most tools run some form of monitoring over the affected server or of its replic
 
 The single most important metric, by far, is replication lag. How the tools discover the replicas, choose which replicas to consider, respond to topology changes, is a matter of implementation and of a different discussion. However, the tools that do observe replicas all try to maintain as low replication lag as possible, and will step back once that lag grows. What the threshold is, is configurable. On extremely busy and sensitive systems this may be as low as `1` second. Other environments may tolerate *minutes* of lag.
 
-Not all tools can throttle completely. Specifically, trigger based tools can only throttle the row copy process, but not the ongoing changes tracking. Non-trigger based tools are able to completely halt any processing, or choose to take lower precedence over production traffic. For more information about trigger based vs non-trigger based tools, check out our doc on [Comparison of online schema change tools](online-schema-change-tools-comparison.md#trigger-based-vs-triggerless).
+Not all tools can throttle completely. Specifically, trigger based tools can only throttle the row copy process, but not the ongoing changes tracking. Non-trigger based tools are able to completely halt any processing, or choose to take lower precedence over production traffic. For more information about trigger based vs non-trigger based tools, check out our doc on [Comparison of online schema change tools](https://planetscale.com/docs/vitess/schema-changes/online-schema-change-tools-comparison.md#trigger-based-vs-triggerless).
 
 ## Determining when cut-over is possible
 

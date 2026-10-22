@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-new-tables
 title: "Sharding New Tables"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,19 +16,19 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!WARNING]
 >
-> Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](../sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
+> Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](https://planetscale.com/docs/vitess/sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
 
 Before you begin, we recommend the following reading:
 
-> **[What is a keyspace?](../sharding.md)**
+> **[What is a keyspace?](https://planetscale.com/docs/vitess/sharding.md)**
 
-> **[Vindexes](vindexes.md)**
+> **[Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)**
 
-> **[Sharding quickstart](sharding-quickstart.md)**
+> **[Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md)**
 
-> **[Avoiding cross-shard queries](avoiding-cross-shard-queries.md)**
+> **[Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md)**
 
-> **[Sequence tables](sequence-tables.md)**
+> **[Sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md)**
 
 > [!NOTE]
 >
@@ -54,9 +54,9 @@ Before you get started, you need a sharded keyspace. If you already have one, yo
 > }
 > ```
 >
-> Otherwise, queries will fail. [Learn more about VSchema.](vschema.md)
+> Otherwise, queries will fail. [Learn more about VSchema.](https://planetscale.com/docs/vitess/sharding/vschema.md)
 
-Navigate to the [Clusters page](../cluster-configuration.md).
+Navigate to the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md).
 
 **Step 1**
 
@@ -111,7 +111,7 @@ CREATE TABLE exercise_logs (
 
 When a table is spread across multiple shards, using `AUTO_INCREMENT` on your primary key can cause problems. Because each shard is its own separate MySQL instance, the shards do not have the context to know whether or not a primary key for a table entry is already in use on other shards. This means you risk two different table entries being assigned the same primary key.
 
-To avoid this, it is a best practice to use [sequence tables](sequence-tables.md) instead. We will cover how to set these up shortly. First, make sure you remove any `AUTO_INCREMENT`s from the tables you're sharding.
+To avoid this, it is a best practice to use [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md) instead. We will cover how to set these up shortly. First, make sure you remove any `AUTO_INCREMENT`s from the tables you're sharding.
 
 ```sql theme={null}
 -- Switch to the new keyspace
@@ -133,7 +133,7 @@ CREATE TABLE exercise_logs (
 
 ## 3. Add sequence tables to unsharded keyspace
 
-As mentioned earlier, you should use [sequence tables](sequence-tables.md) in place of `AUTO_INCREMENT` for your sharded tables.
+As mentioned earlier, you should use [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md) in place of `AUTO_INCREMENT` for your sharded tables.
 
 Your sequence tables will live in the source unsharded keyspace.
 
@@ -165,9 +165,9 @@ CREATE TABLE exercise_logs_seq (
 
 ## 4. Choose your Vindexes
 
-Every sharded table needs a [Vindex](vindexes.md) (Vitess index) to determine how incoming rows are distributed across shards. Similar to how every MySQL table must have a primary key, every sharded table must additionally have a **primary Vindex**.
+Every sharded table needs a [Vindex](https://planetscale.com/docs/vitess/sharding/vindexes.md) (Vitess index) to determine how incoming rows are distributed across shards. Similar to how every MySQL table must have a primary key, every sharded table must additionally have a **primary Vindex**.
 
-The primary Vindex determines which shard each row of data will reside on. For more information about choosing a Vindex, see the [Vindexes documentation](vindexes.md). You can also see a practical example in the [Avoiding cross-shard queries](avoiding-cross-shard-queries.md) documentation.
+The primary Vindex determines which shard each row of data will reside on. For more information about choosing a Vindex, see the [Vindexes documentation](https://planetscale.com/docs/vitess/sharding/vindexes.md). You can also see a practical example in the [Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md) documentation.
 
 In this example, we'll shard `exercise_logs` by `user_id` using the predefined [`xxhash` Vindex function](https://vitess.io/docs/reference/features/vindexes/#predefined-vindexes), which is a common choice:
 
@@ -250,7 +250,7 @@ The `column_vindexes` entry tells Vitess to use the `xxhash` Vindex on the `user
 
 You now need to add all tables to your source keyspace (`metal` for this example) VSchema. The VSchema is used to route queries to the proper keyspace. When you only had one keyspace, you didn't need to worry about this. But now that you've added a new sharded keyspace, Vitess will need to check the VSchema of each keyspace to route queries.
 
-For more information, see the [VSchema documentation](vschema.md).
+For more information, see the [VSchema documentation](https://planetscale.com/docs/vitess/sharding/vschema.md).
 
 For this step, it's often easier to do from the UI instead of with an `ALTER` statement.
 
@@ -301,9 +301,9 @@ In those cases, you should use `@primary`. This will send any incoming queries f
 >
 > If you explicitly wish to target a replica for some or all reads, using `@replica` will have the same effect as `@primary` in that it will automatically route the request to the correct keyspace.
 
-[Global Replica Credentials](../scaling/replicas.md#1-create-a-global-replica-credential-recommended) are not currently supported in this context. You can still target replicas instead of your primary with `@replica`, but it will not automatically route the query to the *closest* replica.
+[Global Replica Credentials](https://planetscale.com/docs/vitess/scaling/replicas.md#1-create-a-global-replica-credential-recommended) are not currently supported in this context. You can still target replicas instead of your primary with `@replica`, but it will not automatically route the query to the *closest* replica.
 
-For more information, refer to the [Targeting the correct keyspace documentation](targeting-correct-keyspace.md).
+For more information, refer to the [Targeting the correct keyspace documentation](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md).
 
 ## Need help?
 

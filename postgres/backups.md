@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -165,7 +165,7 @@ A new branch will be created based on this backup and will become visible under 
 
 ### Point-in-time recovery
 
-PlanetScale Postgres supports precise [point-in-time recovery (PITR)](backups/point-in-time-recovery.md) using Write-Ahead Log (WAL) files. This allows you to restore to any specific moment within your backup retention window, not just to backup snapshots.
+PlanetScale Postgres supports precise [point-in-time recovery (PITR)](https://planetscale.com/docs/postgres/backups/point-in-time-recovery.md) using Write-Ahead Log (WAL) files. This allows you to restore to any specific moment within your backup retention window, not just to backup snapshots.
 
 **Key benefits:**
 
@@ -175,7 +175,7 @@ PlanetScale Postgres supports precise [point-in-time recovery (PITR)](backups/po
 
 **Restore time considerations:** The time required depends on your cluster size, data volume, and how far back you're restoring. Restoring to recent points (within default 12-hour backup intervals) is typically quick, while restoring to older points may require replaying multiple days of WAL files.
 
-For detailed examples and step-by-step instructions, see the [Point-in-time recovery documentation](backups/point-in-time-recovery.md).
+For detailed examples and step-by-step instructions, see the [Point-in-time recovery documentation](https://planetscale.com/docs/postgres/backups/point-in-time-recovery.md).
 
 ### Restored Branch Behavior
 
@@ -188,9 +188,9 @@ For detailed examples and step-by-step instructions, see the [Point-in-time reco
 
 ### Roles on a restored branch
 
-[User-defined roles](connecting/roles.md) created in PlanetScale are restored with the branch. They appear on the new branch's Roles page, and they keep ownership of the objects they owned in the backup.
+[User-defined roles](https://planetscale.com/docs/postgres/connecting/roles.md) created in PlanetScale are restored with the branch. They appear on the new branch's Roles page, and they keep ownership of the objects they owned in the backup.
 
-Passwords are reset. Credentials from the source branch do not work on the restored branch. [Reset the role's password](connecting/roles.md#resetting-role-credentials) on the restored branch to get a new one.
+Passwords are reset. Credentials from the source branch do not work on the restored branch. [Reset the role's password](https://planetscale.com/docs/postgres/connecting/roles.md#resetting-role-credentials) on the restored branch to get a new one.
 
 Short-lived roles PlanetScale creates for schema recommendations and the web console are not kept. Objects they owned are reassigned to the default `postgres` role.
 
@@ -200,13 +200,13 @@ Roles created with `CREATE ROLE` inside Postgres are part of the restored data, 
 
 The default, included backup schedule retains backups for 2 days. You can set a custom retention period for custom backup schedules and manual one-off backups.
 
-Additionally, you can choose to protect any individual backup from deletion. Click on the backup you'd like to protect, and click the "**Prevent backup deletion**" toggle. A protected backup retains both the base backup and the Write-Ahead Log (WAL) files needed for [point-in-time recovery](backups/point-in-time-recovery.md). Keep in mind that custom backups and included backups that are retained beyond the default retention policy will incur additional charges.
+Additionally, you can choose to protect any individual backup from deletion. Click on the backup you'd like to protect, and click the "**Prevent backup deletion**" toggle. A protected backup retains both the base backup and the Write-Ahead Log (WAL) files needed for [point-in-time recovery](https://planetscale.com/docs/postgres/backups/point-in-time-recovery.md). Keep in mind that custom backups and included backups that are retained beyond the default retention policy will incur additional charges.
 
 ## Backup pricing
 
 PlanetScale Postgres includes backup storage with every database branch. Each branch receives backup storage equal to **twice the allocated disk size**. For example, a database with 50 GB of storage includes 100 GB of backup storage.
 
-To learn more about how backup storage is measured and pricing for additional storage, see [pricing](pricing.md).
+To learn more about how backup storage is measured and pricing for additional storage, see [pricing](https://planetscale.com/docs/postgres/pricing.md).
 
 ### Monitor your usage
 

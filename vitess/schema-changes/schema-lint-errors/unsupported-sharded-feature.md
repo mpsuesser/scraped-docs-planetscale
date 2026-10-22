@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/unsupported-sharded-feature
 title: "Unsupported Sharded Feature"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -56,9 +56,9 @@ For views in sharded keyspaces, remove the view from the sharded keyspace. Move 
 
 ## Related docs
 
-* [Sequence tables](../../sharding/sequence-tables.md)
-* [VSchema](../../sharding/vschema.md)
-* [Vindexes](../../sharding/vindexes.md)
+* [Sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md)
+* [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md)
+* [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)
 
 ## Need help?
 

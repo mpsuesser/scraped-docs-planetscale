@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/foreign-key-missing-unique-key
 title: "Foreign Key Missing Unique Key"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > A deploy fails because a foreign key references columns that are not covered by a unique key.
 
-A deploy request can fail before copying starts because a [foreign key constraint](../foreign-key-constraints.md) references columns on the parent table that are not covered by a unique key:
+A deploy request can fail before copying starts because a [foreign key constraint](https://planetscale.com/docs/vitess/foreign-key-constraints.md) references columns on the parent table that are not covered by a unique key:
 
 ```text theme={null}
 Failed to add the foreign key constraint. Missing unique key for constraint 'fk_assessments_group' in the referenced table 'student_groups' (errno 6125) (sqlstate HY000)
@@ -30,7 +30,7 @@ Add a unique key on the referenced columns of the parent table, then deploy agai
 ALTER TABLE student_groups ADD UNIQUE KEY uniq_student_groups_id (id);
 ```
 
-If the referenced column is not unique by design, point the foreign key at the parent table's primary key instead, or drop the constraint and enforce the relationship in your application. See [Strategies for maintaining referential integrity](../strategies-for-maintaining-referential-integrity.md).
+If the referenced column is not unique by design, point the foreign key at the parent table's primary key instead, or drop the constraint and enforce the relationship in your application. See [Strategies for maintaining referential integrity](https://planetscale.com/docs/vitess/strategies-for-maintaining-referential-integrity.md).
 
 Make the change on your branch, then open a new deploy request. If the failed deploy is still in progress, cancel it first.
 

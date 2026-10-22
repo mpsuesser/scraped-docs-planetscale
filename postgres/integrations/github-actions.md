@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -45,7 +45,7 @@ The action works with Linux, Windows, and Mac runners. Once installed it will be
 
 Authentication for pscale is via service token environment variables.
 
-You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
+You will need to [create a service token](https://planetscale.com/docs/cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
 
 Add your `PLANETSCALE_SERVICE_TOKEN_ID` and `PLANETSCALE_SERVICE_TOKEN` to your [Actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
@@ -118,11 +118,11 @@ This is useful when running in CI, as the workflow may run multiple times and yo
 
 > [!NOTE]
 >
-> New branches created this way start empty (no schema or data). To create a branch that includes schema and data, restore from a [backup](../backups.md) with `--restore`. See [Branching](../branching.md).
+> New branches created this way start empty (no schema or data). To create a branch that includes schema and data, restore from a [backup](https://planetscale.com/docs/postgres/backups.md) with `--restore`. See [Branching](https://planetscale.com/docs/postgres/branching.md).
 
 ### Create a role for a branch
 
-You can use `pscale role create` to generate [credentials](../connecting/roles.md) for your database branch.
+You can use `pscale role create` to generate [credentials](https://planetscale.com/docs/postgres/connecting/roles.md) for your database branch.
 
 ```yaml expandable theme={null}
 - name: Generate role for branch

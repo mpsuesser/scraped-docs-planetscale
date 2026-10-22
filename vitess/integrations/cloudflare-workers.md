@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/cloudflare-workers
 title: "Cloudflare Workers"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 [Cloudflare Workers](https://developers.cloudflare.com/workers/) is a serverless platform that allows you to run your code at the edge, close to your users. [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) accelerates queries you make to existing databases, including PlanetScale.
 
-Want to create and pay for your database from Cloudflare without adding billing to PlanetScale? See [Create PlanetScale databases from Cloudflare](../../connect/cloudflare.md).
+Want to create and pay for your database from Cloudflare without adding billing to PlanetScale? See [Create PlanetScale databases from Cloudflare](https://planetscale.com/docs/connect/cloudflare.md).
 
 Already created a PlanetScale Vitess database? [Jump straight to integration instructions](#integrate-with-cloudflare-workers).
 
@@ -33,7 +33,7 @@ Before you begin, make sure you have a [PlanetScale account](https://auth.planet
 After creating your organization, it's important to understand the relationship between databases, branches, and clusters.
 
 * **Database**: Your overall project (e.g., "my-ecommerce-app")
-* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](../schema-changes/branching.md)
+* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](https://planetscale.com/docs/vitess/schema-changes/branching.md)
 * **Cluster**: The underlying compute and storage infrastructure that powers each branch
 
 PlanetScale Vitess clusters use [Vitess](https://vitess.io/), a database clustering system for horizontal scaling of MySQL.
@@ -87,7 +87,7 @@ Select **Vitess** to create a MySQL-compatible database
 
 **Step 3**
 
-**Cluster configuration**: Select your preferred [cluster and storage size](../../plans/planetscale-skus.md) for your database.
+**Cluster configuration**: Select your preferred [cluster and storage size](https://planetscale.com/docs/plans/planetscale-skus.md) for your database.
 
 ### Step 4: Create the database cluster
 
@@ -352,11 +352,11 @@ For more information on using Cloudflare Workers and Hyperdrive, [refer to the C
 
 ## What's next?
 
-Once you're done with development, it is highly recommended that [safe migrations](../schema-changes/safe-migrations.md) be turned on for your `main` production branch to protect from accidental schema changes and enable zero-downtime deployments.
+Once you're done with development, it is highly recommended that [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) be turned on for your `main` production branch to protect from accidental schema changes and enable zero-downtime deployments.
 
-When you're ready to make more schema changes, you'll [create a new branch](../schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll open a [deploy request](../schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
+When you're ready to make more schema changes, you'll [create a new branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll open a [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 

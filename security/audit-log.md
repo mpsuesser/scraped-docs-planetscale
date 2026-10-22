@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,14 +18,14 @@ Vitess and Postgres
 
 In addition, each audit log includes **events** detailing who performed the **action** and when it happened.
 
-Audit log retainment period is [based on your plan](../planetscale-plans.md):
+Audit log retainment period is [based on your plan](https://planetscale.com/docs/planetscale-plans.md):
 
 * **Base plan** — 15 days
 * **Enterprise** — 15 days
 
 > [!NOTE]
 >
-> Organization audit log access is limited to [Organization Administrators](access-control.md#organization-administrator).
+> Organization audit log access is limited to [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator).
 
 ## Review your organization audit log
 

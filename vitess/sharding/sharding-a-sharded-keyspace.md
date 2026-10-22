@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace
 title: "Sharding A Sharded Keyspace"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,29 +14,29 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > Add or remove shards in a sharded keyspace by moving its tables to a new sharded keyspace. Useful when a sharded keyspace grows significantly and needs additional shards.
 
-Adding or removing shards from a sharded keyspace requires some rebalancing, as you may be moving data from one MySQL instance to another. In PlanetScale, this is done with a Vitess MoveTables [workflow](../scaling/workflows.md) from one sharded keyspace to another. This involves creating a new sharded (target) keyspace with the new desired number of shards and transferring all of the data from your current (source) keyspace to the new target. This operation is done with no downtime.
+Adding or removing shards from a sharded keyspace requires some rebalancing, as you may be moving data from one MySQL instance to another. In PlanetScale, this is done with a Vitess MoveTables [workflow](https://planetscale.com/docs/vitess/scaling/workflows.md) from one sharded keyspace to another. This involves creating a new sharded (target) keyspace with the new desired number of shards and transferring all of the data from your current (source) keyspace to the new target. This operation is done with no downtime.
 
 > [!NOTE]
 >
-> The steps in this documentation are similar to those in the [Sharding quickstart](sharding-quickstart.md), however, there is one important addition that you cannot skip. Be sure to review [Step 7: Remove `"require_explicit_routing": true`](sharding-a-sharded-keyspace.md#step-7-remove-require_explicit_routing-true), as it is a crucial step that differs from sharding an unsharded keyspace.
+> The steps in this documentation are similar to those in the [Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md), however, there is one important addition that you cannot skip. Be sure to review [Step 7: Remove `"require_explicit_routing": true`](sharding-a-sharded-keyspace.md#step-7-remove-require_explicit_routing-true), as it is a crucial step that differs from sharding an unsharded keyspace.
 
-* If you are sharding an existing table in an *unsharded* keyspace, follow the instructions in the [Sharding quickstart documentation](sharding-quickstart.md).
-* If you are creating a new table that you want in your existing sharded keyspace, follow the instructions in the [Sharding new tables documentation](sharding-new-tables.md).
-* If you simply need to adjust the size of each shard, and not the number of shards, you can do so from the [Clusters](../cluster-configuration.md) page in the dashboard.
+* If you are sharding an existing table in an *unsharded* keyspace, follow the instructions in the [Sharding quickstart documentation](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
+* If you are creating a new table that you want in your existing sharded keyspace, follow the instructions in the [Sharding new tables documentation](https://planetscale.com/docs/vitess/sharding/sharding-new-tables.md).
+* If you simply need to adjust the size of each shard, and not the number of shards, you can do so from the [Clusters](https://planetscale.com/docs/vitess/cluster-configuration.md) page in the dashboard.
 
 > [!WARNING]
 >
 > These are advanced configuration settings that expose some of the underlying Vitess configuration of your cluster.
-> Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](../sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
+> Misconfiguration can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](https://planetscale.com/docs/vitess/sharding.md) of the docs prior to making any changes. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
 
 Throughout this guide, we will refer to the source keyspace and target keyspace, which are defined as follows:
 
 * **Source keyspace**: The original sharded keyspace from which you are moving the tables you wish to shard.
 * **Target keyspace**: The new sharded keyspace that you are moving the selected tables to.
 
-You run the move with [`pscale branch vtctl move-tables`](../../cli/move-tables.md), so make sure you have the [`pscale` CLI installed and authenticated](../../cli/planetscale-environment-setup.md). You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) or a [Database Administrator](../../security/access-control.md#database-administrator) of the database.
+You run the move with [`pscale branch vtctl move-tables`](../../cli/move-tables.md), so make sure you have the [`pscale` CLI installed and authenticated](../../cli/planetscale-environment-setup.md). You must be an [Organization Administrator](https://planetscale.com/docs/security/access-control.md#organization-administrator) or a [Database Administrator](https://planetscale.com/docs/security/access-control.md#database-administrator) of the database.
 
-This guide also assumes that you either are already using `@primary` in your application code to [target your keyspaces](targeting-correct-keyspace.md) or you do not directly set a database name in your application code.
+This guide also assumes that you either are already using `@primary` in your application code to [target your keyspaces](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md) or you do not directly set a database name in your application code.
 
 ## Pre-sharding checklist
 
@@ -280,7 +280,7 @@ After primary traffic switches, Vitess replicates writes from the target keyspac
 
 ### Step 6: Check traffic in your application
 
-You should now go check out your production application that uses this database to make sure everything is running as expected. You can also check the [Insights](../monitoring/query-insights.md) tab for errors or slow queries.
+You should now go check out your production application that uses this database to make sure everything is running as expected. You can also check the [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) tab for errors or slow queries.
 
 If you notice an issue, switch traffic back to the source keyspace:
 
@@ -331,7 +331,7 @@ Write both flags with an `=`: a space-separated value such as `--keep-data false
 
 ### Step 9: Check that your production application is working as expected
 
-Finally, check your production application to make sure everything is working as expected. You can check your [Insights](../monitoring/query-insights.md) tab to see if queries are being properly routed to your new keyspace. Insights will also show you any errors, query performance issues, and more.
+Finally, check your production application to make sure everything is working as expected. You can check your [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) tab to see if queries are being properly routed to your new keyspace. Insights will also show you any errors, query performance issues, and more.
 
 If you moved every table and the source keyspace has no tables left, you can delete it with [`pscale keyspace delete`](../../cli/keyspace.md) or from the **Clusters** page.
 

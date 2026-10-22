@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/authentication-methods
 title: "Authentication Methods"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,13 +22,13 @@ Let's break down how each of these work.
 
 This is the only authentication mechanism where PlanetScale maintains user credentials.
 
-Additionally, users can opt to configure [two-factor authentication (2FA)](multi-factor-authentication.md). This option requires **something you know** *(i.e. your password)* and **something you have** *(i.e. recovery codes)*.
+Additionally, users can opt to configure [two-factor authentication (2FA)](https://planetscale.com/docs/security/multi-factor-authentication.md). This option requires **something you know** *(i.e. your password)* and **something you have** *(i.e. recovery codes)*.
 
 ## Single sign-on
 
 Users can authenticate with their chosen corporate identity provider *(i.e. Okta)* instead of maintaining passwords with PlanetScale.
 
-Once [SSO](sso.md) is enabled for an `organization`, all members are redirected through that identity provider's authentication flow. Moving forward, they must pass through SSO to access their PlanetScale account.
+Once [SSO](https://planetscale.com/docs/security/sso.md) is enabled for an `organization`, all members are redirected through that identity provider's authentication flow. Moving forward, they must pass through SSO to access their PlanetScale account.
 
 ## OAuth via GitHub
 

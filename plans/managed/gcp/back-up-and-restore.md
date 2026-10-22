@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp/back-up-and-restore
 title: "Back Up And Restore"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-01T18:05:48.418Z
 
 > PlanetScale Managed backup and restore functions like the hosted PlanetScale product. For more info, see [how to create, schedule, and restore backups for your PlanetScale databases](../../../vitess/backups.md).
 
-To learn more about the backup and restore access levels, see the [database level permissions documentation](../../../security/access-control.md#database-level-permissions).
+To learn more about the backup and restore access levels, see the [database level permissions documentation](https://planetscale.com/docs/security/access-control.md#database-level-permissions).
 
 By default, databases are automatically backed up once per day to a Cloud Storage bucket in the customer's GCP project. This default can be adjusted when working with PlanetScale Support. However, configuring and validating additional backup frequencies is the customer's responsibility.
 

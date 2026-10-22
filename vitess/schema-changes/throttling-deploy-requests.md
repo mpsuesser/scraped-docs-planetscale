@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/throttling-deploy-requests
 title: "Throttling Deploy Requests"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ There are three ways to adjust the throttler for deploy requests:
 * At the keyspace level
 * At the deploy request level
 
-You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) or [Database Administrator](../../security/access-control.md#database-administrator) for the database that you're configuring in order to change these settings at the database level.
+You must be an [Organization Administrator](https://planetscale.com/docs/security/access-control.md#organization-administrator) or [Database Administrator](https://planetscale.com/docs/security/access-control.md#database-administrator) for the database that you're configuring in order to change these settings at the database level.
 
 However, any organization member who has permission to deploy a deploy request is able to adjust the configuration at the deploy request level.
 
@@ -44,7 +44,7 @@ For the first two options, first select your database, click "Settings" in the l
 
 You can adjust the slider or manually type in the value you'd like to set throttling to.
 
-If you'd like to set throttling at the [keyspace](../sharding/keyspaces.md) level so that each keyspace is throttled differently, check "Set throttling per keyspace". This will give you the option to individually adjust the sliders for each keyspace.
+If you'd like to set throttling at the [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md) level so that each keyspace is throttled differently, check "Set throttling per keyspace". This will give you the option to individually adjust the sliders for each keyspace.
 
 Click "Save throttling settings". Going forward, these throttler settings will apply to every deploy request as configured.
 

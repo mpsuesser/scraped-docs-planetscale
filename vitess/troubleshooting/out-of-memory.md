@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -28,7 +28,7 @@ When an OOM event occurs:
 
 ## Primary resolution: Upgrade cluster size
 
-The most direct solution to OOM events is to increase your cluster size to provide more memory. See [cluster sizing](../scaling/cluster-sizing.md) for the available sizes and their memory, and [cluster configuration](../scaling/cluster-configuration.md) for how to resize. Resizing is performed with minimal downtime.
+The most direct solution to OOM events is to increase your cluster size to provide more memory. See [cluster sizing](https://planetscale.com/docs/vitess/scaling/cluster-sizing.md) for the available sizes and their memory, and [cluster configuration](https://planetscale.com/docs/vitess/scaling/cluster-configuration.md) for how to resize. Resizing is performed with minimal downtime.
 
 ## Common causes of high memory usage
 
@@ -78,7 +78,7 @@ Each connection consumes memory. A large number of open connections, whether int
 
   Matching the gauge against the whole window in one step gives the wrong count. A container OOM-killed once and then restarted five times for other reasons reports six kills, or none, depending on which way you write it.
 
-  The older `planetscale_pods_container_restarts_total` is deprecated and should not be used for this. See the [Prometheus metrics](../integrations/prometheus-metrics.md) reference.
+  The older `planetscale_pods_container_restarts_total` is deprecated and should not be used for this. See the [Prometheus metrics](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md) reference.
 
 > [!NOTE]
 >

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -19,9 +19,9 @@ your database schema to suggest DDL that can improve performance, reduce memory
 and storage, or prevent primary-key exhaustion.
 
 Recommendations are available on every Neki cluster. They are also available
-through the [PlanetScale MCP server](../../mcp-server.md). AI coding agents can
+through the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md). AI coding agents can
 evaluate and apply them on a recurring schedule; see
-[Self-improving database](../../self-improving-database.md).
+[Self-improving database](https://planetscale.com/docs/self-improving-database.md).
 
 ## Open schema recommendations
 
@@ -50,7 +50,7 @@ branch.
 
 Schema recommendations include either a DDL statement or an Online DDL script.
 Apply it through a Neki router using native DDL or a [managed schema-change
-workflow](../schema-changes.md), as directed by the recommendation. You can
+workflow](https://planetscale.com/docs/neki/schema-changes.md), as directed by the recommendation. You can
 also make the equivalent change in your application or ORM migrations.
 
 Evaluate lock behavior, rewrite cost, and downtime before running the
@@ -94,10 +94,10 @@ A new index recommendation shows the `CREATE INDEX` DDL, the queries that
 benefit, and an estimated performance change.
 
 Indexes speed up reads and increase write cost, memory use, and table size.
-After you apply an index, use [Query Insights](query-insights.md)
+After you apply an index, use [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md)
 to confirm the intended queries use it.
 
-Index suggestions can use AI tools. See [How PlanetScale uses AI](../../how-we-use-ai.md).
+Index suggestions can use AI tools. See [How PlanetScale uses AI](https://planetscale.com/docs/how-we-use-ai.md).
 You can disable new index suggestions and other LLM-based features in
 organization settings.
 
@@ -124,7 +124,7 @@ can also suggest widening foreign-key columns that join to that primary key.
 
 Widening a column rewrites every row, and a routed `ALTER TABLE` would hold an
 exclusive lock on the table cluster-wide until the rewrite finished. The
-recommendation therefore shows an [Online DDL](../schema-changes.md) script
+recommendation therefore shows an [Online DDL](https://planetscale.com/docs/neki/schema-changes.md) script
 instead, which builds the new table beside the original and keeps the live table
 available for reads and writes. The script has four steps: create the migration,
 poll until every shard is ready, cut over, then clean up the shadow tables and
@@ -138,7 +138,7 @@ Insights flags tables that are more than four weeks old and have not been
 queried in the last four weeks. Dropping an unused table can reduce storage
 and shorten backups.
 
-Create a [manual backup](../backups.md) before dropping a table if you are
+Create a [manual backup](https://planetscale.com/docs/neki/backups.md) before dropping a table if you are
 unsure it can be discarded. Confirm that the application no longer uses the
 table. If the table should be kept, close the recommendation.
 

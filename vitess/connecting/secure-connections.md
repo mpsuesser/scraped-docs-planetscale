@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/connecting/secure-connections
 title: "Secure Connections"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -32,7 +32,7 @@ Many clients are based on `libmysqlclient`. These clients require configuration 
 
 Again, if you don't configure this, things will work but your connection to PlanetScale will be vulnerable to man-in-the-middle attacks.
 
-For a list of tested MySQL GUI clients, review our article on [how to connect MySQL GUI applications](../tutorials/connect-mysql-gui.md).
+For a list of tested MySQL GUI clients, review our article on [how to connect MySQL GUI applications](https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui.md).
 
 > [!NOTE]
 >

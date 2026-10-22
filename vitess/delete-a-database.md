@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/delete-a-database
 title: "Delete A Database"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -55,7 +55,7 @@ Enter the database name
 
 Click **Delete database** to confirm
 
-Only organization administrators and database administrators have permission to delete databases. See the [Access Control documentation](../security/access-control.md) for more information about user permissions.
+Only organization administrators and database administrators have permission to delete databases. See the [Access Control documentation](https://planetscale.com/docs/security/access-control.md) for more information about user permissions.
 
 ## IP Restrictions
 
@@ -81,7 +81,7 @@ Add in an IP range that is NOT used by any clients and click the **Add** button
 
 This will restrict the IP range to what is specified and can be used to test if connection are going to the database via the password in question.
 This is a useful test for determining if the password in question is still in use, before deleting either the database or the password.
-You should also confirm in [Insights](monitoring/query-insights.md) that no queries are executing on the database.
+You should also confirm in [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) that no queries are executing on the database.
 
 This helps avoid remaking passwords that are still in use or deleting a database that is still in use.
 

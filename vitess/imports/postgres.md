@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/postgres
 title: "Postgres"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!WARNING]
 >
-> **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale's Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
+> **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale's Vitess product. You can still use these scripts if you would like to utilize [Vitess](https://planetscale.com/docs/vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md).
 
 Many customers choose to migrate from Postgres to PlanetScale for Vitess in order to leverage the performance and scalability offered by PlanetScale and Vitess.
 
@@ -32,8 +32,8 @@ We provide scripts to make moving your data from Postgres to PlanetScale for Vit
 
 We have two recommendations for how to migrate your Postgres database to PlanetScale for Vitess. Both of these solutions leverage the AWS Database Migration Service to handle conversions between Postgres and MySQL types.
 
-1. Use our [Postgres to PlanetScale for Vitess](postgres-planetscale-migration-guide.md) guide along with our [postgres-planetscale scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-planetscale) to import directly from a Postgres source to a PlanetScale target. This technique is simpler than option 2, as it does not require an intermediate MySQL database, but operates more slowly at a rate of only a few gigabytes per hour.
-2. Use our [Postgres to MySQL + PlanetScale for Vitess](postgres-mysql-planetscale-migration-guide.md) guide along with our [postgres-mysql-planetscale scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-mysql-planetscale) to import from Postgres to an RDS MySQL instance, and then use a PlanetScale [database import](database-imports.md) to bring the data in from MySQL. This technique is more complex since it requires an intermediary MySQL database. However, this technique can be 10x or more faster. This is recommended for larger databases.
+1. Use our [Postgres to PlanetScale for Vitess](https://planetscale.com/docs/vitess/imports/postgres-planetscale-migration-guide.md) guide along with our [postgres-planetscale scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-planetscale) to import directly from a Postgres source to a PlanetScale target. This technique is simpler than option 2, as it does not require an intermediate MySQL database, but operates more slowly at a rate of only a few gigabytes per hour.
+2. Use our [Postgres to MySQL + PlanetScale for Vitess](https://planetscale.com/docs/vitess/imports/postgres-mysql-planetscale-migration-guide.md) guide along with our [postgres-mysql-planetscale scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-mysql-planetscale) to import from Postgres to an RDS MySQL instance, and then use a PlanetScale [database import](https://planetscale.com/docs/vitess/imports/database-imports.md) to bring the data in from MySQL. This technique is more complex since it requires an intermediary MySQL database. However, this technique can be 10x or more faster. This is recommended for larger databases.
 
 In some cases, using these scripts and following the necessary steps from our docs are all it takes to get your data imported to PlanetScale.
 

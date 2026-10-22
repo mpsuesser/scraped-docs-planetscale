@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/cluster-configuration/maintenance-windows
 title: "Maintenance Windows"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -85,9 +85,9 @@ maintenance uses PlanetScale's maintenance schedule for these branches.
 
 ## Related documentation
 
-* [Cluster configuration](../cluster-configuration.md)
-* [Postgres versions](../cluster-configuration.md#postgres-versions)
-* [Replication and planned switchovers](../overview.md#the-admin)
+* [Cluster configuration](https://planetscale.com/docs/neki/cluster-configuration.md)
+* [Postgres versions](https://planetscale.com/docs/neki/cluster-configuration.md#postgres-versions)
+* [Replication and planned switchovers](https://planetscale.com/docs/neki/overview.md#the-admin)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-architecture
 title: "Postgres Architecture"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -87,7 +87,7 @@ PostgreSQL's built-in streaming replication keeps replicas synchronized with the
 **Connection routing**:
 
 * Port 5432: Direct PostgreSQL connections
-* Port 6432: [PgBouncer](connecting/pgbouncer.md) connection pooling for optimized connection management
+* Port 6432: [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) connection pooling for optimized connection management
 * SSL/TLS encryption required for all connections
 
 ## Instance configurability
@@ -110,7 +110,7 @@ PlanetScale Postgres offers flexible instance configuration to match your worklo
 * Optimized for single-threaded performance requirements
 * Full compatibility with existing tooling and applications
 
-Learn more about [CPU architecture selection](cluster-configuration/cpu-architectures.md).
+Learn more about [CPU architecture selection](https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures.md).
 
 ### Storage types
 
@@ -130,7 +130,7 @@ Storage choice significantly impacts database performance and cost. PlanetScale 
 * Automatic storage scaling based on usage patterns
 * Cost-effective for variable storage requirements
 
-Learn more about [storage configuration](cluster-configuration/cluster-storage.md).
+Learn more about [storage configuration](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md).
 
 ### Performance and scaling relationships
 
@@ -176,7 +176,7 @@ Comprehensive metrics collection provides real-time visibility into database hea
 * Connection count and pooling efficiency
 * Replication lag and synchronization status
 
-Learn more about [monitoring and metrics](monitoring/metrics.md).
+Learn more about [monitoring and metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md).
 
 ### Logs and diagnostics
 
@@ -206,7 +206,7 @@ Flexible configuration options allow you to customize PostgreSQL behavior, enabl
 * Both Native and Community extensions available
 * Managed through dashboard or CLI
 
-Learn more about [extension configuration](extensions.md).
+Learn more about [extension configuration](https://planetscale.com/docs/postgres/extensions.md).
 
 **Parameter tuning**:
 
@@ -215,7 +215,7 @@ Learn more about [extension configuration](extensions.md).
 * Automatic parameter adjustment based on instance size changes
 * Configuration change tracking
 
-Learn more about [parameter configuration](cluster-configuration/parameters.md).
+Learn more about [parameter configuration](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md).
 
 **Custom Backups and Point-in-time recovery**:
 
@@ -225,7 +225,7 @@ Learn more about [parameter configuration](cluster-configuration/parameters.md).
 * Custom backup timing to minimize impact on production workloads
 * Point-in-time recovery capabilities within retention windows
 
-Learn more about [backup and restore operations](backups.md).
+Learn more about [backup and restore operations](https://planetscale.com/docs/postgres/backups.md).
 
 ## Development workflow integration
 
@@ -246,8 +246,8 @@ PlanetScale Postgres integrates with popular monitoring and development tools th
 
 **Monitoring system integrations**:
 
-* [Prometheus endpoints](monitoring/prometheus-postgres.md) for custom metrics collection
-* [Datadog integration](monitoring/prometheus-metrics-datadog-postgres.md) for unified monitoring dashboards
+* [Prometheus endpoints](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) for custom metrics collection
+* [Datadog integration](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-datadog-postgres.md) for unified monitoring dashboards
 
 **Development tool integrations**:
 
@@ -257,15 +257,15 @@ PlanetScale Postgres integrates with popular monitoring and development tools th
 
 ## Related documentation
 
-> **[Cluster Configuration](cluster-configuration.md)**
+> **[Cluster Configuration](https://planetscale.com/docs/postgres/cluster-configuration.md)**
 
-> **[Scaling with Replicas](scaling/replicas.md)**
+> **[Scaling with Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md)**
 
-> **[Backup and Recovery](backups.md)**
+> **[Backup and Recovery](https://planetscale.com/docs/postgres/backups.md)**
 
-> **[Monitoring and Metrics](monitoring/metrics.md)**
+> **[Monitoring and Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md)**
 
-> **[Database Branching](branching.md)**
+> **[Database Branching](https://planetscale.com/docs/postgres/branching.md)**
 
 ## Need help?
 

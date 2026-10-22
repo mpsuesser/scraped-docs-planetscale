@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-symfony-app
 title: "Connect Symfony App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -66,7 +66,7 @@ You can view the application at [http://localhost:8000](http://localhost:8000).
 
 Next, you need to set up your PlanetScale database and connect to it in the Symfony application.
 
-You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md) if you prefer the dashboard.
+You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md) if you prefer the dashboard.
 
 **Step 1**
 
@@ -86,7 +86,7 @@ pscale database create <DATABASE_NAME> --region <REGION_SLUG>
 
 This tutorial uses `symfony_example` for `DATABASE_NAME`, but you can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don't recommend them, as they may need to be escaped in some instances.
 
-For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions#available-regions) or leave it blank.
+For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions.md#available-regions) or leave it blank.
 
 That's it! Your database is ready to use. Next, let's connect it to the Symfony application and then add some data.
 
@@ -101,7 +101,7 @@ Both options are covered below.
 
 ### Option 1: Connect with username and password (Recommended)
 
-These instructions show you how to use the [PlanetScale CLI](../../cli/planetscale-environment-setup.md) to generate a set of credentials.
+These instructions show you how to use the [PlanetScale CLI](https://planetscale.com/docs/cli/planetscale-environment-setup.md) to generate a set of credentials.
 
 You can also get these exact values to to copy/paste from your [PlanetScale dashboard](https://app.planetscale.com). In the dashboard, click on the database > "**Connect**" > "**Generate new password**" > "**General**" dropdown > "**Symfony**". If the password is blurred, click "**New password**". Skip to step 3 once you have these credentials.
 
@@ -222,7 +222,7 @@ If you want to continue to play around with adding data on the fly, you have a f
 
 * PlanetScale CLI shell
 * PlanetScale dashboard console
-* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
+* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui.md))
 
 The first two options are covered below.
 
@@ -230,7 +230,7 @@ The first two options are covered below.
 
 You can use the PlanetScale CLI to open a MySQL shell to interact with your database.
 
-You may need to [install the MySQL command line client](../../cli/planetscale-environment-setup.md) if you haven't already.
+You may need to [install the MySQL command line client](https://planetscale.com/docs/cli/planetscale-environment-setup.md) if you haven't already.
 
 Run the following command in your terminal:
 
@@ -302,9 +302,9 @@ You can now refresh the [Symfony homepage](http://localhost:8000) to see the new
 
 ## What's next?
 
-Once you're done with initial development, you can enable [safe migrations](../schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
+Once you're done with initial development, you can enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 

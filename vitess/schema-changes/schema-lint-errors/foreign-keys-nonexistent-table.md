@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-nonexistent-table
 title: "Foreign Keys Nonexistent Table"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -52,8 +52,8 @@ If `users` is missing, create it first or remove the constraint until the parent
 
 ## Related docs
 
-* [Foreign key constraints](../../foreign-key-constraints.md)
-* [Deploy requests](../deploy-requests.md)
+* [Foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md)
+* [Deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/reference-tables-and-gsis
 title: "Reference Tables And Gsis"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -212,7 +212,7 @@ Otherwise, if the looked up value appears across most shards, the work needed to
 run a GSI-assisted query approaches a scatter query, and the GSI also adds
 overhead on the write path.
 
-[Query planning](query-planning.md#explain-in-neki) shows how to inspect
+[Query planning](https://planetscale.com/docs/neki/query-planning.md#explain-in-neki) shows how to inspect
 the resulting plan.
 
 ## GSI mappings for writes

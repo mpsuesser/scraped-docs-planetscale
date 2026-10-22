@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/size
 title: "Size"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -116,7 +116,7 @@ pscale size cluster list --engine postgresql
 pscale size cluster list --engine neki
 ```
 
-Neki admin and router SKUs are listed separately with `pscale branch admin sizes` and `pscale branch router sizes`. See [Neki cluster sizing](../neki/cluster-configuration/cluster-sizing.md).
+Neki admin and router SKUs are listed separately with `pscale branch admin sizes` and `pscale branch router sizes`. See [Neki cluster sizing](https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing.md).
 
 ### List cluster sizes for a specific organization
 
@@ -155,13 +155,13 @@ pscale size cluster list --engine neki --metal
 pscale size cluster list --external
 ```
 
-`--cluster-size` is optional on `create-external`. Use these sizes with `pscale keyspace create-external --cluster-size` and `pscale keyspace resize --cluster-size` for [external keyspaces](keyspace.md#create-an-external-keyspace). `--external` is MySQL/Vitess only.
+`--cluster-size` is optional on `create-external`. Use these sizes with `pscale keyspace create-external --cluster-size` and `pscale keyspace resize --cluster-size` for [external keyspaces](https://planetscale.com/docs/cli/keyspace.md#create-an-external-keyspace). `--external` is MySQL/Vitess only.
 
 For more information about PlanetScale cluster sizes and pricing, see:
 
-* [PlanetScale Vitess plans documentation](../planetscale-plans.md)
-* [Neki pricing](../neki/pricing.md)
-* [PlanetScale Postgres pricing](../postgres/pricing.md)
+* [PlanetScale Vitess plans documentation](https://planetscale.com/docs/planetscale-plans.md)
+* [Neki pricing](https://planetscale.com/docs/neki/pricing.md)
+* [PlanetScale Postgres pricing](https://planetscale.com/docs/postgres/pricing.md)
 
 ## Need help?
 

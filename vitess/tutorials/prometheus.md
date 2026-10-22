@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prometheus
 title: "Prometheus"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ If you are using managed Prometheus via AWS, GCP or another provider, you will h
 
 ## Getting Started
 
-First, provision a new PlanetScale [Service token](../../api/reference/service-tokens.md) in your Organization settings. Make sure to save the ID and token, as they will not be visible after they've been generated.
+First, provision a new PlanetScale [Service token](https://planetscale.com/docs/api/reference/service-tokens.md) in your Organization settings. Make sure to save the ID and token, as they will not be visible after they've been generated.
 
 When that's created, grant the token `read_metrics_endpoints` permissions and click "Save permissions". Your token should look like the following:
 
@@ -83,7 +83,7 @@ This screenshot shows that they're being correctly scraped, and I can start to q
 
 ## Querying Prometheus
 
-Now that we're collecting metrics for my branches, our [reference guide](../integrations/prometheus-metrics.md) has a list of everything that we export. If I want to see how many `vtgate` pods are running per AZ for my branch, I can query:
+Now that we're collecting metrics for my branches, our [reference guide](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md) has a list of everything that we export. If I want to see how many `vtgate` pods are running per AZ for my branch, I can query:
 
 ```
 planetscale_vtgate_total_pods{planetscale_database_branch_id="7wxuxewx4l0p"}
@@ -99,9 +99,9 @@ If you keep this Prometheus instance running, it will collect metrics every 30 s
 
 For more information, see:
 
-* [Metrics reference](../integrations/prometheus-metrics.md) for a list of metrics we expose
-* [Grafana and Prometheus](prometheus-metrics-grafana.md) tutorial for using PlanetScale's provided dashboard to visualize these metrics in Grafana.
-* [Sending metrics to New Relic](prometheus-metrics-newrelic.md) tutorial for using Prometheus to forward metrics to New Relic.
+* [Metrics reference](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md) for a list of metrics we expose
+* [Grafana and Prometheus](https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-grafana.md) tutorial for using PlanetScale's provided dashboard to visualize these metrics in Grafana.
+* [Sending metrics to New Relic](https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-newrelic.md) tutorial for using Prometheus to forward metrics to New Relic.
 
 ## Need help?
 

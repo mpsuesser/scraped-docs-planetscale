@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agent-setup/prompt
 title: "Prompt"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -98,7 +98,7 @@ After installing, load skill **`planetscale-pscale-cli-automation`** for CLI con
 }
 ```
 
-OAuth triggers automatically on first PlanetScale MCP tool use. See [PlanetScale MCP server](../mcp-server.md) for details.
+OAuth triggers automatically on first PlanetScale MCP tool use. See [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) for details.
 
 **Skills** — use `script/setup` above or install into `<project>/.cursor/skills/` for project-scoped workflows.
 
@@ -119,7 +119,7 @@ Install skills with `npx skills add planetscale/skills -g -y` or `script/setup`.
 ### Zed
 
 Add the hosted MCP server to your Zed settings, using the URL above. See
-[PlanetScale MCP server](../mcp-server.md) for the current setup steps.
+[PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) for the current setup steps.
 
 Install skills with `script/setup` or `npx skills add planetscale/skills -g -y`.
 
@@ -127,7 +127,7 @@ Install skills with `script/setup` or `npx skills add planetscale/skills -g -y`.
 
 ### Headless / CI (no browser)
 
-Use a [PlanetScale service token](../cli/service-tokens.md) instead of OAuth login. Pass credentials on each command:
+Use a [PlanetScale service token](https://planetscale.com/docs/cli/service-tokens.md) instead of OAuth login. Pass credentials on each command:
 
 ```bash theme={null}
 pscale auth check --format json \
@@ -135,7 +135,7 @@ pscale auth check --format json \
   --service-token "$PLANETSCALE_SERVICE_TOKEN"
 ```
 
-**Do not retry** these under service-token auth. The failure is by design. See the [service token automation matrix](../cli.md#service-token-automation) for full guidance.
+**Do not retry** these under service-token auth. The failure is by design. See the [service token automation matrix](https://planetscale.com/docs/cli.md#service-token-automation) for full guidance.
 
 | Command | Exact error | Use instead |
 | :- | :- | :- |
@@ -186,11 +186,11 @@ PlanetScale Agent Setup Complete
 | Resource | URL |
 | - | - |
 | This prompt (Markdown) | `https://planetscale.com/docs/agent-setup/prompt.md` |
-| CLI agent guide | `pscale agent-guide --format json` or [CLI agent-guide](../cli/agent-guide.md) |
+| CLI agent guide | `pscale agent-guide --format json` or [CLI agent-guide](https://planetscale.com/docs/cli/agent-guide.md) |
 | PlanetScale skills | [github.com/planetscale/skills](https://github.com/planetscale/skills) |
-| MCP setup | [PlanetScale MCP server](../mcp-server.md) |
-| AI & automation overview | [AI-enhanced development](../ai-tooling.md) |
-| `pscale sql` (non-interactive SQL) | [CLI sql](../cli/sql.md) |
+| MCP setup | [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) |
+| AI & automation overview | [AI-enhanced development](https://planetscale.com/docs/ai-tooling.md) |
+| `pscale sql` (non-interactive SQL) | [CLI sql](https://planetscale.com/docs/cli/sql.md) |
 
 These instructions are published at `https://planetscale.com/docs/agent-setup/prompt.md` so you can re-verify their authenticity at any time.
 

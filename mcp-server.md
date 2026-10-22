@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -19,7 +19,7 @@ Vitess and Postgres
 ## What is the PlanetScale MCP server?
 
 * A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, Insights data, and the organization payment method.
-* Authenticated via OAuth. [Service tokens](mcp/service-token.md) are also supported for CI and headless clients.
+* Authenticated via OAuth. [Service tokens](https://planetscale.com/docs/mcp/service-token.md) are also supported for CI and headless clients.
 * Accessible from any MCP client that supports HTTP-hosted servers.
 
 [The PlanetScale MCP server: AI for your database](https://www.youtube-nocookie.com/embed/d3bc3PryOfY?rel=0)
@@ -71,7 +71,7 @@ https://mcp.pscale.dev/mcp/planetscale
 >
 > If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes the `planetscale_execute_read_query` and `planetscale_execute_write_query` tools.
 
-For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](mcp/service-token.md).
+For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
 
 ## Security and credentials
 
@@ -97,11 +97,11 @@ Organization administrators can further limit query access for everyone in the o
 
 A member's role still limits which permissions they can grant. The setting applies to new authorizations. MCP clients that were already authorized keep the access they were granted until you revoke it. Schema, Insights, billing, and other non-query tools are not affected. When a query permission is unavailable, the authorization page explains why.
 
-This setting does not change [service token](mcp/service-token.md) permissions.
+This setting does not change [service token](https://planetscale.com/docs/mcp/service-token.md) permissions.
 
 Most MCP clients provide a way to re-authenticate the MCP server if you need to update your permissions.
 
-Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](mcp/service-token.md).
+Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
 
 ## Installation instructions
 
@@ -443,7 +443,7 @@ The PlanetScale MCP server includes several built-in behaviors to help ensure sa
 
 * Read queries route to a replica when your branch has replicas configured, reducing load on the primary. This is the default behavior.
 * Set `use_replica` to `false` on `planetscale_execute_read_query` to run against the primary instead. Works for Vitess, Neki, and Postgres databases.
-* All queries include a `source=planetscale-mcp` comment, making them easy to identify and track in [Insights](what-is-planetscale.md#insights).
+* All queries include a `source=planetscale-mcp` comment, making them easy to identify and track in [Insights](https://planetscale.com/docs/what-is-planetscale.md#insights).
 
 #### Postgres row-level security
 
@@ -477,7 +477,7 @@ Once installed, you can ask your MCP-enabled editor or agent to:
 * "Is my main branch full, lagging, or close to its connection limit?"
 * "Explain what changed between yesterday's and today's query patterns in Insights."
 
-You can also run these workflows on a recurring schedule using [Cursor Automations](https://cursor.com/docs/cloud-agent/automations). See [Self-improving database](self-improving-database.md) for ready-to-use prompts.
+You can also run these workflows on a recurring schedule using [Cursor Automations](https://cursor.com/docs/cloud-agent/automations). See [Self-improving database](https://planetscale.com/docs/self-improving-database.md) for ready-to-use prompts.
 
 ## Available tools
 
@@ -507,7 +507,7 @@ The available tools are:
 20. `planetscale_list_query_error_patterns` - List failing queries for a database branch, aggregated by error fingerprint, with the error message, occurrence count, last run, and total and average duration. Optionally search by error text, sort, and filter by tablet type.
 21. `planetscale_list_query_error_executions` - List the individual failed executions behind an `error_fingerprint` from `planetscale_list_query_error_patterns`, including the normalized SQL, tables, keyspace, user, row counts, duration, and query tags.
 22. `planetscale_get_postgres_logs` - Fetch server logs for a Postgres database branch, newest first. Filter by log level, time range, server role (primary or replica), and pod name, or pass a raw LogsQL query for advanced filtering. Postgres-only; not available for Vitess databases.
-23. `planetscale_list_query_tags` - List the [query tags](postgres/monitoring/query-tags.md) seen on a database branch's queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
+23. `planetscale_list_query_tags` - List the [query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md) seen on a database branch's queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
 24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
 25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
 26. `planetscale_get_branch_metrics` - Infrastructure metrics for a branch: CPU, memory, disk, replication lag, and connections, for Vitess, Postgres, and Neki. The default summary covers the last hour (latest, min, average, p95, and max) plus current disk and connection counts. Memory utilization includes page cache, so the summary also includes RSS and cache. Use `view` `series` or `instant` to drill into specific metrics. Query stats stay on `planetscale_get_insights`.
@@ -536,7 +536,7 @@ If your MCP client cannot connect or tools fail to run:
 
 5. **Using a service token**
 
-   If you authenticated with a service token instead of OAuth, see [MCP service tokens](mcp/service-token.md).
+   If you authenticated with a service token instead of OAuth, see [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
 
 ## PlanetScale CLI MCP server
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -137,7 +137,7 @@ Storage metrics vary depending on your cluster's storage type:
 
 > [!NOTE]
 >
-> The client connection ceiling shown for a dedicated pool is the total across all of its PgBouncers, not the `max_client_conn` value alone, because a dedicated pool runs multiple PgBouncers spread across availability zones (configured with "PgBouncers per availability zone"). See [Configuring PgBouncers](../connecting/pgbouncer.md#configuring-pgbouncers).
+> The client connection ceiling shown for a dedicated pool is the total across all of its PgBouncers, not the `max_client_conn` value alone, because a dedicated pool runs multiple PgBouncers spread across availability zones (configured with "PgBouncers per availability zone"). See [Configuring PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#configuring-pgbouncers).
 
 ### WAL archival rate
 

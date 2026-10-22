@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 ## Overview
 
-This document will show you how to create a service token for the API in PlanetScale. All PlanetScale API endpoints require one. You can read more about using service tokens outside of the API in the [PlanetScale service token documentation](service-tokens.md).
+This document will show you how to create a service token for the API in PlanetScale. All PlanetScale API endpoints require one. You can read more about using service tokens outside of the API in the [PlanetScale service token documentation](https://planetscale.com/docs/api/reference/service-tokens.md).
 
 ## Authorization header
 
@@ -53,6 +53,8 @@ Copy this value to use as `SERVICE_TOKEN`.
 
 ![Modal showing service token ID and token secret](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/reference/ef1a137-new-service-token.png?fit=max\&auto=format\&n=g0AZZQkXmTSBYuKj\&q=85\&s=107e7a31cb40468829705d77578a6a54)
 
+Modal showing service token ID and token secret
+
 ## Access permissions
 
 You can access your specific service token page from your organization's **Settings > Service token** page.
@@ -60,6 +62,8 @@ You can access your specific service token page from your organization's **Setti
 Service tokens are configured with granular permissions for both organizations and databases access. On the page for your specific service token you can add one or many of the following permissions.
 
 ![Showing the UI for organization and database access with buttons to add what access permissions](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/reference/858081d-service-token-accesses.png?fit=max\&auto=format\&n=g0AZZQkXmTSBYuKj\&q=85\&s=212e3bfb2ce7c8ec931826464010b8cf)
+
+Showing the UI for organization and database access with buttons to add what access permissions.
 
 Please note that you may only add service token accesses that you are also authorized to do. For example, as an organization member, you can't create a service token with `create_databases` access.
 
@@ -122,7 +126,7 @@ Select the database you want to grant access for and check the box next to each 
 
 > [!TIP]
 >
-> When a service token with `create_databases` organization access creates a database, it is automatically granted database access permissions for that database. See [Creating databases with service tokens](../service-tokens.md#creating-databases-with-service-tokens) for more information.
+> When a service token with `create_databases` organization access creates a database, it is automatically granted database access permissions for that database. See [Creating databases with service tokens](https://planetscale.com/docs/api/service-tokens.md#creating-databases-with-service-tokens) for more information.
 
 ## Service tokens and deploy requests approvals
 
@@ -132,7 +136,7 @@ When a database requires administrator approval for deploy requests (located in 
 
 ### Creating a PlanetScale branch with service tokens
 
-Creating a database branch is one of the many API endpoints documented in our [PlanetScale API docs](create_branch.md).
+Creating a database branch is one of the many API endpoints documented in our [PlanetScale API docs](https://planetscale.com/docs/api/reference/create_branch.md).
 
 The following steps are required to make a successful API request:
 

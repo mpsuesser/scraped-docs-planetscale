@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/web-console
 title: "Web Console"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Get started
 
-The PlanetScale web console can be used to query any database branch; however, it is [disabled for production branches](web-console.md#enable-for-production-branches) by default to protect production data.
+The PlanetScale web console can be used to query any database branch; however, it is [disabled for production branches](https://planetscale.com/docs/postgres/web-console.md#enable-for-production-branches) by default to protect production data.
 
 To access the web console, navigate to a database, and click on the "Console" tab in the page navigation. From here, you can select which branch you'd like to connect to by selecting it in the dropdown and clicking "Connect".
 
@@ -57,7 +57,7 @@ Switching between primary and replica reconnects the console and clears the curr
 
 ### Connection roles
 
-The console creates a short-lived Postgres role for each connection. The inherited permissions depend on the selected server and your [organization or database role](../security/access-control.md).
+The console creates a short-lived Postgres role for each connection. The inherited permissions depend on the selected server and your [organization or database role](https://planetscale.com/docs/security/access-control.md).
 
 Tables created during a web console session are reassigned to the `postgres` role shortly after the session ends. Until reassignment completes, newly created tables may temporarily appear owned by the console's short-lived role.
 
@@ -77,7 +77,7 @@ Production branch console access also requires the [web console setting](#enable
 
 On a **replica**, the console always uses a read-only role with `pg_read_all_data`, regardless of your primary permissions.
 
-For more information about these permissions, see [Role management](connecting/roles.md).
+For more information about these permissions, see [Role management](https://planetscale.com/docs/postgres/connecting/roles.md).
 
 ## Supported console commands
 

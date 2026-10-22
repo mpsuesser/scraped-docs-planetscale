@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-circular-dependency
 title: "Foreign Keys Circular Dependency"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -62,8 +62,8 @@ CREATE TABLE users (
 
 ## Related docs
 
-* [Foreign key constraints](../../foreign-key-constraints.md#cyclic-foreign-keys)
-* [Operating without foreign key constraints](../../operating-without-foreign-key-constraints.md)
+* [Foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md#cyclic-foreign-keys)
+* [Operating without foreign key constraints](https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints.md)
 
 ## Need help?
 

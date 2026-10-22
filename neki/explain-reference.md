@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/explain-reference
 title: "Explain Reference"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -15,7 +15,7 @@ current_date: 2026-10-20T18:01:41.586Z
 > Complete EXPLAIN (NEKI_PLAN) and EXPLAIN (NEKI_PG_PLAN) output for one query in every format
 
 The following query adds up the order totals after a date, as a monthly report
-would. It reads the [example schema](example-schema.md):
+would. It reads the [example schema](https://planetscale.com/docs/neki/example-schema.md):
 
 ```sql theme={null}
 SELECT sum(total_amount)
@@ -29,7 +29,7 @@ sums the partial sums.
 
 The following sections give the complete output of the query for `EXPLAIN
 (NEKI_PLAN)` and `EXPLAIN (NEKI_PG_PLAN)`, in each of the four output formats.
-[Query planning](query-planning.md#explain-in-neki) explains the `EXPLAIN`
+[Query planning](https://planetscale.com/docs/neki/query-planning.md#explain-in-neki) explains the `EXPLAIN`
 modes and their options.
 
 ## `EXPLAIN (NEKI_PLAN)`
@@ -244,7 +244,7 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 
 The route's `Query` shows the date literal as `$1`. Neki replaces literal
 values with parameters before it looks up a plan, as [Query plan cache and
-protocols](query-planning.md#query-plan-cache-and-protocols) describes.
+protocols](https://planetscale.com/docs/neki/query-planning.md#query-plan-cache-and-protocols) describes.
 
 ## `EXPLAIN (NEKI_PG_PLAN)`
 

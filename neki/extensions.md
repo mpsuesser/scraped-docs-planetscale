@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -117,7 +117,7 @@ disabled.
 | `neki_xxhash` | 0.4 | Hash functions used by Neki distribution |
 | `pg_pscale_utils` | — | Handles privileged actions without granting superuser access |
 | `pgextwlist` | — | Controls which extensions can be installed |
-| `pginsights` | — | Collects per-query execution statistics for [Query Insights](monitoring/query-insights.md) |
+| `pginsights` | — | Collects per-query execution statistics for [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) |
 | `plpgsql` | 1.0 | Built-in PL/pgSQL procedural language |
 
 ### Built-in PostgreSQL extensions
@@ -233,7 +233,7 @@ Enabling `vectorscale` on the **Extensions** tab exposes these DiskANN query par
 Parameters associated with an extension appear beneath it after the extension
 is enabled. Their valid values, defaults, and restart requirements are shown in
 the dashboard. Updating them creates the same kind of configuration-profile
-change as other [configuration parameters](cluster-configuration/parameters.md).
+change as other [configuration parameters](https://planetscale.com/docs/neki/cluster-configuration/parameters.md).
 
 ## Disable or remove an extension
 

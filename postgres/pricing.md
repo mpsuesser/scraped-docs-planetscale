@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -19,7 +19,7 @@ current_date: 2026-10-20T18:01:41.586Z
 Understanding the relationship between **databases**, **branches**, and **clusters** is key to understanding your billing:
 
 * **Database**: Your overall project (e.g., "my-ecommerce-app")
-* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups. [Learn more about branching](branching.md)
+* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups. [Learn more about branching](https://planetscale.com/docs/postgres/branching.md)
 * **Cluster**: The underlying compute and storage infrastructure that powers each branch
 
 **Each branch runs on its own dedicated cluster** and is billed separately based on its configuration and usage.
@@ -89,13 +89,13 @@ Prefer [https://planetscale.com/pricing.md](https://planetscale.com/pricing.md) 
 
 > [!NOTE]
 >
-> For information on Vitess cluster pricing on the Base plan, see [Base plan cluster pricing](../plans/cluster-sizing.md).
+> For information on Vitess cluster pricing on the Base plan, see [Base plan cluster pricing](https://planetscale.com/docs/plans/cluster-sizing.md).
 
 ## Cluster instance size
 
-Each database branch runs on its own dedicated cluster infrastructure. Clusters are billed based on the selected instance size and prorated to the millisecond. Each instance size includes defined amounts of vCPU cores and memory, as well as storage based on the storage type selected ([network-attached storage](cluster-configuration/cluster-storage.md) or [PlanetScale Metal](../metal.md)). The dashboard and [pricing calculator](https://planetscale.com/pricing) show the current monthly rate for each size. How that rate is applied is described under [cluster pricing](#cluster-pricing).
+Each database branch runs on its own dedicated cluster infrastructure. Clusters are billed based on the selected instance size and prorated to the millisecond. Each instance size includes defined amounts of vCPU cores and memory, as well as storage based on the storage type selected ([network-attached storage](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) or [PlanetScale Metal](https://planetscale.com/docs/metal.md)). The dashboard and [pricing calculator](https://planetscale.com/pricing) show the current monthly rate for each size. How that rate is applied is described under [cluster pricing](#cluster-pricing).
 
-You can [increase or decrease your cluster size](cluster-configuration.md) at any time. Pricing is prorated to the millisecond, so if you temporarily increase, you will only be charged for the larger cluster size for the time that it was running. Billing for a modified cluster size begins once the resize is completed. You can also [spin up additional production branches](branching.md) at any time for additional cost. The pricing for these is also prorated.
+You can [increase or decrease your cluster size](https://planetscale.com/docs/postgres/cluster-configuration.md) at any time. Pricing is prorated to the millisecond, so if you temporarily increase, you will only be charged for the larger cluster size for the time that it was running. Billing for a modified cluster size begins once the resize is completed. You can also [spin up additional production branches](https://planetscale.com/docs/postgres/branching.md) at any time for additional cost. The pricing for these is also prorated.
 
 ## Cluster disk storage
 
@@ -103,16 +103,16 @@ You can [increase or decrease your cluster size](cluster-configuration.md) at an
 
 PlanetScale offers two storage options with different pricing models:
 
-| [PlanetScale Metal](../metal.md) | [Network-Attached Storage](cluster-configuration/cluster-storage.md) |
+| [PlanetScale Metal](https://planetscale.com/docs/metal.md) | [Network-Attached Storage](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) |
 | - | - |
 | **All-inclusive pricing** | **Configuration-based pricing** |
-| - Storage cost is included in your cluster instance price  - High-performance NVMe SSDs directly attached to your servers  - To get more storage, you upgrade to a larger cluster size  - Best for: High-performance applications that need predictable costs | - First 10 GB included with each cluster  - Additional storage is billed separately from your cluster instance configuration  - Flexible scaling - add storage without changing cluster size  - Automatic disk scaling with [autoscaling](cluster-configuration/cluster-storage.md#enable-autoscaling)  - Best for: Applications with variable storage needs or cost optimization |
+| - Storage cost is included in your cluster instance price  - High-performance NVMe SSDs directly attached to your servers  - To get more storage, you upgrade to a larger cluster size  - Best for: High-performance applications that need predictable costs | - First 10 GB included with each cluster  - Additional storage is billed separately from your cluster instance configuration  - Flexible scaling - add storage without changing cluster size  - Automatic disk scaling with [autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#enable-autoscaling)  - Best for: Applications with variable storage needs or cost optimization |
 
 ### Network-attached storage billing
 
 For network-attached storage clusters, pricing varies by region and cloud provider:
 
-* **Base storage**: you manually configure this in cluster settings, unless [autoscaling](cluster-configuration/cluster-storage.md#enable-autoscaling) is enabled
+* **Base storage**: you manually configure this in cluster settings, unless [autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#enable-autoscaling) is enabled
 * **Additional IOPS**: you manually configure this in cluster settings (AWS only)
 * **Additional Throughput**: you manually configure this in cluster settings (AWS only)
 
@@ -138,7 +138,7 @@ All network-attached storage clusters on AWS come with the following baseline pe
 
 These defaults apply to all PS-series cluster sizes (PS-5 through PS-2560). You only pay additional IOPS or throughput charges if you manually configure values above these baselines.
 
-For more information on changing your cluster's storage, see the [Cluster storage configuration](cluster-configuration/cluster-storage.md) documentation.
+For more information on changing your cluster's storage, see the [Cluster storage configuration](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) documentation.
 
 ## Backups
 
@@ -156,7 +156,7 @@ Examples:
 
 > [!NOTE]
 >
-> For clusters with [network-attached storage](cluster-configuration/cluster-storage.md) with [autoscaling](cluster-configuration/cluster-storage.md#enable-autoscaling) enabled, **backup** storage changes as your **disk storage** autoscales.
+> For clusters with [network-attached storage](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) with [autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#enable-autoscaling) enabled, **backup** storage changes as your **disk storage** autoscales.
 
 When your backup and WAL storage exceeds the included amount, additional storage is billed at **\$0.023 per GB per month**.
 
@@ -173,7 +173,7 @@ When your backup and WAL storage exceeds the included amount, additional storage
 
 Backup storage usage billing data is updated hourly.
 
-For more details on backup functionality, see [Back up and restore](backups.md).
+For more details on backup functionality, see [Back up and restore](https://planetscale.com/docs/postgres/backups.md).
 
 **What affects storage costs**:
 
@@ -188,7 +188,7 @@ For more details on backup functionality, see [Back up and restore](backups.md).
 ### Public traffic
 
 Outgoing network traffic (egress) is billed based on the amount of data transferred out of PlanetScale Postgres instances to any other host or destination.
-Data transfer for [backups](backups.md) and [replication within a primary cluster](scaling/replicas.md) is free. Cross-region Postgres dedicated read replica traffic is billed separately.
+Data transfer for [backups](https://planetscale.com/docs/postgres/backups.md) and [replication within a primary cluster](https://planetscale.com/docs/postgres/scaling/replicas.md) is free. Cross-region Postgres dedicated read replica traffic is billed separately.
 Each branch has a default amount of included public network egress that is aggregated for all cluster instances in the entire branch.
 
 | Branch Type | Included Public Network Egress |
@@ -238,11 +238,11 @@ Cross-region traffic between a Postgres primary cluster and a dedicated read rep
 
 ## Additional replicas
 
-Each production cluster includes 2 [replicas](scaling/replicas.md) (excluding [Single Node](cluster-configuration/single-node.md)) to provide high availability and additional read capacity alongside the primary. Certain read-heavy workloads may demand additional read replicas. If you need additional replicas beyond what is included, you can add them for an additional cost based on the branch's instance size and storage requirements. The cost of an additional replica instance is about one third of the highly available SKU rate. New replica billing begins once the change has completed.
+Each production cluster includes 2 [replicas](https://planetscale.com/docs/postgres/scaling/replicas.md) (excluding [Single Node](https://planetscale.com/docs/postgres/cluster-configuration/single-node.md)) to provide high availability and additional read capacity alongside the primary. Certain read-heavy workloads may demand additional read replicas. If you need additional replicas beyond what is included, you can add them for an additional cost based on the branch's instance size and storage requirements. The cost of an additional replica instance is about one third of the highly available SKU rate. New replica billing begins once the change has completed.
 
 Replicas with network-attached storage do not receive the 10 GB included disk allowance. You pay for the full configured disk size on each extra replica, plus any IOPS or throughput you provision above the baselines.
 
-Development branches and Single Node databases do not support replicas. See [Replicas](scaling/replicas.md).
+Development branches and Single Node databases do not support replicas. See [Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md).
 
 ## Cluster pricing
 
@@ -310,7 +310,7 @@ Available dedicated sizes:
 | PGB-80 | 1 vCPU | 2 GB |
 | PGB-160 | 2 vCPU | 4 GB |
 
-The dashboard and [pricing calculator](https://planetscale.com/pricing) show the current monthly rate for each size in your region. See [PgBouncer](connecting/pgbouncer.md).
+The dashboard and [pricing calculator](https://planetscale.com/pricing) show the current monthly rate for each size in your region. See [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md).
 
 ## Need help?
 

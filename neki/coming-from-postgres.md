@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/coming-from-postgres
 title: "Coming From Postgres"
 description: ""
-access_date: 2026-10-19T17:45:20.278Z
-current_date: 2026-10-19T17:45:20.278Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -36,10 +36,10 @@ Both products include:
 Applications connect in the same way for Postgres and Neki.
 Ultimately, both are powered by real Postgres nodes.
 
-In PlanetScale Postgres, connections from clients either are made as [direct connections](../postgres/connecting.md) or [through PgBouncer](../postgres/connecting/pgbouncer.md).
+In PlanetScale Postgres, connections from clients either are made as [direct connections](https://planetscale.com/docs/postgres/connecting.md) or [through PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md).
 Either way, these are normal postgres connections, and work with all postgres clients, drivers, and ORMs.
 
-All client connections to a Neki database are made to [Neki routers](overview.md#routers).
+All client connections to a Neki database are made to [Neki routers](https://planetscale.com/docs/neki/overview.md#routers).
 These are also just regular connections, with the same authentication and communication protocol as Postgres.
 Neki routers are not just a pooling proxy like PgBouncer.
 Rather, each router contains a full Postgres query parser, planner, buffering capabilities, and is tied in with Neki's health-monitoring system.
@@ -51,7 +51,7 @@ Making direct connections to Postgres is notoriously difficult to scale, due to 
 Using PgBouncer helps this significantly, but there can still be some performance and latency issues using PgBouncer.
 
 Neki routers allow for much safer connection scalability.
-Not only do they use more sophisticated connection pooling than PgBouncer, but they also have the advantage of connecting to [sidecars](overview.md#what-runs-alongside-postgres) next to each Postgres instance.
+Not only do they use more sophisticated connection pooling than PgBouncer, but they also have the advantage of connecting to [sidecars](https://planetscale.com/docs/neki/overview.md#what-runs-alongside-postgres) next to each Postgres instance.
 Neki also makes it easy to scale the number, size, and grouping of these routers, giving you more precise control over how to handle incoming traffic.
 
 ## Scale
@@ -65,7 +65,7 @@ PlanetScale Postgres also allows you to create many read replicas, both in the s
 However, this only allows for read scalability, and does not help scale data size, only query processing capabilities.
 
 On the other hand, Neki allows for near-unlimited scalability for reads, writes, and data.
-With [sharding](when-to-shard.md), Neki is capable of spreading out the data from a single logical database onto many distinct shards, each with their own primary and replicas.
+With [sharding](https://planetscale.com/docs/neki/when-to-shard.md), Neki is capable of spreading out the data from a single logical database onto many distinct shards, each with their own primary and replicas.
 For example, we may have a large, 100 terabyte database, which we spread out across 64 shards, each storing approximately 1.5 terabytes.
 This allows us to scale data, but also distribute queries across many more nodes.
 Neki has been proven to scale to 100 million queries per second and over a petabyte of data.
@@ -78,7 +78,7 @@ You get all the other features like online DDL, zero-downtime operations, connec
 
 ## Availability
 
-We maintain [high standards for operational excellence](../postgres/operations-philosophy.md) for our Postgres databases.
+We maintain [high standards for operational excellence](https://planetscale.com/docs/postgres/operations-philosophy.md) for our Postgres databases.
 Due to this, we have industry-leading uptime and availability for Postgres.
 
 However, there are some fundamental limitations of Postgres and PgBouncer that lead to availability imperfections.
@@ -124,14 +124,14 @@ Familiar conventions from PlanetScale Postgres take a different path in Neki.
 
 | PlanetScale Postgres | In Neki |
 | - | - |
-| Connect to Postgres, or to PgBouncer on port `6432` | Connect to a [router](connecting.md) on port `5432` |
+| Connect to Postgres, or to PgBouncer on port `6432` | Connect to a [router](https://planetscale.com/docs/neki/connecting.md) on port `5432` |
 | Specify connection type by appending a replica name or PgBouncer suffix to the username | Set [`__neki.target`](connecting.md#primary-and-replica-routing) or target a connection at a router group |
-| One primary owns every row | The [data topology](data-topology.md) assigns each table to a shard group |
-| Adding replicas or vertical size adds capacity for the whole database | Adding a shard adds capacity only after topology and a [data-migration workflow](data-migration.md) place data there |
+| One primary owns every row | The [data topology](https://planetscale.com/docs/neki/data-topology.md) assigns each table to a shard group |
+| Adding replicas or vertical size adds capacity for the whole database | Adding a shard adds capacity only after topology and a [data-migration workflow](https://planetscale.com/docs/neki/data-migration.md) place data there |
 | A statement runs on one Postgres server | A statement can reach one shard, several shards, or every shard in a table's group |
-| Transactions execute on a single node | [Cross-shard work](transactions.md) does not share a snapshot or atomic commit; single-shard work does |
-| `ALTER TABLE` runs on the one database | DDL through a router [fans out](schema-changes.md) to every managed shard |
-| Size one Postgres cluster (and optional PgBouncers) | Size [shards, routers, and Admin](cluster-configuration.md) separately |
+| Transactions execute on a single node | [Cross-shard work](https://planetscale.com/docs/neki/transactions.md) does not share a snapshot or atomic commit; single-shard work does |
+| `ALTER TABLE` runs on the one database | DDL through a router [fans out](https://planetscale.com/docs/neki/schema-changes.md) to every managed shard |
+| Size one Postgres cluster (and optional PgBouncers) | Size [shards, routers, and Admin](https://planetscale.com/docs/neki/cluster-configuration.md) separately |
 
 ### Send replica reads with a Neki target
 
@@ -141,40 +141,40 @@ Neki does not use that username form. Select **Replica** under **Query target** 
 
 Replica connections are read-only. Writes fail instead of going to a primary. If no eligible replica is available for a destination shard, the query fails instead of falling back to that shard's primary.
 
-See [Primary and replica routing](connecting.md#primary-and-replica-routing) and [Replicas](replicas.md).
+See [Primary and replica routing](https://planetscale.com/docs/neki/connecting.md#primary-and-replica-routing) and [Replicas](https://planetscale.com/docs/neki/replicas.md).
 
 ### Placement is in the topology
 
 On PlanetScale Postgres, connecting to the database is enough. Every table's rows live on that one primary.
 
-On Neki, once you begin to shard data, the [data topology](data-topology.md) decides where rows go.
+On Neki, once you begin to shard data, the [data topology](https://planetscale.com/docs/neki/data-topology.md) decides where rows go.
 
 A table belongs to one shard group, either by an explicit binding or by inheriting a schema, database, or topology default. An unsharded group routes every row of those tables to one physical shard. A sharded group uses a shard key to split rows across shards.
 
-Creating a shard provisions Postgres capacity. It does not move tables or rows onto that shard. [Reference tables](reference-tables-and-gsis.md) are the exception that stores the same rows on every shard in the bound groups.
+Creating a shard provisions Postgres capacity. It does not move tables or rows onto that shard. [Reference tables](https://planetscale.com/docs/neki/reference-tables-and-gsis.md) are the exception that stores the same rows on every shard in the bound groups.
 
 ### Query planning and routing
 
 On PlanetScale Postgres, every query runs on the one cluster.
 
-On Neki, a shard key determines how rows of sharded tables are assigned to specific shards using the [data topology](data-topology.md). For example, tables that share a `tenant_id` key can keep that tenant's rows on the same shard.
+On Neki, a shard key determines how rows of sharded tables are assigned to specific shards using the [data topology](https://planetscale.com/docs/neki/data-topology.md). For example, tables that share a `tenant_id` key can keep that tenant's rows on the same shard.
 
 That key determines how a Router routes a query. If the query is looking up rows by a single `tenant_id`, the router can send the statement to one shard. Without it, the router sends the same statement to multiple or all shards and combines the response.
 
-Use `EXPLAIN` and [Query Insights](monitoring/query-insights.md) to see how many shards a statement reaches. See [Query planning](query-planning.md) and [When to shard](when-to-shard.md).
+Use `EXPLAIN` and [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) to see how many shards a statement reaches. See [Query planning](https://planetscale.com/docs/neki/query-planning.md) and [When to shard](https://planetscale.com/docs/neki/when-to-shard.md).
 
 ### Transactions and snapshots
 
 On PlanetScale Postgres, a transaction is one Postgres transaction: one snapshot, one commit.
 
-On Neki that is still true for work that stays on a single shard. Once a transaction spans more than one shard, those shards do not share a snapshot or an atomic commit. See [Transactions across shards](transactions.md) for routing modes and how to keep a transaction on one shard.
+On Neki that is still true for work that stays on a single shard. Once a transaction spans more than one shard, those shards do not share a snapshot or an atomic commit. See [Transactions across shards](https://planetscale.com/docs/neki/transactions.md) for routing modes and how to keep a transaction on one shard.
 
 ### Schema changes
 
 Native DDL issued through a router runs on every managed shard immediately.
 After it commits, wait with `__neki.wait_for_ddl` before sending dependent SQL through other router instances.
 
-Managed [schema-change workflows](schema-changes.md) add readiness checks and an explicit completion step.
+Managed [schema-change workflows](https://planetscale.com/docs/neki/schema-changes.md) add readiness checks and an explicit completion step.
 Online DDL builds a shadow table and uses the same copy-and-stream process as other Replicator workflows.
 
 ### Branches and clusters
@@ -183,14 +183,14 @@ A Neki branch is still an isolated environment: its own routers, Postgres instan
 
 An ordinary development branch starts empty.
 It does not copy the parent branch's schema or data.
-Just like on PlanetScale Postgres, restore a [backup](backups.md) to create a new branch with existing data.
+Just like on PlanetScale Postgres, restore a [backup](https://planetscale.com/docs/neki/backups.md) to create a new branch with existing data.
 
 On PlanetScale Postgres, configuration such as parameters affects the single cluster.
 On Neki, shards, routers and the admin service can all be individually resourced and configured.
 
-* A [configuration profile](cluster-configuration.md#configuration-profiles) sets Postgres size, replica count, parameters, extensions, and sidecar pools for the shards assigned to it.
-* [Router groups](cluster-configuration.md) accept application connections and have their own size.
-* The [admin service](cluster-configuration.md#configure-the-admin-service) health-checks sidecars and coordinates failover. It is not a Postgres role.
+* A [configuration profile](https://planetscale.com/docs/neki/cluster-configuration.md#configuration-profiles) sets Postgres size, replica count, parameters, extensions, and sidecar pools for the shards assigned to it.
+* [Router groups](https://planetscale.com/docs/neki/cluster-configuration.md) accept application connections and have their own size.
+* The [admin service](https://planetscale.com/docs/neki/cluster-configuration.md#configure-the-admin-service) health-checks sidecars and coordinates failover. It is not a Postgres role.
 
 ## Need help?
 

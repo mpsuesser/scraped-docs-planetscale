@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints
 title: "Operating Without Foreign Key Constraints"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ A row in a "parent" table may be referenced by one or more rows in a "child" tab
 
 A **`FOREIGN KEY` *constraint* is a database construct**, an implementation that *forces* the foreign key relationship's integrity (referential integrity). Namely, it ensures that a child table can only reference a parent table when the appropriate row *exists* in the parent table. A constraint also prevents the existence of "orphaned rows" in different methods, as you'll see described soon.
 
-At PlanetScale, we don't *recommend* using foreign key constraints. However, if you still want to use them, you can enable [support for foreign key constraints](foreign-key-constraints.md) in your database settings page.
+At PlanetScale, we don't *recommend* using foreign key constraints. However, if you still want to use them, you can enable [support for foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md) in your database settings page.
 
 We still encourage you to use the relational model and associate tables by "pointing" rows from one table to another with foreign keys, just not with the `CONSTRAINT ... FOREIGN KEY` definition.
 

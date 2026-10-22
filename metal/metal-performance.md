@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/metal-performance
 title: "Metal Performance"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -124,7 +124,7 @@ Note specifically the large jump in IOPS after the switch to Metal.
 
 PlanetScale databases come in two main flavors: **Metal** and **network-attached storage**.
 
-[**Network-attached storage**](../plans/planetscale-skus.md#network-attached-storage) (Amazon Elastic Block Storage or Google Persistent Disk) databases store all data on storage volumes that are attached to your database's compute resources over the network.
+[**Network-attached storage**](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage) (Amazon Elastic Block Storage or Google Persistent Disk) databases store all data on storage volumes that are attached to your database's compute resources over the network.
 For databases in AWS we use Elastic Block Storage (EBS) and in GCP we use Persistent Disk.
 These network-attached storage solutions are convenient for several reasons.
 For one, it is easy to resize such storage volumes.

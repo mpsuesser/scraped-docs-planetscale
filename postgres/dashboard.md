@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/dashboard
 title: "Dashboard"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -70,7 +70,7 @@ This helps you identify performance bottlenecks and queries that may need optimi
 
 ## Connecting to your database
 
-The "**Connect**" button allows you to generate or reset your default credentials for your Postgres database. For more information, see the [Connecting documentation](connecting.md).
+The "**Connect**" button allows you to generate or reset your default credentials for your Postgres database. For more information, see the [Connecting documentation](https://planetscale.com/docs/postgres/connecting.md).
 
 ## Need help?
 

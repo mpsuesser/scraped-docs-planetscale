@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,8 +20,8 @@ time, read unnecessary rows, fan out across shards, or use more parallel workers
 than expected.
 
 Insights is available on every Neki cluster. From the same tab you can also
-open [Anomalies](anomalies.md) and
-[schema recommendations](schema-recommendations.md).
+open [Anomalies](https://planetscale.com/docs/neki/monitoring/anomalies.md) and
+[schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md).
 
 ## Open Query Insights
 
@@ -138,7 +138,7 @@ count lower than the work performed.
 
 A value greater than one indicates either multi-shard execution or repeated
 work on a shard. Review the query plan and the database's
-[data topology](../data-topology.md) when investigating an unexpected value.
+[data topology](https://planetscale.com/docs/neki/data-topology.md) when investigating an unexpected value.
 
 **Parallel workers per query** is the average number of Postgres backend
 processes that executed the statement, counted across every shard it reached.
@@ -216,15 +216,15 @@ page can also show:
   an error.
 * Query tags and their values.
 * An optional AI-generated summary of the normalized query. See
-  [How PlanetScale uses AI](../../how-we-use-ai.md).
+  [How PlanetScale uses AI](https://planetscale.com/docs/how-we-use-ai.md).
 
 ## Anomalies and schema recommendations
 
 Insights also surfaces two related views for every Neki cluster:
 
-* [Anomalies](anomalies.md) flags periods when a high share of
+* [Anomalies](https://planetscale.com/docs/neki/monitoring/anomalies.md) flags periods when a high share of
   queries run slower than their established baseline.
-* [Schema recommendations](schema-recommendations.md) suggest DDL
+* [Schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md) suggest DDL
   that can improve performance, reduce storage, or prevent ID exhaustion.
 
 From **Insights**, open **Anomalies** or **View recommendations**.

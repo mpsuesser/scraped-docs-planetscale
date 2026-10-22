@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/faq-and-troubleshooting
 title: "Faq And Troubleshooting"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > **Is Database Traffic Control applied per cluster or per branch?**
 >
-> Resource budgets are configured **per [database branch](../branching.md)**. Each branch can have its own set of resource budgets.
+> Resource budgets are configured **per [database branch](https://planetscale.com/docs/postgres/branching.md)**. Each branch can have its own set of resource budgets.
 
 > **What happens when a query exceeds a resource budget in Enforce mode?**
 >
@@ -50,7 +50,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > **My SQLCommenter tags are not showing up in Insights. What's wrong?**
 >
-> The most common cause is tag placement. Tags must appear **before** the semicolon that ends the SQL statement. See the [Query tags troubleshooting](../monitoring/query-tags.md#troubleshooting) section for the correct format and other common issues.
+> The most common cause is tag placement. Tags must appear **before** the semicolon that ends the SQL statement. See the [Query tags troubleshooting](https://planetscale.com/docs/postgres/monitoring/query-tags.md#troubleshooting) section for the correct format and other common issues.
 
 ## Understanding and responding to high violation rates
 
@@ -59,7 +59,7 @@ current_date: 2026-10-20T18:01:41.586Z
 > 1. Narrow the **time range** in the Database Traffic Control UI to the window where the spike occurs.
 > 2. Identify which resource budget has the highest violation count.
 > 3. Determine which workload or system attribute that resource budget targets.
-> 4. Use [Insights](../monitoring/query-insights.md) to see what changed (new deployment, new dashboard, larger batch job, etc.).
+> 4. Use [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to see what changed (new deployment, new dashboard, larger batch job, etc.).
 > 5. Decide whether the workload is misbehaving or the limits are too strict:
 >    * If the workload is expected and healthy, consider relaxing limits slightly.
 >    * If the workload is unexpected or clearly problematic, work with the owning team to correct it.
@@ -70,8 +70,8 @@ current_date: 2026-10-20T18:01:41.586Z
 >
 > * The application's normal behavior exceeds the resource budget limits, in which case you should adjust the resource budget; or
 > * The application is issuing more or heavier queries than intended, in which case you should treat this as a performance issue.
-> * Your queries might be poorly optimized, in which case you should inspect results in [Insights](../monitoring/query-insights.md) for more details, or debug queries with the [PlanetScale MCP Server](../../mcp-server.md).
-> * Your database may be under-provisioned, in which case you should consider [upgrading your cluster](../cluster-configuration.md) to a larger size.
+> * Your queries might be poorly optimized, in which case you should inspect results in [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) for more details, or debug queries with the [PlanetScale MCP Server](https://planetscale.com/docs/mcp-server.md).
+> * Your database may be under-provisioned, in which case you should consider [upgrading your cluster](https://planetscale.com/docs/postgres/cluster-configuration.md) to a larger size.
 >
 > In any case, do not ignore sustained high violation counts for important workloads.
 
@@ -111,7 +111,7 @@ current_date: 2026-10-20T18:01:41.586Z
 >
 > Database Traffic Control is concerned with the queries that reach the database, regardless of whether they come from a pool or direct connections.
 >
-> See [Connection pooling](../connecting/pgbouncer.md) for more information.
+> See [Connection pooling](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) for more information.
 
 > **Can I rely on Database Traffic Control instead of client‑side rate limiting?**
 >

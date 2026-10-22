@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pgvector
 title: "Pgvector"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 [pgvector](https://github.com/pgvector/pgvector) adds a `vector` column type, distance operators, and approximate nearest-neighbor indexes (HNSW and IVFFlat) to PostgreSQL. Use it to store embeddings alongside relational data and query by similarity.
 
-PlanetScale Postgres also supports [pgvectorscale](https://github.com/timescale/pgvectorscale), a companion extension for higher-performance approximate search. See the [supported extensions](../extensions.md#supported-community-extensions) table for available versions.
+PlanetScale Postgres also supports [pgvectorscale](https://github.com/timescale/pgvectorscale), a companion extension for higher-performance approximate search. See the [supported extensions](https://planetscale.com/docs/postgres/extensions.md#supported-community-extensions) table for available versions.
 
 ## Enabling pgvector
 

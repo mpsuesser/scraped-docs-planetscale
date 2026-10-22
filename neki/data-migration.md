@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-migration
 title: "Data Migration"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ target updated as new writes come in. The source continues serving traffic until
 traffic switches to the target.
 
 If the data starts outside Neki, first [import it into an unsharded Neki
-database](imports/postgres.md). After that placement is stable, **Reshard**
+database](https://planetscale.com/docs/neki/imports/postgres.md). After that placement is stable, **Reshard**
 redistributes declared tables in one source shard group onto a new shard group
 in the same database. **MoveTables** is a different workflow. It copies
 selected tables to another database, or to a shard group whose physical shards
@@ -134,7 +134,7 @@ Neki has two workflows for changing where existing data lives:
 
 Workflows start by default. They can instead be created in a stopped state,
 reviewed, and started later. Throughout the move, the [data
-topology](data-topology.md) determines which target shard receives each row.
+topology](https://planetscale.com/docs/neki/data-topology.md) determines which target shard receives each row.
 
 Before creating a Reshard workflow, declare every physical base table that
 resolves to the source group in the data topology. A declared table can inherit
@@ -163,7 +163,7 @@ the table list with values from your branch.
 You do not need to shard every table. Bind only the tables that must move, and
 the tables that must stay colocated with them, to the source group. Leave
 tables that should stay unsharded on the [authoritative shard
-group](data-topology.md#authoritative-shard-group).
+group](https://planetscale.com/docs/neki/data-topology.md#authoritative-shard-group).
 
 Declare every physical base table that resolves to the source group, including
 tables that inherit that group from a database, schema, or cluster default.
@@ -200,7 +200,7 @@ serving the current shard and binds the tables you will reshard to a named
 source group on that same shard. Declare the shard index the target group will
 use. A topology update is a complete replacement. You can edit the document in
 **Clusters** > **Data topology**, or apply it with SQL; see [Data
-topology](data-topology.md).
+topology](https://planetscale.com/docs/neki/data-topology.md).
 
 ```sql theme={null}
 SELECT * FROM __neki.set_data_topology(
@@ -344,7 +344,7 @@ changes affecting earlier rows are incorporated into the target.
 Because the migration stream does not apply DDL, source and target schemas must
 be kept compatible through separate schema changes.
 
-See [Schema changes](schema-changes.md) for Online DDL and direct
+See [Schema changes](https://planetscale.com/docs/neki/schema-changes.md) for Online DDL and direct
 schema-change workflows.
 
 ### Durable progress and resumption
@@ -512,7 +512,7 @@ Reshard keeps table identifiers unchanged, so its source tables cannot be
 renamed. Neki does not drop these tables during Complete. If you choose source
 cleanup, it truncates their rows on the old source shards. You can remove an old
 source shard later if it no longer holds other data and it is not the
-[authoritative shard group](data-topology.md).
+[authoritative shard group](https://planetscale.com/docs/neki/data-topology.md).
 
 ## Need help?
 

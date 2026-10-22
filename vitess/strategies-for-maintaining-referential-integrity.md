@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/strategies-for-maintaining-referential-integrity
 title: "Strategies For Maintaining Referential Integrity"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ If you choose to not use foreign key constraints, cascading actions need to be a
 
 > [!NOTE]
 >
-> If you want to use foreign key constraints instead for referential integrity, enable [foreign key constraint](foreign-key-constraints.md) support in your database settings page. If you are unsure if you should use them, the [foreign key constraints documentation](foreign-key-constraints.md) covers some of the advantages and disadvantages.
+> If you want to use foreign key constraints instead for referential integrity, enable [foreign key constraint](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in your database settings page. If you are unsure if you should use them, the [foreign key constraints documentation](https://planetscale.com/docs/vitess/foreign-key-constraints.md) covers some of the advantages and disadvantages.
 
 The following examples will use the concept of a recipe manager with the following schema. Samples will be provided in SQL, so they are relatively universal regardless of the language or framework used.
 

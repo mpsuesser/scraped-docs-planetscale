@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/sql-shapes
 title: "Sql Shapes"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -54,7 +54,7 @@ LIMIT $2;
 
 `ORDER BY tin.score(ctid) DESC LIMIT k` is the shape TIN is built around. It returns the k best rows in score order and stops as soon as it has them. Passing the query as a parameter keeps user input out of the SQL text.
 
-Add more sort keys after the score when equal scores must stay in a stable order. TIN still uses the top-k scan and applies those keys only where scores tie. See [Ties and secondary sort keys](../scoring.md#ties-and-secondary-sort-keys).
+Add more sort keys after the score when equal scores must stay in a stable order. TIN still uses the top-k scan and applies those keys only where scores tie. See [Ties and secondary sort keys](https://planetscale.com/docs/postgres/search/scoring.md#ties-and-secondary-sort-keys).
 
 ```sql theme={null}
 SELECT id, title, tin.score(ctid) AS score

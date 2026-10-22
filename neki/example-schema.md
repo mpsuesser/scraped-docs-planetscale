@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/example-schema
 title: "Example Schema"
 description: ""
-access_date: 2026-10-22T09:51:35.727Z
-current_date: 2026-10-22T09:51:35.727Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -264,7 +264,7 @@ The topology has two shard groups:
   `xxhash_region` and `xxhash_device`. It is also the advisory-lock shard
   group, so Neki hashes each advisory-lock key to one of its shards.
 * `meta` is the [authoritative shard
-  group](data-topology.md#authoritative-shard-group). Its one shard,
+  group](https://planetscale.com/docs/neki/data-topology.md#authoritative-shard-group). Its one shard,
   `shard-meta`, holds the unsharded tables: `notes` and the two GSI lookup
   tables.
 
@@ -272,8 +272,8 @@ The topology has two shard groups:
 copy, so Neki can send a join of a sharded table with `ref_countries` to the
 shards.
 
-[Data topology](data-topology.md) explains each part of the topology
-document. [Reference tables and GSIs](reference-tables-and-gsis.md) explains
+[Data topology](https://planetscale.com/docs/neki/data-topology.md) explains each part of the topology
+document. [Reference tables and GSIs](https://planetscale.com/docs/neki/reference-tables-and-gsis.md) explains
 the GSI and reference-table declarations.
 
 ## Need help?

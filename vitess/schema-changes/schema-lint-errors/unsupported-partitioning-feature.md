@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/unsupported-partitioning-feature
 title: "Unsupported Partitioning Feature"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -66,9 +66,9 @@ If you are using partitioning to distribute data at scale, consider Vitess shard
 
 ## Related docs
 
-* [Sharding](../../sharding.md)
-* [Vindexes](../../sharding/vindexes.md)
-* [MySQL compatibility](../../mysql-compatibility.md)
+* [Sharding](https://planetscale.com/docs/vitess/sharding.md)
+* [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)
+* [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md)
 
 ## Need help?
 

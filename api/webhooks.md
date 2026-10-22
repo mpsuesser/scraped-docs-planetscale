@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhooks
 title: "Webhooks"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -28,9 +28,9 @@ Webhooks in PlanetScale for Vitess are not like MySQL triggers and cannot be tri
 | Deploy request closed | The deploy request has been closed. |
 | Keyspace storage | A keyspace has reached a storage threshold (60%, 75%, 85%, 90%, 95%). |
 
-For more information about the events you can trigger a webhook with in PlanetScale, including example payloads, and supported database engines, see the [webhook event reference documentation](webhook-events.md).
+For more information about the events you can trigger a webhook with in PlanetScale, including example payloads, and supported database engines, see the [webhook event reference documentation](https://planetscale.com/docs/api/webhook-events.md).
 
-`branch.schema_recommendation` fires when PlanetScale creates a new schema recommendation. Vitess, Neki, and Postgres databases support this event. With an [Authorization header](#authenticating-webhook-deliveries), a delivery can start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session. See the [schema recommendation event](webhook-events.md#branch-schema-recommendation).
+`branch.schema_recommendation` fires when PlanetScale creates a new schema recommendation. Vitess, Neki, and Postgres databases support this event. With an [Authorization header](#authenticating-webhook-deliveries), a delivery can start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session. See the [schema recommendation event](https://planetscale.com/docs/api/webhook-events.md#branch-schema-recommendation).
 
 ## Common webhook use cases
 
@@ -47,11 +47,11 @@ You can manage webhooks in PlanetScale using three different methods:
 
 * **Dashboard** — Create and manage webhooks through the web interface (instructions below)
 * **CLI** — Use the [`pscale webhook`](../cli/webhook.md) command to manage webhooks from your terminal
-* **API** — Use the [webhook API endpoints](reference/list_webhooks.md) for managing webhooks in your applications
+* **API** — Use the [webhook API endpoints](https://planetscale.com/docs/api/reference/list_webhooks.md) for managing webhooks in your applications
 
 ## Setting up a webhook using the dashboard
 
-You must be a [database administrator](../security/access-control.md#database-administrator) to create a webhook for a database.
+You must be a [database administrator](https://planetscale.com/docs/security/access-control.md#database-administrator) to create a webhook for a database.
 
 **Step 1**
 
@@ -83,7 +83,7 @@ Optional: Add an **Authorization header** if the receiving service requires auth
 
 **Step 7**
 
-Select the events you want to trigger the webhook. See the [webhook events reference](webhook-events.md) for more information on the events and example response bodies.
+Select the events you want to trigger the webhook. See the [webhook events reference](https://planetscale.com/docs/api/webhook-events.md) for more information on the events and example response bodies.
 
 **Step 8**
 

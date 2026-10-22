@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/postgres-planetscale-migration-guide
 title: "Postgres Planetscale Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,12 +14,12 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!WARNING]
 >
-> **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale's Vitess product. You can still use these scripts if you would like to utilize [Vitess](../../vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](../../postgres/imports/postgres-imports.md).
+> **PlanetScale now supports Postgres**. This guide is for migrating from Postgres to PlanetScale's Vitess product. You can still use these scripts if you would like to utilize [Vitess](https://planetscale.com/docs/vitess.md). If you prefer to stay on Postgres, refer to the [Postgres import guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md).
 
 This guide covers how to do an import directly between a Postgres source database and a PlanetScale for Vitess target.
 For this, we will be using the [postgres-planetscale scripts](https://github.com/planetscale/migration-scripts).
 This method of importing can be slow.
-If you have a large database, you might consider trying [an alternative, faster approach](postgres-mysql-planetscale-migration-guide.md).
+If you have a large database, you might consider trying [an alternative, faster approach](https://planetscale.com/docs/vitess/imports/postgres-mysql-planetscale-migration-guide.md).
 You are encouraged to modify these scripts to suit your needs if need be.
 
 ## Methodology
@@ -229,7 +229,7 @@ You should monitor the progress of the migration by comparing row counts in Plan
 
 Once the migration is complete, it is up to you to determine when you want to cut over your application to use PlanetScale as your primary database instead of the old Postgres source.
 Before doing this, you should ensure all of your queries are updated to work properly with PlanetScale and do some performance testing.
-If you encounter performance issues, you likely need to add indexes. Use [PlanetScale Query Insights](../monitoring/query-insights.md) to discover and improve poor performing queries.
+If you encounter performance issues, you likely need to add indexes. Use [PlanetScale Query Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) to discover and improve poor performing queries.
 
 ### 7. Cleaning up the import
 

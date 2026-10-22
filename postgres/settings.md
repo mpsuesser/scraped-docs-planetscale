@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,11 +34,11 @@ The database name field displays your current database name. **This name cannot 
 
 The default branch dropdown allows you to select which branch serves as the default for your database. This branch will be used as the source when creating new development branches.
 
-Only production branches can be set as the default. New branches created from the **Branches** page start as development branches, so you must first [upsize the cluster and add replicas](cluster-configuration.md) on the **Clusters** page to promote them to a production branch before they are eligible.
+Only production branches can be set as the default. New branches created from the **Branches** page start as development branches, so you must first [upsize the cluster and add replicas](https://planetscale.com/docs/postgres/cluster-configuration.md) on the **Clusters** page to promote them to a production branch before they are eligible.
 
 > [!NOTE]
 >
-> A branch's region cannot be changed after creation. To run production in a different region, create a new branch in the desired region, migrate your schema and data into it, and then set it as the default branch. See [Changing regions](branching.md#changing-regions) for the full procedure.
+> A branch's region cannot be changed after creation. To run production in a different region, create a new branch in the desired region, migrate your schema and data into it, and then set it as the default branch. See [Changing regions](https://planetscale.com/docs/postgres/branching.md#changing-regions) for the full procedure.
 
 To change the default branch:
 
@@ -58,7 +58,7 @@ Click **Save database settings** at the bottom of the page
 
 The "Restrict branch regions" option allows you to limit where new branches can be created geographically. When enabled, new branches can only be created in the same region as the default branch.
 
-This setting controls where **new** branches can be created. It does not move existing branches, and it cannot change the region of the default branch or any other existing branch — branch regions are fixed at creation. See [Changing regions](branching.md#changing-regions) for more information.
+This setting controls where **new** branches can be created. It does not move existing branches, and it cannot change the region of the default branch or any other existing branch — branch regions are fixed at creation. See [Changing regions](https://planetscale.com/docs/postgres/branching.md#changing-regions) for more information.
 
 To enable region restrictions:
 
@@ -127,7 +127,7 @@ Enter the database name
 
 Click **Delete database** to confirm
 
-Only Organization Administrators and Database Administrators have permission to delete databases. See the [Access Control documentation](../security/access-control.md) for more information about user permissions.
+Only Organization Administrators and Database Administrators have permission to delete databases. See the [Access Control documentation](https://planetscale.com/docs/security/access-control.md) for more information about user permissions.
 
 ## Need help?
 

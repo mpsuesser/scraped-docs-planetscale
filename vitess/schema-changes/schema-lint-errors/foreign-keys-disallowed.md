@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-disallowed
 title: "Foreign Keys Disallowed"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -62,9 +62,9 @@ CREATE TABLE posts (
 
 ## Related docs
 
-* [Foreign key constraints](../../foreign-key-constraints.md)
-* [Operating without foreign key constraints](../../operating-without-foreign-key-constraints.md)
-* [Strategies for maintaining referential integrity](../../strategies-for-maintaining-referential-integrity.md)
+* [Foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md)
+* [Operating without foreign key constraints](https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints.md)
+* [Strategies for maintaining referential integrity](https://planetscale.com/docs/vitess/strategies-for-maintaining-referential-integrity.md)
 
 ## Need help?
 

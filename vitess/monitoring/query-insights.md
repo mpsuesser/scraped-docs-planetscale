@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,13 +16,13 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-This in-dashboard tool allows you to identify queries that are running too often, too long, returning too much data, producing errors, and more. You can scroll through the performance graph to detect the time that a query was impacted and, if applicable, the [Deploy Request](../schema-changes/deploy-requests.md) that affected it.
+This in-dashboard tool allows you to identify queries that are running too often, too long, returning too much data, producing errors, and more. You can scroll through the performance graph to detect the time that a query was impacted and, if applicable, the [Deploy Request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) that affected it.
 
 You can also see a [list of all queries](#queries-overview) performed on your database in the last 24 hours. For further analysis, you can sort these by metrics like amount of rows read, time per query, and more.
 
-With this built-in tool, you can easily diagnose issues with your queries, allowing you to optimize individual queries without much digging. We will also alert you of any active issues your database may be having in the [Anomalies](anomalies.md) page. This feature flags queries that are running significantly slower than expected.
+With this built-in tool, you can easily diagnose issues with your queries, allowing you to optimize individual queries without much digging. We will also alert you of any active issues your database may be having in the [Anomalies](https://planetscale.com/docs/vitess/monitoring/anomalies.md) page. This feature flags queries that are running significantly slower than expected.
 
-Insights will also automatically recommend schema changes to improve database performance, reduce memory and storage, and improve your schema based on production database traffic. Read more about the supported recommendations and how to use them in the [schema recommendations documentation](schema-recommendations.md).
+Insights will also automatically recommend schema changes to improve database performance, reduce memory and storage, and improve your schema based on production database traffic. Read more about the supported recommendations and how to use them in the [schema recommendations documentation](https://planetscale.com/docs/vitess/monitoring/schema-recommendations.md).
 
 ## Insights page overview
 
@@ -116,7 +116,7 @@ Hovering over the icon will show a tooltip with information about the meaning of
 >
 > The queries table may also show internal PlanetScale queries that are used to monitor the state of your cluster.
 
-This query overviews table shows the same data for all graphs on this page. For information about [Anomalies](anomalies.md) and [Errors](errors.md), refer to those pages.
+This query overviews table shows the same data for all graphs on this page. For information about [Anomalies](https://planetscale.com/docs/vitess/monitoring/anomalies.md) and [Errors](https://planetscale.com/docs/vitess/monitoring/errors.md), refer to those pages.
 
 ### Available query statistics
 
@@ -162,7 +162,7 @@ Clicking on a query in the Queries list will open a new page with more informati
 
 You'll first see the full query pattern, which displays the query with data normalized away. This query may run several times with different values, which Insights combines into a single query pattern.
 
-You can display an LLM-generated summary of the query by clicking "Summarize query."  [Learn more about how PlanetScale uses AI here](../../how-we-use-ai.md).
+You can display an LLM-generated summary of the query by clicking "Summarize query."  [Learn more about how PlanetScale uses AI here](https://planetscale.com/docs/how-we-use-ai.md).
 
 You can also display a [query `EXPLAIN` plan](https://planetscale.com/blog/how-read-mysql-explains) by clicking "Show explain plan", which generates the [execution plan](https://dev.mysql.com/blog-archive/mysql-explain-analyze/) for the selected query. You may have to fill in some sample values designated with placeholders like `:v1`. We use placeholders in the patterns both so you can look at whole patterns at once and so the literal values remain private.
 
@@ -172,7 +172,7 @@ If you'd like to further interact with the query, click "Open query in web conso
 
 #### Additional query information
 
-Beneath the query pattern is a graph with more information about the query. The set of available metrics/tabs include: Query latency, Queries, Rows read, Rows written, Errors and Indexes, along with a final tab that graphs [any query metric](#any-query-metric) you select. A Vindexes tab is also available for queries against a [sharded keyspace](../sharding.md). The Indexes graph (which is not shown on the database-level page) shows the percentage of queries that used each of the listed indexes in each time bucket. (Currently only `SELECT` queries show index usage information.) The Vindexes graph (also not shown on the database-level page) shows the percentage of queries that used each of the listed [vindexes](../sharding/vindexes.md) in each time bucket.
+Beneath the query pattern is a graph with more information about the query. The set of available metrics/tabs include: Query latency, Queries, Rows read, Rows written, Errors and Indexes, along with a final tab that graphs [any query metric](#any-query-metric) you select. A Vindexes tab is also available for queries against a [sharded keyspace](https://planetscale.com/docs/vitess/sharding.md). The Indexes graph (which is not shown on the database-level page) shows the percentage of queries that used each of the listed indexes in each time bucket. (Currently only `SELECT` queries show index usage information.) The Vindexes graph (also not shown on the database-level page) shows the percentage of queries that used each of the listed [vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md) in each time bucket.
 
 Beneath the time series graphs you will see summary statistics for the query pattern. These data are scoped to the same time period shown in the main query pattern graphs. The available metrics have the same definitions as the query statistics listed in the main insights page.
 
@@ -184,7 +184,7 @@ To change the time period reflected in the graphs and summary statistics, click 
 
 Underneath the graph, you'll see a table with more information about notable instances of the query, which are defined as queries that took longer than 1s, read more than 10,000 rows, or produced an error.
 
-If any of the selected queries have [query tags](query-tags.md) attached, you'll see the key-value pairs in the table under `Tags`. See [Query tags](query-tags.md) for how to add tags to your queries.
+If any of the selected queries have [query tags](https://planetscale.com/docs/vitess/monitoring/query-tags.md) attached, you'll see the key-value pairs in the table under `Tags`. See [Query tags](https://planetscale.com/docs/vitess/monitoring/query-tags.md) for how to add tags to your queries.
 
 The table also surfaces when the query started, rows returned, rows read, rows affected, the time it took the query to run (in ms), and the user associated with the query.
 
@@ -196,7 +196,7 @@ With this enabled, Insights will gather the complete raw SQL statements and disp
 
 Enabling complete query collection is beneficial when performance varies significantly within the same query pattern, and you need to see the full SQL statement, without placeholders, to identify the correct source of the performance issue.
 
-However, full queries may contain personally identifiable information, so it's important to consider this before opting in to the feature. Because of this, only [Organization Administrators](../../security/access-control.md#organization-administrator) can choose to opt a database into complete query collection. Please read our [Privacy Policy](https://planetscale.com/legal/privacy) for more information on how we collect, process, and disclose your personally identifiable information.
+However, full queries may contain personally identifiable information, so it's important to consider this before opting in to the feature. Because of this, only [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator) can choose to opt a database into complete query collection. Please read our [Privacy Policy](https://planetscale.com/legal/privacy) for more information on how we collect, process, and disclose your personally identifiable information.
 
 #### Complete query collection and prepared statements
 

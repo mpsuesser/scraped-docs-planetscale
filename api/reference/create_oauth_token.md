@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_oauth_token
 title: "Create_oauth_token"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -23,7 +23,7 @@ A service token   must have at least one of the following access   in order to u
 
 > [!WARNING]
 >
-> **This endpoint is deprecated.** Please use the new standard OAuth 2.0 token endpoint at `POST https://auth.planetscale.com/oauth/token` instead. See [Create OAuth token](oauth/create-token.md) for updated documentation.
+> **This endpoint is deprecated.** Please use the new standard OAuth 2.0 token endpoint at `POST https://auth.planetscale.com/oauth/token` instead. See [Create OAuth token](https://planetscale.com/docs/api/reference/oauth/create-token.md) for updated documentation.
 
 
 ## OpenAPI

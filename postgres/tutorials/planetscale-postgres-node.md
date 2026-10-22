@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-node
 title: "Planetscale Postgres Node"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -31,10 +31,10 @@ Before you begin, make sure you have a [PlanetScale account](https://auth.planet
 After creating your organization, it's important to understand the relationship between databases, branches, and clusters.
 
 * **Database**: Your overall project (e.g., "my-ecommerce-app")
-* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](../branching.md)
+* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](https://planetscale.com/docs/postgres/branching.md)
 * **Cluster**: The underlying compute and storage infrastructure that powers each branch
 
-PlanetScale Postgres clusters use real Postgres in a [high-availability architecture with one primary and two replicas](../postgres-architecture.md#cluster-design).
+PlanetScale Postgres clusters use real Postgres in a [high-availability architecture with one primary and two replicas](https://planetscale.com/docs/postgres/postgres-architecture.md#cluster-design).
 
 ## Create a new database
 
@@ -85,7 +85,7 @@ Select **Postgres** to create a PostgreSQL database
 
 **Step 3**
 
-**Cluster configuration**: Select your preferred cluster size and [CPU architecture](../cluster-configuration/cpu-architectures.md)
+**Cluster configuration**: Select your preferred cluster size and [CPU architecture](https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures.md)
 
 ### Step 4: Create the database cluster
 
@@ -197,19 +197,19 @@ When you create a Postgres database cluster, PlanetScale automatically:
 
 > **Postgres**
 >
-> Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](../connecting/quickstart.md).
+> Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](https://planetscale.com/docs/postgres/connecting/quickstart.md).
 >
 > `pscale connect` is not supported.
 
 > **Vitess / MySQL**
 >
-> Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](../../vitess/connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
+> Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](https://planetscale.com/docs/vitess/connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
 
 In this section you'll create the "Default role" in your PlanetScale dashboard to create connection credentials for your database branch.
 
 > [!NOTE]
 >
-> The "Default role" is meant purely for administrative purposes. You can only create one and it has significant privileges for your database cluster and you should treat these credentials carefully. After completing this quickstart, it is *strongly recommended* that you [create another role](../connecting/roles.md) for your application use-cases.
+> The "Default role" is meant purely for administrative purposes. You can only create one and it has significant privileges for your database cluster and you should treat these credentials carefully. After completing this quickstart, it is *strongly recommended* that you [create another role](https://planetscale.com/docs/postgres/connecting/roles.md) for your application use-cases.
 
 **Dashboard**
 
@@ -249,7 +249,7 @@ Your connection details will include:
 * **Username**: automatically formatted for routing to the correct `branch`
 * **Password**: A securely generated password
 * **Database**: `postgres` (default database)
-* **Port**: `5432` (standard PostgreSQL port) or `6432` (for using [PgBouncer](../connecting/pgbouncer.md))
+* **Port**: `5432` (standard PostgreSQL port) or `6432` (for using [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md))
 
 **CLI**
 
@@ -269,7 +269,7 @@ Record the "Host", "Username", and "Password" for the "Default role" somewhere s
 
 > [!NOTE]
 >
-> Passwords are shown only once. If you lose your record of the password, you must [reset the password](../connecting/roles.md).
+> Passwords are shown only once. If you lose your record of the password, you must [reset the password](https://planetscale.com/docs/postgres/connecting/roles.md).
 
 ## Integrate with Node.js
 
@@ -297,7 +297,7 @@ Replace the placeholders below with the role credentials created in the previous
 DATABASE_URL='postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full'
 ```
 
-Choose the appropriate **port** for your use case. Learn more about [Direct vs PgBouncer connections](../connecting/quickstart.md#connection-types%3A-direct-vs-pgbouncer).
+Choose the appropriate **port** for your use case. Learn more about [Direct vs PgBouncer connections](https://planetscale.com/docs/postgres/connecting/quickstart.md#connection-types%3A-direct-vs-pgbouncer).
 
 > **PgBouncer**
 >
@@ -365,7 +365,7 @@ node index.js
 > The `CREATE TABLE` smoke test runs DDL in the `public` schema. A least-privilege
 > role (`pg_read_all_data`/`pg_write_all_data` only) will fail with
 > `permission denied for schema public` — see [Managing
-> roles](../connecting/roles.md#user-defined-roles) for the fix.
+> roles](https://planetscale.com/docs/postgres/connecting/roles.md#user-defined-roles) for the fix.
 
 See the [node-postgres documentation](https://node-postgres.com/) for more information.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/access-control
 title: "Access Control"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -167,9 +167,9 @@ From here, you can also remove a Database Administrator by clicking the "**Remov
 
 ### Add Database Administrator role via Teams
 
-If you wish to give several members the Database Administrator role, you may want to [create a Team](teams.md#create-and-manage-teams). This will allow you to manage the access to that database all in one place.
+If you wish to give several members the Database Administrator role, you may want to [create a Team](https://planetscale.com/docs/security/teams.md#create-and-manage-teams). This will allow you to manage the access to that database all in one place.
 
-For instructions, see our [Teams documentation](teams.md).
+For instructions, see our [Teams documentation](https://planetscale.com/docs/security/teams.md).
 
 ## Need help?
 

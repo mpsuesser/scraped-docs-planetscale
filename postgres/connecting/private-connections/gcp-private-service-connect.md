@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect
 title: "Gcp Private Service Connect"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -29,12 +29,12 @@ GCP Private Service Connect provides these security and compliance benefits by e
 
 > [!NOTE]
 >
-> Normal PlanetScale Postgres connectivity (as described in our [standard connection documentation](../../connecting.md)) uses secure TLS encryption over the public internet and is appropriate for most use cases. GCP Private Service Connect is primarily beneficial for compliance and enhanced security requirements.
+> Normal PlanetScale Postgres connectivity (as described in our [standard connection documentation](https://planetscale.com/docs/postgres/connecting.md)) uses secure TLS encryption over the public internet and is appropriate for most use cases. GCP Private Service Connect is primarily beneficial for compliance and enhanced security requirements.
 
 ### Private Service Connect pricing
 
 PlanetScale charges a flat rate of **\$0.01/GB** for all network traffic (both egress and ingress) over private connections.
-This replaces the standard [egress pricing](../../pricing.md#network-data-transfer) that applies to public connections.
+This replaces the standard [egress pricing](https://planetscale.com/docs/postgres/pricing.md#network-data-transfer) that applies to public connections.
 Each branch has a default amount of included private network traffic before this rate takes effect.
 
 Google Cloud also charges standard Private Service Connect pricing for endpoints, which includes:
@@ -162,7 +162,7 @@ Your VPC configuration should allow:
 
 ## Restricting access to Private Service Connect only
 
-By default, setting up GCP Private Service Connect does not block public internet access to your database. If you want to ensure your database only accepts connections through Private Service Connect, you can use [IP restrictions](../ip-restrictions.md) to block public internet traffic.
+By default, setting up GCP Private Service Connect does not block public internet access to your database. If you want to ensure your database only accepts connections through Private Service Connect, you can use [IP restrictions](https://planetscale.com/docs/postgres/connecting/ip-restrictions.md) to block public internet traffic.
 
 When connections come through Private Service Connect, PlanetScale sees the source IP as coming from our internal network infrastructure (private IP ranges), not from your VPC's CIDR range. To restrict access to Private Service Connect-only connections, create an IP restriction rule allowing the RFC1918 private ranges:
 
@@ -172,7 +172,7 @@ When connections come through Private Service Connect, PlanetScale sees the sour
 
 This configuration blocks all public internet connections while allowing traffic through your Private Service Connect endpoint.
 
-For more details on configuring IP restrictions, see our [IP restrictions documentation](../ip-restrictions.md).
+For more details on configuring IP restrictions, see our [IP restrictions documentation](https://planetscale.com/docs/postgres/connecting/ip-restrictions.md).
 
 ## Troubleshooting
 
@@ -186,9 +186,9 @@ If you're experiencing connectivity issues:
 
 ## Next steps
 
-* [Learn about PostgreSQL roles and permissions](../roles.md)
-* [Configure connection pooling with PgBouncer](../pgbouncer.md)
-* [Monitor your connections and performance](../../monitoring/query-insights.md)
+* [Learn about PostgreSQL roles and permissions](https://planetscale.com/docs/postgres/connecting/roles.md)
+* [Configure connection pooling with PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md)
+* [Monitor your connections and performance](https://planetscale.com/docs/postgres/monitoring/query-insights.md)
 
 ## Need help?
 

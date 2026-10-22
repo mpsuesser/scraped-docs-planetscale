@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/examples-and-recipes
 title: "Examples And Recipes"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -28,7 +28,7 @@ Your analytics team and business intelligence (BI) tools run heavy queries on th
 
 **Approach**
 
-1. [Create a dedicated database user](../connecting/roles.md), for example `olap_user`.
+1. [Create a dedicated database user](https://planetscale.com/docs/postgres/connecting/roles.md), for example `olap_user`.
 2. Require analytics tools and analysts to connect using `olap_user`.
 3. In **Insights → Database Traffic Control**, click **New resource budget**:
    * **Name**: `OLAP user limits`
@@ -55,7 +55,7 @@ A third‑party integration or ETL job runs periodic backfills or syncs. When it
 
 **Approach**
 
-1. [Assign the integration its own database user](../connecting/roles.md), for example `integration_user`.
+1. [Assign the integration its own database user](https://planetscale.com/docs/postgres/connecting/roles.md), for example `integration_user`.
 2. In **Insights → Database Traffic Control**, click **New resource budget**:
    * **Name**: `Integration limits`
    * **Mode**: Warn
@@ -90,7 +90,7 @@ You want to launch a new feature that requires several new queries. You are not 
    * **Limits**:
      * Tight initial limits on server share, burst limit, and maximum concurrent queries
 3. Launch the feature to a subset of users.
-4. Watch violations and [Insights](../monitoring/query-insights.md) metrics to see how the feature behaves.
+4. Watch violations and [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) metrics to see how the feature behaves.
 5. If everything looks healthy, gradually relax limits.
 6. Once the feature is stable and widely rolled out, consider whether you still need a dedicated resource budget or whether the traffic can be absorbed into your general application limits.
 
@@ -137,7 +137,7 @@ A specific API endpoint in your application generates heavy database queries. Fo
 
 **Approach**
 
-1. Ensure your application uses [query tags](../monitoring/query-tags.md) to tag queries with the originating route, for example `route='api-export'`.
+1. Ensure your application uses [query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md) to tag queries with the originating route, for example `route='api-export'`.
 2. In **Insights → Database Traffic Control**, click **New resource budget**:
    * **Name**: `Export endpoint limits`
    * **Mode**: Warn (initially)

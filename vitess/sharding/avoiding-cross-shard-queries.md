@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries
 title: "Avoiding Cross Shard Queries"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ Let's run through an example. If you prefer video content, you can watch the vid
 
 ## Sharding design example
 
-I have an unsharded database, `metal`, in a single [keyspace](keyspaces.md). This is the database for our gym tracker application. The database schema looks like this:
+I have an unsharded database, `metal`, in a single [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md). This is the database for our gym tracker application. The database schema looks like this:
 
 **`users` table:**
 
@@ -144,7 +144,7 @@ WHERE exercise_log.user_id = 5
 
 This joins both the `exercises` table and the `users` table on `exercise_logs`. For the sake of this example, let's assume this is the most commonly executed query in our application.
 
-Now, we know we are going to shard `exercise_logs`, which means we need to choose a sharding key, or [primary Vindex](vindexes.md), for this table.
+Now, we know we are going to shard `exercise_logs`, which means we need to choose a sharding key, or [primary Vindex](https://planetscale.com/docs/vitess/sharding/vindexes.md), for this table.
 
 ## Choosing a Vindex for `exercise_logs`
 
@@ -216,7 +216,7 @@ WHERE exercise_log.user_id = 5
 
 This was a simple example meant to get you thinking about how to design your sharding scheme. You likely have several commonly executed queries. It's of course nearly impossible to optimize for every single query, so what you want to do is optimize for the **most common** queries with the goal of avoiding cross-shard and cross-keyspace queries.
 
-If you're on the PlanetScale Enterprise Support plan, we do some of this query analysis alongside you to come up with the best sharding scheme for your database. You can learn more about that process in our [Proof of concept documentation](../../plans/managed/proof-of-concept.md).
+If you're on the PlanetScale Enterprise Support plan, we do some of this query analysis alongside you to come up with the best sharding scheme for your database. You can learn more about that process in our [Proof of concept documentation](https://planetscale.com/docs/plans/managed/proof-of-concept.md).
 
 If you'd like more information about our Enterprise Support, don't hesitate to [reach out](https://planetscale.com/contact).
 

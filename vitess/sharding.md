@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding
 title: "Sharding"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,19 +14,19 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [!NOTE]
 >
-> **Looking for Postgres sharding?** [Neki](../neki.md) is horizontal sharding for Postgres. Start with the [Neki quickstart](../neki/tutorials/planetscale-quick-start-guide.md) or [when to shard](../neki/when-to-shard.md).
+> **Looking for Postgres sharding?** [Neki](https://planetscale.com/docs/neki.md) is horizontal sharding for Postgres. Start with the [Neki quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md) or [when to shard](https://planetscale.com/docs/neki/when-to-shard.md).
 
 > [!NOTE]
 >
-> You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](cluster-configuration.md) and moving tables into it with [MoveTables](sharding/sharding-quickstart.md).
+> You can create sharded keyspaces on any plan by adding a new sharded keyspace using the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) and moving tables into it with [MoveTables](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
 >
-> If you would like additional support from our expert team, our [Enterprise plan](../planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
+> If you would like additional support from our expert team, our [Enterprise plan](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
 
 ## Sharding with PlanetScale
 
 PlanetScale allows you to break up a large monolithic database and spread the data out across multiple servers.
 This [reduces the load on a single database](https://planetscale.com/blog/one-million-queries-per-second-with-mysql) by distributing it across many.
-PlanetScale achieves this by building our product on top of [Vitess](https://vitess.io/), which provides a transparent [sharding solution](sharding.md) for MySQL databases.
+PlanetScale achieves this by building our product on top of [Vitess](https://vitess.io/), which provides a transparent [sharding solution](https://planetscale.com/docs/vitess/sharding.md) for MySQL databases.
 
 ### Sharding without application changes
 
@@ -47,7 +47,7 @@ When you're at the point where you've maxed out your vertical scaling efforts an
 
 ## How does our sharding process work?
 
-When it comes time to shard your database, we recommend following our [sharding quickstart](sharding/sharding-quickstart.md) guide. If you need assistance identifying the best [sharding scheme](https://vitess.io/docs/reference/features/sharding/#sharding-scheme) for your database, or are interested in expert-level support, our [Enterprise plan](https://planetscale.com/enterprise) may be a better option for you. [Get in touch](https://planetscale.com/contact) for more information.
+When it comes time to shard your database, we recommend following our [sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md) guide. If you need assistance identifying the best [sharding scheme](https://vitess.io/docs/reference/features/sharding/#sharding-scheme) for your database, or are interested in expert-level support, our [Enterprise plan](https://planetscale.com/enterprise) may be a better option for you. [Get in touch](https://planetscale.com/contact) for more information.
 
 PlanetScale uses an explicit sharding system.
 This means that, if you are going to horizontally shard your data, we have to tell Vitess which sharding strategy to use for each sharded table.

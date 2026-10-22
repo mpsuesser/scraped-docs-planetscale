@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors/reference
 title: "Reference"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ Statements that create a vector index may take optional parameters, which can be
 There are four options that can be specified in the JSON. The first two are the following:
 
 * `type`: specifies the algorithm used to build and query the vector index.
-  * Supported values: `spann` (more info on the [SPANN algorithm](terminology-and-concepts.md#space-partitioned-approximate-nearest-neighbors-spann))
+  * Supported values: `spann` (more info on the [SPANN algorithm](https://planetscale.com/docs/vitess/vectors/terminology-and-concepts.md#space-partitioned-approximate-nearest-neighbors-spann))
 * `distance` specifies the distance metric that queries will use.
   * Supported values:
     * `dot` for the dot product

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/functions
 title: "Functions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,44 +18,44 @@ current_date: 2026-10-20T18:01:41.586Z
 
 `tin.score(tid, real, real, real, text[], text[]) → real`
 
-Returns the BM25 relevance of the current row, leaving out dense terms. See [Scoring](../scoring.md).
+Returns the BM25 relevance of the current row, leaving out dense terms. See [Scoring](https://planetscale.com/docs/postgres/search/scoring.md).
 
 ## `tin.full_score(ctid [, k1, b])`
 
 `tin.full_score(tid) → real`\
 `tin.full_score(tid, real, real) → real`
 
-Returns the BM25 relevance of the current row with every query term kept in the sum. See [Scoring](../scoring.md).
+Returns the BM25 relevance of the current row with every query term kept in the sum. See [Scoring](https://planetscale.com/docs/postgres/search/scoring.md).
 
 ## `tin.max_score(ctid)`
 
 `tin.max_score(tid) → real`
 
-Returns the highest score among the query's matches. The value is the same on every row. See [Scoring](../scoring.md).
+Returns the highest score among the query's matches. The value is the same on every row. See [Scoring](https://planetscale.com/docs/postgres/search/scoring.md).
 
 ## `tin.score_inspect(index, query [, dense_ratio [, term_add [, term_replace]]])`
 
 `tin.score_inspect(regclass, text, real, text[], text[]) → setof (term text, weight real)`
 
-Returns the terms a `tin.score` call with the same arguments would score, with their boost weights. See [Scoring](../scoring.md).
+Returns the terms a `tin.score` call with the same arguments would score, with their boost weights. See [Scoring](https://planetscale.com/docs/postgres/search/scoring.md).
 
 ## `tin.highlight(text [, begin_tag [, end_tag [, query]]])`
 
 `tin.highlight(text, text, text, text) → text`
 
-Returns the document text with matched spans wrapped in tags. See [Highlighting](../highlighting.md).
+Returns the document text with matched spans wrapped in tags. See [Highlighting](https://planetscale.com/docs/postgres/search/highlighting.md).
 
 ## `tin.highlight_ansi(text [, wrap_to [, query]])`
 
 `tin.highlight_ansi(text, integer, text) → text`
 
-Returns the document text with matched spans in ANSI colors. See [Highlighting](../highlighting.md).
+Returns the document text with matched spans in ANSI colors. See [Highlighting](https://planetscale.com/docs/postgres/search/highlighting.md).
 
 ## `tin.tokenize(text [, …])`
 
 `tin.tokenize(text) → setof text`
 
-Returns the tokens the analysis pipeline produces for a string. Optional named arguments match the [index tokenization options](indexes.md#index-options-with) and use the same defaults (`tokenizer`, `case_folding`, `accent_folding`, `long_tokens`, `max_token_bytes`, `graphemes`, `position_gaps`, `stemmer`). `stemmer` defaults to unset (no stemming). Useful when debugging why a query does or does not match.
+Returns the tokens the analysis pipeline produces for a string. Optional named arguments match the [index tokenization options](https://planetscale.com/docs/postgres/search/reference/indexes.md#index-options-with) and use the same defaults (`tokenizer`, `case_folding`, `accent_folding`, `long_tokens`, `max_token_bytes`, `graphemes`, `position_gaps`, `stemmer`). `stemmer` defaults to unset (no stemming). Useful when debugging why a query does or does not match.
 
 ```sql theme={null}
 SELECT * FROM tin.tokenize('Jalapeño 😀');

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/development-environments
 title: "Development Environments"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,12 +20,12 @@ its parent and has its own connection strings and infrastructure.
 
 ## Initialize the environment
 
-[Development branches start empty](branching.md#development-branches-start-empty).
+[Development branches start empty](https://planetscale.com/docs/neki/branching.md#development-branches-start-empty).
 Treat environment creation as a repeatable application setup:
 
 **Step 1**
 
-Create a [development branch](branching.md#create-a-development-branch) and wait for it to become ready.
+Create a [development branch](https://planetscale.com/docs/neki/branching.md#create-a-development-branch) and wait for it to become ready.
 
 **Step 2**
 
@@ -59,7 +59,7 @@ When testing sharding behavior:
 * Test single-shard and scatter query plans.
 * Exercise joins, transactions, sequences, reference tables, and GSIs used by
   the application.
-* Check [Query Insights](monitoring/query-insights.md) and router metrics for
+* Check [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) and router metrics for
   unexpected fan-out.
 
 ## Use production-like data safely
@@ -79,14 +79,14 @@ in one restore.
 
 Do not use a development branch as a production failover target. To serve
 production traffic from a tested environment, [promote the
-branch](branching.md#promote-a-development-branch) first. Promotion is not a
+branch](https://planetscale.com/docs/neki/branching.md#promote-a-development-branch) first. Promotion is not a
 substitute for a production availability and recovery plan.
 
 ## Control cost
 
 Development branches have separate shard, router, storage, backup, and network
 usage. Delete environments that are no longer needed and keep test backup
-retention intentional. See [Neki pricing](pricing.md#development-branches).
+retention intentional. See [Neki pricing](https://planetscale.com/docs/neki/pricing.md#development-branches).
 
 ## Need help?
 

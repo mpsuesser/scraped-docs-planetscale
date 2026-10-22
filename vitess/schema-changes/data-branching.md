@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/data-branching
 title: "Data Branching"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-The PlanetScale Data Branching® feature allows you to create isolated copies of your database that include both the schema and data. This differs from our [regular branching feature](branching.md), which only includes the schema.
+The PlanetScale Data Branching® feature allows you to create isolated copies of your database that include both the schema and data. This differs from our [regular branching feature](https://planetscale.com/docs/vitess/schema-changes/branching.md), which only includes the schema.
 
 ## Enable the Data Branching® feature for your database.
 
@@ -79,7 +79,7 @@ Clicking on "**New Branch**" should now offer an option to select "**Seed Data**
 
 > **Will enabling the Data Branching® feature affect my billing?**
 >
-> Yes, it can. If you are branching and seeding from a *development* branch, the new branch will count towards your [development branch usage hours](../../planetscale-plans.md#development-branches) in the same way that regular branching does, but because you're seeding it with data, it will also be billed for storage.
+> Yes, it can. If you are branching and seeding from a *development* branch, the new branch will count towards your [development branch usage hours](https://planetscale.com/docs/planetscale-plans.md#development-branches) in the same way that regular branching does, but because you're seeding it with data, it will also be billed for storage.
 >
 > However, if you branch and seed from a *production* branch, the new branch will be created as a production branch at the same resource size as the source production branch, and will therefore be billed at that size. It will also be seeded with the production data and include the 2 default production replicas, so you will be charged for the storage as well for however long the branch stays running.
 >
@@ -88,7 +88,7 @@ Clicking on "**New Branch**" should now offer an option to select "**Seed Data**
 > * `PS-80 — $179`
 > * `100 GB — ($0.50 * 100 GB) * 3 replicas = $135`
 >
-> We spin the new branch up using the same resource size as the production branch to ensure that large datasets initialize correctly and efficiently. After initialization, you may downgrade the branch size on the [Clusters page](../cluster-configuration.md#adjust-your-cluster-size). All billing is prorated, so you will only be charged for the time your seeded branch is live. To avoid incurring extra charges, be sure to downsize your seeded branch, and delete it once you're done using it
+> We spin the new branch up using the same resource size as the production branch to ensure that large datasets initialize correctly and efficiently. After initialization, you may downgrade the branch size on the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md#adjust-your-cluster-size). All billing is prorated, so you will only be charged for the time your seeded branch is live. To avoid incurring extra charges, be sure to downsize your seeded branch, and delete it once you're done using it
 
 ## Need help?
 

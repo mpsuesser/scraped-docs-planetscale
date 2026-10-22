@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-10-20T18:01:41.586Z
 > [!NOTE]
 >
 > PlanetScale storage autoscaling is only for network-attached storage database clusters. For [PlanetScale
-> Metal](../../metal.md) clusters, you need to increase the cluster instance size to increase storage space.
+> Metal](https://planetscale.com/docs/metal.md) clusters, you need to increase the cluster instance size to increase storage space.
 
 Cloud providers like AWS and GCP limit how frequently network-attached disks can be resized.
 In both cases, there is a multi-hour cooldown period between resizing operations. These volumes also typically do not support shrinking. PlanetScale disk autoscaling grows disks past those limits. To shrink, we copy your data onto a new, smaller disk and replace the old one.

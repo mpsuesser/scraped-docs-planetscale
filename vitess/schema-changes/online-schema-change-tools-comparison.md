@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/online-schema-change-tools-comparison
 title: "Online Schema Change Tools Comparison"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -55,7 +55,7 @@ Our breakdown compares these design principles:
 * Revertible after completion vs. not
 * Declarative vs. imperative
 
-Make sure to first read [How Online Schema Change tools work](how-online-schema-change-tools-work.md).
+Make sure to first read [How Online Schema Change tools work](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md).
 
 ## Synchronous vs asynchronous
 

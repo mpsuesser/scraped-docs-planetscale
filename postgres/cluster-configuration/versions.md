@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/versions
 title: "Versions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -25,7 +25,7 @@ New databases will be created using the latest version by default and we recomme
 
 ## Major version upgrades
 
-PlanetScale doesn't currently offer in-place upgrades between major versions of Postgres. To upgrade from Postgres 17 to 18, create a new Postgres 18 database and perform an online migration from your existing PlanetScale Postgres 17 database using our [import guides](../imports/postgres-imports.md).
+PlanetScale doesn't currently offer in-place upgrades between major versions of Postgres. To upgrade from Postgres 17 to 18, create a new Postgres 18 database and perform an online migration from your existing PlanetScale Postgres 17 database using our [import guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md).
 
 The same import process also applies if you're migrating from another provider such as RDS, Aurora, or a self-hosted Postgres instance. You can import into any supported major version regardless of where the source database is hosted.
 

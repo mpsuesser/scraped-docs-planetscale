@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -314,7 +314,7 @@ providers:
       - eastus
 ```
 
-When you're ready to migrate from Azure Database for PostgreSQL, see the [pgcopydb migration guide](postgres-migrate-pgcopydb.md) — it includes an Azure Terraform template for the migration instance and Azure-specific logical replication setup.
+When you're ready to migrate from Azure Database for PostgreSQL, see the [pgcopydb migration guide](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md) — it includes an Azure Terraform template for the migration instance and Azure-specific logical replication setup.
 
 ### Supabase
 
@@ -458,13 +458,13 @@ All analysis happens client-side in your browser — your discovery data is neve
 
 If you want tailored guidance from our migration team, [share your discovery report with us](https://planetscale.com/contact). You can also follow one of our migration guides on your own:
 
-> **[Migrate using pgdump/restore](postgres-migrate-dumprestore.md)**
+> **[Migrate using pgdump/restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
 
-> **[Migrate using WAL streaming](postgres-migrate-walstream.md)**
+> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
 
-> **[Migrate using Amazon DMS](postgres-migrate-dms.md)**
+> **[Migrate using Amazon DMS](https://planetscale.com/docs/postgres/imports/postgres-migrate-dms.md)**
 
-> **[Migrate from Heroku](heroku.md)**
+> **[Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)**
 
 ## Need help?
 

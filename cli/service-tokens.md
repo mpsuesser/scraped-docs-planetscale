@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -42,7 +42,7 @@ Organization permissions are required when performing operations that are specif
 
 In the **Organization access permissions** modal, check the box next to each of the permission scopes that you want to assign to the token. Click **"Save permissions"** once finished.
 
-For a full list of organization access permissions, see the [API documentation for service tokens](../api/reference/service-tokens.md#organization-access-permissions).
+For a full list of organization access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#organization-access-permissions).
 
 ### Add database permissions
 
@@ -50,7 +50,7 @@ In order to perform operations specific to a database, permissions can be assign
 
 Select the database you want to grant access to and check the box next to each permission option you need to grant. Once you are done, click **"Save permissions"**.
 
-For a full list of database access permissions, see the [API documentation for service tokens](../api/reference/service-tokens.md#database-access-permissions).
+For a full list of database access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#database-access-permissions).
 
 ![The Database access permissions modal.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/db-access-permissions-2.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=2f2a5fae0c095305dc848397de6962a5)
 
@@ -94,7 +94,7 @@ curl --request GET \
      --header 'Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>'
 ```
 
-Refer to the [API docs](../api/reference/getting-started-with-planetscale-api.md) for more details on how to use the API.
+Refer to the [API docs](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md) for more details on how to use the API.
 
 ## Modify service token permissions
 
@@ -112,7 +112,7 @@ You can delete a service token at any time from the service token detail page. S
 
 ## Manage service tokens using the PlanetScale CLI
 
-Service tokens can also be created and managed directly from the [PlanetScale CLI](service-token.md).
+Service tokens can also be created and managed directly from the [PlanetScale CLI](https://planetscale.com/docs/cli/service-token.md).
 
 ### Create a new service token
 
@@ -152,7 +152,7 @@ For example, to give a service token the ability to create, read, and delete bra
 pscale service-token add-access <SERVICE_TOKEN_ID> read_branch delete_branch create_branch --database <DB_NAME>
 ```
 
-A complete list of service token access permissions can be found in the [PlanetScale API documentation](../api/reference/service-tokens.md#access-permissions).
+A complete list of service token access permissions can be found in the [PlanetScale API documentation](https://planetscale.com/docs/api/reference/service-tokens.md#access-permissions).
 
 ### Remove database access permissions
 

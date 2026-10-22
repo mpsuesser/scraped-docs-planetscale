@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/workflows
 title: "Workflows"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,17 +30,17 @@ There are two ways to use workflows:
 
 ## Move tables between keyspaces
 
-Move tables from one [keyspace](../sharding/keyspaces.md) to another within your PlanetScale database:
+Move tables from one [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md) to another within your PlanetScale database:
 
-* **Unsharded to sharded**: Move tables from an unsharded keyspace to a new sharded keyspace. This is the primary way to shard existing tables. See the [Sharding quickstart](../sharding/sharding-quickstart.md).
-* **Sharded to sharded**: Move tables between sharded keyspaces to change the number of shards. See [Modifying the number of shards](../sharding/sharding-a-sharded-keyspace.md).
+* **Unsharded to sharded**: Move tables from an unsharded keyspace to a new sharded keyspace. This is the primary way to shard existing tables. See the [Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
+* **Sharded to sharded**: Move tables between sharded keyspaces to change the number of shards. See [Modifying the number of shards](https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace.md).
 * **Unsharded to unsharded**: Move tables from one unsharded keyspace to another unsharded keyspace.
 
 ## Import a database
 
-To import an **external internet-accessible MySQL database**, you first connect it to your production branch as an [external keyspace](../cluster-configuration.md#create-an-external-keyspace). Then you run a workflow with the external keyspace as the source and your PlanetScale keyspace as the target. The import copies your data, replicates new changes in real time, and switches traffic to PlanetScale with no downtime.
+To import an **external internet-accessible MySQL database**, you first connect it to your production branch as an [external keyspace](https://planetscale.com/docs/vitess/cluster-configuration.md#create-an-external-keyspace). Then you run a workflow with the external keyspace as the source and your PlanetScale keyspace as the target. The import copies your data, replicates new changes in real time, and switches traffic to PlanetScale with no downtime.
 
-For a full walkthrough, see the [Database imports documentation](../imports/database-imports.md).
+For a full walkthrough, see the [Database imports documentation](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
 ## Workflow lifecycle
 

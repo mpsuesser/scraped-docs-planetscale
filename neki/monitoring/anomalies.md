@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/anomalies
 title: "Anomalies"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -50,7 +50,7 @@ identified as the cause. A correlated query ran while the anomaly was open,
 which makes it worth investigating, but it can equally be a victim of the
 slowdown or unrelated to it.
 
-Compare the same period on [Metrics](metrics.md) before deciding
+Compare the same period on [Metrics](https://planetscale.com/docs/neki/monitoring/metrics.md) before deciding
 what to change. A shard-primary CPU or IOPS spike, rising replica lag, or a
 router latency increase without matching Postgres load each point at a different
 explanation.
@@ -71,7 +71,7 @@ Use the anomaly details to decide whether you need to act.
 
 A common case is a new query that runs often, reads many rows, and consumes
 enough resources to slow other traffic. Open each correlated query in
-[Query Insights](query-insights.md) and check its execution count,
+[Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) and check its execution count,
 rows read, and shard calls over the anomaly window to establish whether it
 is a likely contributor, a victim, or unrelated. If it contributed, consider
 adding an index, reducing the rows read, or changing the routing predicate.

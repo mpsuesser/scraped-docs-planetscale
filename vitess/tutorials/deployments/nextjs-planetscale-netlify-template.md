@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/nextjs-planetscale-netlify-template
 title: "Nextjs Planetscale Netlify Template"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-10-20T18:01:41.586Z
 This guide will show you how to get up and running with the [Netlify, Next.js, and PlanetScale starter template](https://github.com/planetscale/nextjs-planetscale-starter). The template includes the following features:
 
 * Simple user admin dashboard
-* [PlanetScale](https://planetscale.com/docs/) database
+* [PlanetScale](https://planetscale.com/docs/index.md) database
 * [Prisma ORM](https://www.prisma.io/) integration
 * [Next.js authentication](https://nextjs.org/docs/app/building-your-application/authentication)
 * One-click [deploy to Netlify](https://netlify.com)
@@ -77,25 +77,25 @@ Navigate to [http://localhost:3000/](http://localhost:3000/) in your browser to 
 
 ## Database setup
 
-Next, you need to set up your PlanetScale database. If you don't already have a [PlanetScale account](../../../planetscale-plans.md), you can [sign up for a free one here](https://auth.planetscale.com/sign-up).
+Next, you need to set up your PlanetScale database. If you don't already have a [PlanetScale account](https://planetscale.com/docs/planetscale-plans.md), you can [sign up for a free one here](https://auth.planetscale.com/sign-up).
 
 ### Create your database
 
-To begin, create a new database. You can either do this in the dashboard or using the [PlanetScale CLI](../../../cli.md).
+To begin, create a new database. You can either do this in the dashboard or using the [PlanetScale CLI](https://planetscale.com/docs/cli.md).
 
 In the dashboard, click on the "**Create a database**" button. Name your database "`netlify-starter`", or whatever name you wish. Select the region closest to you, and click "**Create database**".
 
-Alternatively, [sign in and create a database with the CLI](../planetscale-quick-start-guide.md#getting-started-%E2%80%94-planetscale-cli) by running the following:
+Alternatively, [sign in and create a database with the CLI](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md#getting-started-%E2%80%94-planetscale-cli) by running the following:
 
 ```bash theme={null}
 pscale database create <database-name> --region <region-slug>
 ```
 
-The list of region slugs can be found in our [Regions documentation](https://planetscale.com/docs/vitess/regions#available-regions).
+The list of region slugs can be found in our [Regions documentation](https://planetscale.com/docs/vitess/regions.md#available-regions).
 
 ### Connect to your database branches locally
 
-To connect locally, make sure you've authenticated in the CLI. If not, follow the directions in the [sign-in section of our quickstart guide](../planetscale-quick-start-guide.md#sign-in-to-your-account).
+To connect locally, make sure you've authenticated in the CLI. If not, follow the directions in the [sign-in section of our quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md#sign-in-to-your-account).
 
 Next, connect to your `main` branch locally by running the following in your terminal:
 
@@ -216,9 +216,9 @@ And that's it! If you followed this tutorial completely, you now have a local an
 
 Now, it's time to extend it! Next.js Authentication is baked into this starter, so you can explore the [Next.js docs to manage authentication](https://nextjs.org/docs/app/building-your-application/authentication) in your application.
 
-You also have a fully functional PlanetScale MySQL database built for scale using the power of [Vitess](https://vitess.io/). You might have noticed that this tutorial uses the same database locally as it is in production. This was just for simplicity, but with PlanetScale, you can take advantage of our [powerful branching feature](../../schema-changes/branching.md) to create development branches of your database specifically for testing locally. All you have to do is create a new branch and swap out the `DATABASE_URL` environment variable in your local `.env` file.
+You also have a fully functional PlanetScale MySQL database built for scale using the power of [Vitess](https://vitess.io/). You might have noticed that this tutorial uses the same database locally as it is in production. This was just for simplicity, but with PlanetScale, you can take advantage of our [powerful branching feature](https://planetscale.com/docs/vitess/schema-changes/branching.md) to create development branches of your database specifically for testing locally. All you have to do is create a new branch and swap out the `DATABASE_URL` environment variable in your local `.env` file.
 
-Finally, you have [Prisma ORM](https://www.prisma.io/) already configured in your application. If you want to add any more fields to your `User` table or create any new tables, Prisma makes it easy with the `schema.prisma` file. If you want to make any schema changes, it's a perfect time to try out the [PlanetScale branching feature](../../schema-changes/branching.md) feature. If you mess up, those changes won't touch production. And once you're satisfied with the changes, you can deploy to production without causing downtime thanks to PlanetScale [non-blocking schema changes](../../schema-changes.md).
+Finally, you have [Prisma ORM](https://www.prisma.io/) already configured in your application. If you want to add any more fields to your `User` table or create any new tables, Prisma makes it easy with the `schema.prisma` file. If you want to make any schema changes, it's a perfect time to try out the [PlanetScale branching feature](https://planetscale.com/docs/vitess/schema-changes/branching.md) feature. If you mess up, those changes won't touch production. And once you're satisfied with the changes, you can deploy to production without causing downtime thanks to PlanetScale [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md).
 
 Hopefully this tutorial has been helpful. We'd love to hear how you're extending your starter application. [Tweet us @PlanetScale](https://twitter.com/planetscale) and share what you built!
 

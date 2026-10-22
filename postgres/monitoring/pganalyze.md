@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/pganalyze
 title: "Pganalyze"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ Data is sent to the pganalyze platform through this collector for visualization,
 
 > [!NOTE]
 >
-> PlanetScale provides [Query Insights](query-insights.md) and [detailed metrics](metrics.md) as a part of every Postgres database.
+> PlanetScale provides [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) and [detailed metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) as a part of every Postgres database.
 > These combined with our in-app logs view typically provide more than enough detail to monitor cluster health and query performance.
 > We recommend pganalyze for those who have specific additional analytics needs not covered by our built-in tools.
 
@@ -32,7 +32,7 @@ Before setting up the pganalyze collector, you'll need:
 
 * A [pganalyze account](https://pganalyze.com/)
 * A PlanetScale Postgres database
-* If you want to use log analytics, you'll also need a [PlanetScale Service Token](../../api/reference/service-tokens.md) with appropriate permissions. This guide assumes you will set up log analytics.
+* If you want to use log analytics, you'll also need a [PlanetScale Service Token](https://planetscale.com/docs/api/reference/service-tokens.md) with appropriate permissions. This guide assumes you will set up log analytics.
 
 ## Getting started
 
@@ -79,7 +79,7 @@ Select **Collector API key** and then create the key
 You'll need the following information from your PlanetScale database: your **organization name** (the organization slug), your **database name** (the name of your Postgres database), and the **branch name** that you want to monitor (for example, `main`).
 
 You will also need to create a role that the pganalyze collector will connect to your database with.
-Follow our [connections quickstart guide](../connecting/quickstart.md) for instructions on how to create a new role.
+Follow our [connections quickstart guide](https://planetscale.com/docs/postgres/connecting/quickstart.md) for instructions on how to create a new role.
 When doing so, ensure to give it a descriptive name (e.g., `pganalyze-collector`) and enable only the `pg_monitor` role permission.
 
 After creating this role, you must run a few additional SQL commands to ensure it has the necessary schema and access for monitoring.
@@ -215,14 +215,14 @@ If data is not appearing, check the collector logs to see if there are authentic
 
 Current settings / limitations of the pganalyze integration with PlanetScale Postgres:
 
-* **System metrics**: Detailed system metrics (CPU, memory, disk I/O) from the database host are not available through the collector. Use [PlanetScale's Prometheus metrics](prometheus-postgres.md) for system-level monitoring.
+* **System metrics**: Detailed system metrics (CPU, memory, disk I/O) from the database host are not available through the collector. Use [PlanetScale's Prometheus metrics](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) for system-level monitoring.
 * **Log polling interval**: Logs are collected every 30 seconds, matching the collector's default polling interval.
 
 ## Next steps
 
 * **Explore pganalyze**: Learn about [query performance insights](https://pganalyze.com/docs/query-performance) and [log insights](https://pganalyze.com/log-insights)
-* **Monitor additional metrics**: Complement pganalyze monitoring with [Prometheus metrics](prometheus-postgres.md)
-* **Leverage PlanetScale Insights and schema recommendations**: Use [PlanetScale Insights](query-insights.md) for actionable query analytics, and explore [schema recommendations](schema-recommendations.md) to improve your database structure alongside pganalyze monitoring.
+* **Monitor additional metrics**: Complement pganalyze monitoring with [Prometheus metrics](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md)
+* **Leverage PlanetScale Insights and schema recommendations**: Use [PlanetScale Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) for actionable query analytics, and explore [schema recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) to improve your database structure alongside pganalyze monitoring.
 
 ## Need help?
 

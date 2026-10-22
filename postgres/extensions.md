@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -77,7 +77,7 @@ To update an extension to a newer version, use the `ALTER EXTENSION` command:
 ALTER EXTENSION pgcrypto UPDATE;
 ```
 
-Some extensions, including [TIN](search.md), also need a [cluster update](cluster-configuration/updates.md) so the new library is on the server before `ALTER EXTENSION ... UPDATE` can expose new options.
+Some extensions, including [TIN](https://planetscale.com/docs/postgres/search.md), also need a [cluster update](https://planetscale.com/docs/postgres/cluster-configuration/updates.md) so the new library is on the server before `ALTER EXTENSION ... UPDATE` can expose new options.
 
 ### Viewing Installed Extensions
 
@@ -183,7 +183,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
 | [autoinc](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-AUTOINC) | Functions for autoincrementing fields | 1.0 | ⭐ | | |
-| [auto\_explain](https://www.postgresql.org/docs/current/auto-explain.html) | Logs execution plans for statements, including slow queries | 1.0 | | | [📝](extensions/auto_explain.md) |
+| [auto\_explain](https://www.postgresql.org/docs/current/auto-explain.html) | Logs execution plans for statements, including slow queries | 1.0 | | | [📝](https://planetscale.com/docs/postgres/extensions/auto_explain.md) |
 | [bloom](https://www.postgresql.org/docs/current/bloom.html) | Bloom filter index access method | 1.0 | ⭐ | | |
 | [btree\_gin](https://www.postgresql.org/docs/current/btree-gin.html) | Provides GIN operator classes that implement B-tree equivalent behavior for various data types | 1.3 | | | |
 | [btree\_gist](https://www.postgresql.org/docs/current/btree-gist.html) | Provides GiST index operator classes that implement B-tree equivalent behavior | 1.8 | | | |
@@ -201,7 +201,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | [lo](https://www.postgresql.org/docs/current/lo.html) | Support for managing Large Objects (also called BLOBs) | 1.2 | | | |
 | [ltree](https://www.postgresql.org/docs/current/ltree.html) | Data type for representing labels of data stored in hierarchical tree-like structures | 1.3 | | | |
 | [moddatetime](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-MODDATETIME) | Functions for tracking last modification time | 1.0 | ⭐ | | |
-| [pg\_stat\_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) | Provides a means for tracking planning and execution statistics of all SQL statements | 1.12 | ⭐ | ✅ | [📝](extensions/pg_stat_statements.md) |
+| [pg\_stat\_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) | Provides a means for tracking planning and execution statistics of all SQL statements | 1.12 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_stat_statements.md) |
 | [pg\_trgm](https://www.postgresql.org/docs/current/pgtrgm.html) | Functions and operators for determining the similarity of alphanumeric text based on trigram matching | 1.6 | | | |
 | [pgcrypto](https://www.postgresql.org/docs/current/pgcrypto.html) | Cryptographic functions for PostgreSQL | 1.4 | | | |
 | [pg\_prewarm](https://www.postgresql.org/docs/current/pgprewarm.html) | Provides a means for preloading relation data into the operating system buffer cache | 1.2 | ⭐ | | |
@@ -222,7 +222,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
 | [autoinc](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-AUTOINC) | Functions for autoincrementing fields | 1.0 | ⭐ | | |
-| [auto\_explain](https://www.postgresql.org/docs/current/auto-explain.html) | Logs execution plans for statements, including slow queries | 1.0 | | | [📝](extensions/auto_explain.md) |
+| [auto\_explain](https://www.postgresql.org/docs/current/auto-explain.html) | Logs execution plans for statements, including slow queries | 1.0 | | | [📝](https://planetscale.com/docs/postgres/extensions/auto_explain.md) |
 | [bloom](https://www.postgresql.org/docs/current/bloom.html) | Bloom filter index access method | 1.0 | ⭐ | | |
 | [btree\_gin](https://www.postgresql.org/docs/current/btree-gin.html) | Provides GIN operator classes that implement B-tree equivalent behavior for various data types | 1.3 | | | |
 | [btree\_gist](https://www.postgresql.org/docs/current/btree-gist.html) | Provides GiST index operator classes that implement B-tree equivalent behavior | 1.7 | | | |
@@ -240,7 +240,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | [lo](https://www.postgresql.org/docs/current/lo.html) | Support for managing Large Objects (also called BLOBs) | 1.1 | | | |
 | [ltree](https://www.postgresql.org/docs/current/ltree.html) | Data type for representing labels of data stored in hierarchical tree-like structures | 1.3 | | | |
 | [moddatetime](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-MODDATETIME) | Functions for tracking last modification time | 1.0 | ⭐ | | |
-| [pg\_stat\_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) | Provides a means for tracking planning and execution statistics of all SQL statements | 1.11 | ⭐ | ✅ | [📝](extensions/pg_stat_statements.md) |
+| [pg\_stat\_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) | Provides a means for tracking planning and execution statistics of all SQL statements | 1.11 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_stat_statements.md) |
 | [pg\_trgm](https://www.postgresql.org/docs/current/pgtrgm.html) | Functions and operators for determining the similarity of alphanumeric text based on trigram matching | 1.6 | | | |
 | [pgcrypto](https://www.postgresql.org/docs/current/pgcrypto.html) | Cryptographic functions for PostgreSQL | 1.3 | | | |
 | [pg\_prewarm](https://www.postgresql.org/docs/current/pgprewarm.html) | Provides a means for preloading relation data into the operating system buffer cache | 1.2 | ⭐ | | |
@@ -265,21 +265,21 @@ Some extensions depend on others. Install the required dependency first, then re
 | [address\_standardizer](https://postgis.net/docs/manual-3.5/Extras.html#Address_Standardizer) | Used to parse an address into constituent elements. Generally used to support geocoding address normalization step. (Part of PostGIS) | 3.6.4 | ⭐ | | |
 | [address\_standardizer\_data\_us](https://postgis.net/docs/manual-3.5/Extras.html#Address_Standardizer) | Address Standardizer US dataset example. (Part of PostGIS) | 3.6.4 | ⭐ | | |
 | [hypopg](https://github.com/HypoPG/hypopg) (installed by default) | Hypothetical indexes - allows testing the impact of indexes without actually creating them | 1.4.3 | | | |
-| [pg\_cron](https://github.com/citusdata/pg_cron) | Simple cron-based job scheduler for PostgreSQL that allows you to run SQL commands on a schedule | 1.6.7 | ⭐ | ✅ | [📝](extensions/pg_cron.md) |
-| [pg\_duckdb](https://github.com/duckdb/pg_duckdb) | Embeds DuckDB's analytical database engine directly into PostgreSQL for high-performance analytical queries | 1.1.1 | ⭐ | ✅ | [📝](extensions/pg_duckdb.md) |
-| [pg\_hint\_plan](https://github.com/ossc-db/pg_hint_plan) | Provides query plan hints to control the PostgreSQL planner | 1.8.0 | ⭐ | ✅ | [📝](extensions/pg_hint_plan.md) |
+| [pg\_cron](https://github.com/citusdata/pg_cron) | Simple cron-based job scheduler for PostgreSQL that allows you to run SQL commands on a schedule | 1.6.7 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_cron.md) |
+| [pg\_duckdb](https://github.com/duckdb/pg_duckdb) | Embeds DuckDB's analytical database engine directly into PostgreSQL for high-performance analytical queries | 1.1.1 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_duckdb.md) |
+| [pg\_hint\_plan](https://github.com/ossc-db/pg_hint_plan) | Provides query plan hints to control the PostgreSQL planner | 1.8.0 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_hint_plan.md) |
 | [pg\_partman](https://github.com/pgpartman/pg_partman) | Extension to create and manage both time-based and serial-based table partition sets | 5.5.0 | | | |
-| [pg\_partman\_bgw](https://github.com/pgpartman/pg_partman) | Background worker to automatically run partition maintenance for pg\_partman | 5.5.0 | | ✅ | [📝](extensions/pg_partman_bgw.md) |
-| [pg\_squeeze](https://github.com/cybertec-postgresql/pg_squeeze/) | Automatically cleans up unused space in tables (table bloat) | 1.9.1 | ⭐ | ✅ | [📝](extensions/pg_squeeze.md) |
-| [pgvector](https://github.com/pgvector/pgvector) | Open-source vector similarity search for PostgreSQL, designed for AI/ML applications | 0.8.5 | ⭐ | | [📝](extensions/pgvector.md) |
+| [pg\_partman\_bgw](https://github.com/pgpartman/pg_partman) | Background worker to automatically run partition maintenance for pg\_partman | 5.5.0 | | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_partman_bgw.md) |
+| [pg\_squeeze](https://github.com/cybertec-postgresql/pg_squeeze/) | Automatically cleans up unused space in tables (table bloat) | 1.9.1 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_squeeze.md) |
+| [pgvector](https://github.com/pgvector/pgvector) | Open-source vector similarity search for PostgreSQL, designed for AI/ML applications | 0.8.5 | ⭐ | | [📝](https://planetscale.com/docs/postgres/extensions/pgvector.md) |
 | [pgvectorscale](https://github.com/timescale/pgvectorscale) | Open-source complement to pgvector for PostgreSQL, adding increased compression, additional filtering, and faster indexes for vector search | 0.9.0 | ⭐ | | |
 | [postgis](https://postgis.net/) | PostGIS extends the capabilities of the PostgreSQL relational database by adding support for storing, indexing, and querying geospatial data | 3.6.4 | ⭐ | | |
 | [postgis\_sfcgal](https://postgis.net/docs/manual-3.5/reference_sfcgal.html) | SFCGAL is a C++ wrapper library around CGAL that provides advanced 2D and 3D spatial functions | 3.6.4 | ⭐ | | |
 | [postgis\_tiger\_geocoder](https://postgis.net/docs/manual-3.5/Extras.html#Tiger_Geocoder) | A plpgsql based geocoder written to work with the TIGER (Topologically Integrated Geographic Encoding and Referencing system) / Line and Master Address database export released by the US Census Bureau | 3.6.4 | | | |
 | [postgis\_topology](https://postgis.net/docs/manual-3.5/Topology.html) | The PostGIS Topology types and functions are used to manage topological objects such as faces, edges and nodes | 3.6.4 | ⭐ | | |
 | [roaringbitmap](https://github.com/ChenHuajun/pg_roaringbitmap) | Compressed bitmap data type for efficient set operations such as union, intersection, difference, and cardinality | 1.2.0 | ⭐ | | |
-| [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 | | ✅ | [📝](extensions/timescaledb.md) |
-| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ | | [📝](search.md) |
+| [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 | | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/timescaledb.md) |
+| [tin](https://planetscale.com/docs/postgres/search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ | | [📝](https://planetscale.com/docs/postgres/search.md) |
 | [wal2json](https://github.com/eulerto/wal2json) | Logical decoding output plugin that produces JSON format change data capture (CDC) output for streaming database changes | 2.6 | ⭐ | | |
 
 #### Postgres 17.11
@@ -289,21 +289,21 @@ Some extensions depend on others. Install the required dependency first, then re
 | [address\_standardizer](https://postgis.net/docs/manual-3.5/Extras.html#Address_Standardizer) | Used to parse an address into constituent elements. Generally used to support geocoding address normalization step. (Part of PostGIS) | 3.6.4 | ⭐ | | |
 | [address\_standardizer\_data\_us](https://postgis.net/docs/manual-3.5/Extras.html#Address_Standardizer) | Address Standardizer US dataset example. (Part of PostGIS) | 3.6.4 | ⭐ | | |
 | [hypopg](https://github.com/HypoPG/hypopg) (installed by default) | Hypothetical indexes - allows testing the impact of indexes without actually creating them | 1.4.3 | | | |
-| [pg\_cron](https://github.com/citusdata/pg_cron) | Simple cron-based job scheduler for PostgreSQL that allows you to run SQL commands on a schedule | 1.6.7 | ⭐ | ✅ | [📝](extensions/pg_cron.md) |
-| [pg\_duckdb](https://github.com/duckdb/pg_duckdb) | Embeds DuckDB's analytical database engine directly into PostgreSQL for high-performance analytical queries | 1.0.0 | ⭐ | ✅ | [📝](extensions/pg_duckdb.md) |
-| [pg\_hint\_plan](https://github.com/ossc-db/pg_hint_plan) | Provides query plan hints to control the PostgreSQL planner | 1.7.1 | ⭐ | ✅ | [📝](extensions/pg_hint_plan.md) |
+| [pg\_cron](https://github.com/citusdata/pg_cron) | Simple cron-based job scheduler for PostgreSQL that allows you to run SQL commands on a schedule | 1.6.7 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_cron.md) |
+| [pg\_duckdb](https://github.com/duckdb/pg_duckdb) | Embeds DuckDB's analytical database engine directly into PostgreSQL for high-performance analytical queries | 1.0.0 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_duckdb.md) |
+| [pg\_hint\_plan](https://github.com/ossc-db/pg_hint_plan) | Provides query plan hints to control the PostgreSQL planner | 1.7.1 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_hint_plan.md) |
 | [pg\_partman](https://github.com/pgpartman/pg_partman) | Extension to create and manage both time-based and serial-based table partition sets | 5.5.0 | | | |
-| [pg\_partman\_bgw](https://github.com/pgpartman/pg_partman) | Background worker to automatically run partition maintenance for pg\_partman | 5.5.0 | | ✅ | [📝](extensions/pg_partman_bgw.md) |
-| [pg\_squeeze](https://github.com/cybertec-postgresql/pg_squeeze/) | Automatically cleans up unused space in tables (table bloat) | 1.9.1 | ⭐ | ✅ | [📝](extensions/pg_squeeze.md) |
-| [pgvector](https://github.com/pgvector/pgvector) | Open-source vector similarity search for PostgreSQL, designed for AI/ML applications | 0.8.5 | ⭐ | | [📝](extensions/pgvector.md) |
+| [pg\_partman\_bgw](https://github.com/pgpartman/pg_partman) | Background worker to automatically run partition maintenance for pg\_partman | 5.5.0 | | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_partman_bgw.md) |
+| [pg\_squeeze](https://github.com/cybertec-postgresql/pg_squeeze/) | Automatically cleans up unused space in tables (table bloat) | 1.9.1 | ⭐ | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/pg_squeeze.md) |
+| [pgvector](https://github.com/pgvector/pgvector) | Open-source vector similarity search for PostgreSQL, designed for AI/ML applications | 0.8.5 | ⭐ | | [📝](https://planetscale.com/docs/postgres/extensions/pgvector.md) |
 | [pgvectorscale](https://github.com/timescale/pgvectorscale) | Open-source complement to pgvector for PostgreSQL, adding increased compression, additional filtering, and faster indexes for vector search | 0.9.0 | ⭐ | | |
 | [postgis](https://postgis.net/) | PostGIS extends the capabilities of the PostgreSQL relational database by adding support for storing, indexing, and querying geospatial data | 3.6.4 | ⭐ | | |
 | [postgis\_sfcgal](https://postgis.net/docs/manual-3.5/reference_sfcgal.html) | SFCGAL is a C++ wrapper library around CGAL that provides advanced 2D and 3D spatial functions | 3.6.4 | ⭐ | | |
 | [postgis\_tiger\_geocoder](https://postgis.net/docs/manual-3.5/Extras.html#Tiger_Geocoder) | A plpgsql based geocoder written to work with the TIGER (Topologically Integrated Geographic Encoding and Referencing system) / Line and Master Address database export released by the US Census Bureau | 3.6.4 | | | |
 | [postgis\_topology](https://postgis.net/docs/manual-3.5/Topology.html) | The PostGIS Topology types and functions are used to manage topological objects such as faces, edges and nodes | 3.6.4 | ⭐ | | |
 | [roaringbitmap](https://github.com/ChenHuajun/pg_roaringbitmap) | Compressed bitmap data type for efficient set operations such as union, intersection, difference, and cardinality | 1.2.0 | ⭐ | | |
-| [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 | | ✅ | [📝](extensions/timescaledb.md) |
-| [tin](search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ | | [📝](search.md) |
+| [TimescaleDB](https://github.com/timescale/timescaledb) | A time-series database for high-performance real-time analytics packaged as a Postgres extension ([Apache 2 Edition](https://docs.tigerdata.com/about/latest/timescaledb-editions/)) | 2.29.2 | | ✅ | [📝](https://planetscale.com/docs/postgres/extensions/timescaledb.md) |
+| [tin](https://planetscale.com/docs/postgres/search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ | | [📝](https://planetscale.com/docs/postgres/search.md) |
 | [wal2json](https://github.com/eulerto/wal2json) | Logical decoding output plugin that produces JSON format change data capture (CDC) output for streaming database changes | 2.6 | ⭐ | | |
 
 ### PlanetScale Extensions
@@ -313,9 +313,9 @@ These extensions are installed by PlanetScale and cannot be disabled.
 | Extension | Description | Version | Additional Notes |
 | - | - | - | - |
 | pgextwlist | PostgreSQL Extension Allowlist | N/A | |
-| pginsights | PlanetScale Insights plugin | N/A | [📝](extensions/pginsights.md) |
+| pginsights | PlanetScale Insights plugin | N/A | [📝](https://planetscale.com/docs/postgres/extensions/pginsights.md) |
 | pg\_pscale\_utils | Utility extension to handle superuser actions in PlanetScale Postgres | N/A | |
-| pg\_strict | Block UPDATE and DELETE statements without WHERE clauses to prevent accidental mass mutations | N/A | [📝](extensions/pg_strict.md) |
+| pg\_strict | Block UPDATE and DELETE statements without WHERE clauses to prevent accidental mass mutations | N/A | [📝](https://planetscale.com/docs/postgres/extensions/pg_strict.md) |
 
 ## Need Additional Extensions?
 

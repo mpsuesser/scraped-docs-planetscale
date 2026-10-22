@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/oauth
 title: "Oauth"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -69,11 +69,15 @@ View OAuth access scopes documentation
 
 [Open](https://planetscale.com/docs/docs/api/reference/oauth-access-scopes)
 
+This is only a partial list of the OAuth access scopes. For a full list of scopes, see the OAuth access scopes documentation.
+
 ## OAuth Authorization Flow
 
 PlanetScale's OAuth implementation supports the [Authorization Code grant type](https://oauth.net/2/grant-types/authorization-code/). The following diagram walks through the flow.
 
 ![OAuth authorization flow diagram](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/reference/c46b041-oauth_diagram.png?fit=max\&auto=format\&n=g0AZZQkXmTSBYuKj\&q=85\&s=5a79e6b26ef6501413ca162638a3cfc6)
+
+OAuth authorization flow diagram
 
 ### 0. Prerequisites
 

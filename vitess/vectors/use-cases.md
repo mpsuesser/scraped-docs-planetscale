@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors/use-cases
 title: "Use Cases"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -57,7 +57,7 @@ It also might miss documents that are about "wolves" or "coyotes."
 This search knows nothing about the *meaning* of the word "dog."
 
 This is where **vector similarity search** comes into play.
-With this type of search, we would generate an [embedding](terminology-and-concepts.md#vector-embedding) for each blog post in our data set.
+With this type of search, we would generate an [embedding](https://planetscale.com/docs/vitess/vectors/terminology-and-concepts.md#vector-embedding) for each blog post in our data set.
 An embedding is an N-dimensional vector that captures opaque meaning about some piece of data — in this case, the title + subtitle of a blog post.
 This vector would then be stored right along with the corresponding blog post row in the database.
 

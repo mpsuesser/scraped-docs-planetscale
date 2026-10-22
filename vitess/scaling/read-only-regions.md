@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/read-only-regions
 title: "Read Only Regions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,11 +14,11 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-Replicate your production database across the globe by creating read-only regions in any available [PlanetScale region](https://planetscale.com/docs/vitess/regions).
+Replicate your production database across the globe by creating read-only regions in any available [PlanetScale region](https://planetscale.com/docs/vitess/regions.md).
 
 This feature supports globally distributed applications by enabling your database to perform low latency reads in the regions closest to your applications and users.
 
-Read-only regions are configured per [keyspace](../sharding/keyspaces.md). Each read-only region runs a single replica by default, and you can choose the cluster size and number of replicas for each region independently of your primary region.
+Read-only regions are configured per [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md). Each read-only region runs a single replica by default, and you can choose the cluster size and number of replicas for each region independently of your primary region.
 
 ## How to create a read-only region
 
@@ -36,7 +36,7 @@ Select the keyspace you want to add a read-only region to. If you only have one 
 
 **Step 4**
 
-In the "**Read-only regions**" section, select the desired region from the dropdown of [available regions](https://planetscale.com/docs/vitess/regions).
+In the "**Read-only regions**" section, select the desired region from the dropdown of [available regions](https://planetscale.com/docs/vitess/regions.md).
 
 **Step 5**
 
@@ -86,7 +86,7 @@ Once you remove a region, you will no longer be charged for the storage or row r
 
 ### Global replica credentials
 
-A [global replica credential](replicas.md) routes queries to the nearest replica among your branch's primary-region replicas and read-only regions.
+A [global replica credential](https://planetscale.com/docs/vitess/scaling/replicas.md) routes queries to the nearest replica among your branch's primary-region replicas and read-only regions.
 
 **Step 1**
 
@@ -156,11 +156,11 @@ Connecting to a read-only region will allow you to query your data, but will not
 
 ## Availability and pricing
 
-Read-only regions are available on the [Base and Enterprise plans](../../planetscale-plans.md). Read-only regions are priced differently depending on the selected region.
+Read-only regions are available on the [Base and Enterprise plans](https://planetscale.com/docs/planetscale-plans.md). Read-only regions are priced differently depending on the selected region.
 
 ### Replica costs
 
-The prices in the tables below cover a read-only region running a single replica at the selected cluster size. Each replica beyond the first is billed at the standard additional replica rate for that cluster size. This is the same rate as additional [replicas](replicas.md) in your primary region. The total monthly cost for a region is shown in the app as you configure it.
+The prices in the tables below cover a read-only region running a single replica at the selected cluster size. Each replica beyond the first is billed at the standard additional replica rate for that cluster size. This is the same rate as additional [replicas](https://planetscale.com/docs/vitess/scaling/replicas.md) in your primary region. The total monthly cost for a region is shown in the app as you configure it.
 
 For sharded keyspaces, read-only region charges apply to each shard in the keyspace. As with all cluster charges, read-only region charges are prorated, so changing a region's cluster size or replica count mid-month only bills the new configuration for the time it was running.
 
@@ -173,7 +173,7 @@ As an example, let's say you're on our Base plan with 10 GB of included storage 
 If you have two read-only regions, each one will be charged at our additional storage rate, for a total of 14 GB.
 The read-only region storage rate is \$0.75 per GB, and in this case would lead to an additional storage charge of \$10.50.
 
-For more information on storage billing costs, see our [Billing documentation](../../planetscale-plans.md).
+For more information on storage billing costs, see our [Billing documentation](https://planetscale.com/docs/planetscale-plans.md).
 
 ## Pricing
 

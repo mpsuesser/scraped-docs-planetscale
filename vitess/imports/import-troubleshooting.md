@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/import-troubleshooting
 title: "Import Troubleshooting"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -36,7 +36,7 @@ If this works locally but not in PlanetScale, the issue is likely network-relate
 
 **Check IP allowlist**
 
-Make sure you've added all PlanetScale IP addresses to your database's firewall or security group. The specific IPs depend on which region you selected for your PlanetScale database. See our [Import public IP addresses](import-tool-migration-addresses.md) page.
+Make sure you've added all PlanetScale IP addresses to your database's firewall or security group. The specific IPs depend on which region you selected for your PlanetScale database. See our [Import public IP addresses](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) page.
 
 **Verify database is publicly accessible**
 
@@ -236,7 +236,7 @@ Or add a unique index:
 ALTER TABLE your_table ADD UNIQUE KEY unique_index (column1, column2);
 ```
 
-See our [Changing unique keys documentation](../schema-changes/onlineddl-change-unique-keys.md) for more details.
+See our [Changing unique keys documentation](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md) for more details.
 
 ### Invalid charset
 
@@ -308,7 +308,7 @@ Before retrying:
 2. Make sure your binlog retention is long enough for the full import
 3. Consider importing during off-peak hours
 
-To retry, [cancel the workflow](database-imports.md#cancel-an-import) with `--keep-data=false` and create it again.
+To retry, [cancel the workflow](https://planetscale.com/docs/vitess/imports/database-imports.md#cancel-an-import) with `--keep-data=false` and create it again.
 
 ### Can't select specific tables
 
@@ -366,7 +366,7 @@ Review the schema change, apply it to your PlanetScale database if needed, then 
 
 Check the `message` on each stream in the [`status`](../../cli/move-tables.md) output, or the Streams panel on the workflow page in the dashboard. Common ones:
 
-**"Access denied"** - Permission issues. See [user requirements](import-tool-user-requirements.md).
+**"Access denied"** - Permission issues. See [user requirements](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md).
 
 **"Table doesn't exist"** - Schema may have changed during import. Don't modify schema during import.
 
@@ -396,7 +396,7 @@ If truly stuck:
 
 **Solution:**
 
-Check that your migration user has all required permissions. See our [import user permissions](import-tool-user-requirements.md).
+Check that your migration user has all required permissions. See our [import user permissions](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md).
 
 For foreign key imports, the user needs either:
 
@@ -415,7 +415,7 @@ SHOW GRANTS FOR 'migration_user'@'%';
 
 **Solution:**
 
-Grant the privileges listed in the error. They must be granted directly to the user at the global or database level. See [Import user permissions](import-tool-user-requirements.md).
+Grant the privileges listed in the error. They must be granted directly to the user at the global or database level. See [Import user permissions](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md).
 
 If the error says the permissions `do not match user`, the user was created for a specific host. Create it for the host `'%'` instead.
 
@@ -454,7 +454,7 @@ If you notice missing or stale data after switching traffic:
 
 1. Check replication lag - it may still be catching up
 2. Verify your application is actually connecting to PlanetScale
-3. Run a [VDiff](database-imports.md#verify-data-optional) to compare your source database with PlanetScale
+3. Run a [VDiff](https://planetscale.com/docs/vitess/imports/database-imports.md#verify-data-optional) to compare your source database with PlanetScale
 
 Don't complete the import until you've verified data consistency.
 
@@ -507,7 +507,7 @@ Completing an import never removes tables from your source database. Pass `--kee
 If you've tried the solutions above and are still having issues:
 
 1. Check your database's error logs
-2. Review our [general MySQL compatibility guide](../troubleshooting/mysql-compatibility.md)
+2. Review our [general MySQL compatibility guide](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md)
 3. Look at the specific provider guide for your database
 4. Check the `status` output or the workflow page in the dashboard for detailed error messages
 5. [Contact PlanetScale support](https://planetscale.com/contact?initial=support)

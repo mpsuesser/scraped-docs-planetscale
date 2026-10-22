@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/operations-philosophy
 title: "Operations Philosophy"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > PlanetScale has a high standard for uptime and availability of Postgres databases.
 
-The foundation of achieving this goal in the cloud is our custom Kubernetes operator, the software that manages new database creation, version upgrades, resizes, failovers, and other operations in an inherently failure-prone environment. For more detail on how the operator orchestrates clusters, see the [Postgres architecture overview](postgres-architecture.md#custom-operator).
+The foundation of achieving this goal in the cloud is our custom Kubernetes operator, the software that manages new database creation, version upgrades, resizes, failovers, and other operations in an inherently failure-prone environment. For more detail on how the operator orchestrates clusters, see the [Postgres architecture overview](https://planetscale.com/docs/postgres/postgres-architecture.md#custom-operator).
 
 This document presents our architecture and philosophy on operating PlanetScale Postgres databases.
 All customers should read it, as it also covers what can be expected during failovers, querying replicas vs the primary, and the tradeoffs of using direct vs pooled connections.
@@ -84,7 +84,7 @@ PlanetScale takes the database unavailability produced by upgrades extremely ser
 We monitor this downtime across the fleet, and make continual efforts to reduce its impact.
 We apply context-appropriate, rather than a one-size fits all, upgrade strategies to ensure that a given upgrade takes no more time than absolutely necessary.
 
-PlanetScale allows manual configuration of a number of parameters via the [clusters](cluster-configuration.md) page.
+PlanetScale allows manual configuration of a number of parameters via the [clusters](https://planetscale.com/docs/postgres/cluster-configuration.md) page.
 Each configuration change falls into one of two categories:
 
 * Reloadable changes: The change can be applied with no need to restart Postgres.
@@ -118,14 +118,14 @@ There are two main ways to increase the compute capacity of a cluster: Adding re
 
 ### Adding Replicas
 
-Each production PlanetScale database (excluding single node) has 1 primary and 2 [replicas](scaling/replicas.md).
-In this standard configuration, read traffic can be [routed to a replica](scaling/replicas.md#how-to-query-postgres-replicas) rather than relying on the primary for everything.
+Each production PlanetScale database (excluding single node) has 1 primary and 2 [replicas](https://planetscale.com/docs/postgres/scaling/replicas.md).
+In this standard configuration, read traffic can be [routed to a replica](https://planetscale.com/docs/postgres/scaling/replicas.md#how-to-query-postgres-replicas) rather than relying on the primary for everything.
 It's important not to over-stress your replicas, however.
 If all three nodes in the cluster experience too much strain, failovers will be more disruptive, since the cluster will temporarily go from 3 nodes down to 2.
 Reads from replicas must also be able to tolerate replication lag.
 
 If you only need to increase the read capacity of the cluster, a good option can be to add 1 or several additional replicas.
-This is done through the [Clusters](cluster-configuration.md) menu, and has no negative impact on the other nodes when being added.
+This is done through the [Clusters](https://planetscale.com/docs/postgres/cluster-configuration.md) menu, and has no negative impact on the other nodes when being added.
 
 ### Resizing a cluster
 
@@ -187,7 +187,7 @@ The primary failure, detection, and election process typically takes 10 seconds 
 During this time your primary database will be inaccessible and no connections can be made.
 The time it takes for the new replica to catch-up to the primary varies from minutes to hours depending on database size and your instance type.
 
-For detailed guidance on configuring your application for maximum availability during failovers, see the [connection resilience guide](connection-resilience.md).
+For detailed guidance on configuring your application for maximum availability during failovers, see the [connection resilience guide](https://planetscale.com/docs/postgres/connection-resilience.md).
 
 ## Image upgrades
 

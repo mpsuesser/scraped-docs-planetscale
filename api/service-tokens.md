@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -42,7 +42,7 @@ Organization permissions are required when performing operations that are specif
 
 In the **Organization access permissions** modal, check the box next to each of the permission scopes that you want to assign to the token. Click **"Save permissions"** once finished.
 
-For a full list of organization access permissions, see the [API documentation for service tokens](reference/service-tokens.md#organization-access-permissions).
+For a full list of organization access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#organization-access-permissions).
 
 ### Add database permissions
 
@@ -50,7 +50,7 @@ In order to perform operations specific to a database, permissions can be assign
 
 Select the database you want to grant access to and check the box next to each permission option you need to grant. Once you are done, click **"Save permissions"**.
 
-For a full list of database access permissions, see the [API documentation for service tokens](reference/service-tokens.md#database-access-permissions).
+For a full list of database access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#database-access-permissions).
 
 ![The Database access permissions modal.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/db-access-permissions-2.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=2f2a5fae0c095305dc848397de6962a5)
 
@@ -61,7 +61,7 @@ Any permission added to all databases will not be able to be disabled on an indi
 
 ## Creating databases with service tokens
 
-A service token with the `create_databases` organization permission can create new databases in your organization. When a service token creates a database, it is automatically granted [database access permissions](reference/service-tokens.md#database-access-permissions) for that database. You do not need to add database permissions separately for each database the token creates.
+A service token with the `create_databases` organization permission can create new databases in your organization. When a service token creates a database, it is automatically granted [database access permissions](https://planetscale.com/docs/api/reference/service-tokens.md#database-access-permissions) for that database. You do not need to add database permissions separately for each database the token creates.
 
 Only organization administrators can grant the `create_databases` permission to a service token. Auto-granted permissions apply only to databases the token creates, not to existing databases in the organization.
 
@@ -75,7 +75,7 @@ pscale service-token add-access <SERVICE_TOKEN_ID> create_databases
 
 Once the `create_databases` permission is in place, you can create databases with the token using the CLI or API.
 
-Refer to the [Create a database](reference/create_database.md) API reference for all available parameters.
+Refer to the [Create a database](https://planetscale.com/docs/api/reference/create_database.md) API reference for all available parameters.
 
 ## Service tokens and deploy requests approvals
 
@@ -112,7 +112,7 @@ curl --request GET \
      --header 'Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>'
 ```
 
-Refer to the [API docs](reference/getting-started-with-planetscale-api.md) for more details on how to use the API.
+Refer to the [API docs](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md) for more details on how to use the API.
 
 ## Modify service token permissions
 
@@ -130,7 +130,7 @@ You can delete a service token at any time from the service token detail page. S
 
 ## Manage service tokens using the PlanetScale CLI
 
-Service tokens can also be created and managed directly from the [PlanetScale CLI](../cli/service-token.md).
+Service tokens can also be created and managed directly from the [PlanetScale CLI](https://planetscale.com/docs/cli/service-token.md).
 
 ### Create a new service token
 
@@ -158,7 +158,7 @@ For example, to give a service token the ability to create, read, and delete bra
 pscale service-token add-access <SERVICE_TOKEN_ID> read_branch delete_branch create_branch --database <DB_NAME>
 ```
 
-A complete list of service token access permissions can be found in the [PlanetScale API documentation](reference/service-tokens.md#access-permissions).
+A complete list of service token access permissions can be found in the [PlanetScale API documentation](https://planetscale.com/docs/api/reference/service-tokens.md#access-permissions).
 
 ### Remove database access permissions
 
@@ -180,7 +180,7 @@ pscale service-token delete <SERVICE_TOKEN_ID>
 
 ## Service token automation
 
-Running `pscale` in CI or an AI agent uses a [service token](../cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
+Running `pscale` in CI or an AI agent uses a [service token](https://planetscale.com/docs/cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
 
 ```bash theme={null}
 # Environment variables (recommended for CI and agents)
@@ -216,7 +216,7 @@ Do not retry these with service-token auth. The failure is by design, not transi
 | `pscale org show` | A service token has no "current" organization | `pscale org list --format json`, then pass `--org` or `PLANETSCALE_ORG` | `not authenticated yet. Please run 'pscale auth login'` |
 | `pscale service-token list` | Token management is blocked when authenticated with a token | `pscale api organizations/<org>/service-tokens --format json` | `pscale service-token list is unavailable when authenticated with a service token` |
 | `pscale service-token show-access` | Same as `list` | `pscale api organizations/<org>/service-tokens/<id> --format json` | `pscale service-token show-access is unavailable when authenticated with a service token` |
-| `pscale service-token` (other sub-commands) | Create/manage tokens blocked under service-token auth | `pscale auth login`, then CLI; or [Service tokens API](reference/service-tokens.md) | `pscale service-token <sub-command> is unavailable when authenticated with a service token` |
+| `pscale service-token` (other sub-commands) | Create/manage tokens blocked under service-token auth | `pscale auth login`, then CLI; or [Service tokens API](https://planetscale.com/docs/api/reference/service-tokens.md) | `pscale service-token <sub-command> is unavailable when authenticated with a service token` |
 | `pscale auth login` / `logout` | Not needed; the token is the credential | Set the token env vars; run `pscale auth check --format json` to confirm | requires an interactive browser device flow |
 | `pscale shell` / `connect` | Interactive sessions | Use [`pscale sql`](../cli/sql.md) for non-interactive queries | opens an interactive session |
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/what-is-planetscale
 title: "What Is Planetscale"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,15 +14,15 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > A fully managed relational database platform for Vitess, Neki, and Postgres, built for scale, performance, and reliability.
 
-PlanetScale is a fully managed relational database platform for [Vitess](vitess.md), [Neki](neki.md), and [Postgres](postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
+PlanetScale is a fully managed relational database platform for [Vitess](https://planetscale.com/docs/vitess.md), [Neki](https://planetscale.com/docs/neki.md), and [Postgres](https://planetscale.com/docs/postgres.md), bringing you scale, performance, and reliability — without sacrificing developer experience.
 
 We don't call ourselves the world's fastest database for nothing. Benchmarks for both [Vitess](https://planetscale.com/benchmarks/vitess) and [Postgres](https://planetscale.com/blog/benchmarking-postgres) show PlanetScale in the lead over and over again for both queries per second and latency.
 
-With PlanetScale, you get blazing fast performance with our [locally-attached NVMe drives](metal.md), high availability 3 node clusters (1 primary and 2 replicas by default), automated failovers, connection pooling, online fully-managed version upgrades, and more.
+With PlanetScale, you get blazing fast performance with our [locally-attached NVMe drives](https://planetscale.com/docs/metal.md), high availability 3 node clusters (1 primary and 2 replicas by default), automated failovers, connection pooling, online fully-managed version upgrades, and more.
 
 Our Vitess product offers unlimited scalability through explicit horizontal sharding. Vitess was [created at YouTube in 2010](https://vitess.io/overview/history/#:~:text=Vitess%20was%20created%20in%202010,exceed%20the%20database's%20serving%20capacity.) to solve the scaling issues they faced with their massive MySQL database. Vitess was later donated to the CNCF and continues to scale massive companies like [Slack](https://slack.engineering/scaling-datastores-at-slack-with-vitess/), [GitHub](https://github.blog/2021-09-27-partitioning-githubs-relational-databases-scale/), and more.
 
-For Postgres, [Neki](neki.md) provides the same model of horizontal sharding: applications connect to a router and query a logical database while data lives across independent shards. [Sign up for a PlanetScale account](https://auth.planetscale.com/sign-up) to use Neki.
+For Postgres, [Neki](https://planetscale.com/docs/neki.md) provides the same model of horizontal sharding: applications connect to a router and query a logical database while data lives across independent shards. [Sign up for a PlanetScale account](https://auth.planetscale.com/sign-up) to use Neki.
 
 The team building PlanetScale is made up of passionate industry experts who have spent decades working on databases for some of the web's largest companies. Our team has directly felt the pain of overly-complicated, unintuitive database tools and came to PlanetScale to build the future of databases — the database they wished they had at their previous companies.
 
@@ -38,23 +38,23 @@ When you deploy a PlanetScale database, you can choose from network-attached sto
 
 With most businesses now operating online, downtime and maintenance windows are no longer acceptable. Not only does downtime hurt customer experience and trust, but even a small amount of downtime can result in thousands to millions of dollars lost for companies.
 
-Our [non-blocking schema change workflow](vitess/schema-changes.md) for Vitess means that you'll never experience costly table locking or downtime when running schema changes. This is a fundamental piece of PlanetScale and something that we think everyone should have access to, so there's no additional configuration required. Zero-downtime schema changes are baked into the product.
+Our [non-blocking schema change workflow](https://planetscale.com/docs/vitess/schema-changes.md) for Vitess means that you'll never experience costly table locking or downtime when running schema changes. This is a fundamental piece of PlanetScale and something that we think everyone should have access to, so there's no additional configuration required. Zero-downtime schema changes are baked into the product.
 
 ### Branching workflow
 
-Our [branching workflow](vitess/schema-changes/branching.md) paired with [safe migrations](vitess/schema-changes/safe-migrations.md) is what enables non-blocking schema changes on your production Vitess database. Instead of applying schema changes directly to your production database, we let you create branches, which are essentially copies of your database. When you create a new branch off of production, you have an isolated copy of your database that you can use for development to make schema changes.
+Our [branching workflow](https://planetscale.com/docs/vitess/schema-changes/branching.md) paired with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) is what enables non-blocking schema changes on your production Vitess database. Instead of applying schema changes directly to your production database, we let you create branches, which are essentially copies of your database. When you create a new branch off of production, you have an isolated copy of your database that you can use for development to make schema changes.
 
 ![Branching workflow diagram - Create dev branch off of main, make schema changes, make deploy request, resolve schema conflicts, test, deploy to main](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/what-is-planetscale/branching-diagram.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=d54f0954cf67d1b8586eea998ae20c98)
 
 Development branches can serve as your staging environment, so you don't have to worry about spinning up a new testing database and constantly syncing it with production. We handle all of that for you.
 
-Once you're ready to deploy schema changes from your development branch to production, you [open a deploy request](vitess/schema-changes/deploy-requests.md). The deploy request allows your team to view a diff of the schema changes being made, comment, and approve before deploying the change to production.
+Once you're ready to deploy schema changes from your development branch to production, you [open a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). The deploy request allows your team to view a diff of the schema changes being made, comment, and approve before deploying the change to production.
 
 ![Example of a deploy request showing comments, approval, and deployment](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/what-is-planetscale/deploy-request.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=b1048b95a92ac1c91750bcfca9b99a60)
 
 ### Revert a schema change
 
-The final piece of the non-blocking schema change workflow is the ability to [revert a recently deployed schema change](vitess/schema-changes/deploy-requests.md#revert-a-schema-change) without losing any data that was written since deploying.
+The final piece of the non-blocking schema change workflow is the ability to [revert a recently deployed schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) without losing any data that was written since deploying.
 
 [Revert a schema change](https://player.vimeo.com/video/830571822?dnt=true)
 
@@ -64,17 +64,17 @@ No more fumbling around with snapshots or backups and restores. Just revert.
 
 ### Scale with sharding + unlimited connections
 
-With Vitess and [Neki](neki.md), we're able to offer horizontal scaling via sharding with minimal application changes.
+With Vitess and [Neki](https://planetscale.com/docs/neki.md), we're able to offer horizontal scaling via sharding with minimal application changes.
 
-PlanetScale allows you to break up a monolithic database and partition the data across several databases. This [reduces the load on a single database](https://planetscale.com/blog/one-million-queries-per-second-with-mysql) by distributing it across several. Sharding can easily become a convoluted and hard-to-manage scenario, but because of our underlying architecture, we're able to keep this sharding logic largely out of the application. So, from the application's perspective, there only exists one database. Use [Vitess sharding](vitess/sharding.md) for MySQL-compatible workloads, or [Neki](neki.md) for Postgres.
+PlanetScale allows you to break up a monolithic database and partition the data across several databases. This [reduces the load on a single database](https://planetscale.com/blog/one-million-queries-per-second-with-mysql) by distributing it across several. Sharding can easily become a convoluted and hard-to-manage scenario, but because of our underlying architecture, we're able to keep this sharding logic largely out of the application. So, from the application's perspective, there only exists one database. Use [Vitess sharding](https://planetscale.com/docs/vitess/sharding.md) for MySQL-compatible workloads, or [Neki](https://planetscale.com/docs/neki.md) for Postgres.
 
 Another scenario that companies with massive databases often run into is connection limits due to MySQL. With PlanetScale, we can support [nearly infinite connections](https://planetscale.com/blog/one-million-connections). Vitess offers built-in [connection pooling](https://vitess.io/reference/features/connection-pools/), and we've built our own [edge infrastructure](https://planetscale.com/blog/introducing-the-planetscale-serverless-driver-for-javascript) into PlanetScale to ensure connection limits are never an issue.
 
-We generally recommend exploring horizontal sharding when your database exceeds 250 GB of data and you are beginning to feel some of the [pains associated with large scale](https://planetscale.com/blog/how-to-scale-your-database-and-when-to-shard-mysql). [Vitess sharding](vitess/sharding/sharding-quickstart.md) is offered on our Base plan. Horizontal sharding for Postgres is available with [Neki](neki.md). If you need assistance with setting up horizontal sharding, migrating to PlanetScale, or want enterprise-level SLAs, we offer this through our [Enterprise plan](https://planetscale.com/enterprise) option. [Please reach out](https://planetscale.com/contact) for more information.
+We generally recommend exploring horizontal sharding when your database exceeds 250 GB of data and you are beginning to feel some of the [pains associated with large scale](https://planetscale.com/blog/how-to-scale-your-database-and-when-to-shard-mysql). [Vitess sharding](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md) is offered on our Base plan. Horizontal sharding for Postgres is available with [Neki](https://planetscale.com/docs/neki.md). If you need assistance with setting up horizontal sharding, migrating to PlanetScale, or want enterprise-level SLAs, we offer this through our [Enterprise plan](https://planetscale.com/enterprise) option. [Please reach out](https://planetscale.com/contact) for more information.
 
 ### Insights
 
-[PlanetScale Insights](vitess/monitoring/query-insights.md) is our in-dashboard query performance analytics tool. What's unique about Insights is that you can track performance down to the individual query level.
+[PlanetScale Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) is our in-dashboard query performance analytics tool. What's unique about Insights is that you can track performance down to the individual query level.
 
 [PlanetScale Insights](https://player.vimeo.com/video/830571854?dnt=true)
 
@@ -91,15 +91,15 @@ If you notice your application is running slower than it should or you want to d
 
 We understand changing database providers can be a pain, from dealing with downtime to complicated dumps and restores and endless compatibility issues.
 
-[Database imports](vitess/imports/database-imports.md) make moving to Vitess as pain-free as possible.
+[Database imports](https://planetscale.com/docs/vitess/imports/database-imports.md) make moving to Vitess as pain-free as possible.
 
-You connect your internet-accessible MySQL database to PlanetScale as an [external keyspace](vitess/cluster-configuration.md#create-an-external-keyspace), then copy its tables into PlanetScale with a [Vitess MoveTables](cli/move-tables.md) workflow. During the import, your production database remains live, and every change to it keeps replicating into PlanetScale. When you're ready, you switch traffic to PlanetScale with no downtime and no data loss.
+You connect your internet-accessible MySQL database to PlanetScale as an [external keyspace](https://planetscale.com/docs/vitess/cluster-configuration.md#create-an-external-keyspace), then copy its tables into PlanetScale with a [Vitess MoveTables](https://planetscale.com/docs/cli/move-tables.md) workflow. During the import, your production database remains live, and every change to it keeps replicating into PlanetScale. When you're ready, you switch traffic to PlanetScale with no downtime and no data loss.
 
 ### Connect
 
 A common task companies need to handle is extracting data out of their database for transformation and analysis.
 
-[PlanetScale Connect](vitess/integrations/airbyte.md) provides you with an easy way to perform ELT. You can connect your PlanetScale database to Airbyte or Stitch, and select the destination from there. Both platforms support several data storage destinations, such as Snowflake, Google Big Query, and more.
+[PlanetScale Connect](https://planetscale.com/docs/vitess/integrations/airbyte.md) provides you with an easy way to perform ELT. You can connect your PlanetScale database to Airbyte or Stitch, and select the destination from there. Both platforms support several data storage destinations, such as Snowflake, Google Big Query, and more.
 
 ### CLI
 
@@ -109,21 +109,21 @@ With commands for branching, deploy requests, backups, service tokens, and more,
 
 ### API
 
-Like the CLI, you can programmatically interact with PlanetScale using our [API](api/planetscale-api-oauth-applications.md).
+Like the CLI, you can programmatically interact with PlanetScale using our [API](https://planetscale.com/docs/api/planetscale-api-oauth-applications.md).
 
 The API is useful for building PlanetScale into other developer tooling for faster development workflows. For example, you can programmatically create and delete database branches, open and merge deploy requests, and more.
 
-See the [PlanetScale API reference](api/reference/getting-started-with-planetscale-api.md) for more information.
+See the [PlanetScale API reference](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md) for more information.
 
 ### Replicas
 
-Every production PlanetScale branch comes with two [replicas](vitess/scaling/replicas.md). Replicas are read-only copies of your database that can be used to offload read traffic from your primary. With global replica credentials, you can have one credential that will automatically route queries to your branch's replicas and read-only regions.
+Every production PlanetScale branch comes with two [replicas](https://planetscale.com/docs/vitess/scaling/replicas.md). Replicas are read-only copies of your database that can be used to offload read traffic from your primary. With global replica credentials, you can have one credential that will automatically route queries to your branch's replicas and read-only regions.
 
 ### Read-only regions
 
-Spin up [read-only regions](vitess/scaling/read-only-regions.md) for Vitess with the click of a button. For globally distributed applications, read-only regions allow you to place a copy of your data close to your users.
+Spin up [read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) for Vitess with the click of a button. For globally distributed applications, read-only regions allow you to place a copy of your data close to your users.
 
-To query your read-only region, create [a replica credential](vitess/scaling/replicas.md) for your database. Replica queries will be automatically routed to the nearest read-only region or one of the branch's replicas, whichever has the lowest latency available.
+To query your read-only region, create [a replica credential](https://planetscale.com/docs/vitess/scaling/replicas.md) for your database. Replica queries will be automatically routed to the nearest read-only region or one of the branch's replicas, whichever has the lowest latency available.
 
 ## Get in touch
 

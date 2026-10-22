@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-Query tags are key-value pairs embedded in SQL comments written into each statement to the database. PlanetScale parses these tags automatically and uses them to show filtered tag-based performance data alongside individual query executions in [Insights](query-insights.md).
+Query tags are key-value pairs embedded in SQL comments written into each statement to the database. PlanetScale parses these tags automatically and uses them to show filtered tag-based performance data alongside individual query executions in [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md).
 
 Tags follow the [SQLCommenter](https://google.github.io/sqlcommenter/) specification, an open standard created by Google for attaching metadata to SQL statements as comments.
 
@@ -70,7 +70,7 @@ tag:action:analytics
 
 ### Insights → Tags
 
-"Tags" is a top-level item under [Insights](query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
+"Tags" is a top-level item under [Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
 
 You can also see the tags associated with a query on the query details page (click on the query text from the list in Insights).
 
@@ -159,7 +159,7 @@ The most common cause is **tag placement**. Tags must appear before the semicolo
 
 If your tags are correctly placed and still not appearing:
 
-* Verify that your queries are being executed and appear in the [Insights queries table](query-insights.md)
+* Verify that your queries are being executed and appear in the [Insights queries table](https://planetscale.com/docs/vitess/monitoring/query-insights.md)
 * Check that you are searching with the correct syntax: `tag:key:value` (for example, `tag:category:analytics`)
 * If you're using the MySQL shell, confirm you have [enabled comments with the `-c` flag](https://dev.mysql.com/doc/refman/en/mysql-command-options.html#option_mysql_comments)
 

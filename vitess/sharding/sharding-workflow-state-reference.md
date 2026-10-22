@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-workflow-state-reference
 title: "Sharding Workflow State Reference"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ current_date: 2026-10-20T18:01:41.586Z
 >
 > This page describes the states of workflows created with the deprecated [`pscale workflow`](../../cli/workflow.md) command, the earlier dashboard workflow pages, or the `/workflows` API endpoints.
 >
-> Workflows created with [`pscale branch vtctl move-tables`](../../cli/move-tables.md) report their state directly from Vitess. Run `move-tables status` to see each stream's state (`Copying`, `Running`, `Lagging`, `Stopped`, or `Error`) and the workflow's `traffic_state`. See the [Sharding quickstart](sharding-quickstart.md) for the full lifecycle.
+> Workflows created with [`pscale branch vtctl move-tables`](../../cli/move-tables.md) report their state directly from Vitess. Run `move-tables status` to see each stream's state (`Copying`, `Running`, `Lagging`, `Stopped`, or `Error`) and the workflow's `traffic_state`. See the [Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md) for the full lifecycle.
 
 ## `copying`
 

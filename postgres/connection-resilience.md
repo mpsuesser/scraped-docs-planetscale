@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connection-resilience
 title: "Connection Resilience"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,13 +26,13 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Production teams running OLTP workloads need connection strategies that maximize availability during failovers and planned maintenance. This guide covers how to configure PlanetScale Postgres for resilience and what to expect during failovers.
 
-For background on PlanetScale Postgres cluster architecture, see [operations philosophy](operations-philosophy.md).
+For background on PlanetScale Postgres cluster architecture, see [operations philosophy](https://planetscale.com/docs/postgres/operations-philosophy.md).
 
 ## Connection interruption
 
 Postgres design dictates connection interruptions for several reasons:
 
-* **Parameter changes** — Changing certain [parameters](cluster-configuration/parameters.md) requires connection interruption.
+* **Parameter changes** — Changing certain [parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) requires connection interruption.
 * **Cluster resizing** — If you're upgrading which cluster size you're running on, or the amount of CPU/memory, connections will be interrupted as we move the cluster to new hardware.
 * **Enabling extensions** — The design of the extension ecosystem means most new extensions need connection interruption.
 * **PlanetScale routine maintenance** — Very occasionally, PlanetScale has to perform routine maintenance on your database (e.g. for operating system updates and other infrastructure changes). We notify your organization's admin contacts at least 24 hours before scheduled maintenance (typically weeks beforehand).
@@ -50,9 +50,9 @@ Connections held longer than 24 hours may be terminated unexpectedly. Configure 
 
 PlanetScale Postgres offers one connection path that is significantly more resilient in the face of maintenance and other failovers, which is a dedicated PgBouncer. We strongly recommend production customers use a dedicated PgBouncer. A dedicated PgBouncer allows us to turn all planned failovers into a brief period of elevated latency with no connection drops (using `PAUSE`).
 
-It's worth noting that PgBouncer has several important compatibility problems that can cause unexpected application issues. See [transaction pooling limitations](connecting/pgbouncer.md#limitations-of-transaction-pooling).
+It's worth noting that PgBouncer has several important compatibility problems that can cause unexpected application issues. See [transaction pooling limitations](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#limitations-of-transaction-pooling).
 
-See the [PgBouncer documentation](connecting/pgbouncer.md) for configuration options and the [connections overview](connecting.md) for a comparison of all connection methods.
+See the [PgBouncer documentation](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) for configuration options and the [connections overview](https://planetscale.com/docs/postgres/connecting.md) for a comparison of all connection methods.
 
 If you have replica traffic that is production critical, we also recommend using dedicated PgBouncers for your replicas.
 
@@ -77,7 +77,7 @@ See [Connection lifetime](#connection-lifetime). Recycle every connection at lea
 
 ### What happens during a failover
 
-PlanetScale failovers typically complete in seconds. See [operations philosophy](operations-philosophy.md#minimizing-the-impact-of-configuration-changes) for details on our failover approach. During a planned failover (e.g. maintenance, parameter changes, etc.), we can use `PAUSE` with a dedicated PgBouncer to replace connection interruptions with a latency increase on starting new transactions.
+PlanetScale failovers typically complete in seconds. See [operations philosophy](https://planetscale.com/docs/postgres/operations-philosophy.md#minimizing-the-impact-of-configuration-changes) for details on our failover approach. During a planned failover (e.g. maintenance, parameter changes, etc.), we can use `PAUSE` with a dedicated PgBouncer to replace connection interruptions with a latency increase on starting new transactions.
 
 ### How PAUSE keeps connections alive
 
@@ -105,7 +105,7 @@ Use `statement_timeout` to bound how long individual queries can run. Route anal
 
 ## Monitoring query latency
 
-Use [Query Insights](monitoring/query-insights.md) to identify slow queries that could block failovers.
+Use [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to identify slow queries that could block failovers.
 
 ## Timeouts
 

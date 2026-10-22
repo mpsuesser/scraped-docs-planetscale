@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/teams
 title: "Teams"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,10 +24,10 @@ You can manage teams straight from your PlanetScale dashboard by going to "**Set
 
 > [!NOTE]
 >
-> Only [Organization Administrators](access-control.md#organization-administrator) can create and
+> Only [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator) can create and
 > manage Teams.
 
-Once you add databases to a team, any members on that team will have [Database Administrator access](access-control.md#database-level-permissions) to those databases. Review our [Access control documentation](access-control.md) to understand the full scope of Database Administrator access.
+Once you add databases to a team, any members on that team will have [Database Administrator access](https://planetscale.com/docs/security/access-control.md#database-level-permissions) to those databases. Review our [Access control documentation](https://planetscale.com/docs/security/access-control.md) to understand the full scope of Database Administrator access.
 
 ### Create a team
 
@@ -67,7 +67,7 @@ Click "**Add databases**".
 
 **Step 2**
 
-Select the databases you want this team to have [database administrator access](access-control.md#database-level-permissions) to.
+Select the databases you want this team to have [database administrator access](https://planetscale.com/docs/security/access-control.md#database-level-permissions) to.
 
 Now, when you go to the Settings page for any databases you've added to a team, you'll also be able to view and revoke access straight from the database Administrators page.
 
@@ -85,7 +85,7 @@ To remove a database from a team, click the "**x**" next to the database name un
 
 ## Directory Sync with Teams
 
-If you have [SSO with Directory Sync](sso.md#directory-sync) enabled, all Teams will be managed by your Directory Sync directory. You can add and remove database access to teams, but member management must be done through your directory.
+If you have [SSO with Directory Sync](https://planetscale.com/docs/security/sso.md#directory-sync) enabled, all Teams will be managed by your Directory Sync directory. You can add and remove database access to teams, but member management must be done through your directory.
 
 ![Dashboard UI - Directory-managed Teams page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/sso/managed.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=f36262759a8dc656e592aa960eaaa77e)
 

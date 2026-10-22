@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,54 +16,54 @@ current_date: 2026-10-20T18:01:41.586Z
 
 From here, you can:
 
-* Adjust the instance sizes for [keyspaces](sharding/keyspaces.md)
-* Enable [per-shard sizing](cluster-configuration/per-shard-sizing.md) on sharded keyspaces
+* Adjust the instance sizes for [keyspaces](https://planetscale.com/docs/vitess/sharding/keyspaces.md)
+* Enable [per-shard sizing](https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing.md) on sharded keyspaces
 * Create sharded or unsharded keyspaces
 * Create [external keyspaces](#create-an-external-keyspace) that connect a production branch to an existing MySQL database
-* Switch between [Metal](../plans/planetscale-skus.md#metal) and [network-attached storage](../plans/planetscale-skus.md#network-attached-storage)
+* Switch between [Metal](https://planetscale.com/docs/plans/planetscale-skus.md#metal) and [network-attached storage](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage)
 * Adjust the number of replicas for each keyspace
-* Add and configure [read-only regions](scaling/read-only-regions.md) for each keyspace
+* Add and configure [read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) for each keyspace
 * Adjust the VSchema
-* Adjust the number and size of [VTGates](scaling/vtgates.md)
-* Turn on [VTGate autoscaling](scaling/vtgates.md#autoscaling-vtgates)
+* Adjust the number and size of [VTGates](https://planetscale.com/docs/vitess/scaling/vtgates.md)
+* Turn on [VTGate autoscaling](https://planetscale.com/docs/vitess/scaling/vtgates.md#autoscaling-vtgates)
 * View the CPU and memory utilization of your VTGates
 * View any changes to your VTGates
-* Adjust the [memory allocated to vector indexes](vectors.md#resource-requirements) and the InnoDB buffer pool, for any branch with [vectors](vectors.md) enabled
+* Adjust the [memory allocated to vector indexes](https://planetscale.com/docs/vitess/vectors.md#resource-requirements) and the InnoDB buffer pool, for any branch with [vectors](https://planetscale.com/docs/vitess/vectors.md) enabled
 * Configure [VReplication settings](#vreplication-settings)
 * Configure [replication durability constraints](#replication-durability-constraints)
 * Configure [shard rollout concurrency](#shard-rollout-concurrency)
 * Enable or disable the [tablet throttler](#throttler) and set its replication lag threshold
-* Tune [VTGate, VTTablet, and MySQL parameters](cluster-configuration/parameters.md)
+* Tune [VTGate, VTTablet, and MySQL parameters](https://planetscale.com/docs/vitess/cluster-configuration/parameters.md)
 
-This documentation will cover how to use everything in this Clusters page. For a full walkthrough with an example of setting up a sharded keyspace, refer to the [Sharding quickstart](sharding/sharding-quickstart.md).
+This documentation will cover how to use everything in this Clusters page. For a full walkthrough with an example of setting up a sharded keyspace, refer to the [Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md).
 
-If you would like additional support configuring your sharded keyspaces, our [Enterprise plan](../planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
+If you would like additional support configuring your sharded keyspaces, our [Enterprise plan](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan) may be a good fit. [Get in touch](https://planetscale.com/contact) for a quick assessment.
 
 ## Adjust your cluster size
 
-To adjust your cluster size, first select the [keyspace](sharding/keyspaces.md) you'd like to adjust. If you only have one keyspace, it will be selected by default.
+To adjust your cluster size, first select the [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md) you'd like to adjust. If you only have one keyspace, it will be selected by default.
 
-Click on the "Cluster size" dropdown. Select the new cluster size, ([Metal](../metal.md) or network-attached storage). If you select Metal, make sure you select the correct storage size. Finally. click "Save".
+Click on the "Cluster size" dropdown. Select the new cluster size, ([Metal](https://planetscale.com/docs/metal.md) or network-attached storage). If you select Metal, make sure you select the correct storage size. Finally. click "Save".
 
 A network-attached storage cluster (Amazon Elastic Block Storage or Google Persistent Disk) may take a few minutes to change sizes. And a Metal cluster can take hours, depending on the size.
 
-You can check the status of the resize from the [database homepage](architecture.md#resizing) in the dashboard, [CLI](../cli/keyspace.md), or [API](../api/reference/get_keyspace_rollout_status.md). There will be no downtime or locking during this process.
+You can check the status of the resize from the [database homepage](https://planetscale.com/docs/vitess/architecture.md#resizing) in the dashboard, [CLI](https://planetscale.com/docs/cli/keyspace.md), or [API](https://planetscale.com/docs/api/reference/get_keyspace_rollout_status.md). There will be no downtime or locking during this process.
 
-For more information about selecting a cluster size, see the [Cluster sizing documentation](../plans/cluster-sizing.md).
+For more information about selecting a cluster size, see the [Cluster sizing documentation](https://planetscale.com/docs/plans/cluster-sizing.md).
 
 ## Per-shard sizing
 
-On a sharded keyspace, enable [per-shard sizing](cluster-configuration/per-shard-sizing.md) from the Shards tab, then set a cluster size on individual shards. Shards you don't set keep the keyspace default.
+On a sharded keyspace, enable [per-shard sizing](https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing.md) from the Shards tab, then set a cluster size on individual shards. Shards you don't set keep the keyspace default.
 
 ## Configure read-only regions
 
-Each keyspace has a "Read-only regions" section where you can add [read-only regions](scaling/read-only-regions.md) and choose the cluster size and number of replicas for each region. The monthly cost of each region is shown as you configure it. See the [Read-only regions documentation](scaling/read-only-regions.md) for more information.
+Each keyspace has a "Read-only regions" section where you can add [read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) and choose the cluster size and number of replicas for each region. The monthly cost of each region is shown as you configure it. See the [Read-only regions documentation](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) for more information.
 
 ## Create a keyspace
 
 > [!WARNING]
 >
-> Misconfiguration to keyspaces can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](sharding.md) of the docs prior to adding additional keyspaces. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
+> Misconfiguration to keyspaces can cause availability issues. We recommend thoroughly reading through the documentation in the [Sharding section](https://planetscale.com/docs/vitess/sharding.md) of the docs prior to adding additional keyspaces. If you have any questions, please [reach out to our support team](https://planetscale.com/contact?initial=support).
 
 > [!WARNING]
 >
@@ -79,13 +79,13 @@ Each keyspace has a "Read-only regions" section where you can add [read-only reg
 > }
 > ```
 >
-> Otherwise, queries will fail. [Learn more about VSchema.](sharding/vschema.md)
+> Otherwise, queries will fail. [Learn more about VSchema.](https://planetscale.com/docs/vitess/sharding/vschema.md)
 
 > [!NOTE]
 >
 > Sharded keyspaces are not currently supported on databases that have foreign key constraints enabled.
 
-To create a new [keyspace](sharding/keyspaces.md):
+To create a new [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md):
 
 **Step 1**
 
@@ -141,7 +141,7 @@ Once satisfied, click "Create keyspace".
 
 ## Create an external keyspace
 
-An external keyspace connects a **production** branch to an existing MySQL database. PlanetScale runs an external tablet against that source so Vitess can read from it. External keyspaces are the source of a [database import](imports/database-imports.md): once the keyspace is ready, a [MoveTables workflow](../cli/move-tables.md#import-from-an-external-keyspace) copies its tables into a PlanetScale keyspace.
+An external keyspace connects a **production** branch to an existing MySQL database. PlanetScale runs an external tablet against that source so Vitess can read from it. External keyspaces are the source of a [database import](https://planetscale.com/docs/vitess/imports/database-imports.md): once the keyspace is ready, a [MoveTables workflow](https://planetscale.com/docs/cli/move-tables.md#import-from-an-external-keyspace) copies its tables into a PlanetScale keyspace.
 
 **Step 1**
 
@@ -162,18 +162,18 @@ Enter a keyspace name. This is the Vitess keyspace name, not the remote schema n
 **Step 5**
 
 Enter the source hostname, port, database name, username, password, and SSL mode. These fields match the
-[database import](imports/database-imports.md#connection-settings) connection settings.
+[database import](https://planetscale.com/docs/vitess/imports/database-imports.md#connection-settings) connection settings.
 
 **Step 6**
 
 Allow the IP addresses listed on the form in your database's firewall or security group, and make sure the user has
-the [import user permissions](imports/import-tool-user-requirements.md).
+the [import user permissions](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md).
 
 **Step 7**
 
 PlanetScale checks connectivity, server settings, user grants, and schema compatibility, then creates the keyspace.
 
-You can create the same keyspace from the CLI with [`pscale keyspace create-external`](../cli/keyspace.md#create-an-external-keyspace). Resize an existing external keyspace from this page, or with [`pscale keyspace resize`](../cli/keyspace.md). To import the data, follow [Database imports](imports/database-imports.md#step-4-start-the-import).
+You can create the same keyspace from the CLI with [`pscale keyspace create-external`](../cli/keyspace.md#create-an-external-keyspace). Resize an existing external keyspace from this page, or with [`pscale keyspace resize`](../cli/keyspace.md). To import the data, follow [Database imports](https://planetscale.com/docs/vitess/imports/database-imports.md#step-4-start-the-import).
 
 ## Modify the VSchema of a keyspace via the Clusters page
 
@@ -183,7 +183,7 @@ You can create the same keyspace from the CLI with [`pscale keyspace create-exte
 
 Once you have created your keyspace, you will see a new tab: **VSchema**. The VSchema contains information about how the keyspace is sharded, sequence tables, and other Vitess schema information. The VSchema tab allows you to configure the Vschema for your new keyspace or modify it for existing keyspaces.
 
-We do not recommend modifying the VSchema directly on your production branch. In fact, it is not possible to do if you have [safe migrations](schema-changes/safe-migrations.md) enabled (as recommended). Instead, to modify the VSchema, you should first [create a new development branch](schema-changes/branching.md). Once you have your branch ready, follow these steps:
+We do not recommend modifying the VSchema directly on your production branch. In fact, it is not possible to do if you have [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled (as recommended). Instead, to modify the VSchema, you should first [create a new development branch](https://planetscale.com/docs/vitess/schema-changes/branching.md). Once you have your branch ready, follow these steps:
 
 **Step 1**
 
@@ -197,7 +197,7 @@ Next, click the tab labeled "VSchema".
 **Step 3**
 
 Modify the VSchema configuration JSON file as needed. Refer to the [VSchema
-documentation](sharding/vschema.md) for more information about the available options.
+documentation](https://planetscale.com/docs/vitess/sharding/vschema.md) for more information about the available options.
 
 **Step 4**
 
@@ -212,7 +212,7 @@ modified.
 
 **Step 6**
 
-From here, go through the normal [deploy request process](schema-changes/deploy-requests.md) to deploy
+From here, go through the normal [deploy request process](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) to deploy
 this change to production.
 
 Once your change is deployed to production, you can come back to the Clusters page, switch to your production branch, and view the updates to your VSchema. You can also click the "Changes" tab to see information, such as the resize event, status, and start/end time for any previous changes to the VSchema.
@@ -254,7 +254,7 @@ pscale keyspace settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME>
 pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> --max-rollout <NUMBER>
 ```
 
-You can also set `max_rollout` with the [update keyspace API endpoint](../api/reference/update_keyspace.md). Omitting `max_rollout` preserves the current setting. Passing `null` through the API clears the configured value and uses the default of 1.
+You can also set `max_rollout` with the [update keyspace API endpoint](https://planetscale.com/docs/api/reference/update_keyspace.md). Omitting `max_rollout` preserves the current setting. Passing `null` through the API clears the configured value and uses the default of 1.
 
 ### Throttler
 
@@ -263,7 +263,7 @@ The [Vitess tablet throttler](https://vitess.io/docs/reference/features/tablet-t
 * **Enable** — On by default. When enabled, migrations and workflows pause while replication lag is above the threshold. This setting applies across all shards in the keyspace.
 * **Replication lag threshold** — Seconds of lag that trip the throttler. The default is 5 seconds.
 
-You can also change these settings from the CLI with `pscale keyspace update-settings`. See the [keyspace CLI docs](../cli/keyspace.md).
+You can also change these settings from the CLI with `pscale keyspace update-settings`. See the [keyspace CLI docs](https://planetscale.com/docs/cli/keyspace.md).
 
 ## Need help?
 

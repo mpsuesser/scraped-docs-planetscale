@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/deployment-options
 title: "Deployment Options"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ Vitess and Postgres
 
 **Single-tenancy** — In a single-tenant environment, your database is hosted on dedicated infrastructure that is not shared with any other users/customers.
 
-Your deployment options depend on the [PlanetScale plan](../planetscale-plans.md) you choose. This documentation covers some differences between single-tenancy and multi-tenancy so you can evaluate which plan may be suitable for you. For an in-depth look at the different plans we offer, see the [PlanetScale plans documentation](../planetscale-plans.md).
+Your deployment options depend on the [PlanetScale plan](https://planetscale.com/docs/planetscale-plans.md) you choose. This documentation covers some differences between single-tenancy and multi-tenancy so you can evaluate which plan may be suitable for you. For an in-depth look at the different plans we offer, see the [PlanetScale plans documentation](https://planetscale.com/docs/planetscale-plans.md).
 
 ## Multi-tenancy deployment on PlanetScale
 
@@ -30,20 +30,20 @@ Multi-tenancy is the default deployment option. When you sign up for a PlanetSca
 
 ### Multi-tenancy highlights
 
-* Your database runs on PlanetScale's [secure cloud infrastructure](../security.md)
+* Your database runs on PlanetScale's [secure cloud infrastructure](https://planetscale.com/docs/security.md)
 * Lowest cost plans
 * No configuration requirements on your end
 * BAAs available for HIPAA compliance
-* [Private connection support](../vitess/connecting/private-connections.md) via AWS PrivateLink
-* [Private connection support](../vitess/connecting/private-connections-gcp.md) via GCP Private Service Connect
+* [Private connection support](https://planetscale.com/docs/vitess/connecting/private-connections.md) via AWS PrivateLink
+* [Private connection support](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md) via GCP Private Service Connect
 
 ## Single-tenancy deployment on PlanetScale
 
-Single-tenant deployment options are available with [PlanetScale Enterprise](../planetscale-plans.md#enterprise-plan). Companies that require their PlanetScale databases to be hosted in a single-tenant environment have two options: Enterprise — Single-tenant and Managed.
+Single-tenant deployment options are available with [PlanetScale Enterprise](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan). Companies that require their PlanetScale databases to be hosted in a single-tenant environment have two options: Enterprise — Single-tenant and Managed.
 
 > [!NOTE]
 >
-> In both options, your database is deployed in a single-tenant environment. The main difference between Enterprise — Single-tenant and Managed is who owns the underlying account. With [Managed](managed.md), your database is deployed in your own AWS, GCP, or Azure account. With Enterprise — Single-tenant, PlanetScale owns and manages the account.
+> In both options, your database is deployed in a single-tenant environment. The main difference between Enterprise — Single-tenant and Managed is who owns the underlying account. With [Managed](https://planetscale.com/docs/plans/managed.md), your database is deployed in your own AWS, GCP, or Azure account. With Enterprise — Single-tenant, PlanetScale owns and manages the account.
 >
 > If you're interested in learning more, please [reach out](https://planetscale.com/contact), and we can figure out the best solution for your use case.
 
@@ -55,9 +55,9 @@ Single-tenant deployment options are available with [PlanetScale Enterprise](../
 * You can continue to use the PlanetScale UI and CLI in the same way that you would our general self-serve offerings, but the infrastructure runs in an isolated environment
 * BAAs available for HIPAA compliance
 * Support for private database connectivity via:
-  * **AWS** — [AWS PrivateLink](managed/aws/privatelink.md) (recommended) or [VPC peering](managed/aws/vpc-peering.md)
+  * **AWS** — [AWS PrivateLink](https://planetscale.com/docs/plans/managed/aws/privatelink.md) (recommended) or [VPC peering](https://planetscale.com/docs/plans/managed/aws/vpc-peering.md)
   * **GCP** — [Private Service Connect](https://cloud.google.com/vpc/docs/private-access-options)
-  * **Azure** — [Azure Private Link](managed/azure/private-link.md)
+  * **Azure** — [Azure Private Link](https://planetscale.com/docs/plans/managed/azure/private-link.md)
 
 If you have any questions about which deployment option may be best for you, [reach out to us](https://planetscale.com/contact) and we can help you figure it out.
 

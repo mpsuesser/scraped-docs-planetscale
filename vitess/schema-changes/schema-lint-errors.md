@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors
 title: "Schema Lint Errors"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -48,7 +48,7 @@ When a check fails, PlanetScale returns a schema lint error with an error code, 
 3. If the fix depends on another object, such as a referenced table or a sequence table, deploy that dependency first.
 4. Create a new deploy request after the branch schema is valid.
 
-For broader context, see [deploy requests](deploy-requests.md), [safe migrations](safe-migrations.md), [VSchema](../sharding/vschema.md), and [Vindexes](../sharding/vindexes.md).
+For broader context, see [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md), [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md), [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md), and [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md).
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/architecture
 title: "Architecture"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,14 +16,14 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-We achieve these goals through a combination of [MySQL](terminology.md#mysql), [Vitess](terminology.md#vitess), and our own application and ecosystem we have built atop these open-source technologies.
+We achieve these goals through a combination of [MySQL](https://planetscale.com/docs/vitess/terminology.md#mysql), [Vitess](https://planetscale.com/docs/vitess/terminology.md#vitess), and our own application and ecosystem we have built atop these open-source technologies.
 There is a great deal of infrastructure that enables our databases to be highly-available, secure, and resilient.
 In this article, you'll learn about what powers PlanetScale databases and how you can view your database's configuration on our app.
 
 ## The infrastructure diagram
 
 After creating a PlanetScale account and joining at least one organization, you can create a database.
-Each new database has a single default [keyspace](terminology.md#keyspace) — a logical database — with the same name as the database.
+Each new database has a single default [keyspace](https://planetscale.com/docs/vitess/terminology.md#keyspace) — a logical database — with the same name as the database.
 On the dashboard of every PlanetScale database is a diagram outlining the infrastructure that powers the database.
 
 ![Architecture diagram for a PlanetScale database](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/architecture/diagram.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=9ec6943a8d9e7fa4d258fdc00fc5f8e1)
@@ -37,13 +37,13 @@ Here's how you can tell what keyspace and branch you are viewing the diagram of:
 
 Production branches are designed for production workloads, and as such are given enough resources to ensure high availability.
 By default, every production branch has a single primary MySQL instance and two replicas.
-Each primary also comes with 3 [VTGates](terminology.md#vtgate) across 3 availability zones, which act as proxies for your MySQL instances.
+Each primary also comes with 3 [VTGates](https://planetscale.com/docs/vitess/terminology.md#vtgate) across 3 availability zones, which act as proxies for your MySQL instances.
 These are all pictured in the diagram for a production branch:
 
 ![Production branch architecture](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/architecture/diagram-production-branch.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=d1688f64961aa7260622d92bfc9f0122)
 
 Generally, the application connecting to this database need not be aware of these various components.
-One exception to this is if you are specifically trying to [send queries to a replica](scaling/replicas.md#how-to-query-replicas).
+One exception to this is if you are specifically trying to [send queries to a replica](https://planetscale.com/docs/vitess/scaling/replicas.md#how-to-query-replicas).
 
 ### Development branches
 
@@ -58,9 +58,9 @@ When you promote a development branch to production status, PlanetScale automati
 ### Read-only regions
 
 The primary of your database is the only node that can accept writes, and it resides in a single region.
-You can add [read-only regions](scaling/read-only-regions.md) to each keyspace on a production branch, which adds replicas in another region that can be used to serve read traffic.
+You can add [read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) to each keyspace on a production branch, which adds replicas in another region that can be used to serve read traffic.
 This can help reduce read latency for application servers that are distributed around the world.
-Each read-only region's cluster size and number of replicas are configured per keyspace on the [Clusters page](cluster-configuration.md).
+Each read-only region's cluster size and number of replicas are configured per keyspace on the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md).
 
 Below, you can see our database has the primary and two replicas in `us-east-2` with read-only replicas added in both `us-west-2` and `eu-central-1`.
 
@@ -113,7 +113,7 @@ These numbers are a way to read the replication lag between the Primary node and
 
 ### Database shards
 
-If your database is [sharded](sharding.md), the infrastructure diagram will represent that as a green stack of shards.
+If your database is [sharded](https://planetscale.com/docs/vitess/sharding.md), the infrastructure diagram will represent that as a green stack of shards.
 
 ![Stacked shards](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/architecture/shard-stack.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=18c7dfaa2566c3329b47bdb6dca445aa)
 
@@ -131,7 +131,7 @@ Selecting one will show you the metrics for that specific node in your database 
 
 ### Resizing
 
-You can use the [Clusters page](cluster-configuration.md) menu to resize your keyspaces. On a sharded keyspace, you can also enable [per-shard sizing](cluster-configuration/per-shard-sizing.md) and resize individual shards.
+You can use the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) menu to resize your keyspaces. On a sharded keyspace, you can also enable [per-shard sizing](https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing.md) and resize individual shards.
 When a resize is in progress, this will be indicated at the top of the diagram.
 
 ![Architecture diagram with resize indicator](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/architecture/diagram-resize.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=6ec8d02f12cd08efd6d29668a491c57d)

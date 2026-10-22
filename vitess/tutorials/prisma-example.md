@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prisma-example
 title: "Prisma Example"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -46,7 +46,7 @@ datasource db {
 
 > [!NOTE]
 >
-> Ensure you update the host value in your connection string to `aws.connect.psdb.cloud`. You can learn more about this [here](planetscale-serverless-driver.md#add-and-use-the-planetscale-serverless-driver-for-javascript-to-your-project).
+> Ensure you update the host value in your connection string to `aws.connect.psdb.cloud`. You can learn more about this [here](https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver.md#add-and-use-the-planetscale-serverless-driver-for-javascript-to-your-project).
 
 **Step 3**
 

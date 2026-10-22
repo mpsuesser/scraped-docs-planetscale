@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/unspecified
 title: "Unspecified"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -33,9 +33,9 @@ Deploy requests and imports must produce a schema Vitess can safely apply. If th
 
 ## Related docs
 
-* [Schema lint errors](../schema-lint-errors.md)
-* [Deploy requests](../deploy-requests.md)
-* [MySQL compatibility](../../mysql-compatibility.md)
+* [Schema lint errors](https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors.md)
+* [Deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md)
+* [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md)
 
 ## Need help?
 

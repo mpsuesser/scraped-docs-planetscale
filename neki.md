@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki
 title: "Neki"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,25 +24,25 @@ Neki abstracts all of this capability behind a single connection string that spe
 It accomplishes this by placing a sophisticated proxy (router) between clients and the Postgres nodes.
 This router parses, plans, and coordinates all of the Postgres traffic, routing it to the correct nodes in an extremely efficient way.
 
-All of these capabilities come with the other PlanetScale features like [Insights](neki/monitoring/query-insights.md), [anomalies](neki/monitoring/anomalies.md), and [schema recommendations](neki/monitoring/schema-recommendations.md).
+All of these capabilities come with the other PlanetScale features like [Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md), [anomalies](https://planetscale.com/docs/neki/monitoring/anomalies.md), and [schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md).
 This makes it a perfect solution for anything from a massive database storing hundreds of terabytes across many shards, all the way down to small, unsharded Postgres databases with a handful of gigabytes.
 
 You do not have to shard to use Neki. A new database starts as an unsharded cluster. You still get all the benefits of zero-downtime upgrades, cluster management, connection pooling and more.
-Whether you later shard depends on your traffic, access patterns, and data — see [When to shard](neki/when-to-shard.md).
+Whether you later shard depends on your traffic, access patterns, and data — see [When to shard](https://planetscale.com/docs/neki/when-to-shard.md).
 
-> **[Architecture](neki/overview.md)**
+> **[Architecture](https://planetscale.com/docs/neki/overview.md)**
 >
 > The components of a Neki deployment and how they fit together.
 
-> **[When to shard](neki/when-to-shard.md)**
+> **[When to shard](https://planetscale.com/docs/neki/when-to-shard.md)**
 >
 > Whether sharding is the right answer to the limits you're hitting.
 
-> **[Quickstart](neki/tutorials/planetscale-quick-start-guide.md)**
+> **[Quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md)**
 >
 > Create your first Neki database, connect, and insert data.
 
-> **[Neki vs PlanetScale Postgres](neki/coming-from-postgres.md)**
+> **[Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md)**
 >
 > The upgrade from a single primary, and the habits that change.
 
@@ -52,7 +52,7 @@ Neki is currently available through the PlanetScale Platform Preview. An organiz
 
 ## From the maintainers of Vitess
 
-Neki is built by PlanetScale, the maintainers of [Vitess](vitess.md).
+Neki is built by PlanetScale, the maintainers of [Vitess](https://planetscale.com/docs/vitess.md).
 Vitess already runs some of the largest services on the internet, including Slack, Square, and Cursor.
 
 Neki is not a Vitess port.

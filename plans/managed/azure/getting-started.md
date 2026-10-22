@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/azure/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ This guide explains how to prepare an Azure subscription for PlanetScale Managed
 
 > [!NOTE]
 >
-> This guide is intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot complete provisioning without PlanetScale enabling Managed for your organization. If you are interested in [PlanetScale Managed](../../managed.md), [contact us](https://planetscale.com/contact).
+> This guide is intended for PlanetScale Managed customers currently working with the PlanetScale team. You cannot complete provisioning without PlanetScale enabling Managed for your organization. If you are interested in [PlanetScale Managed](https://planetscale.com/docs/plans/managed.md), [contact us](https://planetscale.com/contact).
 
 ## Step 1: Prepare a dedicated Azure subscription
 
@@ -128,7 +128,7 @@ PlanetScale validates planner and runner federation, confirms the bootstrap iden
 
 PlanetScale may work with you to request regional Azure quota increases based on the selected database products and expected capacity. Do not restrict quotas or resource providers after provisioning begins.
 
-Your Solutions Engineer will notify you when provisioning is complete and your team can create databases through the PlanetScale dashboard, API, CLI, or [MCP](../../../mcp-server.md).
+Your Solutions Engineer will notify you when provisioning is complete and your team can create databases through the PlanetScale dashboard, API, CLI, or [MCP](https://planetscale.com/docs/mcp-server.md).
 
 ## Step 6: Verify the deployment
 
@@ -142,7 +142,7 @@ After PlanetScale confirms provisioning is complete:
 
 > [!NOTE]
 >
-> Private database connectivity is available through [Azure Private Link](private-link.md) or Azure VNet peering (coming soon). Contact your Solutions Engineer to choose an option before provisioning.
+> Private database connectivity is available through [Azure Private Link](https://planetscale.com/docs/plans/managed/azure/private-link.md) or Azure VNet peering (coming soon). Contact your Solutions Engineer to choose an option before provisioning.
 
 ## Need help?
 

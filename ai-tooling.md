@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,13 +18,13 @@ Vitess and Postgres
 
 ## Agents
 
-Use the [PlanetScale Bot for Grok Bot](agents/grok-bot.md) to answer database questions, investigate performance, and follow webhook events. See [Agents](agents.md) for the template and other ways to connect an agent to PlanetScale.
+Use the [PlanetScale Bot for Grok Bot](https://planetscale.com/docs/agents/grok-bot.md) to answer database questions, investigate performance, and follow webhook events. See [Agents](https://planetscale.com/docs/agents.md) for the template and other ways to connect an agent to PlanetScale.
 
 ## Agent setup prompt
 
 Official bootstrap instructions for AI agents — install skills, configure MCP, and authenticate the CLI. Fetch as Markdown for agent sessions:
 
-> **[Agent setup prompt](agent-setup/prompt.md)**
+> **[Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)**
 >
 > Copy or fetch the [Markdown export](https://planetscale.com/docs/agent-setup/prompt.md) (`https://planetscale.com/docs/agent-setup/prompt.md` on production)
 
@@ -37,7 +37,7 @@ pscale auth check --format json
 
 Upgrade with `brew upgrade pscale` if `agent-guide` is unknown.
 
-See [CLI agent-guide](cli/agent-guide.md) for the JSON response fields.
+See [CLI agent-guide](https://planetscale.com/docs/cli/agent-guide.md) for the JSON response fields.
 
 ## PlanetScale MCP Server
 
@@ -46,7 +46,7 @@ Access your PlanetScale organizations, databases, branches, schema, and Insights
 
 The hosted MCP server can be installed in development tools as well as other MCP-accessible tools like Claude in the web browser and desktop app.
 
-> **[PlanetScale MCP Server](mcp-server.md)**
+> **[PlanetScale MCP Server](https://planetscale.com/docs/mcp-server.md)**
 >
 > Install in Claude Code, Cursor, VS Code and more
 
@@ -54,7 +54,7 @@ The hosted MCP server can be installed in development tools as well as other MCP
 
 Use the MCP server with AI coding agents to continuously optimize your database. Agents can review production Insights data and Schema Recommendations, then open pull requests with performance improvements — on a recurring schedule.
 
-> **[Self-improving database](self-improving-database.md)**
+> **[Self-improving database](https://planetscale.com/docs/self-improving-database.md)**
 >
 > Set up automated agents that optimize your database daily
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/security-and-access/user-management
 title: "User Management"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ Users can be onboarded either manually or using single sign-on. Manual onboardin
 
 PlanetScale Managed requires single sign-on (SSO) for the API and web interface, enabling organizations to manage access through their existing directory services.
 
-You can read more about single sign-on and how to set it up in the [PlanetScale single sign-on documentation](../../../security/sso.md).
+You can read more about single sign-on and how to set it up in the [PlanetScale single sign-on documentation](https://planetscale.com/docs/security/sso.md).
 
 ## Access levels
 
@@ -36,7 +36,7 @@ PlanetScale currently supports three different roles inside of organizations:
 * `Organization Member`
 * `Database Administrator`
 
-See the [PlanetScale access control documentation](../../../security/access-control.md) for a further breakdown of each role's permissions.
+See the [PlanetScale access control documentation](https://planetscale.com/docs/security/access-control.md) for a further breakdown of each role's permissions.
 
 ## Separation of accounts
 

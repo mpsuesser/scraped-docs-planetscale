@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,17 +20,17 @@ Connecting to your PlanetScale Postgres database involves understanding several 
 
 > **Postgres**
 >
-> Create **role credentials** with [`pscale role`](../cli/role.md), then connect using a [connection string](connecting/quickstart.md).
+> Create **role credentials** with [`pscale role`](../cli/role.md), then connect using a [connection string](https://planetscale.com/docs/postgres/connecting/quickstart.md).
 >
 > `pscale connect` is not supported.
 
 > **Vitess / MySQL**
 >
-> Create a **branch password** with [`pscale password`](../cli/password.md), then connect with a [connection string](../vitess/connecting/connection-strings.md) or [`pscale connect`](../cli/connect.md).
+> Create a **branch password** with [`pscale password`](../cli/password.md), then connect with a [connection string](https://planetscale.com/docs/vitess/connecting/connection-strings.md) or [`pscale connect`](../cli/connect.md).
 
 ### AI assistant integrations
 
-You can expose read-only schema and query capabilities to tools like Claude, Cursor, or Zed through the shared [Model Context Protocol (MCP)](../mcp-server.md) guide. Point each tool at the hosted PlanetScale MCP server, which streams data over a secure, read-only connection.
+You can expose read-only schema and query capabilities to tools like Claude, Cursor, or Zed through the shared [Model Context Protocol (MCP)](https://planetscale.com/docs/mcp-server.md) guide. Point each tool at the hosted PlanetScale MCP server, which streams data over a secure, read-only connection.
 
 ### Roles and credentials
 
@@ -39,7 +39,7 @@ PlanetScale provides two types of roles for database access:
 * **Default postgres role** — A near-superuser role with extensive permissions, ideal for administrative tasks and initial database setup. This role should not be used for application connections.
 * **User-defined roles** — Custom roles with specific permission sets that follow the principle of least privilege. These are recommended for all application connections and allow credential rotation without downtime.
 
-Connection credentials include a hostname, username (formatted as `{role}.{branch_id}`), password (prefixed with `pscale_pw_`), and database name. Learn more about [managing roles and creating credentials](connecting/roles.md).
+Connection credentials include a hostname, username (formatted as `{role}.{branch_id}`), password (prefixed with `pscale_pw_`), and database name. Learn more about [managing roles and creating credentials](https://planetscale.com/docs/postgres/connecting/roles.md).
 
 ### Connection strings
 
@@ -48,20 +48,20 @@ PlanetScale databases require SSL/TLS encryption for all connections. Connection
 * **Port 5432** — Direct connections to Postgres, bypassing PgBouncer
 * **Port 6432** — Connections through PgBouncer for connection pooling
 
-The [connections quickstart](connecting/quickstart.md) provides detailed connection string examples and explains when to use each connection method.
+The [connections quickstart](https://planetscale.com/docs/postgres/connecting/quickstart.md) provides detailed connection string examples and explains when to use each connection method.
 
 ### Private connectivity
 
 For enhanced security and reduced latency, PlanetScale supports private connectivity that keeps traffic within cloud provider networks:
 
-* **AWS PrivateLink** — Establishes private connections from your AWS VPC to PlanetScale databases without exposing traffic to the public internet. See the [AWS PrivateLink documentation](connecting/private-connections/aws-privatelink.md).
-* **GCP Private Service Connect** — Provides private connectivity from your Google Cloud VPC to PlanetScale databases. See the [GCP Private Service Connect documentation](connecting/private-connections/gcp-private-service-connect.md).
+* **AWS PrivateLink** — Establishes private connections from your AWS VPC to PlanetScale databases without exposing traffic to the public internet. See the [AWS PrivateLink documentation](https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink.md).
+* **GCP Private Service Connect** — Provides private connectivity from your Google Cloud VPC to PlanetScale databases. See the [GCP Private Service Connect documentation](https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect.md).
 
 ### Choosing a connection method for your platform
 
-Most JavaScript and TypeScript applications should connect with a standard TCP driver such as [`pg`](tutorials/planetscale-postgres-node.md) through [PgBouncer](connecting/pgbouncer.md) on port **6432**. This applies to Vercel (with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) connection pooling), AWS Lambda, Railway, Render, and long-running servers.
+Most JavaScript and TypeScript applications should connect with a standard TCP driver such as [`pg`](tutorials/planetscale-postgres-node.md) through [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) on port **6432**. This applies to Vercel (with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) connection pooling), AWS Lambda, Railway, Render, and long-running servers.
 
-For platforms without reliable TCP pooling, PlanetScale supports the [Neon serverless driver](connecting/neon-serverless-driver.md) over HTTP or WebSockets. Use it for [Netlify Functions](https://docs.netlify.com/functions/overview/), [Deno Deploy](https://deno.com/deploy/docs), and edge runtimes where TCP is not available. For [Cloudflare Workers](https://developers.cloudflare.com/workers/), prefer [Hyperdrive with `pg`](tutorials/planetscale-postgres-cloudflare-workers.md) over the serverless driver when possible.
+For platforms without reliable TCP pooling, PlanetScale supports the [Neon serverless driver](https://planetscale.com/docs/postgres/connecting/neon-serverless-driver.md) over HTTP or WebSockets. Use it for [Netlify Functions](https://docs.netlify.com/functions/overview/), [Deno Deploy](https://deno.com/deploy/docs), and edge runtimes where TCP is not available. For [Cloudflare Workers](https://developers.cloudflare.com/workers/), prefer [Hyperdrive with `pg`](tutorials/planetscale-postgres-cloudflare-workers.md) over the serverless driver when possible.
 
 ## Understanding Postgres connections
 
@@ -120,7 +120,7 @@ For application connections outside of the specific use cases listed above, PgBo
 
 ## Direct replica connections
 
-The main purpose for the default [Replicas](scaling/replicas.md) in a cluster is to maintain [high-availability](operations-philosophy.md), but they can also be used to handle read traffic. Since replicas are read-only, they are only capable of serving `SELECT` queries. All write traffic (`INSERT`, `UPDATE`, etc) must be sent to the primary.
+The main purpose for the default [Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md) in a cluster is to maintain [high-availability](https://planetscale.com/docs/postgres/operations-philosophy.md), but they can also be used to handle read traffic. Since replicas are read-only, they are only capable of serving `SELECT` queries. All write traffic (`INSERT`, `UPDATE`, etc) must be sent to the primary.
 
 ![Direct replica connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-replica-direct-connect.png?fit=max\&auto=format\&n=UzFO5Pe10M0-W-uW\&q=85\&s=daa3dc082440c3c1928d615e4c53df6d)
 
@@ -141,7 +141,7 @@ psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
       sslrootcert=system'
 ```
 
-Learn more about replicas and when to use them in the [database replicas documentation](scaling/replicas.md).
+Learn more about replicas and when to use them in the [database replicas documentation](https://planetscale.com/docs/postgres/scaling/replicas.md).
 
 ## PgBouncer connections
 
@@ -163,13 +163,13 @@ All PlanetScale Postgres databases include a local PgBouncer instance running on
 
 ![Dedicated replica PgBouncer connections](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/postgres/connecting/diagram-dedicated-replica-pgbouncer.png?fit=max\&auto=format\&n=UzFO5Pe10M0-W-uW\&q=85\&s=b455ccb9b6d2063f47bad676115bccd1)
 
-[Dedicated replica PgBouncers](connecting/pgbouncer.md#dedicated-replica-pgbouncers) run on nodes separate from the Postgres instances and pool connections to your replicas. These are useful for read-heavy workloads that send significant read traffic to replicas.
+[Dedicated replica PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#dedicated-replica-pgbouncers) run on nodes separate from the Postgres instances and pool connections to your replicas. These are useful for read-heavy workloads that send significant read traffic to replicas.
 
 ### Dedicated primary PgBouncers
 
 ![Dedicated primary PgBouncer connections](https://mintcdn.com/planetscale-2/kiyN17feiApl1in5/images/assets/docs/postgres/connecting/diagram-dedicated-primary-pgbouncer.png?fit=max\&auto=format\&n=kiyN17feiApl1in5\&q=85\&s=55b200856bc1bbf5cb7214c27676b24f)
 
-[Dedicated primary PgBouncers](connecting/pgbouncer.md#dedicated-primary-pgbouncers) provide connection pooling for your primary database on nodes separate from the Postgres servers. Traffic routes from the dedicated primary PgBouncer to the local PgBouncer on the primary node, and then to Postgres. This lets client connections persist through cluster resizes, upgrades, and most failover scenarios, providing improved high availability.
+[Dedicated primary PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#dedicated-primary-pgbouncers) provide connection pooling for your primary database on nodes separate from the Postgres servers. Traffic routes from the dedicated primary PgBouncer to the local PgBouncer on the primary node, and then to Postgres. This lets client connections persist through cluster resizes, upgrades, and most failover scenarios, providing improved high availability.
 
 ## Connecting to dedicated PgBouncers
 
@@ -186,7 +186,7 @@ psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
       sslrootcert=system'
 ```
 
-Learn more about [creating, configuring, and connecting to PgBouncers](connecting/pgbouncer.md).
+Learn more about [creating, configuring, and connecting to PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md).
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

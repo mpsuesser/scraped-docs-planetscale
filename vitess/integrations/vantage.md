@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/vantage
 title: "Vantage"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,12 +20,12 @@ Beyond reporting, set up budget alerts, forecast usage, and view active database
 
 ## Prerequisites
 
-* The [Organization Admin role](../../security/access-control.md) in PlanetScale
+* The [Organization Admin role](https://planetscale.com/docs/security/access-control.md) in PlanetScale
 * A [Vantage account](https://console.vantage.sh/signup)
 
 > [!NOTE]
 >
-> Database cost reporting in Vantage is not available for [PlanetScale Managed](../../plans/managed.md) customers via the integration.
+> Database cost reporting in Vantage is not available for [PlanetScale Managed](https://planetscale.com/docs/plans/managed.md) customers via the integration.
 
 ## Configure the Vantage integration
 
@@ -65,7 +65,7 @@ In the graphic above, PlanetScale costs are grouped by database for the month. F
 
 ## Billing
 
-The Vantage integration is available on all our [plans](../../planetscale-plans.md).
+The Vantage integration is available on all our [plans](https://planetscale.com/docs/planetscale-plans.md).
 
 ## Need help?
 

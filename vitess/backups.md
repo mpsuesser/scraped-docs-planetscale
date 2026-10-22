@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ PlanetScale provides the ability to create, schedule, and restore backups for pr
 
 > [!NOTE]
 >
-> Our [Base plan](../planetscale-plans.md) includes automated backups every 12 hours.
+> Our [Base plan](https://planetscale.com/docs/planetscale-plans.md) includes automated backups every 12 hours.
 
 ## View backups
 
@@ -91,7 +91,7 @@ Click the **Save schedule** button to save your new scheduling configurations an
 > [!NOTE]
 >
 > For additional scheduled backups beyond the included default (every 12 hours for the
-> [Base plan](../planetscale-plans.md), you will be billed
+> [Base plan](https://planetscale.com/docs/planetscale-plans.md), you will be billed
 > **\$0.023 per GB per month**.
 
 ## Restore from a backup

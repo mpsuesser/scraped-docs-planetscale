@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-d1
 title: "Postgres Migrate D1"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ The workflow has three parts:
 
 Before you start, install and configure:
 
-* **[PlanetScale CLI](../../cli.md)** — authenticated to your org (`pscale auth login`, then `pscale org set <org>`)
+* **[PlanetScale CLI](https://planetscale.com/docs/cli.md)** — authenticated to your org (`pscale auth login`, then `pscale org set <org>`)
 * **[Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/)** — to export the remote D1 database
 * **[pgloader](https://pgloader.io/)** — required for loading data (used for all import sizes)
 * **`psql`** — PostgreSQL client (version 10 or newer)
@@ -161,7 +161,7 @@ If you have an application table named `schema_migrations` that is **not** Rails
 
 ## Next steps
 
-> **[Postgres import overview](postgres-imports.md)**
+> **[Postgres import overview](https://planetscale.com/docs/postgres/imports/postgres-imports.md)**
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/handling-table-and-column-renames
 title: "Handling Table And Column Renames"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ In SQL, it is possible to `RENAME` either a column or a table using an [`ALTER` 
 
 PlanetScale does not support this method of table and column renames.
 
-If you do need to rename a column or table, the following section covers how you should do it with PlanetScale using [Deploy Requests](schema-changes/deploy-requests.md).
+If you do need to rename a column or table, the following section covers how you should do it with PlanetScale using [Deploy Requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md).
 
 ## How to rename a column on PlanetScale
 

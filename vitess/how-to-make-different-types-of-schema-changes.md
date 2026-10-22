@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/how-to-make-different-types-of-schema-changes
 title: "How To Make Different Types Of Schema Changes"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-So schema changes are inevitable. Luckily, PlanetScale has features like [branching](schema-changes/branching.md), [deploy requests](schema-changes/deploy-requests.md), and [revert](schema-changes/deploy-requests.md#revert-a-schema-change) to help give you more confidence when making schema changes. But you still have to consider though how to make the schema change. Some schema changes are more complex than others. This document will help you understand how to make different types of schema changes and associated risks.
+So schema changes are inevitable. Luckily, PlanetScale has features like [branching](https://planetscale.com/docs/vitess/schema-changes/branching.md), [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md), and [revert](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) to help give you more confidence when making schema changes. But you still have to consider though how to make the schema change. Some schema changes are more complex than others. This document will help you understand how to make different types of schema changes and associated risks.
 
 > [!NOTE]
 >

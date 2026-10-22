@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-datadog-postgres
 title: "Prometheus Metrics Datadog Postgres"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ For the purposes of this guide, the examples use a Datadog agent running with th
 
 You'll need a working Datadog agent and access to add a [Custom Agent Check](https://docs.datadoghq.com/developers/custom_checks/) to that instance. This may require `root` or `sudo` access on the machine running the Datadog agent.
 
-You'll also need a [Service token](../../api/reference/service-tokens.md) in your Organization, with the `read_metrics_endpoints` permission granted.
+You'll also need a [Service token](https://planetscale.com/docs/api/reference/service-tokens.md) in your Organization, with the `read_metrics_endpoints` permission granted.
 
 ## Adding the Plugin to the Datadog Agent
 
@@ -119,7 +119,7 @@ If the plugin is installed successfully, this should output the scrape targets f
 
 ## Adding Metrics
 
-In the earlier configuration, only two metrics were added. For a complete list of what PlanetScale Postgres exposes, please take a look at the [Postgres Metrics Reference Documentation](prometheus-metrics-postgres.md).
+In the earlier configuration, only two metrics were added. For a complete list of what PlanetScale Postgres exposes, please take a look at the [Postgres Metrics Reference Documentation](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md).
 
 Note that the Datadog agent [normalizes metrics with certain suffixes starting in v7.32.0](https://github.com/DataDog/integrations-core/blob/master/openmetrics/README.md):
 
@@ -145,7 +145,7 @@ $ sudo systemctl restart datadog-agent
 
 ## What's Next?
 
-Now that you're sending Postgres metrics from PlanetScale to Datadog, take a look at our [full list](prometheus-metrics-postgres.md) and start building dashboards to monitor your PostgreSQL database performance, connection health, and resource utilization!
+Now that you're sending Postgres metrics from PlanetScale to Datadog, take a look at our [full list](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md) and start building dashboards to monitor your PostgreSQL database performance, connection health, and resource utilization!
 
 ## Need help?
 

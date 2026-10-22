@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/scaling/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ Replicas serve two main purposes:
 
 > [!NOTE]
 >
-> The replicas described here run within the primary cluster and its location. To create independently sized read capacity in the same or other locations, see [Postgres dedicated read replicas](dedicated-read-replicas.md).
+> The replicas described here run within the primary cluster and its location. To create independently sized read capacity in the same or other locations, see [Postgres dedicated read replicas](https://planetscale.com/docs/postgres/scaling/dedicated-read-replicas.md).
 
 ## How to query Postgres replicas
 
@@ -53,7 +53,7 @@ user=postgres.cnlmx96ec5kw|replica
 > postgresql://postgres.cnlmx96ec5kw%7Creplica:pscale_pw_xxx@host:5432/my_database?sslmode=verify-full&sslrootcert=/etc/ssl/certs/ca-certificates.crt
 > ```
 
-1. Make sure the port in your connection string is set to `5432`. To pool connections to replicas, use a [dedicated replica PgBouncer](../connecting/pgbouncer.md#dedicated-replica-pgbouncers) instead.
+1. Make sure the port in your connection string is set to `5432`. To pool connections to replicas, use a [dedicated replica PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#dedicated-replica-pgbouncers) instead.
 
 Your connection string should look something like this:
 
@@ -70,9 +70,9 @@ psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
 
 ## High availability
 
-Replicas within PlanetScale are used to enable high availability of your database. This is a part of the reason all production branches (excluding [single node](../cluster-configuration/single-node.md)) in PlanetScale are provided 2 replicas. In situations where the underlying hardware or service hosting the primary Postgres node fails, our system will automatically elect a new primary node from the available replicas and reroute traffic to that new primary. This process is known as **reparenting** and typically is all handled within milliseconds or seconds.
+Replicas within PlanetScale are used to enable high availability of your database. This is a part of the reason all production branches (excluding [single node](https://planetscale.com/docs/postgres/cluster-configuration/single-node.md)) in PlanetScale are provided 2 replicas. In situations where the underlying hardware or service hosting the primary Postgres node fails, our system will automatically elect a new primary node from the available replicas and reroute traffic to that new primary. This process is known as **reparenting** and typically is all handled within milliseconds or seconds.
 
-If you're using [PgBouncer](../connecting/pgbouncer.md), querying the primary during a reparent typically goes unnoticed, other than a bit of additional query latency. This is because PlanetScale's PgBouncer buffers queries under the hood during failovers and directs them to the new primary once the failover is complete.
+If you're using [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md), querying the primary during a reparent typically goes unnoticed, other than a bit of additional query latency. This is because PlanetScale's PgBouncer buffers queries under the hood during failovers and directs them to the new primary once the failover is complete.
 
 ## Multiple availability zones
 
@@ -98,13 +98,13 @@ Replicas are useful for offloading read-heavy workloads from the primary node. B
 
 ## Configuring replicas for your database cluster
 
-By default, production databases (excluding [single node](../cluster-configuration/single-node.md)) are created with 2 replicas. You may add additional replicas if you need to scale your read traffic. Adding additional replicas beyond the default does not guarantee an increase in availability of your database.
+By default, production databases (excluding [single node](https://planetscale.com/docs/postgres/cluster-configuration/single-node.md)) are created with 2 replicas. You may add additional replicas if you need to scale your read traffic. Adding additional replicas beyond the default does not guarantee an increase in availability of your database.
 
 > [!NOTE]
 >
 > You are charged for additional replicas you add beyond the default. Billing for additional replicas begins once the replica change has completed. The additional cost is \~ 1/3 the original price of the base cluster running (initial primary + 2 replicas).
 
-To see how to increase and manage the number of additional replicas you have, see [Cluster configuration](../cluster-configuration.md).
+To see how to increase and manage the number of additional replicas you have, see [Cluster configuration](https://planetscale.com/docs/postgres/cluster-configuration.md).
 
 ## Need help?
 

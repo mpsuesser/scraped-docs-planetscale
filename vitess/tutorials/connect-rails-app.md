@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-rails-app
 title: "Connect Rails App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -104,7 +104,7 @@ Take note of the values returned to you, as they will not be shown again.
 
 > [!NOTE]
 >
-> You can also create passwords in the PlanetScale dashboard, as documented [in our Creating a password documentation](../connecting/connection-strings.md#creating-a-password).
+> You can also create passwords in the PlanetScale dashboard, as documented [in our Creating a password documentation](https://planetscale.com/docs/vitess/connecting/connection-strings.md#creating-a-password).
 
 ## Configure Rails and PlanetScale
 
@@ -123,15 +123,15 @@ development:
   ssl_mode: <%= Trilogy::SSL_VERIFY_IDENTITY %>
 ```
 
-For `database` (database name), you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](../sharding/targeting-correct-keyspace.md).
+For `database` (database name), you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md).
 
-The correct `sslca` path depends on your operating system and distribution. See [CA root configuration](../connecting/secure-connections.md#ca-root-configuration) for more information.
+The correct `sslca` path depends on your operating system and distribution. See [CA root configuration](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration) for more information.
 
 > [!NOTE]
 >
 > You're configuring the **development** Rails environment here for the sake of expedience. In actual use, the **main** database branch would typically serve the **production** environment.
 
-Because this is a Rails app, you can also enable [Automatic Rails migrations](automatic-rails-migrations.md) from the database's settings page. Select your database, click on the `main` branch, click "**Settings**", check the "**Automatically copy migration data**" box, and select "**Rails**" from the dropdown.
+Because this is a Rails app, you can also enable [Automatic Rails migrations](https://planetscale.com/docs/vitess/tutorials/automatic-rails-migrations.md) from the database's settings page. Select your database, click on the `main` branch, click "**Settings**", check the "**Automatically copy migration data**" box, and select "**Rails**" from the dropdown.
 
 ## Migrate your database
 
@@ -201,7 +201,7 @@ blog/main> describe users;
 
 ## Enable safe migrations
 
-[Safe migrations](../schema-changes/safe-migrations.md) is an optional but highly recommended feature for branches on PlanetScale. With safe migrations enabled, direct schema changes (`CREATE`, `ALTER`, and `DELETE`) are not allowed on production branches to prevent accidental data loss and must be applied via [deploy requests](../best-practices.md).
+[Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) is an optional but highly recommended feature for branches on PlanetScale. With safe migrations enabled, direct schema changes (`CREATE`, `ALTER`, and `DELETE`) are not allowed on production branches to prevent accidental data loss and must be applied via [deploy requests](https://planetscale.com/docs/vitess/best-practices.md).
 
 ```bash theme={null}
 pscale branch safe-migrations enable blog main
@@ -215,11 +215,11 @@ In this tutorial, you created a simple Rails application named *blog* and connec
 
 ## Further reading
 
-If you're interested in learning how to secure your application's connection to PlanetScale, please read [Connecting to PlanetScale securely](../connecting/secure-connections.md).
+If you're interested in learning how to secure your application's connection to PlanetScale, please read [Connecting to PlanetScale securely](https://planetscale.com/docs/vitess/connecting/secure-connections.md).
 
 ## What's next?
 
-Now that you've successfully connected your Rails app to PlanetScale, it's time to make more schema changes to your tables! Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database, or how to keep your **schema\_migrations** table up-to-date between development and production branches with [automatic schema migrations](automatic-rails-migrations.md).
+Now that you've successfully connected your Rails app to PlanetScale, it's time to make more schema changes to your tables! Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database, or how to keep your **schema\_migrations** table up-to-date between development and production branches with [automatic schema migrations](https://planetscale.com/docs/vitess/tutorials/automatic-rails-migrations.md).
 
 ## Need help?
 

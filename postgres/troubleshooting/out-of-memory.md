@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,20 +24,20 @@ When an OOM event occurs:
 
 * **Database restart required** — The impacted instance must be restarted to recover from the OOM event.
 * **Downtime** — The instance that OOMed will be unavailable while it restarts. If the primary instance OOMs continuously, an automatic failover will be made.
-* **Connections terminated** — Direct connections and connections through the local PgBouncer are dropped during the restart, since the local PgBouncer runs on the same node as Postgres. See the [connection resilience guide](../connection-resilience.md) for details.
+* **Connections terminated** — Direct connections and connections through the local PgBouncer are dropped during the restart, since the local PgBouncer runs on the same node as Postgres. See the [connection resilience guide](https://planetscale.com/docs/postgres/connection-resilience.md) for details.
 * **Transactions rolled back** — Any in-progress transactions that were not committed will be rolled back.
 
 ## Primary resolution: Upgrade cluster size
 
-The most direct solution to OOM events is to increase your cluster size to provide more memory. Each cluster size includes a defined amount of memory. See [cluster pricing](../pricing.md#cluster-pricing) for available sizes and their specifications.
+The most direct solution to OOM events is to increase your cluster size to provide more memory. Each cluster size includes a defined amount of memory. See [cluster pricing](https://planetscale.com/docs/postgres/pricing.md#cluster-pricing) for available sizes and their specifications.
 
-Resizing is performed with minimal downtime. See [cluster configuration](../cluster-configuration.md) for more details.
+Resizing is performed with minimal downtime. See [cluster configuration](https://planetscale.com/docs/postgres/cluster-configuration.md) for more details.
 
 ## Understanding memory usage
 
 High memory usage does not necessarily indicate a problem. Whether memory usage is concerning depends on the *type* of memory being used.
 
-The [Metrics](../monitoring/metrics.md) page includes a memory chart that breaks down the different types of memory your cluster is using. Understanding these categories helps you determine if action is needed:
+The [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) page includes a memory chart that breaks down the different types of memory your cluster is using. Understanding these categories helps you determine if action is needed:
 
 * **Active cache** — Memory used to cache frequently accessed table and index data. This is *good* memory usage — it improves query performance by reducing disk reads. The operating system manages this cache automatically and will release it when needed. High active cache usage does not increase OOM risk.
 
@@ -59,10 +59,10 @@ If your application opens many connections — either intentionally or due to co
 
 **Recommendations:**
 
-* **Use connection pooling** — [PgBouncer](../connecting/pgbouncer.md) maintains a small pool of connections to Postgres while accepting many client connections, significantly reducing memory usage. All PlanetScale Postgres databases include a local PgBouncer on port `6432`.
-* **Monitor active connections** — Use the [Metrics](../monitoring/metrics.md) dashboard to track connection counts.
+* **Use connection pooling** — [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) maintains a small pool of connections to Postgres while accepting many client connections, significantly reducing memory usage. All PlanetScale Postgres databases include a local PgBouncer on port `6432`.
+* **Monitor active connections** — Use the [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) dashboard to track connection counts.
 * **Review application connection handling** — Ensure your application properly closes connections and uses connection pooling libraries.
-* **Configure connection limits** — Set appropriate values for `max_connections` in your [Postgres parameters](../cluster-configuration/parameters.md).
+* **Configure connection limits** — Set appropriate values for `max_connections` in your [Postgres parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md).
 
 ### Memory-intensive queries
 
@@ -85,7 +85,7 @@ Certain query patterns can consume large amounts of memory:
 * **Use `LIMIT`** — Restrict result set sizes when you don't need all rows.
 * **Break large operations into batches** — Process data in smaller chunks rather than all at once.
 * **Optimize query plans** — Use `EXPLAIN (ANALYZE, VERBOSE, BUFFERS, MEMORY)` to understand how queries use memory.
-* **Monitor query performance** — Use [Query Insights](../monitoring/query-insights.md) to identify memory-heavy queries.
+* **Monitor query performance** — Use [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to identify memory-heavy queries.
 
 ### Postgres memory configuration
 
@@ -97,7 +97,7 @@ Several Postgres parameters control memory allocation:
 | `maintenance_work_mem` | Memory for maintenance operations like `VACUUM`, `CREATE INDEX`, and `ALTER TABLE`. |
 | `shared_buffers` | Memory for caching table and index data. |
 
-These parameters are configured automatically based on your cluster size, but custom configurations via [Postgres parameters](../cluster-configuration/parameters.md) may need adjustment if you experience OOM events.
+These parameters are configured automatically based on your cluster size, but custom configurations via [Postgres parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) may need adjustment if you experience OOM events.
 
 > [!WARNING]
 >
@@ -107,15 +107,15 @@ These parameters are configured automatically based on your cluster size, but cu
 
 To prevent OOM events:
 
-1. **Monitor memory usage** — Use the [Metrics](../monitoring/metrics.md) dashboard to track memory utilization over time.
-2. **Set up alerts** — Use external monitoring tools to alert when memory usage exceeds thresholds. See [Prometheus integration](../monitoring/prometheus-postgres.md) for scraping metrics into your monitoring system.
+1. **Monitor memory usage** — Use the [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) dashboard to track memory utilization over time.
+2. **Set up alerts** — Use external monitoring tools to alert when memory usage exceeds thresholds. See [Prometheus integration](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) for scraping metrics into your monitoring system.
 3. **Review connection counts** — High connection counts often correlate with memory pressure.
-4. **Analyze slow queries** — Memory-intensive queries often appear in slow query logs. Use [Query Insights](../monitoring/query-insights.md) to identify them.
+4. **Analyze slow queries** — Memory-intensive queries often appear in slow query logs. Use [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to identify them.
 5. **Right-size your cluster** — Ensure your cluster has adequate memory for your workload, with headroom for traffic spikes.
 
 > [!NOTE]
 >
-> Some queries can spike memory usage so quickly that the increase is not captured in the metrics graph. If you see OOM annotations on the graph but no corresponding memory spike, the OOM did occur — the memory increase simply happened too fast to be recorded. In these cases, review [Query Insights](../monitoring/query-insights.md) to identify queries that ran around the time of the OOM event.
+> Some queries can spike memory usage so quickly that the increase is not captured in the metrics graph. If you see OOM annotations on the graph but no corresponding memory spike, the OOM did occur — the memory increase simply happened too fast to be recorded. In these cases, review [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to identify queries that ran around the time of the OOM event.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/duplicate-entry
 title: "Duplicate Entry"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -35,7 +35,7 @@ GROUP BY org_id, priority
 HAVING COUNT(*) > 1;
 ```
 
-Then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deploy). Retrying before every duplicate is resolved will cause another failure.
+Then [retry the failed tables](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#retry-a-partially-failed-deploy). Retrying before every duplicate is resolved will cause another failure.
 
 If the duplicates are expected, change the key on your branch so it is no longer unique, or add a column to it that makes each row distinct, and open a new deploy request.
 

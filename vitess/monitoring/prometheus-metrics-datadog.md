@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/prometheus-metrics-datadog
 title: "Prometheus Metrics Datadog"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ For the purposes of this guide, we'll be using a Datadog agent running with the 
 
 You'll need a working Datadog agent and access to add a [Custom Agent Check](https://docs.datadoghq.com/developers/custom_checks/) to that instance. This may require `root` or `sudo` access on the machine running the Datadog agent.
 
-You'll also need a [Service token](../../api/reference/service-tokens.md) in your Organization, with the `read_metrics_endpoints` permission granted.
+You'll also need a [Service token](https://planetscale.com/docs/api/reference/service-tokens.md) in your Organization, with the `read_metrics_endpoints` permission granted.
 
 ## Adding the Plugin to the Datadog Agent
 
@@ -182,7 +182,7 @@ We can also see that it successfully executed at `2025-04-02 23:56:32 UTC` and p
 
 ## Adding Metrics
 
-In our earlier configuration, we only added one metric. For a complete list of what PlanetScale exposes, please take a look at our [Metrics Reference Documentation](../integrations/prometheus-metrics.md).
+In our earlier configuration, we only added one metric. For a complete list of what PlanetScale exposes, please take a look at our [Metrics Reference Documentation](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md).
 
 Note that the Datadog agent [normalizes metrics with certain suffixes starting in v7.32.0](https://github.com/DataDog/integrations-core/blob/master/openmetrics/README.md):
 
@@ -230,7 +230,7 @@ In the Datadog UI, I can see data for the `planetscale.active_connections` metri
 
 ## What's Next?
 
-Now that you're sending a couple of metrics from PlanetScale to Datadog, take a look at our [full list](../integrations/prometheus-metrics.md) and start building dashboards!
+Now that you're sending a couple of metrics from PlanetScale to Datadog, take a look at our [full list](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md) and start building dashboards!
 
 ## Need help?
 

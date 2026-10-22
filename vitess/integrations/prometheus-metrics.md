@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-10-22T14:41:43.234Z
-current_date: 2026-10-22T14:41:43.234Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,9 +16,9 @@ current_date: 2026-10-22T14:41:43.234Z
 
 ## Overview
 
-See our [Prometheus integration](prometheus.md) documentation for how to set Prometheus up to automatically discover and scrape metrics for your database branches.
+See our [Prometheus integration](https://planetscale.com/docs/vitess/integrations/prometheus.md) documentation for how to set Prometheus up to automatically discover and scrape metrics for your database branches.
 
-If you're using Datadog, see our [Datadog tutorial](../tutorials/prometheus-metrics-datadog.md) for how to setup your Datadog agent to scrape metrics for your branch.
+If you're using Datadog, see our [Datadog tutorial](https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-datadog.md) for how to setup your Datadog agent to scrape metrics for your branch.
 
 ## Metrics
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/self-improving-database
 title: "Self Improving Database"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Vitess and Postgres
 
-The [PlanetScale MCP server](mcp-server.md) gives AI agents access to production query metrics ([Insights](postgres/monitoring/query-insights.md)) and [Schema Recommendations](postgres/monitoring/schema-recommendations.md) alongside your application code. This combination enables a self-improving optimization loop: an agent identifies the highest-impact performance issues, finds the relevant code, makes improvements, and opens a pull request.
+The [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) gives AI agents access to production query metrics ([Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md)) and [Schema Recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) alongside your application code. This combination enables a self-improving optimization loop: an agent identifies the highest-impact performance issues, finds the relevant code, makes improvements, and opens a pull request.
 
 This works for both Postgres and Vitess databases.
 
@@ -42,10 +42,10 @@ This can run as a one-off task or on a recurring schedule. [Cursor Automations](
 
 ## Prerequisites
 
-* [PlanetScale MCP server](mcp-server.md) installed and authenticated in your AI coding tool
+* [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) installed and authenticated in your AI coding tool
 * [Cursor Automations](https://cursor.com/docs/cloud-agent/automations) (recommended) or another MCP-compatible coding agent such as Claude Code
-* A PlanetScale database with [Insights](postgres/monitoring/query-insights.md) data
-* An `AGENTS.md` file in your repository with your PlanetScale org, database, and branch (see [Help your agent target your project's database](mcp-server.md#help-your-agent-target-your-projects-database))
+* A PlanetScale database with [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) data
+* An `AGENTS.md` file in your repository with your PlanetScale org, database, and branch (see [Help your agent target your project's database](https://planetscale.com/docs/mcp-server.md#help-your-agent-target-your-projects-database))
 
 > [!TIP]
 >

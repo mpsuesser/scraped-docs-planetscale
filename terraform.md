@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/terraform
 title: "Terraform"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,7 +30,7 @@ PlanetScale databases do not have a dedicated Terraform resource. Their lifecycl
 * Applying a `planetscale_vitess_branch`, `planetscale_neki_branch`, or `planetscale_postgres_branch` creates the parent database if it does not already exist.
 * Destroying the last branch in a database also destroys the database. See [Deletion protection](#deletion-protection) for safeguards.
 
-Creating a Neki branch also provisions a default [configuration profile](neki/cluster-configuration.md#configuration-profiles), [shard](neki/cluster-configuration.md#manage-shards), [router group](neki/cluster-configuration.md#configure-router-groups), [admin](neki/cluster-configuration.md#configure-the-admin-service), and [sidecar](neki/overview.md#what-runs-alongside-postgres). Import those objects if Terraform should manage them. Do not recreate the defaults with `planetscale_neki_configuration_profile` or `planetscale_neki_shard`. Creating a Vitess branch likewise provisions the branch's default [keyspace](vitess/sharding/keyspaces.md); import it to manage its size or replicas.
+Creating a Neki branch also provisions a default [configuration profile](https://planetscale.com/docs/neki/cluster-configuration.md#configuration-profiles), [shard](https://planetscale.com/docs/neki/cluster-configuration.md#manage-shards), [router group](https://planetscale.com/docs/neki/cluster-configuration.md#configure-router-groups), [admin](https://planetscale.com/docs/neki/cluster-configuration.md#configure-the-admin-service), and [sidecar](https://planetscale.com/docs/neki/overview.md#what-runs-alongside-postgres). Import those objects if Terraform should manage them. Do not recreate the defaults with `planetscale_neki_configuration_profile` or `planetscale_neki_shard`. Creating a Vitess branch likewise provisions the branch's default [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md); import it to manage its size or replicas.
 
 ### Credential models
 
@@ -39,8 +39,8 @@ Creating a Neki branch also provisions a default [configuration profile](neki/cl
 | Database Type | Resource | How permissions work |
 | - | - | - |
 | Vitess | `planetscale_vitess_branch_password` | Set the `role` attribute to `reader`, `writer`, `readwriter`, or `admin` |
-| Neki | `planetscale_neki_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](neki/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
-| Postgres | `planetscale_postgres_branch_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](postgres/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
+| Neki | `planetscale_neki_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](https://planetscale.com/docs/neki/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
+| Postgres | `planetscale_postgres_branch_role` | Use `inherited_roles` to inherit from [built-in Postgres roles](https://planetscale.com/docs/postgres/connecting/roles.md) like `pg_read_all_data` or `pg_write_all_data`. |
 | Postgres | `planetscale_postgres_redacted_branch_role` | Same as `planetscale_postgres_branch_role`, but the password is not stored in Terraform state. Use this when you manage passwords in a secret manager. |
 
 ## Quick start
@@ -226,7 +226,7 @@ Refer to the [Terraform Registry and provider documentation](https://registry.te
 
 ## Provider configuration
 
-The provider supports authentication using [service tokens](api/reference/service-tokens.md).
+The provider supports authentication using [service tokens](https://planetscale.com/docs/api/reference/service-tokens.md).
 
 Example configuration:
 
@@ -353,7 +353,7 @@ resource "planetscale_neki_role" "app" {
 
 Creating a Neki branch already provisions a default configuration profile, shard, router group, admin, and sidecar. Import those objects if Terraform should manage their size or parameters. Use `planetscale_neki_configuration_profile`, `planetscale_neki_shard`, and `planetscale_neki_router` to add more.
 
-Clients connect through an additional router group by appending the group name to the username, e.g. `user|analytics`. See [Connect to Neki](neki/connecting.md).
+Clients connect through an additional router group by appending the group name to the username, e.g. `user|analytics`. See [Connect to Neki](https://planetscale.com/docs/neki/connecting.md).
 
 ```hcl theme={null}
 resource "planetscale_neki_router" "analytics" {
@@ -371,7 +371,7 @@ resource "planetscale_neki_router" "analytics" {
 }
 ```
 
-See [Neki cluster configuration](neki/cluster-configuration.md) for configuration profiles, shards, admin, routers, and sidecars.
+See [Neki cluster configuration](https://planetscale.com/docs/neki/cluster-configuration.md) for configuration profiles, shards, admin, routers, and sidecars.
 
 ### Postgres branch and role
 
@@ -520,7 +520,7 @@ resource "planetscale_postgres_branch" "configured" {
 
 > [!WARNING]
 >
-> Some Postgres parameter and extension changes require a restart. See [Postgres parameters](postgres/cluster-configuration/parameters.md) and [Postgres extensions](postgres/extensions.md) for details.
+> Some Postgres parameter and extension changes require a restart. See [Postgres parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) and [Postgres extensions](https://planetscale.com/docs/postgres/extensions.md) for details.
 
 ## Retrieving connection details
 
@@ -555,7 +555,7 @@ output "neki_connection" {
 }
 ```
 
-Generated Neki connections use the `postgres` logical database by default. See [Connect to Neki](neki/connecting.md).
+Generated Neki connections use the `postgres` logical database by default. See [Connect to Neki](https://planetscale.com/docs/neki/connecting.md).
 
 ### Postgres
 
@@ -580,7 +580,7 @@ output "postgres_connection" {
 
 ### Development branch workflow
 
-Create a development branch forked from your main branch. Optionally specify a larger cluster size if you need more resources than the default. Neki development branches start empty and do not copy the parent branch's schema or data; restore a [backup](neki/backups.md) when you need existing data.
+Create a development branch forked from your main branch. Optionally specify a larger cluster size if you need more resources than the default. Neki development branches start empty and do not copy the parent branch's schema or data; restore a [backup](https://planetscale.com/docs/neki/backups.md) when you need existing data.
 
 ```hcl theme={null}
 resource "planetscale_postgres_branch" "feature_auth" {
@@ -623,7 +623,7 @@ resource "planetscale_postgres_branch_role" "ci_runner" {
 
 ### Postgres role without a password in state
 
-Use `planetscale_postgres_redacted_branch_role` when Terraform should manage the role but the password should live in your secret manager instead of Terraform state. After creating the role, reset its password through the [reset role API](api/reference/reset_role.md) and store the new credential in your secret manager.
+Use `planetscale_postgres_redacted_branch_role` when Terraform should manage the role but the password should live in your secret manager instead of Terraform state. After creating the role, reset its password through the [reset role API](https://planetscale.com/docs/api/reference/reset_role.md) and store the new credential in your secret manager.
 
 ```hcl theme={null}
 resource "planetscale_postgres_redacted_branch_role" "app" {
@@ -639,14 +639,14 @@ resource "planetscale_postgres_redacted_branch_role" "app" {
 
 | Attribute | Valid Values |
 | - | - |
-| `cluster_size` | Use the [Clusters API](api/reference/list_cluster_size_skus.md#list-available-cluster-sizes) to get the list of available cluster sizes |
-| `region` | See [available regions](plans/regions.md) |
+| `cluster_size` | Use the [Clusters API](https://planetscale.com/docs/api/reference/list_cluster_size_skus.md#list-available-cluster-sizes) to get the list of available cluster sizes |
+| `region` | See [available regions](https://planetscale.com/docs/plans/regions.md) |
 | `major_version` (Postgres) | `17`, `18` |
 | `parameters` (Postgres) | Map of string values nested under `pgconf`, `pgbouncer`, or `patroni` |
-| `parameters` (Neki) | Map of string values nested by namespace on configuration profiles, admin, and sidecars. Enable extensions in `pgconf.session_preload_libraries`. See [Neki parameters](neki/cluster-configuration/parameters.md). |
+| `parameters` (Neki) | Map of string values nested by namespace on configuration profiles, admin, and sidecars. Enable extensions in `pgconf.session_preload_libraries`. See [Neki parameters](https://planetscale.com/docs/neki/cluster-configuration/parameters.md). |
 | `bouncer_size` (dedicated PgBouncer) | `PGB_5`, `PGB_10`, `PGB_20`, `PGB_40`, `PGB_80`, `PGB_160` |
 | `target` (dedicated PgBouncer) | `primary`, `replica`, `replica_az_affinity` |
-| `router_size` (Neki) | Use `pscale branch router sizes` or [Neki cluster sizing](neki/cluster-configuration/cluster-sizing.md) |
+| `router_size` (Neki) | Use `pscale branch router sizes` or [Neki cluster sizing](https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing.md) |
 | `admin_size` (Neki) | `NKA_0`, `NKA_1`, `NKA_2`, `NKA_5`, `NKA_20`, `NKA_40` |
 | `retention_unit` | `hour`, `day`, `week`, `month`, `year` |
 | `frequency_unit` | `hour`, `day`, `week`, `month` |

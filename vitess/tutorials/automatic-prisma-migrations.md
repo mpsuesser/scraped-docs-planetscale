@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/automatic-prisma-migrations
 title: "Automatic Prisma Migrations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -29,7 +29,7 @@ From a high level, [Prisma's `db push`](https://www.prisma.io/docs/orm/reference
 
 We recommend `prisma db push` over `prisma migrate dev` for the following reasons:
 
-PlanetScale provides [Online Schema Changes](../schema-changes/how-online-schema-change-tools-work.md) that are deployed automatically when you merge a deploy request and prevents [blocking schema changes](../schema-changes.md) that can lead to downtime. This is different from the typical Prisma workflow which uses `prisma migrate` in order to generate SQL migrations for you based on changes in your Prisma schema. When using PlanetScale with Prisma, the responsibility of applying the changes is on the PlanetScale side. Therefore, there is little value to using `prisma migrate` with PlanetScale.
+PlanetScale provides [Online Schema Changes](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md) that are deployed automatically when you merge a deploy request and prevents [blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) that can lead to downtime. This is different from the typical Prisma workflow which uses `prisma migrate` in order to generate SQL migrations for you based on changes in your Prisma schema. When using PlanetScale with Prisma, the responsibility of applying the changes is on the PlanetScale side. Therefore, there is little value to using `prisma migrate` with PlanetScale.
 
 Also, the migrations table created when `prisma migrate` runs can also be misleading since PlanetScale does the actual migration when the deploy request is merged, not when `prisma migrate` is run which only updates the schema in the development database branch. You can still see the history of your schema changes in PlanetScale.
 
@@ -46,7 +46,7 @@ pscale auth login
 
 ## Execute your first Prisma db push
 
-Prisma migrations follow the PlanetScale [non-blocking schema change](../schema-changes.md) workflow. First, the schema is applied to a *development* branch and then the development branch is merged into the `main` production database.
+Prisma migrations follow the PlanetScale [non-blocking schema change](https://planetscale.com/docs/vitess/schema-changes.md) workflow. First, the schema is applied to a *development* branch and then the development branch is merged into the `main` production database.
 
 Let's begin with an example flow for running Prisma migrations in PlanetScale:
 
@@ -68,7 +68,7 @@ pscale connect prisma-playground main --port 3309
 
 > [!NOTE]
 >
-> This step assumes you created a new PlanetScale database and have not yet enabled [Safe Migrations](../schema-changes/safe-migrations.md) on the `main` branch. You will need to create a new development branch otherwise.
+> This step assumes you created a new PlanetScale database and have not yet enabled [Safe Migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) on the `main` branch. You will need to create a new development branch otherwise.
 
 **Step 3**
 
@@ -234,7 +234,7 @@ describe Post;
 
 ## What's next?
 
-Now that you've successfully conducted your first automatic Prisma migration in PlanetScale and know how to handle future migrations, it's time to deploy your application with a PlanetScale database! Let's learn how to [deploy an application with a PlanetScale database to Vercel](deploy-to-vercel.md).
+Now that you've successfully conducted your first automatic Prisma migration in PlanetScale and know how to handle future migrations, it's time to deploy your application with a PlanetScale database! Let's learn how to [deploy an application with a PlanetScale database to Vercel](https://planetscale.com/docs/vitess/tutorials/deploy-to-vercel.md).
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/maintenance-schedules
 title: "Maintenance Schedules"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ The only exceptions to this are the following:
 
 * For MySQL databases: changes to the *number* of VTGates
 
-Modifications to your schema, such as [deploy requests](../../vitess/schema-changes/deploy-requests.md) and [workflows](../../vitess/scaling/workflows.md), are not included in the maintenance schedule and will complete as soon as you apply the changes.
+Modifications to your schema, such as [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) and [workflows](https://planetscale.com/docs/vitess/scaling/workflows.md), are not included in the maintenance schedule and will complete as soon as you apply the changes.
 
 ## Enabling maintenance schedules
 

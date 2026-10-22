@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/azure/private-link
 title: "Private Link"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -39,7 +39,7 @@ You manage:
 
 Before you begin, you need:
 
-* A [provisioned PlanetScale Managed deployment on Azure](getting-started.md)
+* A [provisioned PlanetScale Managed deployment on Azure](https://planetscale.com/docs/plans/managed/azure/getting-started.md)
 * The Azure subscription and VNet where the applications that will connect to PlanetScale run
 * A subnet in that VNet where Azure can create the Private Endpoint
 * Permission to create Private Endpoints and network interfaces
@@ -266,9 +266,9 @@ Confirm that network security groups, user-defined routes, firewalls, and applic
 
 ## Next steps
 
-* [Connect to PlanetScale Postgres](../../../postgres/connecting.md)
-* [Configure connection pooling with PgBouncer](../../../postgres/connecting/pgbouncer.md)
-* [Learn about PlanetScale Managed on Azure](../azure.md)
+* [Connect to PlanetScale Postgres](https://planetscale.com/docs/postgres/connecting.md)
+* [Configure connection pooling with PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md)
+* [Learn about PlanetScale Managed on Azure](https://planetscale.com/docs/plans/managed/azure.md)
 
 ## Need help?
 

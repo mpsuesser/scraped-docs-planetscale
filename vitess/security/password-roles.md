@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/security/password-roles
 title: "Password Roles"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ current_date: 2026-10-20T18:01:41.586Z
 > password** (Read-only, Write-only, Read/Write, Admin). They are **not** the same
 > as Postgres **roles**, which are the credential system for PlanetScale Postgres
 > databases. If your database is Postgres, see [Managing
-> roles](../../postgres/connecting/roles.md) instead.
+> roles](https://planetscale.com/docs/postgres/connecting/roles.md) instead.
 
 PlanetScale passwords can be created with one of four roles:
 
@@ -31,7 +31,7 @@ PlanetScale passwords can be created with one of four roles:
 * **Read/Write** — Can query and modify rows
 * **Admin** — All read/write permissions and can modify schema\*
 
-\* *This does not apply to production branches with [safe migrations](../schema-changes/safe-migrations.md) enabled, as we [do not allow direct DDL](../schema-changes/how-online-schema-change-tools-work.md) on those branches, even if your password has the `Admin` role.*
+\* *This does not apply to production branches with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled, as we [do not allow direct DDL](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md) on those branches, even if your password has the `Admin` role.*
 
 ## Create a password with custom role
 
@@ -88,7 +88,7 @@ The following errors indicate that you do not have the permissions needed to per
 > [!NOTE]
 >
 > If your pscale CLI version is less than 0.94.0, please upgrade your installation by following [this
-> document](../../cli/planetscale-environment-setup.md)
+> document](https://planetscale.com/docs/cli/planetscale-environment-setup.md)
 
 ## Need help?
 

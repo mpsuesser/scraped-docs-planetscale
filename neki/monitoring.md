@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring
 title: "Monitoring"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -21,11 +21,11 @@ PlanetScale provides these complementary monitoring tools:
 
 | Tool | Use it to |
 | :- | :- |
-| [Metrics](monitoring/metrics.md) | Track router traffic and latency, Postgres resource utilization, storage, WAL activity, replication lag, and instance health. |
-| [Logs](monitoring/logs.md) | Search individual log events and filter them by shard, server, severity, and time. |
-| [Query Insights](monitoring/query-insights.md) | Find expensive or frequently executed query patterns and inspect their shard-level cost. |
-| [Anomalies](monitoring/anomalies.md) | Investigate periods when queries run slower than their established baseline. |
-| [Schema recommendations](monitoring/schema-recommendations.md) | Review automatic DDL suggestions from production query telemetry and schema. |
+| [Metrics](https://planetscale.com/docs/neki/monitoring/metrics.md) | Track router traffic and latency, Postgres resource utilization, storage, WAL activity, replication lag, and instance health. |
+| [Logs](https://planetscale.com/docs/neki/monitoring/logs.md) | Search individual log events and filter them by shard, server, severity, and time. |
+| [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) | Find expensive or frequently executed query patterns and inspect their shard-level cost. |
+| [Anomalies](https://planetscale.com/docs/neki/monitoring/anomalies.md) | Investigate periods when queries run slower than their established baseline. |
+| [Schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md) | Review automatic DDL suggestions from production query telemetry and schema. |
 
 ## Router monitoring
 
@@ -47,7 +47,7 @@ Use the **Routers** tab to view all router groups or select one named group.
 
 Each Neki shard contains a primary Postgres instance and can contain one or
 more replicas. The **Shards** and **Storage** metrics tabs can limit graphs to
-one [configuration profile](cluster-configuration.md#configuration-profiles).
+one [configuration profile](https://planetscale.com/docs/neki/cluster-configuration.md#configuration-profiles).
 The Logs page lets you select shards and then narrow the results to servers
 within those shards.
 
@@ -70,11 +70,11 @@ over time. Use it to investigate:
 
 * Query latency and execution count.
 * Rows read and rows written.
-* Errors and [anomalous performance](monitoring/anomalies.md).
+* Errors and [anomalous performance](https://planetscale.com/docs/neki/monitoring/anomalies.md).
 * Query tags.
 * Shard calls made by each query.
 * Parallel worker activity.
-* [Schema recommendations](monitoring/schema-recommendations.md).
+* [Schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md).
 
 For Neki queries, **Qualified table** shows the complete resolved table name,
 including its database and schema. For example, if a query connected to
@@ -82,11 +82,11 @@ including its database and schema. For example, if a query connected to
 the qualified table is `appdb.sales.orders`. A query can reference more than
 one qualified table. The **Schema** column is a connection grouping rather than
 a PostgreSQL schema name; see
-[Table and schema names in Neki](monitoring/query-insights.md#table-and-schema-names-in-neki).
+[Table and schema names in Neki](https://planetscale.com/docs/neki/monitoring/query-insights.md#table-and-schema-names-in-neki).
 
 A high shard-call count can come from a query that fans out across shards or
 from repeated dispatches to the same shard. Review the query plan and the
-database's [data topology](data-topology.md) when investigating an
+database's [data topology](https://planetscale.com/docs/neki/data-topology.md) when investigating an
 unexpected value.
 
 ## Investigate a performance problem

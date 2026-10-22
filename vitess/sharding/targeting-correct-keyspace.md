@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace
 title: "Targeting Correct Keyspace"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ In those cases, you should use `@primary`. This will send any incoming queries f
 >
 > If you explicitly wish to target a replica for some or all reads, using `@replica` will have the same effect as `@primary` in that it will automatically route the request to the correct keyspace.
 
-[Global Replica Credentials](../scaling/replicas.md#1-create-a-global-replica-credential-recommended) are not currently supported in this context. You can still target replicas instead of your primary with `@replica`, but it will not automatically route the query to the *closest* replica.
+[Global Replica Credentials](https://planetscale.com/docs/vitess/scaling/replicas.md#1-create-a-global-replica-credential-recommended) are not currently supported in this context. You can still target replicas instead of your primary with `@replica`, but it will not automatically route the query to the *closest* replica.
 
 ## Framework examples
 

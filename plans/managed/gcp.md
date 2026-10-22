@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp
 title: "Gcp"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -54,7 +54,7 @@ PlanetScale Managed is an excellent option for organizations with specific secur
 
 You own the GCP organization and project that PlanetScale is deployed within an isolated architecture. This differs from when your PlanetScale database is deployed within our GCP organizations.
 
-Along with System and Organization Controls (SOC) 2 Type 2 and PlanetScale [security and compliance](../../security.md) practices that PlanetScale has been issued and follows, we can also sign BAAs for [HIPAA compliance](https://planetscale.com/blog/planetscale-and-hipaa) on PlanetScale Managed.
+Along with System and Organization Controls (SOC) 2 Type 2 and PlanetScale [security and compliance](https://planetscale.com/docs/security.md) practices that PlanetScale has been issued and follows, we can also sign BAAs for [HIPAA compliance](https://planetscale.com/blog/planetscale-and-hipaa) on PlanetScale Managed.
 
 > [!NOTE]
 >
@@ -62,7 +62,7 @@ Along with System and Organization Controls (SOC) 2 Type 2 and PlanetScale [secu
 
 ### GCP Private Service Connect
 
-By default, all connections are encrypted, but public. Optionally, you also have the option to use private database connectivity through [GCP Private Service Connect](gcp/private-service-connect.md), which is only available on single-tenancy deployment options, including PlanetScale Managed.
+By default, all connections are encrypted, but public. Optionally, you also have the option to use private database connectivity through [GCP Private Service Connect](https://planetscale.com/docs/plans/managed/gcp/private-service-connect.md), which is only available on single-tenancy deployment options, including PlanetScale Managed.
 
 > [!NOTE]
 >
@@ -70,7 +70,7 @@ By default, all connections are encrypted, but public. Optionally, you also have
 
 ## Getting started with PlanetScale Managed in GCP
 
-If you want to see what is involved in getting set up with PlanetScale Managed in GCP, you can see the [GCP set up documentation](gcp/getting-started.md).
+If you want to see what is involved in getting set up with PlanetScale Managed in GCP, you can see the [GCP set up documentation](https://planetscale.com/docs/plans/managed/gcp/getting-started.md).
 
 If you are interested in exploring PlanetScale Managed further, please [contact us](https://planetscale.com/contact), and we can chat more about your requirements and see if PlanetScale Managed is a good fit for you.
 

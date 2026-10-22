@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -56,7 +56,7 @@ The action works with Linux, Windows, and Mac runners. Once installed it will be
 
 Authentication for pscale is via service token environment variables.
 
-You will need to [create a service token](../../cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
+You will need to [create a service token](https://planetscale.com/docs/cli/service-token.md). Make sure to give your service token the proper permissions to the database you'll be using in your workflow.
 
 Add your `PLANETSCALE_SERVICE_TOKEN_ID` and `PLANETSCALE_SERVICE_TOKEN` to your [Actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 

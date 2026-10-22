@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 The Clusters page in your PlanetScale dashboard allows you to monitor your cluster utilization and configure cluster settings for each branch in your database. You can:
 
-* Adjust the cluster size and instance type ([Metal](../metal.md) vs network-attached storage)
+* Adjust the cluster size and instance type ([Metal](https://planetscale.com/docs/metal.md) vs network-attached storage)
 * Configure the number of replicas
 * Monitor cluster utilization with real-time graphs
 * Configure storage settings including:
@@ -23,11 +23,11 @@ The Clusters page in your PlanetScale dashboard allows you to monitor your clust
   * Storage limits
   * IOPS configuration (default: 3,000 IOPS included)
   * Bandwidth settings (default: 125 MiB/s included)
-* Modify PostgreSQL [parameters](cluster-configuration/parameters.md)
-* Manage PostgreSQL [extensions](extensions.md)
+* Modify PostgreSQL [parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md)
+* Manage PostgreSQL [extensions](https://planetscale.com/docs/postgres/extensions.md)
 * View and track configuration changes
 
-These settings may only be changed by a [database administrator or organization administrator](../security/access-control.md).
+These settings may only be changed by a [database administrator or organization administrator](https://planetscale.com/docs/security/access-control.md).
 
 ## Adjusting cluster size
 
@@ -56,7 +56,7 @@ Click Queue instance changes > Apply changes to apply the new cluster size
 
 > [!NOTE]
 >
-> You cannot change the [CPU architecture](cluster-configuration/cpu-architectures.md) (`aarch64` or `x86-64`) of an existing cluster. New branches and backup restores retain the source architecture. To use a different architecture, create a new PlanetScale Postgres database and [migrate your data](imports/postgres-imports.md).
+> You cannot change the [CPU architecture](https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures.md) (`aarch64` or `x86-64`) of an existing cluster. New branches and backup restores retain the source architecture. To use a different architecture, create a new PlanetScale Postgres database and [migrate your data](https://planetscale.com/docs/postgres/imports/postgres-imports.md).
 
 Cluster resizing may take several minutes to complete and you cannot make additional configuration changes until the resize is finished.
 
@@ -83,11 +83,11 @@ Due to the way this works, it's important for your application to have connectio
 
 ## Managing replicas
 
-[Replicas](scaling/replicas.md) provide read scalability and high availability for your PostgreSQL database. Each production branch (excluding single node) comes with 2 replicas by default.
+[Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md) provide read scalability and high availability for your PostgreSQL database. Each production branch (excluding single node) comes with 2 replicas by default.
 
 > [!NOTE]
 >
-> If you add additional replicas beyond the default 2, you will incur additional charges. Billing for additional replicas begins once the replica change has completed. See [pricing](pricing.md) to understand the additional costs.
+> If you add additional replicas beyond the default 2, you will incur additional charges. Billing for additional replicas begins once the replica change has completed. See [pricing](https://planetscale.com/docs/postgres/pricing.md) to understand the additional costs.
 
 To adjust the number of replicas:
 
@@ -130,7 +130,7 @@ You can customize your PostgreSQL cluster's behavior in the **Parameters** tab o
 * Connections and authentication
 * Failover
 
-For more information about each setting, refer to the [Parameters documentation](cluster-configuration/parameters.md).
+For more information about each setting, refer to the [Parameters documentation](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md).
 
 ## Configuring storage
 
@@ -142,11 +142,11 @@ You can configure your cluster's storage settings in the "**Storage**" tab on th
 * Monitoring current storage usage
 * Configuring IOPS and bandwidth settings (AWS gp3 storage includes 3,000 IOPS and 125 MiB/s throughput by default at no additional cost)
 
-For detailed information about storage configuration options, refer to the [Storage configuration documentation](cluster-configuration/cluster-storage.md).
+For detailed information about storage configuration options, refer to the [Storage configuration documentation](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md).
 
 ## Managing extensions
 
-PostgreSQL [extensions](extensions.md) provide additional functionality for your database. The "**Extensions**" tab on the Clusters page allows you to view and enable/disable available extensions.
+PostgreSQL [extensions](https://planetscale.com/docs/postgres/extensions.md) provide additional functionality for your database. The "**Extensions**" tab on the Clusters page allows you to view and enable/disable available extensions.
 
 ### Extension management
 
@@ -170,7 +170,7 @@ The Clusters page provides visibility into all changes made to your cluster sett
 
 > [!NOTE]
 >
-> When updating a cluster's size, some [parameters](cluster-configuration/parameters.md) will automatically be adjusted. Each cluster size is associated with default parameter settings, changing the cluster size will also update those defaults. The exception to this is if you manually override a default parameter setting. In that case, a cluster size adjustment will not automatically change that setting.
+> When updating a cluster's size, some [parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) will automatically be adjusted. Each cluster size is associated with default parameter settings, changing the cluster size will also update those defaults. The exception to this is if you manually override a default parameter setting. In that case, a cluster size adjustment will not automatically change that setting.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/web-console
 title: "Web Console"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,11 +16,11 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Get started
 
-The PlanetScale web console can be used to query to any database branch; however, it is [disabled for production branches](web-console.md#enable-for-production-branches) by default to protect production data.
+The PlanetScale web console can be used to query to any database branch; however, it is [disabled for production branches](https://planetscale.com/docs/vitess/web-console.md#enable-for-production-branches) by default to protect production data.
 
 To access the web console, navigate to a database, and click on the "Console" tab in the page navigation. From here, you can select which branch you'd like to connect to by selecting it in the dropdown and clicking "Connect".
 
-Once you have accessed the web console, you can run queries against your database branch, or apply DDL to branches without [safe migrations](schema-changes/safe-migrations.md) enabled.
+Once you have accessed the web console, you can run queries against your database branch, or apply DDL to branches without [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled.
 
 The following are examples of MySQL statements you may find useful within the web console:
 

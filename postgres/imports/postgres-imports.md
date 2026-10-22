@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,19 +20,19 @@ Before beginning your migration, we recommend running our [migration assessment 
 
 > [!NOTE]
 >
-> If you have IP restrictions in place on your source database and need to grant a set of IP addresses access, see our [Import public IP addresses documentation](import-ips.md).
+> If you have IP restrictions in place on your source database and need to grant a set of IP addresses access, see our [Import public IP addresses documentation](https://planetscale.com/docs/postgres/imports/import-ips.md).
 
 ## Migration Options Overview
 
 PlanetScale Postgres provides several migration approaches to suit different business requirements, database sizes, and downtime tolerances:
 
-> **[Migrate using pg\_dump & pg\_restore](postgres-migrate-dumprestore.md)**
+> **[Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
 
-> **[Migrate using WAL streaming](postgres-migrate-walstream.md)**
+> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
 
-> **[Migrate using pgcopydb](postgres-migrate-pgcopydb.md)**
+> **[Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)**
 
-> **[Migrate using pscale from Cloudflare D1](postgres-migrate-d1.md)**
+> **[Migrate using pscale from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)**
 
 You can also utilize our [migration scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-direct) directly if you prefer. These scripts can be used to migrate straight from any Postgres source that supports logical replication into PlanetScale Postgres.
 
@@ -62,7 +62,7 @@ This method is ideal for production databases that require minimal downtime and 
 
 ### 3. pgcopydb
 
-[pgcopydb](postgres-migrate-pgcopydb.md) automates the `pg_dump | pg_restore` pipeline by copying table data in parallel without intermediate files and building indexes concurrently. PlanetScale maintains a fork with PostgreSQL 17 and 18 support, improved filtering, resilient retry, and improved CDC support. PlanetScale also provides [helper scripts](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-helpers) for setup, monitoring, cutover, and cleanup.
+[pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md) automates the `pg_dump | pg_restore` pipeline by copying table data in parallel without intermediate files and building indexes concurrently. PlanetScale maintains a fork with PostgreSQL 17 and 18 support, improved filtering, resilient retry, and improved CDC support. PlanetScale also provides [helper scripts](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-helpers) for setup, monitoring, cutover, and cleanup.
 
 **How it works:**
 
@@ -72,11 +72,11 @@ This method is ideal for production databases that require minimal downtime and 
 * Optionally stream changes via [logical decoding](https://www.postgresql.org/docs/current/logicaldecoding.html) for near-zero downtime CDC
 * Perform cutover when replication is caught up
 
-pgcopydb is the recommended approach for large databases requiring high-throughput parallel copying, near-zero downtime, and fine-grained control over the migration process. PlanetScale has used pgcopydb and these helper scripts to migrate multi-terabyte databases from live customer environments, with speeds as fast as 2 TB per hour using [Metal](../../metal.md).
+pgcopydb is the recommended approach for large databases requiring high-throughput parallel copying, near-zero downtime, and fine-grained control over the migration process. PlanetScale has used pgcopydb and these helper scripts to migrate multi-terabyte databases from live customer environments, with speeds as fast as 2 TB per hour using [Metal](https://planetscale.com/docs/metal.md).
 
 ### 4. Cloudflare D1
 
-If you are moving from **Cloudflare D1** (SQLite) rather than Postgres, use the dedicated [D1 import guide](postgres-migrate-d1.md). Export with Wrangler, then run `pscale import d1` to convert schema and load data into PlanetScale Postgres.
+If you are moving from **Cloudflare D1** (SQLite) rather than Postgres, use the dedicated [D1 import guide](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md). Export with Wrangler, then run `pscale import d1` to convert schema and load data into PlanetScale Postgres.
 
 ## Migration Method Comparison
 
@@ -102,7 +102,7 @@ Before migrating your PostgreSQL database to PlanetScale Postgres, there are sev
 
 PlanetScale Postgres supports [PostgreSQL 18](https://www.postgresql.org/docs/18/index.html) and [PostgreSQL 17](https://www.postgresql.org/docs/17/index.html). If your source database is running an older version of PostgreSQL, you should verify compatibility and consider upgrading your source database before migration, or plan for potential compatibility issues during the migration process.
 
-For major version upgrades, use [pgcopydb](postgres-migrate-pgcopydb.md). Only pgcopydb supports migrations across PostgreSQL major versions; pg\_dump & pg\_restore and WAL log replication are intended for same-major-version imports. PlanetScale has successfully migrated companies from PostgreSQL 13 and newer to PostgreSQL 18 with pgcopydb.
+For major version upgrades, use [pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md). Only pgcopydb supports migrations across PostgreSQL major versions; pg\_dump & pg\_restore and WAL log replication are intended for same-major-version imports. PlanetScale has successfully migrated companies from PostgreSQL 13 and newer to PostgreSQL 18 with pgcopydb.
 
 **Version considerations:**
 
@@ -119,7 +119,7 @@ We don't currently offer an automated in-place major version upgrade from Postgr
 
 You can perform an online upgrade by migrating from your existing PlanetScale Postgres 17 database to a new PostgreSQL 18 database using pgcopydb:
 
-* For major version upgrades: follow the [pgcopydb guide](postgres-migrate-pgcopydb.md)
+* For major version upgrades: follow the [pgcopydb guide](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)
 
 At a high level, the process is:
 
@@ -130,7 +130,7 @@ At a high level, the process is:
 
 ### Extension Support
 
-Many PostgreSQL databases rely on extensions to provide additional functionality, but not all extensions are supported by PlanetScale Postgres. See the list of [supported extensions](../extensions.md).
+Many PostgreSQL databases rely on extensions to provide additional functionality, but not all extensions are supported by PlanetScale Postgres. See the list of [supported extensions](https://planetscale.com/docs/postgres/extensions.md).
 
 **Important notes about extensions:**
 
@@ -139,7 +139,7 @@ Many PostgreSQL databases rely on extensions to provide additional functionality
 * Plan for alternative approaches if critical extensions are not supported
 * Test your application thoroughly in a staging environment before migrating production data
 
-Before migrating, compare your source extension versions with [PlanetScale's supported versions](../extensions.md) and review the extension's changelog for any breaking changes.
+Before migrating, compare your source extension versions with [PlanetScale's supported versions](https://planetscale.com/docs/postgres/extensions.md) and review the extension's changelog for any breaking changes.
 
 Common extensions to verify:
 
@@ -167,7 +167,7 @@ PlanetScale Postgres does **not support third-party enhancements** to PostgreSQL
 **Alternatives to consider:**
 
 * Migrate custom functions to standard PostgreSQL syntax where possible.
-* Utilize [Metrics](../monitoring/metrics.md), [Insights](../monitoring/query-insights.md), and 3rd party integrations for monitoring.
+* Utilize [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md), [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md), and 3rd party integrations for monitoring.
 
 ### Pre-Migration Checklist
 
@@ -205,19 +205,19 @@ For the most up-to-date information on supported features and extensions, refer 
 
 Follow the migration guide that's right for you:
 
-> **[Import from Cloudflare D1](postgres-migrate-d1.md)**
+> **[Import from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)**
 
-> **[Migrate using pg\_dump & pg\_restore](postgres-migrate-dumprestore.md)**
+> **[Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
 
-> **[Migrate using WAL streaming](postgres-migrate-walstream.md)**
+> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
 
-> **[Migrate using pgcopydb](postgres-migrate-pgcopydb.md)**
+> **[Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)**
 
-> **[Migrate from Heroku](heroku.md)**
+> **[Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)**
 
 > [!NOTE]
 >
-> Heroku does not support logical replication, so the WAL streaming approach above won't work for Heroku Postgres. Use the dedicated [Heroku migration guide](heroku.md) instead, which provides a migration tool with a web dashboard.
+> Heroku does not support logical replication, so the WAL streaming approach above won't work for Heroku Postgres. Use the dedicated [Heroku migration guide](https://planetscale.com/docs/postgres/imports/heroku.md) instead, which provides a migration tool with a web dashboard.
 
 ## Need help?
 

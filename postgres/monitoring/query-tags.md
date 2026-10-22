@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,8 +20,8 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Query tags are key-value pairs embedded in SQL comments written into each statement to the database. PlanetScale parses these tags automatically and uses them to:
 
-* Show filtered tag-based performance data alongside individual query executions in [Insights](query-insights.md)
-* Enable [tag-based rules](../traffic-control/concepts.md#tag-based-rules) in [Database Traffic Control](../traffic-control.md), so you can set resource budgets for specific applications, features, or routes
+* Show filtered tag-based performance data alongside individual query executions in [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md)
+* Enable [tag-based rules](https://planetscale.com/docs/postgres/traffic-control/concepts.md#tag-based-rules) in [Database Traffic Control](https://planetscale.com/docs/postgres/traffic-control.md), so you can set resource budgets for specific applications, features, or routes
 
 Tags follow the [SQLCommenter](https://google.github.io/sqlcommenter/) specification, an open standard created by Google for attaching metadata to SQL statements as comments.
 
@@ -79,7 +79,7 @@ tag:action:analytics
 
 ### Insights → Tags
 
-"Tags" is a top-level item under [Insights](query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
+"Tags" is a top-level item under [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md). Select one or many key/value pairs to filter the performance data. Or see the tags of all queries within the currently selected time range.
 
 You can also see the tags associated with a query on the query details page (click on the query text from the list in Insights).
 
@@ -98,7 +98,7 @@ If you search for a tag with collapsed values, or open the Tags view for a tag w
 
 ### Database Traffic Control
 
-Tags can be used as matching criteria when creating resource budgets. A tag-based rule targets all queries that share a given tag, letting you set limits on traffic from a specific application, feature, or route without creating separate database users. See [tag-based rules](../traffic-control/concepts.md#tag-based-rules) for details.
+Tags can be used as matching criteria when creating resource budgets. A tag-based rule targets all queries that share a given tag, letting you set limits on traffic from a specific application, feature, or route without creating separate database users. See [tag-based rules](https://planetscale.com/docs/postgres/traffic-control/concepts.md#tag-based-rules) for details.
 
 ## Adding tags to your queries
 
@@ -173,7 +173,7 @@ The most common cause is **tag placement**. Tags must appear before the semicolo
 
 If your tags are correctly placed and still not appearing:
 
-* Verify that your queries are being executed and appear in the [Insights queries table](query-insights.md)
+* Verify that your queries are being executed and appear in the [Insights queries table](https://planetscale.com/docs/postgres/monitoring/query-insights.md)
 * Check that you are searching with the correct syntax: `tag:key:value` (for example, `tag:category:analytics`)
 
 ### ORM is stripping comments

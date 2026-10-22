@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ Database branching, coupled with deploy requests, allows you to **deploy non-blo
 
 > [!NOTE]
 >
-> Before you can create a deploy request, the branch you are merging into must have [safe migrations](safe-migrations.md) enabled.
+> Before you can create a deploy request, the branch you are merging into must have [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled.
 
 **Step 1**
 
@@ -40,11 +40,11 @@ This page shows you a diff of the schema against its base branch.
 
 **Step 4**
 
-To the right of the page, you'll see a dropdown that says "**Deploy to**". If you don't see this option, you likely don't have [safe migrations](safe-migrations.md) enabled on the branch you're deploying into. Go to the branch page for the branch you'd like to merge into, and enable safe migrations.
+To the right of the page, you'll see a dropdown that says "**Deploy to**". If you don't see this option, you likely don't have [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled on the branch you're deploying into. Go to the branch page for the branch you'd like to merge into, and enable safe migrations.
 
 **Step 5**
 
-Select the branch you want to deploy to. Again, if the branch doesn't show in the dropdown, you need to enable [safe migrations](safe-migrations.md).
+Select the branch you want to deploy to. Again, if the branch doesn't show in the dropdown, you need to enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md).
 
 **Step 6**
 
@@ -62,10 +62,10 @@ Once you create a deploy request, you or your team can review it and, optionally
 
 PlanetScale will check if the request is deployable. This process includes checking for issues like:
 
-* [Incompatible unique keys](onlineddl-change-unique-keys.md)
-* [Invalid charsets](schema-lint-errors/invalid-charset.md) (PlanetScale supports `utf8`, `utf8mb4`, `utf8mb3`, `latin1`, and `ascii`)
-* [Invalid foreign key constraints](schema-lint-errors/foreign-keys-disallowed.md)
-* [Other schema lint errors](schema-lint-errors.md) that would prevent a successful schema change
+* [Incompatible unique keys](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md)
+* [Invalid charsets](https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/invalid-charset.md) (PlanetScale supports `utf8`, `utf8mb4`, `utf8mb3`, `latin1`, and `ascii`)
+* [Invalid foreign key constraints](https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-disallowed.md)
+* [Other schema lint errors](https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors.md) that would prevent a successful schema change
 
 We will also warn you about potential data loss or inconsistencies and check if there are any known conflicts with the production schema that could prevent a clean merge. While we attempt to find all possible conflicts, it is ultimately up to you to confirm merge details.
 
@@ -113,11 +113,11 @@ If your deploy request contains changes to a sharded keyspace, you can see the a
 
 By default, deploy requests on a branch run through a **serial deploy queue**: only one deploy runs at a time, and later requests wait until earlier ones finish. When a queue is already running, you can also [deploy in parallel](#parallel-deployments) alongside it.
 
-A deploy that cannot lock the table is usually due to long-running transactions. See [Long-running transactions](long-running-transactions.md).
+A deploy that cannot lock the table is usually due to long-running transactions. See [Long-running transactions](https://planetscale.com/docs/vitess/schema-changes/long-running-transactions.md).
 
-A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](column-cannot-be-null.md), [Column has no default value](column-has-no-default.md), [Duplicate entry](duplicate-entry.md), and [Value does not fit the new column](value-does-not-fit-column.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](earlier-migration-failed.md).
+A copy can also fail because existing rows do not fit the new schema. See [Column cannot be null](https://planetscale.com/docs/vitess/schema-changes/column-cannot-be-null.md), [Column has no default value](https://planetscale.com/docs/vitess/schema-changes/column-has-no-default.md), [Duplicate entry](https://planetscale.com/docs/vitess/schema-changes/duplicate-entry.md), and [Value does not fit the new column](https://planetscale.com/docs/vitess/schema-changes/value-does-not-fit-column.md). If one migration in the deploy fails, later migrations stop until that one succeeds. See [Earlier migration failed](https://planetscale.com/docs/vitess/schema-changes/earlier-migration-failed.md).
 
-A deploy can fail before copying starts when the schema it was computed against no longer matches production, or when MySQL rejects the new table definition. See [Constraint not found](constraint-not-found.md) and [Foreign key missing unique key](foreign-key-missing-unique-key.md).
+A deploy can fail before copying starts when the schema it was computed against no longer matches production, or when MySQL rejects the new table definition. See [Constraint not found](https://planetscale.com/docs/vitess/schema-changes/constraint-not-found.md) and [Foreign key missing unique key](https://planetscale.com/docs/vitess/schema-changes/foreign-key-missing-unique-key.md).
 
 If some tables fail while others are still copying or ready, the deploy stays in progress. See [Retry a partially failed deploy](#retry-a-partially-failed-deploy).
 
@@ -192,7 +192,7 @@ Click "**Retry**".
 
 The button changes to "**Retry requested**". If a table fails again after that, "**Retry**" is available to try again.
 
-From the [PlanetScale CLI](../../cli/deploy-request.md):
+From the [PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md):
 
 ```bash theme={null}
 pscale deploy-request retry <DATABASE_NAME> <DR_NUMBER>
@@ -226,11 +226,11 @@ Click on the "**Close deploy request**" button on the right-hand side.
 
 ## Deploy requests and foreign key constraints
 
-In most cases, deploy requests should work as expected when your schema changes have [foreign key constraints](../foreign-key-constraints.md).
+In most cases, deploy requests should work as expected when your schema changes have [foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md).
 
 > [!WARNING]
 >
-> A deploy request that modifies a table with many foreign key child tables may cause queries to block when the InnoDB adaptive hash index (AHI) is enabled. See [Adaptive hash index](../foreign-key-constraints.md#adaptive-hash-index).
+> A deploy request that modifies a table with many foreign key child tables may cause queries to block when the InnoDB adaptive hash index (AHI) is enabled. See [Adaptive hash index](https://planetscale.com/docs/vitess/foreign-key-constraints.md#adaptive-hash-index).
 
 There are some cases where a deploy request will not be deployable.
 This includes cases where there is a mismatched column type or when a foreign key constraint references a deleted column.
@@ -251,7 +251,7 @@ Deploy requests do not validate the referential integrity of *existing* columns.
 
 ## Instant deployments
 
-Instant deployments give you the option to run schema changes using MySQL's **ALGORITHM=INSTANT**. This is different than how our [**online schema migrations**](how-online-schema-change-tools-work.md) work.
+Instant deployments give you the option to run schema changes using MySQL's **ALGORITHM=INSTANT**. This is different than how our [**online schema migrations**](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md) work.
 
 Instant deployments will apply schema changes faster, however, these schema changes must be **auto-applied** and **cannot be reverted**.
 
@@ -299,7 +299,7 @@ Admins can enable **Prefer instant** on the database **Settings** page under **A
 
 The setting applies to all future deploy requests that have not started deploying. It does not change in-progress regular deploys.
 
-CLI and API deploys are unchanged. Pass [`--instant`](../../cli/deploy-request.md) with `pscale deploy-request deploy`, or set `instant_ddl` when [queueing a deploy request](../../api/reference/queue_deploy_request.md).
+CLI and API deploys are unchanged. Pass [`--instant`](../../cli/deploy-request.md) with `pscale deploy-request deploy`, or set `instant_ddl` when [queueing a deploy request](https://planetscale.com/docs/api/reference/queue_deploy_request.md).
 
 Before enabling this as a default, review [supported operations](#supported-operations) and [who should use instant deployments](#who-should-use-instant-deployments). Instant deployments cannot be reverted and can terminate queries holding locks on the table.
 
@@ -335,7 +335,7 @@ When your deploy request has completed and is ready for cutover, the "**Apply ch
 
 ### Enable gated deployments via CLI
 
-You can also manage auto-apply settings using the [PlanetScale CLI](../../cli/deploy-request.md).
+You can also manage auto-apply settings using the [PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md).
 
 To create a deploy request with auto-apply disabled:
 
@@ -381,7 +381,7 @@ When a deploy queue is already running on the branch, the deploy request Summary
 
 Select **Deploy in parallel**, then confirm. The deploy request page and the database deploy queue view show parallel deploys in a separate lane from the serial queue.
 
-You can also deploy in parallel from the [PlanetScale CLI](../../cli/deploy-request.md):
+You can also deploy in parallel from the [PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md):
 
 ```bash theme={null}
 pscale deploy-request deploy <DATABASE_NAME> <DR_NUMBER> --strategy parallel
@@ -404,7 +404,7 @@ Everything else about the deploy (review, schema diff, gated cutover, and revert
 >
 > Two deploys at once can **increase database load**. Impact depends on the database, available resources, and workload. Avoid running two resource-intensive deploy requests at the same time. For example, two large but quiet tables may be fine together, while busy tables or deploy requests that each change many tables can put more pressure on the database.
 
-You can independently adjust the [throttler settings](throttling-deploy-requests.md) for each deploy request to control the impact on the database.
+You can independently adjust the [throttler settings](https://planetscale.com/docs/vitess/schema-changes/throttling-deploy-requests.md) for each deploy request to control the impact on the database.
 
 ## Artifact tables
 
@@ -459,7 +459,7 @@ In some cases, when you are using foreign key constraints, a revert of a deploy 
 
 > [!NOTE]
 >
-> You must enable [foreign key constraint](../foreign-key-constraints.md) support in the database settings page before using them.
+> You must enable [foreign key constraint](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in the database settings page before using them.
 
 ### When are you unable to revert a schema change
 
@@ -483,7 +483,7 @@ If you've selected a migration framework or specified a table with migration dat
 
 ### Billing considerations
 
-You may see some temporary `_vt` tables in your database. These are called [artifact tables](https://planetscale.com/docs/vitess/schema-changes/artifact-tables) and are used to facilitate the deployment and revert process. They do not count toward your storage costs if you're using [network-attached storage](../../plans/planetscale-skus.md#network-attached-storage).
+You may see some temporary `_vt` tables in your database. These are called [artifact tables](https://planetscale.com/docs/vitess/schema-changes/artifact-tables) and are used to facilitate the deployment and revert process. They do not count toward your storage costs if you're using [network-attached storage](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage).
 
 ## Need help?
 

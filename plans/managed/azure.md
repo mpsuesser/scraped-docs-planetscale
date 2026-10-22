@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/azure
 title: "Azure"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,13 +34,13 @@ The subscription must be dedicated to PlanetScale Managed and must not contain e
 
 PlanetScale manages all resources inside the subscription after the initial bootstrap. Do not modify, remove, or manage those resources with your own infrastructure-as-code tooling. [Contact support](https://planetscale.com/contact?initial=support) to discuss configuration changes or customization.
 
-The one-time [Azure bootstrap](azure/getting-started.md) creates customer-owned managed identities for PlanetScale automation and support. The bootstrap uses federated credentials rather than client secrets.
+The one-time [Azure bootstrap](https://planetscale.com/docs/plans/managed/azure/getting-started.md) creates customer-owned managed identities for PlanetScale automation and support. The bootstrap uses federated credentials rather than client secrets.
 
 ## Security and compliance
 
 The dedicated subscription is the security and operational boundary for the deployment. PlanetScale automation receives the subscription-scoped permissions required to provision and operate the data plane. PlanetScale does not require tenant-wide Microsoft Entra administrator roles.
 
-PlanetScale Managed is designed for organizations with additional security, compliance, and isolation requirements. PlanetScale maintains [security and compliance](../../security.md) programs including SOC 2 Type 2 and PCI DSS 4.0 Level 1 Service Provider compliance.
+PlanetScale Managed is designed for organizations with additional security, compliance, and isolation requirements. PlanetScale maintains [security and compliance](https://planetscale.com/docs/security.md) programs including SOC 2 Type 2 and PCI DSS 4.0 Level 1 Service Provider compliance.
 
 > [!NOTE]
 >
@@ -48,7 +48,7 @@ PlanetScale Managed is designed for organizations with additional security, comp
 
 ## Private database connectivity
 
-Database connections use public, TLS-encrypted endpoints by default. PlanetScale Managed on Azure supports private connectivity through [Azure Private Link](azure/private-link.md).
+Database connections use public, TLS-encrypted endpoints by default. PlanetScale Managed on Azure supports private connectivity through [Azure Private Link](https://planetscale.com/docs/plans/managed/azure/private-link.md).
 
 Azure Private Link exposes only the database service through a customer-owned Private Endpoint. It does not provide routed access between the PlanetScale Managed virtual network and your application virtual networks.
 
@@ -62,7 +62,7 @@ PlanetScale pricing is defined in your Enterprise agreement. Contact your Planet
 
 ## Get started
 
-Follow the [Azure setup guide](azure/getting-started.md) to prepare a dedicated subscription and grant PlanetScale access.
+Follow the [Azure setup guide](https://planetscale.com/docs/plans/managed/azure/getting-started.md) to prepare a dedicated subscription and grant PlanetScale access.
 
 If you are interested in PlanetScale Managed on Azure, [contact us](https://planetscale.com/contact) to discuss your requirements.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,12 +24,12 @@ Database branches on PlanetScale are isolated database instances that give you f
 
 PlanetScale provides two types of database branches:
 
-* **Development branches** — Development branches provide isolated copies of your production database schema where you can make changes, experiment, or run CI. Please note that only the schema is copied. A new development branch will not have any data stored in it unless you [restore from a backup](../backups.md#restore-from-a-backup). To automatically create a development branch with data from another branch, see the [Data Branching® feature](data-branching.md).
-* **Production branches** — Production branches are highly available databases intended for production traffic. They are automatically provided with an additional [replica](../scaling/replicas.md) to resist outages, enabling zero-downtime failovers. The Base plan includes two additional replicas, and Enterprise plans are customizable.
+* **Development branches** — Development branches provide isolated copies of your production database schema where you can make changes, experiment, or run CI. Please note that only the schema is copied. A new development branch will not have any data stored in it unless you [restore from a backup](https://planetscale.com/docs/vitess/backups.md#restore-from-a-backup). To automatically create a development branch with data from another branch, see the [Data Branching® feature](https://planetscale.com/docs/vitess/schema-changes/data-branching.md).
+* **Production branches** — Production branches are highly available databases intended for production traffic. They are automatically provided with an additional [replica](https://planetscale.com/docs/vitess/scaling/replicas.md) to resist outages, enabling zero-downtime failovers. The Base plan includes two additional replicas, and Enterprise plans are customizable.
 
-Both types of branches also offer [safe migrations](safe-migrations.md) as an optional feature, which helps protect the branch from accidental schema changes and enables non-blocking schema migrations. We highly recommend that all production database branches have the safe migrations setting turned on.
+Both types of branches also offer [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) as an optional feature, which helps protect the branch from accidental schema changes and enables non-blocking schema migrations. We highly recommend that all production database branches have the safe migrations setting turned on.
 
-If you want to set up a workflow with a ”staging” branch, see more the [staging branch documentation](safe-migrations.md#staging-branches) below.
+If you want to set up a workflow with a ”staging” branch, see more the [staging branch documentation](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md#staging-branches) below.
 
 ## Promote a branch to production
 
@@ -45,13 +45,13 @@ That said, you don't have to use the default `main` branch as your production br
 
 Once you are satisfied with the changes you've made to a given development branch, you can promote it to production. Going forward, you can continue to make new development branches off of this production branch to experiment with changes as needed.
 
-A branch can be promoted from the branch overview page in the PlanetScale app or by using the [PlanetScale CLI](../../cli/branch.md), as shown below:
+A branch can be promoted from the branch overview page in the PlanetScale app or by using the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md), as shown below:
 
 ```
 pscale branch promote <DATABASE_NAME> <BRANCH_NAME>
 ```
 
-It's possible to run multiple production branches simultaneously, within [your plan's limits](../../planetscale-plans.md). Keep in mind, PlanetScale does not provide data syncing between production branches.
+It's possible to run multiple production branches simultaneously, within [your plan's limits](https://planetscale.com/docs/planetscale-plans.md). Keep in mind, PlanetScale does not provide data syncing between production branches.
 
 ### Demote a production branch to development
 
@@ -71,7 +71,7 @@ If you are on an Enterprise plan, only an administrator for your organization ca
 
 If you need to experiment with schema changes, you can create a new development branch. This will copy the schema from the base branch into a new branch where you can create and test your changes.
 
-Development branches **will not** copy over data, just the schema. To create a development branch with data from another branch, see the [Data Branching® feature](data-branching.md) section.
+Development branches **will not** copy over data, just the schema. To create a development branch with data from another branch, see the [Data Branching® feature](https://planetscale.com/docs/vitess/schema-changes/data-branching.md) section.
 
 **How to create a development branch**:
 
@@ -93,7 +93,7 @@ Click "**Create branch**".
 
 **Step 5**
 
-(*Optional*) You can also create a new branch from the [PlanetScale CLI](../../cli/branch.md) with:
+(*Optional*) You can also create a new branch from the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md) with:
 
 ```
 pscale branch create <DATABASE_NAME> <BRANCH_NAME>
@@ -101,7 +101,7 @@ pscale branch create <DATABASE_NAME> <BRANCH_NAME>
 
 ## Safe migrations
 
-[Safe migrations](safe-migrations.md) is an optional, but recommended, feature that can be enabled on branches. Branches with safe migrations enabled are restricted from accepting DDL directly. This prevents accidental changes to the database schema, and also enables non-blocking schema migrations. To make changes to branches with safe migrations enabled, you must create a new branch, then merge changes using a [deploy request](deploy-requests.md). Using this method, you get to see a schema diff before merging changes, have the option to have your team review changes, and receive [additional checks and warnings](https://planetscale.com/blog/deploy-requests-now-alert-on-potential-unwanted-changes) prior to making a production schema change.
+[Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) is an optional, but recommended, feature that can be enabled on branches. Branches with safe migrations enabled are restricted from accepting DDL directly. This prevents accidental changes to the database schema, and also enables non-blocking schema migrations. To make changes to branches with safe migrations enabled, you must create a new branch, then merge changes using a [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). Using this method, you get to see a schema diff before merging changes, have the option to have your team review changes, and receive [additional checks and warnings](https://planetscale.com/blog/deploy-requests-now-alert-on-potential-unwanted-changes) prior to making a production schema change.
 
 To enable safe migrations on a branch, select the branch you want to modify from the branch dropdown and click the **”cog”** in the upper right of the infrastructure card on the ”**Dashboard**” tab of the database. In the modal, toggle the option labeled **”Enable safe migrations”**, then click the **”Enable safe migrations”** button to save and close the modal.
 
@@ -109,7 +109,7 @@ To enable safe migrations on a branch, select the branch you want to modify from
 
 You can use a development branch with safe migrations enabled to set up a workflow with a “staging” branch. First, make sure you have safe migration enabled for your main production branch. Then, create a “staging” branch with your main production branch as the base and turn on safe migrations. All new branches created for development can use this “staging” branch as the base branch.
 
-You can then open a deploy request against either the main production or “staging” branch. Once it is deployed to “staging,” you can open a deploy request against the main production branch. The main production branch must be set as the [default branch](branching.md#default-branches) to open a deploy request against it.
+You can then open a deploy request against either the main production or “staging” branch. Once it is deployed to “staging,” you can open a deploy request against the main production branch. The main production branch must be set as the [default branch](https://planetscale.com/docs/vitess/schema-changes/branching.md#default-branches) to open a deploy request against it.
 
 > [!NOTE]
 >
@@ -133,7 +133,7 @@ The first step is to create a new development branch off of the branch you want 
 
 ### 2. Create a deploy request
 
-If you are working in a team, the [deploy request](deploy-requests.md) creates an opportunity for your teammates to review the changes you have made before they are deployed to production.
+If you are working in a team, the [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) creates an opportunity for your teammates to review the changes you have made before they are deployed to production.
 
 **Step 1**
 
@@ -149,7 +149,7 @@ Select the base branch you want to deploy to from the "**Deploy to**" dropdown.
 
 ![PlanetScale deploy request example](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/branching/deploy-request-page.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=abd052cb235c898d9ffb1f0690283bee)
 
-Alternatively, you can create a deploy request from the [PlanetScale CLI](../../cli/deploy-request.md) with the following command:
+Alternatively, you can create a deploy request from the [PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md) with the following command:
 
 ```
 pscale deploy-request create <DATABASE_NAME> <BRANCH_NAME>
@@ -167,7 +167,7 @@ On the deploy request page, click the "**Schema changes**" tab.
 
 Schema additions are highlighted in green, and deletions are highlighted in red.
 
-Alternatively, you can run the command below to see the [schema diff in the PlanetScale CLI](../../cli/deploy-request.md):
+Alternatively, you can run the command below to see the [schema diff in the PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md):
 
 ```
 pscale deploy-request diff <DATABASE> <DEPLOY_REQUEST_NUMBER>
@@ -199,7 +199,7 @@ If successful, you'll get the message "These changes have been deployed".
 
 Your deploy request has now been merged into production. You can click on the "Deploy requests" tab of the database to see the list of previous deploys.
 
-Alternatively, you can run the following command with the [PlanetScale CLI](../../cli/deploy-request.md):
+Alternatively, you can run the following command with the [PlanetScale CLI](https://planetscale.com/docs/cli/deploy-request.md):
 
 ```
 pscale deploy-request deploy <DATABASE_NAME> <DEPLOY_REQUEST_NUMBER>
@@ -257,17 +257,17 @@ Renaming a branch does not affect that branch's credentials. You do not need to 
 
 ## Delete a branch
 
-You can delete a branch from the Branches overview page or by running the following command in the [PlanetScale CLI](../../cli/branch.md):
+You can delete a branch from the Branches overview page or by running the following command in the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md):
 
 ```
 pscale branch delete <DATABASE_NAME> <BRANCH_NAME>
 ```
 
-We recommend deleting branches after a deploy request is complete or if you are no longer using the branch for testing. Base plan development branches are billed only for the time that they are used, prorated to the millisecond, so it is beneficial to delete them when they are no longer in use. See the [billing documentation](../../planetscale-plans.md#development-branches) for more info.
+We recommend deleting branches after a deploy request is complete or if you are no longer using the branch for testing. Base plan development branches are billed only for the time that they are used, prorated to the millisecond, so it is beneficial to delete them when they are no longer in use. See the [billing documentation](https://planetscale.com/docs/planetscale-plans.md#development-branches) for more info.
 
 > [!NOTE]
 >
-> Only [Organization Administrators](../../security/access-control.md#organization-administrator) have permission to delete production branches.
+> Only [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator) have permission to delete production branches.
 
 You cannot delete a branch that's [set as default](#default-branches). To delete, it set another branch as the default first.
 
@@ -295,7 +295,7 @@ Check the "**Automatically copy migration data**" box.
 
 Select one of the listed frameworks: Rails, Phoenix, Laravel, Django, .NET, Sequelize, or Other, which allows you to specify a custom table name.
 
-You can see how this works in this [Rails migration tutorial](../tutorials/automatic-rails-migrations.md).
+You can see how this works in this [Rails migration tutorial](https://planetscale.com/docs/vitess/tutorials/automatic-rails-migrations.md).
 
 ## Need help?
 

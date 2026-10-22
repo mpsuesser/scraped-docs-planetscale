@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/imports/troubleshooting
 title: "Troubleshooting"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ explicitly support resumption.
 ## `NK013` for an unsupported `COPY` form
 
 Compare the statement with the implemented [COPY
-limits](../platform-preview-limitations.md#copy-limits). In particular, `COPY
+limits](https://planetscale.com/docs/neki/platform-preview-limitations.md#copy-limits). In particular, `COPY
 TO` and file-based `COPY` do not support sharded or reference tables. `COPY
 FROM STDIN` supports both, subject to its shard-key, option, and default-value
 requirements.
@@ -35,7 +35,7 @@ use supported `INSERT` statements that maintain the index.
 
 For `pg_restore`, restore into an unsharded Neki database. Moving the imported
 rows into a sharded layout is a separate [data migration
-workflow](../data-migration.md).
+workflow](https://planetscale.com/docs/neki/data-migration.md).
 
 ## An extension cannot be created
 
@@ -69,8 +69,8 @@ MoveTables and Reshard copy onto a disjoint placement. The target group's
 shards cannot include a source shard. Create the destination shards required
 by the planned key ranges and capacity, put only those shard UIDs in the target
 group, and leave the import shard as the source and [authoritative shard
-group](../data-topology.md). See [Data
-migration](../data-migration.md#what-a-migration-workflow-moves) for the
+group](https://planetscale.com/docs/neki/data-topology.md). See [Data
+migration](https://planetscale.com/docs/neki/data-migration.md#what-a-migration-workflow-moves) for the
 placement requirements.
 
 ## Reshard refuses undeclared tables

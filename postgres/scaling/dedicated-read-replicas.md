@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/scaling/dedicated-read-replicas
 title: "Dedicated Read Replicas"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Dedicated read replicas maintain continuously updated copies of a production branch in locations you select. Use them to serve read traffic closer to your applications and users or to isolate read-heavy workloads from the primary cluster.
 
-A dedicated read replica differs from the [replicas in your primary cluster](replicas.md):
+A dedicated read replica differs from the [replicas in your primary cluster](https://planetscale.com/docs/postgres/scaling/replicas.md):
 
 * Primary-cluster replicas provide high availability and read capacity within the primary location.
 * Dedicated read replicas are distincy Postgres nodes from the primary cluster and provide independently sized read capacity in a location you select.
@@ -32,7 +32,7 @@ Database administrators and organization administrators can create and manage de
 
 > [!WARNING]
 >
-> PlanetScale asynchronously replicates changes to dedicated read replicas. Applications that query them must tolerate [replication lag and temporarily stale results](replicas.md#data-consistency-and-replication-lag).
+> PlanetScale asynchronously replicates changes to dedicated read replicas. Applications that query them must tolerate [replication lag and temporarily stale results](https://planetscale.com/docs/postgres/scaling/replicas.md#data-consistency-and-replication-lag).
 
 ## Create a dedicated read replica
 
@@ -82,7 +82,7 @@ Select **Save replica changes**. Changes apply immediately.
 
 The **Changes** tab shows the status and history of dedicated read replica changes.
 
-Storage settings apply independently to each dedicated read replica. For storage controls and limits, see [Cluster storage configuration](../cluster-configuration/cluster-storage.md).
+Storage settings apply independently to each dedicated read replica. For storage controls and limits, see [Cluster storage configuration](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md).
 
 Set parameter values on a dedicated read replica at or above the corresponding primary-cluster values. Changing a parameter restarts the dedicated read replica.
 
@@ -124,18 +124,18 @@ pscale role get <database> <branch> <role-id> --dedicated-read-replica <dedicate
 
 ## Monitor a dedicated read replica
 
-Prometheus metrics for a dedicated read replica use `planetscale_database_branch_id` to identify the replica and `planetscale_upstream_database_branch_id` to identify its parent database branch. See the [Prometheus metrics reference](../monitoring/prometheus-metrics-postgres.md).
+Prometheus metrics for a dedicated read replica use `planetscale_database_branch_id` to identify the replica and `planetscale_upstream_database_branch_id` to identify its parent database branch. See the [Prometheus metrics reference](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md).
 
 ## Manage dedicated read replicas with the API
 
-The [PlanetScale API](../../api/reference/getting-started-with-planetscale-api.md) supports dedicated read replica management:
+The [PlanetScale API](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md) supports dedicated read replica management:
 
-* [List dedicated read replicas](../../api/reference/list_dedicated_read_replicas.md)
-* [Create a dedicated read replica](../../api/reference/create_dedicated_read_replica.md)
-* [Get a dedicated read replica](../../api/reference/get_dedicated_read_replica.md)
-* [Update a dedicated read replica](../../api/reference/update_dedicated_read_replica.md)
-* [Delete a dedicated read replica](../../api/reference/delete_dedicated_read_replica.md)
-* [List dedicated read replica change requests](../../api/reference/list_dedicated_read_replica_change_requests.md)
+* [List dedicated read replicas](https://planetscale.com/docs/api/reference/list_dedicated_read_replicas.md)
+* [Create a dedicated read replica](https://planetscale.com/docs/api/reference/create_dedicated_read_replica.md)
+* [Get a dedicated read replica](https://planetscale.com/docs/api/reference/get_dedicated_read_replica.md)
+* [Update a dedicated read replica](https://planetscale.com/docs/api/reference/update_dedicated_read_replica.md)
+* [Delete a dedicated read replica](https://planetscale.com/docs/api/reference/delete_dedicated_read_replica.md)
+* [List dedicated read replica change requests](https://planetscale.com/docs/api/reference/list_dedicated_read_replica_change_requests.md)
 
 Creating a dedicated read replica requires a unique name and region slug. The API defaults to one instance and the primary cluster's size when you omit `replicas` and `cluster_size`.
 
@@ -172,7 +172,7 @@ Compute charges consist of:
 
 For network-attached storage, PlanetScale bills every instance in a dedicated read replica for its configured storage, IOPS, and throughput. PlanetScale Metal cluster prices include their local storage.
 
-Cross-region replication traffic for Postgres dedicated read replicas is billed per GB with no included allowance. See [cross-region dedicated read replica traffic pricing](../pricing.md#cross-region-dedicated-read-replica-traffic).
+Cross-region replication traffic for Postgres dedicated read replicas is billed per GB with no included allowance. See [cross-region dedicated read replica traffic pricing](https://planetscale.com/docs/postgres/pricing.md#cross-region-dedicated-read-replica-traffic).
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/prometheus-metrics-neki
 title: "Prometheus Metrics Neki"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ If you use Datadog, the Datadog agent can scrape the same Prometheus endpoint.
 
 You need Prometheus 3.x, or a Prometheus-compatible engine such as VictoriaMetrics, that supports [HTTP SD](https://prometheus.io/docs/prometheus/latest/http_sd/).
 
-1. Create a [service token](../../api/reference/service-tokens.md) in your organization settings. Save the token ID and the token.
+1. Create a [service token](https://planetscale.com/docs/api/reference/service-tokens.md) in your organization settings. Save the token ID and the token.
 2. Grant the token the `read_metrics_endpoints` permission.
 3. Add a scrape configuration. Replace `${ORG}`, `${TOKEN_ID}`, and `${TOKEN}` with your values:
 

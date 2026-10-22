@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deploy-to-vercel
 title: "Deploy To Vercel"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,9 +16,9 @@ current_date: 2026-10-20T18:01:41.586Z
 
 To use a PlanetScale database with Vercel, there are a few prerequisites:
 
-* A PlanetScale database — If you haven't created a database, refer to our [PlanetScale quickstart guide](planetscale-quick-start-guide.md) to get started
+* A PlanetScale database — If you haven't created a database, refer to our [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md) to get started
 * A [Vercel account](https://vercel.com/)
-* A project deployed to Vercel — If you're just poking around and don't already have an application to deploy, you can use our [Next.js + PlanetScale sample](connect-nextjs-app.md)
+* A project deployed to Vercel — If you're just poking around and don't already have an application to deploy, you can use our [Next.js + PlanetScale sample](https://planetscale.com/docs/vitess/tutorials/connect-nextjs-app.md)
 
 ## Get your connection string from PlanetScale
 
@@ -89,7 +89,7 @@ In Vercel, you'll set it as follows:
 
 ## What's next?
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 

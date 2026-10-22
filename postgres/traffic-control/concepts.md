@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/concepts
 title: "Concepts"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -23,13 +23,15 @@ A resource budget:
 * Applies to traffic that matches one or more **rules**, which can be a specific query, a system attribute, or a combination of SQLCommenter tags.
 * Defines [**limits**](#resource-budget-limits) on resource consumption (capacity, rate, burst, concurrency)
 * Handles responses in a [**mode**](#modes-enforce-warn-off) (Enforce, Warn, Off)
-* Is scoped to a specific [database branch](../branching.md)
+* Is scoped to a specific [database branch](https://planetscale.com/docs/postgres/branching.md)
 
 ## Resource budget limits
 
 When a query to the database arrives, Database Traffic Control first checks whether it matches any resource budget **rules**. If a match is found, the cost of executing the query is estimated, and the **limits** in that resource budget determine whether the query is allowed, warned, or blocked.
 
 ![Create a new resource budget](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/create-new-resource-budget-light.png?fit=max\&auto=format\&n=Pc1vKrfqALwLm39x\&q=85\&s=df269f5829c69351a84889834280fac4)
+
+Each resource budget contains optional settings to control the amount of resources a specific traffic slice can use.
 
 Each resource budget has four optional, configurable limits:
 
@@ -54,6 +56,8 @@ Under normal usage, queries flow through without noticeable impact. When a workl
 Each resource budget has a **mode** that controls how strictly it is applied.
 
 ![Database Traffic Control mode enforcement](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-enforce-banner-light.png?fit=max\&auto=format\&n=Pc1vKrfqALwLm39x\&q=85\&s=86edb33c8a4e79d498b1e6ae2bc9243f)
+
+You can set the mode of a resource budget to Enforce, Warn, or Off.
 
 * **Enforce**
   * Limits are active
@@ -106,6 +110,8 @@ You can combine rules with `AND` logic so that multiple rules must match, or `OR
 
 ![Creating resource budget rules](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-edit-rules-light.png?fit=max\&auto=format\&n=Pc1vKrfqALwLm39x\&q=85\&s=f043a46a9fad0836a517d597678eeecb)
 
+This rule will match any query that contains the `action='analytics'` tag
+
 ### System attribute rules
 
 System attribute rules match key-value pairs that Postgres automatically provides for each connection. You can write rules that match against any of the following:
@@ -126,7 +132,7 @@ Usage examples include:
 
 ### Tag-based rules
 
-Tag rules match against key-value pairs that your application attaches to queries using the [SQLCommenter](../monitoring/query-tags.md) format. A tag rule targets one or many queries that share the same tag.
+Tag rules match against key-value pairs that your application attaches to queries using the [SQLCommenter](https://planetscale.com/docs/postgres/monitoring/query-tags.md) format. A tag rule targets one or many queries that share the same tag.
 
 To create a tag-based rule, recently executed queries must have included the tag.
 
@@ -144,13 +150,13 @@ Usage examples include:
 * Application tags, such as `app='web'`
 * Route-level targeting, such as `route='api-export'`
 
-For details on the tag format, how to add tags to your queries, and framework support, see [Query tags](../monitoring/query-tags.md).
+For details on the tag format, how to add tags to your queries, and framework support, see [Query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md).
 
 ### Query-based rules
 
 Target a specific query by using the query itself as the rule.
 
-You can create query-based rules by finding the query in the [Insights](../monitoring/query-insights.md) page and clicking **Create resource budget**.
+You can create query-based rules by finding the query in the [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) page and clicking **Create resource budget**.
 
 ![Create resource budget from query](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/create-resource-budget-from-query-light.png?fit=max\&auto=format\&n=Pc1vKrfqALwLm39x\&q=85\&s=777bdfbe53b04fab93600933c65d31c3)
 

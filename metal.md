@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal
 title: "Metal"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -44,7 +44,7 @@ When you create a Metal database, you must choose a drive size up front.
 
 You should select a drive size that best suits your current data size, while also taking into account growth trends.
 When the time comes that you need more storage, we make it easy to upgrade to larger NVMe drives with just a few clicks of a button.
-You can learn more about creating and resizing Metal databases in our [creation and upgrade documentation](metal/create-a-metal-database.md).
+You can learn more about creating and resizing Metal databases in our [creation and upgrade documentation](https://planetscale.com/docs/metal/create-a-metal-database.md).
 
 ## Monitoring your storage
 

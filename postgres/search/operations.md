@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/operations
 title: "Operations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,23 +26,23 @@ SET max_parallel_maintenance_workers = 8;
 CREATE INDEX posts_body_tin ON posts USING tin (body);
 ```
 
-Keep the total inside the memory of your cluster size. As a rule of thumb, plan on 1 GB for each core you want the build to use, on top of `shared_buffers` and the memory your normal traffic needs. On [network-attached storage clusters](../../plans/planetscale-skus.md#network-attached-storage), a PS-160 has 16 GB of RAM and a PS-1280 has 128 GB, so an 8 GB build budget fits comfortably on the larger size and not at all on the smaller one. Both settings are also available under [Parameters](../cluster-configuration/parameters.md) when you want a cluster-wide default rather than a session setting.
+Keep the total inside the memory of your cluster size. As a rule of thumb, plan on 1 GB for each core you want the build to use, on top of `shared_buffers` and the memory your normal traffic needs. On [network-attached storage clusters](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage), a PS-160 has 16 GB of RAM and a PS-1280 has 128 GB, so an 8 GB build budget fits comfortably on the larger size and not at all on the smaller one. Both settings are also available under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) when you want a cluster-wide default rather than a session setting.
 
 ## Storage
 
-PlanetScale clusters run on network-attached storage (AWS gp3, Amazon Elastic Block Store) or on [PlanetScale Metal](../../metal.md), which uses locally attached NVMe drives.
+PlanetScale clusters run on network-attached storage (AWS gp3, Amazon Elastic Block Store) or on [PlanetScale Metal](https://planetscale.com/docs/metal.md), which uses locally attached NVMe drives.
 
-Network-attached storage supports [storage autoscaling](../cluster-configuration/cluster-storage.md) and comes with an IOPS and throughput allowance that you can raise. Every read that misses the cache pays network latency, and a search over a cold index is many such reads. TIN reads index pages as sequentially as it can and returns matching rows in heap order within each segment, which keeps its I/O pattern friendly to network-attached storage and to Postgres' caching. Metal has no IOPS limit and much lower latency per read, and its drive size is fixed when the cluster is created. For a search index that does not fit in memory, Metal is the faster choice, and it is the one to prefer when search latency matters.
+Network-attached storage supports [storage autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) and comes with an IOPS and throughput allowance that you can raise. Every read that misses the cache pays network latency, and a search over a cold index is many such reads. TIN reads index pages as sequentially as it can and returns matching rows in heap order within each segment, which keeps its I/O pattern friendly to network-attached storage and to Postgres' caching. Metal has no IOPS limit and much lower latency per read, and its drive size is fixed when the cluster is created. For a search index that does not fit in memory, Metal is the faster choice, and it is the one to prefer when search latency matters.
 
 `effective_io_concurrency` matters on network-attached storage. When it is positive, TIN issues readahead hints for some index reads. Keep it positive when the index is read from disk, and set it to `0` when the index fits in `shared_buffers`, where the hints are pure overhead.
 
 ## Parallel query
 
-TIN splits an index into segments at build time, one per core by default, and a query can use one parallel worker per segment. Postgres caps the workers with `max_parallel_workers_per_gather` and `max_parallel_workers`, both available under [Parameters](../cluster-configuration/parameters.md). As an index grows, the work per query grows with it, and TIN spreads that work across the cores it is given, so a multi-terabyte index performs best on a cluster size with more vCPUs. If you build on one cluster size and serve on another, set `initial_segment_count` for the serving size, because the segment count is fixed at build. See [Index options](reference/indexes.md#index-options-with).
+TIN splits an index into segments at build time, one per core by default, and a query can use one parallel worker per segment. Postgres caps the workers with `max_parallel_workers_per_gather` and `max_parallel_workers`, both available under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md). As an index grows, the work per query grows with it, and TIN spreads that work across the cores it is given, so a multi-terabyte index performs best on a cluster size with more vCPUs. If you build on one cluster size and serve on another, set `initial_segment_count` for the serving size, because the segment count is fixed at build. See [Index options](https://planetscale.com/docs/postgres/search/reference/indexes.md#index-options-with).
 
 ## Read replicas
 
-Set `hot_standby_feedback = on` on every replica that serves TIN queries. TIN's background maintenance frees index pages once no transaction on the primary needs them, and the feedback is what tells the primary that a query on a replica still does. Without it, replica queries that overlap with maintenance are cancelled with SQLSTATE `40001` more often. Results on a replica are always exact. Under heavy replication traffic a query can still be cancelled with `40001`, and the application should retry it. `hot_standby_feedback` is available under [Parameters](../cluster-configuration/parameters.md). See also [Replicas](../scaling/replicas.md).
+Set `hot_standby_feedback = on` on every replica that serves TIN queries. TIN's background maintenance frees index pages once no transaction on the primary needs them, and the feedback is what tells the primary that a query on a replica still does. Without it, replica queries that overlap with maintenance are cancelled with SQLSTATE `40001` more often. Results on a replica are always exact. Under heavy replication traffic a query can still be cancelled with `40001`, and the application should retry it. `hot_standby_feedback` is available under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md). See also [Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md).
 
 ## Vacuum
 
@@ -50,7 +50,7 @@ When a row is updated or deleted, Postgres keeps the old version in the table un
 
 `count(*)` is affected most. A count over a TIN predicate is normally answered from counts stored in the index. TIN trusts those stored counts only where it knows of no dead entries and Postgres's visibility map marks every row visible. Rows deleted or updated since the last `VACUUM` break both conditions, so the count falls back to checking rows in the heap. On a table with steady update or delete traffic, count performance degrades between vacuums and recovers after each one.
 
-`VACUUM` also drives background maintenance. It marks deleted entries dead in the index, and once a segment's dead fraction crosses `dead_percent_threshold` (default `0.5`), background maintenance rewrites the segment without them. BM25 statistics keep counting deleted rows until that rewrite. See [Visibility](scoring.md#visibility).
+`VACUUM` also drives background maintenance. It marks deleted entries dead in the index, and once a segment's dead fraction crosses `dead_percent_threshold` (default `0.5`), background maintenance rewrites the segment without them. BM25 statistics keep counting deleted rows until that rewrite. See [Visibility](https://planetscale.com/docs/postgres/search/scoring.md#visibility).
 
 A long-running transaction delays `VACUUM`, so dead heap rows and dead TIN index entries remain until that transaction ends.
 
@@ -65,11 +65,11 @@ ALTER TABLE posts SET (
 );
 ```
 
-With these values autovacuum runs after about 1% of the table plus 1,000 rows have changed. Set them per table so that tables you do not search keep the defaults. The cluster-wide `autovacuum_vacuum_scale_factor` can also be changed under [Parameters](../cluster-configuration/parameters.md).
+With these values autovacuum runs after about 1% of the table plus 1,000 rows have changed. Set them per table so that tables you do not search keep the defaults. The cluster-wide `autovacuum_vacuum_scale_factor` can also be changed under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md).
 
 ## Postgres settings TIN uses
 
-TIN has few settings of its own. Most of its behavior follows ordinary Postgres settings, which you can change under [Parameters](../cluster-configuration/parameters.md) or, for the session-level ones, with `SET`.
+TIN has few settings of its own. Most of its behavior follows ordinary Postgres settings, which you can change under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) or, for the session-level ones, with `SET`.
 
 | Setting | How TIN uses it |
 | - | - |

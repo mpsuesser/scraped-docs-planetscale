@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-php-app
 title: "Connect Php App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -72,11 +72,11 @@ Next, you need to set up your PlanetScale database and connect it to the PHP app
 
 You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI.
 
-This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md#create-a-database) if you prefer the dashboard. Just create the database and then come back here to continue.
+This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md#create-a-database) if you prefer the dashboard. Just create the database and then come back here to continue.
 
 **Step 1**
 
-Install the [PlanetScale CLI](../../cli/planetscale-environment-setup.md).
+Install the [PlanetScale CLI](https://planetscale.com/docs/cli/planetscale-environment-setup.md).
 
 **Step 2**
 
@@ -96,7 +96,7 @@ pscale database create <DATABASE_NAME> --region <REGION_SLUG>
 
 You can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don't recommend them, as they may need to be escaped in some instances.
 
-For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions#available-regions) or leave it blank.
+For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions.md#available-regions) or leave it blank.
 
 Your database is created with a default branch, `main`, which is meant to serve as your production database branch.
 
@@ -133,7 +133,7 @@ if ($mysqli->connect_error) {
 }
 ```
 
-For `dbName`, you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](../sharding/targeting-correct-keyspace.md).
+For `dbName`, you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md).
 
 ### Option 1: Connect with username and password (Recommended)
 
@@ -173,7 +173,7 @@ Fill in your database name. For `USERNAME`, `PASSWORD`, and `HOST`, use the corr
 
 **Step 3**
 
-For `MYSQL_ATTR_SSL_CA`, use our [CA root configuration doc](../connecting/secure-connections.md#ca-root-configuration) to find the correct value for your system. For example, if you're on MacOS, it would be:
+For `MYSQL_ATTR_SSL_CA`, use our [CA root configuration doc](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration) to find the correct value for your system. For example, if you're on MacOS, it would be:
 
 ```bash theme={null}
 MYSQL_ATTR_SSL_CA=/etc/ssl/cert.pem
@@ -252,7 +252,7 @@ Now that you're connected to the database let's create the `products` and `categ
 
 * PlanetScale CLI shell
 * PlanetScale dashboard console
-* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
+* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui.md))
 
 The first two options are covered below.
 
@@ -300,7 +300,7 @@ PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGI
 
 > [!NOTE]
 >
-> If you are using foreign key constraints, you must first enable [foreign key constraints](../foreign-key-constraints.md) support in your database settings page.
+> If you are using foreign key constraints, you must first enable [foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in your database settings page.
 
 **Step 6**
 
@@ -340,7 +340,7 @@ You can now refresh the [PHP homepage](http://localhost:8000) to see the new rec
 
 You can use the PlanetScale CLI to open a MySQL shell to interact with your database.
 
-You may need to [install the MySQL command line client](../../cli/planetscale-environment-setup.md) if you haven't already.
+You may need to [install the MySQL command line client](https://planetscale.com/docs/cli/planetscale-environment-setup.md) if you haven't already.
 
 **Step 1**
 
@@ -425,11 +425,11 @@ You can now refresh the [PHP homepage](http://localhost:8000) to see the new rec
 
 ## What's next?
 
-Once you're done with initial development, you can promote your branch to production and enable [safe migrations](../schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migraions.
+Once you're done with initial development, you can promote your branch to production and enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migraions.
 
-When you're reading to make more schema changes, you'll [create a new branch](../schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll [open a deploy request](../schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
+When you're reading to make more schema changes, you'll [create a new branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll [open a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -105,7 +105,7 @@ This file tells Neki to put this in the `tenant_data` group.
 
 Every Neki cluster is made up of one or more shards.
 However, shards are not specified or created here in the data topology.
-Instead, new shards are created on the [cluster configuration page](cluster-configuration.md) of your Neki database.
+Instead, new shards are created on the [cluster configuration page](https://planetscale.com/docs/neki/cluster-configuration.md) of your Neki database.
 
 Each shard is assigned to a configuration profile, which is how you specify the size, extensions, and Postgres configuration for that set of shards.
 
@@ -147,7 +147,7 @@ The way in which the row distribution happens depends on the shard index.
 Here, we use `shard-?` labels as the shard id, but on a real Neki cluster in your PlanetScale dashboard, you will see these as longer, unique hashed values (e.g., `sh57wz7p7tblk2`).
 
 The second shard group is named `authoritative`.
-Every Neki cluster must specify an [authoritative shard](terminology.md#authoritative-shard-group).
+Every Neki cluster must specify an [authoritative shard](https://planetscale.com/docs/neki/terminology.md#authoritative-shard-group).
 The authoritative shard group provides the canonical Postgres object identifiers (OIDs) and schema events for a database.
 We tell the cluster that this is the authoritative shard with this extra line in the data topology JSON:
 
@@ -245,7 +245,7 @@ columns commonly appear in joins and predicates. When planning queries, Neki
 uses PostgreSQL's column statistics to estimate which plan will work best.
 PostgreSQL's autovacuum refreshes these statistics as data changes. After a
 bulk load or import, collect them explicitly with `ANALYZE`, as described in the
-[Postgres import guide](imports/postgres.md#restore-into-neki).
+[Postgres import guide](https://planetscale.com/docs/neki/imports/postgres.md#restore-into-neki).
 
 > [!WARNING]
 >
@@ -276,7 +276,7 @@ Rows with the same `tenant_id` then map to the same shard while the topology is 
 If Neki cannot narrow the scope of a query using a shard-key predicate, it sends the query to every shard in the table's group.
 Each shard calculates its part of an aggregate such as `COUNT(*)`, and Neki combines those results before returning the answer.
 
-More about inspecting a statement's routing reach can be found in [Query planning](shard-targeting-fanout.md#controlling-fanout).
+More about inspecting a statement's routing reach can be found in [Query planning](https://planetscale.com/docs/neki/shard-targeting-fanout.md#controlling-fanout).
 
 ## Schema and database defaults
 

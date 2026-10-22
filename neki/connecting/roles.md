@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -72,7 +72,7 @@ You can also create a role while connecting. Open the database, click
 
 **CLI**
 
-Install and authenticate the [PlanetScale CLI](../../cli/planetscale-environment-setup.md)
+Install and authenticate the [PlanetScale CLI](https://planetscale.com/docs/cli/planetscale-environment-setup.md)
 first.
 
 **Step 1**
@@ -152,7 +152,7 @@ The complete connection username includes a branch suffix. Use the username
 from the **Connect** page rather than constructing it yourself. Renaming a role
 changes its display name, not its generated login name.
 
-See [Connect to Neki](../connecting.md) for the complete connection string and
+See [Connect to Neki](https://planetscale.com/docs/neki/connecting.md) for the complete connection string and
 replica-routing options.
 
 ## Manage a role

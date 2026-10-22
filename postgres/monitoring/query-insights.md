@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ This in-dashboard tool allows you to identify queries that are running too often
 
 You can also see a [list of all queries](#queries-overview) performed on your database in the last 24 hours. For further analysis, you can sort these by metrics like amount of rows read, time per query, and more.
 
-With this built-in tool, you can easily diagnose issues with your queries, allowing you to optimize individual queries without much digging. We will also alert you of any active issues your database may be having in the [Anomalies](anomalies.md) page. This feature flags queries that are running significantly slower than expected.
+With this built-in tool, you can easily diagnose issues with your queries, allowing you to optimize individual queries without much digging. We will also alert you of any active issues your database may be having in the [Anomalies](https://planetscale.com/docs/postgres/monitoring/anomalies.md) page. This feature flags queries that are running significantly slower than expected.
 
 [Fix Database Faults with PlanetScale Insights](https://www.youtube-nocookie.com/embed/OAPHvq51hWU?rel=0)
 
@@ -60,11 +60,11 @@ The remaining sections of this doc walk through how to interpret and act on the 
 
 ### Database Traffic Control
 
-[Database Traffic Control](../traffic-control.md) also lives within the Insights tab. It lets you define resource budgets that limit how much CPU, I/O, or connection time specific queries or workloads can consume. You can create budgets directly from query patterns surfaced in Insights, making it easy to put guardrails around problematic queries. See the [Database Traffic Control documentation](../traffic-control.md) for full details.
+[Database Traffic Control](https://planetscale.com/docs/postgres/traffic-control.md) also lives within the Insights tab. It lets you define resource budgets that limit how much CPU, I/O, or connection time specific queries or workloads can consume. You can create budgets directly from query patterns surfaced in Insights, making it easy to put guardrails around problematic queries. See the [Database Traffic Control documentation](https://planetscale.com/docs/postgres/traffic-control.md) for full details.
 
 ### MCP server access
 
-Query Insights data is also available through the [PlanetScale MCP server](../../mcp-server.md). This lets MCP-compatible tools like Cursor, Claude, and VS Code query your Insights data directly — useful for analyzing slow queries, spotting pattern changes, or getting index recommendations without leaving your editor. See the [MCP server documentation](../../mcp-server.md) for setup instructions.
+Query Insights data is also available through the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md). This lets MCP-compatible tools like Cursor, Claude, and VS Code query your Insights data directly — useful for analyzing slow queries, spotting pattern changes, or getting index recommendations without leaving your editor. See the [MCP server documentation](https://planetscale.com/docs/mcp-server.md) for setup instructions.
 
 ## Query latency
 
@@ -113,7 +113,7 @@ You may also see one or more orange icons next to some queries.
 
 Hovering over the icon will show a tooltip with information about the meaning of the icon.
 
-This query overviews table shows the same data for all graphs on this page. For information about [Anomalies](anomalies.md) and [Errors](errors.md), refer to those pages.
+This query overviews table shows the same data for all graphs on this page. For information about [Anomalies](https://planetscale.com/docs/postgres/monitoring/anomalies.md) and [Errors](https://planetscale.com/docs/postgres/monitoring/errors.md), refer to those pages.
 
 ### Available query statistics
 
@@ -170,7 +170,7 @@ Clicking on a query in the Queries list will open a new page with more informati
 
 You'll first see the full query pattern, which displays the query with data normalized away. This query may run several times with different values, which Insights combines into a single query pattern.
 
-You can display an LLM-generated summary of the query by clicking "Summarize query."  [Learn more about how PlanetScale uses AI here](../../how-we-use-ai.md).
+You can display an LLM-generated summary of the query by clicking "Summarize query."  [Learn more about how PlanetScale uses AI here](https://planetscale.com/docs/how-we-use-ai.md).
 
 #### Additional query information
 
@@ -186,7 +186,7 @@ To change the time period reflected in the graphs and summary statistics, click 
 
 Underneath the graph, you'll see a table with more information about notable instances of the query, which are defined as queries that took longer than 1s, read more than 10,000 rows, or produced an error.
 
-If any of the selected queries have [query tags](query-tags.md) attached, you'll see the key-value pairs in the table under `Tags`. See [Query tags](query-tags.md) for how to add tags to your queries.
+If any of the selected queries have [query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md) attached, you'll see the key-value pairs in the table under `Tags`. See [Query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md) for how to add tags to your queries.
 
 The table also surfaces when the query started, rows returned, rows read, rows affected, the time it took the query to run (in ms), and the user associated with the query.
 
@@ -194,7 +194,7 @@ The table also surfaces when the query started, rows returned, rows read, rows a
 
 The `pginsights` extension is responsible for sending query telemetry to the PlanetScale Insights pipeline. Its parameters, including raw query collection and schema name normalization, can be changed in the Extensions tab on your database's Clusters page.
 
-For full parameter documentation, see the [pginsights extension reference](../extensions/pginsights.md#parameters).
+For full parameter documentation, see the [pginsights extension reference](https://planetscale.com/docs/postgres/extensions/pginsights.md#parameters).
 
 ## Need help?
 

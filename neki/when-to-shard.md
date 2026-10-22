@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/when-to-shard
 title: "When To Shard"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -53,18 +53,18 @@ A tenant key (such as a `customer_id` or `company_id`) often keeps each tenant's
 
 Before sharding, evaluate whether configuration tuning, schema changes, query optimization, or a larger cluster size can remove the bottleneck.
 
-[Query Insights](monitoring/query-insights.md) identifies expensive and frequently run queries.
-It can also surface [schema recommendations](monitoring/schema-recommendations.md).
+[Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) identifies expensive and frequently run queries.
+It can also surface [schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md).
 These tools can help identify improvements for an existing Postgres database.
 
-In addition, [Metal](../metal.md) uses locally attached NVMe and can provide higher I/O throughput and lower latency than network-attached storage.
+In addition, [Metal](https://planetscale.com/docs/metal.md) uses locally attached NVMe and can provide higher I/O throughput and lower latency than network-attached storage.
 
 ## Design considerations
 
 Taking a database from unsharded to sharded requires an up-front decision about how to distribute the rows of logical tables.
 For predictable performance, design the topology so most queries reach one shard instead of requiring several shards to fulfill each query.
 
-The [data topology](data-topology.md) controls which tables are distributed across which shards and how their rows are divided.
+The [data topology](https://planetscale.com/docs/neki/data-topology.md) controls which tables are distributed across which shards and how their rows are divided.
 Before moving data, validate the topology against the schema and the application's common access patterns.
 
 ## Need help?

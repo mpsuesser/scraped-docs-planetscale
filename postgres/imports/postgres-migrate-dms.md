@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-dms
 title: "Postgres Migrate Dms"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -66,7 +66,7 @@ Monitoring migration progress and performing cutover
 
 > [!NOTE]
 >
-> **For Aurora users**: Consider the [Aurora to PlanetScale CloudFormation & DMS tutorial](aurora-dms.md) for a fully automated approach using CloudFormation templates and Step Functions workflows instead of manual DMS setup.
+> **For Aurora users**: Consider the [Aurora to PlanetScale CloudFormation & DMS tutorial](https://planetscale.com/docs/postgres/imports/aurora-dms.md) for a fully automated approach using CloudFormation templates and Step Functions workflows instead of manual DMS setup.
 
 ## Prerequisites
 
@@ -76,7 +76,7 @@ Before starting the migration:
 * Source PostgreSQL database accessible from AWS (consider VPC configuration)
 * Connection details for your PlanetScale Postgres database from the console
 * Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database.
-  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
+  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
   If you are using Metal, you will need to select a size when first creating your database.
   For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
 * Understanding of your data transformation requirements (if any)
@@ -652,7 +652,7 @@ The task configuration above is already optimized for schema-first migrations. K
 >
 > **Automated vs Manual Configuration**
 >
-> For Aurora migrations, consider using the [automated CloudFormation approach](aurora-dms.md) which includes these optimized settings and additional automation features.
+> For Aurora migrations, consider using the [automated CloudFormation approach](https://planetscale.com/docs/postgres/imports/aurora-dms.md) which includes these optimized settings and additional automation features.
 
 After successful cutover and schema migration:
 
@@ -793,11 +793,11 @@ SELECT setval('your_sequence', (SELECT MAX(id) FROM your_table));
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](postgres-imports.md#postgresql-version-compatibility)**
+> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
 
-> **[Extension support limitations](postgres-imports.md#extension-support)**
+> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
 
-> **[Third-party enhancement restrictions](postgres-imports.md#third-party-enhancements-and-tools)**
+> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
 
 **Important:** Plan additional time for post-migration schema object setup. Complex databases may require several hours for index recreation and sequence synchronization.
 
@@ -843,7 +843,7 @@ Consider implementing additional PlanetScale features
 * ✅ No application errors in logs for 24+ hours
 * ✅ All foreign key constraints working correctly
 
-For simpler migrations, consider [pg\_dump/restore](postgres-migrate-dumprestore.md) or [WAL streaming](postgres-migrate-walstream.md) methods.
+For simpler migrations, consider [pg\_dump/restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md) or [WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md) methods.
 
 If you encounter issues during migration, please [reach out to support](https://planetscale.com/contact?initial=support) for assistance.
 

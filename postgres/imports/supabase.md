@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/supabase
 title: "Supabase"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ This guide will cover a no-downtime approach to migrating using Postgres logical
 
 These instructions work for all versions of Postgres that support logical replication (version 10+). If you have an older version you want to bring to PlanetScale, [contact us](https://planetscale.com/contact?initial=support) for guidance.
 
-Before beginning a migration, you should check our [extensions documentation](../extensions.md) to ensure that all of the extensions you rely on will work on PlanetScale.
+Before beginning a migration, you should check our [extensions documentation](https://planetscale.com/docs/postgres/extensions.md) to ensure that all of the extensions you rely on will work on PlanetScale.
 
 As an alternative to this guide, you can also try our [Postgres migration scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-direct). These allow you to automate some of the manual steps that we describe in this guide.
 
@@ -34,11 +34,11 @@ As an alternative to this guide, you can also try our [Postgres migration script
 
 ## 1. Prepare your PlanetScale database
 
-Create a new database in the [PlanetScale dashboard](https://app.planetscale.com) or using the [PlanetScale CLI](../../cli.md). A few things to check when configuring your database:
+Create a new database in the [PlanetScale dashboard](https://app.planetscale.com) or using the [PlanetScale CLI](https://planetscale.com/docs/cli.md). A few things to check when configuring your database:
 
 * Ensure you select the correct cloud region. You typically want to use the same region that you deploy your other application infrastructure to.
 * Since Supabase uses Postgres, you'll also want to create a Postgres database in PlanetScale.
-* Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](../../metal.md). For applications that need more flexible storage options or smaller compute instances, choose "Elastic Block Storage" or "Persistent Disk."
+* Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](https://planetscale.com/docs/metal.md). For applications that need more flexible storage options or smaller compute instances, choose "Elastic Block Storage" or "Persistent Disk."
 * Choose between aarch64 and x86-64 architecture. If you don't know which to choose, `aarch64` is a good default choice.
 
 ![Create a new PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=ed12dab5fee65e01a22bc3bf8b7e3e04)
@@ -51,7 +51,7 @@ From here, follow the instructions to create a new default role. This role will 
 
 Though you may use this one for your migration, we recommend you use a separate role with lesser privileges for your migration and general database connections.
 
-To create a new role, navigate to the [Role management page](../connecting/roles.md). Click "New role" and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
+To create a new role, navigate to the [Role management page](https://planetscale.com/docs/postgres/connecting/roles.md). Click "New role" and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
 
 ![New Postgres role privileges](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/imports/image3.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=b6592510d75100ab2e87208d2aacec2e)
 
@@ -95,7 +95,7 @@ The 50% overhead is a baseline to account for:
 
 Schemas with many secondary indexes often need more headroom. Each index is built during the copy phase, which increases copy time and temporary disk usage. If your source database has a large number of indexes, provision more than 150% of your source size.
 
-Bloat can be mitigated after import with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or an extension like [pg\_squeeze](../extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
+Bloat can be mitigated after import with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or an extension like [pg\_squeeze](https://planetscale.com/docs/postgres/extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
 
 When ready, queue and apply the changes.
 You can check the "Changes" tab to see the status of the resize:

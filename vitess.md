@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess
 title: "Vitess"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,19 +16,19 @@ current_date: 2026-10-20T18:01:41.586Z
 
 PlanetScale for Vitess brings you fully-managed Vitess clusters with unlimited scalability through horizontal sharding.
 
-> **[Vitess quickstart](vitess/tutorials/planetscale-quick-start-guide.md)**
+> **[Vitess quickstart](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md)**
 >
 > Deploy a Vitess database and learn the basics of using PlanetScale.
 
-> **[Architecture](vitess/architecture.md)**
+> **[Architecture](https://planetscale.com/docs/vitess/architecture.md)**
 >
 > Learn about Vitess architecture.
 
-> **[Branching](vitess/schema-changes/branching.md)**
+> **[Branching](https://planetscale.com/docs/vitess/schema-changes/branching.md)**
 >
 > Schema changes with branching for safe database development.
 
-> **[Import a database](vitess/imports/database-imports.md)**
+> **[Import a database](https://planetscale.com/docs/vitess/imports/database-imports.md)**
 >
 > Import your existing MySQL database to PlanetScale.
 

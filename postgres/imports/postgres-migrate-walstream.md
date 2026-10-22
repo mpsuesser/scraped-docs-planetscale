@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream
 title: "Postgres Migrate Walstream"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -55,7 +55,7 @@ Before starting the migration:
 * Network connectivity between source and PlanetScale Postgres
 * Connection details for your PlanetScale Postgres database from the console
 * Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database.
-  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
+  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
   If you are using Metal, you will need to select a size when first creating your database.
   For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
 * Understanding of your application's write patterns for cutover planning
@@ -469,11 +469,11 @@ This is commonly caused by the duplicate key crash loop above. Each unclean work
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](postgres-imports.md#postgresql-version-compatibility)**
+> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
 
-> **[Extension support limitations](postgres-imports.md#extension-support)**
+> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
 
-> **[Third-party enhancement restrictions](postgres-imports.md#third-party-enhancements-and-tools)**
+> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
 
 ## Next Steps
 
@@ -495,7 +495,7 @@ Set up monitoring and alerting for the new database
 
 Plan for ongoing maintenance and optimization
 
-For simpler migrations or if you don't have administrative access to your source database, consider the [pg\_dump/restore method](postgres-migrate-dumprestore.md). For more complex scenarios, explore [Amazon DMS](postgres-migrate-dms.md).
+For simpler migrations or if you don't have administrative access to your source database, consider the [pg\_dump/restore method](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md). For more complex scenarios, explore [Amazon DMS](https://planetscale.com/docs/postgres/imports/postgres-migrate-dms.md).
 
 If you encounter issues during migration, please [reach out to support](https://planetscale.com/contact?initial=support) for assistance.
 

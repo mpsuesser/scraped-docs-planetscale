@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting/private-connections/aws-privatelink
 title: "Aws Privatelink"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ TLS for connections through the private endpoint.
 
 PlanetScale bills PrivateLink ingress and egress at **\$0.01 per GB** after the
 branch's included allowance. AWS also charges for VPC endpoints and data
-processing. See [Neki pricing](../../pricing.md#private-traffic) and the
+processing. See [Neki pricing](https://planetscale.com/docs/neki/pricing.md#private-traffic) and the
 [AWS PrivateLink pricing page](https://aws.amazon.com/privatelink/pricing/).
 
 ## Prerequisites
@@ -146,9 +146,9 @@ If the connection fails:
 
 ## Related documentation
 
-* [Connect to Neki](../../connecting.md)
-* [Roles and credentials](../roles.md)
-* [Neki pricing](../../pricing.md#private-traffic)
+* [Connect to Neki](https://planetscale.com/docs/neki/connecting.md)
+* [Roles and credentials](https://planetscale.com/docs/neki/connecting/roles.md)
+* [Neki pricing](https://planetscale.com/docs/neki/pricing.md#private-traffic)
 
 ## Need help?
 

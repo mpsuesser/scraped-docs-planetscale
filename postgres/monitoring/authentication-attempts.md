@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/authentication-attempts
 title: "Authentication Attempts"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ The `source_ip` in the report is the address of the client that connected to Pla
 
 > [!NOTE]
 >
-> Generating a report is limited to [Organization Administrators](../../security/access-control.md#organization-administrator). Service tokens cannot generate reports.
+> Generating a report is limited to [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator). Service tokens cannot generate reports.
 
 ## Generate a report
 

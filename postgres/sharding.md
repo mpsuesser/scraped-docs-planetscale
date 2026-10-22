@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/sharding
 title: "Sharding"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,25 +18,25 @@ current_date: 2026-10-20T18:01:41.586Z
 >
 > Neki is currently in Platform Preview. Platform Preview features are “Beta Features” under the PlanetScale Terms of Service or your applicable agreement with PlanetScale. Accordingly, Neki is subject to the limitations and disclaimers applicable to Beta Features and is not covered by any service level agreement.
 
-[Neki](../neki.md) scales past a single primary while keeping one connection string. A router sits in front of real Postgres so applications keep talking to one database while data lives on one cluster or many.
+[Neki](https://planetscale.com/docs/neki.md) scales past a single primary while keeping one connection string. A router sits in front of real Postgres so applications keep talking to one database while data lives on one cluster or many.
 
-PlanetScale Postgres already helps with schema recommendations, Query Insights, and faster instances on [Metal](../metal.md). Neki is the upgrade when you need more than one writer, schema changes that do not stall a large table, and backups that run per cluster instead of against one heap.
+PlanetScale Postgres already helps with schema recommendations, Query Insights, and faster instances on [Metal](https://planetscale.com/docs/metal.md). Neki is the upgrade when you need more than one writer, schema changes that do not stall a large table, and backups that run per cluster instead of against one heap.
 
-You do not have to shard on day one. A new Neki database starts as one unsharded cluster and still runs the router, admin service, and sidecar: one connection string, failover, and pooling without a client-facing PgBouncer. [When to shard](../neki/when-to-shard.md) depends on your traffic, access patterns, and data.
+You do not have to shard on day one. A new Neki database starts as one unsharded cluster and still runs the router, admin service, and sidecar: one connection string, failover, and pooling without a client-facing PgBouncer. [When to shard](https://planetscale.com/docs/neki/when-to-shard.md) depends on your traffic, access patterns, and data.
 
-> **[Neki documentation](../neki.md)**
+> **[Neki documentation](https://planetscale.com/docs/neki.md)**
 >
 > Architecture, data topology, query planning, and cluster configuration.
 
-> **[Quickstart](../neki/tutorials/planetscale-quick-start-guide.md)**
+> **[Quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md)**
 >
 > Create a Neki database, connect, and insert data.
 
-> **[When to shard](../neki/when-to-shard.md)**
+> **[When to shard](https://planetscale.com/docs/neki/when-to-shard.md)**
 >
 > Whether a single primary is still the cheaper answer.
 
-> **[Neki vs PlanetScale Postgres](../neki/coming-from-postgres.md)**
+> **[Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md)**
 >
 > The upgrade from a single primary, and the habits that change.
 
@@ -61,15 +61,15 @@ Sharding is the next step when you need:
 
 **Write-heavy applications** can scale reads with replicas, but every write still hits one primary. Sharding splits those writes.
 
-See [When to shard](../neki/when-to-shard.md) for the full decision, including what partitioning does not solve.
+See [When to shard](https://planetscale.com/docs/neki/when-to-shard.md) for the full decision, including what partitioning does not solve.
 
 ## Tune queries and Metal first
 
-Neki is still in Platform Preview, and PlanetScale Postgres is still the best single-primary Postgres. Use [Query Insights](monitoring/query-insights.md) and [schema recommendations](monitoring/schema-recommendations.md) before you split the database. Many limits are expensive queries or missing indexes, not a need for more primaries.
+Neki is still in Platform Preview, and PlanetScale Postgres is still the best single-primary Postgres. Use [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) and [schema recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) before you split the database. Many limits are expensive queries or missing indexes, not a need for more primaries.
 
-[Metal](../metal.md) uses locally attached NVMe. Workloads that look like they need sharding are sometimes hitting I/O limits that Metal removes. Tune the workload and the storage class, then move to Neki when that one primary is still the limit.
+[Metal](https://planetscale.com/docs/metal.md) uses locally attached NVMe. Workloads that look like they need sharding are sometimes hitting I/O limits that Metal removes. Tune the workload and the storage class, then move to Neki when that one primary is still the limit.
 
-Neki is the next upgrade. You can import into an unsharded Neki database then add shards and split data later. See [Neki vs PlanetScale Postgres](../neki/coming-from-postgres.md) and [Migrate PostgreSQL to Neki](../neki/imports/postgres.md).
+Neki is the next upgrade. You can import into an unsharded Neki database then add shards and split data later. See [Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md) and [Migrate PostgreSQL to Neki](https://planetscale.com/docs/neki/imports/postgres.md).
 
 ## Frequently asked questions
 
@@ -79,15 +79,15 @@ Neki is the next upgrade. You can import into an unsharded Neki database then ad
 
 > **When should I shard my Postgres database?**
 >
-> After query tuning and [Metal](../metal.md) still leave one primary as the limit. See [Tune queries and Metal first](#tune-queries-and-metal-first) and [When to shard](../neki/when-to-shard.md).
+> After query tuning and [Metal](https://planetscale.com/docs/metal.md) still leave one primary as the limit. See [Tune queries and Metal first](#tune-queries-and-metal-first) and [When to shard](https://planetscale.com/docs/neki/when-to-shard.md).
 
 > **Is Neki a fork of Vitess?**
 >
-> No. It is built from scratch for Postgres. See [Neki vs Vitess](../neki/vitess-and-postgres.md).
+> No. It is built from scratch for Postgres. See [Neki vs Vitess](https://planetscale.com/docs/neki/vitess-and-postgres.md).
 
 > **How does Neki relate to PlanetScale Postgres?**
 >
-> Neki is the upgrade from a single Postgres primary. Each shard is real Postgres. [Neki vs PlanetScale Postgres](../neki/coming-from-postgres.md) covers what you gain and the habits that change.
+> Neki is the upgrade from a single Postgres primary. Each shard is real Postgres. [Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md) covers what you gain and the habits that change.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-nextjs-app
 title: "Connect Nextjs App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 # Connect a Next.js application to PlanetScale
 
-In this tutorial, you'll create a [Next.js](https://nextjs.org/) application that uses [Tailwind CSS](https://tailwindcss.com/) for styling and [Prisma](https://www.prisma.io/) to connect to a [PlanetScale](https://planetscale.com/docs/) database.
+In this tutorial, you'll create a [Next.js](https://nextjs.org/) application that uses [Tailwind CSS](https://tailwindcss.com/) for styling and [Prisma](https://www.prisma.io/) to connect to a [PlanetScale](https://planetscale.com/docs/index.md) database.
 
 ## Prerequisites
 
@@ -24,16 +24,16 @@ In this tutorial, you'll create a [Next.js](https://nextjs.org/) application tha
 If this is your first time in the dashboard, you'll be prompted to go through a database creation walkthrough where you'll create a new database. Otherwise, click "**New database**" > "**Create new database**".
 
 * **Name** — You can use any name with lowercase, alphanumeric characters, or underscores. We also permit dashes, but don't recommend them, as they may need to be escaped in some instances.
-* **Plan type** — Select the [desired plan](../../planetscale-plans.md) for your database.
-* **Region** — Choose the [region](https://planetscale.com/docs/vitess/regions#available-regions) closest to you or your application. It's important to note if you intend to make this branch a production branch, you will not be able to change the region later, so choose the region with this in mind.
+* **Plan type** — Select the [desired plan](https://planetscale.com/docs/planetscale-plans.md) for your database.
+* **Region** — Choose the [region](https://planetscale.com/docs/vitess/regions.md#available-regions) closest to you or your application. It's important to note if you intend to make this branch a production branch, you will not be able to change the region later, so choose the region with this in mind.
 
 Finally, click "**Create database**".
 
 > [!NOTE]
 >
-> If you have an existing cloud-hosted MySQL database, you can import it into PlanetScale instead. See the [Database imports documentation](../imports/database-imports.md).
+> If you have an existing cloud-hosted MySQL database, you can import it into PlanetScale instead. See the [Database imports documentation](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
-A [production branch](../schema-changes/branching.md), `main`, is automatically created when you create your database. Production branches are highly available, protected database that you can connect your production application to. Once you are satisfied with your initial development, you may enable [safe migrations](../schema-changes/safe-migrations.md) to enable zero-downtime migrations and protect the branch from accidental data deletion.
+A [production branch](https://planetscale.com/docs/vitess/schema-changes/branching.md), `main`, is automatically created when you create your database. Production branches are highly available, protected database that you can connect your production application to. Once you are satisfied with your initial development, you may enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) to enable zero-downtime migrations and protect the branch from accidental data deletion.
 
 ## Set up the starter Next.js app
 
@@ -70,7 +70,7 @@ Copy the `DATABASE_URL` string from the `.env` tab and paste it into your own `.
 DATABASE_URL='mysql://<USERNAME>:<PASSWORD>@<HOST>/<DATABASE_NAME>?sslaccept=strict'
 ```
 
-For `DATABASE_NAME`, you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](../sharding/targeting-correct-keyspace.md).
+For `DATABASE_NAME`, you can use your PlanetScale database name directly if you have a *single unsharded keyspace*. If you have a sharded keyspace, you'll need to use `@primary`. This will automatically direct incoming queries to the correct keyspace/shard. For more information, see the [Targeting the correct keyspace documentation](https://planetscale.com/docs/vitess/sharding/targeting-correct-keyspace.md).
 
 Your PlanetScale database should now be connected to your application.
 
@@ -102,7 +102,7 @@ Open your browser at [localhost:3000](http://localhost:3000) to see the running 
 
 ## Deploy your app
 
-After you have your application running locally, you may want to deploy it to production. Your database branch (`main` by default) is already a production database branch. You should also enable [safe migrations](../schema-changes/safe-migrations.md), which protects your production branch from accidental schema changes. This can be done from the PlanetScale dashboard by clicking the same **"cog"** once the branch has been promoted to production.
+After you have your application running locally, you may want to deploy it to production. Your database branch (`main` by default) is already a production database branch. You should also enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md), which protects your production branch from accidental schema changes. This can be done from the PlanetScale dashboard by clicking the same **"cog"** once the branch has been promoted to production.
 
 In the modal that will appear, toggle the option labeled **"Enable safe migrations"**, then click the **"Enable safe migrations"**. This will close the modal and save the setting.
 
@@ -110,11 +110,11 @@ In the modal that will appear, toggle the option labeled **"Enable safe migratio
 
 ### Deploy to Vercel
 
-If you'd like to deploy to Vercel, check out our [Deploy to Vercel documentation](deploy-to-vercel.md).
+If you'd like to deploy to Vercel, check out our [Deploy to Vercel documentation](https://planetscale.com/docs/vitess/tutorials/deploy-to-vercel.md).
 
 ### Deploy to Netlify
 
-If you'd like to deploy to Netlify, check out our [Deploy to Netlify documentation](deploy-to-netlify.md).
+If you'd like to deploy to Netlify, check out our [Deploy to Netlify documentation](https://planetscale.com/docs/vitess/tutorials/deploy-to-netlify.md).
 
 > [!NOTE]
 >
@@ -124,9 +124,9 @@ If you'd like to deploy to Netlify, check out our [Deploy to Netlify documentati
 
 To learn more about PlanetScale, take a look at the following resources:
 
-* [PlanetScale workflow](../best-practices.md) — Quick overview of the PlanetScale workflow: branching, non-blocking schema changes, deploy requests, and reverting a schema change.
-* [PlanetScale branching](../schema-changes/branching.md) — Learn how to utilize branching to ship schema changes with no locking or downtime.
-* [PlanetScale CLI](../../cli.md) — Power up your workflow with the PlanetScale CLI. Every single action you just performed in this quickstart (and much more) can also be done with the CLI.
+* [PlanetScale workflow](https://planetscale.com/docs/vitess/best-practices.md) — Quick overview of the PlanetScale workflow: branching, non-blocking schema changes, deploy requests, and reverting a schema change.
+* [PlanetScale branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) — Learn how to utilize branching to ship schema changes with no locking or downtime.
+* [PlanetScale CLI](https://planetscale.com/docs/cli.md) — Power up your workflow with the PlanetScale CLI. Every single action you just performed in this quickstart (and much more) can also be done with the CLI.
 
 ## Need help?
 

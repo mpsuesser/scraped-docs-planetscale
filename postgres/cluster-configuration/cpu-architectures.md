@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures
 title: "Cpu Architectures"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -57,7 +57,7 @@ On AWS Graviton and Google Axion instances, each cloud vCPU corresponds to a phy
 
 * **Instance prices**: Compare current prices for the sizes and region you need
 * **Performance per dollar**: Compare the cost of configurations that meet your throughput and latency requirements
-* **Storage**: Include storage charges and check [throughput limits](cluster-storage.md), which can vary by architecture and cluster size
+* **Storage**: Include storage charges and check [throughput limits](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md), which can vary by architecture and cluster size
 
 ### Total Cost of Ownership
 
@@ -70,7 +70,7 @@ On AWS Graviton and Google Axion instances, each cloud vCPU corresponds to a phy
 ### Software Compatibility
 
 * **PostgreSQL**: Full native support on both architectures ([PostgreSQL supported platforms](https://www.postgresql.org/docs/current/supported-platforms.html))
-* **Extensions**: Check the [extensions available on PlanetScale](../extensions.md); implementations can use different optimizations on each architecture
+* **Extensions**: Check the [extensions available on PlanetScale](https://planetscale.com/docs/postgres/extensions.md); implementations can use different optimizations on each architecture
 * **Tools**: Client-side administration tools connect through the Postgres protocol and do not need to match the server architecture
 * **Drivers**: An application on x86 can connect to an ARM64 database using the same Postgres driver and SQL
 
@@ -108,7 +108,7 @@ Consider running performance tests with your specific workload on both architect
 
 > [!NOTE]
 >
-> You cannot change the CPU architecture of an existing cluster or mix architectures within its primary and replicas. New branches and backup restores retain the source architecture. To use a different architecture, create a new PlanetScale Postgres database and [migrate your data](../imports/postgres-imports.md). For help planning the migration, please [reach out to support](https://planetscale.com/contact?initial=support).
+> You cannot change the CPU architecture of an existing cluster or mix architectures within its primary and replicas. New branches and backup restores retain the source architecture. To use a different architecture, create a new PlanetScale Postgres database and [migrate your data](https://planetscale.com/docs/postgres/imports/postgres-imports.md). For help planning the migration, please [reach out to support](https://planetscale.com/contact?initial=support).
 
 ## CPU Architecture availability
 
@@ -128,7 +128,7 @@ Depending on your target region for your deployment, there may or may not be cer
 
 > **[PostgreSQL supported platforms](https://www.postgresql.org/docs/current/supported-platforms.html)**
 
-> **[PlanetScale Postgres migration guides](../imports/postgres-imports.md)**
+> **[PlanetScale Postgres migration guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md)**
 
 ## Need help?
 

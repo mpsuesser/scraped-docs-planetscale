@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -37,13 +37,13 @@ instances are not backed up separately.
 ## Replicas and backups
 
 Adding a replica to a shard restores that replica from the shard's last
-backup. The [admin](overview.md#the-admin) then joins the replica to the
+backup. The [admin](https://planetscale.com/docs/neki/overview.md#the-admin) then joins the replica to the
 shard primary so it can start replication and catch up.
 
 The same path can repair a replica that can no longer catch up from WAL.
 That restore does not create a new backup on the Backups page.
 
-See [Database replicas](replicas.md).
+See [Database replicas](https://planetscale.com/docs/neki/replicas.md).
 
 ## Automatic backups
 
@@ -188,7 +188,7 @@ Review the estimated monthly cost, then select **Restore backup**.
 PlanetScale creates the new branch and restores every shard recorded by the
 backup. The source branch remains available while the new branch is created.
 The restored branch is billed on its own for compute, storage, backups, and
-network transfer. See [Neki pricing](pricing.md).
+network transfer. See [Neki pricing](https://planetscale.com/docs/neki/pricing.md).
 
 The default configuration profile's selected SKU determines whether the
 restored branch is development or production. If you do not override profile
@@ -294,7 +294,7 @@ Compressed backup data and WAL above the included amount are billed at
 **\$0.023 per GB per month**. Longer retention, manual backups, and custom
 schedules increase usage.
 
-See [Neki pricing](pricing.md#backups) for the full usage model.
+See [Neki pricing](https://planetscale.com/docs/neki/pricing.md#backups) for the full usage model.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/duplicate-enum-value
 title: "Duplicate Enum Value"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -56,8 +56,8 @@ If the duplicate values were meant to represent different labels, store distinct
 
 ## Related docs
 
-* [How to make different types of schema changes](../how-to-make-different-types-of-schema-changes.md)
-* [Deploy requests](../deploy-requests.md)
+* [How to make different types of schema changes](https://planetscale.com/docs/vitess/schema-changes/how-to-make-different-types-of-schema-changes.md)
+* [Deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md)
 
 ## Need help?
 

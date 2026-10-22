@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control
 title: "Traffic Control"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ Instead of all queries competing equally for CPU and connections, you can:
 * Put guardrails around third‑party integrations and batch jobs
 * Gradually introduce new features without risking the stability of production
 
-Database Traffic Control operates at the [database branch](branching.md) level and lives inside [Insights](monitoring/query-insights.md), next to the metrics you already use to understand performance.
+Database Traffic Control operates at the [database branch](https://planetscale.com/docs/postgres/branching.md) level and lives inside [Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md), next to the metrics you already use to understand performance.
 
 ## Why this matters
 
@@ -67,7 +67,9 @@ If you never see contention between workloads and your queries are well understo
 
 ![Graph of blocked and warned queries](https://mintcdn.com/planetscale-2/Pc1vKrfqALwLm39x/postgres/traffic-control/assets/insights-traffic-control-light.png?fit=max\&auto=format\&n=Pc1vKrfqALwLm39x\&q=85\&s=b89119803161c3de1ee2a32646e390b3)
 
-See [Concepts](traffic-control/concepts.md) for detailed definitions of **resource budgets**, **rules**, and **modes**.
+The decision to Warn or Block a query is determined by the resource budget limits and mode.
+
+See [Concepts](https://planetscale.com/docs/postgres/traffic-control/concepts.md) for detailed definitions of **resource budgets**, **rules**, and **modes**.
 
 * **Configure limits for query traffic**
 
@@ -95,7 +97,7 @@ Insights tracks performance at a per-query-pattern level and provides you with d
 
 ### Database Traffic Control and pg\_strict
 
-Database Traffic Control and [pg\_strict](extensions/pg_strict.md) are separate features that address different concerns:
+Database Traffic Control and [pg\_strict](https://planetscale.com/docs/postgres/extensions/pg_strict.md) are separate features that address different concerns:
 
 * **pg\_strict** controls **which query shapes** a role is allowed to run (for example, preventing queries without appropriate predicates).
 * **Database Traffic Control** limits **how many resources** a workload can consume over time.

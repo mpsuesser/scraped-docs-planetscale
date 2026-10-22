@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide
 title: "Gcp Cloudsql Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,13 +14,13 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Overview
 
-This document will demonstrate how to migrate a database from Google Cloud Platform (GCP) Cloud SQL MySQL Cluster to PlanetScale with a [database import](database-imports.md).
+This document will demonstrate how to migrate a database from Google Cloud Platform (GCP) Cloud SQL MySQL Cluster to PlanetScale with a [database import](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
 > [!NOTE]
 >
 > This guide assumes you are using MySQL on GCP. Other database systems available through GCP will not work with this guide.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
+We recommend reading through the [Database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -79,7 +79,7 @@ You should see all the GRANT statements listed. If you only see one or two lines
 
 ## Allow PlanetScale to connect to your Cloud SQL instance
 
-For PlanetScale to connect to your database, you'll need to update the Authorized networks for your cluster. The specific IP addresses to permit depend on your PlanetScale database region. See [Import public IP addresses](import-tool-migration-addresses.md) for how to find them.
+For PlanetScale to connect to your database, you'll need to update the Authorized networks for your cluster. The specific IP addresses to permit depend on your PlanetScale database region. See [Import public IP addresses](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) for how to find them.
 
 To permit traffic from these IP addresses to your database in GCP, select **Connections** from the navigation on the left. Under **Authorized networks**, click “**Add network**”. This will display an inline form for you to add a network. The name of the field is arbitrary, but the **Network** field should contain the IP address that needs access to your database. Click “**Done**” to add the new entry. Perform this step for each IP address for the selected region, then click “**Save**” to apply the settings.
 
@@ -107,9 +107,9 @@ If `log_bin` is set to OFF you may need to [enable Point in Time Recovery (PITR)
 
 ## Importing your database
 
-Now that your GCP Cloud SQL database is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
+Now that your GCP Cloud SQL database is configured and ready, follow the [Database imports guide](https://planetscale.com/docs/vitess/imports/database-imports.md) to complete your import.
 
-When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
+When you [create the external keyspace](https://planetscale.com/docs/vitess/imports/database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
 * **Host name** (`--host`) - Your GCP Cloud SQL public IP address (from Prerequisites)
 * **Port** (`--port`) - 3306 (default for Cloud SQL)

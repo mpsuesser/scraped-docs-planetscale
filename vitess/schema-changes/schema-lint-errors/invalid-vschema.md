@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/invalid-vschema
 title: "Invalid Vschema"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -65,9 +65,9 @@ Example column vindex definition:
 
 ## Related docs
 
-* [VSchema](../../sharding/vschema.md)
-* [Vindexes](../../sharding/vindexes.md)
-* [Sequence tables](../../sharding/sequence-tables.md)
+* [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md)
+* [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)
+* [Sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/create-a-metal-database
 title: "Create A Metal Database"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 Vitess, Neki, and Postgres
 
-[PlanetScale Metal](../metal.md) databases can be created in a similar way to other PlanetScale databases.
+[PlanetScale Metal](https://planetscale.com/docs/metal.md) databases can be created in a similar way to other PlanetScale databases.
 However, there are a few important things to keep in mind when creating a new Metal database or upgrading an existing database to Metal, which will be covered here.
 
 [Create a database on PlanetScale](https://www.youtube-nocookie.com/embed/6BBrgJcpTBY?rel=0)
@@ -33,7 +33,7 @@ Start by choosing the vCPU and RAM combination that best suits your needs, then 
 
 ![Select Metal database size](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metal/metal-new-db-choose-size.png?fit=max\&auto=format\&n=qp-ZKr_vKb0iLpeb\&q=85\&s=bdffd572677fed8825cad1116d40f4b5)
 
-As opposed to [network-attached storage](../plans/planetscale-skus.md#network-attached-storage) databases, [Metal](../plans/planetscale-skus.md#metal) databases do not autoscale their storage size.
+As opposed to [network-attached storage](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage) databases, [Metal](https://planetscale.com/docs/plans/planetscale-skus.md#metal) databases do not autoscale their storage size.
 Therefore, it's important to make a good size choice from the start.
 If you are starting a new project from scratch on a Metal database and you do not expect massive initial growth, it is likely best to choose the smallest drive possible.
 If you intend to migrate an existing database into this in the near future, ensure that your drive will fit all of the data while also allowing room for further growth.
@@ -88,9 +88,9 @@ You should upgrade to a larger instance long before reaching this point.
 You can upgrade to a larger Metal instance / drive using the same set of steps described above.
 
 Additionally, operations such as deploy requests may not run if you do not have enough storage.
-The exception to this is if you are performing an [instant deployment](../vitess/schema-changes/deploy-requests.md#instant-deployments).
+The exception to this is if you are performing an [instant deployment](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#instant-deployments).
 
-Deploying online schema changes with VReplication requires that we [make a copy of the affected tables](../vitess/schema-changes/how-online-schema-change-tools-work.md#initializing-the-ghost-table-schema).
+Deploying online schema changes with VReplication requires that we [make a copy of the affected tables](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md#initializing-the-ghost-table-schema).
 If you are nearing max capacity or making a change on a very large table, you risk not having enough storage to begin the online schema change.
 We will let you know that there is not enough space to create a deploy request in these cases.
 

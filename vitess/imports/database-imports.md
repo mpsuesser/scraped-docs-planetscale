@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/database-imports
 title: "Database Imports"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,16 +18,16 @@ current_date: 2026-10-20T18:01:41.586Z
 
 You can import an existing internet-accessible MySQL database into a PlanetScale Vitess database with **no downtime**. An import has two parts:
 
-1. An [external keyspace](../cluster-configuration.md#create-an-external-keyspace) connects your production branch to your existing MySQL database.
-2. A [Vitess MoveTables](../../cli/move-tables.md) workflow copies the tables from the external keyspace into a PlanetScale keyspace, keeps them in sync while your application keeps running, and switches traffic to PlanetScale when you're ready.
+1. An [external keyspace](https://planetscale.com/docs/vitess/cluster-configuration.md#create-an-external-keyspace) connects your production branch to your existing MySQL database.
+2. A [Vitess MoveTables](https://planetscale.com/docs/cli/move-tables.md) workflow copies the tables from the external keyspace into a PlanetScale keyspace, keeps them in sync while your application keeps running, and switches traffic to PlanetScale when you're ready.
 
 You run the import with the [`pscale` CLI](../../cli.md). The **Workflows** page in the dashboard shows the progress of the import, but it is read-only: every step on this page is a CLI command.
 
 > [!NOTE]
 >
-> You must be an [Organization Administrator](../../security/access-control.md#organization-administrator) or a [Database Administrator](../../security/access-control.md#database-administrator) of the database to run an import. To run an import with a [service token](../../api/service-tokens.md), give it the `create_branch`, `read_workflow`, `write_workflow`, and `delete_workflow` permissions on the database, plus `delete_production_branch` to delete the external keyspace at the end.
+> You must be an [Organization Administrator](https://planetscale.com/docs/security/access-control.md#organization-administrator) or a [Database Administrator](https://planetscale.com/docs/security/access-control.md#database-administrator) of the database to run an import. To run an import with a [service token](https://planetscale.com/docs/api/service-tokens.md), give it the `create_branch`, `read_workflow`, `write_workflow`, and `delete_workflow` permissions on the database, plus `delete_production_branch` to delete the external keyspace at the end.
 
-Before you begin, it may be helpful to check out our [general MySQL compatibility guide](../troubleshooting/mysql-compatibility.md).
+Before you begin, it may be helpful to check out our [general MySQL compatibility guide](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md).
 
 ## Import process overview
 
@@ -67,11 +67,11 @@ MySQL 5.6, 5.7, and 8.0 are supported. The source database must not already cont
 
 ### Create a user for PlanetScale
 
-PlanetScale connects to your source database with a single user. That user needs replication privileges, read and write access to the database you're importing, and access to the `ps_import_*` database that PlanetScale creates on your source to track replication. See [Import user permissions](import-tool-user-requirements.md) for the full list of grants and a script that creates the user.
+PlanetScale connects to your source database with a single user. That user needs replication privileges, read and write access to the database you're importing, and access to the `ps_import_*` database that PlanetScale creates on your source to track replication. See [Import user permissions](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md) for the full list of grants and a script that creates the user.
 
 ### Allow PlanetScale's IP addresses
 
-Allow connections from PlanetScale's IP addresses for your database's region in your database firewall or security group. See [Import public IP addresses](import-tool-migration-addresses.md) for where to find them.
+Allow connections from PlanetScale's IP addresses for your database's region in your database firewall or security group. See [Import public IP addresses](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) for where to find them.
 
 ## Step 2: Create your PlanetScale database
 
@@ -81,13 +81,13 @@ Create the Vitess database you're importing into:
 pscale database create <DATABASE_NAME> --org <ORGANIZATION_NAME> --region <REGION> --cluster-size <CLUSTER_SIZE> --wait
 ```
 
-Pick a [region](../../plans/regions.md) close to your source database and a [cluster size](../scaling/cluster-sizing.md) with enough storage for your data. You can also create the database from the dashboard with "**New database**" > "**Create database**".
+Pick a [region](https://planetscale.com/docs/plans/regions.md) close to your source database and a [cluster size](https://planetscale.com/docs/vitess/scaling/cluster-sizing.md) with enough storage for your data. You can also create the database from the dashboard with "**New database**" > "**Create database**".
 
 We recommend using the same name as the database you're importing from to avoid updating any database name references throughout your application code. Your PlanetScale database starts with one keyspace, named after the database. That keyspace is the **target** of the import. If you'd prefer to use a different database name, make sure to update your app where applicable once you fully switch over to PlanetScale.
 
 ### Tune the target keyspace for the import
 
-We recommend setting these [VTTablet parameters](../cluster-configuration/parameters.md) on your PlanetScale keyspace before you start the import. They speed up the copy and keep VReplication retrying through errors on your source database, which matters most for large imports.
+We recommend setting these [VTTablet parameters](https://planetscale.com/docs/vitess/cluster-configuration/parameters.md) on your PlanetScale keyspace before you start the import. They speed up the copy and keep VReplication retrying through errors on your source database, which matters most for large imports.
 
 | Parameter | Value for imports | What it does |
 | :- | :- | :- |
@@ -119,7 +119,7 @@ An external keyspace connects your production branch to your source database. It
 | Host name | `--host` | The address where your database is hosted. |
 | Port | `--port` | The port where your database is hosted. The default MySQL port is `3306`. |
 | Database name | `--source-database` | The exact name of the database you want to import on your MySQL server. |
-| Username | `--username` | The [user you created for PlanetScale](import-tool-user-requirements.md). |
+| Username | `--username` | The [user you created for PlanetScale](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md). |
 | Password | `--password` | The password for that user. |
 | SSL verification mode | `--ssl-mode` | `disabled`, `preferred`, `required`, `verify_ca`, or `verify_identity`. |
 | SSL client certificate and key | `--ssl-client-certificate`, `--ssl-client-key` | Authenticate with mTLS instead of a password. Pass the PEM contents or a path to a PEM file. |
@@ -127,7 +127,7 @@ An external keyspace connects your production branch to your source database. It
 | SSL server name override | `--ssl-server-name` | Override the server name for SSL certificate verification. |
 | Minimum TLS version | `--min-tls-version` | The oldest TLS version PlanetScale may use. The default is TLS 1.2. |
 
-If your database server has a valid SSL certificate, set the SSL verification mode to `required` or higher. For more information about certificates from a Certificate Authority, check out our [Secure connections documentation](../connecting/secure-connections.md#certificate-authorities).
+If your database server has a valid SSL certificate, set the SSL verification mode to `required` or higher. For more information about certificates from a Certificate Authority, check out our [Secure connections documentation](https://planetscale.com/docs/vitess/connecting/secure-connections.md#certificate-authorities).
 
 ### Check your source database
 
@@ -148,23 +148,23 @@ PlanetScale checks:
 
 * **Connectivity** - It can connect with the credentials and SSL/TLS settings you provided.
 * **Server configuration** - The [server settings](#server-configuration) above are correct.
-* **User grants** - The user has the [required grants](import-tool-user-requirements.md).
+* **User grants** - The user has the [required grants](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md).
 * **Schema compatibility** - Every table can be imported. See [Schema compatibility](#schema-compatibility) below.
 
-If PlanetScale cannot connect, or the server settings or grants are wrong, it won't create the external keyspace. Fix the issue on your source database and run the check again. The [Import troubleshooting guide](import-troubleshooting.md) covers each error.
+If PlanetScale cannot connect, or the server settings or grants are wrong, it won't create the external keyspace. Fix the issue on your source database and run the check again. The [Import troubleshooting guide](https://planetscale.com/docs/vitess/imports/import-troubleshooting.md) covers each error.
 
 ### Schema compatibility
 
 The check also reports tables that can't be imported:
 
-* **Missing unique key** - All tables must have a unique, not-null key. See our [Changing unique keys documentation](../schema-changes/onlineddl-change-unique-keys.md) for more info.
+* **Missing unique key** - All tables must have a unique, not-null key. See our [Changing unique keys documentation](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md) for more info.
 * **Invalid charset** - We support `utf8`, `utf8mb4`, `utf8mb3`, `latin1`, and `ascii`. Tables with other charsets will be flagged.
 * **Unsupported storage engines** - Only `InnoDB` is supported.
 * **Unsupported partitioning** - Only `RANGE` partitioning is supported, without subpartitions.
 
 Schema errors don't stop you from creating the external keyspace. Fix those tables on your source database, or leave them out of the import with `--exclude-tables` in the next step.
 
-If your database uses foreign key constraints, PlanetScale turns on [foreign key support](../foreign-key-constraints.md) for your PlanetScale database when you create the external keyspace. See [Foreign key constraints](#foreign-key-constraints) before you start the import.
+If your database uses foreign key constraints, PlanetScale turns on [foreign key support](https://planetscale.com/docs/vitess/foreign-key-constraints.md) for your PlanetScale database when you create the external keyspace. See [Foreign key constraints](#foreign-key-constraints) before you start the import.
 
 ### Create the external keyspace
 
@@ -237,7 +237,7 @@ pscale branch vtctl move-tables create <DATABASE_NAME> main \
   --format json
 ```
 
-For more information about foreign key support and limitations, see our [foreign key constraints documentation](../foreign-key-constraints.md).
+For more information about foreign key support and limitations, see our [foreign key constraints documentation](https://planetscale.com/docs/vitess/foreign-key-constraints.md).
 
 ## Step 5: Monitor your import
 
@@ -292,7 +292,7 @@ The dashboard also shows the VDiff's progress on the workflow page. If the VDiff
 
 Once the streams are `Running`, you can connect your application to PlanetScale while your source database stays the authoritative source. Until you switch traffic, PlanetScale routes queries for the imported tables to your source database through the external keyspace, so reads and writes still happen there.
 
-[Create a password](../connecting/connection-strings.md) for your production branch and point a test deployment of your application at PlanetScale. This is the ideal time to test your application end-to-end before switching traffic.
+[Create a password](https://planetscale.com/docs/vitess/connecting/connection-strings.md) for your production branch and point a test deployment of your application at PlanetScale. This is the ideal time to test your application end-to-end before switching traffic.
 
 ## Step 7: Switch traffic
 
@@ -428,23 +428,23 @@ pscale branch vtctl move-tables cancel <DATABASE_NAME> main \
 
 You just migrated your database to PlanetScale. Here are some things you can do next:
 
-* [Create a development branch](../schema-changes/branching.md) - Use branching in your development workflow.
-* [Create a deploy request](../schema-changes/deploy-requests.md#create-a-deploy-request) - Test schema changes in dev branches before pushing to production.
+* [Create a development branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) - Use branching in your development workflow.
+* [Create a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#create-a-deploy-request) - Test schema changes in dev branches before pushing to production.
 
 ## Provider-specific migration guides
 
 For detailed instructions on preparing your external database for import, see our provider-specific guides:
 
-* [Amazon Aurora](amazon-aurora-migration-guide.md)
-* [AWS RDS for MySQL](aws-rds-migration-guide.md)
-* [Azure Database for MySQL](azure-database-for-mysql-migration-guide.md)
-* [DigitalOcean MySQL](digitalocean-database-migration-guide.md)
-* [Google Cloud SQL](gcp-cloudsql-migration-guide.md)
-* [MariaDB](mariadb-migration-guide.md)
+* [Amazon Aurora](https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide.md)
+* [AWS RDS for MySQL](https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide.md)
+* [Azure Database for MySQL](https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide.md)
+* [DigitalOcean MySQL](https://planetscale.com/docs/vitess/imports/digitalocean-database-migration-guide.md)
+* [Google Cloud SQL](https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide.md)
+* [MariaDB](https://planetscale.com/docs/vitess/imports/mariadb-migration-guide.md)
 
 ## Troubleshooting
 
-For detailed troubleshooting guidance, see our [Import troubleshooting guide](import-troubleshooting.md).
+For detailed troubleshooting guidance, see our [Import troubleshooting guide](https://planetscale.com/docs/vitess/imports/import-troubleshooting.md).
 
 ## Need help?
 

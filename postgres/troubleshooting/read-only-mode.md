@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/read-only-mode
 title: "Read Only Mode"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -41,16 +41,16 @@ To protect your cluster from crashing, if a cluster has very little space left (
 
 | Storage Type | Scenario | Remediation |
 | - | - | - |
-| **Network-attached storage** | Clusters with [Autoscaling](../cluster-configuration/cluster-storage.md#enable-autoscaling) disabled or where your current [disk size](../cluster-configuration/cluster-storage.md#minimum-disk-size-configuration) is approaching your configured [Autoscaling maximum](../cluster-configuration/cluster-storage.md#storage-limit) | Increase the [cluster disk size](../cluster-configuration/cluster-storage.md#minimum-disk-size-configuration) manually or increase the [storage limit on disk autoscaling](../cluster-configuration/cluster-storage.md#storage-limit) |
-| **PlanetScale Metal** | When your data is approaching the storage size of your cluster | Increase the [cluster size](../../metal.md) |
+| **Network-attached storage** | Clusters with [Autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#enable-autoscaling) disabled or where your current [disk size](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#minimum-disk-size-configuration) is approaching your configured [Autoscaling maximum](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#storage-limit) | Increase the [cluster disk size](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#minimum-disk-size-configuration) manually or increase the [storage limit on disk autoscaling](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#storage-limit) |
+| **PlanetScale Metal** | When your data is approaching the storage size of your cluster | Increase the [cluster size](https://planetscale.com/docs/metal.md) |
 
 Once you have remediated the issue, your cluster will automatically exit read-only mode.
 
 > [!NOTE]
 >
-> PlanetScale will send notifications via email and webhook (if enabled) when your storage exceeds 60, 75, 85, 90, and 95 percent, respectively. You can also track disk utilization via [Metrics](../monitoring/metrics.md). Emails are sent to all Organization and Database administrators. It is critical that these email addresses are monitored regularly.
+> PlanetScale will send notifications via email and webhook (if enabled) when your storage exceeds 60, 75, 85, 90, and 95 percent, respectively. You can also track disk utilization via [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md). Emails are sent to all Organization and Database administrators. It is critical that these email addresses are monitored regularly.
 
-If the issue was temporary, say due to errant data being written by mistake, you could remove the data, perform a vacuum, and then reverse the remediation action. See [Cluster storage configuration](../cluster-configuration/cluster-storage.md) for more on reducing storage usage.
+If the issue was temporary, say due to errant data being written by mistake, you could remove the data, perform a vacuum, and then reverse the remediation action. See [Cluster storage configuration](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) for more on reducing storage usage.
 
 ## Single Node Archiver lag
 
@@ -73,12 +73,12 @@ A transaction becomes read only through `BEGIN READ ONLY`, `SET TRANSACTION READ
 
 If only some writes fail while others succeed on the same branch, the branch is likely not in read-only mode.
 
-[PgBouncer](../connecting/pgbouncer.md) runs in transaction pooling mode and reuses server connections across clients. When session parameters such as `default_transaction_read_only` are not tracked, read-only state from a prior client can persist on a server connection and affect the next client. A plain `SET` can leak across transactions (including `BEGIN; SET ...; COMMIT`); only `SET LOCAL` is limited to the current transaction. See [limitations of transaction pooling](../connecting/pgbouncer.md#limitations-of-transaction-pooling) and [PgBouncer error messages](../connecting/pgbouncer.md#pgbouncer-error-messages) for more on pooled connection behavior.
+[PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) runs in transaction pooling mode and reuses server connections across clients. When session parameters such as `default_transaction_read_only` are not tracked, read-only state from a prior client can persist on a server connection and affect the next client. A plain `SET` can leak across transactions (including `BEGIN; SET ...; COMMIT`); only `SET LOCAL` is limited to the current transaction. See [limitations of transaction pooling](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#limitations-of-transaction-pooling) and [PgBouncer error messages](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#pgbouncer-error-messages) for more on pooled connection behavior.
 
 To resolve read-only transaction errors:
 
 1. Search application code, ORM configuration, and driver options for read-only transaction modes, session characteristics, or replica routing that sets read-only sessions on a write connection.
-2. Remove the setting if writes should use the same connection, use `SET LOCAL` when a per-transaction setting is required, or route read-only traffic through a separate [role](../connecting/roles.md) and connection (for example, a [replica PgBouncer](../connecting/pgbouncer.md#dedicated-replica-pgbouncers)) instead of toggling read-only on a shared pooled connection.
+2. Remove the setting if writes should use the same connection, use `SET LOCAL` when a per-transaction setting is required, or route read-only traffic through a separate [role](https://planetscale.com/docs/postgres/connecting/roles.md) and connection (for example, a [replica PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md#dedicated-replica-pgbouncers)) instead of toggling read-only on a shared pooled connection.
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

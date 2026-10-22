@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ Our plans are split into two general offerings: [Base (self-serve)](#base-plan) 
 
 > **[Base](#base-plan)**
 >
-> Self-serve plan with fully-managed Vitess (MySQL-compatible), [Neki](neki.md), and Postgres databases. Features include sharding, branching, query insights, and more. Available with network-attached storage or Metal options.
+> Self-serve plan with fully-managed Vitess (MySQL-compatible), [Neki](https://planetscale.com/docs/neki.md), and Postgres databases. Features include sharding, branching, query insights, and more. Available with network-attached storage or Metal options.
 >
 > [Learn more](#base-plan)
 
@@ -38,8 +38,8 @@ Our Base plan is completely self-serviceable. [Sign up for a PlanetScale account
 
 PlanetScale offers **Vitess** (MySQL-compatible), **Neki**, and **Postgres**. All three are available with two storage options: **network-attached storage** and **Metal**.
 
-* [**Network-attached storage**](plans/planetscale-skus.md#network-attached-storage) (Amazon Elastic Block Storage or Google Persistent Disk) databases come with autoscaling storage and have varying levels of compute power.
-* [**Metal databases**](plans/planetscale-skus.md#metal) are backed by locally-attached NVMe drives for storage, unlocking incredible performance and cost-efficiencies. Because the drives are locally-attached, you need to choose both your compute and storage resources when you create your database.
+* [**Network-attached storage**](https://planetscale.com/docs/plans/planetscale-skus.md#network-attached-storage) (Amazon Elastic Block Storage or Google Persistent Disk) databases come with autoscaling storage and have varying levels of compute power.
+* [**Metal databases**](https://planetscale.com/docs/plans/planetscale-skus.md#metal) are backed by locally-attached NVMe drives for storage, unlocking incredible performance and cost-efficiencies. Because the drives are locally-attached, you need to choose both your compute and storage resources when you create your database.
 
 > [!NOTE]
 >
@@ -51,7 +51,7 @@ On top of processing and memory, all **Base** cluster sizes share the following:
 
 | | **Vitess** | **Neki** | **Postgres** |
 | :- | :- | :- | :- |
-| **Storage/month (network-attached storage)** | 10 GB included; \$0.50 per instance per additional GB\* | 10 GB included on each primary and included replica volume; additional storage [varies by region](neki/pricing.md#storage) | 10 GB included; additional storage pricing [varies by region, cloud provider, and storage type](postgres/pricing.md#storage-pricing) |
+| **Storage/month (network-attached storage)** | 10 GB included; \$0.50 per instance per additional GB\* | 10 GB included on each primary and included replica volume; additional storage [varies by region](https://planetscale.com/docs/neki/pricing.md#storage) | 10 GB included; additional storage pricing [varies by region, cloud provider, and storage type](https://planetscale.com/docs/postgres/pricing.md#storage-pricing) |
 | **Storage/month (Metal)** | Depends on selected NVMe drive size | Depends on selected NVMe drive size | Depends on selected NVMe drive size |
 | **Available cluster sizes** | 22 | 22 | 22 |
 | **Availability zones** | 3 | 3 | 3 |
@@ -60,33 +60,33 @@ On top of processing and memory, all **Base** cluster sizes share the following:
 | **Concurrent Connections** | *Unmetered* | *Unmetered* | *Unmetered* |
 | **Single node** | Not available | Not available | Available starting at \$5/mo |
 | **Query Insights retention** | 7 days | 7 days | 7 days |
-| **Horizontal sharding** | Included | Included | Only in [Neki](neki.md) |
+| **Horizontal sharding** | Included | Included | Only in [Neki](https://planetscale.com/docs/neki.md) |
 | **Vertical sharding** | Included | Included | Included |
-| [**Deployment options**](plans/deployment-options.md) | Multi-tenant | Multi-tenant | Multi-tenant |
+| [**Deployment options**](https://planetscale.com/docs/plans/deployment-options.md) | Multi-tenant | Multi-tenant | Multi-tenant |
 | **Read-only regions** | Available as an add-on | Coming soon | Coming soon |
 | **Web console** | Included | Included | Included |
 | **PlanetScale CLI** | Included | Included | Included |
-| **Connection pooling** | [VTGates](vitess/scaling/vtgates.md) based on cluster size | [Routers](neki/overview.md#routers) | [PgBouncer](postgres/connecting/pgbouncer.md) |
-| [**Database Traffic Control®**](postgres/traffic-control.md) | Not available | Coming soon | Included |
+| **Connection pooling** | [VTGates](https://planetscale.com/docs/vitess/scaling/vtgates.md) based on cluster size | [Routers](https://planetscale.com/docs/neki/overview.md#routers) | [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) |
+| [**Database Traffic Control®**](https://planetscale.com/docs/postgres/traffic-control.md) | Not available | Coming soon | Included |
 | **SSO** | Available as an add-on\*\*\* | Available as an add-on\*\*\* | Available as an add-on\*\*\* |
 | **Audit log retention** | 6 months | 6 months | 6 months |
-| **Private connections** | [AWS](vitess/connecting/private-connections.md) and [GCP](vitess/connecting/private-connections-gcp.md) | [AWS](neki/connecting/private-connections/aws-privatelink.md) and [GCP](neki/connecting/private-connections/gcp-private-service-connect.md) | [AWS](postgres/connecting/private-connections/aws-privatelink.md) and [GCP](postgres/connecting/private-connections/gcp-private-service-connect.md) |
+| **Private connections** | [AWS](https://planetscale.com/docs/vitess/connecting/private-connections.md) and [GCP](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md) | [AWS](https://planetscale.com/docs/neki/connecting/private-connections/aws-privatelink.md) and [GCP](https://planetscale.com/docs/neki/connecting/private-connections/gcp-private-service-connect.md) | [AWS](https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink.md) and [GCP](https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect.md) |
 | **BAAs** | Included | Included | Included |
 | **Automatic backups** | Every 12 hours | Every 12 hours | Every 12 hours |
 | **Support** | Standard, upgrade available\*\*\* | Standard, upgrade available\*\*\* | Standard, upgrade available\*\*\* |
-| [**Data Branching®**](vitess/schema-changes/data-branching.md) | Included | Not available | Not available |
+| [**Data Branching®**](https://planetscale.com/docs/vitess/schema-changes/data-branching.md) | Included | Not available | Not available |
 
 \* For HA network-attached storage databases, production branch storage is billed at \$1.50/GB (1 primary + 2 replicas) and development branch storage is billed at \$0.50/GB (1 primary).
 
 \*\* Additional production branches are billed at the cost of your selected cluster size per month.
 
-\*\*\* [SSO](security/sso.md) and [Business support](support.md#business) options are available on the Base plan for an additional fee.
+\*\*\* [SSO](https://planetscale.com/docs/security/sso.md) and [Business support](https://planetscale.com/docs/support.md#business) options are available on the Base plan for an additional fee.
 
 ### Additional production branches
 
 Each HA production branch in the Base plan provisions a separate, production database cluster in our infrastructure. Upon adding an additional production branch, you will be prompted to select the cluster size for the new branch.
 
-Each cluster size is priced based on the selected region. See [Vitess](plans/cluster-sizing.md), [Neki](neki/pricing.md), and [Postgres](postgres/pricing.md) pricing.
+Each cluster size is priced based on the selected region. See [Vitess](https://planetscale.com/docs/plans/cluster-sizing.md), [Neki](https://planetscale.com/docs/neki/pricing.md), and [Postgres](https://planetscale.com/docs/postgres/pricing.md) pricing.
 
 If you have a `main` network-attached storage production branch using the **PS-40** cluster size and two additional production branches using the **PS-20** cluster size, the total cost for the database would be **\$217.00** per month.
 
@@ -115,7 +115,7 @@ Postgres development branches, `PS-DEV`, are billed for the time that they are r
 
 > [!NOTE]
 >
-> You can set spend email alerts from your billing page. See the [Spend management documentation](billing.md#spend-management) for more information.
+> You can set spend email alerts from your billing page. See the [Spend management documentation](https://planetscale.com/docs/billing.md#spend-management) for more information.
 
 If a database is created in the middle of a billing cycle, the included development branch hours are prorated. For example, if you create your database with 15 days remaining in the current month, the database will have `15 days * 2` (720 hours) included for that billing period.
 
@@ -132,14 +132,14 @@ PlanetScale's Enterprise plan is great for large-scale businesses who require en
 We offer many different deployment options, all of which come with the same set of standard features.
 
 * **PlanetScale Single-tenant** runs in PlanetScale's infrastructure with optional dedicated AWS, GCP, or Azure accounts.
-* [**PlanetScale Managed**](plans/managed.md) is a deployment option where your database runs entirely in your own AWS, GCP, or Azure account, giving you complete control over your cloud infrastructure while still benefiting from PlanetScale's fully managed service.
+* [**PlanetScale Managed**](https://planetscale.com/docs/plans/managed.md) is a deployment option where your database runs entirely in your own AWS, GCP, or Azure account, giving you complete control over your cloud infrastructure while still benefiting from PlanetScale's fully managed service.
 
 The table below covers those shared features, as well as the different options that vary depending on your chosen deployment.
 
-| | Single-tenant | **[PlanetScale Managed](plans/managed.md)** |
+| | Single-tenant | **[PlanetScale Managed](https://planetscale.com/docs/plans/managed.md)** |
 | :- | :- | :- |
 | Customizable feature limits | | |
-| [Support](support.md) | Business — Enterprise upgrade available | Enterprise |
+| [Support](https://planetscale.com/docs/support.md) | Business — Enterprise upgrade available | Enterprise |
 | PCI compliant | | |
 | Dedicated cloud account, project, or subscription | Optional | |
 | Bring your own cloud account, project, or subscription | | |
@@ -156,24 +156,24 @@ In general, if you need any of the following, Enterprise may be the best solutio
 * You need your database deployed in a single-tenant environment
 * You need to keep your data in **your own** AWS, GCP, or Azure account
 * You need a PCI DSS certified service provider
-* Mission-critical [response times](support.md#initial-response-times) including continuous support coverage
+* Mission-critical [response times](https://planetscale.com/docs/support.md#initial-response-times) including continuous support coverage
 * Any other customizations — Our Enterprise plans offer a lot of flexibility, so if you have a requirement that’s not listed here, it’s best to [reach out](https://planetscale.com/contact) and we can see how we can help
 
 ## Plan add-ons
 
 ### Single Sign-on (SSO)
 
-Add [Single Sign-on (SSO)](security/sso.md) for your organization to the Base plan for an additional fee of \$199/month.
+Add [Single Sign-on (SSO)](https://planetscale.com/docs/security/sso.md) for your organization to the Base plan for an additional fee of \$199/month.
 
 ### Business support
 
-Add [Business support](support.md#business) to the Base plan for an additional fee. See the Support page for more details.
+Add [Business support](https://planetscale.com/docs/support.md#business) to the Base plan for an additional fee. See the Support page for more details.
 
 ### User-scheduled backups
 
 On the Base plan, we run automated backups every 12 hours. Disk space for default backups is not counted against your plan's storage limit.
 
-You can also [schedule additional backups yourself](vitess/backups.md#create-manual-backups) as needed. For these additional user-scheduled backups, storage is billed at **\$0.023 per GB** per month. Backups include system tables as well as your data and start at around 140 MB.
+You can also [schedule additional backups yourself](https://planetscale.com/docs/vitess/backups.md#create-manual-backups) as needed. For these additional user-scheduled backups, storage is billed at **\$0.023 per GB** per month. Backups include system tables as well as your data and start at around 140 MB.
 
 ## Free plan
 

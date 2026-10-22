@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/logical-cdc
 title: "Logical Cdc"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -92,7 +92,7 @@ For production CDC deployments, create a dedicated replication role. You can do 
 
 ### Create a role with REPLICATION via PlanetScale
 
-You can create a PlanetScale [user-defined role](../connecting/roles.md) with the `REPLICATION` attribute enabled. When creating the role:
+You can create a PlanetScale [user-defined role](https://planetscale.com/docs/postgres/connecting/roles.md) with the `REPLICATION` attribute enabled. When creating the role:
 
 * Include the `postgres` inherited role.
 * Enable the `REPLICATION` attribute on the role.
@@ -164,7 +164,7 @@ If you created a logical replication slot before enabling failover support on yo
 
 **Step 1**
 
-Using the [default role](../connecting/roles.md#default-role) for the branch, connect through a replication connection. Append `&replication=database` to the connection URI, or pass `replication=database` in a psql connection string:
+Using the [default role](https://planetscale.com/docs/postgres/connecting/roles.md#default-role) for the branch, connect through a replication connection. Append `&replication=database` to the connection URI, or pass `replication=database` in a psql connection string:
 
 ```bash theme={null}
 psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
@@ -218,7 +218,7 @@ Your CDC consumer should reconnect automatically on its next resync window.
 
 ### Create initial publication
 
-Some CDC tools require you to create publications to specify which tables to replicate. You will need to do this as the owner of the tables or the default role. This example uses the [default role](../connecting/roles.md#default-role).
+Some CDC tools require you to create publications to specify which tables to replicate. You will need to do this as the owner of the tables or the default role. This example uses the [default role](https://planetscale.com/docs/postgres/connecting/roles.md#default-role).
 
 ```sql theme={null}
 CREATE PUBLICATION my_cdc_publication FOR TABLE table1, table2;
@@ -274,7 +274,7 @@ PlanetScale provides built-in metrics that are essential for monitoring your CDC
 > [!NOTE]
 >
 > For detailed information about interpreting these metrics, see the [Cluster
-> Metrics](../monitoring/metrics.md) documentation.
+> Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) documentation.
 
 ### Monitoring replication lag
 
@@ -329,7 +329,7 @@ FROM pg_replication_slots;
 * Consider network security when streaming to external systems
 * Monitor for unauthorized replication slots
 
-For more information about cluster configuration parameters, see the [Cluster configuration parameters](../cluster-configuration/parameters.md) documentation.
+For more information about cluster configuration parameters, see the [Cluster configuration parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) documentation.
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

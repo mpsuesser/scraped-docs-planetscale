@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/constraint-not-found
 title: "Constraint Not Found"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,7 +20,7 @@ A deploy request can fail before copying starts because it drops a constraint by
 Found DROP CONSTRAINT: DROP CHECK `orders_amount_chk`, but could not find constraint name in map
 ```
 
-MySQL requires `CHECK` and `FOREIGN KEY` constraint names to be unique across the whole schema. Because an online schema change builds a copy of the table alongside the original, PlanetScale gives every constraint on the copy a new name: the original name plus a generated suffix such as `orders_amount_chk_5vtaqz7kepok6wa91vryrkrje`. The suffix changes every time the table goes through a deploy. See [Foreign key constraint names change on every deployment](../foreign-key-constraints.md#foreign-key-constraint-names-change-on-every-deployment).
+MySQL requires `CHECK` and `FOREIGN KEY` constraint names to be unique across the whole schema. Because an online schema change builds a copy of the table alongside the original, PlanetScale gives every constraint on the copy a new name: the original name plus a generated suffix such as `orders_amount_chk_5vtaqz7kepok6wa91vryrkrje`. The suffix changes every time the table goes through a deploy. See [Foreign key constraint names change on every deployment](https://planetscale.com/docs/vitess/foreign-key-constraints.md#foreign-key-constraint-names-change-on-every-deployment).
 
 When the deploy runs, the `DROP` must name the constraint exactly as it exists on the production table at that moment. If the table was deployed again after this deploy request's changes were computed, or the name recorded for the production branch is out of date, the names no longer match and the deploy stops.
 

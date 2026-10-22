@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide
 title: "Aws Rds Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,9 +18,9 @@ This document will demonstrate how to migrate a database from AWS Relational Dat
 
 > [!NOTE]
 >
-> This guide assumes you are using MySQL on Amazon RDS. If you are using Amazon Aurora (MySQL compatible) on RDS, follow the [Amazon Aurora migration guide](amazon-aurora-migration-guide.md). Other database systems (non-MySQL or MariaDB databases) available through RDS will not work with this guide.
+> This guide assumes you are using MySQL on Amazon RDS. If you are using Amazon Aurora (MySQL compatible) on RDS, follow the [Amazon Aurora migration guide](https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide.md). Other database systems (non-MySQL or MariaDB databases) available through RDS will not work with this guide.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
+We recommend reading through the [Database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -216,7 +216,7 @@ Save the username and password securely - you'll need them for the import.
 
 Allow PlanetScale to connect by adding PlanetScale's IP addresses to your security group.
 
-The specific IP addresses depend on your PlanetScale database region. See [Import public IP addresses](import-tool-migration-addresses.md) for how to find them.
+The specific IP addresses depend on your PlanetScale database region. See [Import public IP addresses](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) for how to find them.
 
 ### Add IP addresses to security group
 
@@ -239,9 +239,9 @@ Repeat for each IP address in your region, then click "**Save rules**".
 
 ## Importing your database
 
-Now that your RDS database is configured, follow the [Database imports guide](database-imports.md) to complete your import.
+Now that your RDS database is configured, follow the [Database imports guide](https://planetscale.com/docs/vitess/imports/database-imports.md) to complete your import.
 
-When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
+When you [create the external keyspace](https://planetscale.com/docs/vitess/imports/database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
 * **Host name** (`--host`) - Your RDS endpoint address (from Prerequisites)
 * **Port** (`--port`) - 3306 (or your custom port)

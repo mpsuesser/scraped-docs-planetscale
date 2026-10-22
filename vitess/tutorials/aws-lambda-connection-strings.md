@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/aws-lambda-connection-strings
 title: "Aws Lambda Connection Strings"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -55,7 +55,7 @@ You may run `SELECT * FROM Tasks` to ensure the data was properly added from the
 
 ![Records from the console](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/aws-lambda-connection-strings/select.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=d48ac40df1cfbb67394c9b55937c8f31)
 
-Now we need to enable [**safe migrations**](../schema-changes/safe-migrations.md) on the **main** branch. Click the **Dashboard** tab, then click the **cog** icon in the upper right of the infrastructure card.
+Now we need to enable [**safe migrations**](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) on the **main** branch. Click the **Dashboard** tab, then click the **cog** icon in the upper right of the infrastructure card.
 
 ![The option to promote a branch](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/tutorials/aws-lambda-connection-strings/production-2.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=3eac808438c88fbc3b87fc273742d818)
 

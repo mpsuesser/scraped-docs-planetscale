@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-any-application
 title: "Connect Any Application"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,15 +16,15 @@ current_date: 2026-10-20T18:01:41.586Z
 
 In this tutorial, you'll learn how to connect any application to your PlanetScale database.
 
-If you're just getting started and still need to set up a database, we recommend starting with the [PlanetScale quick start guide](planetscale-quick-start-guide.md) first. We also have language/framework-specific guides under "**Integration guides**" if you prefer a more detailed walk-through.
+If you're just getting started and still need to set up a database, we recommend starting with the [PlanetScale quick start guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md) first. We also have language/framework-specific guides under "**Integration guides**" if you prefer a more detailed walk-through.
 
-PlanetScale uses [database branches](../schema-changes/branching.md) to create a development-friendly workflow. Your database is initially created with a default branch, `main`, which is meant to serve as a production database branch. Production branches are highly available databases intended for production traffic. They are automatically provided with an additional replica to resist outages, enabling zero-downtime failovers.
+PlanetScale uses [database branches](https://planetscale.com/docs/vitess/schema-changes/branching.md) to create a development-friendly workflow. Your database is initially created with a default branch, `main`, which is meant to serve as a production database branch. Production branches are highly available databases intended for production traffic. They are automatically provided with an additional replica to resist outages, enabling zero-downtime failovers.
 
-You can connect to a *production* or *development* database branch. We recommend creating and connecting to a *development* branch while in *development*, as it allows you to make schema changes without affecting production. Your production application, however, should be connected to your production database branch. Check out our [Branching guide](../schema-changes/branching.md) for more information about the branching workflow.
+You can connect to a *production* or *development* database branch. We recommend creating and connecting to a *development* branch while in *development*, as it allows you to make schema changes without affecting production. Your production application, however, should be connected to your production database branch. Check out our [Branching guide](https://planetscale.com/docs/vitess/schema-changes/branching.md) for more information about the branching workflow.
 
 > [!NOTE]
 >
-> By default, production branches have safe migrations turned off. This means that any schema changes you make will be applied immediately. Once you are ready to go to production, we recommend turning on safe migrations if you want to make non-blocking schema changes. Check out our [Safe migrations documentation](../schema-changes/safe-migrations.md) for more information.
+> By default, production branches have safe migrations turned off. This means that any schema changes you make will be applied immediately. Once you are ready to go to production, we recommend turning on safe migrations if you want to make non-blocking schema changes. Check out our [Safe migrations documentation](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) for more information.
 
 There are two ways to connect your app to PlanetScale. Both are covered below.
 
@@ -81,7 +81,7 @@ To ensure a secure connection, you must validate the server-side certificate fro
 MYSQL_ATTR_SSL_CA=/etc/ssl/cert.pem
 ```
 
-The path to the certificate depends on your system. The above example shows the path for macOS, but you can find others in our [Secure connections documentation](../connecting/secure-connections.md#ca-root-configuration).
+The path to the certificate depends on your system. The above example shows the path for macOS, but you can find others in our [Secure connections documentation](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration).
 
 Again, the variable name here, `MYSQL_ATTR_SSL_CA`, is just an example. The actual name and location for it will depend on the application.
 
@@ -89,7 +89,7 @@ If you're **unsure what to put here**, we recommend selecting your application's
 
 ### Generate credentials in the PlanetScale CLI
 
-If you prefer working from the CLI, you can quickly spin up new credentials there. Make sure you have the [CLI set up](../../cli/planetscale-environment-setup.md) first.
+If you prefer working from the CLI, you can quickly spin up new credentials there. Make sure you have the [CLI set up](https://planetscale.com/docs/cli/planetscale-environment-setup.md) first.
 
 **Step 1**
 
@@ -136,7 +136,7 @@ To ensure a secure connection, you must validate the server-side certificate fro
 MYSQL_ATTR_SSL_CA=/etc/ssl/cert.pem
 ```
 
-The path to the certificate depends on your system. The above example shows the path for macOS, but you can find others in our [Secure connections documentation](../connecting/secure-connections.md#ca-root-configuration).
+The path to the certificate depends on your system. The above example shows the path for macOS, but you can find others in our [Secure connections documentation](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration).
 
 Again, the variable name here, `MYSQL_ATTR_SSL_CA`, is just an example. The actual name and location for it will depend on the application.
 
@@ -150,7 +150,7 @@ You'll use the CLI to establish a secure connection to PlanetScale. It will list
 
 **Step 1**
 
-Make sure you have [the CLI set up](../../cli/planetscale-environment-setup.md), and then run the following command:
+Make sure you have [the CLI set up](https://planetscale.com/docs/cli/planetscale-environment-setup.md), and then run the following command:
 
 ```bash theme={null}
 pscale connect <DATABASE_NAME> <BRANCH_NAME>
@@ -176,7 +176,7 @@ Your application should now be connected to the specified PlanetScale database b
 
 ## What's next?
 
-Once your application is connected to a development database branch, you can make schema changes in an isolated development environment without worrying about affecting production. Additionally, we recommend that [safe migrations](../schema-changes/safe-migrations.md) be enabled on your production database branch, which allows you to make [non-blocking schema changes](../schema-changes.md) without locking or causing downtime.
+Once your application is connected to a development database branch, you can make schema changes in an isolated development environment without worrying about affecting production. Additionally, we recommend that [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) be enabled on your production database branch, which allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) without locking or causing downtime.
 
 ### PlanetScale workflow
 
@@ -196,7 +196,7 @@ Test them locally or in your staging environment.
 
 **Step 4**
 
-Once satisfied and ready to deploy your changes to production, [create a deploy request](../schema-changes/deploy-requests.md).
+Once satisfied and ready to deploy your changes to production, [create a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md).
 
 **Step 5**
 
@@ -208,11 +208,11 @@ Deploy your deploy request to production.
 
 **Step 7**
 
-Bonus: If you realize you made a mistake, you can click "Revert changes" to [undo a schema change](../schema-changes/deploy-requests.md#revert-a-schema-change).
+Bonus: If you realize you made a mistake, you can click "Revert changes" to [undo a schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change).
 
 > [!NOTE]
 >
-> Note: you must already have [a production branch](../schema-changes/branching.md#promote-a-branch-to-production) in place to create a deploy request.
+> Note: you must already have [a production branch](https://planetscale.com/docs/vitess/schema-changes/branching.md#promote-a-branch-to-production) in place to create a deploy request.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/shard-targeting-fanout
 title: "Shard Targeting Fanout"
 description: ""
-access_date: 2026-10-19T17:45:20.278Z
-current_date: 2026-10-19T17:45:20.278Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,8 +14,8 @@ current_date: 2026-10-19T17:45:20.278Z
 
 > Limit how broadly statements route, choose where reads run, and target one shard
 
-Neki routes each statement according to its [query plan](query-planning.md)
-and the [data topology](data-topology.md). Session settings control three
+Neki routes each statement according to its [query plan](https://planetscale.com/docs/neki/query-planning.md)
+and the [data topology](https://planetscale.com/docs/neki/data-topology.md). Session settings control three
 parts of that routing: how many shards a statement can reach, which type of
 Postgres instance serves reads, and whether data queries go to one shard
 directly.
@@ -32,7 +32,7 @@ The fanout component of a query plan specifies how broadly a statement will rout
 | `scatter` | Any plan, including one that reaches every shard in a group |
 
 An `IN` predicate on the shard key produces a `Route [IN]`, as shown in [Query
-planning](query-planning.md#explain-neki_plan), and has `multi` fanout.
+planning](https://planetscale.com/docs/neki/query-planning.md#explain-neki_plan), and has `multi` fanout.
 Its values may resolve to one shard or several, but the plan is limited to the shards holding those values.
 
 ### The `__neki.fanout` setting
@@ -59,7 +59,7 @@ The setting also applies to `EXPLAIN (NEKI_PG_PLAN, ANALYZE)` because `ANALYZE`
 executes the underlying statement.
 
 This setting does not apply to DDL. Fanout required to maintain [reference tables
-and GSIs](reference-tables-and-gsis.md) is also exempt.
+and GSIs](https://planetscale.com/docs/neki/reference-tables-and-gsis.md) is also exempt.
 
 ## Choosing where reads run
 
@@ -76,7 +76,7 @@ SET __neki.target = 'replica';
 | - | - |
 | `primary` | Send reads to the shard primary. This is the only target that accepts DML |
 | `replica` | Send reads to replicas used for live traffic |
-| `rdonly` | Send reads to [read-only replicas](read-only-replicas.md) used for long-running work |
+| `rdonly` | Send reads to [read-only replicas](https://planetscale.com/docs/neki/read-only-replicas.md) used for long-running work |
 
 The following settings control how Neki chooses a `replica` or `rdonly`
 instance:

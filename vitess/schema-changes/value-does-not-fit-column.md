@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/value-does-not-fit-column
 title: "Value Does Not Fit Column"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -49,7 +49,7 @@ SELECT id FROM scores WHERE score < 0 OR score > 65535;
 SELECT id FROM events WHERE NOT JSON_VALID(payload);
 ```
 
-Then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deploy). Retrying before every offending row is updated will cause another failure.
+Then [retry the failed tables](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#retry-a-partially-failed-deploy). Retrying before every offending row is updated will cause another failure.
 
 If the existing values are correct and the new type is too strict, change the column definition on your branch instead, and open a new deploy request.
 

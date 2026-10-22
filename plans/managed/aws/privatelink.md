@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/privatelink
 title: "Privatelink"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ Vitess and Postgres
 
 ## Overview
 
-If you are on the Base plan and would like to set up AWS PrivateLink, see our [Private connections documentation](../../../vitess/connecting/private-connections.md).
+If you are on the Base plan and would like to set up AWS PrivateLink, see our [Private connections documentation](https://planetscale.com/docs/vitess/connecting/private-connections.md).
 
 ## How PlanetScale Managed and AWS PrivateLink work
 
@@ -117,7 +117,7 @@ Once you've verified that your connection is operating successfully, you will ne
 
 **Step 1**
 
-Create a connection string for your PlanetScale database using the "**Connect**" button in the dashboard or the [pscale CLI](../../../cli.md).
+Create a connection string for your PlanetScale database using the "**Connect**" button in the dashboard or the [pscale CLI](https://planetscale.com/docs/cli.md).
 
 **Step 2**
 
@@ -139,7 +139,7 @@ If you receive the `mysql>` prompt, your connection is operating successfully.
 
 > [!NOTE]
 >
-> The correct path for the CA root configuration for the `--ssl-ca` flag depends on your operating system. See the [CA root configuration documentation](../../../vitess/connecting/secure-connections.md#ca-root-configuration) for the correct path.
+> The correct path for the CA root configuration for the `--ssl-ca` flag depends on your operating system. See the [CA root configuration documentation](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration) for the correct path.
 
 **Postgres**
 
@@ -160,7 +160,7 @@ If you reach the `postgres=>` prompt, your connection is operating successfully.
 
 > [!NOTE]
 >
-> If `sslrootcert=system` doesn't work in your environment, replace it with the path to your system's root CA certificate. See the [Postgres connecting documentation](../../../postgres/connecting/quickstart.md#secure-connections) for more details.
+> If `sslrootcert=system` doesn't work in your environment, replace it with the path to your system's root CA certificate. See the [Postgres connecting documentation](https://planetscale.com/docs/postgres/connecting/quickstart.md#secure-connections) for more details.
 
 If your client connects successfully, you have confirmed that your connections to PlanetScale will be established through AWS PrivateLink. If you cannot connect, please consult your Solutions Engineer.
 

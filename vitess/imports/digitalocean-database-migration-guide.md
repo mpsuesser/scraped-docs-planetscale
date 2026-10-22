@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/digitalocean-database-migration-guide
 title: "Digitalocean Database Migration Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,13 +14,13 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## Introduction
 
-In this article, we’ll walk through migrating a MySQL database from DigitalOcean to PlanetScale with a [database import](database-imports.md).
+In this article, we’ll walk through migrating a MySQL database from DigitalOcean to PlanetScale with a [database import](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
 > [!NOTE]
 >
 > This guide assumes you are using MySQL on DigitalOcean. Other database systems available through DigitalOcean will not work with this guide.
 
-We recommend reading through the [Database import documentation](database-imports.md) to learn how imports work before proceeding.
+We recommend reading through the [Database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md) to learn how imports work before proceeding.
 
 ## Prerequisites
 
@@ -42,12 +42,12 @@ You can view the list of databases in the "**Users & Databases**" tab. This arti
 > [!NOTE]
 >
 > If you don’t know the admin password, you can create a new set of credentials using the information on the [Import
-> tool user permissions page](import-tool-user-requirements.md) to create an account that can be used to
+> tool user permissions page](https://planetscale.com/docs/vitess/imports/import-tool-user-requirements.md) to create an account that can be used to
 > import your database.
 
 ## Update trusted sources
 
-In order for PlanetScale to connect to your DigitalOcean database, you must allow network traffic into the database by adding the necessary IP addresses to the trusted sources list in DigitalOcean. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
+In order for PlanetScale to connect to your DigitalOcean database, you must allow network traffic into the database by adding the necessary IP addresses to the trusted sources list in DigitalOcean. The specific IP addresses you will need to allow depend on the region you plan to host your PlanetScale database. Check the [Import public IP addresses page](https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses.md) to determine the IP addresses to allow before continuing. This guide will use the **AWS us-east-1 (North Virginia)** region so we’ll allow the following addresses:
 
 ```
 3.209.149.66
@@ -87,7 +87,7 @@ To remove the `ANSI_QUOTES` setting, click the “**x**” next to the tag and c
 
 ### Set the Binlog Retention Period
 
-The binary log related [MySQL server variables](database-imports.md#server-configuration) required for PlanetScale imports are already set to acceptable values by default on Digital Ocean managed MySQL servers but there's one more variable to check on the "**Settings**" tab of your existing cluster.
+The binary log related [MySQL server variables](https://planetscale.com/docs/vitess/imports/database-imports.md#server-configuration) required for PlanetScale imports are already set to acceptable values by default on Digital Ocean managed MySQL servers but there's one more variable to check on the "**Settings**" tab of your existing cluster.
 
 Scroll down to "**Advanced configurations**" and ensure the "**Binlog Retention Period**" is set to at least `172800` seconds (48 hours).
 
@@ -95,9 +95,9 @@ Scroll down to "**Advanced configurations**" and ensure the "**Binlog Retention 
 
 ## Importing your database
 
-Now that your DigitalOcean database is configured and ready, follow the [Database imports guide](database-imports.md) to complete your import.
+Now that your DigitalOcean database is configured and ready, follow the [Database imports guide](https://planetscale.com/docs/vitess/imports/database-imports.md) to complete your import.
 
-When you [create the external keyspace](database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
+When you [create the external keyspace](https://planetscale.com/docs/vitess/imports/database-imports.md#step-3-create-an-external-keyspace), use the following connection settings:
 
 * **Host name** (`--host`) - Your DigitalOcean database host (from Prerequisites)
 * **Port** (`--port`) - Your port (typically 25060 for DigitalOcean)

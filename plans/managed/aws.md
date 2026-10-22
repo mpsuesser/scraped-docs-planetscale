@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -62,7 +62,7 @@ You own the AWS organization and member account that PlanetScale is deployed wit
 
 ### PCI compliance
 
-Along with System and Organization Controls (SOC) 2 Type 2 and other [security and compliance](../../security.md) practices that PlanetScale has been issued and follows, PlanetScale Managed has been issued an Attestation of Compliance (AoC) and Report on Compliance (RoC), certifying our compliance with the PCI DSS 4.0 as a [Level 1 Service Provider](https://www.pcisecuritystandards.org/glossary/service-provider/). This enables PlanetScale Managed to be used via a shared responsibility model across merchants, acquirers, issuers, and other roles in storing and processing cardholder data.
+Along with System and Organization Controls (SOC) 2 Type 2 and other [security and compliance](https://planetscale.com/docs/security.md) practices that PlanetScale has been issued and follows, PlanetScale Managed has been issued an Attestation of Compliance (AoC) and Report on Compliance (RoC), certifying our compliance with the PCI DSS 4.0 as a [Level 1 Service Provider](https://www.pcisecuritystandards.org/glossary/service-provider/). This enables PlanetScale Managed to be used via a shared responsibility model across merchants, acquirers, issuers, and other roles in storing and processing cardholder data.
 
 > [!NOTE]
 >
@@ -70,7 +70,7 @@ Along with System and Organization Controls (SOC) 2 Type 2 and other [security a
 
 ### Private database connectivity
 
-By default, all database connections are encrypted but use public endpoints. [AWS PrivateLink](aws/privatelink.md) and [AWS VPC peering](aws/vpc-peering.md) keep database traffic on private AWS networks, but they use different network models.
+By default, all database connections are encrypted but use public endpoints. [AWS PrivateLink](https://planetscale.com/docs/plans/managed/aws/privatelink.md) and [AWS VPC peering](https://planetscale.com/docs/plans/managed/aws/vpc-peering.md) keep database traffic on private AWS networks, but they use different network models.
 
 | | AWS PrivateLink | AWS VPC peering |
 | - | - | - |
@@ -104,7 +104,7 @@ With any of the PlanetScale Enterprise offerings, including PlanetScale Managed,
 
 ## Getting started with PlanetScale Managed in AWS
 
-If you want to see what is involved in getting set up with PlanetScale Managed in AWS, you can see the [AWS set up documentation](aws/getting-started.md).
+If you want to see what is involved in getting set up with PlanetScale Managed in AWS, you can see the [AWS set up documentation](https://planetscale.com/docs/plans/managed/aws/getting-started.md).
 
 If you are interested in exploring PlanetScale Managed further, please [contact us](https://planetscale.com/contact), and we can chat more about your requirements and see if PlanetScale Managed is a good fit for you.
 

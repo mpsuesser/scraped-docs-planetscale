@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/keyspaces
 title: "Keyspaces"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -54,19 +54,19 @@ Some frameworks and ORMs require a database name is specified. In these scenario
 
 ## Modifying keyspaces in PlanetScale
 
-Having 1 unsharded keyspace and 1 sharded is a typical setup for a database that needs sharding. On the [Clusters page](../cluster-configuration.md), you are able to customize the number of shards in the sharded keyspace. You can also adjust the instance size for each primary and replica, and you can add additional replicas beyond the default of two if needed. On a sharded keyspace, you can enable [per-shard sizing](../cluster-configuration/per-shard-sizing.md) to size individual shards separately.
+Having 1 unsharded keyspace and 1 sharded is a typical setup for a database that needs sharding. On the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md), you are able to customize the number of shards in the sharded keyspace. You can also adjust the instance size for each primary and replica, and you can add additional replicas beyond the default of two if needed. On a sharded keyspace, you can enable [per-shard sizing](https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing.md) to size individual shards separately.
 
-To get a better sense of this, or to configure your keyspaces, click on your [Clusters](../cluster-configuration.md) tab in your dashboard. If you have an existing unsharded database, you'll see that database listed there as an unsharded keyspace. If you click "New keyspace", you're able to configure a brand new keyspace here. Production branches can also add an [external keyspace](../cluster-configuration.md#create-an-external-keyspace) that connects to an existing MySQL database.
+To get a better sense of this, or to configure your keyspaces, click on your [Clusters](https://planetscale.com/docs/vitess/cluster-configuration.md) tab in your dashboard. If you have an existing unsharded database, you'll see that database listed there as an unsharded keyspace. If you click "New keyspace", you're able to configure a brand new keyspace here. Production branches can also add an [external keyspace](https://planetscale.com/docs/vitess/cluster-configuration.md#create-an-external-keyspace) that connects to an existing MySQL database.
 
 The most common use case for creating a new keyspace is to shard one or multiple tables.
 
 All of your keyspaces are separate databases. And, again, sharded keyspaces hold multiple databases. However, with the power of Vitess, your application views these all as a single database. It uses the VTGate load balancer to route queries to the correct keyspace, and then the correct shard, and finally the correct primary or replica, as configured.
 
-For more information about modifying a keyspace, please see the [Cluster configuration documentation](../cluster-configuration.md).
+For more information about modifying a keyspace, please see the [Cluster configuration documentation](https://planetscale.com/docs/vitess/cluster-configuration.md).
 
 ## Limitations
 
-PlanetScale currently supports a maximum of 2048 tables per keyspace. If you exceed this limit, you may want to consider sharding — [distributing your tables across multiple keyspaces](../sharding.md).
+PlanetScale currently supports a maximum of 2048 tables per keyspace. If you exceed this limit, you may want to consider sharding — [distributing your tables across multiple keyspaces](https://planetscale.com/docs/vitess/sharding.md).
 
 ## Need help?
 

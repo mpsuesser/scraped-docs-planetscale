@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-21T12:54:15.756Z
-current_date: 2026-10-21T12:54:15.756Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,8 +16,8 @@ current_date: 2026-10-21T12:54:15.756Z
 
 > [!NOTE]
 >
-> Disk autoscaling is only for keyspaces on network-attached storage. On [PlanetScale Metal](../../metal.md), storage is tied to
-> the cluster size, so you [resize the keyspace](../cluster-configuration.md) to get more storage.
+> Disk autoscaling is only for keyspaces on network-attached storage. On [PlanetScale Metal](https://planetscale.com/docs/metal.md), storage is tied to
+> the cluster size, so you [resize the keyspace](https://planetscale.com/docs/vitess/cluster-configuration.md) to get more storage.
 
 Each keyspace has a disk scaling setting that controls how the disks of its tablets are sized:
 
@@ -53,7 +53,7 @@ Cloud providers can't shrink a disk in place, so PlanetScale recreates the disks
 The size you choose:
 
 * Must be a whole number of GB, and no more than your organization's storage limit
-* Must be large enough for your data. A shrink is rejected if any disk in the keyspace, including in [read-only regions](../scaling/read-only-regions.md), is using more than 80% of the requested size.
+* Must be large enough for your data. A shrink is rejected if any disk in the keyspace, including in [read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md), is using more than 80% of the requested size.
 
 After the shrink, automatic growth stays off. To let disks grow again, switch back to **Grow automatically**.
 
@@ -67,7 +67,7 @@ With disk scaling off, disks keep their current size. They don't grow, even when
 
 **Step 1**
 
-Select your database, and click [**Clusters**](../cluster-configuration.md) in the left nav
+Select your database, and click [**Clusters**](https://planetscale.com/docs/vitess/cluster-configuration.md) in the left nav
 
 **Step 2**
 
@@ -91,18 +91,18 @@ pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
   --max-storage 1TiB
 ```
 
-See [Configure disk scaling](../../cli/keyspace.md#configure-disk-scaling) in the CLI reference for more examples.
+See [Configure disk scaling](https://planetscale.com/docs/cli/keyspace.md#configure-disk-scaling) in the CLI reference for more examples.
 
 **API**
 
-Use the `storage` object on the [update keyspace](../../api/reference/update_keyspace.md) endpoint, with `disk_scaling_strategy` (`grow`, `disable`, or `shrink`), `max_storage_bytes`, and `storage_bytes`.
+Use the `storage` object on the [update keyspace](https://planetscale.com/docs/api/reference/update_keyspace.md) endpoint, with `disk_scaling_strategy` (`grow`, `disable`, or `shrink`), `max_storage_bytes`, and `storage_bytes`.
 
 > [!NOTE]
 >
-> [Read-only regions](../scaling/read-only-regions.md) with network-attached storage have their own disk scaling
+> [Read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) with network-attached storage have their own disk scaling
 > setting, which is **Grow automatically** by default. Changing the keyspace's setting doesn't change theirs. Like Metal
 > keyspaces, read-only regions on Metal don't have disk scaling settings. Shards with a custom size from [per-shard
-> sizing](per-shard-sizing.md) follow the keyspace's setting.
+> sizing](https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing.md) follow the keyspace's setting.
 
 ## Need help?
 

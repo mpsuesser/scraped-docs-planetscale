@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide
 title: "Planetscale Quick Start Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 # PlanetScale Vitess quickstart guide
 
-PlanetScale supports Vitess, [Neki](../../neki/tutorials/planetscale-quick-start-guide.md), and [Postgres](../../postgres/tutorials/planetscale-postgres-quickstart.md) databases. This guide covers getting started with a Vitess database.
+PlanetScale supports Vitess, [Neki](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md), and [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart.md) databases. This guide covers getting started with a Vitess database.
 
 ## Overview
 
@@ -23,7 +23,7 @@ The following guide will show you how to:
 * Insert data
 * Promote your database branch to production
 
-If you already have your PlanetScale database set up, you may find the [Connecting your application](connect-any-application.md) or [Branching](../schema-changes/branching.md) guides more helpful.
+If you already have your PlanetScale database set up, you may find the [Connecting your application](https://planetscale.com/docs/vitess/tutorials/connect-any-application.md) or [Branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) guides more helpful.
 
 This guide is split up so that you can either follow it in the [PlanetScale dashboard](#getting-started-%E2%80%94-planetscale-dashboard) or using the [PlanetScale CLI](#getting-started-%E2%80%94-planetscale-cli).
 
@@ -47,11 +47,11 @@ Name your database.
 
 **Step 3**
 
-Select a [region](https://planetscale.com/docs/vitess/regions). For the lowest latency, select a region near you or your application's hosting location.
+Select a [region](https://planetscale.com/docs/vitess/regions.md). For the lowest latency, select a region near you or your application's hosting location.
 
 **Step 4**
 
-Select the desired [cluster and storage size](../../planetscale-plans.md#base-plan) for your database.
+Select the desired [cluster and storage size](https://planetscale.com/docs/planetscale-plans.md#base-plan) for your database.
 
 **Step 5**
 
@@ -61,7 +61,7 @@ Enter a valid credit or debit card.
 
 Finally, click the "**Create database**" button to deploy your database.
 
-Your database is created with a [**default production branch**](../schema-changes/branching.md), `main`, which you will use to apply a schema change and insert data. While this is just the first branch we create for you, you can always create new development branches (isolated copies of the production schema) off of production to use for development.
+Your database is created with a [**default production branch**](https://planetscale.com/docs/vitess/schema-changes/branching.md), `main`, which you will use to apply a schema change and insert data. While this is just the first branch we create for you, you can always create new development branches (isolated copies of the production schema) off of production to use for development.
 
 ### Add a schema to your database
 
@@ -73,7 +73,7 @@ By default, web console access to production branches is disabled to prevent acc
 
 **Step 2**
 
-Click on the "**Console**" tab in the database navigation. This will open up a [web console](../web-console.md) connected to your database branch.
+Click on the "**Console**" tab in the database navigation. This will open up a [web console](https://planetscale.com/docs/vitess/web-console.md) connected to your database branch.
 
 ![Branches](https://mintcdn.com/planetscale-2/AJPY38bILe2zenXX/images/assets/docs/tutorials/planetscale-quick-start-guide/the-console-tab.png?fit=max\&auto=format\&n=AJPY38bILe2zenXX\&q=85\&s=099f323651e81c65e32b469381a80cf3)
 
@@ -104,7 +104,7 @@ CREATE TABLE products (
 
 > [!NOTE]
 >
-> If you want to make schema changes containing foreign key constraints, enable [foreign key constraints](../foreign-key-constraints.md) support in your database settings page.
+> If you want to make schema changes containing foreign key constraints, enable [foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in your database settings page.
 
 **Step 5**
 
@@ -144,9 +144,9 @@ You can view the schema of your database by navigating to the "**Branches**" tab
 
 All of the work you've done so far has been on a default production branch, `main`, that was automatically created when you created the database.
 
-A production branch is a highly available database branch that includes an additional replica. It also has the option to enable [safe migrations](../schema-changes/safe-migrations.md), which enables non-blocking schema changes and can protect your database from accidental schema changes.
+A production branch is a highly available database branch that includes an additional replica. It also has the option to enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md), which enables non-blocking schema changes and can protect your database from accidental schema changes.
 
-[Safe migrations](../schema-changes/safe-migrations.md) is an optional, but highly recommended, feature that adds an additional layer of protection to your branch by preventing accidental schema modifications and enabling no-downtime schema changes. With safe migrations enabled, any DDL issued directly to the branch will not be accepted. Instead, changes must be made using the PlanetScale flow, where deploy requests are used to safely merge changes in a collaborative environment.
+[Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) is an optional, but highly recommended, feature that adds an additional layer of protection to your branch by preventing accidental schema modifications and enabling no-downtime schema changes. With safe migrations enabled, any DDL issued directly to the branch will not be accepted. Instead, changes must be made using the PlanetScale flow, where deploy requests are used to safely merge changes in a collaborative environment.
 
 ### To enable safe migrations:
 
@@ -160,19 +160,19 @@ Click "Dashboard" in the navigation, and click the "**cog**" in the upper right 
 
 Toggle "**Enable safe migrations**", then click the "**Enable safe migrations**" button.
 
-The `main` branch now contains the `categories` and `products` tables you created, along with the data you inserted. In addition, it is highly available with an additional replica, and is enabled for zero-downtime migrations with [safe migrations](../schema-changes/safe-migrations.md).
+The `main` branch now contains the `categories` and `products` tables you created, along with the data you inserted. In addition, it is highly available with an additional replica, and is enabled for zero-downtime migrations with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md).
 
 ### What's next?
 
 Now that you've created a database, applied schema changes, added data, and enable safe migrations, it's time to connect to your application.
 
-You can use our [Connect Any Application tutorial](connect-any-application.md) for a general step-by-step approach, one of our language-specific guides, or head straight to our [Connection Strings documentation](../connecting/connection-strings.md) for more information about creating connection strings.
+You can use our [Connect Any Application tutorial](https://planetscale.com/docs/vitess/tutorials/connect-any-application.md) for a general step-by-step approach, one of our language-specific guides, or head straight to our [Connection Strings documentation](https://planetscale.com/docs/vitess/connecting/connection-strings.md) for more information about creating connection strings.
 
 When you want to continue development on your database:
 
 **Step 1**
 
-[Create a new branch](../schema-changes/branching.md) off of your production branch
+[Create a new branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) off of your production branch
 
 **Step 2**
 
@@ -180,7 +180,7 @@ Go through the same process described in this doc to make schema changes
 
 **Step 3**
 
-[Create a deploy request](../schema-changes/deploy-requests.md) to merge the changes into your production branch
+[Create a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) to merge the changes into your production branch
 
 > [!NOTE]
 >
@@ -215,13 +215,13 @@ pscale database create <DATABASE_NAME> --region <REGION_SLUG>
 ```
 
 * **DATABASE\_NAME** — Your database name can contain lowercase, alphanumeric characters, or underscores. We allow dashes, but don't recommend them, as they may need to be escaped in some instances.
-* **REGION\_SLUG** — For the lowest latency, choose the region closest to you or your application's hosting location. You can find our regions and their slugs on the [Regions page](https://planetscale.com/docs/vitess/regions#available-regions).
+* **REGION\_SLUG** — For the lowest latency, choose the region closest to you or your application's hosting location. You can find our regions and their slugs on the [Regions page](https://planetscale.com/docs/vitess/regions.md#available-regions).
 
 > [!NOTE]
 >
 > If you do not specify a region, your database will automatically be deployed to **US East — Northern Virginia**.
 
-Your database is created with an [**initial branch**](../schema-changes/branching.md), `main`, which you will use to apply a schema change and insert data. While this is just the first branch we create for you, you can always create new branches (isolated copies of the production schema) off of production to use for development.
+Your database is created with an [**initial branch**](https://planetscale.com/docs/vitess/schema-changes/branching.md), `main`, which you will use to apply a schema change and insert data. While this is just the first branch we create for you, you can always create new branches (isolated copies of the production schema) off of production to use for development.
 
 ### Add a schema to your database
 
@@ -260,7 +260,7 @@ CREATE TABLE products (
 
 > [!NOTE]
 >
-> If you want to make schema changes containing foreign key constraints, enable [foreign key constraints](../foreign-key-constraints.md) support in your database settings page.
+> If you want to make schema changes containing foreign key constraints, enable [foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in your database settings page.
 
 **Step 3**
 
@@ -320,9 +320,9 @@ Exit the shell by typing `exit`.
 
 All of the work you've done so far has been on a default production branch, `main`, that was automatically created when you created the database.
 
-A production branch is a highly available database branch that includes an additional replica. It also has the option to enable [safe migrations](../schema-changes/safe-migrations.md), which enables non-blocking schema changes and can protect your database from accidental schema changes.
+A production branch is a highly available database branch that includes an additional replica. It also has the option to enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md), which enables non-blocking schema changes and can protect your database from accidental schema changes.
 
-[Safe migrations](../schema-changes/safe-migrations.md) is an optional, but highly recommended, feature that adds an additional layer of protection to your branch by preventing accidental schema modifications and enabling no-downtime schema changes. With safe migrations enabled, any DDL issued directly to the branch will not be accepted. Instead, changes must be made using the PlanetScale flow, where deploy requests are used to safely merge changes in a collaborative environment.
+[Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) is an optional, but highly recommended, feature that adds an additional layer of protection to your branch by preventing accidental schema modifications and enabling no-downtime schema changes. With safe migrations enabled, any DDL issued directly to the branch will not be accepted. Instead, changes must be made using the PlanetScale flow, where deploy requests are used to safely merge changes in a collaborative environment.
 
 To enable safe migrations on your branch, run:
 
@@ -330,19 +330,19 @@ To enable safe migrations on your branch, run:
 pscale branch safe-migrations enable <DATABASE_NAME> main
 ```
 
-The `main` branch now contains the `categories` and `products` tables you created, along with the data you inserted. In addition, it is highly available with an additional replica, and is enabled for zero-downtime migrations with [safe migrations](../schema-changes/safe-migrations.md).
+The `main` branch now contains the `categories` and `products` tables you created, along with the data you inserted. In addition, it is highly available with an additional replica, and is enabled for zero-downtime migrations with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md).
 
 ### What's next?
 
 Now that you've created a database, applied schema changes, added data, and enabled safe migrations, it's time to connect to your application.
 
-You can use our [Connect Any Application tutorial](connect-any-application.md) for a general step-by-step approach, one of our language-specific guides, or head straight to our [Connection Strings documentation](../connecting/connection-strings.md) for more information about creating connection strings.
+You can use our [Connect Any Application tutorial](https://planetscale.com/docs/vitess/tutorials/connect-any-application.md) for a general step-by-step approach, one of our language-specific guides, or head straight to our [Connection Strings documentation](https://planetscale.com/docs/vitess/connecting/connection-strings.md) for more information about creating connection strings.
 
 When you want to continue development on your database:
 
 **Step 1**
 
-[Create a new branch](../schema-changes/branching.md) off of your production branch
+[Create a new branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) off of your production branch
 
 **Step 2**
 
@@ -350,7 +350,7 @@ Go through the same process described in this doc to make schema changes
 
 **Step 3**
 
-[Create a deploy request](../schema-changes/deploy-requests.md) to merge the changes into your production branch
+[Create a deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) to merge the changes into your production branch
 
 > [!NOTE]
 >

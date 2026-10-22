@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/vpc-peering
 title: "Vpc Peering"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -234,7 +234,7 @@ The hostname should resolve to private IP addresses within the PlanetScale Manag
 >
 > AmazonProvidedDNS resolves the private hosted zone automatically. If your clients use a custom DNS resolver, ask your infrastructure team to configure conditional forwarding for the private hosted zone through a [Route 53 Resolver inbound endpoint](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html) in your VPC.
 
-Next, create a connection string using the **Connect** button in the PlanetScale dashboard or the [pscale CLI](../../../cli.md), then connect with the appropriate database client:
+Next, create a connection string using the **Connect** button in the PlanetScale dashboard or the [pscale CLI](https://planetscale.com/docs/cli.md), then connect with the appropriate database client:
 
 **MySQL**
 
@@ -248,7 +248,7 @@ A successful connection displays the `mysql>` prompt.
 
 > [!NOTE]
 >
-> The CA root path depends on your operating system. See the [CA root configuration documentation](../../../vitess/connecting/secure-connections.md#ca-root-configuration) for the correct path.
+> The CA root path depends on your operating system. See the [CA root configuration documentation](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration) for the correct path.
 
 **Postgres**
 
@@ -260,7 +260,7 @@ A successful connection displays the `postgres=>` prompt.
 
 > [!NOTE]
 >
-> PostgreSQL 17 or later is required for `sslnegotiation=direct`. If `sslrootcert=system` does not work in your environment, use the path to your system root CA certificate. See the [Postgres connection documentation](../../../postgres/connecting/quickstart.md#secure-connections).
+> PostgreSQL 17 or later is required for `sslnegotiation=direct`. If `sslrootcert=system` does not work in your environment, use the path to your system root CA certificate. See the [Postgres connection documentation](https://planetscale.com/docs/postgres/connecting/quickstart.md#secure-connections).
 
 If DNS resolves to a private address but the client cannot connect:
 

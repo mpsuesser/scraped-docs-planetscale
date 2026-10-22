@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,17 +26,17 @@ CREATE EXTENSION IF NOT EXISTS tin;
 
 > [!WARNING]
 >
-> If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the "Cluster update available" indicator, and [update your cluster](../cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
+> If `CREATE EXTENSION` fails with `permission denied to create extension "tin"` and `Must be superuser to create this extension.`, your cluster needs an update before it can install TIN. Go to the **Clusters** page for your branch, find the "Cluster update available" indicator, and [update your cluster](https://planetscale.com/docs/postgres/cluster-configuration/updates.md). After the update completes, run `CREATE EXTENSION` again.
 
 ### Upgrade the extension
 
-When a new TIN version is available, [update your cluster](../cluster-configuration/updates.md) so it restarts onto the new library. Then, in every database that already has the extension, run:
+When a new TIN version is available, [update your cluster](https://planetscale.com/docs/postgres/cluster-configuration/updates.md) so it restarts onto the new library. Then, in every database that already has the extension, run:
 
 ```sql theme={null}
 ALTER EXTENSION tin UPDATE;
 ```
 
-The cluster update installs the new binary. `ALTER EXTENSION` updates the SQL catalog so new options and function signatures are visible. Changing analysis options such as [stemming](reference/indexes.md#stemming) on a populated index also needs `REINDEX`.
+The cluster update installs the new binary. `ALTER EXTENSION` updates the SQL catalog so new options and function signatures are visible. Changing analysis options such as [stemming](https://planetscale.com/docs/postgres/search/reference/indexes.md#stemming) on a populated index also needs `REINDEX`.
 
 ## Create a table and index
 
@@ -59,7 +59,7 @@ CREATE INDEX posts_body_tin ON posts USING tin (body);
 
 Each TIN index covers one text column (or a text-producing expression).
 
-The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and "😀" is searchable. The same tokenizer applies to indexed columns and queries. Stemming is off by default. Add `WITH (stemmer = 'en')` so `runs`, `running`, and `run` match as the same term. See [Stemming](reference/indexes.md#stemming).
+The default tokenizer folds case and accents and indexes emoji as terms, so `Jalapeño` and `jalapeno` match, and "😀" is searchable. The same tokenizer applies to indexed columns and queries. Stemming is off by default. Add `WITH (stemmer = 'en')` so `runs`, `running`, and `run` match as the same term. See [Stemming](https://planetscale.com/docs/postgres/search/reference/indexes.md#stemming).
 
 You can preview how a string is tokenized with `tin.tokenize`:
 
@@ -69,7 +69,7 @@ SELECT * FROM tin.tokenize('Jalapeño 😀', accent_folding => 'preserve');
 SELECT * FROM tin.tokenize('runs running runner', stemmer => 'en');
 ```
 
-You can also create [partial indexes](reference/indexes.md#partial-and-expression-indexes), [expression indexes](reference/indexes.md#partial-and-expression-indexes), and set per-index BM25 and tokenization options with [`WITH (k1, b, tokenizer, stemmer, …)`](reference/indexes.md#index-options-with). After changing analysis options on a populated index, `REINDEX` so existing rows are re-tokenized.
+You can also create [partial indexes](https://planetscale.com/docs/postgres/search/reference/indexes.md#partial-and-expression-indexes), [expression indexes](https://planetscale.com/docs/postgres/search/reference/indexes.md#partial-and-expression-indexes), and set per-index BM25 and tokenization options with [`WITH (k1, b, tokenizer, stemmer, …)`](reference/indexes.md#index-options-with). After changing analysis options on a populated index, `REINDEX` so existing rows are re-tokenized.
 
 ## Your first queries
 
@@ -178,14 +178,14 @@ Lead supports Postgres 17 and 18 and is built from source. Follow the [Lead READ
 | - | - |
 | Parse error on `==>` | Fix TINQL syntax. Keywords must be UPPERCASE (`AND`, not `and` as an operator). Explicit empty syntax (`""`, `[]`) is a parse error. |
 | Zero rows | Broaden the query (`OR`, fewer required terms, wildcards). Confirm you indexed the column you are searching. Check tokenization with `tin.tokenize`. Inputs that analyze to no tokens (`''`, whitespace, bare punctuation) match nothing. |
-| Score / max\_score error | Call `tin.score(ctid)` / `tin.max_score(ctid)` on a query that also has `col ==> …`. They require a TIN index scan and error in other contexts (including DML `RETURNING` without a scan). On a **partitioned parent**, every planned leaf needs a usable TIN index — see [limitations](reference/limitations.md). |
+| Score / max\_score error | Call `tin.score(ctid)` / `tin.max_score(ctid)` on a query that also has `col ==> …`. They require a TIN index scan and error in other contexts (including DML `RETURNING` without a scan). On a **partitioned parent**, every planned leaf needs a usable TIN index — see [limitations](https://planetscale.com/docs/postgres/search/reference/limitations.md). |
 | Exclusion not working | Use `AND NOT`, not `-term`. `-` is not negation. |
 | `MATCHES` finds nothing | `MATCHES` is not folded. Match the dictionary form (usually lowercase, accents folded): `MATCHES apple.*`, not `MATCHES Apple.*`. |
 | Accent / case mismatch | Defaults fold both. Search `jalapeno` to match `Jalapeño`. Override with `WITH (case_folding = preserve, accent_folding = preserve)` if you need exact surface forms. |
-| Inflected forms miss | Stemming is off by default. Create the index `WITH (stemmer = 'en')` (or another [language code](reference/indexes.md#stemming)), then `REINDEX` if the index already has rows. |
+| Inflected forms miss | Stemming is off by default. Create the index `WITH (stemmer = 'en')` (or another [language code](https://planetscale.com/docs/postgres/search/reference/indexes.md#stemming)), then `REINDEX` if the index already has rows. |
 | Fuzzy error on hyphenated term | Fuzzy needs one token after tokenization. Prefer `wi-fi` as a phrase (`"wi fi"`) or drop `~N`. |
 | Out-of-range `k1` / `b` / boost | `k1` and query boosts must be in `[0.0..10000.0]`; `b` must be in `[0.0..1.0]`. |
-| Index keeps growing | The index relation grows to a high-water mark and does not shrink on its own. `REINDEX` shrinks it. See [limitations](reference/limitations.md). |
+| Index keeps growing | The index relation grows to a high-water mark and does not shrink on its own. `REINDEX` shrinks it. See [limitations](https://planetscale.com/docs/postgres/search/reference/limitations.md). |
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/cloudflare
 title: "Cloudflare"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -82,8 +82,8 @@ Once your database is ready, a banner at the top of the PlanetScale dashboard di
 
 Hyperdrive connects your Worker to PlanetScale with connection pooling and query caching. For step-by-step Hyperdrive setup instructions, see:
 
-* [PlanetScale Postgres with Cloudflare Workers](../postgres/tutorials/planetscale-postgres-cloudflare-workers.md)
-* [Cloudflare Workers database integration (Vitess/MySQL)](../vitess/integrations/cloudflare-workers.md)
+* [PlanetScale Postgres with Cloudflare Workers](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-cloudflare-workers.md)
+* [Cloudflare Workers database integration (Vitess/MySQL)](https://planetscale.com/docs/vitess/integrations/cloudflare-workers.md)
 
 For Cloudflare's own documentation, see [PlanetScale on Cloudflare Workers](https://developers.cloudflare.com/workers/databases/third-party-integrations/planetscale/).
 
@@ -95,8 +95,8 @@ In the Cloudflare Hyperdrive wizard, choose **Connect to PlanetScale database** 
 
 See the integration guides for full setup instructions:
 
-* [PlanetScale Postgres with Cloudflare Workers](../postgres/tutorials/planetscale-postgres-cloudflare-workers.md)
-* [Cloudflare Workers database integration (Vitess/MySQL)](../vitess/integrations/cloudflare-workers.md)
+* [PlanetScale Postgres with Cloudflare Workers](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-cloudflare-workers.md)
+* [Cloudflare Workers database integration (Vitess/MySQL)](https://planetscale.com/docs/vitess/integrations/cloudflare-workers.md)
 
 ## Further reading
 

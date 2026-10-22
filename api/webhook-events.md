@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,13 +18,13 @@ Vitess, Neki, and Postgres
 
 ## Overview
 
-Webhooks can be used to build integrations, such as notifications, and automate workflows. See the [webhooks documentation](webhooks.md) for more information.
+Webhooks can be used to build integrations, such as notifications, and automate workflows. See the [webhooks documentation](https://planetscale.com/docs/api/webhooks.md) for more information.
 
 ## Webhook headers
 
-All webhooks from PlanetScale will have an `X-PlanetScale-Signature` header. This header is a SHA-256 HMAC hex digest of the request body, using your webhook secret as the key. You can use this header to verify that the webhook payload was sent by PlanetScale. See the documentation on [validating a webhook signature](webhooks.md#validating-a-webhook-signature) for more information.
+All webhooks from PlanetScale will have an `X-PlanetScale-Signature` header. This header is a SHA-256 HMAC hex digest of the request body, using your webhook secret as the key. You can use this header to verify that the webhook payload was sent by PlanetScale. See the documentation on [validating a webhook signature](https://planetscale.com/docs/api/webhooks.md#validating-a-webhook-signature) for more information.
 
-If configured, webhook deliveries include your Authorization header value unchanged. See [authenticating webhook deliveries](webhooks.md#authenticating-webhook-deliveries) for more information.
+If configured, webhook deliveries include your Authorization header value unchanged. See [authenticating webhook deliveries](https://planetscale.com/docs/api/webhooks.md#authenticating-webhook-deliveries) for more information.
 
 ## Webhook request body parameters
 
@@ -68,7 +68,7 @@ If configured, webhook deliveries include your Authorization header value unchan
 
 The branch has a new anomaly event in PlanetScale Insights.
 
-The `branch.anomaly` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `branch.anomaly` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -147,7 +147,7 @@ The `branch.anomaly` event uses the same response body as a `200` response from 
 
 A new primary has been promoted for the Postgres database.
 
-The `branch.primary_promoted` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `branch.primary_promoted` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -232,9 +232,9 @@ A Postgres database experienced an out of memory (OOM) event and had to restart.
 
 This webhook will send at most once every 30 minutes for databases that are experiencing continuous OOM events.
 
-See the [out of memory documentation](../postgres/troubleshooting/out-of-memory.md) for information on why OOM events occur and how to prevent them.
+See the [out of memory documentation](https://planetscale.com/docs/postgres/troubleshooting/out-of-memory.md) for information on why OOM events occur and how to prevent them.
 
-The `branch.out_of_memory` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `branch.out_of_memory` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -317,7 +317,7 @@ The `branch.out_of_memory` event uses the same response body as a `200` response
 
 The branch is created and ready to connect.
 
-The `branch.ready` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `branch.ready` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -396,9 +396,9 @@ The `branch.ready` event uses the same response body as a `200` response from th
 
 A new schema recommendation has been created. This event is sent for Vitess, Neki, and Postgres databases.
 
-The `branch.schema_recommendation` event uses the same response body as a `200` response from the [Get a schema recommendation](reference/get_schema_recommendation.md) API endpoint.
+The `branch.schema_recommendation` event uses the same response body as a `200` response from the [Get a schema recommendation](https://planetscale.com/docs/api/reference/get_schema_recommendation.md) API endpoint.
 
-Set an [Authorization header](webhooks.md#authenticating-webhook-deliveries) on the webhook to send a token with each delivery. A receiving service can use that header to start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session, when a new schema recommendation is created.
+Set an [Authorization header](https://planetscale.com/docs/api/webhooks.md#authenticating-webhook-deliveries) on the webhook to send a token with each delivery. A receiving service can use that header to start a Cursor or Devin agent, such as a Cursor Automation, a background agent, or a Devin session, when a new schema recommendation is created.
 
 **Example:**
 
@@ -432,7 +432,7 @@ Set an [Authorization header](webhooks.md#authenticating-webhook-deliveries) on 
 
 The branch is now sleeping.
 
-The `branch.sleeping` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `branch.sleeping` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -517,15 +517,15 @@ Vitess maintenance webhooks are available for enterprise customers with maintena
 
 **Neki**
 
-Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](../neki/cluster-configuration/maintenance-windows.md) for more information.
+Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](https://planetscale.com/docs/neki/cluster-configuration/maintenance-windows.md) for more information.
 
 **Postgres**
 
-Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](../postgres/cluster-configuration/maintenance-windows.md) for more information.
+Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information.
 
 By subscribing to this webhook, you will receive a notification right before maintenance for your production branch is about to start.
 
-The `branch.start_maintenance` event uses the same response body as a `200` response from the [Get a branch](reference/get_branch.md) API endpoint.
+The `branch.start_maintenance` event uses the same response body as a `200` response from the [Get a branch](https://planetscale.com/docs/api/reference/get_branch.md) API endpoint.
 
 **Example:**
 
@@ -608,7 +608,7 @@ The `branch.start_maintenance` event uses the same response body as a `200` resp
 
 A backup has failed. This event is sent for Vitess, Neki, and Postgres databases.
 
-The `backup.failed` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
+The `backup.failed` event uses the same response body as a `200` response from the [Get a backup](https://planetscale.com/docs/api/reference/get_backup.md) API endpoint.
 
 **Example:**
 
@@ -664,7 +664,7 @@ The `backup.failed` event uses the same response body as a `200` response from t
 
 A backup has completed successfully. This event is sent for Vitess, Neki, and Postgres databases.
 
-The `backup.succeeded` event uses the same response body as a `200` response from the [Get a backup](reference/get_backup.md) API endpoint.
+The `backup.succeeded` event uses the same response body as a `200` response from the [Get a backup](https://planetscale.com/docs/api/reference/get_backup.md) API endpoint.
 
 **Example:**
 
@@ -799,7 +799,7 @@ The `database.access_request` event is triggered when PlanetScale staff initiate
 
 The deploy request has been opened.
 
-The `deploy_request.opened` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.opened` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -879,7 +879,7 @@ The `deploy_request.opened` event uses the same response body as a `200` respons
 
 The deploy request has been added to the deploy queue.
 
-The `deploy_request.queued` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.queued` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -979,7 +979,7 @@ The `deploy_request.queued` event uses the same response body as a `200` respons
 
 The deploy request has started running.
 
-The `deploy_request_in_progress` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request_in_progress` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -1079,7 +1079,7 @@ The `deploy_request_in_progress` event uses the same response body as a `200` re
 
 The deploy request has stopped due to an error.
 
-The `deploy_request.errored` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.errored` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -1189,7 +1189,7 @@ The `deploy_request.errored` event uses the same response body as a `200` respon
 
 The deploy request is ready to apply the schema and is waiting on the user to confirm.
 
-The `deploy_request.pending_cutover` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.pending_cutover` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 **Example:**
 
@@ -1302,7 +1302,7 @@ The `deploy_request.pending_cutover` event uses the same response body as a `200
 
 The deploy request has finished applying the schema.
 
-The `deploy_request.schema_applied` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.schema_applied` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 ```json expandable theme={null}
 {
@@ -1435,7 +1435,7 @@ The `deploy_request.schema_applied` event uses the same response body as a `200`
 
 The deploy request has been reverted.
 
-The `deploy_request.reverted` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.reverted` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 ```json expandable theme={null}
 {
@@ -1568,7 +1568,7 @@ The `deploy_request.reverted` event uses the same response body as a `200` respo
 
 The deploy request has been closed.
 
-The `deploy_request.closed` event uses the same response body as a `200` response from the [Get a deploy request](reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
+The `deploy_request.closed` event uses the same response body as a `200` response from the [Get a deploy request](https://planetscale.com/docs/api/reference/get_deploy_request.md) API endpoint. The link includes a detailed description of each field in the API reference.
 
 ```json expandable theme={null}
 {

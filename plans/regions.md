@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/regions
 title: "Regions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ Vitess, Neki, and Postgres
 
 PlanetScale currently offers database deployment for Vitess, Neki, and Postgres in multiple regions. Select the region closest to your application servers to reduce latency between your database and application. Deploy development branches in the region closest to your own location to reduce latency when working with the branch.
 
-For Vitess databases, you may also add read-only regions to your production database. See our [Read-only regions documentation](../vitess/scaling/read-only-regions.md) for more information.
+For Vitess databases, you may also add read-only regions to your production database. See our [Read-only regions documentation](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) for more information.
 
 A number of resources exist to help find which region has the lowest latency from your location – such as [CloudPing](https://github.com/estahn/cloudping).
 
@@ -26,7 +26,7 @@ A number of resources exist to help find which region has the lowest latency fro
 
 > [!NOTE]
 >
-> If you don't see your preferred region(s) in the following list, [get in touch](https://planetscale.com/contact) to let us know what region(s) you would like to see added. Also, Enterprise plans can be deployed in any region(s) with three availability zones. See the [Deployment options documentation](deployment-options.md#single-tenancy-highlights) for more information.
+> If you don't see your preferred region(s) in the following list, [get in touch](https://planetscale.com/contact) to let us know what region(s) you would like to see added. Also, Enterprise plans can be deployed in any region(s) with three availability zones. See the [Deployment options documentation](https://planetscale.com/docs/plans/deployment-options.md#single-tenancy-highlights) for more information.
 
 Currently, the following regions are supported, with their respective PlanetScale slugs:
 
@@ -104,7 +104,7 @@ pscale branch create my-production-database add-tables --region eu-west
 
 ## Restricting the branch regions
 
-[Organization Administrators](../security/access-control.md#organization-administrator) can restrict branches to only being created in the same region as the one selected during database creation. To enable this setting, check the *Restrict region* setting in the settings page for the database: `app.planetscale.com/<org>/<database>/settings`.
+[Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator) can restrict branches to only being created in the same region as the one selected during database creation. To enable this setting, check the *Restrict region* setting in the settings page for the database: `app.planetscale.com/<org>/<database>/settings`.
 
 ![Restrict your branches to one region](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/regions/restrict-2.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=6d9c2ed20e45871805ea0619d36aebfa)
 
@@ -120,7 +120,7 @@ Create a new branch in the new region.
 
 **Step 2**
 
-[Backup and dump](../cli/database.md) the original branch with:
+[Backup and dump](https://planetscale.com/docs/cli/database.md) the original branch with:
 
 ```bash theme={null}
 pscale database dump <DATABASE_NAME> <BRANCH_NAME>
@@ -136,7 +136,7 @@ pscale database restore-dump <DATABASE_NAME> <BRANCH_NAME>
 
 **Step 4**
 
-If this is for a production branch, [promote the new branch](../cli/branch.md) to production:
+If this is for a production branch, [promote the new branch](https://planetscale.com/docs/cli/branch.md) to production:
 
 ```bash theme={null}
 pscale branch promote <DATABASE_NAME> <BRANCH_NAME>

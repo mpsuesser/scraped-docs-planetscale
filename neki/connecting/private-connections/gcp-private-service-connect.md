@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting/private-connections/gcp-private-service-connect
 title: "Gcp Private Service Connect"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -28,7 +28,7 @@ still requires TLS for connections through the private endpoint.
 PlanetScale bills Private Service Connect ingress and egress at **\$0.01 per
 GB** after the branch's included allowance. Google Cloud also charges for
 Private Service Connect endpoints and applicable network transfer. See
-[Neki pricing](../../pricing.md#private-traffic) and the
+[Neki pricing](https://planetscale.com/docs/neki/pricing.md#private-traffic) and the
 [Google Cloud VPC pricing page](https://cloud.google.com/vpc/pricing#private-service-connect).
 
 ## Prerequisites
@@ -161,9 +161,9 @@ If the connection fails:
 
 ## Related documentation
 
-* [Connect to Neki](../../connecting.md)
-* [Roles and credentials](../roles.md)
-* [Neki pricing](../../pricing.md#private-traffic)
+* [Connect to Neki](https://planetscale.com/docs/neki/connecting.md)
+* [Roles and credentials](https://planetscale.com/docs/neki/connecting/roles.md)
+* [Neki pricing](https://planetscale.com/docs/neki/pricing.md#private-traffic)
 
 ## Need help?
 

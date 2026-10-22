@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/automatic-rails-migrations
 title: "Automatic Rails Migrations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -29,7 +29,7 @@ In this tutorial, you're going to learn how Rails migrations work with the Plane
 
 ## Prerequisites
 
-Follow the [Connect a Rails app](connect-rails-app.md) tutorial first. By the end, you will have:
+Follow the [Connect a Rails app](https://planetscale.com/docs/vitess/tutorials/connect-rails-app.md) tutorial first. By the end, you will have:
 
 * Installed the [PlanetScale CLI](https://github.com/planetscale/cli), Ruby, and the Rails gem
 * Created a PlanetScale database named `blog`
@@ -51,7 +51,7 @@ Rails tracks an application's migrations in an internal table called `schema_mig
 
 ## Execute a Rails migration on PlanetScale
 
-Rails migrations follow the PlanetScale [non-blocking schema change](../schema-changes.md) workflow. First, the migration is applied to a *development* branch, and then the development branch is merged into the `main` production branch with [safe migrations](../schema-changes/safe-migrations.md) enabled.
+Rails migrations follow the PlanetScale [non-blocking schema change](https://planetscale.com/docs/vitess/schema-changes.md) workflow. First, the migration is applied to a *development* branch, and then the development branch is merged into the `main` production branch with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled.
 
 Let's add another table to your existing `blog` schema:
 
@@ -211,7 +211,7 @@ In this tutorial, we learned how to use the PlanetScale deployment process with 
 
 ## What's next?
 
-Learn more about how PlanetScale allows you to make [schema changes](../schema-changes.md) to your production databases without downtime or locking tables.
+Learn more about how PlanetScale allows you to make [schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your production databases without downtime or locking tables.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_squeeze
 title: "Pg_squeeze"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -87,7 +87,7 @@ SELECT squeeze.squeeze_table('public', 'your_table_name');
 
 > [!NOTE]
 >
-> Only the [default role](../connecting/roles.md#default-role) has the permissions necessary to start a squeeze process.
+> Only the [default role](https://planetscale.com/docs/postgres/connecting/roles.md#default-role) has the permissions necessary to start a squeeze process.
 
 ## External Documentation
 

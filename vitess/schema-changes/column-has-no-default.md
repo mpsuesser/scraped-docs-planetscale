@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-has-no-default
 title: "Column Has No Default"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ The column name in quotes is the one to fix.
 
 In plain MySQL, `ALTER TABLE ... ADD COLUMN` fills existing rows with an implicit default such as `0` or `''`. The copy uses `INSERT` statements under strict SQL mode instead, so there is no implicit default to fall back on.
 
-This also happens when a column is renamed. PlanetScale treats a rename as dropping the old column and adding a new one, so the new column has no values to copy. See [Handling table and column renames](handling-table-and-column-renames.md).
+This also happens when a column is renamed. PlanetScale treats a rename as dropping the old column and adding a new one, so the new column has no values to copy. See [Handling table and column renames](https://planetscale.com/docs/vitess/schema-changes/handling-table-and-column-renames.md).
 
 ## How to fix it
 

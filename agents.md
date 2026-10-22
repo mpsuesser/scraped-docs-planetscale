@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agents
 title: "Agents"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,25 +24,25 @@ Get started with PlanetScale, ask questions about your database, and investigate
 >
 > Preview PlanetScale Bot by PlanetScale and add a copy to Grok Bot.
 
-> **[Set up Grok Bot](agents/grok-bot.md)**
+> **[Set up Grok Bot](https://planetscale.com/docs/agents/grok-bot.md)**
 >
 > Install Grok Bot, connect PlanetScale, and configure optional codebase and webhook access.
 
 ## Use your own agent
 
-> **[Agent setup prompt](agent-setup/prompt.md)**
+> **[Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)**
 >
 > Set up PlanetScale skills, MCP, and the CLI in your coding agent.
 
-> **[PlanetScale MCP server](mcp-server.md)**
+> **[PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md)**
 >
 > Connect an MCP-compatible agent to your PlanetScale account.
 
-> **[AI-enhanced development](ai-tooling.md)**
+> **[AI-enhanced development](https://planetscale.com/docs/ai-tooling.md)**
 >
 > Explore PlanetScale plugins and skills for your development tools.
 
-> **[Self-improving database](self-improving-database.md)**
+> **[Self-improving database](https://planetscale.com/docs/self-improving-database.md)**
 >
 > Configure recurring database reviews with a coding agent.
 

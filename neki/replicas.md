@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-10-19T17:45:20.278Z
-current_date: 2026-10-19T17:45:20.278Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,9 +20,9 @@ A new production configuration profile starts with two replicas. You can add
 replicas for a configuration profile on the **Clusters** page. The change
 applies to every shard assigned to that profile. Each new replica is restored
 from the shard's last backup, then joined to the primary to start
-replication. See [Replicas and backups](backups.md#replicas-and-backups).
+replication. See [Replicas and backups](https://planetscale.com/docs/neki/backups.md#replicas-and-backups).
 
-A shard can also have [read-only replicas](read-only-replicas.md). A
+A shard can also have [read-only replicas](https://planetscale.com/docs/neki/read-only-replicas.md). A
 read-only replica serves reads, but Neki never promotes it to primary.
 
 ## High availability
@@ -33,10 +33,10 @@ Neki can promote an eligible replica and update the shard topology to use the
 new primary.
 
 Neki handles failures through a division of responsibility between the
-[admin](overview.md#the-admin) and the
-[orchestration layer](terminology.md#orchestration-layer). The orchestration
+[admin](https://planetscale.com/docs/neki/overview.md#the-admin) and the
+[orchestration layer](https://planetscale.com/docs/neki/terminology.md#orchestration-layer). The orchestration
 layer owns the lifecycle of the [components that run alongside each Postgres
-instance](overview.md#what-runs-alongside-postgres), the sidecar and
+instance](https://planetscale.com/docs/neki/overview.md#what-runs-alongside-postgres), the sidecar and
 PostgresManager: it creates, restarts, and replaces them. The admin monitors
 each Postgres instance through its sidecar, not by connecting to Postgres
 directly. It directs Postgres through PostgresManager, and owns replication and
@@ -51,7 +51,7 @@ primaries. Applications should retry transient connection and query failures.
 
 If a replica needs a WAL segment that no source can supply, Neki fences that
 replica from normal use. Once the shard primary is reachable, Neki restores
-the replica from the last backup and the [admin](overview.md#the-admin)
+the replica from the last backup and the [admin](https://planetscale.com/docs/neki/overview.md#the-admin)
 joins it to the primary so replication can resume. This repairs the replica
 without changing the shard primary.
 
@@ -103,7 +103,7 @@ available.
 The `__neki.replica_recency`, `__neki.replica_locality`, and
 `__neki.replica_affinity` settings can make these preferences stricter, disable
 them, or keep a session on the same preferred replica. See [Choosing where
-reads run](shard-targeting-fanout.md#choosing-where-reads-run) for the supported
+reads run](https://planetscale.com/docs/neki/shard-targeting-fanout.md#choosing-where-reads-run) for the supported
 values.
 
 When a query reaches more than one shard, Neki chooses a replica separately for

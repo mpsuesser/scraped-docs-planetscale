@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/day-one-with-planetscale-postgres
 title: "Day One With Planetscale Postgres"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,21 +18,21 @@ Just created a new PlanetScale Postgres database? Don't miss the platform's best
 
 ## Agent setup
 
-Run the [Agent setup prompt](../agent-setup/prompt.md) to have your AI agent assess your database configuration, install the PlanetScale skills and suggest improvements.
+Run the [Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md) to have your AI agent assess your database configuration, install the PlanetScale skills and suggest improvements.
 
 ## Top ten features
 
-### 1. [Migrate](imports/postgres-imports.md) an existing database
+### 1. [Migrate](https://planetscale.com/docs/postgres/imports/postgres-imports.md) an existing database
 
 We have guides and tools available to help migrate from multiple sources. Start with our [migration assessment tool](https://planetscale.com/liftoff) for instant feedback on migration complexity, potential blockers, and the recommended migration path.
 
-### 2. Create [roles and connections](connecting/roles.md)
+### 2. Create [roles and connections](https://planetscale.com/docs/postgres/connecting/roles.md)
 
 Create user-defined roles for application connections to enable least-privilege permissions and credential rotation without downtime.
 
-Your cluster's primary database has a local [PgBouncer](connecting/pgbouncer.md), but dedicated PgBouncers for primaries and replicas are available as an optional add-on for improved connection resilience and scalability.
+Your cluster's primary database has a local [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md), but dedicated PgBouncers for primaries and replicas are available as an optional add-on for improved connection resilience and scalability.
 
-### 3. Browse [Query Insights](monitoring/query-insights.md)
+### 3. Browse [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md)
 
 Built-in monitoring for past and current queries. Includes latency percentiles, QPS, rows read/written, and per-query pattern analytics. Use it to find bottlenecks before they become outages.
 
@@ -46,39 +46,39 @@ Query Insights data is available in the dashboard, API, MCP, and CLI.
 
 [Fix Database Faults with PlanetScale Insights](https://www.youtube-nocookie.com/embed/OAPHvq51hWU?rel=0)
 
-### 4. Install the [PlanetScale MCP server](../mcp-server.md)
+### 4. Install the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md)
 
 Give your agent access to Query Insights' production data alongside your application code. With this combined context, it's the best way to do deep, automated analysis on database health and performance.
 
 [The PlanetScale MCP server: AI for your database](https://www.youtube-nocookie.com/embed/d3bc3PryOfY?rel=0)
 
-### 5. Explore the [pscale CLI](https://planetscale.com/docs/postgres/postgres-cli) and [PlanetScale API](../api/reference/getting-started-with-planetscale-api.md)
+### 5. Explore the [pscale CLI](https://planetscale.com/docs/postgres/postgres-cli.md) and [PlanetScale API](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md)
 
 Perform administrative actions against your databases from the command line, or the same workflows programmatically via the API. Create branches, manage roles and service tokens, and wire PlanetScale into CI/CD.
 
-The pscale CLI is the best way [automate processes with GitHub Actions](integrations/github-actions.md).
+The pscale CLI is the best way [automate processes with GitHub Actions](https://planetscale.com/docs/postgres/integrations/github-actions.md).
 
-### 6. Configure [Database Traffic Control®](traffic-control.md)
+### 6. Configure [Database Traffic Control®](https://planetscale.com/docs/postgres/traffic-control.md)
 
 Define resource budgets to prioritize traffic slices by throttling others. Fine-grained limits on CPU, I/O, and concurrency per query pattern or tag. Exclusive to PlanetScale Postgres.
 
 [Introducing Database Traffic Control](https://www.youtube-nocookie.com/embed/YgrEGqABD8U?rel=0)
 
-### 7. [Tag](monitoring/query-tags.md) your queries
+### 7. [Tag](https://planetscale.com/docs/postgres/monitoring/query-tags.md) your queries
 
 Embed SQLCommenter key-value tags in SQL comments to closely monitor related queries and define Traffic Control rules by application, route, or feature.
 
-### 8. Create your first [branch](branching.md)
+### 8. Create your first [branch](https://planetscale.com/docs/postgres/branching.md)
 
 Perform development and testing in isolated database environments per branch. Your new database started with a default branch called `main`. Development branches run on low-cost `PS-DEV` instances and can be created empty or from a backup.
 
-### 9. Protect yourself with [pg\_strict](extensions/pg_strict.md)
+### 9. Protect yourself with [pg\_strict](https://planetscale.com/docs/postgres/extensions/pg_strict.md)
 
 Per-role safety guardrails that block dangerous query shapes, like `UPDATE`/`DELETE` without a `WHERE` clause, before they run.
 
 [Protect your database. Use the pg\_strict Postgres extension.](https://www.youtube-nocookie.com/embed/noPnqjXsZxs?rel=0)
 
-### 10. Enable and install [extensions](extensions.md)
+### 10. Enable and install [extensions](https://planetscale.com/docs/postgres/extensions.md)
 
 Install standard and community extensions from the dashboard or via `CREATE EXTENSION`. Some require a cluster restart and must be enabled in the dashboard. Vote for new extensions at [ps-extensions.io](https://ps-extensions.io).
 

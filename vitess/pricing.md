@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,10 +18,10 @@ Vitess clusters are charged based on the following:
 
 * Cluster size and [region](#region-pricing)
 * Storage size (for network-attached storage clusters)
-* [Branch](schema-changes/branching.md) hours beyond the included 1440 hours
-* Number of [replicas](scaling/replicas.md)
-* Number and size of [VTGates](scaling/vtgates.md)
-* [Read-only regions](scaling/read-only-regions.md)
+* [Branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) hours beyond the included 1440 hours
+* Number of [replicas](https://planetscale.com/docs/vitess/scaling/replicas.md)
+* Number and size of [VTGates](https://planetscale.com/docs/vitess/scaling/vtgates.md)
+* [Read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md)
 
 ## Query live prices with SQL
 
@@ -70,23 +70,23 @@ Column meanings, more example queries, and an agent-friendly catalog are in [pri
 Each database includes one production branch that provides a primary instance and two replica instances spread across availability zones.
 The primary serves all queries by default, but the replicas can be used to serve read traffic, and are also used to maintain high-availability of your cluster.
 
-In addition to the three instances used by your production branch, \~1440 hours of [development branch](../planetscale-plans.md#development-branches) time per month is included.
+In addition to the three instances used by your production branch, \~1440 hours of [development branch](https://planetscale.com/docs/planetscale-plans.md#development-branches) time per month is included.
 The development branch time works out to two "always on" database instances, though we do recommend spinning them up and down and as needed during your development cycle.
 
 These development branches can replace your existing development or staging environment on other providers.
-Instead of purchasing 2-3 databases on PlanetScale to recreate your environment, you can just purchase one database cluster and use [branching](schema-changes/branching.md) for development.
+Instead of purchasing 2-3 databases on PlanetScale to recreate your environment, you can just purchase one database cluster and use [branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) for development.
 
 You can upsize and downsize your cluster at any time. Pricing is prorated to the millisecond, so if you temporarily upsize, you will only be charged for the larger cluster size for the time that it was running. Billing for a new cluster size begins as soon as you begin the resize. You can also spin up additional production branches at any timing for additional cost. The pricing for these is also prorated.
 
 ## Read-only regions
 
-[Read-only regions](scaling/read-only-regions.md) are an additional cost. Each read-only region is configured per keyspace with its own cluster size and replica count: the read-only region rate for the selected cluster size covers a single replica, and each additional replica is billed at the standard additional replica rate. Storage for read-only regions is billed as standalone storage and does not count toward your plan's included storage.
+[Read-only regions](https://planetscale.com/docs/vitess/scaling/read-only-regions.md) are an additional cost. Each read-only region is configured per keyspace with its own cluster size and replica count: the read-only region rate for the selected cluster size covers a single replica, and each additional replica is billed at the standard additional replica rate. Storage for read-only regions is billed as standalone storage and does not count toward your plan's included storage.
 
-See the [read-only regions pricing documentation](scaling/read-only-regions.md#availability-and-pricing) for per-region rates and storage costs.
+See the [read-only regions pricing documentation](https://planetscale.com/docs/vitess/scaling/read-only-regions.md#availability-and-pricing) for per-region rates and storage costs.
 
 > [!NOTE]
 >
-> Cluster size options are capped at `PS-160` until you have a successfully paid an invoice of at least \$100. If you need larger sizes immediately, please [contact us](https://planetscale.com/contact) to unlock all sizes. You can find the full list of cluster sizes in our [Plans documentation](../planetscale-plans.md#base-plan).
+> Cluster size options are capped at `PS-160` until you have a successfully paid an invoice of at least \$100. If you need larger sizes immediately, please [contact us](https://planetscale.com/contact) to unlock all sizes. You can find the full list of cluster sizes in our [Plans documentation](https://planetscale.com/docs/planetscale-plans.md#base-plan).
 
 ## Region pricing
 

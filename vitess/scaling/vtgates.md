@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/vtgates
 title: "Vtgates"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 A VTGate, or Vitess Gateway, is the layer of Vitess that acts as a proxy between your application servers and the MySQL instances.
 
-When an application needs to connect to a Vitess cluster, it does not make connections directly to MySQL. Instead, connections are made to our [Global Edge Network](https://planetscale.com/blog/introducing-global-replica-credentials#building-planetscale-global-network), which then routes them to a [VTGate](https://vitess.io/docs/concepts/vtgate/). The VTGate layer acts as the entry point to the cluster, proxies connections, and handles routing of incoming queries to the appropriate [keyspace](../sharding/keyspaces.md) and/or [shard](../sharding.md).
+When an application needs to connect to a Vitess cluster, it does not make connections directly to MySQL. Instead, connections are made to our [Global Edge Network](https://planetscale.com/blog/introducing-global-replica-credentials#building-planetscale-global-network), which then routes them to a [VTGate](https://vitess.io/docs/concepts/vtgate/). The VTGate layer acts as the entry point to the cluster, proxies connections, and handles routing of incoming queries to the appropriate [keyspace](https://planetscale.com/docs/vitess/sharding/keyspaces.md) and/or [shard](https://planetscale.com/docs/vitess/sharding.md).
 
 ## Managing your VTGate layer
 
@@ -36,7 +36,7 @@ From here, you can see the current VTGate utilization, adjust your VTGate size, 
 
 ### Configuring VTGates with the CLI
 
-You can also view and resize VTGates with the [PlanetScale CLI](../../cli/branch.md). Only production branches can be resized.
+You can also view and resize VTGates with the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md). Only production branches can be resized.
 
 ```bash theme={null}
 # Show the current VTGate configuration
@@ -90,7 +90,7 @@ Every PlanetScale cluster includes VTGate credits that cover the cost of a VTGat
 * Additional keyspaces increase your VTGate credits
 * Additional shards increase your VTGate credits
 
-If your specific workload requires more powerful VTGates, you can upgrade them manually through the dashboard or [CLI](../../cli/branch.md). Any VTGate usage that exceeds your included credits will be billed as an additional charge.
+If your specific workload requires more powerful VTGates, you can upgrade them manually through the dashboard or [CLI](https://planetscale.com/docs/cli/branch.md). Any VTGate usage that exceeds your included credits will be billed as an additional charge.
 
 Here are some examples of how VTGate credits work:
 

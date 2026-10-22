@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-go-app
 title: "Connect Go App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -31,7 +31,7 @@ In this guide, you’ll learn how to connect to a PlanetScale MySQL database wit
 
 ## Create the database
 
-Start in PlanetScale by creating a new database. From the dashboard, click "**New Database**", then "**Create new database**". Name the database `products_db`, select the desired [Plan type](../../planetscale-plans.md), and click "**Create database**".
+Start in PlanetScale by creating a new database. From the dashboard, click "**New Database**", then "**Create new database**". Name the database `products_db`, select the desired [Plan type](https://planetscale.com/docs/planetscale-plans.md), and click "**Create database**".
 
 By default, web console access to production branches is disabled to prevent accidental deletion. From your database's dashboard page, click on the "**Settings**" tab, check the box labelled "**Allow web console access to production branches**", and click "**Save database settings**".
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/foreign-key-constraints
 title: "Foreign Key Constraints"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -20,9 +20,9 @@ A **`FOREIGN KEY` *constraint*** is a database construct, an implementation that
 
 ### Advantages and disadvantages of foreign key constraints
 
-Foreign key constraints have advantages and disadvantages. While foreign key constraints can help ensure referential integrity, they will cause degraded performance in high concurrency workloads and introduce more complexity in the database. Often, foreign key constraints become problematic when operating on a large scale. You can read more [why we do not recommend foreign key constraints](operating-without-foreign-key-constraints.md#why-does-planetscale-not-recommend-constraints) for some applications.
+Foreign key constraints have advantages and disadvantages. While foreign key constraints can help ensure referential integrity, they will cause degraded performance in high concurrency workloads and introduce more complexity in the database. Often, foreign key constraints become problematic when operating on a large scale. You can read more [why we do not recommend foreign key constraints](https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints.md#why-does-planetscale-not-recommend-constraints) for some applications.
 
-We recommend weighing the advantages and disadvantages for your specific application when using foreign key constraints. If you decide to enforce referential integrity at the application level instead of at the database level, see our documentation on [how to design systems that maintain referential integrity without foreign key constraints](strategies-for-maintaining-referential-integrity.md).
+We recommend weighing the advantages and disadvantages for your specific application when using foreign key constraints. If you decide to enforce referential integrity at the application level instead of at the database level, see our documentation on [how to design systems that maintain referential integrity without foreign key constraints](https://planetscale.com/docs/vitess/strategies-for-maintaining-referential-integrity.md).
 
 ## Foreign key constraints on PlanetScale
 
@@ -58,7 +58,7 @@ After enable foreign key constraint support, PlanetScale may upgrade your databa
 
 You can import a database with foreign key constraints to PlanetScale. We will automatically detect them after successfully connecting to your external database. If we find any foreign key constraints, we automatically enable foreign key constraint support and continue the import process.
 
-We recommend using a replica as your source when doing database imports with foreign key constraints. Read more in the [database import documentation](imports/database-imports.md).
+We recommend using a replica as your source when doing database imports with foreign key constraints. Read more in the [database import documentation](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
 ## Limitations
 
@@ -93,7 +93,7 @@ Risk is highest when all of the following are true:
 * The modified table has many child tables with foreign key constraints
 * The InnoDB buffer pool is large
 
-To mitigate this risk, consider disabling AHI either permanently, or temporarily before deploying a schema change. Set `innodb_adaptive_hash_index` to `false` in [cluster configuration parameters](cluster-configuration/parameters.md). Many workloads see little or no noticeable query impact with AHI off.
+To mitigate this risk, consider disabling AHI either permanently, or temporarily before deploying a schema change. Set `innodb_adaptive_hash_index` to `false` in [cluster configuration parameters](https://planetscale.com/docs/vitess/cluster-configuration/parameters.md). Many workloads see little or no noticeable query impact with AHI off.
 
 ### Unsupported queries
 

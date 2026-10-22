@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore
 title: "Postgres Migrate Dumprestore"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -38,7 +38,7 @@ Before starting the migration:
 * Have read access to your source PostgreSQL database
 * Have connection details for your PlanetScale Postgres database from the console
 * Ensure the disk on your PlanetScale database has at least 150% of the capacity of your source database.
-  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](../cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
+  If you are migrating to a PlanetScale database backed by network-attached storage, you can [resize](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md) your disk manually by setting the "Minimum disk size."
   If you are using Metal, you will need to select a size when first creating your database.
   For example, if your source database is 330GB, you should have at least 500GB of storage available on PlanetScale.
 * Verify sufficient storage space for the dump file
@@ -198,7 +198,7 @@ pg_restore --no-owner --no-privileges -h planetscale-host -U planetscale-usernam
 **Extension errors:**
 
 * Some PostgreSQL extensions may not be available in PlanetScale Postgres
-* Review the [extension compatibility guide](postgres-imports.md#extension-support)
+* Review the [extension compatibility guide](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)
 
 **Large object errors:**
 
@@ -224,11 +224,11 @@ pg_dump --blobs -h source-host -U source-username -d source-database -f database
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](postgres-imports.md#postgresql-version-compatibility)**
+> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
 
-> **[Extension support limitations](postgres-imports.md#extension-support)**
+> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
 
-> **[Third-party enhancement restrictions](postgres-imports.md#third-party-enhancements-and-tools)**
+> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
 
 ## Next Steps
 
@@ -250,7 +250,7 @@ Plan your production cutover
 
 Monitor performance and optimize as needed
 
-For more advanced migration scenarios or larger databases, consider [WAL streaming](postgres-migrate-walstream.md) or [Amazon DMS](postgres-migrate-dms.md) methods.
+For more advanced migration scenarios or larger databases, consider [WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md) or [Amazon DMS](https://planetscale.com/docs/postgres/imports/postgres-migrate-dms.md) methods.
 
 If you encounter issues during migration, please [reach out to support](https://planetscale.com/contact?initial=support) for assistance.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors
 title: "Vectors"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -25,7 +25,7 @@ SELECT id
   LIMIT 10;
 ```
 
-Possible applications include recommendation engines that show products similar to a user's purchase history, or search engines that find documents or other resources based on natural-language queries. Read our [applications of vector databases](vectors/use-cases.md) docs to learn more about how vector databases can be applied in the real world.
+Possible applications include recommendation engines that show products similar to a user's purchase history, or search engines that find documents or other resources based on natural-language queries. Read our [applications of vector databases](https://planetscale.com/docs/vitess/vectors/use-cases.md) docs to learn more about how vector databases can be applied in the real world.
 
 PlanetScale has added support for vector columns, vector distance functions, and vector indexes, as described below.
 
@@ -122,7 +122,7 @@ The `type` attribute specifies the algorithm used to build and query the vector 
 
 The `distance` metric specified at index creation time must match the distance metric used at query time, or the index cannot be used, and MySQL will perform a full-table scan instead.
 
-Other possible options include `fixed_quantization` and `product_quantization`, which configure [vector compression](vectors/terminology-and-concepts.md#quantization) in the index, resulting in lower storage requirements and faster query times. See the [Quantization](vectors/reference.md#quantization-options) section for more information.
+Other possible options include `fixed_quantization` and `product_quantization`, which configure [vector compression](https://planetscale.com/docs/vitess/vectors/terminology-and-concepts.md#quantization) in the index, resulting in lower storage requirements and faster query times. See the [Quantization](https://planetscale.com/docs/vitess/vectors/reference.md#quantization-options) section for more information.
 
 ## Filtered vector queries
 
@@ -154,11 +154,11 @@ As we continue to refine vectors support, we’re looking for feedback on how we
 
 ## Resource requirements
 
-A vector index with default parameters requires 3-4x as much disk space as the underlying data in the vector column, and it requires around 15% as much memory as the underlying data. For example, a vector column with 1536 dimensions and a million rows takes up 1536 \* 1000000 \* 4 = 5.7GB of space in the table. The corresponding index will be 18-24GB, and it will require around 800MiB of memory to build and query. Using [quantization settings](vectors/reference.md#quantization-options) other than the default will increase or decrease the required disk space and memory proportional to how much less or more each vector gets compressed relative to the 16-bit default.
+A vector index with default parameters requires 3-4x as much disk space as the underlying data in the vector column, and it requires around 15% as much memory as the underlying data. For example, a vector column with 1536 dimensions and a million rows takes up 1536 \* 1000000 \* 4 = 5.7GB of space in the table. The corresponding index will be 18-24GB, and it will require around 800MiB of memory to build and query. Using [quantization settings](https://planetscale.com/docs/vitess/vectors/reference.md#quantization-options) other than the default will increase or decrease the required disk space and memory proportional to how much less or more each vector gets compressed relative to the 16-bit default.
 
 PlanetScale scales storage space automatically for any branch backed by EBS. On Metal, make sure the instance size you choose has enough storage for the vector indexes you plan to create.
 
-By default, vector indexes reserve half of the buffer-pool memory allocated to each instance, equal to about one third of overall instance memory. This tradeoff can be changed in the [cluster configuration](cluster-configuration.md) for any branch with vectors enabled.
+By default, vector indexes reserve half of the buffer-pool memory allocated to each instance, equal to about one third of overall instance memory. This tradeoff can be changed in the [cluster configuration](https://planetscale.com/docs/vitess/cluster-configuration.md) for any branch with vectors enabled.
 
 ## Usage recommendations
 

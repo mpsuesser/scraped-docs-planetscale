@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/read-only-replicas
 title: "Read Only Replicas"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ A read-only replica is a Postgres instance in a shard that copies changes from
 the primary and serves reads. Neki never promotes a read-only replica to
 primary. Use read-only replicas for long-running reads, such as analytics,
 reports, exports, and batch jobs. This work then does not use the
-[replicas](replicas.md) that serve live read traffic and that take over
+[replicas](https://planetscale.com/docs/neki/replicas.md) that serve live read traffic and that take over
 when the primary fails.
 
 Read-only replicas give these guarantees:
@@ -51,7 +51,7 @@ primary and two read-only replicas has no failover target.
 
 ## Add read-only replicas
 
-The [configuration profile](cluster-configuration.md) sets the number of
+The [configuration profile](https://planetscale.com/docs/neki/cluster-configuration.md) sets the number of
 read-only replicas. Every shard assigned to the profile gets that number of
 read-only replicas. The count does not include the primary or the replicas.
 
@@ -83,7 +83,7 @@ Use the profile's **Changes** tab to follow the change.
 
 You can also set the count when you create a configuration profile.
 
-To set the count with the [PlanetScale CLI](../cli/branch.md), use the
+To set the count with the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md), use the
 `--read-only-replicas` flag:
 
 ```bash theme={null}
@@ -91,7 +91,7 @@ pscale branch config-profile update <DATABASE_NAME> <BRANCH_NAME> <PROFILE_NAME>
 ```
 
 `pscale branch config-profile create` accepts the same flag. In the
-[PlanetScale API](../api/reference/update_shard_configuration_profile.md), the
+[PlanetScale API](https://planetscale.com/docs/api/reference/update_shard_configuration_profile.md), the
 field is `read_only_replicas`.
 
 An update creates a change request, as other configuration profile changes do.
@@ -135,10 +135,10 @@ These rules apply to a session with the `rdonly` target:
 
 * Inserts, updates, deletes, and other writes fail with SQLSTATE `25006` (`read_only_sql_transaction`).
 * If no eligible read-only replica is available for a destination shard, the query fails. Neki does not send the query to a replica or to the primary.
-* Neki selects a read-only replica with the same recency, locality, and affinity policy that it uses for replicas. See [How Neki chooses a replica](replicas.md#how-neki-chooses-a-replica).
+* Neki selects a read-only replica with the same recency, locality, and affinity policy that it uses for replicas. See [How Neki chooses a replica](https://planetscale.com/docs/neki/replicas.md#how-neki-chooses-a-replica).
 
 The replication lag and read consistency rules for replicas also apply to
-read-only replicas. See [Replication lag and read consistency](replicas.md#replication-lag-and-read-consistency).
+read-only replicas. See [Replication lag and read consistency](https://planetscale.com/docs/neki/replicas.md#replication-lag-and-read-consistency).
 
 ## Changes and maintenance
 
@@ -163,7 +163,7 @@ PlanetScale bills each read-only replica at the additional-replica rate of the
 cluster size. The two replicas included with the cluster size do not cover
 read-only replicas. Each read-only replica on network-attached storage has its
 own volume, billed as an additional replica volume. See
-[Additional replicas](pricing.md#additional-replicas).
+[Additional replicas](https://planetscale.com/docs/neki/pricing.md#additional-replicas).
 
 ## Need help?
 

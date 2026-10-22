@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/fivetran
 title: "Fivetran"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -54,7 +54,7 @@ The Fivetran team will reach out to grant you access to the private preview.
 
 > [!NOTE]
 >
-> You must be using the [PlanetScale Enterprise single-tenant deployment option](../../plans/deployment-options.md#single-tenancy-deployment-on-planetscale) and on a [Fivetran Business Critical plan](https://resources.fivetran.com/datasheets/fivetran-business-critical-product-overview) to use private networking.
+> You must be using the [PlanetScale Enterprise single-tenant deployment option](https://planetscale.com/docs/plans/deployment-options.md#single-tenancy-deployment-on-planetscale) and on a [Fivetran Business Critical plan](https://resources.fivetran.com/datasheets/fivetran-business-critical-product-overview) to use private networking.
 
 If you are using private networking and not connecting directly to your PlanetScale database, the Fivetran integration supports AWS PrivateLink and GCP Private Service Connect. See the [Fivetran AWS Private Link setup guide](https://fivetran.com/docs/databases/connection-options#awsprivatelink) or [Fivetran GCP Private Service Connect setup guide](https://fivetran.com/docs/databases/connection-options#googlecloudprivateserviceconnect) for details.
 
@@ -70,7 +70,7 @@ In [PlanetScale](https://app.planetscale.com), navigate to the database you want
 
 **Step 3**
 
-Create a new password for your main branch with [read-only permissions](../security/password-roles.md#overview).
+Create a new password for your main branch with [read-only permissions](https://planetscale.com/docs/vitess/security/password-roles.md#overview).
 
 **Step 4**
 
@@ -88,7 +88,7 @@ Back in Fivetran, in your [connector setup form](https://fivetran.com/docs/using
 * **Comma-separated list of shards to sync (optional)**: If your PlanetScale database is *not* sharded, ignore this field. If the database is sharded, by default, the PlanetScale connector will download rows from all shards in the database. To pick which shards are synced by the connector, you can optionally provide a comma-separated list of shards in the connector configuration.
 * **Use replica?**: In PlanetScale, VStream will connect to the primary tablet for your database, which also serves queries to your database. To lessen the load on the primary tablet, set this to `true` to make Vstream read from a replica of your database.
 * **Treat tinyint(1) as boolean (optional)**: You can choose to have the connector transform tinyint(1) type columns in your database to either `true` or `false`.
-* **Fivetran IPs (optional)**: If your connection string was created with [IP restrictions](../connecting/connection-strings.md#ip-restrictions), ensure that the [Fivetran IP ranges](https://fivetran.com/docs/using-fivetran/ips) are added to the password.
+* **Fivetran IPs (optional)**: If your connection string was created with [IP restrictions](https://planetscale.com/docs/vitess/connecting/connection-strings.md#ip-restrictions), ensure that the [Fivetran IP ranges](https://fivetran.com/docs/using-fivetran/ips) are added to the password.
 
 **Step 6**
 

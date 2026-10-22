@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/heroku
 title: "Heroku"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -46,7 +46,7 @@ Copy this value. You'll paste it as the `HEROKU_URL` when deploying the migrator
 
 ### 2. Create your PlanetScale database and get credentials
 
-Follow the [PlanetScale Postgres quickstart](../tutorials/planetscale-postgres-quickstart.md) to create a database and generate a password. When creating the password, make sure you select the **Postgres** permission. Copy the Postgres connection string. This is your `PLANETSCALE_URL`.
+Follow the [PlanetScale Postgres quickstart](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart.md) to create a database and generate a password. When creating the password, make sure you select the **Postgres** permission. Copy the Postgres connection string. This is your `PLANETSCALE_URL`.
 
 ### 3. Check your Heroku Postgres extensions
 
@@ -58,7 +58,7 @@ Run this command to see which extensions your Heroku database uses:
 heroku pg:psql -a your-app-name -c "SELECT extname, extversion FROM pg_extension WHERE extname != 'plpgsql' ORDER BY extname;"
 ```
 
-For each extension listed, enable it on your PlanetScale database before starting the migration. See the [PlanetScale Postgres extensions documentation](../extensions.md) for supported extensions and how to enable them.
+For each extension listed, enable it on your PlanetScale database before starting the migration. See the [PlanetScale Postgres extensions documentation](https://planetscale.com/docs/postgres/extensions.md) for supported extensions and how to enable them.
 
 ### 4. Check for blocking vacuum processes
 
@@ -72,7 +72,7 @@ If you see any `VACUUM` queries with `(to prevent wraparound)` in the output, wa
 
 ### 5. Size your PlanetScale database
 
-**Cluster size:** Choose a PlanetScale cluster with similar CPU and RAM to your Heroku Postgres plan. You don't need to get this exactly right. [Resizing in PlanetScale is an online operation](../cluster-configuration.md) with no downtime, and you are only billed for the time you use.
+**Cluster size:** Choose a PlanetScale cluster with similar CPU and RAM to your Heroku Postgres plan. You don't need to get this exactly right. [Resizing in PlanetScale is an online operation](https://planetscale.com/docs/postgres/cluster-configuration.md) with no downtime, and you are only billed for the time you use.
 
 **Storage:** Make sure your PlanetScale database has at least **twice the storage** that Heroku reports using. Bucardo is not very space-efficient during migration, and Postgres disk usage can vary significantly between providers. It's not uncommon for a database to use 50% more or less space on PlanetScale than on Heroku. Automatic vacuuming will reclaim the extra space over time after the migration completes.
 
@@ -82,7 +82,7 @@ To check your current Heroku storage usage:
 heroku pg:info -a your-app-name
 ```
 
-Look for the "Data Size" field. If your Heroku database uses 10 GB, provision at least 20 GB on PlanetScale. You can adjust storage at any time via the [Storage tab in Cluster Configuration](../cluster-configuration/cluster-storage.md).
+Look for the "Data Size" field. If your Heroku database uses 10 GB, provision at least 20 GB on PlanetScale. You can adjust storage at any time via the [Storage tab in Cluster Configuration](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md).
 
 ### 6. Consider your database size and performance
 

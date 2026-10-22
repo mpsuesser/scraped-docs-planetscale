@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-cloudflare-workers
 title: "Planetscale Postgres Cloudflare Workers"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 [Cloudflare Workers](https://developers.cloudflare.com/workers/) is a serverless platform that allows you to run your code at the edge, close to your users. [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) accelerates queries you make to existing databases.
 
-Want to create and pay for your database from Cloudflare without adding billing to PlanetScale? See [Create PlanetScale databases from Cloudflare](../../connect/cloudflare.md).
+Want to create and pay for your database from Cloudflare without adding billing to PlanetScale? See [Create PlanetScale databases from Cloudflare](https://planetscale.com/docs/connect/cloudflare.md).
 
 Already created a PlanetScale Postgres database? [Jump straight to integration instructions](#integrate-with-cloudflare-workers).
 
@@ -33,10 +33,10 @@ Before you begin, make sure you have a [PlanetScale account](https://auth.planet
 After creating your organization, it's important to understand the relationship between databases, branches, and clusters.
 
 * **Database**: Your overall project (e.g., "my-ecommerce-app")
-* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](../branching.md)
+* **Branch**: Isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups - [learn more about branching](https://planetscale.com/docs/postgres/branching.md)
 * **Cluster**: The underlying compute and storage infrastructure that powers each branch
 
-PlanetScale Postgres clusters use real Postgres in a [high-availability architecture with one primary and two replicas](../postgres-architecture.md#cluster-design).
+PlanetScale Postgres clusters use real Postgres in a [high-availability architecture with one primary and two replicas](https://planetscale.com/docs/postgres/postgres-architecture.md#cluster-design).
 
 ## Create a new database
 
@@ -87,7 +87,7 @@ Select **Postgres** to create a PostgreSQL database
 
 **Step 3**
 
-**Cluster configuration**: Select your preferred cluster size and [CPU architecture](../cluster-configuration/cpu-architectures.md)
+**Cluster configuration**: Select your preferred cluster size and [CPU architecture](https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures.md)
 
 ### Step 4: Create the database cluster
 
@@ -355,9 +355,9 @@ For more information on using Cloudflare Workers and Hyperdrive, [refer to the C
 
 Once you're done with development, consider these next steps:
 
-* **Create additional roles**: Set up [application-specific roles](../connecting/roles.md) with appropriate permissions for your production workloads. The "Default role" is meant for administrative purposes and has significant privileges.
-* **Use branching for development**: Create [database branches](../branching.md) to safely test schema changes before deploying to production.
-* **Set up monitoring**: Configure [query insights](../monitoring/query-insights.md) to monitor database performance and identify slow queries.
+* **Create additional roles**: Set up [application-specific roles](https://planetscale.com/docs/postgres/connecting/roles.md) with appropriate permissions for your production workloads. The "Default role" is meant for administrative purposes and has significant privileges.
+* **Use branching for development**: Create [database branches](https://planetscale.com/docs/postgres/branching.md) to safely test schema changes before deploying to production.
+* **Set up monitoring**: Configure [query insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to monitor database performance and identify slow queries.
 
 ## Need help?
 

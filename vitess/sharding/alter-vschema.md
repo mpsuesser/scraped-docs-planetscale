@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/alter-vschema
 title: "Alter Vschema"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,15 +14,15 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > A complete reference for the ALTER VSCHEMA statements you can use to modify the VSchema of a keyspace.
 
-The [VSchema](vschema.md) describes how your data is organized across keyspaces and shards: which tables exist in each keyspace, how sharded tables map rows to shards via [Vindexes](vindexes.md), and how IDs are generated with [sequence tables](sequence-tables.md).
+The [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md) describes how your data is organized across keyspaces and shards: which tables exist in each keyspace, how sharded tables map rows to shards via [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md), and how IDs are generated with [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md).
 
-`ALTER VSCHEMA` statements let you modify the VSchema using SQL over a regular MySQL connection to your database branch, as an alternative to editing the VSchema JSON directly in the [Clusters page](../cluster-configuration.md) or with the [pscale CLI](../../cli/keyspace.md).
+`ALTER VSCHEMA` statements let you modify the VSchema using SQL over a regular MySQL connection to your database branch, as an alternative to editing the VSchema JSON directly in the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) or with the [pscale CLI](https://planetscale.com/docs/cli/keyspace.md).
 
 > [!WARNING]
 >
-> `ALTER VSCHEMA` statements do not work on a branch with [safe migrations](../schema-changes/safe-migrations.md) enabled, which is the recommended setup for production branches.
-> Instead, run them on a [development branch](../schema-changes/branching.md) and promote the changes to production with a [deploy request](../schema-changes/deploy-requests.md).
-> See [Modifying VSchema](vschema.md#modifying-vschema) for the full workflow.
+> `ALTER VSCHEMA` statements do not work on a branch with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled, which is the recommended setup for production branches.
+> Instead, run them on a [development branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) and promote the changes to production with a [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md).
+> See [Modifying VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md#modifying-vschema) for the full workflow.
 
 > [!NOTE]
 >
@@ -110,7 +110,7 @@ This statement fails if the table is not present in the VSchema.
 
 ## Managing sequences
 
-[Sequence tables](sequence-tables.md) provide auto-increment-style ID generation for sharded tables.
+[Sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md) provide auto-increment-style ID generation for sharded tables.
 The sequence table itself must live in an **unsharded** keyspace.
 
 ### Add a sequence
@@ -172,7 +172,7 @@ ALTER VSCHEMA ON [<keyspace>.]<table_name>
   ADD AUTO_INCREMENT <column_name> USING [<keyspace>.]<sequence_table_name>;
 ```
 
-Configures a column to be populated from a [sequence table](sequence-tables.md) whenever an `INSERT` does not provide a value for it — typically the primary key of a sharded table.
+Configures a column to be populated from a [sequence table](https://planetscale.com/docs/vitess/sharding/sequence-tables.md) whenever an `INSERT` does not provide a value for it — typically the primary key of a sharded table.
 The sequence table is usually in a different (unsharded) keyspace, in which case it must be qualified.
 
 ```sql theme={null}
@@ -206,7 +206,7 @@ This statement fails if:
 
 ## Managing Vindexes
 
-A [Vindex](vindexes.md) definition lives at the keyspace level and consists of a name, a type, and optional parameters.
+A [Vindex](https://planetscale.com/docs/vitess/sharding/vindexes.md) definition lives at the keyspace level and consists of a name, a type, and optional parameters.
 Tables then reference a Vindex by name, binding it to one or more of their columns.
 The first Vindex on a table is its **primary Vindex** — the one that decides which shard each row lives on.
 
@@ -396,7 +396,7 @@ SHOW VSCHEMA VINDEXES ON customer.corder;
 >
 > `SHOW VSCHEMA TABLES` and `SHOW VSCHEMA VINDEXES` (without `ON`) report on the keyspace your connection is currently using — there is no keyspace-qualifier form. Switch keyspaces with `USE <keyspace>` to inspect a different one.
 
-You can also view the full VSchema JSON in the [Clusters page](../cluster-configuration.md) or fetch it with the [pscale CLI](../../cli/keyspace.md).
+You can also view the full VSchema JSON in the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) or fetch it with the [pscale CLI](https://planetscale.com/docs/cli/keyspace.md).
 
 ## Need help?
 

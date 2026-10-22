@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/pgbouncer
 title: "Pgbouncer"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 ## When to use PgBouncer
 
-PgBouncer is generally recommended for OLTP workloads. All application connections should be routed through PgBouncer whenever possible. Learn more about the pros and cons of the different connection methods on the [connections overview page](../connecting.md).
+PgBouncer is generally recommended for OLTP workloads. All application connections should be routed through PgBouncer whenever possible. Learn more about the pros and cons of the different connection methods on the [connections overview page](https://planetscale.com/docs/postgres/connecting.md).
 
 PlanetScale provides several options for using PgBouncer, including local PgBouncers, dedicated primary PgBouncers, and dedicated replica PgBouncers.
 
@@ -63,7 +63,7 @@ You must be a database or organization administrator to create PgBouncers.
 ![Dedicated replica PgBouncer](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/dedicated-replica-pgbouncer-darkmode.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=c4fe58ffe61cf43cd00bf19e30e7b3c8)
 
 7. In the pop-up dialog, give the new PgBouncer a descriptive name. Note that names can not be modified after creation.
-8. Select a size based on your connection pooling needs (see [PgBouncer pricing](../pricing.md#pgbouncer-pricing) for available sizes)
+8. Select a size based on your connection pooling needs (see [PgBouncer pricing](https://planetscale.com/docs/postgres/pricing.md#pgbouncer-pricing) for available sizes)
 
 ![Create a PgBouncer](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/connecting/create-pgbouncer-darkmode.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=fb8b7b3c7ab9b4b4860d1b30c8adea74)
 
@@ -82,7 +82,7 @@ Select the **Prefer routing to replicas in the same availability zone** checkbox
 
 ### Connecting to dedicated replica PgBouncers
 
-Connect to dedicated replica PgBouncers by appending `|pgbouncer-name` to the username of any [role you have created](roles.md). For example, if your username is `user1.abcdefghi` and the dedicated replica PgBouncer is named `read-bouncer`, the connection username should be `user1.abcdefghi|read-bouncer`.
+Connect to dedicated replica PgBouncers by appending `|pgbouncer-name` to the username of any [role you have created](https://planetscale.com/docs/postgres/connecting/roles.md). For example, if your username is `user1.abcdefghi` and the dedicated replica PgBouncer is named `read-bouncer`, the connection username should be `user1.abcdefghi|read-bouncer`.
 
 The hostname and password remain the same. Use port `6432` for dedicated PgBouncer connections:
 
@@ -101,7 +101,7 @@ psql 'host=xxxxxxxxxx-useast1-1.horizon.psdb.cloud \
 
 A dedicated primary PgBouncer provides connection pooling for your primary database while running on nodes separate from the Postgres servers. Traffic flows from the dedicated primary PgBouncer to the local PgBouncer on the primary node, and then to Postgres. This extra layer lets client connections persist through cluster resizes, upgrades, and most failover scenarios, providing improved high availability. Primary bouncers are configured in the same way as replica bouncers.
 
-For production OLTP workloads requiring maximum availability, see the [connection resilience guide](../connection-resilience.md).
+For production OLTP workloads requiring maximum availability, see the [connection resilience guide](https://planetscale.com/docs/postgres/connection-resilience.md).
 
 > [!NOTE]
 >
@@ -109,7 +109,7 @@ For production OLTP workloads requiring maximum availability, see the [connectio
 
 ### Connecting to dedicated primary PgBouncers
 
-Connect to dedicated primary PgBouncers by appending `|pgbouncer-name` to the username of any [role you have created](roles.md). For example, if your username is `user1.abcdefghi` and the dedicated primary PgBouncer is named `write-pool`, the connection username should be `user1.abcdefghi|write-pool`.
+Connect to dedicated primary PgBouncers by appending `|pgbouncer-name` to the username of any [role you have created](https://planetscale.com/docs/postgres/connecting/roles.md). For example, if your username is `user1.abcdefghi` and the dedicated primary PgBouncer is named `write-pool`, the connection username should be `user1.abcdefghi|write-pool`.
 
 The hostname and password remain the same. Use port `6432` for dedicated PgBouncer connections. For dedicated primary PgBouncers, requests route through the dedicated primary PgBouncer first, then the local PgBouncer, and finally Postgres:
 
@@ -220,15 +220,15 @@ PgBouncer's transaction pooling mode provides excellent performance for OLTP wor
 * Session-level advisory locks
 * `SET` commands that persist beyond a transaction
 
-For operations requiring these features, use a direct connection instead (see the [connections overview](../connecting.md#direct-primary-connections)).
+For operations requiring these features, use a direct connection instead (see the [connections overview](https://planetscale.com/docs/postgres/connecting.md#direct-primary-connections)).
 
 ### Benefits during maintenance operations
 
-Using PgBouncer provides improved availability during configuration changes. When modifying Postgres Parameters, some changes require the server to be restarted. When these restarts happen, any direct connections to Postgres will be terminated. However, when using PgBouncer, client connections are maintained and PgBouncer handles reconnecting to Postgres after it restarts. The [operations philosophy documentation](../operations-philosophy.md) covers more details on how connections are managed during various database lifecycle operations.
+Using PgBouncer provides improved availability during configuration changes. When modifying Postgres Parameters, some changes require the server to be restarted. When these restarts happen, any direct connections to Postgres will be terminated. However, when using PgBouncer, client connections are maintained and PgBouncer handles reconnecting to Postgres after it restarts. The [operations philosophy documentation](https://planetscale.com/docs/postgres/operations-philosophy.md) covers more details on how connections are managed during various database lifecycle operations.
 
 ### Scaling PgBouncer
 
-PgBouncer itself is a lightweight process, but high connection volumes or high query throughput can eventually exhaust its capacity. PlanetScale offers multiple PgBouncer sizes to handle different workload demands. Each size provides increased CPU and memory resources, allowing PgBouncer to handle more concurrent client connections and higher query throughput without becoming a bottleneck. See [PgBouncer pricing](../pricing.md#pgbouncer-pricing) for available sizes.
+PgBouncer itself is a lightweight process, but high connection volumes or high query throughput can eventually exhaust its capacity. PlanetScale offers multiple PgBouncer sizes to handle different workload demands. Each size provides increased CPU and memory resources, allowing PgBouncer to handle more concurrent client connections and higher query throughput without becoming a bottleneck. See [PgBouncer pricing](https://planetscale.com/docs/postgres/pricing.md#pgbouncer-pricing) for available sizes.
 
 ### PgBouncer error messages
 

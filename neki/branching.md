@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ Creating a Neki development branch provisions a new, isolated environment. It
 does not copy the parent branch's schema or data. Apply your schema migrations
 to the new branch and load only the test data you need.
 
-To create a branch containing existing data, restore a [backup](backups.md)
+To create a branch containing existing data, restore a [backup](https://planetscale.com/docs/neki/backups.md)
 to a new branch instead of creating an ordinary development branch.
 
 ## Create a development branch
@@ -50,7 +50,7 @@ Select **Create branch** and wait for the branch to become ready.
 Apply your application's schema migrations and seed data.
 
 The new branch uses development shard and router SKUs. Its infrastructure and
-usage are billed independently from the parent. See [Neki pricing](pricing.md).
+usage are billed independently from the parent. See [Neki pricing](https://planetscale.com/docs/neki/pricing.md).
 
 ## Work with an isolated branch
 
@@ -59,14 +59,14 @@ topology are branch-scoped. Verify the selected branch before changing its
 configuration or running DDL.
 
 An empty development branch is useful for testing schema setup from scratch.
-See [Development environments](development-environments.md) for a repeatable
+See [Development environments](https://planetscale.com/docs/neki/development-environments.md) for a repeatable
 setup and guidance for production-like data.
 
 ## Move development data to production
 
 To keep the data from a development branch, create a backup and restore it to a
 new branch with production configuration. See [Restore a
-backup](backups.md#restore-a-backup) for the required configuration-profile
+backup](https://planetscale.com/docs/neki/backups.md#restore-a-backup) for the required configuration-profile
 and router sizes.
 
 ## Delete a branch

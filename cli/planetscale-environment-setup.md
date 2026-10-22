@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/planetscale-environment-setup
 title: "Planetscale Environment Setup"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -199,7 +199,7 @@ Verify that you're using the latest version:
 pscale version
 ```
 
-You're all set! Check out our [CLI reference page](../cli.md) to explore all that's possible with the PlanetScale CLI.
+You're all set! Check out our [CLI reference page](https://planetscale.com/docs/cli.md) to explore all that's possible with the PlanetScale CLI.
 
 ## Need help?
 

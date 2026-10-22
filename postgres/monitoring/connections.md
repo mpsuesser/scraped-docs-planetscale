@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/connections
 title: "Connections"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ If something is stuck, you can cancel the query or terminate the connection dire
 
 It is the live equivalent of reading `pg_stat_activity` on a self-managed Postgres, with the ability to act on what you
 find. This guide covers Postgres branches; the same command works for Vitess branches, with the differences described in
-[Inspect live Vitess connections](../../vitess/monitoring/connections.md).
+[Inspect live Vitess connections](https://planetscale.com/docs/vitess/monitoring/connections.md).
 
 There are two ways to use it:
 
@@ -200,7 +200,7 @@ changed since you listed it. That is the safety guard working: run `show` again 
 
 ## Permissions
 
-Access to Connections is tied to your user account and your role on the database, and what you can do depends on whether the branch is a [production branch](../branching.md). It is available to signed-in users (for the CLI, authenticate with `pscale auth login`), not to service tokens.
+Access to Connections is tied to your user account and your role on the database, and what you can do depends on whether the branch is a [production branch](https://planetscale.com/docs/postgres/branching.md). It is available to signed-in users (for the CLI, authenticate with `pscale auth login`), not to service tokens.
 
 There are two levels of access:
 
@@ -216,9 +216,9 @@ Production branches are gated more tightly than development branches:
 | Organization Administrator | ✓ | ✓ | ✓ | ✓ |
 | Database Administrator (for that database) | ✓ | ✓ | ✓ | ✓ |
 
-In short: any organization member can view and act on development branches; viewing a production branch requires Analyst or higher; acting on a production branch requires Administrator. `Database Administrator` access can be granted directly or through a [team](../../security/teams.md) — everyone on a team that includes the database has `Database Administrator` access to it.
+In short: any organization member can view and act on development branches; viewing a production branch requires Analyst or higher; acting on a production branch requires Administrator. `Database Administrator` access can be granted directly or through a [team](https://planetscale.com/docs/security/teams.md) — everyone on a team that includes the database has `Database Administrator` access to it.
 
-If you do not have the required role, the command returns a permission error (HTTP 403) for the action you attempted. See [Access control](../../security/access-control.md) for the full role and team model.
+If you do not have the required role, the command returns a permission error (HTTP 403) for the action you attempted. See [Access control](https://planetscale.com/docs/security/access-control.md) for the full role and team model.
 
 ## How fresh the data is
 
@@ -243,11 +243,11 @@ If you know Postgres, these map to what you would expect:
 
 ## Related documentation
 
-> **[connections CLI reference](../../cli/connections.md)**
+> **[connections CLI reference](https://planetscale.com/docs/cli/connections.md)**
 
-> **[Query Insights](query-insights.md)**
+> **[Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md)**
 
-> **[PlanetScale CLI environment setup](../../cli/planetscale-environment-setup.md)**
+> **[PlanetScale CLI environment setup](https://planetscale.com/docs/cli/planetscale-environment-setup.md)**
 
 ## Need help?
 

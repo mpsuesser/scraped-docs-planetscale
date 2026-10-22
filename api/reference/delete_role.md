@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_role
 title: "Delete_role"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,10 +30,10 @@ A service token or OAuth token must have at least one of the following access or
 > [!NOTE]
 >
 > This deletes a **Postgres role**. To delete a **Vitess/MySQL** branch password,
-> use [Delete a password](delete_password.md) instead. Roles created
-> with [Create role credentials](create_role.md) that own objects,
+> use [Delete a password](https://planetscale.com/docs/api/reference/delete_password.md) instead. Roles created
+> with [Create role credentials](https://planetscale.com/docs/api/reference/create_role.md) that own objects,
 > have extra permissions, or created other roles require a successor — see
-> [Deleting a role](../../postgres/connecting/roles.md#deleting-a-role).
+> [Deleting a role](https://planetscale.com/docs/postgres/connecting/roles.md#deleting-a-role).
 
 
 ## OpenAPI

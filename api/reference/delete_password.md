@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_password
 title: "Delete_password"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,9 +30,9 @@ A service token or OAuth token must have at least one of the following access or
 > [!NOTE]
 >
 > This deletes a **Vitess/MySQL** branch password created with [Create a
-> password](create_password.md), and immediately disconnects any
+> password](https://planetscale.com/docs/api/reference/create_password.md), and immediately disconnects any
 > clients using it. To delete a **Postgres** role, use [Delete a
-> role](delete_role.md) instead.
+> role](https://planetscale.com/docs/api/reference/delete_role.md) instead.
 
 
 ## OpenAPI

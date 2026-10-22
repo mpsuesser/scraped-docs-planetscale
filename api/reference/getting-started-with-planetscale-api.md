@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api
 title: "Getting Started With Planetscale Api"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,11 +26,11 @@ Before making your first API call, set up the proper authentication for the Plan
 
 ### Service tokens
 
-Most endpoints only need a service token for authentication, but some organization-specific endpoints also need OAuth. Each endpoint will state what types of authentication are allowed. See the [Service tokens documentation](service-tokens.md) for creating a service token and making your first API call with the PlanetScale API.
+Most endpoints only need a service token for authentication, but some organization-specific endpoints also need OAuth. Each endpoint will state what types of authentication are allowed. See the [Service tokens documentation](https://planetscale.com/docs/api/reference/service-tokens.md) for creating a service token and making your first API call with the PlanetScale API.
 
 ### OAuth applications
 
-All OAuth applications have a comprehensive list of scopes that the application can request from the PlanetScale user. See the [OAuth documentation](oauth.md) for more info.
+All OAuth applications have a comprehensive list of scopes that the application can request from the PlanetScale user. See the [OAuth documentation](https://planetscale.com/docs/api/reference/oauth.md) for more info.
 
 ## Need help?
 

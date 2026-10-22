@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/vschema
 title: "Vschema"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -42,11 +42,11 @@ From here, you can inspect your VSchema configuration JSON file.
 
 You must have a sharded keyspace in order to make VSchema changes.
 
-If you have a database with at least one sharded keyspace, you can modify its VSchema either in the [Clusters](../cluster-configuration.md) tab in the dashboard, from the [pscale CLI](../../cli/keyspace.md), or using `ALTER VSCHEMA ...` commands.
+If you have a database with at least one sharded keyspace, you can modify its VSchema either in the [Clusters](https://planetscale.com/docs/vitess/cluster-configuration.md) tab in the dashboard, from the [pscale CLI](https://planetscale.com/docs/cli/keyspace.md), or using `ALTER VSCHEMA ...` commands.
 
 ### Using the Clusters page
 
-We do not recommend modifying the VSchema directly on your production branch. In fact, it is not possible to do if you have [safe migrations](../schema-changes/safe-migrations.md) enabled (as recommended). Instead, to modify the VSchema, you should first [create a new development branch](../schema-changes/branching.md). Once you have your branch ready, follow these steps:
+We do not recommend modifying the VSchema directly on your production branch. In fact, it is not possible to do if you have [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) enabled (as recommended). Instead, to modify the VSchema, you should first [create a new development branch](https://planetscale.com/docs/vitess/schema-changes/branching.md). Once you have your branch ready, follow these steps:
 
 **Step 1**
 
@@ -60,7 +60,7 @@ Next, click the tab labeled "VSchema".
 **Step 3**
 
 Modify the VSchema configuration JSON file as needed. Refer to the [VSchema
-documentation](vschema.md) for more information about the available options.
+documentation](https://planetscale.com/docs/vitess/sharding/vschema.md) for more information about the available options.
 
 **Step 4**
 
@@ -75,7 +75,7 @@ modified.
 
 **Step 6**
 
-From here, go through the normal [deploy request process](../schema-changes/deploy-requests.md) to deploy
+From here, go through the normal [deploy request process](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) to deploy
 this change to production.
 
 Once your change is deployed to production, you can come back to the Clusters page, switch to your production branch, and view the updates to your VSchema. You can also click the "Changes" tab to see information, such as the resize event, status, and start/end time for any previous changes to the VSchema.

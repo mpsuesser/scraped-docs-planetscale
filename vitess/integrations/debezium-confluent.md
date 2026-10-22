@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/debezium-confluent
 title: "Debezium Confluent"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,12 +14,12 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > Run the Debezium connector for PlanetScale as a custom connector on Confluent Cloud.
 
-The [Debezium connector for PlanetScale](debezium.md) runs on Confluent Cloud as a [custom connector](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/overview.html): you upload the connector's Kafka Connect plugin archive once, then create connectors from it like any managed connector. This page walks through the upload and the connector wizard.
+The [Debezium connector for PlanetScale](https://planetscale.com/docs/vitess/integrations/debezium.md) runs on Confluent Cloud as a [custom connector](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/overview.html): you upload the connector's Kafka Connect plugin archive once, then create connectors from it like any managed connector. This page walks through the upload and the connector wizard.
 
 Before you start, you need:
 
 * A Confluent Cloud cluster in a [region that supports custom connectors](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/custom-connector-fands.html).
-* The plugin archive `planetscale-debezium-connector-planetscale-<version>.zip` from the [releases page](https://github.com/planetscale/debezium-connector-planetscale/releases). Pick the release line as described on the [main page](debezium.md#pick-a-release).
+* The plugin archive `planetscale-debezium-connector-planetscale-<version>.zip` from the [releases page](https://github.com/planetscale/debezium-connector-planetscale/releases). Pick the release line as described on the [main page](https://planetscale.com/docs/vitess/integrations/debezium.md#pick-a-release).
 * A PlanetScale password for the branch you want to capture.
 
 ## Upload the plugin and create the connector
@@ -95,7 +95,7 @@ Your consumers subscribe to these topics; each message is a Debezium change even
 
 ## Related
 
-> **[Debezium connector for PlanetScale](debezium.md)**
+> **[Debezium connector for PlanetScale](https://planetscale.com/docs/vitess/integrations/debezium.md)**
 
 > **[Confluent custom connectors](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/custom-connector-qs.html)**
 

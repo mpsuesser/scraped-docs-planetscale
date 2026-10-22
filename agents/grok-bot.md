@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agents/grok-bot
 title: "Grok Bot"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 > Set up PlanetScale Bot to answer database questions, investigate performance, and follow webhook events.
 
-PlanetScale Bot helps you get started with PlanetScale, understand database performance, and fix slow or failing queries using its [MCP server](../mcp-server.md) and installed skills.
+PlanetScale Bot helps you get started with PlanetScale, understand database performance, and fix slow or failing queries using its [MCP server](https://planetscale.com/docs/mcp-server.md) and installed skills.
 
 > **[Add PlanetScale Bot](https://x.ai/bot/0hgwu8KbM0FIY-idg0x6L)**
 >
@@ -85,6 +85,8 @@ Ask the bot to configure **PlanetScale Webhook Triage** for your chosen organiza
 
 ![PlanetScale Webhook Triage routine settings showing the active toggle and webhook endpoint, key, and header with values obscured](https://mintcdn.com/planetscale-2/0gogNjLFt8syD9n_/agents/images/grok-bot-webhook-settings-light.png?fit=max\&auto=format\&n=0gogNjLFt8syD9n_\&q=85\&s=9af534edae64e00d9f157d8d2933b91e)
 
+Webhook credentials are hidden in this screenshot.
+
 **2. Add the webhook in PlanetScale**
 
 In your database's **Settings → Webhooks → Add webhook**, paste the routine's Webhook URL into **URL** and the header value into **Authorization header**, including the scheme, such as `Bearer <token>`, without the `Authorization:` label.
@@ -93,11 +95,11 @@ In your database's **Settings → Webhooks → Add webhook**, paste the routine'
 
 **3. Choose events and test delivery**
 
-Choose the [events you want the bot to follow](../api/webhook-events.md), save the webhook, and use **Test webhook**. Confirm delivery in PlanetScale and acknowledgment in Grok Bot.
+Choose the [events you want the bot to follow](https://planetscale.com/docs/api/webhook-events.md), save the webhook, and use **Test webhook**. Confirm delivery in PlanetScale and acknowledgment in Grok Bot.
 
 Webhooks cover supported events; they don't notify the bot about every slow query or CPU spike.
 
-See [Setting up webhooks](../api/webhooks.md) for more details.
+See [Setting up webhooks](https://planetscale.com/docs/api/webhooks.md) for more details.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/partial-key-in-unique-key
 title: "Partial Key In Unique Key"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -56,8 +56,8 @@ If the full column is too large for your indexing strategy, use a shorter bounde
 
 ## Related docs
 
-* [Changing primary and unique keys](../onlineddl-change-unique-keys.md)
-* [MySQL compatibility](../../mysql-compatibility.md)
+* [Changing primary and unique keys](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md)
+* [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md)
 
 ## Need help?
 

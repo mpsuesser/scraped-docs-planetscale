@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -33,7 +33,7 @@ You must be a database or organization administrator to modify these settings.
 
 ### Configuring parameters with the CLI
 
-You can also inspect and update parameters with the [PlanetScale CLI](../../cli/branch.md):
+You can also inspect and update parameters with the [PlanetScale CLI](https://planetscale.com/docs/cli/branch.md):
 
 ```bash theme={null}
 # List the parameters you can change, their current values, and allowed ranges
@@ -58,7 +58,7 @@ You can click on the "Changes" tab on the Clusters page to view a log of any cha
 
 > [!NOTE]
 >
-> When updating a cluster's size, some [parameters](parameters.md) will automatically
+> When updating a cluster's size, some [parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) will automatically
 > be adjusted. Each cluster size is associated with default parameter settings, changing the cluster size will also
 > update those defaults. The exception to this is if you manually override a default parameter setting. In that case, a
 > cluster size adjustment will not automatically change that setting.
@@ -179,7 +179,7 @@ These SQL-level settings take effect immediately for new sessions and do not req
 Some frequently useful parameters that can be set via SQL include:
 
 * **`idle_in_transaction_session_timeout`** — Terminates sessions that sit idle inside an open transaction for too long. This is an important safety net for preventing long-lived transactions from holding locks and blocking writes. See also the PgBouncer [`idle_transaction_timeout`](../connecting/pgbouncer.md#advanced-pgbouncer-settings) setting for a complementary connection-pooler-level control.
-* **`statement_timeout`** and **`transaction_timeout`** — Bound how long individual queries and transactions can run. See the [connection resilience guide](../connection-resilience.md#postgres-timeouts) for recommended configuration.
+* **`statement_timeout`** and **`transaction_timeout`** — Bound how long individual queries and transactions can run. See the [connection resilience guide](https://planetscale.com/docs/postgres/connection-resilience.md#postgres-timeouts) for recommended configuration.
 * **`lock_timeout`** — Prevents statements from waiting indefinitely to acquire locks. Particularly useful for DDL operations to avoid blocking other queries.
 * **`application_name`** — Identifies your application in monitoring tools and `pg_stat_activity`.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/guides/django
 title: "Django"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -19,7 +19,7 @@ Django connects to Neki through its Postgres database backend.
 Before you start, you need:
 
 * A Neki database with a ready branch.
-* An application [role](../connecting/roles.md) for that branch. Use
+* An application [role](https://planetscale.com/docs/neki/connecting/roles.md) for that branch. Use
   `pg_read_all_data` for read traffic and add `pg_write_all_data` when the
   application writes rows. These inherited data roles do not grant `CREATE` or
   `ALTER`, so application credentials cannot change the schema.
@@ -96,7 +96,7 @@ python manage.py check --database default
 > Framework migration commands send DDL through a normal Neki connection. The
 > router fans that DDL out to the managed shards, but it does not create a
 > managed schema-change workflow. Use a [schema-change
-> workflow](../schema-changes.md) when you want Neki to prepare and coordinate
+> workflow](https://planetscale.com/docs/neki/schema-changes.md) when you want Neki to prepare and coordinate
 > an Online DDL change.
 
 Run migrations with the migration role described in the prerequisites. An
@@ -137,7 +137,7 @@ the notice. If the notice is lost, its version pair cannot be reconstructed.
 
 To send a separate Django connection to replicas, add the Neki startup option
 described in [Primary and replica
-routing](../connecting.md#primary-and-replica-routing) to its `OPTIONS`.
+routing](https://planetscale.com/docs/neki/connecting.md#primary-and-replica-routing) to its `OPTIONS`.
 
 ## Need help?
 

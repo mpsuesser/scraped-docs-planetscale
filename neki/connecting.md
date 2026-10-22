@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -37,7 +37,7 @@ Optionally, select the branch you want to connect to.
 
 **Step 3**
 
-Select an existing role, or create a [user-defined role](connecting/roles.md) with the permissions your application needs.
+Select an existing role, or create a [user-defined role](https://planetscale.com/docs/neki/connecting/roles.md) with the permissions your application needs.
 
 **Step 4**
 
@@ -64,7 +64,7 @@ Replace the placeholders with the values from the dashboard. Generated connectio
 
 **CLI**
 
-Install and authenticate the [PlanetScale CLI](../cli/planetscale-environment-setup.md) first.
+Install and authenticate the [PlanetScale CLI](https://planetscale.com/docs/cli/planetscale-environment-setup.md) first.
 
 **Step 1**
 
@@ -84,7 +84,7 @@ pscale shell <DATABASE> <BRANCH> \
   --router <ROUTER_GROUP>
 ```
 
-For a persistent role that your application can reuse, create one with `pscale role`. See [Roles and credentials](connecting/roles.md).
+For a persistent role that your application can reuse, create one with `pscale role`. See [Roles and credentials](https://planetscale.com/docs/neki/connecting/roles.md).
 
 ## Connection parameters
 
@@ -112,8 +112,8 @@ that client.
 ## Private connections
 
 Keep traffic between your cloud network and Neki off the public internet with
-[AWS PrivateLink](connecting/private-connections/aws-privatelink.md) or
-[GCP Private Service Connect](connecting/private-connections/gcp-private-service-connect.md).
+[AWS PrivateLink](https://planetscale.com/docs/neki/connecting/private-connections/aws-privatelink.md) or
+[GCP Private Service Connect](https://planetscale.com/docs/neki/connecting/private-connections/gcp-private-service-connect.md).
 Private connections use the same roles, router groups, and required TLS
 settings as public connections.
 
@@ -125,7 +125,7 @@ Set `__neki.target` to send reads to replicas.
 
 Selecting **Replica** under **Query target** on the **Connect** page adds this
 setting to the generated connection options. It does not change the username.
-To send reads to [read-only replicas](read-only-replicas.md), select
+To send reads to [read-only replicas](https://planetscale.com/docs/neki/read-only-replicas.md), select
 **Read-only replica** instead.
 
 ```sql theme={null}
@@ -147,7 +147,7 @@ postgresql://<USERNAME>:<PASSWORD>@<HOST>:5432/postgres?sslmode=verify-full&sslr
 
 For `pscale shell`, add `--replica`. That sets `__neki.target=REPLICA` for the session.
 
-See [Choosing where reads run](shard-targeting-fanout.md#choosing-where-reads-run) for Neki's replica selection settings and lag behavior.
+See [Choosing where reads run](https://planetscale.com/docs/neki/shard-targeting-fanout.md#choosing-where-reads-run) for Neki's replica selection settings and lag behavior.
 
 ## Need help?
 

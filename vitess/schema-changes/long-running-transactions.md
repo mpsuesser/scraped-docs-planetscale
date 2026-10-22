@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/long-running-transactions
 title: "Long Running Transactions"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Long-running transactions on your database can cause deploy requests to fail.
 
-When you deploy a schema change, PlanetScale copies the table in the background so the original stays available. That copy needs a brief lock on the table: once at the start, and again as copying continues. The last step, [cutover](aggressive-cutover.md), needs a lock too.
+When you deploy a schema change, PlanetScale copies the table in the background so the original stays available. That copy needs a brief lock on the table: once at the start, and again as copying continues. The last step, [cutover](https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover.md), needs a lock too.
 
 A deploy that cannot get the lock fails with a lock wait timeout. The statement after `during query` shows which step was waiting:
 
@@ -24,7 +24,7 @@ Lock wait timeout exceeded; try restarting transaction (errno 1205) (sqlstate HY
 
 * `lock tables ... read` is the lock at the start of the copy.
 * `RENAME TABLE ...` is the cutover.
-* `CREATE TABLE ...` or `ALTER TABLE ...` on a `_vt_vrp_...` table is PlanetScale building the copy. These wait on a lock when the table has [foreign key constraints](../foreign-key-constraints.md) and a transaction is open on the parent or child table.
+* `CREATE TABLE ...` or `ALTER TABLE ...` on a `_vt_vrp_...` table is PlanetScale building the copy. These wait on a lock when the table has [foreign key constraints](https://planetscale.com/docs/vitess/foreign-key-constraints.md) and a transaction is open on the parent or child table.
 
 ## How to fix long-running transactions
 
@@ -42,8 +42,8 @@ In these cases, we recommend moving the external API calls to outside of the tra
 
 ## Additional tips
 
-* The [aggressive cutover setting](aggressive-cutover.md) only helps after the copy phase has finished. If your deploy request is stuck in the copy phase, this setting will not help.
-* If the change is [instantly deployable](deploy-requests.md#instant-deployments), Instant deploy skips the copy, so it doesn't need this lock.
+* The [aggressive cutover setting](https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover.md) only helps after the copy phase has finished. If your deploy request is stuck in the copy phase, this setting will not help.
+* If the change is [instantly deployable](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#instant-deployments), Instant deploy skips the copy, so it doesn't need this lock.
 
 ## Need help?
 

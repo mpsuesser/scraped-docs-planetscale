@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-cannot-be-null
 title: "Column Cannot Be Null"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ In that case the application is still writing `NULL`. Update it to always set th
 
 ## How to fix it
 
-Update the rows that still have `NULL` in that column, then [retry the failed tables](deploy-requests.md#retry-a-partially-failed-deploy).
+Update the rows that still have `NULL` in that column, then [retry the failed tables](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#retry-a-partially-failed-deploy).
 
 ```sql theme={null}
 SELECT id FROM users WHERE email IS NULL;

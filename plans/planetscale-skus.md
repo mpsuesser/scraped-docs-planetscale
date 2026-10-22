@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/planetscale-skus
 title: "Planetscale Skus"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -44,7 +44,7 @@ If your needs exceed what is available here, we can easily spin up additional si
 
 ## Metal
 
-[Metal databases](../metal.md) are backed by locally-attached NVMe drives for storage, unlocking incredible performance and cost-efficiencies. Because the drives are locally-attached, you need to choose both your compute and storage resources when you create your database.
+[Metal databases](https://planetscale.com/docs/metal.md) are backed by locally-attached NVMe drives for storage, unlocking incredible performance and cost-efficiencies. Because the drives are locally-attached, you need to choose both your compute and storage resources when you create your database.
 The storage options vary by cloud provided, so we break out the options into AWS and GCP sections.
 
 ### Metal options on AWS
@@ -111,7 +111,7 @@ If you are migrating from an existing cloud provider with resource-based pricing
 
 Keep in mind, each database comes with a production branch with two replicas, as well as 1,440 hours worth of development branches (for Vitess databases). The development branches essentially equate to two extra "always on" databases. In many cases, you can deprecate your dev/staging databases that you pay extra for with other providers in favor of the development branches. In the end, this usually results in significant cost savings.
 
-Databases in PlanetScale also come with additional beneficial infrastructure that is not easily configured or available in other hosted database solutions. For more information on what is provisioned with each database, read our [Vitess architecture](../vitess/architecture.md) and [Postgres architecture](../postgres/postgres-architecture.md) docs.
+Databases in PlanetScale also come with additional beneficial infrastructure that is not easily configured or available in other hosted database solutions. For more information on what is provisioned with each database, read our [Vitess architecture](https://planetscale.com/docs/vitess/architecture.md) and [Postgres architecture](https://planetscale.com/docs/postgres/postgres-architecture.md) docs.
 
 If you are unsure which plan or cluster size is right for your application, [contact us](https://planetscale.com/contact) to get further assistance.
 

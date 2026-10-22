@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-django-app
 title: "Connect Django App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -62,7 +62,7 @@ pip install -r ./requirements.txt
 
 Next, you need to set up your PlanetScale database and connect to it in the Django application.
 
-You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md#getting-started-%E2%80%94-planetscale-dashboard) if you prefer the dashboard.
+You can create a database either in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md#getting-started-%E2%80%94-planetscale-dashboard) if you prefer the dashboard.
 
 Authenticate the CLI with the following command:
 
@@ -78,7 +78,7 @@ pscale database create <DATABASE_NAME> --region <REGION_SLUG>
 
 This tutorial uses `django_example` for `DATABASE_NAME`, but you can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don't recommend them, as they may need to be escaped in some instances.
 
-For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions#available-regions) or leave it blank.
+For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions.md#available-regions) or leave it blank.
 
 That's it! Your database is ready to use. Next, let's connect it to the Django application and then add some data.
 
@@ -122,7 +122,7 @@ DB_PASSWORD=<PLAIN TEXT>
 MYSQL_ATTR_SSL_CA=/etc/ssl/cert.pem
 ```
 
-The value for `MYSQL_ATTR_SSL_CA` may differ [depending on your operating system](../connecting/secure-connections.md#ca-root-configuration).
+The value for `MYSQL_ATTR_SSL_CA` may differ [depending on your operating system](https://planetscale.com/docs/vitess/connecting/secure-connections.md#ca-root-configuration).
 
 **Step 3**
 
@@ -174,7 +174,7 @@ The connection uses port `3306` by default, but if that's being used, it will pi
 
 ## Optional — Bring in PlanetScale custom database wrapper
 
-This next step is only necessary if you're using your own application to go through this guide **and** [do not want to use foreign key constraints](../operating-without-foreign-key-constraints.md). If you cloned the sample app, this already exists in the repo.
+This next step is only necessary if you're using your own application to go through this guide **and** [do not want to use foreign key constraints](https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints.md). If you cloned the sample app, this already exists in the repo.
 
 Foreign key constraint support is not enabled by default in PlanetScale. If you'd like to use foreign key constraints in your Django application with PlanetScale, you must first enable foreign key constraint support in your database settings page.
 
@@ -232,7 +232,7 @@ If you want to continue playing around with adding data on the fly, you have a f
 
 * PlanetScale CLI shell
 * PlanetScale dashboard console
-* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
+* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui.md))
 
 The first two options are covered below.
 
@@ -240,7 +240,7 @@ The first two options are covered below.
 
 You can use the PlanetScale CLI to open a MySQL shell to interact with your database.
 
-You may need to [install the MySQL command line client](../../cli/planetscale-environment-setup.md) if you haven't already.
+You may need to [install the MySQL command line client](https://planetscale.com/docs/cli/planetscale-environment-setup.md) if you haven't already.
 
 Run the following command in your terminal:
 
@@ -322,9 +322,9 @@ This isn't necessary to do in every model if you're pulling in the `django_psdb_
 
 ## What's next?
 
-Once you're done with initial development, you can enable [safe migrations](../schema-changes/safe-migrations.md) to protect from accidental schema changes and enable zero-downtime deployments.
+Once you're done with initial development, you can enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) to protect from accidental schema changes and enable zero-downtime deployments.
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/invalid-routing-rules
 title: "Invalid Routing Rules"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -60,9 +60,9 @@ Example shape:
 
 ## Related docs
 
-* [VSchema](../../sharding/vschema.md)
-* [Sharding quickstart](../../sharding/sharding-quickstart.md)
-* [Sharding workflow state reference](../../sharding/sharding-workflow-state-reference.md)
+* [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md)
+* [Sharding quickstart](https://planetscale.com/docs/vitess/sharding/sharding-quickstart.md)
+* [Sharding workflow state reference](https://planetscale.com/docs/vitess/sharding/sharding-workflow-state-reference.md)
 
 ## Need help?
 

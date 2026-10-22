@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/billing
 title: "Billing"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 ## Overview
 
-Usage charges are scoped to each database, which you can find all together in the [billing section of your Organization](billing.md#organization-usage-and-billing-page). Each plan is further broken down in the [PlanetScale plans documentation](planetscale-plans.md).
+Usage charges are scoped to each database, which you can find all together in the [billing section of your Organization](https://planetscale.com/docs/billing.md#organization-usage-and-billing-page). Each plan is further broken down in the [PlanetScale plans documentation](https://planetscale.com/docs/planetscale-plans.md).
 
 ## Organization usage and billing page
 
@@ -73,7 +73,7 @@ All plans require that your organization has a valid payment method on file. You
 
 It's possible to use the same card for multiple organizations, but only after the card has been used to successfully pay for a database in the first organization.
 
-You can also show, update, or delete the current card from the [CLI](cli/billing.md) or update it from the [MCP server](mcp-server.md). Updating always happens in Stripe Checkout; PlanetScale never collects the card number.
+You can also show, update, or delete the current card from the [CLI](https://planetscale.com/docs/cli/billing.md) or update it from the [MCP server](https://planetscale.com/docs/mcp-server.md). Updating always happens in Stripe Checkout; PlanetScale never collects the card number.
 
 ## Spend management
 
@@ -89,7 +89,7 @@ You can redeem a coupon in the PlanetScale dashboard. To redeem a coupon, you mu
 
 > [!NOTE]
 >
-> You may incur additional costs if your usage continues beyond the period, dollar amount, or any other metrics specified in the coupon terms. Additional costs will be charged to your card on file. If you have any questions about the terms of the coupon, please reach out to [our Support team](support.md).
+> You may incur additional costs if your usage continues beyond the period, dollar amount, or any other metrics specified in the coupon terms. Additional costs will be charged to your card on file. If you have any questions about the terms of the coupon, please reach out to [our Support team](https://planetscale.com/docs/support.md).
 
 ### How do coupons affect invoices?
 

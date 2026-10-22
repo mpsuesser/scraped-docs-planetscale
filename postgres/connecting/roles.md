@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -101,8 +101,8 @@ There are several ways to create a new role:
 * Using the "Connect" button in your dashboard
 * Using "Roles" section in your database settings
 * Using the [`CREATE ROLE`](https://www.postgresql.org/docs/current/sql-createrole.html) command as the default role (which has elevated privileges).
-* Using the Postgres [Roles API](../../api/reference/list_roles.md)
-* Using the PlanetScale CLI [pscale role commands](../../cli/role.md)
+* Using the Postgres [Roles API](https://planetscale.com/docs/api/reference/list_roles.md)
+* Using the PlanetScale CLI [pscale role commands](https://planetscale.com/docs/cli/role.md)
 
 ### Creating roles in the dashboard
 
@@ -114,7 +114,7 @@ To create a new role in the dashboard, you can either click the "Connect" button
 
 You can also manage roles directly from the command line using the PlanetScale `pscale role` CLI. This provides a convenient way to create, list, and manage roles as part of your development workflow or automation scripts.
 
-Make sure you have the [PlanetScale CLI](../../cli.md) installed
+Make sure you have the [PlanetScale CLI](https://planetscale.com/docs/cli.md) installed
 
 #### Available commands
 
@@ -186,7 +186,7 @@ Roles created via the CLI will appear in your database settings and can be manag
 
 ### Creating roles via `CREATE ROLE`
 
-Use this path when you need fine-grained permissions that the managed role builder doesn't expose (for example, table- or column-level `GRANT`s). For most use cases, prefer the dashboard, [`pscale role`](../../cli/role.md), or the [Roles API](../../api/reference/create_role.md), which produce managed roles that appear in the dashboard and handle credential and lifecycle management for you.
+Use this path when you need fine-grained permissions that the managed role builder doesn't expose (for example, table- or column-level `GRANT`s). For most use cases, prefer the dashboard, [`pscale role`](../../cli/role.md), or the [Roles API](https://planetscale.com/docs/api/reference/create_role.md), which produce managed roles that appear in the dashboard and handle credential and lifecycle management for you.
 
 When you create a role via the Postgres [`CREATE ROLE`](https://www.postgresql.org/docs/current/sql-createrole.html) command, these will not display on your database settings. It is up to you to manage these via the `psql` CLI.
 
@@ -216,7 +216,7 @@ Append it to your user with `.branch_id`
 
 ## Roles on a restored branch
 
-Restoring a backup or point-in-time recovery copies user-defined roles onto the new branch. They keep ownership of their objects, and their passwords are reset. See [Roles on a restored branch](../backups.md#roles-on-a-restored-branch).
+Restoring a backup or point-in-time recovery copies user-defined roles onto the new branch. They keep ownership of their objects, and their passwords are reset. See [Roles on a restored branch](https://planetscale.com/docs/postgres/backups.md#roles-on-a-restored-branch).
 
 ## Viewing, deleting, and renaming roles
 
@@ -330,7 +330,7 @@ For a typical web application that needs to read and write data, you may conside
 
 > [!TIP]
 >
-> Enable [pg\_strict](../extensions/pg_strict.md) for production roles to block UPDATE and DELETE statements without WHERE clauses.
+> Enable [pg\_strict](https://planetscale.com/docs/postgres/extensions/pg_strict.md) for production roles to block UPDATE and DELETE statements without WHERE clauses.
 
 **Read-only analytics role**
 

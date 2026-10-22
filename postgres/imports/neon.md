@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/neon
 title: "Neon"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ This guide will cover a no-downtime approach to migrating using Postgres logical
 
 These instructions work for all versions of Postgres that support logical replication (version 10+). If you have an older version you want to bring to PlanetScale, [contact us](https://planetscale.com/contact?initial=support) for guidance.
 
-Before beginning a migration, you should check our [extensions documentation](../extensions.md) to ensure that all of the extensions you rely on will work on PlanetScale.
+Before beginning a migration, you should check our [extensions documentation](https://planetscale.com/docs/postgres/extensions.md) to ensure that all of the extensions you rely on will work on PlanetScale.
 
 As an alternative to this guide, you can also try our [Postgres migration scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-direct). These allow you to automate some of the manual steps that we describe in this guide.
 
@@ -32,11 +32,11 @@ As an alternative to this guide, you can also try our [Postgres migration script
 
 ## 1. Prepare your PlanetScale database
 
-Create a new database in the [PlanetScale dashboard](https://app.planetscale.com) or using the [PlanetScale CLI](../../cli.md). A few things to check when configuring your database:
+Create a new database in the [PlanetScale dashboard](https://app.planetscale.com) or using the [PlanetScale CLI](https://planetscale.com/docs/cli.md). A few things to check when configuring your database:
 
 * Ensure you select the correct cloud region. You typically want to use the same region that you deploy your other application infrastructure to.
 * This guide assumes you are migrating from a Neon database, so also choose the Postgres option in PlanetScale.
-* Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](../../metal.md). For applications that need more flexible storage options or smaller compute instances, choose "Elastic Block Storage" or "Persistent Disk."
+* Choose the best storage option for your needs. For applications needing high-performance and low-latency I/O, use [PlanetScale Metal](https://planetscale.com/docs/metal.md). For applications that need more flexible storage options or smaller compute instances, choose "Elastic Block Storage" or "Persistent Disk."
 
 ![Create a new PlanetScale Postgres database](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=ed2edfd9919a5be57329cb6fba2794cb)
 
@@ -48,7 +48,7 @@ From here, follow the instructions to create a new default role. This role will 
 
 Though you may use this one for your migration, we recommend you use a separate role with lesser privileges for your migration and general database connections.
 
-To create a new role, navigate to the [Role management page](../connecting/roles.md) in your database settings. Click "New role" and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
+To create a new role, navigate to the [Role management page](https://planetscale.com/docs/postgres/connecting/roles.md) in your database settings. Click "New role" and give the role a memorable name. By default, `pg_read_all_data` and `pg_write_all_data` are enabled. In addition to these, enable `pg_create_subscription` and `postgres`, and then create the role.
 
 ![New Postgres role privileges](https://mintcdn.com/planetscale-2/Lta43VIYjNTnQ47e/images/assets/docs/postgres/neon/image3.png?fit=max\&auto=format\&n=Lta43VIYjNTnQ47e\&q=85\&s=0bd2fc3186412fbe6b82837dae75a6ee)
 
@@ -89,7 +89,7 @@ The 50% overhead is to account for:
 
 1. Data growth during the import process and
 2. Table and index bloat that can occur during the import process.
-   This can be later mitigated with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or using an extension like [pg\_squeeze](../extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
+   This can be later mitigated with careful [VACUUMing](https://www.postgresql.org/docs/current/sql-vacuum.html) or using an extension like [pg\_squeeze](https://planetscale.com/docs/postgres/extensions/pg_squeeze.md), but is difficult to avoid during the migration itself.
 
 When ready, queue and apply the changes.
 You can check the "Changes" tab to see the status of the resize:
@@ -107,7 +107,7 @@ As an example, if you need to import a 330 GB database onto a PlanetScale `M-160
 
 You should use the largest, 1.25TB option during the import.
 After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option.
-Resizing is a no-downtime operation that can be performed on the [clusters](../cluster-configuration.md) page.
+Resizing is a no-downtime operation that can be performed on the [clusters](https://planetscale.com/docs/postgres/cluster-configuration.md) page.
 
 ## 3. Prepare the Neon database
 

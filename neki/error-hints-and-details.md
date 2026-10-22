@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-hints-and-details
 title: "Error Hints And Details"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -68,10 +68,10 @@ HINT:  Use `EXPLAIN (NEKI_PG_PLAN)` (with ANALYZE to execute) to see Neki's plan
 
 This error has SQLSTATE `NK017`. It marks an `EXPLAIN` shape that has no
 faithful single-server answer on a sharded topology, and the HINT is always
-set. See [Query planning](query-planning.md#explain-neki_pg_plan) for
+set. See [Query planning](https://planetscale.com/docs/neki/query-planning.md#explain-neki_pg_plan) for
 `NEKI_PG_PLAN`.
 
-Reading `pg_locks` from a [replica](replicas.md) session fails, because
+Reading `pg_locks` from a [replica](https://planetscale.com/docs/neki/replicas.md) session fails, because
 advisory locks exist only on the primary. The hint names the setting to change:
 
 ```text theme={null}
@@ -111,9 +111,9 @@ DETAIL:  Words longer than 2047 characters are ignored.
 
 A query that hits an implementation gap still being worked on fails with
 SQLSTATE `NK013` and a catalog code, as described in [Error
-codes](error-codes.md). These rejections often carry no HINT. The catalog
+codes](https://planetscale.com/docs/neki/error-codes.md). These rejections often carry no HINT. The catalog
 code and its entry are what tell you how to rewrite the query. The broad limits
-in [Platform preview limitations](platform-preview-limitations.md) also
+in [Platform preview limitations](https://planetscale.com/docs/neki/platform-preview-limitations.md) also
 aren't always reported with a hint. For everything else, expect Neki to use
 DETAIL and HINT the way Postgres does, and to point to a Neki mechanism where
 one exists.

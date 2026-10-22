@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/replication
 title: "Replication"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -28,10 +28,10 @@ Three operations use Replicator workflows:
   group whose physical shards are not the source shards.
 * **Reshard** redistributes declared tables in one source shard group into a
   target shard group in the same database. After an [unsharded
-  import](imports/postgres.md), Reshard is the path that shards those
+  import](https://planetscale.com/docs/neki/imports/postgres.md), Reshard is the path that shards those
   tables.
 * **Online schema changes** can [build a shadow table and keep it
-  current](schema-changes.md#one-workflow-across-all-shards) until the shadow is
+  current](https://planetscale.com/docs/neki/schema-changes.md#one-workflow-across-all-shards) until the shadow is
   ready.
 
 Not every schema change requires data movement.
@@ -45,7 +45,7 @@ streams rather than through one deployment-wide stream.
 
 During a Reshard of a large `events` table, each stream reads from one source shard and writes
 to one target shard.
-The [data topology](data-topology.md) determines which copied rows and later source changes belong to that target.
+The [data topology](https://planetscale.com/docs/neki/data-topology.md) determines which copied rows and later source changes belong to that target.
 
 ## Copy and stream
 
@@ -78,7 +78,7 @@ Until the target takes over, applications continue reading from and writing to
 the source. Replicator workflows do not merge changes written independently
 to the target.
 
-[Data migration](data-migration.md#moving-traffic) explains the traffic
+[Data migration](https://planetscale.com/docs/neki/data-migration.md#moving-traffic) explains the traffic
 switch, cutover checks, and completion stages for online DDL.
 
 ## What Replicator does not cover
@@ -89,15 +89,15 @@ Other Neki features use different systems:
 * **Postgres replicas** use physical replication for availability and
   failover.
 * **[Reference-table
-  writes](reference-tables-and-gsis.md#reference-table-writes)**
+  writes](https://planetscale.com/docs/neki/reference-tables-and-gsis.md#reference-table-writes)**
   update every copy as part of the original write.
 * **[Global secondary
-  indexes](reference-tables-and-gsis.md#gsi-mappings-for-writes)** are
+  indexes](https://planetscale.com/docs/neki/reference-tables-and-gsis.md#gsi-mappings-for-writes)** are
   updated with the original table write.
 * **Query fanout** sends a query to multiple existing shards without creating
   another copy of the data.
 * **Direct schema changes** are [applied without a copy-and-stream
-  workflow](schema-changes.md#how-direct-ddl-works).
+  workflow](https://planetscale.com/docs/neki/schema-changes.md#how-direct-ddl-works).
 
 ## Need help?
 

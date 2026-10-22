@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/query-planning
 title: "Query Planning"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ The planner builds the plan from four inputs:
 
 * **The SQL statement.** The statement defines the tables, predicates, and operations that the plan must cover.
 * **The database schema.** The schema defines the tables, columns, types, and indexes that the statement refers to.
-* **The data topology.** The [data topology](data-topology.md) defines which shards hold the rows of each table.
+* **The data topology.** The [data topology](https://planetscale.com/docs/neki/data-topology.md) defines which shards hold the rows of each table.
 * **Statistics.** Statistics collected from the shards give the planner row estimates to compare alternative plans. See [Cost model, cardinality estimation, and statistics](#cost-model-cardinality-estimation-and-statistics).
 
 ### Query plan cache and protocols
@@ -69,7 +69,7 @@ them.
 All four output formats (`TEXT`, `JSON`, `XML`, and `YAML`) are supported in
 all three modes. The default format is `TEXT`.
 
-The examples in this section use the [example schema](example-schema.md), where `public.orders` belongs to the `user_data` shard group and uses `user_id` as its primary shard index.
+The examples in this section use the [example schema](https://planetscale.com/docs/neki/example-schema.md), where `public.orders` belongs to the `user_data` shard group and uses `user_id` as its primary shard index.
 
 ### `EXPLAIN`
 
@@ -149,7 +149,7 @@ Collapse  (cost=0.00..2500.00 rows=500 width=8)
 ```
 
 `Route [IN]` narrows the query to the shards holding the listed values. It has
-`multi` [fanout](shard-targeting-fanout.md#controlling-fanout).
+`multi` [fanout](https://planetscale.com/docs/neki/shard-targeting-fanout.md#controlling-fanout).
 `Collapse` indicates where Neki turns those responses into one result.
 
 An aggregate without a usable shard-key predicate scatters across the group:
@@ -173,7 +173,7 @@ Each shard computes a partial count, and the router-side `Aggregate` adds the pa
 
 As a shard group grows, the number of shards used by scatter queries increases.
 This may be acceptable for occasional full-group aggregates and other whole-table operations, but scatter-gather execution of frequent queries should be avoided because it increases utilization of database and network resources.
-If you expect a query to be single-shard but are seeing `Route [Scatter]` in the query plan, check for a suitable shard-key predicate or consider using a [global secondary index (GSI) lookup](reference-tables-and-gsis.md#gsi-mapping).
+If you expect a query to be single-shard but are seeing `Route [Scatter]` in the query plan, check for a suitable shard-key predicate or consider using a [global secondary index (GSI) lookup](https://planetscale.com/docs/neki/reference-tables-and-gsis.md#gsi-mapping).
 
 ### `EXPLAIN (NEKI_PG_PLAN)`
 
@@ -198,7 +198,7 @@ Each route shows its shard plans under one of two labels. `All shard plans`
 listed shard runs the route's SQL. `Any one shard plan` (`"Any"`) means that
 the route runs on one of the listed shards, selected arbitrarily.
 
-A scatter read from `users` in the [example schema](example-schema.md) shows the plan of both shards in the group:
+A scatter read from `users` in the [example schema](https://planetscale.com/docs/neki/example-schema.md) shows the plan of both shards in the group:
 
 ```sql theme={null}
 EXPLAIN (NEKI_PG_PLAN)
@@ -292,7 +292,7 @@ Execution Time: 0.239 ms
 > under `ANALYZE` changes rows on every shard that the plan reaches, and the
 > changes stay.
 
-[EXPLAIN output reference](explain-reference.md) shows the complete
+[EXPLAIN output reference](https://planetscale.com/docs/neki/explain-reference.md) shows the complete
 `NEKI_PLAN` and `NEKI_PG_PLAN` output of a query with router operations, in
 every format.
 
@@ -328,9 +328,9 @@ Postgres writes statistics when `ANALYZE`, autoanalyze, `VACUUM`, or
 runs. Until then, the planner uses default estimates. `ANALYZE` and `VACUUM`
 sent through a router run on every shard.
 
-[Data topology](data-topology.md#choosing-a-shard-index) recommends a
+[Data topology](https://planetscale.com/docs/neki/data-topology.md#choosing-a-shard-index) recommends a
 Postgres index on the shard-key columns, and [Best
-practices](best-practices.md) recommends that you keep their statistics
+practices](https://planetscale.com/docs/neki/best-practices.md) recommends that you keep their statistics
 current. Indexes and current statistics give the planner the estimates it needs
 to find a good plan. An index also adds its columns to the set whose statistics
 Neki collects.
@@ -343,8 +343,8 @@ work with. Repeat the two steps to keep your queries fast:
 2. Change the indexes or refresh the statistics, then inspect the plan again.
 
 Insights helps in this process. Use [Query
-Insights](monitoring/query-insights.md) to observe the workload, and [schema
-recommendations](monitoring/schema-recommendations.md) for DDL suggestions
+Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) to observe the workload, and [schema
+recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md) for DDL suggestions
 based on production telemetry.
 
 ## Statement types
@@ -361,7 +361,7 @@ complete joins that cannot be pushed into the shards.
 
 Neki plans a statement the same way inside and outside an explicit transaction. The
 transaction limits only how the plan runs, which
-[Transactions](transactions.md) describes.
+[Transactions](https://planetscale.com/docs/neki/transactions.md) describes.
 
 The statement types in the following sections have their own planning.
 
@@ -372,7 +372,7 @@ sent through a router runs on every managed shard.
 Multi-shard DDL is not atomic across the deployment. A failure can leave the
 change applied on some shards but not others.
 
-Managed [schema-change workflows](schema-changes.md) add
+Managed [schema-change workflows](https://planetscale.com/docs/neki/schema-changes.md) add
 readiness checks and coordinate completion through online or direct execution
 paths.
 

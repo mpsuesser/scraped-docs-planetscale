@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows
 title: "Maintenance Windows"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ PlanetScale Postgres databases previously supported weekly maintenance windows, 
 
 To ensure better connection stability for customers, we've moved to optional updates and have temporarily disabled maintenance windows for Postgres databases.
 
-You can now [manually update your cluster](updates.md) to access new extensions and other software updates.
+You can now [manually update your cluster](https://planetscale.com/docs/postgres/cluster-configuration/updates.md) to access new extensions and other software updates.
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

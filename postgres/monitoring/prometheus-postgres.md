@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-postgres
 title: "Prometheus Postgres"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ If you are using managed Prometheus via AWS, GCP or another provider, you will h
 
 ## Getting Started
 
-First, provision a new PlanetScale [Service token](../../api/reference/service-tokens.md) in your Organization settings. Make sure to save the ID and token, as they will not be visible after they've been generated.
+First, provision a new PlanetScale [Service token](https://planetscale.com/docs/api/reference/service-tokens.md) in your Organization settings. Make sure to save the ID and token, as they will not be visible after they've been generated.
 
 When that's created, grant the token `read_metrics_endpoints` permissions and click "Save permissions". Your token should have the necessary permissions to access Postgres metrics endpoints.
 
@@ -71,7 +71,7 @@ Now, if you go to your list of targets you should see each Postgres branch as an
 
 ## Querying Prometheus
 
-Now that you're collecting metrics for your Postgres branches, the [reference guide](prometheus-metrics-postgres.md) has a list of everything that PlanetScale exports.
+Now that you're collecting metrics for your Postgres branches, the [reference guide](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md) has a list of everything that PlanetScale exports.
 
 Here are some example queries you can run:
 
@@ -123,9 +123,9 @@ If you keep this Prometheus instance running, it will collect metrics every 30 s
 
 For more information, see:
 
-* [Postgres Metrics reference](prometheus-metrics-postgres.md) for a complete list of metrics PlanetScale exposes
-* [Sending metrics to Datadog](prometheus-metrics-datadog-postgres.md) tutorial for using the Datadog agent to collect these metrics
-* [Grafana dashboards](../../vitess/tutorials/prometheus-metrics-grafana.md) for visualizing these metrics (instructions applicable for Postgres metrics along with our [Postgres dashboard template](https://github.com/planetscale/grafana-dashboard/blob/main/postgres.json))
+* [Postgres Metrics reference](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md) for a complete list of metrics PlanetScale exposes
+* [Sending metrics to Datadog](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-datadog-postgres.md) tutorial for using the Datadog agent to collect these metrics
+* [Grafana dashboards](https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-grafana.md) for visualizing these metrics (instructions applicable for Postgres metrics along with our [Postgres dashboard template](https://github.com/planetscale/grafana-dashboard/blob/main/postgres.json))
 
 ## Troubleshooting
 
@@ -143,7 +143,7 @@ If specific metrics aren't appearing:
 
 1. Confirm the branch is active and healthy
 2. Check the scrape interval - some metrics may take time to appear
-3. Verify the metric names against our [metrics reference](prometheus-metrics-postgres.md)
+3. Verify the metric names against our [metrics reference](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md)
 
 ## Need help?
 

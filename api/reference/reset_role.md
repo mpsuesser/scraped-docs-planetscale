@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_role
 title: "Reset_role"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,9 +30,9 @@ A service token or OAuth token must have at least one of the following access or
 > [!NOTE]
 >
 > This rotates the credentials of a **Postgres role** created with [Create role
-> credentials](create_role.md) — it returns a new `password`.
+> credentials](https://planetscale.com/docs/api/reference/create_role.md) — it returns a new `password`.
 > Vitess/MySQL branch passwords have no in-place secret rotation; [create a new
-> password](create_password.md) instead.
+> password](https://planetscale.com/docs/api/reference/create_password.md) instead.
 
 > [!WARNING]
 >

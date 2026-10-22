@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-newrelic
 title: "Prometheus Metrics Newrelic"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ The default configuration we will create will send all PlanetScale metrics to Ne
 In order to proceed, you'll need:
 
 * A [New Relic API Key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/), make sure it is the `Ingest - License` type.
-* PlanetScale [Service token](../../api/reference/service-tokens.md) with `read_metrics_endpoints` permissions.
+* PlanetScale [Service token](https://planetscale.com/docs/api/reference/service-tokens.md) with `read_metrics_endpoints` permissions.
 
 ## Prometheus Installation
 
@@ -74,7 +74,7 @@ WantedBy=multi-user.target
 
 ## Configure Prometheus
 
-Now that we've got Prometheus installed and a unit file present, let's configure Prometheus. We will be borrowing some of our configuration from the [Prometheus Guide](../integrations/prometheus.md), and adding some New Relic specific configuration. Edit `/opt/prometheus/prometheus.yml` in your editor of choice so that it contains this, making sure to replace your org name, service token information, and New Relic API key:
+Now that we've got Prometheus installed and a unit file present, let's configure Prometheus. We will be borrowing some of our configuration from the [Prometheus Guide](https://planetscale.com/docs/vitess/integrations/prometheus.md), and adding some New Relic specific configuration. Edit `/opt/prometheus/prometheus.yml` in your editor of choice so that it contains this, making sure to replace your org name, service token information, and New Relic API key:
 
 ```yaml theme={null}
 global:
@@ -181,7 +181,7 @@ remote_write:
     action: keep
 ```
 
-If you replace your `remote_write` block with what's above, Prometheus will only forward the timeseries that match the `planetscale_pods_*` name. For a full list of metrics, see our [Metric List](../integrations/prometheus-metrics.md).
+If you replace your `remote_write` block with what's above, Prometheus will only forward the timeseries that match the `planetscale_pods_*` name. For a full list of metrics, see our [Metric List](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md).
 
 ## What's Next?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-10-15T11:57:20.597Z
-current_date: 2026-10-15T11:57:20.597Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -83,7 +83,7 @@ inactive cache bytes.
 Increasing replication lag means replica reads may return older data. If no
 replica satisfies the router's configured health and lag requirements, a query
 targeted to replicas fails instead of running on a primary. See [Choosing where
-reads run](../shard-targeting-fanout.md#choosing-where-reads-run).
+reads run](https://planetscale.com/docs/neki/shard-targeting-fanout.md#choosing-where-reads-run).
 
 When an out-of-memory event occurs in the selected period, the page also shows
 a warning banner. Correlate the event with memory, connections, and query
@@ -146,15 +146,15 @@ There is no single healthy value for every Neki workload. Establish a baseline
 for each branch and investigate changes from its normal behavior.
 
 * If one shard has higher CPU, IOPS, or storage use than the others, review its
-  routed workload and [data topology](../data-topology.md).
+  routed workload and [data topology](https://planetscale.com/docs/neki/data-topology.md).
 * If router latency rises while one shard is saturated, use [Query
-  Insights](query-insights.md) to find queries that reach that
+  Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) to find queries that reach that
   shard or make many shard calls.
 * If replica lag increases, compare replica CPU, IOPS, and connection activity
   on **Shards** with WAL activity on **Storage**.
 * If multiple instances approach their resource limits, review [cluster
-  sizing](../cluster-configuration/cluster-sizing.md).
-* If a graph changes suddenly, use its time range when searching [Logs](logs.md)
+  sizing](https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing.md).
+* If a graph changes suddenly, use its time range when searching [Logs](https://planetscale.com/docs/neki/monitoring/logs.md)
   and Query Insights.
 
 ## Need help?

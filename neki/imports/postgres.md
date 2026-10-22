@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/imports/postgres
 title: "Postgres"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ and remain stopped until import validation and cutover are complete.
 > Restore into an unsharded Neki database. Although Neki supports some
 > sharded and reference-table `COPY FROM STDIN` operations, `pg_restore` is not
 > a topology-aware sharded import workflow. See [COPY
-> limits](../platform-preview-limitations.md#copy-limits).
+> limits](https://planetscale.com/docs/neki/platform-preview-limitations.md#copy-limits).
 
 ## Assess the source
 
@@ -75,7 +75,7 @@ volume so that the maintenance window includes more than data transfer.
    connections.
 4. Complete any required profile-level extension enablement and decide whether
    `pg_restore` or a separate administrative step will install each extension's
-   database objects. See [Postgres extensions](../extensions.md).
+   database objects. See [Postgres extensions](https://planetscale.com/docs/neki/extensions.md).
 5. Confirm that the target is empty and that no application is writing to it.
 
 ## Stop writes and create the dump
@@ -157,13 +157,13 @@ the application to the unchanged source. Writes accepted by Neki after cutover
 are not copied back automatically. Decide before cutover whether those writes
 can be discarded or require a separate reconciliation procedure.
 
-See [Migration troubleshooting](troubleshooting.md) for common dump,
+See [Migration troubleshooting](https://planetscale.com/docs/neki/imports/troubleshooting.md) for common dump,
 restore, and validation failures.
 
 > [!NOTE]
 >
 > An imported database can stay unsharded. To shard tables that already have
-> rows, see [Data migration](../data-migration.md#reshard-existing-tables).
+> rows, see [Data migration](https://planetscale.com/docs/neki/data-migration.md#reshard-existing-tables).
 
 ## Need help?
 

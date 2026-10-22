@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb
 title: "Postgres Migrate Pgcopydb"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 [pgcopydb](https://github.com/planetscale/pgcopydb) is a tool that automates migrating data between two running PostgreSQL servers. PlanetScale maintains a fork that supports PostgreSQL 17 and 18, improved filtering, resilient retry, and improved CDC support. This guide uses PlanetScale's fork throughout.
 
-PlanetScale also provides [helper scripts](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-helpers) that automate the setup, monitoring, cutover, and cleanup of the migration process. PlanetScale has used pgcopydb and these scripts to migrate multi-terabyte databases from live customer environments, with speeds as fast as 2 TB per hour using [Metal](../../metal.md).
+PlanetScale also provides [helper scripts](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-helpers) that automate the setup, monitoring, cutover, and cleanup of the migration process. PlanetScale has used pgcopydb and these scripts to migrate multi-terabyte databases from live customer environments, with speeds as fast as 2 TB per hour using [Metal](https://planetscale.com/docs/metal.md).
 
 > [!NOTE]
 >
@@ -326,7 +326,7 @@ Once the user is created, update the `PGCOPYDB_SOURCE_PGURI` in your `~/.env` fi
 
 For CDC migrations using `--follow`, logical replication must be enabled on the source. How to enable it depends on your platform:
 
-* **PlanetScale Postgres:** Configure `wal_level = logical` and the required replication parameters in **Clusters > Parameters**. Connect with a role that has replication permissions and access to the tables being migrated. See [Logical replication and CDC](../integrations/logical-cdc.md) for configuration and role setup.
+* **PlanetScale Postgres:** Configure `wal_level = logical` and the required replication parameters in **Clusters > Parameters**. Connect with a role that has replication permissions and access to the tables being migrated. See [Logical replication and CDC](https://planetscale.com/docs/postgres/integrations/logical-cdc.md) for configuration and role setup.
 * **Amazon RDS / Aurora:** Set `rds.logical_replication = 1` in the parameter group and reboot the instance.
 * **Google Cloud SQL:** Set the `cloudsql.logical_decoding` database flag to `on` and restart the instance.
 * **Google AlloyDB:** Set `alloydb.logical_decoding = on` and restart the instance.
@@ -368,13 +368,13 @@ REVOKE <owner_role> FROM migration_user;
 
 ## 3. Prepare your PlanetScale database
 
-Create a new database in the [PlanetScale dashboard](https://app.planetscale.com/new) or using the [PlanetScale CLI](../../cli.md).
+Create a new database in the [PlanetScale dashboard](https://app.planetscale.com/new) or using the [PlanetScale CLI](https://planetscale.com/docs/cli.md).
 
 When configuring the database:
 
 * Select the correct **cloud region**. You typically want to use the same region as your source database and application infrastructure.
 * Choose **Postgres** as the database type.
-* Choose the best **storage option** for your needs. For high-performance, low-latency I/O, use [PlanetScale Metal](../../metal.md). For more flexible storage options, choose "Elastic Block Storage" (AWS), "Persistent Disk" (GCP), or "Azure Managed Disks" (Azure).
+* Choose the best **storage option** for your needs. For high-performance, low-latency I/O, use [PlanetScale Metal](https://planetscale.com/docs/metal.md). For more flexible storage options, choose "Elastic Block Storage" (AWS), "Persistent Disk" (GCP), or "Azure Managed Disks" (Azure).
 
 ### Configure disk size
 
@@ -385,11 +385,11 @@ Set your disk size to at least **150%** of your source database size. For exampl
 
 ### Enable extensions
 
-Review the extensions installed on your source database and compare them against the [PlanetScale supported extensions](../extensions.md) list. Any extensions your application depends on should be enabled on PlanetScale before running the migration. Some extensions require enabling through the PlanetScale dashboard and may need a cluster restart. See the [extensions documentation](../extensions.md#configuring-extensions-in-the-dashboard) for details.
+Review the extensions installed on your source database and compare them against the [PlanetScale supported extensions](https://planetscale.com/docs/postgres/extensions.md) list. Any extensions your application depends on should be enabled on PlanetScale before running the migration. Some extensions require enabling through the PlanetScale dashboard and may need a cluster restart. See the [extensions documentation](https://planetscale.com/docs/postgres/extensions.md#configuring-extensions-in-the-dashboard) for details.
 
 ### Use the Default role
 
-Use the [**Default role**](../connecting/roles.md#default-role) on your PlanetScale database for the migration. This role has the necessary permissions to create schemas, tables, indexes, and manage replication. You can find the Default role credentials by navigating to your database in the [PlanetScale dashboard](https://app.planetscale.com) and clicking **Connect**.
+Use the [**Default role**](https://planetscale.com/docs/postgres/connecting/roles.md#default-role) on your PlanetScale database for the migration. This role has the necessary permissions to create schemas, tables, indexes, and manage replication. You can find the Default role credentials by navigating to your database in the [PlanetScale dashboard](https://app.planetscale.com) and clicking **Connect**.
 
 Copy the connection credentials into the `PGCOPYDB_TARGET_PGURI` in your `~/.env` file.
 
@@ -450,7 +450,7 @@ The `~/filters.ini` file controls which schemas, tables, extensions, and event t
 >
 > Do not place comments inside sections. pgcopydb treats `#` characters as literal object names. Place all comments before the first section header.
 
-Any extensions not supported by PlanetScale should be added to the `[exclude-extension]` section. If unsupported extensions are not excluded, the migration may fail when trying to create those objects on the target. Check the [PlanetScale extensions documentation](../extensions.md) to verify which extensions are supported.
+Any extensions not supported by PlanetScale should be added to the `[exclude-extension]` section. If unsupported extensions are not excluded, the migration may fail when trying to create those objects on the target. Check the [PlanetScale extensions documentation](https://planetscale.com/docs/postgres/extensions.md) to verify which extensions are supported.
 
 The following are starting-point filters for common source providers. Copy the one that matches your source and adjust as needed:
 
@@ -593,15 +593,15 @@ When the apply backlog gap drops below 100 MB, the script shows **"CDC IS CAUGHT
 
 While CDC is running and caught up, prepare your PlanetScale database for production traffic before performing the cutover.
 
-**Create application roles.** pgcopydb does not migrate roles from the source database. The Default role used for migration has elevated privileges and should not be used by your application. Create dedicated roles with appropriate permissions for your application's needs using PlanetScale's built-in role management. See [Managing roles](../connecting/roles.md) for details.
+**Create application roles.** pgcopydb does not migrate roles from the source database. The Default role used for migration has elevated privileges and should not be used by your application. Create dedicated roles with appropriate permissions for your application's needs using PlanetScale's built-in role management. See [Managing roles](https://planetscale.com/docs/postgres/connecting/roles.md) for details.
 
 **Confirm application connectivity.** Verify that your application can connect to the PlanetScale database using the new role credentials. Test read queries to confirm connectivity, but do not write to the target while CDC is still replicating.
 
-**Configure observability.** Set up monitoring for your PlanetScale database so you have visibility from the moment you cut over. See [Prometheus integration](../monitoring/prometheus-postgres.md) and [Metrics](../monitoring/metrics.md) for available options.
+**Configure observability.** Set up monitoring for your PlanetScale database so you have visibility from the moment you cut over. See [Prometheus integration](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) and [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) for available options.
 
 **Prepare connection strings.** Have your new PlanetScale connection strings ready to deploy in your application configuration. If your application uses environment variables or a secrets manager, stage the new values so the switch can happen quickly.
 
-**Configure connection pooling if needed.** If your application requires dedicated connection pooling, set up [PgBouncer](../connecting/pgbouncer.md) ahead of the cutover.
+**Configure connection pooling if needed.** If your application requires dedicated connection pooling, set up [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) ahead of the cutover.
 
 ## 8. Cutover
 
@@ -678,7 +678,7 @@ You should also:
   DROP USER IF EXISTS migration_user;
   ```
 * Decrease `max_worker_processes` on the PlanetScale database back to its default value.
-* Run `VACUUM ANALYZE` on the target to reclaim any bloat from the import. You can also use [pg\_squeeze](../extensions/pg_squeeze.md) for online table compaction.
+* Run `VACUUM ANALYZE` on the target to reclaim any bloat from the import. You can also use [pg\_squeeze](https://planetscale.com/docs/postgres/extensions/pg_squeeze.md) for online table compaction.
 
 ## Resuming after interruption
 
@@ -756,9 +756,9 @@ If the resume did not recover correctly, run `~/target-clean.sh` and `~/drop-rep
 
 After your migration is complete:
 
-* Review [Query Insights](../monitoring/query-insights.md) to monitor query performance on PlanetScale.
-* Set up [Metrics](../monitoring/metrics.md) and alerting for your new database.
-* Review [Schema recommendations](../monitoring/schema-recommendations.md) for optimization suggestions.
+* Review [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to monitor query performance on PlanetScale.
+* Set up [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) and alerting for your new database.
+* Review [Schema recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) for optimization suggestions.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -67,7 +67,7 @@ in that rate. Network-attached storage SKUs bill network-attached storage separa
 If four shards share one profile, you pay four times that profile's highly
 available SKU rate.
 
-See [Cluster sizing](cluster-configuration/cluster-sizing.md).
+See [Cluster sizing](https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing.md).
 
 ## Additional replicas
 
@@ -81,9 +81,9 @@ additional replica compute = additional-replica rate × extra replicas × shards
 
 Each extra network-attached storage replica also gets its own network-attached disk. Those volumes do
 not receive the 10 GB included allowance; you pay for the full allocated size.
-See [Database replicas](replicas.md).
+See [Database replicas](https://planetscale.com/docs/neki/replicas.md).
 
-[Read-only replicas](read-only-replicas.md) also use the additional-replica
+[Read-only replicas](https://planetscale.com/docs/neki/read-only-replicas.md) also use the additional-replica
 rate. The two included replicas do not cover them, so every read-only replica
 is billed:
 
@@ -134,7 +134,7 @@ changes are prorated to the millisecond.
 
 PlanetScale offers two storage options with different pricing models:
 
-| [PlanetScale Metal](../metal.md) | [Network-attached storage](cluster-configuration.md#configure-profile-storage) |
+| [PlanetScale Metal](https://planetscale.com/docs/metal.md) | [Network-attached storage](https://planetscale.com/docs/neki/cluster-configuration.md#configure-profile-storage) |
 | - | - |
 | **All-inclusive pricing** | **Configuration-based pricing** |
 | Storage is included in the cluster SKU. High-performance NVMe SSDs are attached directly to each server. Choose a larger cluster size to get more storage. Best for high-performance applications that need predictable costs. | The first 10 GB is included on each primary and included replica volume. Additional storage is billed separately from compute. Add storage without changing the cluster size, with optional automatic disk scaling. Best for applications with variable storage needs or cost optimization. |
@@ -147,7 +147,7 @@ storage, choose a larger Metal size.
 On AWS, the smaller Metal sizes (**M-10** through **M-160**) let you select the
 storage capacity separately from vCPU and memory. Each storage option has its
 own SKU rate. To get more local storage on these sizes, choose a larger storage
-option. See [Metal options on AWS](../plans/planetscale-skus.md#metal-options-on-aws).
+option. See [Metal options on AWS](https://planetscale.com/docs/plans/planetscale-skus.md#metal-options-on-aws).
 
 ### Network-attached storage
 
@@ -215,7 +215,7 @@ Compressed backup data and WAL above the included amount are billed at
 
 A protected backup that outlives the default two-day window continues to
 contribute storage until you turn protection off or delete it. See
-[Back up and restore](backups.md).
+[Back up and restore](https://planetscale.com/docs/neki/backups.md).
 
 ## Network transfer
 

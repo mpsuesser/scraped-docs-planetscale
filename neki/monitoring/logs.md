@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-10-01T18:05:48.418Z
-current_date: 2026-10-01T18:05:48.418Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -139,8 +139,8 @@ a focused set of events.
 When investigating a performance or availability problem:
 
 1. Match the Logs time range to the affected period in
-   [Metrics](metrics.md) or
-   [Query Insights](query-insights.md).
+   [Metrics](https://planetscale.com/docs/neki/monitoring/metrics.md) or
+   [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md).
 2. Select the affected shards and servers.
 3. Start with `ERROR` and `WARNING`, then include the other levels for more
    context.

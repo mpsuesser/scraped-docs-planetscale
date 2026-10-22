@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 The PlanetScale Discovery Tool analyzes your existing MySQL-compatible database and cloud infrastructure to help plan your migration to PlanetScale Vitess. It collects metadata about your database configuration, schema structure, performance characteristics, replication topology, security settings, feature usage, and cloud resources. It never reads or stores actual table data.
 
-The Discovery CLI also supports PostgreSQL discovery. See the [Postgres Discovery Tool guide](../../postgres/imports/discovery-tool.md) for PlanetScale Postgres-specific details.
+The Discovery CLI also supports PostgreSQL discovery. See the [Postgres Discovery Tool guide](https://planetscale.com/docs/postgres/imports/discovery-tool.md) for PlanetScale Postgres-specific details.
 
 ![Where ps-discovery looks: cloud and vendor discovery, database discovery, and workload discovery](https://mintcdn.com/planetscale-2/YxnMMno34vnTE3Ub/images/imports/discovery-tool-topology.png?fit=max\&auto=format\&n=YxnMMno34vnTE3Ub\&q=85\&s=f2efb9d5a29c396484b0c677b60e66bf)
 
@@ -378,15 +378,15 @@ The discovery tool runs entirely on your infrastructure. No data is sent to exte
 
 Once you have your discovery report, [share it with us](https://planetscale.com/contact) if you want tailored migration guidance. You can also follow one of our migration guides on your own:
 
-> **[Database imports](database-imports.md)**
+> **[Database imports](https://planetscale.com/docs/vitess/imports/database-imports.md)**
 
-> **[Migrate from AWS RDS](aws-rds-migration-guide.md)**
+> **[Migrate from AWS RDS](https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide.md)**
 
-> **[Migrate from Amazon Aurora](amazon-aurora-migration-guide.md)**
+> **[Migrate from Amazon Aurora](https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide.md)**
 
-> **[Migrate from Google Cloud SQL](gcp-cloudsql-migration-guide.md)**
+> **[Migrate from Google Cloud SQL](https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide.md)**
 
-> **[Migrate from Azure](azure-database-for-mysql-migration-guide.md)**
+> **[Migrate from Azure](https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide.md)**
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma
 title: "Using Planetscale With Prisma"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -64,7 +64,7 @@ Give your password a name or leave the default
 
 **Step 2**
 
-Select a [password role](../security/password-roles.md). We recommend `Admin` for your default password.
+Select a [password role](https://planetscale.com/docs/vitess/security/password-roles.md). We recommend `Admin` for your default password.
 
 **Step 3**
 
@@ -80,7 +80,7 @@ Do not navigate away from this page. The next section covers where to paste thes
 
 ## Connect to PlanetScale in your application
 
-Next, add your database credentials to your Prisma application. If you are migrating an existing database to PlanetScale, you can test the PlanetScale/Prisma integration locally or in staging first. Once you're ready to migrate the database from your existing provider, refer to our no downtime [migration guides](../imports/database-imports.md).
+Next, add your database credentials to your Prisma application. If you are migrating an existing database to PlanetScale, you can test the PlanetScale/Prisma integration locally or in staging first. Once you're ready to migrate the database from your existing provider, refer to our no downtime [migration guides](https://planetscale.com/docs/vitess/imports/database-imports.md).
 
 To connect PlanetScale to your Prisma application:
 
@@ -204,7 +204,7 @@ Your PlanetScale database schema now matches the Prisma schema you configured in
 
 ## Using the PlanetScale serverless driver with Prisma
 
-The [PlanetScale serverless driver](planetscale-serverless-driver.md) allows you to execute queries over HTTP. You can use it with Prisma ORM via the `@prisma/adapter-planetscale` driver adapter.
+The [PlanetScale serverless driver](https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver.md) allows you to execute queries over HTTP. You can use it with Prisma ORM via the `@prisma/adapter-planetscale` driver adapter.
 
 **Step 1**
 
@@ -279,7 +279,7 @@ const prisma = new PrismaClient({ adapter })
 
 ## Sharding with PlanetScale and Prisma
 
-If you are using a [sharded database](../sharding.md) with PlanetScale, Prisma supports defining shard keys in your Prisma schema. This is currently available as a [Preview](https://www.prisma.io/docs/orm/more/releases#preview) feature in Prisma as of [v6.10.0](https://github.com/prisma/prisma/releases/tag/6.10.0).
+If you are using a [sharded database](https://planetscale.com/docs/vitess/sharding.md) with PlanetScale, Prisma supports defining shard keys in your Prisma schema. This is currently available as a [Preview](https://www.prisma.io/docs/orm/more/releases#preview) feature in Prisma as of [v6.10.0](https://github.com/prisma/prisma/releases/tag/6.10.0).
 
 To use shard key attributes, specify the `shardKeys` Preview feature on your Prisma generator in `schema.prisma`:
 
@@ -307,12 +307,12 @@ model User {
 
 ## Next steps
 
-* Make safe schema changes with [branching and deploy requests](../schema-changes/branching.md)
-* Explore [PlanetScale Insights](../monitoring/query-insights.md) for performance monitoring
-* Learn how to [target your replicas](../scaling/replicas.md)
-* Explore our [migration guides](../imports/database-imports.md)
-* Enable [PlanetScale vectors](../vectors.md)
-* Implement [read replicas](../scaling/replicas.md) for scale
+* Make safe schema changes with [branching and deploy requests](https://planetscale.com/docs/vitess/schema-changes/branching.md)
+* Explore [PlanetScale Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md) for performance monitoring
+* Learn how to [target your replicas](https://planetscale.com/docs/vitess/scaling/replicas.md)
+* Explore our [migration guides](https://planetscale.com/docs/vitess/imports/database-imports.md)
+* Enable [PlanetScale vectors](https://planetscale.com/docs/vitess/vectors.md)
+* Implement [read replicas](https://planetscale.com/docs/vitess/scaling/replicas.md) for scale
 * Join the [PlanetScale Discord](https://pscale.link/community) community
 
 ## Additional resources
@@ -323,7 +323,7 @@ model User {
 
 > **[PlanetScale Support](https://planetscale.com/contact?initial=support)**
 
-> **[Foreign key constraints support](../foreign-key-constraints.md)**
+> **[Foreign key constraints support](https://planetscale.com/docs/vitess/foreign-key-constraints.md)**
 
 ## Need help?
 

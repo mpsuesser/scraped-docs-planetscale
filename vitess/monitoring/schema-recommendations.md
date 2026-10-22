@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 Schema recommendations uses query-level telemetry to generate tailored recommendations in the form of DDL statements that can be applied directly to a database branch and then deployed to production.
 
-Schema recommendations are also available through the [PlanetScale MCP server](../../mcp-server.md). AI coding agents can evaluate and implement recommendations on a recurring schedule; see [automated database optimization](../../self-improving-database.md).
+Schema recommendations are also available through the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md). AI coding agents can evaluate and implement recommendations on a recurring schedule; see [automated database optimization](https://planetscale.com/docs/self-improving-database.md).
 
 > [!NOTE]
 >
@@ -60,17 +60,17 @@ After applying the recommendation, click on the branch name to see the recommend
 
 Once ready, you can use the “**Create deploy request**” button on the branch page to open a deploy request to merge the changes with your base branch.
 
-Once it is reviewed and ready to be deployed, you can deploy the changes to production. If you realize you have made a mistake, you can still [revert the schema change](../schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
+Once it is reviewed and ready to be deployed, you can deploy the changes to production. If you realize you have made a mistake, you can still [revert the schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
 
 #### Applying a recommendation directly in your application or ORM code
 
 When directly applying through your application or ORM code, you can take the recommended change from PlanetScale and make the equivalent change in your code. The exact DDL provided in each recommendation will help you know what change to make. The exact change will depend on how you manage your schema in your application code.
 
-Then, once you have made the change, you will run the same migration process you would run for any other schema changes with PlanetScale. We recommend doing this inside a development branch with [safe migrations](../schema-changes/safe-migrations.md). This will allow you to do your own testing of the change inside the isolated branch. You can create a connection string for this branch using the “**Connect**” button.
+Then, once you have made the change, you will run the same migration process you would run for any other schema changes with PlanetScale. We recommend doing this inside a development branch with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md). This will allow you to do your own testing of the change inside the isolated branch. You can create a connection string for this branch using the “**Connect**” button.
 
 Once ready, you can use the “**Create deploy request**” button on the branch page to open a deploy request to merge the changes with your base branch.
 
-Once it is reviewed and ready to be deployed, you can deploy the changes to production. If you realize you have made a mistake, you can still [revert the schema change](../schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
+Once it is reviewed and ready to be deployed, you can deploy the changes to production. If you realize you have made a mistake, you can still [revert the schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
 
 ### Closing a recommendation
 
@@ -117,7 +117,7 @@ Our index recommendation engine doesn’t yet support all queries types, and som
 * Indexes do require both more memory and storage. Evaluating these additional costs against your application’s improvement in read performance is always a good idea. This is also why we offer recommendations to [remove redundant indexes](#removing-redundant-indexes).
 * Indexing is a complicated topic and depends on many factors, such as the distribution of values in your database and the particular queries your database receives. Every effort is made to ensure our suggestions improve performance, but verifying and measuring is important.
 * If you’re unsure about the impact of adding an index, we recommend benchmarking the index in a non-production environment. If you can simulate production-level traffic, you can do this inside a development branch.
-* If you decide to deploy a suggested index to production, it is a good idea to use Insights to verify that your index has the desired effect on relevant queries. If you realize it is not the desired effect, you can still [revert the schema change](../schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
+* If you decide to deploy a suggested index to production, it is a good idea to use Insights to verify that your index has the desired effect on relevant queries. If you realize it is not the desired effect, you can still [revert the schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes.
 
 ### Removing redundant indexes
 
@@ -197,9 +197,9 @@ Additionally, Insights scans queries to parse joins and correlated subqueries to
 
 Dropping unused tables can help clean up data that is no longer needed and reduce storage. If the table is large, it can also decrease backup and restore time.
 
-If you are unsure if a table should be retained but decide to drop the table, make sure to [create a manual backup](../backups.md#create-manual-backups) of your database before you deploy the change.
+If you are unsure if a table should be retained but decide to drop the table, make sure to [create a manual backup](https://planetscale.com/docs/vitess/backups.md#create-manual-backups) of your database before you deploy the change.
 
-If you realize after dropping the table that it is needed, you can still [revert the schema change](../schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes with no data loss. If you are outside the 30-minute period, you must [restore and recover the data inside a database backup branch](../backups.md#restore-from-a-backup).
+If you realize after dropping the table that it is needed, you can still [revert the schema change](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md#revert-a-schema-change) in the deploy request for up to 30 minutes with no data loss. If you are outside the 30-minute period, you must [restore and recover the data inside a database backup branch](https://planetscale.com/docs/vitess/backups.md#restore-from-a-backup).
 
 If you determine that the table should be retained, close the recommendation, preventing the suggestion from being remade.
 

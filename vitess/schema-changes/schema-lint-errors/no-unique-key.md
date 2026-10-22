@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/no-unique-key
 title: "No Unique Key"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -52,8 +52,8 @@ If your only candidate key uses a `TEXT`, `BLOB`, or prefix index, use a surroga
 
 ## Related docs
 
-* [Changing primary and unique keys](../onlineddl-change-unique-keys.md)
-* [How online schema change tools work](../how-online-schema-change-tools-work.md)
+* [Changing primary and unique keys](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md)
+* [How online schema change tools work](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md)
 
 ## Need help?
 

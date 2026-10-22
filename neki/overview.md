@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/overview
 title: "Overview"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -30,18 +30,18 @@ Let's take a closer look at each component.
 ## Routers
 
 A router is the Neki service that accepts Postgres connections and decides which shard or shards should run each statement.
-It uses the [data topology](data-topology.md) and table definitions to build plans for and route incoming queries.
+It uses the [data topology](https://planetscale.com/docs/neki/data-topology.md) and table definitions to build plans for and route incoming queries.
 When a query touches multiple shards, the router can combine their results before returning one result to the client.
 
 Applications connect through the Postgres wire protocol, so they can continue to use standard Postgres clients and ORMs.
 
-See [Query planning](query-planning.md#how-a-statement-becomes-a-plan) for how Neki builds and reuses query plans.
+See [Query planning](https://planetscale.com/docs/neki/query-planning.md#how-a-statement-becomes-a-plan) for how Neki builds and reuses query plans.
 
 Routers are stateless, in that they are not responsible for durably storing information about the cluster, data topology, or database schema.
 The data topology and database schema are stored elsewhere, and locally cached and kept in sync on all routers.
 Because of this, routers can be easily scaled both vertically and horizontally to meet traffic demands.
 A single Neki cluster can have anywhere from one router to hundreds of routers.
-Learn more about how to manage routers in our [cluster configuration](cluster-configuration.md) documentation.
+Learn more about how to manage routers in our [cluster configuration](https://planetscale.com/docs/neki/cluster-configuration.md) documentation.
 
 There is no primary router and no leader election.
 Any router can serve any connection.
@@ -108,8 +108,8 @@ With `sync`, the primary normally waits for one replica to receive the write.
 The Replicator is the service that runs data-movement workflows.
 It reads changes out of the source Postgres instances and applies them to the targets while the deployment keeps serving traffic.
 It connects to Postgres directly rather than going through the routers.
-For example, both [Moving tables amongst shards and resharding](data-migration.md#what-a-migration-workflow-moves) use Replicator workflows.
-[Online schema changes](schema-changes.md#one-workflow-across-all-shards) use the same copy-and-stream process.
+For example, both [Moving tables amongst shards and resharding](https://planetscale.com/docs/neki/data-migration.md#what-a-migration-workflow-moves) use Replicator workflows.
+[Online schema changes](https://planetscale.com/docs/neki/schema-changes.md#one-workflow-across-all-shards) use the same copy-and-stream process.
 
 ### The topology service
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/tutorials/sharding-quick-start-guide
 title: "Sharding Quick Start Guide"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > Add a shard and route a new table with a data topology
 
-In [Database quickstart](planetscale-quick-start-guide.md) you
+In [Database quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md) you
 created a single-shard Neki database with `categories` and `products`. Those
 tables stay on the original shard while you add a second shard and create an
 `orders` table sharded by a `tenant_id` column.
@@ -22,12 +22,12 @@ tables stay on the original shard while you add a second shard and create an
 ## Prerequisites
 
 1. You will need [a PlanetScale account](https://auth.planetscale.com/sign-up)
-2. An administrator of your PlanetScale organization must [join the Neki Platform Preview](../../neki.md#availability-and-access).
+2. An administrator of your PlanetScale organization must [join the Neki Platform Preview](https://planetscale.com/docs/neki.md#availability-and-access).
 
 > [!NOTE]
 >
 > This quickstart configures the placement of an **empty** table. For a table that
-> already contains rows, plan a [data migration](../data-migration.md).
+> already contains rows, plan a [data migration](https://planetscale.com/docs/neki/data-migration.md).
 
 ## Add a shard
 
@@ -81,7 +81,7 @@ Go to **Clusters** > **Data topology** to view and edit the JSON document in the
 Alternatively, make the following changes with the PlanetScale CLI.
 
 A new Neki database starts with one unsharded shard group.
-That group is both the default and the [authoritative shard group](../data-topology.md#authoritative-shard-group).
+That group is both the default and the [authoritative shard group](https://planetscale.com/docs/neki/data-topology.md#authoritative-shard-group).
 
 ```bash theme={null}
 pscale branch data-topology get <DATABASE_NAME> main --format json
@@ -192,7 +192,7 @@ pscale branch data-topology ls <DATABASE_NAME> main
 `orders` should list under `orders_by_tenant`. `categories` and `products`
 should still resolve to `<SHARD_1>`.
 
-See [Data topology](../data-topology.md) for shard-index types, defaults, the
+See [Data topology](https://planetscale.com/docs/neki/data-topology.md) for shard-index types, defaults, the
 dashboard editor, and the SQL `__neki.set_data_topology` metafunction.
 
 ## Insert and check routing

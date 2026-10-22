@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-go-gorm-app
 title: "Connect Go Gorm App"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-22T18:21:49.469Z
+current_date: 2026-10-22T18:21:49.469Z
 ---
 
 > ## Documentation Index
@@ -59,7 +59,7 @@ cp .env.example .env
 
 Next, you need to set up your PlanetScale database and connect to it in the Go application.
 
-You can create a database in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](planetscale-quick-start-guide.md) if you prefer the dashboard.
+You can create a database in the [PlanetScale dashboard](https://app.planetscale.com) or from the PlanetScale CLI. This guide will use the CLI, but you can follow the database setup instructions in the [PlanetScale quickstart guide](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md) if you prefer the dashboard.
 
 **Step 1**
 
@@ -79,7 +79,7 @@ pscale database create <DATABASE_NAME> --region <REGION_SLUG>
 
 For `DATABASE_NAME`, you can use any name with lowercase, alphanumeric characters, or underscores. You can also use dashes, but we don't recommend them, as they may need to be escaped in some instances.
 
-For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions#available-regions) or leave it blank.
+For `REGION_SLUG`, choose a region closest to you from the [available regions](https://planetscale.com/docs/vitess/regions.md#available-regions) or leave it blank.
 
 That's it! Your database is ready to use. Next, let's connect it to the Go application and then add some data.
 
@@ -181,7 +181,7 @@ You can now see the products and categories:
 
 ### Foreign key constraints
 
-If you're using GORM in your Go application and [do not want to use foreign key constraints](../operating-without-foreign-key-constraints.md), you can turn them off with this line in the `main.go` file of the Go starter application:
+If you're using GORM in your Go application and [do not want to use foreign key constraints](https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints.md), you can turn them off with this line in the `main.go` file of the Go starter application:
 
 ```go theme={null}
 // ...
@@ -189,7 +189,7 @@ DisableForeignKeyConstraintWhenMigrating: true,
 // ...
 ```
 
-If you prefer to use foreign key constraints in your Go application, you can skip the previous step. However, you need to first enable [foreign key constraint](../foreign-key-constraints.md) support in your database settings page.
+If you prefer to use foreign key constraints in your Go application, you can skip the previous step. However, you need to first enable [foreign key constraint](https://planetscale.com/docs/vitess/foreign-key-constraints.md) support in your database settings page.
 
 ## Add data manually
 
@@ -197,7 +197,7 @@ If you want to continue to play around with adding data on the fly, you have a f
 
 * PlanetScale CLI shell
 * PlanetScale dashboard console
-* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](connect-mysql-gui.md))
+* Your favorite MySQL client (for a list of tested MySQL clients, review our article on [how to connect MySQL GUI applications](https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui.md))
 
 The first two options are covered below.
 
@@ -285,11 +285,11 @@ You can now refresh the [Go products page](http://localhost:8080/products) to se
 
 ## What's next?
 
-Once you're done with initial development, you can enable [safe migrations](../schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
+Once you're done with initial development, you can enable [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) on your `main` production branch to protect it against direct schema changes and enable zero-downtime schema migrations.
 
-When you're reading to make more schema changes, you'll [create a new branch](../schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll open a [deploy request](../schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
+When you're reading to make more schema changes, you'll [create a new branch](https://planetscale.com/docs/vitess/schema-changes/branching.md) off of your production branch. Branching your database creates an isolated copy of your production schema so that you can easily test schema changes in development. Once you're happy with the changes, you'll open a [deploy request](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). This will generate a diff showing the changes that will be deployed, making it easy for your team to review.
 
-Learn more about how PlanetScale allows you to make [non-blocking schema changes](../schema-changes.md) to your database tables without locking or causing downtime for production databases.
+Learn more about how PlanetScale allows you to make [non-blocking schema changes](https://planetscale.com/docs/vitess/schema-changes.md) to your database tables without locking or causing downtime for production databases.
 
 ## Need help?
 
