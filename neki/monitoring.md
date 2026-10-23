@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring
 title: "Monitoring"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-23T15:21:54.098Z
+current_date: 2026-10-23T15:21:54.098Z
 ---
 
 > ## Documentation Index
@@ -23,6 +23,7 @@ PlanetScale provides these complementary monitoring tools:
 | :- | :- |
 | [Metrics](https://planetscale.com/docs/neki/monitoring/metrics.md) | Track router traffic and latency, Postgres resource utilization, storage, WAL activity, replication lag, and instance health. |
 | [Logs](https://planetscale.com/docs/neki/monitoring/logs.md) | Search individual log events and filter them by shard, server, severity, and time. |
+| [Connections](https://planetscale.com/docs/neki/monitoring/connections.md) | See live client sessions on your routers, and cancel a query or terminate a session. |
 | [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) | Find expensive or frequently executed query patterns and inspect their shard-level cost. |
 | [Anomalies](https://planetscale.com/docs/neki/monitoring/anomalies.md) | Investigate periods when queries run slower than their established baseline. |
 | [Schema recommendations](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md) | Review automatic DDL suggestions from production query telemetry and schema. |

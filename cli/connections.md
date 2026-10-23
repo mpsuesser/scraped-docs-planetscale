@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/connections
 title: "Connections"
 description: ""
-access_date: 2026-08-03T19:45:59.089Z
-current_date: 2026-08-03T19:45:59.089Z
+access_date: 2026-10-23T15:21:54.098Z
+current_date: 2026-10-23T15:21:54.098Z
 ---
 
 ## Getting Started
@@ -12,16 +12,16 @@ Make sure to first [set up your PlanetScale developer environment](planetscale-e
 
 ## The connections command
 
-Inspect and manage live connection activity for a database branch. Use it to monitor active sessions in real time, find queries that are blocking others, and cancel a query or terminate a connection without opening a SQL shell. It works for both Postgres and Vitess branches; the command detects the branch’s engine and adapts what it shows and what actions are available.
+Inspect and manage live connection activity for a database branch. Use it to monitor active sessions in real time, find queries that are blocking others, and cancel a query or terminate a connection without opening a SQL shell. It works for Postgres, Vitess, and Neki branches; the command detects the branch’s engine and adapts what it shows and what actions are available.
 
 There are two ways to use it:
 
 - `top` launches an interactive terminal UI to watch activity live and act from the keyboard.
 - `show` and the action subcommands provide one-shot, scriptable output that works in pipelines and for AI agents. Pair `show --format json` with `kill` and `kill-transaction`.
 
-For a walkthrough of the interactive workflow, see [Inspect live Postgres connections](../postgres/monitoring/connections.md) for Postgres branches, or [Inspect live Vitess connections](../vitess/monitoring/connections.md) for Vitess branches.
+For a walkthrough of the interactive workflow, see [Inspect live Postgres connections](../postgres/monitoring/connections.md) for Postgres branches, [Inspect live Vitess connections](../vitess/monitoring/connections.md) for Vitess branches, or [Inspect live Neki connections](../neki/monitoring/connections.md) for Neki branches.
 
-Access depends on your database role and whether the branch is a production branch. It also requires a signed-in user (authenticate with `pscale auth login`) rather than a service token. For the full breakdown, see Permissions for [Postgres](../postgres/monitoring/connections.md#permissions) or [Vitess](../vitess/monitoring/connections.md#permissions) branches.
+Access depends on your database role and whether the branch is a production branch. It also requires a signed-in user (authenticate with `pscale auth login`) rather than a service token. For the full breakdown, see Permissions for [Postgres](../postgres/monitoring/connections.md#permissions), [Vitess](../vitess/monitoring/connections.md#permissions), or [Neki](../neki/monitoring/connections.md#permissions) branches.
 
 Because it runs over a reserved administrative connection, `connections` keeps working even when the database has exhausted its normal connections, so you can still see what’s happening and cancel or terminate a connection to recover.
 
@@ -29,14 +29,16 @@ Because it runs over a reserved administrative connection, `connections` keeps w
 
 The command surface is the same for both engines, but the engine determines how you target a branch and which actions apply.
 
-|  | **Postgres** | **Vitess** |
-| --- | --- | --- |
-| Targeting flags | `--instance`, `--role` | `--keyspace`, `--shard` |
-| Scope | All instances, including replicas (`--role replica`) | One primary tablet |
-| `kill <connection-id>` | Yes (`pg_terminate_backend`) | Yes (`KILL`) |
-| `kill <query-id> --query` | Yes (`pg_cancel_backend`) | Yes (`KILL QUERY`) |
-| `kill-transaction` | Yes | No |
-| Blocking/lock detail in `top` | Yes | No |
+|  | **Postgres** | **Vitess** | **Neki** |
+| --- | --- | --- | --- |
+| Targeting flags | `--instance`, `--role` | `--keyspace`, `--shard` | None |
+| Scope | All instances, including replicas (`--role replica`) | One primary tablet | Client sessions on all routers |
+| `kill <connection-id>` | Yes (`pg_terminate_backend`) | Yes (`KILL`) | Yes (terminates the router session) |
+| `kill <query-id> --query` | Yes (`pg_cancel_backend`) | Yes (`KILL QUERY`) | Yes (cancels the router session’s query) |
+| `kill-transaction` | Yes | No | Yes |
+| Blocking/lock detail in `top` | Yes | No | No |
+
+Neki `show` and `top` only show router sessions. See [Inspect live Neki connections](../neki/monitoring/connections.md) for what cancelling and terminating a router session does.
 
 Vitess `show` and `top` read a single primary tablet. If a branch has more than one keyspace, or a keyspace is sharded, pass `--keyspace` and `--shard` to pick the tablet. An interactive `top` prompts you to choose when a target is missing; non-interactive runs return an error that lists the available keyspaces or shards. There is no cluster-wide or cross-shard view, and replica connections are not surfaced.
 
@@ -50,10 +52,10 @@ pscale branch connections [sub-command]
 
 | **Sub-command** | **Product** | **Description** |
 | --- | --- | --- |
-| `show` | Postgres, Vitess | List current live connections once |
-| `top` | Postgres, Vitess | Show live connection activity (interactive) |
-| `kill` | Postgres, Vitess | Terminate a connection, or cancel its current query with `--query` |
-| `kill-transaction` | Postgres | Terminate the connection running a transaction, by `transaction_id` |
+| `show` | Postgres, Vitess, Neki | List current live connections once |
+| `top` | Postgres, Vitess, Neki | Show live connection activity (interactive) |
+| `kill` | Postgres, Vitess, Neki | Terminate a connection, or cancel its current query with `--query` |
+| `kill-transaction` | Postgres, Neki | Terminate the connection running a transaction, by `transaction_id` |
 
 ### Available flags
 
@@ -102,6 +104,8 @@ Human output uses vertical records (one field per line, like `psql` ’s `\x` mo
 
 For Vitess branches, the envelope reports `"database_kind": "mysql"` and a `topology` object with the `keyspace`, `shard`, and `tablet` the rows came from instead of an `instances` list. Each row’s `connection_id` and `query_id` are tablet-qualified IDs (for example `zone1-1001-101`); blocking and wait-event fields are empty, and `transaction_id` is `null`.
 
+For Neki branches, the envelope reports `"database_kind": "neki"`. Each row is a router session. `instance` is the router group, and rows add `router_name`, `router_cell`, `router_uid`, `availability_zone`, `backend_start`, and a `sidecar_backends` list of the shard backends serving the session. PIDs are unique per router, so two rows can share a PID. If some routers couldn’t be reached, a `warnings` list says the results are incomplete. Blocking and wait-event fields are empty.
+
 **Usage:**
 
 ```shellscript
@@ -123,7 +127,7 @@ pscale branch connections show <database> <branch> --format json
 
 ### The top sub-command
 
-Show live connection activity. Run it in an interactive terminal to launch the TUI, where you can sort, inspect a connection, and act on connections by keyboard. For Postgres branches you can also drill into a connection’s blockers. See [Inspect live Postgres connections](../postgres/monitoring/connections.md) or [Inspect live Vitess connections](../vitess/monitoring/connections.md) for a full tour of the interface.
+Show live connection activity. Run it in an interactive terminal to launch the TUI, where you can sort, inspect a connection, and act on connections by keyboard. For Postgres branches you can also drill into a connection’s blockers. See [Inspect live Postgres connections](../postgres/monitoring/connections.md), [Inspect live Vitess connections](../vitess/monitoring/connections.md), or [Inspect live Neki connections](../neki/monitoring/connections.md) for a full tour of the interface.
 
 When output is piped or redirected, `top` runs headlessly and records snapshots to a trace file. `--capture` is required in this mode. You can replay a captured trace later with `--replay`.
 
@@ -192,7 +196,7 @@ pscale branch connections kill <database> <branch> <query-id> --query
 
 Terminate the connection running a specific transaction, identified by its `transaction_id`. This runs `pg_terminate_backend`, but only if the connection is still running the same transaction you observed in `show`. If the transaction has already finished or moved on, the action is rejected so you do not terminate the wrong work. This is the safer of the two terminate paths, and the right tool for an idle-in-transaction session that is holding a lock.
 
-This sub-command is Postgres only. Vitess branches do not expose transaction state; use `kill` to terminate the connection or `kill --query` to cancel its current query.
+This sub-command works for Postgres and Neki branches. On Neki, it terminates the router session if it still has the same open transaction, and the transaction is rolled back. Vitess branches do not expose transaction state; use `kill` to terminate the connection or `kill --query` to cancel its current query.
 
 This command is destructive and takes effect immediately, with no confirmation prompt. It terminates a database connection. Run `show` first to confirm the `transaction_id`, and run `show` again afterward to verify.
 
