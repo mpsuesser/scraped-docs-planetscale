@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_cluster_size_skus
 title: "List_cluster_size_skus"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-23T08:01:29.756Z
+current_date: 2026-10-23T08:01:29.756Z
 ---
 
 > ## Documentation Index
@@ -145,9 +145,9 @@ tags:
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
-  - name: Dedicated read replica promotions
+  - name: Dedicated read replica detachments
     description: |2
-                Resources for promoting Postgres dedicated read replicas.
+                Resources for detaching Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -253,6 +253,14 @@ paths:
               - mysql
               - postgresql
               - neki
+        - name: architecture
+          in: query
+          description: Filter by CPU architecture.
+          schema:
+            type: string
+            enum:
+              - aarch64
+              - x86_64
         - name: rates
           in: query
           description: Whether to include pricing rates in the response. Defaults to false.

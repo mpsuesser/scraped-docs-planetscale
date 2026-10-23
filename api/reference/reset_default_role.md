@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/reset_default_role
 title: "Reset_default_role"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-23T08:01:29.756Z
+current_date: 2026-10-23T08:01:29.756Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-10-21T07:56:55.555Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `delete_production_branch_password`, `delete_production_read_only_branch_password`, `delete_branch_password`
+ `connect_production_branch`, `connect_production_read_only_branch`, `connect_branch`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `delete_branch_password`
 
 **OAuth Scopes**
 
@@ -143,9 +143,9 @@ tags:
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
-  - name: Dedicated read replica promotions
+  - name: Dedicated read replica detachments
     description: |2
-                Resources for promoting Postgres dedicated read replicas.
+                Resources for detaching Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -223,7 +223,7 @@ paths:
 
 
         **Service Token Accesses**
-         `delete_production_branch_password`, `delete_production_read_only_branch_password`, `delete_branch_password`
+         `connect_production_branch`, `connect_production_read_only_branch`, `connect_branch`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `delete_branch_password`
 
         **OAuth Scopes**
 

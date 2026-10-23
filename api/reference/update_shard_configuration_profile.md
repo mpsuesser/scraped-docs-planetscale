@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_shard_configuration_profile
 title: "Update_shard_configuration_profile"
 description: ""
-access_date: 2026-10-21T07:56:55.555Z
-current_date: 2026-10-21T07:56:55.555Z
+access_date: 2026-10-23T08:01:29.756Z
+current_date: 2026-10-23T08:01:29.756Z
 ---
 
 > ## Documentation Index
@@ -142,9 +142,9 @@ tags:
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
-  - name: Dedicated read replica promotions
+  - name: Dedicated read replica detachments
     description: |2
-                Resources for promoting Postgres dedicated read replicas.
+                Resources for detaching Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
@@ -354,6 +354,11 @@ paths:
                     description: >-
                       The number of replicas for shards using this configuration
                       profile
+                  read_only_replicas:
+                    type: integer
+                    description: >-
+                      The number of read-only replicas for shards using this
+                      configuration profile
                   postgres_image_version:
                     type: string
                     description: The PostgreSQL image used by the configuration profile
@@ -432,6 +437,7 @@ paths:
                   - default
                   - metal
                   - replicas
+                  - read_only_replicas
                   - postgres_image_version
                   - latest_postgres_image_version
                   - postgres_major_version

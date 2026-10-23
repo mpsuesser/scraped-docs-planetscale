@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_neki_change_request
 title: "Get_neki_change_request"
 description: ""
-access_date: 2026-10-22T08:33:14.509Z
-current_date: 2026-10-22T08:33:14.509Z
+access_date: 2026-10-23T08:01:29.756Z
+current_date: 2026-10-23T08:01:29.756Z
 ---
 
 > ## Documentation Index
@@ -143,9 +143,9 @@ tags:
   - name: Query Insights reports
     description: |2
                 Resources for downloading query insights data.
-  - name: Dedicated read replica promotions
+  - name: Dedicated read replica detachments
     description: |2
-                Resources for promoting Postgres dedicated read replicas.
+                Resources for detaching Postgres dedicated read replicas.
   - name: Dedicated read replicas
     description: |2
                 Resources for managing Postgres dedicated read replicas.
