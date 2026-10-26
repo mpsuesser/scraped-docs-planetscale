@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/neon-serverless-driver
 title: "Neon Serverless Driver"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Using the Neon serverless driver
+
+This page covers Postgres.
 
 The [Neon serverless driver](https://neon.com/docs/serverless/serverless-driver) (`@neondatabase/serverless`) runs Postgres queries from JavaScript and TypeScript over HTTP or WebSockets instead of TCP. PlanetScale supports this driver on platforms where standard TCP drivers and connection pooling are not viable.
 

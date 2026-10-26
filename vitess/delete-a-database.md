@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/delete-a-database
 title: "Delete A Database"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Deleting a database
 
 > How to remove a database from PlanetScale.
+
+This page covers Vitess.
 
 To access the settings for deleting a database:
 

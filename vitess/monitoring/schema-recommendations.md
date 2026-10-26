@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Schema recommendations
 
 > With schema recommendations inside of PlanetScale Insights, you will automatically receive recommendations to improve database performance, reduce memory and storage, and improve your schema based on production database traffic.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki/monitoring/schema-recommendations.md)
 
 ## Overview
 

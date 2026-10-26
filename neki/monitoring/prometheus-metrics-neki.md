@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/prometheus-metrics-neki
 title: "Prometheus Metrics Neki"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Prometheus metrics for PlanetScale Neki
 
 > PlanetScale Neki exposes a Prometheus-compatible endpoint per branch that lets you scrape metrics for routers, sidecars, and Postgres instances.
+
+This page covers Neki.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/integrations/prometheus-metrics.md)
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-postgres.md)
 
 ## Overview
 

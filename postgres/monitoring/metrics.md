@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Cluster Metrics
 
 > The Metrics dashboard provides comprehensive monitoring and observability for your PostgreSQL database cluster.
+
+This page covers Postgres.
 
 This centralized view helps you track performance, identify bottlenecks, and ensure optimal database health.
 

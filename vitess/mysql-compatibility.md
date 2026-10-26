@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/mysql-compatibility
 title: "Mysql Compatibility"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # MySQL compatibility
 
 > PlanetScale Vitess is built on open-source Vitess, a database clustering system for horizontal scaling of MySQL.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/postgres-compatibility.md)
 
 ## Overview
 

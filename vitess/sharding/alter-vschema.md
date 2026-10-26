@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/alter-vschema
 title: "Alter Vschema"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # ALTER VSCHEMA syntax reference
 
 > A complete reference for the ALTER VSCHEMA statements you can use to modify the VSchema of a keyspace.
+
+This page covers Vitess.
 
 The [VSchema](https://planetscale.com/docs/vitess/sharding/vschema.md) describes how your data is organized across keyspaces and shards: which tables exist in each keyspace, how sharded tables map rows to shards via [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md), and how IDs are generated with [sequence tables](https://planetscale.com/docs/vitess/sharding/sequence-tables.md).
 

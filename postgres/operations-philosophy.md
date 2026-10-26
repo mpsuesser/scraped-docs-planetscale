@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/operations-philosophy
 title: "Operations Philosophy"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # PlanetScale Postgres operations philosophy
 
 > PlanetScale has a high standard for uptime and availability of Postgres databases.
+
+This page covers Postgres.
 
 The foundation of achieving this goal in the cloud is our custom Kubernetes operator, the software that manages new database creation, version upgrades, resizes, failovers, and other operations in an inherently failure-prone environment. For more detail on how the operator orchestrates clusters, see the [Postgres architecture overview](https://planetscale.com/docs/postgres/postgres-architecture.md#custom-operator).
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/constraint-not-found
 title: "Constraint Not Found"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Constraint not found
 
 > A deploy fails because it drops a CHECK or FOREIGN KEY constraint by a name the production table no longer has.
+
+This page covers Vitess.
 
 A deploy request can fail before copying starts because it drops a constraint by a name that does not exist on the production table:
 

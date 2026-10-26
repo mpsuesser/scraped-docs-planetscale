@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/authentication-attempts
 title: "Authentication Attempts"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Authentication attempts
 
 > Export a report of every attempt to authenticate against your Postgres databases, including the real client IP, the credential used, and whether access was allowed or denied.
+
+This page covers Postgres.
 
 Authentication attempt reports provide a record of attempts to authenticate against your Postgres databases. You can use them to review connection activity, troubleshoot authentication failures, investigate unexpected access, or export authentication data for further analysis.
 

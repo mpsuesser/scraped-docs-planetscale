@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_cron
 title: "Pg_cron"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Extensions: pg_cron
 
 > pg_cron is a simple cron-based job scheduler for PostgreSQL. It allows you to run SQL commands on a schedule, similar to how cron jobs work in Unix-like systems.
+
+This page covers Postgres.
 
 ## Dashboard Configuration
 

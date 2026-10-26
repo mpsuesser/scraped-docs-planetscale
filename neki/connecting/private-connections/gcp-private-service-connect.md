@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting/private-connections/gcp-private-service-connect
 title: "Gcp Private Service Connect"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Connect privately with GCP Private Service Connect
 
 > Private connectivity between a Google Cloud VPC and Neki through Private Service Connect.
+
+This page covers Neki.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md)
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect.md)
 
 [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect)
 keeps traffic between your VPC and Neki on the Google Cloud network without

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/highlighting
 title: "Highlighting"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Highlighting
 
 > Mark the text that produced a match in your application or terminal
+
+This page covers Postgres.
 
 `tin.highlight` adds configurable markers around the text that produced the match. A match on `pineapple` returns `'<b>pineapple</b>'`. `tin.highlight_ansi` does the same with ANSI colors for a terminal.
 

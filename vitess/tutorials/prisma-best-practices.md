@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prisma-best-practices
 title: "Prisma Best Practices"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Prisma best practices
 
 > This document provides various best practices for getting the most out of Prisma, a next-generation ORM for Node.js and TypeScript, and PlanetScale. It also includes relevant links to Prisma's documentation.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-prisma.md)
 
 ## Referential actions and integrity with Prisma and PlanetScale
 

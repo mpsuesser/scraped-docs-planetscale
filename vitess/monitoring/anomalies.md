@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/anomalies
 title: "Anomalies"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-20T18:01:41.586Z
 # Anomalies
 
 > Anomalies are defined as periods with a substantially elevated percentage of slow-running queries.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/monitoring/anomalies.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki/monitoring/anomalies.md)
 
 ## Overview
 

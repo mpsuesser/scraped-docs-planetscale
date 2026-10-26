@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal
 title: "Metal"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > PlanetScale Metal databases are the same PlanetScale databases you know and love, powered by blazing-fast, locally-attached NVMe SSD drives instead of network-attached storage.
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 ![Metal SSD](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/metal/metal.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=29fca543db198da06b42f346f7e8f5ea)
 

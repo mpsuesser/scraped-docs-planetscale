@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/debezium-confluent
 title: "Debezium Confluent"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Debezium connector on Confluent Cloud
 
 > Run the Debezium connector for PlanetScale as a custom connector on Confluent Cloud.
+
+This page covers Vitess.
 
 The [Debezium connector for PlanetScale](https://planetscale.com/docs/vitess/integrations/debezium.md) runs on Confluent Cloud as a [custom connector](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/overview.html): you upload the connector's Kafka Connect plugin archive once, then create connectors from it like any managed connector. This page walks through the upload and the connector wizard.
 

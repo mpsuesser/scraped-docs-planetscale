@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage
 title: "Cluster Storage"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Cluster storage configuration
 
 > You can configure storage settings for network-attached storage PlanetScale Postgres clusters in the "**Storage**" tab on the Clusters page for your database.
+
+This page covers Postgres.
 
 > [!NOTE]
 >

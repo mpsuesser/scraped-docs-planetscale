@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/privatelink
 title: "Privatelink"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > PlanetScale Managed can connect you to your databases via [AWS PrivateLink](https://aws.amazon.com/privatelink/). The following guide describes how PlanetScale Managed with AWS PrivateLink works and how to set it up.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 ## Overview
 

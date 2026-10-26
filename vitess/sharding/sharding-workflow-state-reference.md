@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-workflow-state-reference
 title: "Sharding Workflow State Reference"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Sharding workflow state reference
 
 > The states of workflows created with the deprecated `pscale workflow` command and the earlier dashboard workflow pages.
+
+This page covers Vitess.
 
 > [!WARNING]
 >

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_partman_bgw
 title: "Pg_partman_bgw"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Extensions: pg_partman_bgw
 
 > The pg_partman_bgw extension is a background worker for managing partitioned tables in PostgreSQL. It automates the creation and maintenance of partitioned tables, making it easier to manage large datasets.
+
+This page covers Postgres.
 
 ## Dashboard Configuration
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Settings
 
 > Postgres settings that control TIN.
+
+This page covers Postgres.
 
 These are ordinary Postgres GUCs (`SET`, `ALTER DATABASE … SET`, or `postgresql.conf`). Defaults are tuned for good performance, and you usually do not need to change them.
 

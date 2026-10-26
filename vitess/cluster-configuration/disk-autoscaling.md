@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Disk autoscaling
 
 > Disk autoscaling grows the disks in a Vitess keyspace as they fill up, up to a storage limit. You can also turn growth off, or shrink disks you no longer need.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling.md)
 
 > [!NOTE]
 >

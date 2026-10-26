@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/metal/create-a-metal-database
 title: "Create A Metal Database"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Create a new Metal database or upgrade an existing one to locally attached NVMe storage.
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 [PlanetScale Metal](https://planetscale.com/docs/metal.md) databases can be created in a similar way to other PlanetScale databases.
 However, there are a few important things to keep in mind when creating a new Metal database or upgrading an existing database to Metal, which will be covered here.

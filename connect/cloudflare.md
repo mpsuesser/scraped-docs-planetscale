@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/cloudflare
 title: "Cloudflare"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Create and pay for PlanetScale Postgres or MySQL databases from the Cloudflare dashboard without adding billing details to PlanetScale.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 You can create PlanetScale Postgres or MySQL databases directly from the Cloudflare dashboard and pay for usage through your [Cloudflare account](https://developers.cloudflare.com/fundamentals/setup/account/create-account/).
 

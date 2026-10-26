@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/get-started
 title: "Get Started"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Get started with TIN
 
 > Install the `tin` extension, create a TIN index, and run TINQL queries with BM25 ranking.
+
+This page covers Postgres.
 
 ## Install the extension
 
@@ -184,6 +186,7 @@ Lead supports Postgres 17 and 18 and is built from source. Follow the [Lead READ
 | Accent / case mismatch | Defaults fold both. Search `jalapeno` to match `Jalapeño`. Override with `WITH (case_folding = preserve, accent_folding = preserve)` if you need exact surface forms. |
 | Inflected forms miss | Stemming is off by default. Create the index `WITH (stemmer = 'en')` (or another [language code](https://planetscale.com/docs/postgres/search/reference/indexes.md#stemming)), then `REINDEX` if the index already has rows. |
 | Fuzzy error on hyphenated term | Fuzzy needs one token after tokenization. Prefer `wi-fi` as a phrase (`"wi fi"`) or drop `~N`. |
+| Fuzzy `~1` misses common typos | Start with `term~2`. `term~1` locks the first character and treats adjacent letter swaps as two edits. Use `term~0:N` to allow a first-character change. |
 | Out-of-range `k1` / `b` / boost | `k1` and query boosts must be in `[0.0..10000.0]`; `b` must be in `[0.0..1.0]`. |
 | Index keeps growing | The index relation grows to a high-water mark and does not shrink on its own. `REINDEX` shrinks it. See [limitations](https://planetscale.com/docs/postgres/search/reference/limitations.md). |
 

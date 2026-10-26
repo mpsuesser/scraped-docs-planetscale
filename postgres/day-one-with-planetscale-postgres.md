@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/day-one-with-planetscale-postgres
 title: "Day One With Planetscale Postgres"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Day one with PlanetScale Postgres
 
 > Top ten things you should be aware of to kill your p99, lower your egress, and get your application flying.
+
+This page covers Postgres.
 
 Just created a new PlanetScale Postgres database? Don't miss the platform's best features to get started.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/heroku
 title: "Heroku"
 description: ""
-access_date: 2026-10-23T12:27:52.628Z
-current_date: 2026-10-23T12:27:52.628Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-23T12:27:52.628Z
 # Migrate from Heroku to PlanetScale
 
 > Migrate from Heroku Postgres to PlanetScale with minimal downtime using the Heroku Migrator tool.
+
+This page covers Postgres.
 
 The [PlanetScale Heroku Migrator](https://github.com/planetscale/heroku-migrator) helps you migrate your Heroku Postgres database to PlanetScale with minimal downtime. It runs as a temporary Heroku app that copies your data and keeps both databases in sync until you're ready to cut over. The entire process is managed through a web dashboard.
 

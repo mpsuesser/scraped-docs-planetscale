@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-node
 title: "Planetscale Postgres Node"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # PlanetScale Postgres with Node.js
 
 > Create a new Postgres database and integrate it with Node.js.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/tutorials/connect-nodejs-app.md)
 
 Node.js is a popular JavaScript runtime for building server-side applications.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-10-20T11:44:21.288Z
-current_date: 2026-10-20T11:44:21.288Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 ## Getting Started
@@ -64,7 +64,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `vtgate resize <DATABASE_NAME> <BRANCH_NAME>` | `--vtgate-size <SKU>`, `--vtgate-count <COUNT>`, `--vtgate-max-count <COUNT>`, `--vtgate-autoscaling`, `--vtgate-target-cpu-utilization <PERCENT>` | Resize VTGates for a Vitess production branch | Vitess |
 | `vtgate resize status <DATABASE_NAME> <BRANCH_NAME>` |  | Show the latest VTGate resize request for a Vitess branch | Vitess |
 | `vtgate resize cancel <DATABASE_NAME> <BRANCH_NAME>` |  | Cancel a queued VTGate resize for a Vitess branch | Vitess |
-| `vtctl move-tables <COMMAND>` | `list`, `create`, `show`, `status`, `start`, `stop`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | Run Vitess MoveTables workflows. `vtctld` also works as an alias. See the [`move-tables` reference](move-tables.md). | Vitess |
+| `vtctl <COMMAND>` | `move-tables`, `materialize`, `lookup-vindex`, `vdiff`, `planned-reparent-shard`, `list-tablets`, `get-shard`, `set-shard-tablet-control`, `throttler`, … | Run Vitess vtctl operations. `vtctld` also works as an alias. See the [`vtctl` overview](vtctl.md). | Vitess |
 
 ### Service token automation: branch
 

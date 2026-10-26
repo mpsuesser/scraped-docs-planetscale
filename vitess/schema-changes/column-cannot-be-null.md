@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/column-cannot-be-null
 title: "Column Cannot Be Null"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Column cannot be null
 
 > Fix a deploy that fails while copying rows because a NOT NULL column still contains NULL.
+
+This page covers Vitess.
 
 A deploy request can fail while copying a table because existing rows do not fit the new schema.
 

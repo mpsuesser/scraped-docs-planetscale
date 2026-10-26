@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work
 title: "How Online Schema Change Tools Work"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # How Online Schema Change tools work
+
+This page covers Vitess.
 
 ## The schema change problem
 

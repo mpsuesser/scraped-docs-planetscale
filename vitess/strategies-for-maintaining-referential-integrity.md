@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/strategies-for-maintaining-referential-integrity
 title: "Strategies For Maintaining Referential Integrity"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Strategies for maintaining referential integrity
+
+This page covers Vitess.
 
 If you choose to not use foreign key constraints, cascading actions need to be addressed via code instead of letting the database engine handle them for you. This document outlines some recommended strategies for building a system that handles those actions for you.
 

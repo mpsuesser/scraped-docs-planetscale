@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/foreign-keys-referenced-view
 title: "Foreign Keys Referenced View"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # FOREIGN_KEYS_REFERENCED_VIEW schema lint error
 
 > Fix foreign keys that reference views instead of base tables.
+
+This page covers Vitess.
 
 ## What this error means
 

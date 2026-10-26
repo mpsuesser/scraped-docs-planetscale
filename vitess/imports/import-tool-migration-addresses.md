@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/import-tool-migration-addresses
 title: "Import Tool Migration Addresses"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Import public IP addresses
 
 > When you [import a database](database-imports.md), you need to grant a set of IP addresses access to your external MySQL database so that PlanetScale can connect to it through an external keyspace.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/imports/import-ips.md)
 
 ## Overview
 

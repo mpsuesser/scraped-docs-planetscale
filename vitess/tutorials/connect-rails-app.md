@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-rails-app
 title: "Connect Rails App"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,10 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Connect a Rails application to PlanetScale
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-rails.md)
 
 ## Introduction
 

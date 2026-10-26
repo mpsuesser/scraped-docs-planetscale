@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/blob-in-unique-key
 title: "Blob In Unique Key"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # BLOB_IN_UNIQUE_KEY schema lint error
 
 > Fix primary keys that include BLOB or TEXT columns.
+
+This page covers Vitess.
 
 ## What this error means
 

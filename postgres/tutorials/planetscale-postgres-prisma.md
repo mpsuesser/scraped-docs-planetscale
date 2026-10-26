@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-prisma
 title: "Planetscale Postgres Prisma"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # PlanetScale Postgres with Prisma
 
 > Create a new Postgres database and integrate it with Prisma.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma.md)
 
 Prisma ORM allows you to write type-safe SQL queries and automatically generate migrations.
 

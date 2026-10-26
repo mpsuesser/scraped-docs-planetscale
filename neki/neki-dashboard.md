@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/neki-dashboard
 title: "Neki Dashboard"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Neki database dashboard
 
 > Cluster topology, summary statistics, and query performance for a Neki database
+
+This page covers Neki.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/dashboard.md)
 
 Open a Neki database to see the selected [branch](https://planetscale.com/docs/neki/branching.md): its cluster topology, summary statistics, and recent query performance.
 

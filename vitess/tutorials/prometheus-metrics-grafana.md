@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-grafana
 title: "Prometheus Metrics Grafana"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Grafana Dashboard for PlanetScale Branches
 
 > In this tutorial, you'll learn how to set up Grafana and connect it to a Prometheus instance to see metrics about your PlanetScale database.
+
+This page covers Vitess.
 
 ## Introduction
 

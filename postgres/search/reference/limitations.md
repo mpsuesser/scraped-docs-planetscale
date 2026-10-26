@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/limitations
 title: "Limitations"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Limitations
 
 > Constraints on TIN indexes.
+
+This page covers Postgres.
 
 * **One column per index** — Create a separate TIN index for each searchable column (or expression). Combine columns in a query with multiple `==>` predicates. `tin.score(ctid)` combines scores across those fields.
 * **Partitioned tables** — TIN indexes on partitioned tables are supported, and querying the parent works when every partition has a TIN index. BM25 scores are computed **per partition** (each partition has its own corpus statistics), so ordering by score across partitions mixes scores from different subsets. Some query shapes that pass `tin.score` through aggregates or window functions against the parent are refused with an error that names the workaround: compute the score in a `MATERIALIZED` CTE (or query a single partition) and consume it above.

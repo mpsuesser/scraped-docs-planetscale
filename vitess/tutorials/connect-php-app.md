@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-php-app
 title: "Connect Php App"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Connect a PHP application to PlanetScale
 
 > In this tutorial, you'll learn how to connect a PHP application to a PlanetScale MySQL database with a sample PHP starter app using [MySQLi](https://www.php.net/manual/en/book.mysqli.php).
+
+This page covers Vitess.
 
 > [!TIP]
 >

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-postgres
 title: "Prometheus Postgres"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Prometheus integration for PlanetScale Postgres
 
 > PlanetScale Postgres exposes Prometheus-compatible metrics endpoints for scraping metrics about your database branches. This, along with our API-driven service discovery, allows you to automatically get in-depth information about all of the Postgres databases in your organization.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/integrations/prometheus.md)
 
 In order to collect and store these, you will need to use Prometheus or a Prometheus-compatible metrics engine (such as VictoriaMetrics) that is capable of using the [HTTP SD](https://prometheus.io/docs/prometheus/latest/http_sd/) protocol.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Use a PlanetScale service token to authenticate the hosted MCP server in CI, headless agents, and clients that send a custom HTTP header
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 OAuth is the default for the [hosted MCP server](https://planetscale.com/docs/mcp-server.md). Use a [service token](https://planetscale.com/docs/api/service-tokens.md) when you cannot complete a browser login, such as CI or a headless agent.
 

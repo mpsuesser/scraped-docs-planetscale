@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/onlineddl-change-unique-keys
 title: "Onlineddl Change Unique Keys"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Online DDL change unique keys
 
 > It is possible to modify or replace a table's `PRIMARY KEY`, or any other `UNIQUE KEY`s according to the limitation described below, followed by examples.
+
+This page covers Vitess.
 
 ## Overview
 

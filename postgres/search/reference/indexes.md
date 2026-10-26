@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/indexes
 title: "Indexes"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Indexes
 
 > Creating TIN indexes and setting their options.
+
+This page covers Postgres.
 
 ```sql theme={null}
 CREATE INDEX <index_name> ON <table_name> USING tin (<text_column>);

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/vectors/terminology-and-concepts
 title: "Terminology And Concepts"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-20T18:01:41.586Z
 > Use this file to discover all available pages before exploring further.
 
 # Vector database terminology and concepts
+
+This page covers Vitess.
 
 There are many concepts, algorithms and data structures that are used when discussing vector databases.
 Here, we provide an overview of many of these concepts and describe the indexing technique that PlanetScale MySQL uses (SPANN).

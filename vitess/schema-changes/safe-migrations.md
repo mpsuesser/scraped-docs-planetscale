@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/safe-migrations
 title: "Safe Migrations"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Safe migrations
 
 > Safe migrations is an optional but highly recommended feature for branches in PlanetScale. With safe migrations enabled on a branch, you’ll gain zero-downtime schema migrations, schema reverts, and protection against accidental schema changes. The safe migrations setting is recommended for all production database branches to prevent downtime and unintentional data loss during schema migrations.
+
+This page covers Vitess.
 
 ## Zero-downtime schema migrations
 

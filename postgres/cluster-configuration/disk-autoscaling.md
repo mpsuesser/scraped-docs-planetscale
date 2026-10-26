@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Disk autoscaling
 
 > Disk autoscaling automatically increases storage when your database approaches a disk size utilization threshold, preventing storage-related outages without manual intervention. You can also manually shrink your disk allocation.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/cluster-configuration/disk-autoscaling.md)
 
 > [!NOTE]
 >

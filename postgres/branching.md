@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Branching
 
 > Branches on PlanetScale Postgres are isolated database deployments that provide you with separate environments for development and testing, as well as restoring from backups.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/schema-changes/branching.md)
 
 When your PostgreSQL database is first initialized, a single production branch is created called `main` which acts as the default branch. You can then create development branches that you can use for development before shipping schema changes to production.
 

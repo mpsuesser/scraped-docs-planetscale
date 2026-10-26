@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/invalid-column-referenced-in-view
 title: "Invalid Column Referenced In View"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # INVALID_COLUMN_REFERENCED_IN_VIEW schema lint error
 
 > Fix views that reference missing, ambiguous, or unsafe columns.
+
+This page covers Vitess.
 
 ## What this error means
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/aurora-dms
 title: "Aurora Dms"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Migrate from Aurora using Amazon DMS with CloudFormation
 
 > This method uses Infrastructure as Code with Step Functions workflow automation for a completely managed migration experience.
+
+This page covers Postgres.
 
 > [!NOTE]
 >

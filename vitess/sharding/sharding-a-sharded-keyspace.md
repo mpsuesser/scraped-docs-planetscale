@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace
 title: "Sharding A Sharded Keyspace"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Change the number of shards with MoveTables
 
 > Add or remove shards in a sharded keyspace by moving its tables to a new sharded keyspace. Useful when a sharded keyspace grows significantly and needs additional shards.
+
+This page covers Vitess.
 
 Adding or removing shards from a sharded keyspace requires some rebalancing, as you may be moving data from one MySQL instance to another. In PlanetScale, this is done with a Vitess MoveTables [workflow](https://planetscale.com/docs/vitess/scaling/workflows.md) from one sharded keyspace to another. This involves creating a new sharded (target) keyspace with the new desired number of shards and transferring all of the data from your current (source) keyspace to the new target. This operation is done with no downtime.
 

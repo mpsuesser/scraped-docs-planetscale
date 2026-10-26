@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/logical-cdc
 title: "Logical Cdc"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Logical replication and Change Data Capture (CDC)
 
 > Change Data Capture (CDC) allows you to track and stream data changes from your PostgreSQL database to external systems in real-time. PlanetScale Postgres supports logical replication, enabling CDC through various tools and integrations.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/etl.md)
 
 ## What is logical replication?
 

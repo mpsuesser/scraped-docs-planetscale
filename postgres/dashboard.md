@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/dashboard
 title: "Dashboard"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # PlanetScale Postgres database dashboard
 
 > When you navigate to a database in your PlanetScale organization, you'll see a comprehensive view of your cluster health, performance metrics, and management options. You can filter this view by [branch](branching.md) by selecting from the branch dropdown at the top.
+
+This page covers Postgres.
+
+Neki version: [Neki](https://planetscale.com/docs/neki/neki-dashboard.md)
 
 From the dashboard you can review:
 

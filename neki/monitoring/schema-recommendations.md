@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Schema recommendations
 
 > Automatic DDL suggestions from production query telemetry and schema.
+
+This page covers Neki.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/monitoring/schema-recommendations.md)
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md)
 
 Schema recommendations use query-level telemetry, Postgres system tables, and
 your database schema to suggest DDL that can improve performance, reduce memory

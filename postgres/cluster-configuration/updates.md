@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/updates
 title: "Updates"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Cluster updates
 
 > PlanetScale occasionally releases software updates for your Postgres cluster.
+
+This page covers Postgres.
 
 ## How to update your cluster
 

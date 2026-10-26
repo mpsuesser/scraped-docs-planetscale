@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/connecting/secure-connections
 title: "Secure Connections"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Connecting to PlanetScale securely
+
+This page covers Vitess.
 
 When you are using passwords to connect to PlanetScale, it is essential to correctly validate the server side certificate that PlanetScale provides. If you don't configure it properly, your connection will be vulnerable to man-in-the-middle attacks. The server certificates that PlanetScale uses are signed by a commonly available system root. How to configure this properly depends on the client you are using to connect to MySQL.
 

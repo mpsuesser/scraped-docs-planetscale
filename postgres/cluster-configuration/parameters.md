@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Cluster configuration parameters
 
 > You can configure your PlanetScale Postgres cluster settings in the "**Parameters**" tab on the Clusters page for your database.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/cluster-configuration/parameters.md)
 
 You can configure your PlanetScale Postgres cluster settings in the "**Parameters**" tab on the Clusters page for your database.
 

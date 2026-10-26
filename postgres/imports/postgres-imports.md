@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Postgres Imports
 
 > For customers looking to migrate their Postgres databases to PlanetScale Postgres, you have several options for how to make this the smoothest event for your business.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/imports/database-imports.md)
 
 Use this guide if you are importing from platforms like Aurora Postgres, RDS Postgres, Neon, Supabase, Azure Database for PostgreSQL, Cloudflare D1, and other Postgres or SQLite instances.
 

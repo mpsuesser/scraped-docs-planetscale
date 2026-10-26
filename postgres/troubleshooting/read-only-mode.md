@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/read-only-mode
 title: "Read Only Mode"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Read-only mode
 
 > PlanetScale may automatically enable read-only mode on a cluster to maintain stability and availability when certain conditions are detected.
+
+This page covers Postgres.
 
 Read-only mode preserves cluster functionality while preventing operations that could lead to instability, allowing you to remediate issues before they become critical.
 

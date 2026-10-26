@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/per-shard-sizing
 title: "Per Shard Sizing"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Per-shard sizing
 
 > Adjust VTTablet sizes for individual shards in a Vitess keyspace
+
+This page covers Vitess.
+
+Neki version: [Neki](https://planetscale.com/docs/neki/cluster-configuration/cluster-sizing.md#size-profiles-for-their-assigned-shards)
 
 Per-shard sizing lets you adjust the VTTablet size of individual shards in a sharded Vitess keyspace instead of resizing the whole keyspace. A shard that takes more traffic can run more CPU and memory than the rest of the keyspace, and on [Metal](https://planetscale.com/docs/plans/planetscale-skus.md#metal) it can run more local storage.
 

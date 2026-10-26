@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/best-practices
 title: "Best Practices"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # PlanetScale workflow for Vitess
+
+This page covers Vitess.
 
 ![Diagram showing PlanetScale workflow](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/planetscale-workflow.png?fit=max\&auto=format\&n=qp-ZKr_vKb0iLpeb\&q=85\&s=cd739ac76edee56fd3c0130b6edfe32c)
 

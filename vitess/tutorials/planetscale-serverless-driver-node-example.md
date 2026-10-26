@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver-node-example
 title: "Planetscale Serverless Driver Node Example"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Node.js example using the PlanetScale serverless driver
 
 > This guide will cover how to use the provided Node.js sample application using the PlanetScale serverless driver for JavaScript.
+
+This page covers Vitess.
 
 ## Overview
 

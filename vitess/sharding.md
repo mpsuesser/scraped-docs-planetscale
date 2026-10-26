@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding
 title: "Sharding"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,12 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Sharding with PlanetScale
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/sharding.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki.md)
 
 > [!NOTE]
 >

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Out of memory (OOM)
 
 > Understanding and resolving out of memory events on PlanetScale (Vitess) clusters.
+
+This page covers Vitess.
 
 An out of memory (OOM) event occurs when a process on a tablet consumes more memory than is available on the cluster. When this happens, the affected process is automatically restarted to free up memory.
 

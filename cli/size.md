@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/size
 title: "Size"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 # PlanetScale CLI commands: size
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 Lists the sizes for various components within PlanetScale.
 

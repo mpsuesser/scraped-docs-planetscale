@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Settings
 
 > The Settings page allows you to configure general settings and options for your PlanetScale Postgres database.
+
+This page covers Postgres.
 
 To access the settings:
 

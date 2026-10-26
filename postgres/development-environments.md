@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/development-environments
 title: "Development Environments"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Development Environments
 
 > When using development environments, it's important to have a way to work with your database and test schema changes in isolation from production. We have several recommendations for how to accomplish this when using PlanetScale Postgres.
+
+This page covers Postgres.
 
 > [!NOTE]
 >

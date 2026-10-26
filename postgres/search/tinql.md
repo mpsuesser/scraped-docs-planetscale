@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/tinql
 title: "Tinql"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # TINQL
 
 > A fully-featured query language unique to TIN.
+
+This page covers Postgres.
 
 TIN adds [the `==>` operator](reference/operator.md). The query on the right-hand side of it is **TINQL**.
 
@@ -34,6 +36,7 @@ WHERE body ==> 'apple AND "fuji apple"';
 * Exclude terms with `AND NOT`: `apple AND NOT peel`.
 * Quote reserved words used as terms:  `"AND"`, `"THEN"`.
 * A hyphen usually splits a term: `wi-fi` is searched as `"wi fi"`.
+* Fuzzy matching starts at `term~2`. `term~1` is accepted but is not a full one-edit search: the first character is locked, and adjacent letter swaps cost two Levenshtein edits. Unlock the first character with `term~0:N`.
 * Fuzzy match (`apple~2`) works on one word. `wi-fi~2` errors because `wi-fi` is two words.
 
 ## Terms
@@ -43,13 +46,15 @@ WHERE body ==> 'apple AND "fuji apple"';
 | bare term | Single dictionary term (case + accent folded by default) | `apple` (same as `Apple`), `jalapeno` (same as `Jalapeño`) |
 | `*` | Match-all documents (standalone only) | `*` |
 | `*` / `?` wildcards | `*` = 0+ chars, `?` = 1 char | `appl*`, `p?ach`, `*house` |
-| `term~N` | Fuzzy: edit distance N, stable prefix 1 | `apple~2` |
-| `term~P:N` | Fuzzy: stable prefix P, distance N | `apple~0:2` |
+| `term~N` | Fuzzy: Levenshtein distance N, first character locked. Start at `~2` | `apple~2` |
+| `term~P:N` | Fuzzy: first P characters locked, distance N | `apple~0:2` |
 | `A TO B` | Inclusive term-dictionary range | `aardvark TO cat` |
 | `* TO B` / `A TO *` | Open range bound | `* TO cat` |
 | `MATCHES regex` | Full-term regex (to unescaped whitespace); **not** folded | `MATCHES peach.*` |
 | `CONTAINS term` | Same as bare term (optional) | `CONTAINS apple` |
 | `expr^N` | Boost (`N` ∈ `[0.0..10000.0]`) | `apple^2`, `"x"^1.5` |
+
+`term~1` parses, but typical typos need `~2`: adjacent letter swaps are two edits, and the first character does not change unless you write `term~0:N`.
 
 Allowed in terms: anything except whitespace and `( ) [ ] " ~ ^`. Escape literal `*` / `?` with `\`. Space in a regex: `MATCHES foo\ bar`.
 
@@ -170,7 +175,7 @@ All keywords are case-sensitive **UPPER CASE**.
 | `"…"` | Phrase |
 | `(…)` | Grouping |
 | `[…]` | Alternatives |
-| `~N` | Fuzzy (on term) or phrase word-gap tolerance (after `"`) |
+| `~N` | Fuzzy on a term (start at `~2`) or phrase word-gap tolerance (after `"`) |
 | `~P:N` | Fuzzy with explicit prefix length |
 | `^N` | Boost |
 | `*` | Wildcard, open range bound, or standalone match-all |

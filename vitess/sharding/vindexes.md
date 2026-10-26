@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/vindexes
 title: "Vindexes"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Vindexes
 
 > When configuring a horizontally [sharded](../sharding.md) keyspace, one of the most important decisions to make is _how_ to distribute the data across shards.
+
+This page covers Vitess.
 
 > [!NOTE]
 >
@@ -48,6 +50,8 @@ In this setup, you would create a dedicated lookup table with at least two colum
 The `from` column should contain the possible column values that we need to map to shards, and the `to` column contains the corresponding `keyspace ID` for that shard.
 Each time a new row needs to be inserted, Vitess looks up the mapping in the table and uses the resulting `keyspace ID` to send it to the appropriate shard.
 Lookup indexes tend to be slower than functional ones, therefore functional is preferred when possible.
+
+To create and backfill a Lookup Vindex for a table that already has data, use [`pscale branch vtctl lookup-vindex`](../../cli/lookup-vindex.md).
 
 ## Keyspace IDs
 

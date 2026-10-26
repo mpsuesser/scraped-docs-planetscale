@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/pre-sharding-checklist
 title: "Pre Sharding Checklist"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Pre-sharding checklist
 
 > Replace `AUTO_INCREMENT` columns with sequence tables by hand before you move tables from an unsharded keyspace to a sharded keyspace.
+
+This page covers Vitess.
 
 > [!NOTE]
 >

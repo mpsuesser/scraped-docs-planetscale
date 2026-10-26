@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide
 title: "Planetscale Quick Start Guide"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Neki quickstart
 
 > Create a single-shard Neki database, connect, and insert data
+
+This page covers Neki.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md)
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart.md)
 
 ## Getting started
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/reverse-privatelink
 title: "Reverse Privatelink"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 > [PlanetScale Managed](../aws.md) can connect to your existing databases via AWS PrivateLink for the purposes of data imports.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 Often, one of the first tasks for a new Managed deployment is to import data from an existing database housed in a separate AWS Organizations member account.
 

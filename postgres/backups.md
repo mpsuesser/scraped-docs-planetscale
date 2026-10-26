@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Back up and restore
 
 > PlanetScale Postgres databases include comprehensive backup and restore capabilities to protect your data. The backup system provides both automated scheduled backups and manual on-demand backups, as well as [point-in-time recovery (PITR)](backups/point-in-time-recovery.md) support through Write-Ahead Log (WAL) archiving.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/backups.md)
 
 ## Automatic scheduled backups
 

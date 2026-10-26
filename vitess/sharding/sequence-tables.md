@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sequence-tables
 title: "Sequence Tables"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Sequence Tables
 
 > In MySQL, it is common to have an integer primary key that uses the `AUTO_INCREMENT` feature for assigning IDs.
+
+This page covers Vitess.
 
 However, if you have a horizontally-sharded table, you will not be able to use `AUTO_INCREMENT` for your ID.
 In such a setup, the rows of the table are distributed across many instances of MySQL.

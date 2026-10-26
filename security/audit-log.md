@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > The organization audit log grants [Organization Administrators](access-control.md#organization-administrator) access to review **actions** performed by individual members of the organization.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 In addition, each audit log includes **events** detailing who performed the **action** and when it happened.
 

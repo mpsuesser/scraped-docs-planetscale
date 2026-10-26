@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/maintenance-schedules
 title: "Maintenance Schedules"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Enterprise customers have the option to enable scheduled maintenance windows on databases.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 If you have a maintenance schedule enabled, any changes to your cluster configuration will only roll out during the set maintenance period. This includes database engine version upgrades (MySQL/Vitess or Postgres), increasing or decreasing cluster size, changes to the size of cluster components, and anything else that modifies your cluster configuration.
 

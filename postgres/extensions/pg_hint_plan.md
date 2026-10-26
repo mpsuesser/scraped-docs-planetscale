@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_hint_plan
 title: "Pg_hint_plan"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Extensions: pg_hint_plan
 
 > The pg_hint_plan extension allows you to influence the query planner's decisions by providing hints. It can be used to optimize query performance by guiding the planner towards more efficient execution plans.
+
+This page covers Postgres.
 
 ## Dashboard Configuration
 

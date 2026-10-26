@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/web-console
 title: "Web Console"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Web console
 
 > Interactive interface for running PostgreSQL queries and DDL against PlanetScale Postgres database branches.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/web-console.md)
 
 > [!NOTE]
 >

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/quickstart
 title: "Quickstart"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Connections quickstart
 
 > PlanetScale Postgres works with any standard PostgreSQL driver or library that supports SSL connections.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/connecting/connection-strings.md)
 
 We recommend reading the [Connections overview documentation](https://planetscale.com/docs/postgres/connecting.md) before going through this quickstart. It contains important information such as when and how to use PgBouncer over direct connections.
 

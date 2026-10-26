@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/duplicate-entry
 title: "Duplicate Entry"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Duplicate entry for unique key
 
 > Fix a deploy that fails while copying rows because existing rows violate a new unique key.
+
+This page covers Vitess.
 
 A deploy request can fail while copying a table because existing rows do not satisfy a unique key in the new schema.
 

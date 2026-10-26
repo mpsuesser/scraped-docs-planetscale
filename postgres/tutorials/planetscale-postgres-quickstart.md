@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart
 title: "Planetscale Postgres Quickstart"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # PlanetScale Postgres quickstart
 
 > This guide will walk you through how to create a new PlanetScale Postgres database.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/tutorials/planetscale-quick-start-guide.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md)
 
 We'll cover:
 

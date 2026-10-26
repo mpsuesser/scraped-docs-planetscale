@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/move-tables
 title: "Move Tables"
 description: ""
-access_date: 2026-10-19T16:24:25.207Z
-current_date: 2026-10-19T16:24:25.207Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 ## Getting Started
@@ -115,7 +115,7 @@ Write boolean flags with an `=`, such as `--keep-data=false`. A space-separated 
 A typical MoveTables run looks like this:
 
 1. **Create** the workflow and wait until copy finishes and streams are `Running`.
-2. **Verify** with `pscale branch vtctl vdiff create`, then `vdiff show` until it completes with no mismatches. You can skip VDiff and switch replica traffic directly.
+2. **Verify** with [`pscale branch vtctl vdiff`](vdiff.md) (`create`, then `show`) until it completes with no mismatches. You can skip VDiff and switch replica traffic directly.
 3. **Switch replica traffic** with `--tablet-types REPLICA,RDONLY`.
 4. **Switch primary traffic** with `--tablet-types PRIMARY`.
 5. **Preview cleanup** with `complete --dry-run`, then complete after you review the result.

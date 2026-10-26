@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/examples-and-recipes
 title: "Examples And Recipes"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Examples and recipes
 
 > Scenarios to help you design effective resource budgets.
+
+This page covers Postgres.
 
 This video walkthrough demonstrates a situation where high-priority traffic is degraded by slower, low-priority traffic and how to solve it with resource budgets.
 

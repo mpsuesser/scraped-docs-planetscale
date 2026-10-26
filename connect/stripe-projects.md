@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/connect/stripe-projects
 title: "Stripe Projects"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 > Stripe Projects allows you to provision and manage PlanetScale Postgres and MySQL/Vitess databases directly from the Stripe CLI with the Stripe Projects developer preview.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 Resources are provisioned in your PlanetScale account with normal access and dashboards. Your billing page in the PlanetScale dashboard will indicate that you are connected to the Stripe app and payments are made through Stripe.
 

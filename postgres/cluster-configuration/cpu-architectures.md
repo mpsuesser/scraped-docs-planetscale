@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures
 title: "Cpu Architectures"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # CPU Architectures
 
 > When deploying PostgreSQL databases, choosing the right CPU architecture is crucial for optimizing performance, cost, and efficiency. PlanetScale Postgres supports both x86-64 and ARM64 (aarch64) architectures, with ARM64 instances on AWS powered by Graviton processors.
+
+This page covers Postgres.
 
 ## Architecture Overview
 

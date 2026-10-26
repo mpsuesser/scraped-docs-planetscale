@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-sizing
 title: "Cluster Sizing"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,8 @@ current_date: 2026-10-22T18:21:49.469Z
 > Use this file to discover all available pages before exploring further.
 
 # Cluster sizing
+
+This page covers Vitess.
 
 You can easily upsize and downsize your database cluster from within the PlanetScale dashboard. This documentation covers some information about selecting a cluster size upon database creation as well as how to upsize and downsize.
 

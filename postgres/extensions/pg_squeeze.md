@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_squeeze
 title: "Pg_squeeze"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Extensions: pg_squeeze
 
 > pg_squeeze automatically cleans up unused space in tables (table bloat). pg_squeeze helps maintain optimal table performance by removing dead space that accumulates over time from UPDATE and DELETE operations.
+
+This page covers Postgres.
 
 ## Dashboard Configuration
 

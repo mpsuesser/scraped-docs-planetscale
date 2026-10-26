@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-compatibility
 title: "Postgres Compatibility"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Postgres compatibility
 
 > PlanetScale Postgres is built on standard PostgreSQL, providing full compatibility with PostgreSQL features. This page documents the specific behaviors, limitations, and differences you should be aware of when using PlanetScale Postgres.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/mysql-compatibility.md)
 
 ## Overview
 

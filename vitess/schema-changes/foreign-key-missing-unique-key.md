@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/foreign-key-missing-unique-key
 title: "Foreign Key Missing Unique Key"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Foreign key missing unique key
 
 > A deploy fails because a foreign key references columns that are not covered by a unique key.
+
+This page covers Vitess.
 
 A deploy request can fail before copying starts because a [foreign key constraint](https://planetscale.com/docs/vitess/foreign-key-constraints.md) references columns on the parent table that are not covered by a unique key:
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/functions
 title: "Functions"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Functions
 
 > SQL functions in the `tin` schema.
+
+This page covers Postgres.
 
 ## `tin.score(ctid [, dense_ratio [, k1 [, b [, term_add [, term_replace]]]]])`
 

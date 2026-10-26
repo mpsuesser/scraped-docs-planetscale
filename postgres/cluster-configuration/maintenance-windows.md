@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows
 title: "Maintenance Windows"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Maintenance windows
 
 > Maintenance windows have been temporarily disabled for PlanetScale Postgres databases.
+
+This page covers Postgres.
 
 PlanetScale Postgres databases previously supported weekly maintenance windows, during which Postgres image upgrades would occur. These required connections to be terminated and re-established on upgraded nodes.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Cluster configuration parameters
 
 > Tune VTGate, VTTablet, and MySQL settings for your PlanetScale for Vitess cluster.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md)
 
 PlanetScale for Vitess lets you adjust a curated set of VTGate, VTTablet, and MySQL parameters directly from the [Clusters page](https://planetscale.com/docs/vitess/cluster-configuration.md) in the dashboard.
 

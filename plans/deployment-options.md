@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/deployment-options
 title: "Deployment Options"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > PlanetScale offers two deployment options to accommodate your application and business needs: multi-tenancy and single-tenancy.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 ## Overview
 

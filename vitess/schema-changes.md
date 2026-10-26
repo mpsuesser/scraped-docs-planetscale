@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes
 title: "Schema Changes"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Non-blocking schema changes
 
 > **Non-blocking schema changes** in PlanetScale provide a schema change workflow that allows users to update database tables without locking or causing downtime for production databases.
+
+This page covers Vitess.
 
 ## Overview
 

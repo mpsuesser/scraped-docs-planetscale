@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/terraform
 title: "Terraform"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > A resource model for Vitess, Neki, and Postgres databases, designed for Terraform and OpenTofu.
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 Terraform is an open-source infrastructure-as-code tool that lets you define and manage cloud resources through declarative configuration files. With the [PlanetScale Terraform provider](https://github.com/planetscale/terraform-provider-planetscale), you can manage PlanetScale Vitess, Neki, and Postgres databases, branches, credentials, backups, backup policies, Neki routers and shards, dedicated PgBouncers, and cluster parameters alongside the rest of your infrastructure.
 

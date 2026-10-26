@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect
 title: "Gcp Private Service Connect"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,12 @@ current_date: 2026-10-22T18:21:49.469Z
 # Connect privately with GCP Private Service Connect
 
 > When you use GCP Private Service Connect, your network traffic between your VPC and PlanetScale stays within the Google Cloud network, without traversing the public internet.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki/connecting/private-connections/gcp-private-service-connect.md)
 
 [GCP Private Service Connect](https://cloud.google.com/vpc/docs/private-service-connect) is a highly available, scalable technology that enables you to privately connect your VPC to supported GCP services, endpoint services, and partner services.
 

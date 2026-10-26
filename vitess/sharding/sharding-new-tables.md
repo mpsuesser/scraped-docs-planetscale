@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-new-tables
 title: "Sharding New Tables"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Sharding new tables
 
 > This tutorial shows you how to create new tables in a sharded keyspace. If you have an existing table that you want to shard, follow the [Sharding quickstart](sharding-quickstart.md) instead.
+
+This page covers Vitess.
 
 > [!WARNING]
 >

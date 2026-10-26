@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Connections overview
 
 > There are several ways to connect to Postgres databases, each with their advantages and tradeoffs.
+
+This page covers Postgres.
 
 ## Connecting to your PlanetScale Postgres database
 

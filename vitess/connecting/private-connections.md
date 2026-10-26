@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/connecting/private-connections
 title: "Private Connections"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -11,6 +11,12 @@ current_date: 2026-10-20T18:01:41.586Z
 > Use this file to discover all available pages before exploring further.
 
 # Connecting to PlanetScale privately on AWS
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink.md)
+
+Neki version: [Neki](https://planetscale.com/docs/neki/connecting/private-connections/aws-privatelink.md)
 
 ## Connecting to PlanetScale privately via AWS PrivateLink
 

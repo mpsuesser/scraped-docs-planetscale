@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_strict
 title: "Pg_strict"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Extensions: pg_strict
 
 > pg_strict blocks dangerous queries before they run. It prevents common mistakes like UPDATE or DELETE statements without WHERE clauses that would affect every row in a table.
+
+This page covers Postgres.
 
 ## Overview
 

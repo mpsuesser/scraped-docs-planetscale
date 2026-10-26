@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/keyspaces
 title: "Keyspaces"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # What is a keyspace
 
 > In Vitess, a keyspace is a logical database that maps to one or many MySQL instances.
+
+This page covers Vitess.
 
 Keyspaces are used to group MySQL instances, typically to shard certain tables in your database cluster. While a keyspace may contain several MySQL instances across many shards, to your application, it will appear as a single database.
 

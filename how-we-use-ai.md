@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/how-we-use-ai
 title: "How We Use Ai"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Which PlanetScale features use generative AI, and how we ensure customer data stays secure and private.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 ## Overview
 

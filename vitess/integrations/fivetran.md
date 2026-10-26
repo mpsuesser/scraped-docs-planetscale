@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/fivetran
 title: "Fivetran"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Fivetran integration
 
 > With PlanetScale Connect, you can extract data from your PlanetScale database and safely load it into other destinations for analysis, transformation, and more.
+
+This page covers Vitess.
 
 We implemented a [Fivetran](https://fivetran.com/) connector as the pipeline between your PlanetScale source and selected destination. This document will walk you through connecting your PlanetScale database to Fivetran.
 

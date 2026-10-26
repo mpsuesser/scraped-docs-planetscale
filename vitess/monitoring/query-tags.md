@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-tags
 title: "Query Tags"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Tags
 
 > Attach key-value metadata to SQL statements to filter performance data in Insights.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/monitoring/query-tags.md)
 
 ![Insights tags](https://mintcdn.com/planetscale-2/Ez_PNQOyZBhNfDDQ/vitess/monitoring/insights-tags-light.png?fit=max\&auto=format\&n=Ez_PNQOyZBhNfDDQ\&q=85\&s=fa09e8d424f13817db98b2528dd1fc7f)
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/security-and-access/schema-snapshots
 title: "Schema Snapshots"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-20T18:01:41.586Z
 
 # Schema snapshots
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 Snapshots of database schemas within PlanetScale Managed accounts are transferred to PlanetScale's control plane to facilitate features requiring visibility into schemas. Schema snapshots include the structure of databases managed by PlanetScale, but do not include any row-level data.
 

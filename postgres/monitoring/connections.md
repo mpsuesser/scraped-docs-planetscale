@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/connections
 title: "Connections"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Inspect live Postgres connections
 
 > Watch live Postgres connection activity, find what is blocking what, and cancel or terminate connections from the PlanetScale CLI.
+
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/monitoring/connections.md)
 
 ## Overview
 

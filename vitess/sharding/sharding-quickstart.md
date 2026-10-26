@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-quickstart
 title: "Sharding Quickstart"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Shard existing tables with MoveTables
 
 > Move **existing tables** in your PlanetScale database from an unsharded keyspace to a sharded keyspace with a Vitess MoveTables [workflow](../scaling/workflows.md).
+
+This page covers Vitess.
 
 * If you are creating a new table that you want in a sharded keyspace, follow the instructions in the [Sharding new tables doc](https://planetscale.com/docs/vitess/sharding/sharding-new-tables.md).
 * If you are moving tables from one sharded keyspace to another sharded keyspace, follow the instructions in the [Sharding a sharded keyspace doc](https://planetscale.com/docs/vitess/sharding/sharding-a-sharded-keyspace.md).

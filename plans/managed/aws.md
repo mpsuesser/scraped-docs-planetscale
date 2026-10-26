@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > PlanetScale Managed on Amazon Web Services (AWS) is a single-tenant deployment of PlanetScale in your AWS organization within an isolated AWS Organizations member account.
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 ## Overview
 

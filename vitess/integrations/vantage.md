@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/vantage
 title: "Vantage"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Vantage integration
 
 > With [Vantage](https://www.vantage.sh/), you can set up [PlanetScale cost management](https://vantage.sh/integrations/planetscale) to report on PlanetScale costs alongside other infrastructure providers, such as AWS or GCP.
+
+This page covers Vitess.
 
 After integrating, you can create [cost reports](https://docs.vantage.sh/cost_reports) to break down costs per database and branch.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/guides/prometheus-metrics-newrelic
 title: "Prometheus Metrics Newrelic"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Sending Prometheus Metrics to New Relic
 
 > If you're looking for your PlanetScale database metrics in your New Relic account, this tutorial will show how to configure a [Prometheus](https://prometheus.io/) instance to scrape PlanetScale's [Prometheus infrastructure](../integrations/prometheus.md) automatically, allowing you to collect detailed metrics for all of your PlanetScale branches.
+
+This page covers Vitess.
 
 While this tutorial is written for New Relic, using Prometheus' remote write is a common pattern for sending metrics to [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), [Google Cloud Managed Service for Prometheus](https://cloud.google.com/stackdriver/docs/managed-prometheus), [Grafana hosted Prometheus](https://grafana.com/products/cloud/metrics/) and many other tools.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma
 title: "Using Planetscale With Prisma"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-22T18:21:49.469Z
 # Using PlanetScale with Prisma
 
 > [Prisma](https://www.prisma.io/) ORM provides type-safe database access through an intuitive API, eliminating the need to write SQL queries manually.
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-prisma.md)
 
 Prisma and PlanetScale together offer a powerful workflow. Prisma handles the object-relational mapping with full type safety and intuitive data modeling, while PlanetScale provides horizontal scaling, branching workflows, and zero-downtime schema changes, making it an ideal stack for building modern, scalable applications.
 

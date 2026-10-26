@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security
 title: "Security"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > PlanetScale is committed to delivering a powerful and easy-to-use database platform while keeping your data secure.
 
-Vitess and Postgres
+Available for Vitess and Postgres.
 
 The security of our systems is of the utmost importance. We consistently aim to improve our security posture by building security into every layer of our products.
 

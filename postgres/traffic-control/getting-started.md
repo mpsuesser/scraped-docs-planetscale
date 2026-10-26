@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Getting started
 
 > Adopt Database Traffic Control gradually. Start with ample limits, observe real behavior, and then tighten.
+
+This page covers Postgres.
 
 ## Ensure your application handles blocked queries gracefully
 

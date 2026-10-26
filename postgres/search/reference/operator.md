@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/reference/operator
 title: "Operator"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # The ==> operator
 
 > Search a TIN-indexed column with a TINQL query string.
+
+This page covers Postgres.
 
 TIN introduces the `==>` operator which is followed by a TINQL query.
 

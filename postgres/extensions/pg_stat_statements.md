@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions/pg_stat_statements
 title: "Pg_stat_statements"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-20T18:01:41.586Z
 # Extensions: pg_stat_statements
 
 > pg_stat_statements is a PostgreSQL extension that tracks execution statistics of all SQL statements executed by a server. It provides insights into query performance, allowing you to identify slow queries and optimize them
+
+This page covers Postgres.
 
 ## Dashboard Configuration
 

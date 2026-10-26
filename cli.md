@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -64,6 +64,7 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`org`](cli/org.md) | `list`, `member`, `show`, `sso`, `switch`, `team`, `update` | `--help` | Vitess, Postgres, Neki | Manage and switch [organizations](https://planetscale.com/docs/security/access-control.md), including members, teams, and SSO |
 | [`metrics`](cli/metrics.md) | `instant`, `keyspace-tables`, `queries`, `report`, `show`, `tables`, `tablets`, `tags` | `--help`, `--org string`, `--format json`, `--metric string`, `--period string`, `--from string`, `--to string`, `--steps int` | Vitess, Postgres, Neki | Query historical and current branch metrics from PlanetScale's metrics service |
 | [`move-tables`](cli/move-tables.md) | `list`, `create`, `show`, `status`, `start`, `stop`, `switch-traffic`, `reverse-traffic`, `complete`, `cancel` | `--help`, `--org string` | Vitess | Move tables between keyspaces and [import external MySQL databases](https://planetscale.com/docs/vitess/imports/database-imports.md) with [Vitess MoveTables](https://planetscale.com/docs/cli/move-tables.md) (`pscale branch vtctl move-tables`) |
+| [`vtctl`](cli/vtctl.md) | `move-tables`, `materialize`, `lookup-vindex`, `vdiff`, `planned-reparent-shard`, `list-tablets`, `get-shard`, `set-shard-tablet-control`, `throttler`, … | `--help`, `--org string` | Vitess | Run Vitess vtctl operations on a branch (`pscale branch vtctl`; alias `vtctld`). See [materialize](https://planetscale.com/docs/cli/materialize.md), [lookup-vindex](https://planetscale.com/docs/cli/lookup-vindex.md), [vdiff](https://planetscale.com/docs/cli/vdiff.md), [planned-reparent-shard](https://planetscale.com/docs/cli/planned-reparent-shard.md) |
 | [`password`](cli/password.md) | `create`, `delete`, `list`, `renew`, `show`, `update` | `--help`, `--org string`, `--name string`, `--new-name string`, `--cidrs strings`, `--status string` | Vitess | Manage [branch credentials](https://planetscale.com/docs/vitess/connecting/connection-strings.md) |
 | [`pgbouncer`](cli/pgbouncer.md) | `create`, `delete`, `list`, `resize`, `show` | `--help`, `--org string` | Postgres | Manage dedicated [PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) for a Postgres branch |
 | [`ping`](cli/ping.md) | | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres, Neki | Check [latency](https://planetscale.com/docs/vitess/connecting/network-latency.md) between your machine and PlanetScale's public regions |

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/single-node
 title: "Single Node"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:24:46.643Z
+current_date: 2026-10-26T19:24:46.643Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-10-22T18:21:49.469Z
 # Single node
 
 > Single node Postgres databases come with a single primary and no replicas, and are a great cost-effective option for development or production workloads that do not require high availability.
+
+This page covers Postgres.
 
 > [!NOTE]
 >
