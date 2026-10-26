@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_service_token
 title: "Get_service_token"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T18:32:11.002Z
+current_date: 2026-10-26T18:32:11.002Z
 ---
 
 > ## Documentation Index
@@ -278,6 +278,26 @@ paths:
                     type: string
                     description: When the service token was last used
                     nullable: true
+                  last_used_ip:
+                    type: string
+                    description: The IP address from the service token's latest use
+                    nullable: true
+                  last_used_location:
+                    type: string
+                    description: The location of the service token's latest use
+                    nullable: true
+                  last_used_asn:
+                    type: integer
+                    description: >-
+                      The autonomous system number for the service token's
+                      latest use
+                    nullable: true
+                  last_used_asn_organization:
+                    type: string
+                    description: >-
+                      The autonomous system organization for the service token's
+                      latest use
+                    nullable: true
                   actor_id:
                     type: string
                     description: >-
@@ -545,6 +565,10 @@ paths:
                   - updated_at
                   - expires_at
                   - last_used_at
+                  - last_used_ip
+                  - last_used_location
+                  - last_used_asn
+                  - last_used_asn_organization
                   - actor_id
                   - actor_display_name
                   - actor_type

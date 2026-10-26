@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_audit_logs
 title: "List_audit_logs"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T18:32:11.002Z
+current_date: 2026-10-26T18:32:11.002Z
 ---
 
 > ## Documentation Index
@@ -325,6 +325,18 @@ paths:
                           type: string
                           description: The location of the actor based on their IP address
                           nullable: true
+                        asn:
+                          type: integer
+                          description: >-
+                            The autonomous system number for the actor's IP
+                            address
+                          nullable: true
+                        asn_organization:
+                          type: string
+                          description: >-
+                            The autonomous system organization for the actor's
+                            IP address
+                          nullable: true
                         target_display_name:
                           type: string
                           description: The name of the target
@@ -367,6 +379,8 @@ paths:
                         - target_id
                         - target_type
                         - location
+                        - asn
+                        - asn_organization
                         - target_display_name
                         - audit_action
                         - action
