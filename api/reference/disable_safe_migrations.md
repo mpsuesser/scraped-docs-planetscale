@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/disable_safe_migrations
 title: "Disable_safe_migrations"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -15,6 +15,7 @@ current_date: 2026-10-23T08:01:29.756Z
 > 
 
 
+This page covers Vitess.
 
 
 ## OpenAPI

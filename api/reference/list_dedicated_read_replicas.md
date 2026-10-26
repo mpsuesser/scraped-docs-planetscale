@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_dedicated_read_replicas
 title: "List_dedicated_read_replicas"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -27,6 +27,9 @@ A service token or OAuth token must have at least one of the following access or
 | Database | `read_branches` |
 | Branch | `read_branch` |
 
+This page covers Postgres.
+
+Vitess version: [Vitess](https://planetscale.com/docs/api/reference/list_read_only_regions.md)
 
 
 ## OpenAPI

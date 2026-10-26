@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_shard_configuration_profile_extension
 title: "Update_shard_configuration_profile_extension"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -12,6 +12,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 # Enable or disable an extension for a configuration profile
 
+This page covers Neki.
 
 
 This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

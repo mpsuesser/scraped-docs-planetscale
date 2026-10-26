@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/review_deploy_request
 title: "Review_deploy_request"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -26,6 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `approve_deploy_requests` |
 | Database | `approve_deploy_requests` |
 
+This page covers Vitess.
 
 
 ## OpenAPI

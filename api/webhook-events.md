@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -14,7 +14,7 @@ current_date: 2026-10-22T18:21:49.469Z
 
 > Webhooks in PlanetScale allow you to trigger an HTTP POST callback to a configured URL when specific events happen within your PlanetScale organization.
 
-Vitess, Neki, and Postgres
+Available for Vitess, Neki, and Postgres.
 
 ## Overview
 

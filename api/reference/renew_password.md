@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/renew_password
 title: "Renew_password"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -26,6 +26,10 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `manage_passwords`, `manage_production_branch_passwords`, `manage_read_only_passwords`, `manage_production_read_only_passwords` |
 | Database | `manage_passwords`, `manage_production_branch_passwords`, `manage_read_only_passwords`, `manage_production_read_only_passwords` |
 | Branch | `manage_passwords`, `manage_read_only_passwords` |
+
+This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/api/reference/renew_role.md)
 
 > [!NOTE]
 >

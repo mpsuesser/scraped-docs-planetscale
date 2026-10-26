@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_database_postgres_cidr
 title: "Delete_database_postgres_cidr"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-26T19:36:36.624Z
+current_date: 2026-10-26T19:36:36.624Z
 ---
 
 > ## Documentation Index
@@ -26,6 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `write_databases` |
 | Database | `write_database` |
 
+This page covers Postgres.
 
 
 ## OpenAPI
