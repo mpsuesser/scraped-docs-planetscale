@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-27T16:28:43.980Z
+current_date: 2026-10-27T16:28:43.980Z
 ---
 
 > ## Documentation Index
@@ -1433,6 +1433,22 @@ WITH a AS NOT MATERIALIZED (INSERT INTO users (user_id, name, email) VALUES (1, 
 ```
 
 The `UPDATE` in `b` needs a value from `a` that is not available where the router runs it.
+
+### 786 — A data-modifying CTE whose rows the statement reads, writing a table with triggers, is unavailable on the router.
+
+```sql theme={null}
+CREATE FUNCTION log_price_change() RETURNS trigger LANGUAGE plpgsql AS $$BEGIN RETURN NULL; END$$;
+CREATE TRIGGER products_price_changed AFTER UPDATE ON products FOR EACH STATEMENT EXECUTE FUNCTION log_price_change();
+WITH batch AS MATERIALIZED (SELECT product_id FROM products ORDER BY product_id LIMIT 10), updated AS (UPDATE products p SET price = p.price * 2 FROM batch b WHERE p.product_id = b.product_id RETURNING p.product_id, p.price) SELECT u.product_id, u.price, (SELECT count(*) FROM batch) AS batch_size FROM updated u;
+```
+
+The router runs this `UPDATE` once for each shard, so the statement-level trigger `products_price_changed` would fire more than once for one statement. Any trigger on the written table that fires for the CTE's command (`UPDATE` or `DELETE`) causes this rejection, also when the trigger is disabled. The router rejects the statement for the same reason when the written table:
+
+* is referenced by a foreign key whose `ON UPDATE` or `ON DELETE` action for that command is `CASCADE`, `SET NULL` or `SET DEFAULT`, because PostgreSQL runs that action as a trigger;
+* has a rewrite rule for that command. Neki rejects `CREATE RULE` (code 305), so only a rule created outside Neki can cause this;
+* is a partition, a partitioned table, or an inheritance parent that the statement writes without `ONLY`.
+
+Run the write as a statement of its own, or remove the trigger. This rejection depends on the data topology.
 
 ### 801 — A whole-row CTE reference with a target-list subquery is unavailable on the router.
 
