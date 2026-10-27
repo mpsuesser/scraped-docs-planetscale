@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-27T16:16:59.369Z
+current_date: 2026-10-27T16:16:59.369Z
 ---
 
 > ## Documentation Index
@@ -144,6 +144,8 @@ CREATE EXTENSION IF NOT EXISTS btree_gist;
 | [`moddatetime`](https://www.postgresql.org/docs/current/contrib-spi.html#CONTRIB-SPI-MODDATETIME) | 1.0 | `CREATE EXTENSION moddatetime` | Trigger functions that record last modification time |
 | [`pg_trgm`](https://www.postgresql.org/docs/current/pgtrgm.html) | 1.6 | `CREATE EXTENSION pg_trgm` | Trigram text similarity |
 | [`pgcrypto`](https://www.postgresql.org/docs/current/pgcrypto.html) | 1.4 | `CREATE EXTENSION pgcrypto` | Cryptographic functions |
+| [`pgrowlocks`](https://www.postgresql.org/docs/current/pgrowlocks.html) | 1.2 | `CREATE EXTENSION pgrowlocks` | Row locks of a table. [Requires shard targeting](https://planetscale.com/docs/neki/platform-preview-limitations.md#pgrowlocks) |
+| [`pgstattuple`](https://www.postgresql.org/docs/current/pgstattuple.html) | 1.5 | `CREATE EXTENSION pgstattuple` | Tuple and free-space statistics. [Requires shard targeting](https://planetscale.com/docs/neki/platform-preview-limitations.md#pgstattuple) |
 | [`tcn`](https://www.postgresql.org/docs/current/tcn.html) | 1.0 | `CREATE EXTENSION tcn` | Trigger function that notifies listeners of table changes |
 | [`tsm_system_rows`](https://www.postgresql.org/docs/current/tsm-system-rows.html) | 1.0 | `CREATE EXTENSION tsm_system_rows` | `TABLESAMPLE` method `SYSTEM_ROWS` |
 | [`tsm_system_time`](https://www.postgresql.org/docs/current/tsm-system-time.html) | 1.0 | `CREATE EXTENSION tsm_system_time` | `TABLESAMPLE` method `SYSTEM_TIME` |
@@ -154,6 +156,8 @@ CREATE EXTENSION IF NOT EXISTS btree_gist;
 
 | Extension | Version | Profile toggle | Database install | Notes |
 | - | - | - | - | - |
+| [`hypopg`](https://github.com/HypoPG/hypopg) | 1.4.3 | — | `CREATE EXTENSION hypopg` | Hypothetical indexes for `EXPLAIN`. [Requires shard targeting](https://planetscale.com/docs/neki/platform-preview-limitations.md#hypopg) |
+| [`pg_stat_statements`](https://www.postgresql.org/docs/current/pgstatstatements.html) | 1.12 | Enable | `CREATE EXTENSION pg_stat_statements` | Execution statistics for each statement. The profile change restarts Postgres. [Requires shard targeting](https://planetscale.com/docs/neki/platform-preview-limitations.md#pg_stat_statements) |
 | [`vector`](#pgvector) (pgvector) | 0.8.5 | Enable | `CREATE EXTENSION vector` | Usable on unsharded and sharded Neki with [query-shape limits](#pgvector) |
 | [`vectorscale`](#vectorscale) | 0.9.0 | — | `CREATE EXTENSION vectorscale` | Requires `vector`. Enable on the profile to expose DiskANN query parameters. Inherits the [pgvector query-shape limits](#pgvector) |
 
@@ -227,6 +231,70 @@ Enabling `vectorscale` on the **Extensions** tab exposes these DiskANN query par
 | - | - | - |
 | `diskann.query_search_list_size` | `100` | The size of the search list used in queries. |
 | `diskann.query_rescore` | `50` | The number of elements rescored (`0` disables rescoring). |
+
+### auto\_explain
+
+[`auto_explain`](https://www.postgresql.org/docs/current/auto-explain.html)
+logs the plan of a slow statement. On Neki, each shard runs its own copy of
+`auto_explain`. Thus the log shows the plans of shards, not the plan of the
+statement that your application sent.
+
+This section uses two terms:
+
+* **Client SQL** is the SQL that your application sends to the router.
+* **Shard SQL** is the SQL that the router builds from the client SQL and
+  sends to one shard.
+
+#### Set the parameters
+
+Set the `auto_explain.*` parameters on the **Extensions** tab of the
+configuration profile. `SET auto_explain.*` in a session fails with
+`permission denied to set parameter`. The shards of a profile do not apply a
+parameter change at the same time.
+
+#### Differences from one Postgres instance
+
+`auto_explain` compares the executor time of a statement with
+`auto_explain.log_min_duration`. The executor time does not include parse
+time, plan time, or idle time between fetches. On Neki, this check has these
+results:
+
+1. Each shard logs only its own part of a client statement, under the shard
+   SQL. The client SQL is not in the log.
+2. The threshold applies to each shard statement, not to the client statement.
+   For example, a client statement waits 3 s for 10 shard statements of
+   300 ms each. With `log_min_duration = 1000`, no shard logs a plan.
+3. Router work is never in a shard plan. Examples are a join across shards, a
+   sort, and an aggregate that the router does.
+4. The log also contains plans of internal Neki statements. With
+   `log_min_duration = 0`, a test cluster logged about 1,000 plans in
+   2 minutes.
+
+#### Find a logged plan
+
+Each shard writes its plans to its own Postgres log. To read the plans, open
+the [Logs](https://planetscale.com/docs/neki/monitoring/logs.md) page and select the shard. The client SQL is
+not in the log. Thus, search for the name of a table in the statement.
+
+The Logs page shows a plan at the `INFO` level. A plan can show at a different
+level when its text contains a level name, for example `error` in a `WHERE`
+clause. To see all plans, do not select a level.
+
+A replica also logs the plans of the statements that it runs. By default, the
+Logs page shows only shard primaries. To see the plans of a replica, select
+the replica in **Servers**.
+
+#### When to use auto\_explain
+
+| Scenario | Result with `auto_explain` | What to do instead |
+| - | - | - |
+| A query is sometimes slow | Works when one shard statement is slow. That shard logs its plan under the shard SQL. | Use the log. Search for the plan by table name. |
+| Find slow queries in production | Partial. A statement is missed when its time is spread over shards or spent in the router. | Use [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md) to find slow client statements. Then use `EXPLAIN`, as in the next row. |
+| A slow query across shards | Not covered. Router work is not logged. | [`EXPLAIN (NEKI_PLAN, ANALYZE)`](query-planning.md#explain-neki_plan) shows the router plan with run-time numbers. [`EXPLAIN (NEKI_PG_PLAN)`](query-planning.md#explain-neki_pg_plan) shows the router plan with the Postgres plan of each shard. |
+| A query for one tenant | Works. The shard that owns the tenant logs one plan. | To get the plan by hand, [target that shard](https://planetscale.com/docs/neki/shard-targeting-fanout.md#targeting-one-shard-directly) with `__neki.shard`. Then run a plain `EXPLAIN`. Neki rejects `EXPLAIN ANALYZE`, `NEKI_PLAN`, and `NEKI_PG_PLAN` under `__neki.shard`. |
+
+[EXPLAIN reference](https://planetscale.com/docs/neki/explain-reference.md) shows the full output of
+`NEKI_PLAN` and `NEKI_PG_PLAN`.
 
 ## Change extension parameters
 

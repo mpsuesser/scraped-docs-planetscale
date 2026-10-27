@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/platform-preview-limitations
 title: "Platform Preview Limitations"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-27T16:16:59.369Z
+current_date: 2026-10-27T16:16:59.369Z
 ---
 
 > ## Documentation Index
@@ -84,8 +84,9 @@ Postgres host. This includes:
 ## Extensions that need shard targeting
 
 The router rejects the extension calls in this section when Neki must plan
-them. Each call acts on one Postgres server, or reports the state of one
-server. To use these calls, target one shard directly:
+them, or returns the result of one shard only. Each call acts on one Postgres
+server, or reports the state of one server. To use these calls, target one
+shard directly:
 
 1. Get the shard UIDs from `__neki.list_shards()`.
 2. Set `__neki.shard` to one shard UID. Neki forwards each call to that shard
@@ -126,6 +127,101 @@ the table.
 To get the statistics of the full table, add the counts and the sizes from all
 shards. Do not add the percentages. Calculate each percentage again from the
 added values.
+
+### hypopg
+
+The router rejects `hypopg_create_index()` when Neki must plan it. On the
+targeted shard, a plain `EXPLAIN` shows if the planner of that shard uses the
+hypothetical index.
+
+A hypothetical index exists only on one Postgres connection of the targeted
+shard. Neki reuses each connection for many client sessions. A `ROLLBACK`
+does not remove a hypothetical index. Thus, do all steps in one
+transaction:
+
+1. Set `__neki.shard` to one shard UID, before the transaction starts.
+2. In the transaction, create the hypothetical index with
+   `hypopg_create_index()`.
+3. Run a plain `EXPLAIN` of the query.
+4. Remove the hypothetical index with `hypopg_reset()`.
+5. Commit the transaction, then reset `__neki.shard`.
+
+```sql theme={null}
+SET __neki.shard = '<shard-uid>';
+BEGIN;
+SELECT * FROM hypopg_create_index('CREATE INDEX ON public.orders (user_id)');
+EXPLAIN SELECT * FROM public.orders WHERE user_id = 42;
+SELECT hypopg_reset();
+COMMIT;
+RESET __neki.shard;
+```
+
+If you do not call `hypopg_reset()`, later sessions on that shard can see the
+hypothetical index. Repeat the steps for each shard where the plan matters.
+Use plain `EXPLAIN` only. Neki rejects `EXPLAIN ANALYZE` under `__neki.shard`,
+and `hypopg` does not apply hypothetical indexes to `EXPLAIN ANALYZE`.
+
+### pg\_stat\_statements
+
+[Enable `pg_stat_statements` on the configuration
+profile](extensions.md#enable-an-extension-for-a-profile), then run `CREATE
+EXTENSION pg_stat_statements`. The profile change restarts Postgres.
+
+A read of the `pg_stat_statements` view through the router returns the
+statistics of one shard only. Neki gives no warning. The router rejects
+`pg_stat_statements_reset()` when Neki must plan it.
+
+On the targeted shard, a read returns the statistics of that shard. A call to
+`pg_stat_statements_reset()` resets the statistics of that shard. Repeat the
+read or the reset for each shard.
+
+```sql theme={null}
+SET __neki.shard = '<shard-uid>';
+-- Read the statistics of this shard.
+SELECT query, calls, total_exec_time, mean_exec_time
+FROM pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 10;
+-- Reset the statistics of this shard.
+SELECT pg_stat_statements_reset();
+RESET __neki.shard;
+```
+
+Client SQL is the SQL that your application sends to the router. Shard SQL is
+the SQL that the router builds from the client SQL and sends to a shard. The
+view on each shard differs from the view on one Postgres instance:
+
+* The `query` column shows shard SQL, not client SQL. For example, an `IN`
+  list becomes `= ANY($2)`.
+* When the router splits a client statement, each shard shows only its own
+  part. No entry gives the total time of the client statement.
+* Work that the router does, for example a join across shards, is not in the
+  view.
+* The view also shows internal Neki statements. These entries count toward
+  `pg_stat_statements.max`.
+* A shard that a shard split creates starts with empty statistics.
+* A monitoring tool that reads the view through the router, for example
+  Datadog or pganalyze, gets the statistics of one shard only.
+
+The internal Neki statements run as Neki roles. To show only the statements
+of your role, filter on `userid`:
+
+```sql theme={null}
+SELECT query, calls, total_exec_time, mean_exec_time
+FROM pg_stat_statements
+WHERE userid = current_user::regrole::oid
+ORDER BY total_exec_time DESC
+LIMIT 10;
+```
+
+Some `SET` statements that Neki sends for your session run as your role. These
+statements stay in the result. If your application connects with other roles,
+filter on those roles.
+
+For statistics of client SQL across all shards, use [Query
+Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md). For the parameters and the
+columns of the view, see
+[pg\_stat\_statements](https://planetscale.com/docs/postgres/extensions/pg_stat_statements.md).
 
 ## External Postgres
 
