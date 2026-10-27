@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-27T20:46:36.858Z
+current_date: 2026-10-27T20:46:36.858Z
 ---
 
 > ## Documentation Index
@@ -230,6 +230,8 @@ Outgoing public traffic (egress) is billed. Public ingress is free.
 | :- | :- |
 | Production | 100 GB per month |
 | Development | 10 GB per month |
+
+PlanetScale emails organization administrators when public egress for a Neki database is higher than usual.
 
 ### Private traffic
 
