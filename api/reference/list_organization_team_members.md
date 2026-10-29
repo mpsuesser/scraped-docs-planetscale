@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_organization_team_members
 title: "List_organization_team_members"
 description: ""
-access_date: 2026-10-23T08:01:29.756Z
-current_date: 2026-10-23T08:01:29.756Z
+access_date: 2026-10-29T10:19:03.286Z
+current_date: 2026-10-29T10:19:03.286Z
 ---
 
 > ## Documentation Index
@@ -101,7 +101,7 @@ tags:
                 Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
-                Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
+                Resources for viewing and updating database maintenance schedules, for PostgreSQL databases and Vitess databases (Enterprise only).
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
@@ -117,6 +117,9 @@ tags:
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: OIDC tokens
+    description: |2
+                API endpoints for exchanging OIDC tokens for service tokens.
   - name: Organization invitations
     description: |2
                 Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
@@ -190,6 +193,9 @@ tags:
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: OIDC trusts
+    description: |2
+                  Resources for managing OIDC trusts, which allow tokens from trusted OIDC providers to be exchanged for service tokens.
   - name: Organization SSO domains
     description: |2
                   Resources for listing and verifying organization email domains used for SSO.

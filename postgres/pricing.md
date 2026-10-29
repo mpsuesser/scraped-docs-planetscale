@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-27T20:46:36.858Z
-current_date: 2026-10-27T20:46:36.858Z
+access_date: 2026-10-29T10:19:03.286Z
+current_date: 2026-10-29T10:19:03.286Z
 ---
 
 > ## Documentation Index
@@ -55,7 +55,7 @@ postgresql://pscale_api_hhdcchpiodja.dzken160d27q:pscale_pw_<PLANETSCALE_DATABAS
 
 Each row is one priced cluster. Filter on `product` (`Postgres` or `Vitess`), `provider`, `region`, `machine_sku`, `replication_factor`, and `disk_sku` (empty string for `PS-*` network-attached SKUs). `price` is the monthly cluster cost in whole USD. It does not include extra storage, backups, egress, dedicated PgBouncers, or extra replicas.
 
-```sql theme={null} theme={null} theme={null}
+```sql theme={null}
 -- Postgres, 3-node HA PS-160 ARM in us-east-1
 SELECT machine_sku, replication_factor, price
 FROM planetscale_prices
@@ -67,7 +67,7 @@ WHERE product = 'Postgres'
   AND replication_factor = 3;
 ```
 
-```sql theme={null} theme={null} theme={null}
+```sql theme={null}
 -- Vitess, 3-node HA PS-160 in us-east-1
 SELECT machine_sku, replication_factor, price
 FROM planetscale_prices

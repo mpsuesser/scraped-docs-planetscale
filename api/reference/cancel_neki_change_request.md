@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/cancel_neki_change_request
 title: "Cancel_neki_change_request"
 description: ""
-access_date: 2026-10-26T19:36:36.624Z
-current_date: 2026-10-26T19:36:36.624Z
+access_date: 2026-10-29T10:19:03.286Z
+current_date: 2026-10-29T10:19:03.286Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-26T19:36:36.624Z
 
 # Cancel a change request for a branch
 
-> 
+> Deprecated. Use DELETE /organizations/:organization/databases/:database/branches/:branch/change-requests/:id instead.
 ### Authorization
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
@@ -103,7 +103,7 @@ tags:
                 Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
-                Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
+                Resources for viewing and updating database maintenance schedules, for PostgreSQL databases and Vitess databases (Enterprise only).
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
@@ -119,6 +119,9 @@ tags:
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: OIDC tokens
+    description: |2
+                API endpoints for exchanging OIDC tokens for service tokens.
   - name: Organization invitations
     description: |2
                 Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
@@ -192,6 +195,9 @@ tags:
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: OIDC trusts
+    description: |2
+                  Resources for managing OIDC trusts, which allow tokens from trusted OIDC providers to be exchanged for service tokens.
   - name: Organization SSO domains
     description: |2
                   Resources for listing and verifying organization email domains used for SSO.
@@ -212,9 +218,12 @@ paths:
   /organizations/{organization}/databases/{database}/branches/{branch}/neki-changes/{id}:
     delete:
       tags:
-        - api-neki_changes
+        - api-neki_change_requests
       summary: Cancel a change request for a Neki branch
       description: >-
+        Deprecated. Use DELETE
+        /organizations/:organization/databases/:database/branches/:branch/change-requests/:id
+        instead.
 
         ### Authorization
 
@@ -260,8 +269,8 @@ paths:
           schema:
             type: string
       responses:
-        '204':
-          description: Change request canceled
+        '308':
+          description: Redirects to the change request endpoint
           headers: {}
         '401':
           description: Unauthorized
@@ -271,7 +280,7 @@ paths:
           description: Change request not found
           headers: {}
         '422':
-          description: Change request cannot be canceled
+          description: Unprocessable Entity
         '429':
           description: >-
             Too Many Requests. Reduce the frequency of requests and try again

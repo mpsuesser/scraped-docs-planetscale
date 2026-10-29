@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_neki_change_request
 title: "Get_neki_change_request"
 description: ""
-access_date: 2026-10-26T19:36:36.624Z
-current_date: 2026-10-26T19:36:36.624Z
+access_date: 2026-10-29T10:19:03.286Z
+current_date: 2026-10-29T10:19:03.286Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-10-26T19:36:36.624Z
 
 # Get a change request for a branch
 
-> 
+> Deprecated. Use GET /organizations/:organization/databases/:database/branches/:branch/change-requests/:id instead.
 ### Authorization
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
@@ -104,7 +104,7 @@ tags:
                 Resources for viewing scheduled maintenance for Postgres databases.
   - name: MaintenanceSchedules
     description: |2
-                Resources for viewing database maintenance schedules for Vitess databases (Enterprise only).
+                Resources for viewing and updating database maintenance schedules, for PostgreSQL databases and Vitess databases (Enterprise only).
   - name: MaintenanceWindows
     description: |2
                 Resources for viewing maintenance windows for a Vitess database (Enterprise only).
@@ -120,6 +120,9 @@ tags:
   - name: OAuth tokens
     description: |2
                 Resources for managing OAuth tokens.
+  - name: OIDC tokens
+    description: |2
+                API endpoints for exchanging OIDC tokens for service tokens.
   - name: Organization invitations
     description: |2
                 Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
@@ -193,6 +196,9 @@ tags:
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: OIDC trusts
+    description: |2
+                  Resources for managing OIDC trusts, which allow tokens from trusted OIDC providers to be exchanged for service tokens.
   - name: Organization SSO domains
     description: |2
                   Resources for listing and verifying organization email domains used for SSO.
@@ -213,9 +219,12 @@ paths:
   /organizations/{organization}/databases/{database}/branches/{branch}/neki-changes/{id}:
     get:
       tags:
-        - api-neki_changes
+        - api-neki_change_requests
       summary: Get a change request for a Neki branch
       description: >-
+        Deprecated. Use GET
+        /organizations/:organization/databases/:database/branches/:branch/change-requests/:id
+        instead.
 
         ### Authorization
 
@@ -263,307 +272,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: Returns a Neki change request
+        '308':
+          description: Redirects to the change request endpoint
           headers: {}
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                      - NekiAdminChangeRequest
-                      - NekiClusterChangeRequest
-                      - NekiConfigurationProfileChangeRequest
-                      - NekiExternalShardChangeRequest
-                      - NekiRouterChangeRequest
-                    description: The type of change request
-                  id:
-                    type: string
-                    description: The ID of the change request
-                  state:
-                    type: string
-                    enum:
-                      - draft
-                      - pending
-                      - applying
-                      - canceled
-                      - completed
-                    description: The state of the change request
-                  can_delete:
-                    type: boolean
-                    description: Whether the change request can be deleted
-                  started_at:
-                    type: string
-                    description: The time the change request started
-                    nullable: true
-                  completed_at:
-                    type: string
-                    description: The time the change request completed
-                    nullable: true
-                  created_at:
-                    type: string
-                    description: The time the change request was created
-                  updated_at:
-                    type: string
-                    description: The time the change request was last updated
-                  actor:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: The ID of the actor
-                      display_name:
-                        type: string
-                        description: The name of the actor
-                      avatar_url:
-                        type: string
-                        description: The URL of the actor's avatar
-                    required:
-                      - id
-                      - display_name
-                      - avatar_url
-                  target_id:
-                    type: string
-                    description: The ID of the resource being changed
-                    nullable: true
-                  target_type:
-                    type: string
-                    enum:
-                      - NekiAdmin
-                      - NekiCluster
-                      - NekiConfigurationProfile
-                      - NekiExternalShard
-                      - NekiRouter
-                    description: The type of resource being changed
-                  target_name:
-                    type: string
-                    description: The name of the resource being changed
-                  admin_size:
-                    type: string
-                    description: The name of the admin size SKU
-                    nullable: true
-                  admin_size_display_name:
-                    type: string
-                    description: The display name of the admin size SKU
-                    nullable: true
-                  parameters:
-                    type: object
-                    additionalProperties: true
-                    description: The parameters requested for the target resource
-                    nullable: true
-                  previous_admin_size:
-                    type: string
-                    description: The previous name of the admin size SKU
-                    nullable: true
-                  previous_admin_size_display_name:
-                    type: string
-                    description: The previous display name of the admin size SKU
-                    nullable: true
-                  previous_parameters:
-                    type: object
-                    additionalProperties: true
-                    description: The target resource parameters before the change
-                    nullable: true
-                  replicas:
-                    type: integer
-                    description: The number of replicas
-                    nullable: true
-                  previous_replicas:
-                    type: integer
-                    description: The previous number of replicas
-                    nullable: true
-                  cluster_name:
-                    type: string
-                    description: The SKU representing the external sidecar size
-                    nullable: true
-                  cluster_display_name:
-                    type: string
-                    description: The display name of the cluster size SKU
-                    nullable: true
-                  previous_cluster_name:
-                    type: string
-                    description: The SKU representing the previous external sidecar size
-                    nullable: true
-                  previous_cluster_display_name:
-                    type: string
-                    description: The previous display name of the cluster size SKU
-                    nullable: true
-                  router_size:
-                    type: string
-                    description: The name of the router size SKU
-                    nullable: true
-                  router_size_display_name:
-                    type: string
-                    description: The display name of the router size SKU
-                    nullable: true
-                  replicas_per_cell:
-                    type: integer
-                    description: The number of replicas in each cell
-                    nullable: true
-                  autoscaling:
-                    type: boolean
-                    description: Whether the router scales horizontally within each cell
-                    nullable: true
-                  max_replicas_per_cell:
-                    type: integer
-                    description: >-
-                      The maximum number of replicas in each cell when
-                      autoscaling
-                    nullable: true
-                  target_cpu_utilization:
-                    type: integer
-                    description: >-
-                      The target average CPU utilization percentage when
-                      autoscaling, one of 40, 50, 60 or 70
-                    nullable: true
-                  previous_router_size:
-                    type: string
-                    description: The previous name of the router size SKU
-                    nullable: true
-                  previous_router_size_display_name:
-                    type: string
-                    description: The previous display name of the router size SKU
-                    nullable: true
-                  previous_replicas_per_cell:
-                    type: integer
-                    description: The previous number of replicas in each cell
-                    nullable: true
-                  previous_autoscaling:
-                    type: boolean
-                    description: The previous autoscaling state of the router
-                    nullable: true
-                  previous_max_replicas_per_cell:
-                    type: integer
-                    description: The previous maximum number of replicas in each cell
-                    nullable: true
-                  previous_target_cpu_utilization:
-                    type: integer
-                    description: The previous target average CPU utilization percentage
-                    nullable: true
-                  name:
-                    type: string
-                    description: The name of the configuration profile
-                    nullable: true
-                  previous_name:
-                    type: string
-                    description: The previous name of the configuration profile
-                    nullable: true
-                  cluster_size:
-                    type: string
-                    description: The name of the cluster size SKU
-                    nullable: true
-                  metal:
-                    type: boolean
-                    description: Whether the cluster size SKU uses metal instances
-                    nullable: true
-                  cluster_rank:
-                    type: integer
-                    description: The display order of the cluster size SKU
-                    nullable: true
-                  shards:
-                    type: integer
-                    description: The number of shards
-                    nullable: true
-                  postgres_image_version:
-                    type: string
-                    description: The PostgreSQL image
-                    nullable: true
-                  storage:
-                    type: object
-                    properties:
-                      minimum_storage_bytes:
-                        type: integer
-                        description: The minimum storage size in bytes
-                        nullable: true
-                      maximum_storage_bytes:
-                        type: integer
-                        description: The maximum storage size in bytes for autoscaling
-                        nullable: true
-                      storage_autoscaling:
-                        type: boolean
-                        description: Whether storage autoscaling is enabled
-                        nullable: true
-                      storage_iops:
-                        type: integer
-                        description: The storage IOPS
-                        nullable: true
-                      storage_throughput_mibs:
-                        type: integer
-                        description: The storage throughput in MiB/s
-                        nullable: true
-                    required:
-                      - minimum_storage_bytes
-                      - maximum_storage_bytes
-                      - storage_autoscaling
-                      - storage_iops
-                      - storage_throughput_mibs
-                    nullable: true
-                  previous_cluster_size:
-                    type: string
-                    description: The previous name of the cluster size SKU
-                    nullable: true
-                  previous_metal:
-                    type: boolean
-                    description: Whether the previous cluster size SKU used metal instances
-                    nullable: true
-                  previous_cluster_rank:
-                    type: integer
-                    description: The previous display order of the cluster size SKU
-                    nullable: true
-                  previous_shards:
-                    type: integer
-                    description: The previous number of shards
-                    nullable: true
-                  previous_postgres_image_version:
-                    type: string
-                    description: The previous PostgreSQL image
-                    nullable: true
-                  previous_storage:
-                    type: object
-                    properties:
-                      minimum_storage_bytes:
-                        type: integer
-                        description: The minimum storage size in bytes
-                        nullable: true
-                      maximum_storage_bytes:
-                        type: integer
-                        description: The maximum storage size in bytes for autoscaling
-                        nullable: true
-                      storage_autoscaling:
-                        type: boolean
-                        description: Whether storage autoscaling is enabled
-                        nullable: true
-                      storage_iops:
-                        type: integer
-                        description: The storage IOPS
-                        nullable: true
-                      storage_throughput_mibs:
-                        type: integer
-                        description: The storage throughput in MiB/s
-                        nullable: true
-                    required:
-                      - minimum_storage_bytes
-                      - maximum_storage_bytes
-                      - storage_autoscaling
-                      - storage_iops
-                      - storage_throughput_mibs
-                    nullable: true
-                required:
-                  - type
-                  - id
-                  - state
-                  - can_delete
-                  - started_at
-                  - completed_at
-                  - created_at
-                  - updated_at
-                  - actor
-                  - target_id
-                  - target_type
-                  - target_name
         '401':
           description: Unauthorized
         '403':
