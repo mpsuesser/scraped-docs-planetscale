@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-10-26T19:36:36.624Z
-current_date: 2026-10-26T19:36:36.624Z
+access_date: 2026-10-29T21:39:41.267Z
+current_date: 2026-10-29T21:39:41.267Z
 ---
 
 > ## Documentation Index
@@ -58,6 +58,11 @@ If configured, webhook deliveries include your Authorization header value unchan
 | [Deploy request reverted](#deploy-request-reverted) | `deploy_request.reverted` | The deploy request has been reverted. | Vitess |
 | [Deploy request closed](#deploy-request-closed) | `deploy_request.closed` | The deploy request has been closed. | Vitess |
 | [Keyspace storage](#keyspace-storage) | `keyspace.storage` | A Vitess keyspace has reached a storage threshold (60%, 75%, 85%, 90%, 95%). | Vitess |
+| [Maintenance scheduled](#maintenance-scheduled) | `maintenance.scheduled` | Restart-required maintenance has been scheduled. | Postgres |
+| [Maintenance started](#maintenance-started) | `maintenance.started` | Scheduled maintenance has started. | Postgres |
+| [Maintenance completed](#maintenance-completed) | `maintenance.completed` | Scheduled maintenance has finished. | Postgres |
+| [Maintenance failed](#maintenance-failed) | `maintenance.failed` | Scheduled maintenance couldn't finish and will be retried. | Postgres |
+| [Maintenance canceled](#maintenance-canceled) | `maintenance.canceled` | Scheduled maintenance has been canceled. | Postgres |
 | [Webhook test](#webhook-test) | `webhook.test` | A webhook test is triggered. | Vitess, Neki, Postgres |
 
 > [!NOTE]
@@ -521,7 +526,7 @@ Neki maintenance webhooks are available for production branches with a weekly ma
 
 **Postgres**
 
-Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information.
+Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information. To hear about restart-required maintenance before it runs, subscribe to the [maintenance events](#maintenance-scheduled).
 
 By subscribing to this webhook, you will receive a notification right before maintenance for your production branch is about to start.
 
@@ -1729,6 +1734,202 @@ A storage threshold (60%, 75%, 85%, 90%, 95%) has been crossed for a keyspace.
         "storage_percentage": 44.1
       }
     ]
+  }
+}
+```
+
+### Maintenance scheduled
+
+Restart-required maintenance has been scheduled for a Postgres production branch. We send this at least 7 days ahead, along with an email to the database's administrators. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information.
+
+The `maintenance.scheduled` event uses the same response body as a `200` response from the [Get a maintenance event](https://planetscale.com/docs/api/reference/get_maintenance_event.md) API endpoint. The payload shows the event as it is when the webhook is sent.
+
+**Example:**
+
+```json expandable theme={null}
+{
+  "timestamp": 1792439436,
+  "event": "maintenance.scheduled",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "18lbwwe27y4o",
+    "type": "MaintenanceEvent",
+    "state": "scheduled",
+    "what": "Postgres image update",
+    "why": "We're rolling out an updated PlanetScale Postgres image for your branch's Postgres version. Applying it requires restarting Postgres, so we do it during your maintenance window.",
+    "expected_impact": "Each Postgres instance restarts once, replicas first. If your branch has replicas, we switch the primary over to an updated replica before restarting it: open connections to the primary are dropped and writes pause briefly while the switchover completes. If your branch has no replicas, Postgres is unavailable while it restarts, usually for under a minute. Make sure your application reconnects and retries.",
+    "scheduled_at": "2026-10-26T21:00:00.000Z",
+    "not_after": "2026-11-09T10:52:00.000Z",
+    "completed_at": null,
+    "reschedules_remaining": 3,
+    "branch": {
+      "id": "thym5msub5c7",
+      "type": "Branch",
+      "name": "main",
+      "created_at": "2026-10-19T16:20:53.902Z",
+      "updated_at": "2026-10-19T19:30:29.578Z",
+      "deleted_at": null
+    },
+    "available_times": [
+      "2026-11-02T21:00:00.000Z"
+    ]
+  }
+}
+```
+
+### Maintenance started
+
+Scheduled maintenance has started in the branch's maintenance window.
+
+The `maintenance.started` event uses the same response body as a `200` response from the [Get a maintenance event](https://planetscale.com/docs/api/reference/get_maintenance_event.md) API endpoint. The payload shows the event as it is when the webhook is sent.
+
+**Example:**
+
+```json expandable theme={null}
+{
+  "timestamp": 1793048712,
+  "event": "maintenance.started",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "18lbwwe27y4o",
+    "type": "MaintenanceEvent",
+    "state": "in_progress",
+    "what": "Postgres image update",
+    "why": "We're rolling out an updated PlanetScale Postgres image for your branch's Postgres version. Applying it requires restarting Postgres, so we do it during your maintenance window.",
+    "expected_impact": "Each Postgres instance restarts once, replicas first. If your branch has replicas, we switch the primary over to an updated replica before restarting it: open connections to the primary are dropped and writes pause briefly while the switchover completes. If your branch has no replicas, Postgres is unavailable while it restarts, usually for under a minute. Make sure your application reconnects and retries.",
+    "scheduled_at": "2026-10-26T21:00:00.000Z",
+    "not_after": "2026-11-09T10:52:00.000Z",
+    "completed_at": null,
+    "reschedules_remaining": 3,
+    "branch": {
+      "id": "thym5msub5c7",
+      "type": "Branch",
+      "name": "main",
+      "created_at": "2026-10-19T16:20:53.902Z",
+      "updated_at": "2026-10-19T19:30:29.578Z",
+      "deleted_at": null
+    },
+    "available_times": []
+  }
+}
+```
+
+### Maintenance completed
+
+Scheduled maintenance has finished.
+
+If there was nothing left to change when the window opened, for example because you applied the update yourself, the maintenance completes without a restart, and you get `maintenance.completed` without a `maintenance.started` first.
+
+The `maintenance.completed` event uses the same response body as a `200` response from the [Get a maintenance event](https://planetscale.com/docs/api/reference/get_maintenance_event.md) API endpoint. The payload shows the event as it is when the webhook is sent.
+
+**Example:**
+
+```json expandable theme={null}
+{
+  "timestamp": 1793049312,
+  "event": "maintenance.completed",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "18lbwwe27y4o",
+    "type": "MaintenanceEvent",
+    "state": "completed",
+    "what": "Postgres image update",
+    "why": "We're rolling out an updated PlanetScale Postgres image for your branch's Postgres version. Applying it requires restarting Postgres, so we do it during your maintenance window.",
+    "expected_impact": "Each Postgres instance restarts once, replicas first. If your branch has replicas, we switch the primary over to an updated replica before restarting it: open connections to the primary are dropped and writes pause briefly while the switchover completes. If your branch has no replicas, Postgres is unavailable while it restarts, usually for under a minute. Make sure your application reconnects and retries.",
+    "scheduled_at": "2026-10-26T21:00:00.000Z",
+    "not_after": "2026-11-09T10:52:00.000Z",
+    "completed_at": "2026-10-26T21:15:12.648Z",
+    "reschedules_remaining": 3,
+    "branch": {
+      "id": "thym5msub5c7",
+      "type": "Branch",
+      "name": "main",
+      "created_at": "2026-10-19T16:20:53.902Z",
+      "updated_at": "2026-10-19T19:30:29.578Z",
+      "deleted_at": null
+    },
+    "available_times": []
+  }
+}
+```
+
+### Maintenance failed
+
+Scheduled maintenance couldn't finish. The event remains scheduled, and we try again in a later window before its deadline.
+
+The `maintenance.failed` event uses the same response body as a `200` response from the [Get a maintenance event](https://planetscale.com/docs/api/reference/get_maintenance_event.md) API endpoint. The payload shows the event as it is when the webhook is sent.
+
+**Example:**
+
+```json expandable theme={null}
+{
+  "timestamp": 1793049312,
+  "event": "maintenance.failed",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "18lbwwe27y4o",
+    "type": "MaintenanceEvent",
+    "state": "scheduled",
+    "what": "Postgres image update",
+    "why": "We're rolling out an updated PlanetScale Postgres image for your branch's Postgres version. Applying it requires restarting Postgres, so we do it during your maintenance window.",
+    "expected_impact": "Each Postgres instance restarts once, replicas first. If your branch has replicas, we switch the primary over to an updated replica before restarting it: open connections to the primary are dropped and writes pause briefly while the switchover completes. If your branch has no replicas, Postgres is unavailable while it restarts, usually for under a minute. Make sure your application reconnects and retries.",
+    "scheduled_at": "2026-10-26T21:00:00.000Z",
+    "not_after": "2026-11-09T10:52:00.000Z",
+    "completed_at": null,
+    "reschedules_remaining": 3,
+    "branch": {
+      "id": "thym5msub5c7",
+      "type": "Branch",
+      "name": "main",
+      "created_at": "2026-10-19T16:20:53.902Z",
+      "updated_at": "2026-10-19T19:30:29.578Z",
+      "deleted_at": null
+    },
+    "available_times": [
+      "2026-11-02T21:00:00.000Z"
+    ]
+  }
+}
+```
+
+### Maintenance canceled
+
+We canceled scheduled maintenance, so it won't run. We also email the database's administrators.
+
+The `maintenance.canceled` event uses the same response body as a `200` response from the [Get a maintenance event](https://planetscale.com/docs/api/reference/get_maintenance_event.md) API endpoint. The payload shows the event as it is when the webhook is sent.
+
+**Example:**
+
+```json expandable theme={null}
+{
+  "timestamp": 1792526400,
+  "event": "maintenance.canceled",
+  "organization": "myorg",
+  "database": "example_database",
+  "resource": {
+    "id": "18lbwwe27y4o",
+    "type": "MaintenanceEvent",
+    "state": "canceled",
+    "what": "Postgres image update",
+    "why": "We're rolling out an updated PlanetScale Postgres image for your branch's Postgres version. Applying it requires restarting Postgres, so we do it during your maintenance window.",
+    "expected_impact": "Each Postgres instance restarts once, replicas first. If your branch has replicas, we switch the primary over to an updated replica before restarting it: open connections to the primary are dropped and writes pause briefly while the switchover completes. If your branch has no replicas, Postgres is unavailable while it restarts, usually for under a minute. Make sure your application reconnects and retries.",
+    "scheduled_at": "2026-10-26T21:00:00.000Z",
+    "not_after": "2026-11-09T10:52:00.000Z",
+    "completed_at": null,
+    "reschedules_remaining": 3,
+    "branch": {
+      "id": "thym5msub5c7",
+      "type": "Branch",
+      "name": "main",
+      "created_at": "2026-10-19T16:20:53.902Z",
+      "updated_at": "2026-10-19T19:30:29.578Z",
+      "deleted_at": null
+    },
+    "available_times": []
   }
 }
 ```

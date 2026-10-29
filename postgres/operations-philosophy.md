@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/operations-philosophy
 title: "Operations Philosophy"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-29T21:39:41.267Z
+current_date: 2026-10-29T21:39:41.267Z
 ---
 
 > ## Documentation Index
@@ -200,7 +200,7 @@ When this happens, the Kubernetes pods that power your primary and replicas are 
 ![Image upgrade](https://mintcdn.com/planetscale-2/o_cHHlFu3sW-NBEp/postgres/image-upgrade.png?fit=max\&auto=format\&n=o_cHHlFu3sW-NBEp\&q=85\&s=f2f03e225e63fc1d0606456053b21490)
 
 As with other operations described earlier, this leads to terminated connections and a brief period of database inaccessibility.
-Image upgrades are performed in cases of emergencies (such as patching security issues) or when initiated by the user via the PlanetScale application or API.
+Image upgrades run in your branch's [maintenance window](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md), announced at least 7 days ahead, or when you [apply the update yourself](https://planetscale.com/docs/postgres/cluster-configuration/updates.md). Critical security fixes may need to run sooner.
 
 ## Disk availability, scaling, and cost
 

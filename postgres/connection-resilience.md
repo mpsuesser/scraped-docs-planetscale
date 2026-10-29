@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connection-resilience
 title: "Connection Resilience"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-29T21:39:41.267Z
+current_date: 2026-10-29T21:39:41.267Z
 ---
 
 > ## Documentation Index
@@ -37,7 +37,7 @@ Postgres design dictates connection interruptions for several reasons:
 * **Parameter changes** — Changing certain [parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md) requires connection interruption.
 * **Cluster resizing** — If you're upgrading which cluster size you're running on, or the amount of CPU/memory, connections will be interrupted as we move the cluster to new hardware.
 * **Enabling extensions** — The design of the extension ecosystem means most new extensions need connection interruption.
-* **PlanetScale routine maintenance** — Very occasionally, PlanetScale has to perform routine maintenance on your database (e.g. for operating system updates and other infrastructure changes). We notify your organization's admin contacts at least 24 hours before scheduled maintenance (typically weeks beforehand).
+* **PlanetScale scheduled maintenance** — Some updates, such as Postgres and image updates, require a restart. We announce these at least 7 days ahead and run them in your branch's [maintenance window](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md).
 * **PlanetScale emergency maintenance** — Critical security vulnerabilities may require immediate patching to protect your data. These patches are deployed as soon as possible and may not include advance notice.
 
 Many applications don't tolerate a Postgres connection being closed. Typically this results in an HTTP 500 error and an error in your exception tracker/logs.

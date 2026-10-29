@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_maintenance_schedules
 title: "List_maintenance_schedules"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-10-29T21:39:41.267Z
+current_date: 2026-10-29T21:39:41.267Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `read_databases` |
 | Database | `read_database` |
 
-This page covers Vitess.
+Available for Vitess and Postgres.
 
 
 ## OpenAPI
