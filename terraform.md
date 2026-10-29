@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/terraform
 title: "Terraform"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-29T14:57:53.846Z
+current_date: 2026-10-29T14:57:53.846Z
 ---
 
 > ## Documentation Index
@@ -683,6 +683,8 @@ resource "planetscale_neki_branch" "production" {
 ```
 
 You should enforce your own review and approval processes around Terraform `apply`, particularly for changes that delete or recreate branches.
+
+See [Deletion protection](https://planetscale.com/docs/security/deletion-protection.md) and [Require multiple administrators for deletion](https://planetscale.com/docs/security/multiple-admins-required-for-deletion.md) for the dashboard and support-managed safeguards.
 
 ## Upgrading from v0.x to v1.x
 

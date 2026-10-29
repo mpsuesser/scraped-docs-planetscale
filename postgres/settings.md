@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-29T14:57:53.846Z
+current_date: 2026-10-29T14:57:53.846Z
 ---
 
 > ## Documentation Index
@@ -130,6 +130,8 @@ Enter the database name
 Click **Delete database** to confirm
 
 Only Organization Administrators and Database Administrators have permission to delete databases. See the [Access Control documentation](https://planetscale.com/docs/security/access-control.md) for more information about user permissions.
+
+To add a confirmation step before anyone can delete the database, enable [deletion protection](https://planetscale.com/docs/security/deletion-protection.md). To require two administrators to approve the delete, see [Require multiple administrators for deletion](https://planetscale.com/docs/security/multiple-admins-required-for-deletion.md).
 
 ## Need help?
 
