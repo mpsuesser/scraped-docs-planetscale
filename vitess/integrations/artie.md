@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/artie
 title: "Artie"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T21:12:08.571Z
+current_date: 2026-10-30T21:12:08.571Z
 ---
 
 > ## Documentation Index
@@ -15,6 +15,8 @@ current_date: 2026-10-26T19:24:46.643Z
 > Connect PlanetScale Vitess to Artie so you can extract data and safely load it into other destinations for analysis, transformation, and more.
 
 This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/integrations/artie.md)
 
 Artie continuously replicates inserts, updates, and deletes from PlanetScale into supported warehouses, lakehouses, and object stores.
 Artie connects through Vitess VStream rather than standard MySQL binary-log replication, so you do not need to configure binlog replication, GTID, or MySQL replication privileges.
