@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_webhook
 title: "Get_webhook"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-10-30T15:54:02.751Z
+current_date: 2026-10-30T15:54:02.751Z
 ---
 
 > ## Documentation Index
@@ -326,6 +326,11 @@ paths:
                         - deploy_request.reverted
                         - deploy_request.schema_applied
                         - keyspace.storage
+                        - maintenance.scheduled
+                        - maintenance.started
+                        - maintenance.completed
+                        - maintenance.failed
+                        - maintenance.canceled
                         - webhook.test
                     type: array
                     description: The events this webhook subscribes to
