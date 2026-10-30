@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -382,15 +382,15 @@ The discovery tool runs entirely on your infrastructure. No data is sent to exte
 
 Once you have your discovery report, [share it with us](https://planetscale.com/contact) if you want tailored migration guidance. You can also follow one of our migration guides on your own:
 
-> **[Database imports](https://planetscale.com/docs/vitess/imports/database-imports.md)**
+> [card] [Database imports](https://planetscale.com/docs/vitess/imports/database-imports.md)
 
-> **[Migrate from AWS RDS](https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide.md)**
+> [card] [Migrate from AWS RDS](https://planetscale.com/docs/vitess/imports/aws-rds-migration-guide.md)
 
-> **[Migrate from Amazon Aurora](https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide.md)**
+> [card] [Migrate from Amazon Aurora](https://planetscale.com/docs/vitess/imports/amazon-aurora-migration-guide.md)
 
-> **[Migrate from Google Cloud SQL](https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide.md)**
+> [card] [Migrate from Google Cloud SQL](https://planetscale.com/docs/vitess/imports/gcp-cloudsql-migration-guide.md)
 
-> **[Migrate from Azure](https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide.md)**
+> [card] [Migrate from Azure](https://planetscale.com/docs/vitess/imports/azure-database-for-mysql-migration-guide.md)
 
 ## Need help?
 

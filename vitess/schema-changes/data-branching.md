@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/data-branching
 title: "Data Branching"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -63,23 +63,23 @@ Clicking on "**New Branch**" should now offer an option to select "**Seed Data**
 
 ### FAQ
 
-> **Can I pick which backup is used for the new branch?**
+> [accordion] Can I pick which backup is used for the new branch?
 >
 > PlanetScale picks the latest backup so that your new branch has the latest dataset to work with.
 
-> **Can I pick which tables are copied into the new branch?**
+> [accordion] Can I pick which tables are copied into the new branch?
 >
 > PlanetScale seeds the new branch with **all the schema & data** from the base branch. We do not offer a way to filter out data or schema when creating a new branch.
 
-> **Is data in the new branch kept up to date with changes to the base branch?**
+> [accordion] Is data in the new branch kept up to date with changes to the base branch?
 >
 > PlanetScale does not provide data syncing between a production branch and a development branch.
 
-> **When I merge my deploy request, will any data changes be merged back to the base branch?**
+> [accordion] When I merge my deploy request, will any data changes be merged back to the base branch?
 >
 > PlanetScale does not provide data syncing between a production branch and a development branch.
 
-> **Will enabling the Data Branching® feature affect my billing?**
+> [accordion] Will enabling the Data Branching® feature affect my billing?
 >
 > Yes, it can. If you are branching and seeding from a *development* branch, the new branch will count towards your [development branch usage hours](https://planetscale.com/docs/planetscale-plans.md#development-branches) in the same way that regular branching does, but because you're seeding it with data, it will also be billed for storage.
 >

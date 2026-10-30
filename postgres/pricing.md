@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -85,7 +85,7 @@ WHERE product = 'Vitess'
 
 Column meanings, more example queries, and an agent-friendly catalog are in [pricing.md](https://planetscale.com/pricing.md). The connection URI is also on the [pricing page](https://planetscale.com/pricing#pricing-database).
 
-> **[pricing.md](https://planetscale.com/pricing.md)**
+> [card] [pricing.md](https://planetscale.com/pricing.md)
 >
 > For an agent-friendly catalog of live cluster SKU rates and example SQL, fetch `https://planetscale.com/pricing.md`.
 

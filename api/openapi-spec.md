@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/openapi-spec
 title: "Openapi Spec"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-20T18:26:07.257Z
 
 The following specification is for `https://api.planetscale.com/v1`.
 
-> **[Download OpenAPI Spec](https://planetscale.com/docs/openapi.yaml)**
+> [card] [Download OpenAPI Spec](https://planetscale.com/docs/openapi.yaml)
 >
 > Download the PlanetScale API OpenAPI 3.0 specification in YAML format.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/ai-tooling
 title: "Ai Tooling"
 description: ""
-access_date: 2026-10-26T19:36:36.624Z
-current_date: 2026-10-26T19:36:36.624Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ Use the [PlanetScale Bot for Grok Bot](https://planetscale.com/docs/agents/grok-
 
 Official bootstrap instructions for AI agents — install skills, configure MCP, and authenticate the CLI. Fetch as Markdown for agent sessions:
 
-> **[Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)**
+> [card] [Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)
 >
 > Copy or fetch the [Markdown export](https://planetscale.com/docs/agent-setup/prompt.md) (`https://planetscale.com/docs/agent-setup/prompt.md` on production)
 
@@ -46,7 +46,7 @@ Access your PlanetScale organizations, databases, branches, schema, and Insights
 
 The hosted MCP server can be installed in development tools as well as other MCP-accessible tools like Claude in the web browser and desktop app.
 
-> **[PlanetScale MCP Server](https://planetscale.com/docs/mcp-server.md)**
+> [card] [PlanetScale MCP Server](https://planetscale.com/docs/mcp-server.md)
 >
 > Install in Claude Code, Cursor, VS Code and more
 
@@ -54,7 +54,7 @@ The hosted MCP server can be installed in development tools as well as other MCP
 
 Use the MCP server with AI coding agents to continuously optimize your database. Agents can review production Insights data and Schema Recommendations, then open pull requests with performance improvements — on a recurring schedule.
 
-> **[Self-improving database](https://planetscale.com/docs/self-improving-database.md)**
+> [card] [Self-improving database](https://planetscale.com/docs/self-improving-database.md)
 >
 > Set up automated agents that optimize your database daily
 
@@ -62,7 +62,7 @@ Use the MCP server with AI coding agents to continuously optimize your database.
 
 Operational workflows for agents — read-only assessment, safety review, Insights analysis, schema recommendations, Traffic Control, and change gates — live in the public skills pack:
 
-> **[planetscale/skills](https://github.com/planetscale/skills)**
+> [card] [planetscale/skills](https://github.com/planetscale/skills)
 >
 > Install assessment and automation skills for Cursor, Claude Code, and more
 

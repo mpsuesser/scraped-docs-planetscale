@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -54,15 +54,15 @@ For more information about how to read and interpret this data, see the [Queries
 
 Once you have selected the branch and server you want to analyze, you can begin exploring the insights for them in the following sections:
 
-> **[Query latency](#query-latency)**
+> [card] [Query latency](#query-latency)
 
-> **[Queries](#queries)**
+> [card] [Queries](#queries)
 
-> **[Rows read](#rows-read)**
+> [card] [Rows read](#rows-read)
 
-> **[Rows written](#rows-written)**
+> [card] [Rows written](#rows-written)
 
-> **[Any query metric](#any-query-metric)**
+> [card] [Any query metric](#any-query-metric)
 
 The remaining sections of this doc walk through how to interpret and act on the data in each graph. If you'd like to see a practical example of how to use Insights to debug a performance issue, check out our [Announcing Insights blog post](https://planetscale.com/blog/introducing-planetscale-insights-advanced-query-monitoring) or [this YouTube video](https://www.youtube.com/watch?v=kkjAxSViOAA) walking you through an example.
 

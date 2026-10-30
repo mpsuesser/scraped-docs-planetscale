@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/webhook-events
 title: "Webhook Events"
 description: ""
-access_date: 2026-10-29T21:39:41.267Z
-current_date: 2026-10-29T21:39:41.267Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -516,17 +516,17 @@ The `branch.sleeping` event uses the same response body as a `200` response from
 
 A production branch is about to start maintenance. This webhook is available for Vitess, Neki, and Postgres databases, with different behaviors:
 
-**Vitess**
+> [tab] Vitess
+>
+> Vitess maintenance webhooks are available for enterprise customers with maintenance windows configured. During maintenance, Vitess and security upgrades are rolled out. Any queued cluster configuration changes are applied.
 
-Vitess maintenance webhooks are available for enterprise customers with maintenance windows configured. During maintenance, Vitess and security upgrades are rolled out. Any queued cluster configuration changes are applied.
+> [tab] Neki
+>
+> Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](https://planetscale.com/docs/neki/cluster-configuration/maintenance-windows.md) for more information.
 
-**Neki**
-
-Neki maintenance webhooks are available for production branches with a weekly maintenance window. Maintenance can restart cluster components and close active connections. See the [Neki maintenance windows documentation](https://planetscale.com/docs/neki/cluster-configuration/maintenance-windows.md) for more information.
-
-**Postgres**
-
-Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information. To hear about restart-required maintenance before it runs, subscribe to the [maintenance events](#maintenance-scheduled).
+> [tab] Postgres
+>
+> Postgres maintenance webhooks are available for all customers. During maintenance, security patches and upgrades are rolled out. Your database cluster might restart, causing connections to be temporarily disconnected. See the [Postgres maintenance windows documentation](https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows.md) for more information. To hear about restart-required maintenance before it runs, subscribe to the [maintenance events](#maintenance-scheduled).
 
 By subscribing to this webhook, you will receive a notification right before maintenance for your production branch is about to start.
 

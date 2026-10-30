@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/debezium-confluent
 title: "Debezium Confluent"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -97,9 +97,9 @@ Your consumers subscribe to these topics; each message is a Debezium change even
 
 ## Related
 
-> **[Debezium connector for PlanetScale](https://planetscale.com/docs/vitess/integrations/debezium.md)**
+> [card] [Debezium connector for PlanetScale](https://planetscale.com/docs/vitess/integrations/debezium.md)
 
-> **[Confluent custom connectors](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/custom-connector-qs.html)**
+> [card] [Confluent custom connectors](https://docs.confluent.io/cloud/current/connectors/bring-your-connector/custom-connector-qs.html)
 
 ## Need help?
 

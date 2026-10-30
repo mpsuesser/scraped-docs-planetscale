@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-27T20:46:36.858Z
-current_date: 2026-10-27T20:46:36.858Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ terms. Use the dashboard estimate or the
 [pricing calculator](https://planetscale.com/pricing) for the current rate of a
 specific size. Do not assume a us-east-1 example applies everywhere.
 
-> **[pricing.md](https://planetscale.com/pricing.md)**
+> [card] [pricing.md](https://planetscale.com/pricing.md)
 >
 > For an agent-friendly catalog of live cluster SKU rates and example SQL, fetch `https://planetscale.com/pricing.md`.
 

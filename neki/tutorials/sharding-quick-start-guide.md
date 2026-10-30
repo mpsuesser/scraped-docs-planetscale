@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/tutorials/sharding-quick-start-guide
 title: "Sharding Quick Start Guide"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -33,45 +33,45 @@ tables stay on the original shard while you add a second shard and create an
 
 Use the same database and `main` branch from the database quickstart guide. Each new shard will use the selected configuration profile's cluster size and replica count.
 
-**Dashboard**
+> [tab] Dashboard
+>
+> **Step 1**
+>
+> Open the dashboard, then go to **Clusters** and select the `default`
+> configuration profile.
+>
+> **Step 2**
+>
+> Open the **Shards** tab and select **Create new shards**.
+>
+> **Step 3**
+>
+> Enter `1` for the number of shards to add, review the estimated cost,
+> and select **Add shards**.
+>
+> **Step 4**
+>
+> Wait until the new shard is ready.
 
-**Step 1**
-
-Open the dashboard, then go to **Clusters** and select the `default`
-configuration profile.
-
-**Step 2**
-
-Open the **Shards** tab and select **Create new shards**.
-
-**Step 3**
-
-Enter `1` for the number of shards to add, review the estimated cost,
-and select **Add shards**.
-
-**Step 4**
-
-Wait until the new shard is ready.
-
-**CLI**
-
-**Step 1**
-
-Create one shard on the `default` configuration profile:
-
-```bash theme={null}
-pscale branch shard create <DATABASE_NAME> main \
-  --config-profile default \
-  --count 1
-```
-
-**Step 2**
-
-List shards and wait until both report ready.
-
-```bash theme={null}
-pscale branch shard list <DATABASE_NAME> main
-```
+> [tab] CLI
+>
+> **Step 1**
+>
+> Create one shard on the `default` configuration profile:
+>
+> ```bash theme={null}
+> pscale branch shard create <DATABASE_NAME> main \
+>   --config-profile default \
+>   --count 1
+> ```
+>
+> **Step 2**
+>
+> List shards and wait until both report ready.
+>
+> ```bash theme={null}
+> pscale branch shard list <DATABASE_NAME> main
+> ```
 
 ![Clusters Shards tab showing two ready shards, sh1 and sh2](https://mintcdn.com/planetscale-2/6i1lJ6cNfB-VSsaH/neki/tutorials/clusters-shards.png?fit=max\&auto=format\&n=6i1lJ6cNfB-VSsaH\&q=85\&s=d9efd57998a20dfba80f63dbbb0f2894)
 

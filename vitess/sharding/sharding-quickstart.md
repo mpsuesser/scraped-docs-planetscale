@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/sharding/sharding-quickstart
 title: "Sharding Quickstart"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -21,13 +21,13 @@ This page covers Vitess.
 
 Before you begin, we recommend the following reading:
 
-> **[Workflows overview](https://planetscale.com/docs/vitess/scaling/workflows.md)**
+> [card] [Workflows overview](https://planetscale.com/docs/vitess/scaling/workflows.md)
 
-> **[What is a keyspace?](https://planetscale.com/docs/vitess/sharding.md)**
+> [card] [What is a keyspace?](https://planetscale.com/docs/vitess/sharding.md)
 
-> **[Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)**
+> [card] [Vindexes](https://planetscale.com/docs/vitess/sharding/vindexes.md)
 
-> **[Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md)**
+> [card] [Avoiding cross-shard queries](https://planetscale.com/docs/vitess/sharding/avoiding-cross-shard-queries.md)
 
 > [!NOTE]
 >

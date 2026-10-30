@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -67,39 +67,39 @@ With disk scaling off, disks keep their current size. They don't grow, even when
 
 ## Change the disk scaling setting
 
-**Dashboard**
+> [tab] Dashboard
+>
+> **Step 1**
+>
+> Select your database, and click [**Clusters**](https://planetscale.com/docs/vitess/cluster-configuration.md) in the left nav
+>
+> **Step 2**
+>
+> Select the keyspace, and open the **Storage** tab
+>
+> **Step 3**
+>
+> Choose **Grow automatically**, **Shrink**, or **Off**, and set the storage limit or the size to shrink to
+>
+> **Step 4**
+>
+> Click **Save changes**
 
-**Step 1**
+> [tab] CLI
+>
+> Use `pscale keyspace update-settings` with `--disk-scaling-strategy`, `--max-storage`, and `--storage`. For example:
+>
+> ```bash theme={null}
+> pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
+>   --disk-scaling-strategy grow \
+>   --max-storage 1TiB
+> ```
+>
+> See [Configure disk scaling](https://planetscale.com/docs/cli/keyspace.md#configure-disk-scaling) in the CLI reference for more examples.
 
-Select your database, and click [**Clusters**](https://planetscale.com/docs/vitess/cluster-configuration.md) in the left nav
-
-**Step 2**
-
-Select the keyspace, and open the **Storage** tab
-
-**Step 3**
-
-Choose **Grow automatically**, **Shrink**, or **Off**, and set the storage limit or the size to shrink to
-
-**Step 4**
-
-Click **Save changes**
-
-**CLI**
-
-Use `pscale keyspace update-settings` with `--disk-scaling-strategy`, `--max-storage`, and `--storage`. For example:
-
-```bash theme={null}
-pscale keyspace update-settings <DATABASE_NAME> <BRANCH_NAME> <KEYSPACE_NAME> \
-  --disk-scaling-strategy grow \
-  --max-storage 1TiB
-```
-
-See [Configure disk scaling](https://planetscale.com/docs/cli/keyspace.md#configure-disk-scaling) in the CLI reference for more examples.
-
-**API**
-
-Use the `storage` object on the [update keyspace](https://planetscale.com/docs/api/reference/update_keyspace.md) endpoint, with `disk_scaling_strategy` (`grow`, `disable`, or `shrink`), `max_storage_bytes`, and `storage_bytes`.
+> [tab] API
+>
+> Use the `storage` object on the [update keyspace](https://planetscale.com/docs/api/reference/update_keyspace.md) endpoint, with `disk_scaling_strategy` (`grow`, `disable`, or `shrink`), `max_storage_bytes`, and `storage_bytes`.
 
 > [!NOTE]
 >

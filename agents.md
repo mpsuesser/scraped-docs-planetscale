@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agents
 title: "Agents"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -20,29 +20,29 @@ Connect an agent to PlanetScale to get help with your databases. The hosted MCP 
 
 Get started with PlanetScale, ask questions about your database, and investigate slow or failing queries. Connect a codebase to trace database issues back to your code and help fix them via Cloud Agents, or set up webhooks to follow database events.
 
-> **[Use the PlanetScale Bot template](https://x.ai/bot/0hgwu8KbM0FIY-idg0x6L)**
+> [card] [Use the PlanetScale Bot template](https://x.ai/bot/0hgwu8KbM0FIY-idg0x6L)
 >
 > Preview PlanetScale Bot by PlanetScale and add a copy to Grok Bot.
 
-> **[Set up Grok Bot](https://planetscale.com/docs/agents/grok-bot.md)**
+> [card] [Set up Grok Bot](https://planetscale.com/docs/agents/grok-bot.md)
 >
 > Install Grok Bot, connect PlanetScale, and configure optional codebase and webhook access.
 
 ## Use your own agent
 
-> **[Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)**
+> [card] [Agent setup prompt](https://planetscale.com/docs/agent-setup/prompt.md)
 >
 > Set up PlanetScale skills, MCP, and the CLI in your coding agent.
 
-> **[PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md)**
+> [card] [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md)
 >
 > Connect an MCP-compatible agent to your PlanetScale account.
 
-> **[AI-enhanced development](https://planetscale.com/docs/ai-tooling.md)**
+> [card] [AI-enhanced development](https://planetscale.com/docs/ai-tooling.md)
 >
 > Explore PlanetScale plugins and skills for your development tools.
 
-> **[Self-improving database](https://planetscale.com/docs/self-improving-database.md)**
+> [card] [Self-improving database](https://planetscale.com/docs/self-improving-database.md)
 >
 > Configure recurring database reviews with a coding agent.
 

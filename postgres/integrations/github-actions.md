@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -18,19 +18,19 @@ Vitess version: [Vitess](https://planetscale.com/docs/vitess/integrations/github
 
 With GitHub Actions, you can automate branch creation and role credentials within your CI workflow.
 
-> **[Getting Started](#getting-started)**
+> [card] [Getting Started](#getting-started)
 
-> **[Authentication](#authentication)**
+> [card] [Authentication](#authentication)
 
-> **[Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)**
+> [card] [Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)
 
-> **[Create a PlanetScale branch](#create-a-planetscale-branch)**
+> [card] [Create a PlanetScale branch](#create-a-planetscale-branch)
 
-> **[Create a role for a branch](#create-a-role-for-a-branch)**
+> [card] [Create a role for a branch](#create-a-role-for-a-branch)
 
-> **[Delete a role](#delete-a-role)**
+> [card] [Delete a role](#delete-a-role)
 
-> **[Delete a PlanetScale branch](#delete-a-planetscale-branch)**
+> [card] [Delete a PlanetScale branch](#delete-a-planetscale-branch)
 
 ## Getting started
 

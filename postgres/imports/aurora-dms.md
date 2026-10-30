@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/aurora-dms
 title: "Aurora Dms"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -728,21 +728,21 @@ Deploy multiple stacks with different names to migrate multiple databases in par
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
+> [card] [PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)
 
-> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
+> [card] [Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)
 
-> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
+> [card] [Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)
 
 **Important:** Allow additional time for post-migration schema object setup. Aurora databases with many indexes or complex constraints may require several hours for complete schema migration.
 
 ## Support and Resources
 
-> **[PlanetScale migration scripts](https://github.com/planetscale/migration-scripts)**
+> [card] [PlanetScale migration scripts](https://github.com/planetscale/migration-scripts)
 
-> **[AWS Documentation](https://docs.aws.amazon.com/cloudformation/)**
+> [card] [AWS Documentation](https://docs.aws.amazon.com/cloudformation/)
 
-> **[PlanetScale Support](https://planetscale.com/contact?initial=support)**
+> [card] [PlanetScale Support](https://planetscale.com/contact?initial=support)
 
 For simpler migrations, consider [pg\_dump/restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md), or [logical replication](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md) methods.
 

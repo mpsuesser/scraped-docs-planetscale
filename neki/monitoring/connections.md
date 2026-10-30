@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/connections
 title: "Connections"
 description: ""
-access_date: 2026-10-23T15:21:54.098Z
-current_date: 2026-10-23T15:21:54.098Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -109,11 +109,11 @@ role model.
 
 ## Related documentation
 
-> **[connections CLI reference](https://planetscale.com/docs/cli/connections.md)**
+> [card] [connections CLI reference](https://planetscale.com/docs/cli/connections.md)
 
-> **[Monitoring overview](https://planetscale.com/docs/neki/monitoring.md)**
+> [card] [Monitoring overview](https://planetscale.com/docs/neki/monitoring.md)
 
-> **[Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md)**
+> [card] [Query Insights](https://planetscale.com/docs/neki/monitoring/query-insights.md)
 
 ## Need help?
 

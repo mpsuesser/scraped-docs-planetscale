@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-migration
 title: "Data Migration"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -175,19 +175,19 @@ automatically repoint dependent views.
 Add two new shards for a two-way split. Wait until each destination shard has a
 ready primary. Do not reuse the source shard as a target.
 
-**Dashboard**
+> [tab] Dashboard
+>
+> Open the database, go to **Clusters**, select the configuration profile,
+> open the **Shards** tab, and select **Create new shards**. Enter `2`,
+> review the estimated cost, and add the shards.
 
-Open the database, go to **Clusters**, select the configuration profile,
-open the **Shards** tab, and select **Create new shards**. Enter `2`,
-review the estimated cost, and add the shards.
-
-**CLI**
-
-```bash theme={null}
-pscale branch shard create <DATABASE_NAME> main \
-  --config-profile default \
-  --count 2
-```
+> [tab] CLI
+>
+> ```bash theme={null}
+> pscale branch shard create <DATABASE_NAME> main \
+>   --config-profile default \
+>   --count 2
+> ```
 
 ```sql theme={null}
 SELECT uid, name FROM __neki.list_shards();

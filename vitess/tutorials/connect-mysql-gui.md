@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/connect-mysql-gui
 title: "Connect Mysql Gui"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -63,13 +63,13 @@ Creating new databases is not supported using any GUI tool.
 
 The following MySQL GUI applications have been tested and confirmed to work with PlanetScale databases:
 
-> **[Sequel Ace](https://sequel-ace.com/)**
+> [card] [Sequel Ace](https://sequel-ace.com/)
 
-> **[TablePlus](https://tableplus.com/)**
+> [card] [TablePlus](https://tableplus.com/)
 
-> **[MySQL Workbench](https://www.mysql.com/products/workbench/)**
+> [card] [MySQL Workbench](https://www.mysql.com/products/workbench/)
 
-> **[JetBrains DataGrip](https://www.jetbrains.com/datagrip/)**
+> [card] [JetBrains DataGrip](https://www.jetbrains.com/datagrip/)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/connections
 title: "Connections"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -185,11 +185,11 @@ If you know MySQL, these map to what you would expect:
 
 ## Related documentation
 
-> **[connections CLI reference](https://planetscale.com/docs/cli/connections.md)**
+> [card] [connections CLI reference](https://planetscale.com/docs/cli/connections.md)
 
-> **[Query Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md)**
+> [card] [Query Insights](https://planetscale.com/docs/vitess/monitoring/query-insights.md)
 
-> **[PlanetScale CLI environment setup](https://planetscale.com/docs/cli/planetscale-environment-setup.md)**
+> [card] [PlanetScale CLI environment setup](https://planetscale.com/docs/cli/planetscale-environment-setup.md)
 
 ## Need help?
 

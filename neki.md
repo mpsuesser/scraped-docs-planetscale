@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki
 title: "Neki"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -30,19 +30,19 @@ This makes it a perfect solution for anything from a massive database storing hu
 You do not have to shard to use Neki. A new database starts as an unsharded cluster. You still get all the benefits of zero-downtime upgrades, cluster management, connection pooling and more.
 Whether you later shard depends on your traffic, access patterns, and data — see [When to shard](https://planetscale.com/docs/neki/when-to-shard.md).
 
-> **[Architecture](https://planetscale.com/docs/neki/overview.md)**
+> [card] [Architecture](https://planetscale.com/docs/neki/overview.md)
 >
 > The components of a Neki deployment and how they fit together.
 
-> **[When to shard](https://planetscale.com/docs/neki/when-to-shard.md)**
+> [card] [When to shard](https://planetscale.com/docs/neki/when-to-shard.md)
 >
 > Whether sharding is the right answer to the limits you're hitting.
 
-> **[Quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md)**
+> [card] [Quickstart](https://planetscale.com/docs/neki/tutorials/planetscale-quick-start-guide.md)
 >
 > Create your first Neki database, connect, and insert data.
 
-> **[Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md)**
+> [card] [Neki vs PlanetScale Postgres](https://planetscale.com/docs/neki/coming-from-postgres.md)
 >
 > The upgrade from a single primary, and the habits that change.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-architecture
 title: "Postgres Architecture"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -261,15 +261,15 @@ PlanetScale Postgres integrates with popular monitoring and development tools th
 
 ## Related documentation
 
-> **[Cluster Configuration](https://planetscale.com/docs/postgres/cluster-configuration.md)**
+> [card] [Cluster Configuration](https://planetscale.com/docs/postgres/cluster-configuration.md)
 
-> **[Scaling with Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md)**
+> [card] [Scaling with Replicas](https://planetscale.com/docs/postgres/scaling/replicas.md)
 
-> **[Backup and Recovery](https://planetscale.com/docs/postgres/backups.md)**
+> [card] [Backup and Recovery](https://planetscale.com/docs/postgres/backups.md)
 
-> **[Monitoring and Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md)**
+> [card] [Monitoring and Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md)
 
-> **[Database Branching](https://planetscale.com/docs/postgres/branching.md)**
+> [card] [Database Branching](https://planetscale.com/docs/postgres/branching.md)
 
 ## Need help?
 

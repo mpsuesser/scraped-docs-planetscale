@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -92,15 +92,15 @@ Once a recommendation is closed, PlanetScale will never re-suggest it.
 
 The following are the currently supported schema recommendations:
 
-> **[Adding indexes for inefficient queries](#adding-indexes-for-inefficient-queries)**
+> [card] [Adding indexes for inefficient queries](#adding-indexes-for-inefficient-queries)
 
-> **[Removing redundant indexes](#removing-redundant-indexes)**
+> [card] [Removing redundant indexes](#removing-redundant-indexes)
 
-> **[Preventing primary key ID exhaustion](#preventing-primary-key-id-exhaustion)**
+> [card] [Preventing primary key ID exhaustion](#preventing-primary-key-id-exhaustion)
 
-> **[Dropping unused tables](#dropping-unused-tables)**
+> [card] [Dropping unused tables](#dropping-unused-tables)
 
-> **[Upgrading legacy character sets and collations](#upgrading-legacy-character-sets-and-collations)**
+> [card] [Upgrading legacy character sets and collations](#upgrading-legacy-character-sets-and-collations)
 
 The impact of schema recommendations can vary by recommendation. In the following sections, we will inform you of each recommendation’s potential impacts and explain the recommendation further.
 

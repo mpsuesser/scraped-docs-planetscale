@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/quickstart
 title: "Quickstart"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -20,13 +20,13 @@ Vitess version: [Vitess](https://planetscale.com/docs/vitess/connecting/connecti
 
 We recommend reading the [Connections overview documentation](https://planetscale.com/docs/postgres/connecting.md) before going through this quickstart. It contains important information such as when and how to use PgBouncer over direct connections.
 
-> **Postgres**
+> [card] Postgres
 >
 > Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](https://planetscale.com/docs/postgres/connecting/quickstart.md).
 >
 > `pscale connect` is not supported.
 
-> **Vitess / MySQL**
+> [card] Vitess / MySQL
 >
 > Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](https://planetscale.com/docs/vitess/connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
 

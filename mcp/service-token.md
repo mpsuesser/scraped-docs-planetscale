@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -110,97 +110,97 @@ The full connect permissions can also run read queries. You do not need the read
 
 ## Client configuration
 
-**Cursor**
+> [tab] Cursor
+>
+> Add the header to `.cursor/mcp.json` or `~/.cursor/mcp.json`. Cursor and the Cursor CLI (`agent`) read `PLANETSCALE_API_TOKEN` from the environment at connect time.
+>
+> ```json .cursor/mcp.json theme={null}
+> {
+>   "mcpServers": {
+>     "planetscale": {
+>       "url": "https://mcp.pscale.dev/mcp/planetscale",
+>       "headers": {
+>         "Authorization": "Bearer ${env:PLANETSCALE_API_TOKEN}"
+>       }
+>     }
+>   }
+> }
+> ```
 
-Add the header to `.cursor/mcp.json` or `~/.cursor/mcp.json`. Cursor and the Cursor CLI (`agent`) read `PLANETSCALE_API_TOKEN` from the environment at connect time.
+> [tab] Claude Code
+>
+> ```bash theme={null}
+> claude mcp add --transport http "planetscale" https://mcp.pscale.dev/mcp/planetscale \
+>   --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}"
+> ```
+>
+> The shell expands the variable when you run the command, so the token is written into your Claude MCP config. Don't commit that file.
 
-```json .cursor/mcp.json theme={null}
-{
-  "mcpServers": {
-    "planetscale": {
-      "url": "https://mcp.pscale.dev/mcp/planetscale",
-      "headers": {
-        "Authorization": "Bearer ${env:PLANETSCALE_API_TOKEN}"
-      }
-    }
-  }
-}
-```
+> [tab] Codex
+>
+> Codex reads the env var name and sends it as a Bearer token. The variable should be the `pscale_tkn_...` secret, not `Bearer ...`.
+>
+> ```bash theme={null}
+> codex mcp add planetscale \
+>   --url https://mcp.pscale.dev/mcp/planetscale \
+>   --bearer-token-env-var PLANETSCALE_API_TOKEN
+> ```
+>
+> Or in `~/.codex/config.toml`:
+>
+> ```toml theme={null}
+> [mcp_servers.planetscale]
+> url = "https://mcp.pscale.dev/mcp/planetscale"
+> bearer_token_env_var = "PLANETSCALE_API_TOKEN"
+> ```
 
-**Claude Code**
+> [tab] VS Code
+>
+> Add the header to `.vscode/mcp.json`. VS Code reads `PLANETSCALE_API_TOKEN` from the environment at connect time.
+>
+> ```json .vscode/mcp.json theme={null}
+> {
+>   "servers": {
+>     "planetscale": {
+>       "type": "http",
+>       "url": "https://mcp.pscale.dev/mcp/planetscale",
+>       "headers": {
+>         "Authorization": "Bearer ${env:PLANETSCALE_API_TOKEN}"
+>       }
+>     }
+>   }
+> }
+> ```
 
-```bash theme={null}
-claude mcp add --transport http "planetscale" https://mcp.pscale.dev/mcp/planetscale \
-  --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}"
-```
+> [tab] Gemini CLI
+>
+> ```bash theme={null}
+> gemini mcp add --transport http \
+>   --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}" \
+>   planetscale https://mcp.pscale.dev/mcp/planetscale
+> ```
+>
+> The shell expands the variable when you run the command, so the token is written into your Gemini MCP config. Don't commit that file.
 
-The shell expands the variable when you run the command, so the token is written into your Claude MCP config. Don't commit that file.
-
-**Codex**
-
-Codex reads the env var name and sends it as a Bearer token. The variable should be the `pscale_tkn_...` secret, not `Bearer ...`.
-
-```bash theme={null}
-codex mcp add planetscale \
-  --url https://mcp.pscale.dev/mcp/planetscale \
-  --bearer-token-env-var PLANETSCALE_API_TOKEN
-```
-
-Or in `~/.codex/config.toml`:
-
-```toml theme={null}
-[mcp_servers.planetscale]
-url = "https://mcp.pscale.dev/mcp/planetscale"
-bearer_token_env_var = "PLANETSCALE_API_TOKEN"
-```
-
-**VS Code**
-
-Add the header to `.vscode/mcp.json`. VS Code reads `PLANETSCALE_API_TOKEN` from the environment at connect time.
-
-```json .vscode/mcp.json theme={null}
-{
-  "servers": {
-    "planetscale": {
-      "type": "http",
-      "url": "https://mcp.pscale.dev/mcp/planetscale",
-      "headers": {
-        "Authorization": "Bearer ${env:PLANETSCALE_API_TOKEN}"
-      }
-    }
-  }
-}
-```
-
-**Gemini CLI**
-
-```bash theme={null}
-gemini mcp add --transport http \
-  --header "Authorization: Bearer ${PLANETSCALE_API_TOKEN}" \
-  planetscale https://mcp.pscale.dev/mcp/planetscale
-```
-
-The shell expands the variable when you run the command, so the token is written into your Gemini MCP config. Don't commit that file.
-
-**OpenCode**
-
-Set `oauth` to `false` so OpenCode uses the header instead of starting a browser login.
-
-```json ~/.config/opencode/opencode.json theme={null}
-{
-  "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "planetscale": {
-      "type": "remote",
-      "url": "https://mcp.pscale.dev/mcp/planetscale",
-      "oauth": false,
-      "headers": {
-        "Authorization": "Bearer {env:PLANETSCALE_API_TOKEN}"
-      }
-    }
-  }
-}
-```
+> [tab] OpenCode
+>
+> Set `oauth` to `false` so OpenCode uses the header instead of starting a browser login.
+>
+> ```json ~/.config/opencode/opencode.json theme={null}
+> {
+>   "$schema": "https://opencode.ai/config.json",
+>   "mcp": {
+>     "planetscale": {
+>       "type": "remote",
+>       "url": "https://mcp.pscale.dev/mcp/planetscale",
+>       "oauth": false,
+>       "headers": {
+>         "Authorization": "Bearer {env:PLANETSCALE_API_TOKEN}"
+>       }
+>     }
+>   }
+> }
+> ```
 
 ## Troubleshooting
 

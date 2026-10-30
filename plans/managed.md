@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed
 title: "Managed"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -34,11 +34,11 @@ The database is deployed in a single-tenant environment and isolated in an AWS O
 
 Read more about PlanetScale Managed on each cloud provider:
 
-> **[PlanetScale Managed on Amazon Web Services](https://planetscale.com/docs/plans/managed/aws.md)**
+> [card] [PlanetScale Managed on Amazon Web Services](https://planetscale.com/docs/plans/managed/aws.md)
 
-> **[PlanetScale Managed on Microsoft Azure](https://planetscale.com/docs/plans/managed/azure.md)**
+> [card] [PlanetScale Managed on Microsoft Azure](https://planetscale.com/docs/plans/managed/azure.md)
 
-> **[PlanetScale Managed on Google Cloud Platform](https://planetscale.com/docs/plans/managed/gcp.md)**
+> [card] [PlanetScale Managed on Google Cloud Platform](https://planetscale.com/docs/plans/managed/gcp.md)
 
 ## Benefits of PlanetScale Managed
 

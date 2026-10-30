@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -26,31 +26,31 @@ Available for Vitess and Postgres.
 
 ## Quick start
 
-> **[Cursor](https://cursor.com/en-US/install-mcp?name=PlanetScale\&config=eyJ1cmwiOiJodHRwczovL21jcC5wc2NhbGUuZGV2L21jcC9wbGFuZXRzY2FsZSJ9)**
+> [card] [Cursor](https://cursor.com/en-US/install-mcp?name=PlanetScale\&config=eyJ1cmwiOiJodHRwczovL21jcC5wc2NhbGUuZGV2L21jcC9wbGFuZXRzY2FsZSJ9)
 >
 > One-click install
 
-> **[VS Code](vscode:mcp/install?%7B%22url%22%3A%22https%3A%2F%2Fmcp.pscale.dev%2Fmcp%2Fplanetscale%22%2C%22name%22%3A%22PlanetScale%22%2C%22type%22%3A%22http%22%7D)**
+> [card] [VS Code](vscode:mcp/install?%7B%22url%22%3A%22https%3A%2F%2Fmcp.pscale.dev%2Fmcp%2Fplanetscale%22%2C%22name%22%3A%22PlanetScale%22%2C%22type%22%3A%22http%22%7D)
 >
 > One-click install
 
-> **[Claude Code](#claude-code)**
+> [card] [Claude Code](#claude-code)
 >
 > See instructions
 
-> **[OpenCode](#opencode)**
+> [card] [OpenCode](#opencode)
 >
 > See instructions
 
-> **[Codex](#codex-cli)**
+> [card] [Codex](#codex-cli)
 >
 > See instructions
 
-> **[Notion](#notion)**
+> [card] [Notion](#notion)
 >
 > See instructions
 
-> **[Other clients](#installation-instructions)**
+> [card] [Other clients](#installation-instructions)
 >
 > See all options
 
@@ -107,7 +107,7 @@ Service token access is not chosen in the OAuth prompt. Grant it on the token. S
 
 ### Cursor
 
-> **[Cursor](https://cursor.com/en-US/install-mcp?name=PlanetScale\&config=eyJ1cmwiOiJodHRwczovL21jcC5wc2NhbGUuZGV2L21jcC9wbGFuZXRzY2FsZSJ9)**
+> [card] [Cursor](https://cursor.com/en-US/install-mcp?name=PlanetScale\&config=eyJ1cmwiOiJodHRwczovL21jcC5wc2NhbGUuZGV2L21jcC9wbGFuZXRzY2FsZSJ9)
 >
 > Click to install the MCP server configuration for Cursor.
 
@@ -132,7 +132,7 @@ Manual installation:
 
 ### VS Code
 
-> **[VS Code](vscode:mcp/install?%7B%22name%22%3A%22PlanetScale%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.pscale.dev%2Fmcp%2Fplanetscale%22%7D)**
+> [card] [VS Code](vscode:mcp/install?%7B%22name%22%3A%22PlanetScale%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.pscale.dev%2Fmcp%2Fplanetscale%22%7D)
 >
 > Click to install the MCP server configuration for VS Code.
 

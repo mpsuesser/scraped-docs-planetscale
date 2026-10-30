@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/workflows
 title: "Workflows"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -20,15 +20,15 @@ Workflows are [Vitess VReplication](https://vitess.io/docs/reference/vreplicatio
 
 You create and drive workflows with [`pscale branch vtctl`](../../cli/vtctl.md) (or the matching APIs). The dashboard shows the live state of each workflow, read directly from Vitess.
 
-> **[Move tables between keyspaces](#move-tables-between-keyspaces)**
+> [card] [Move tables between keyspaces](#move-tables-between-keyspaces)
 >
 > Move tables between keyspaces within your PlanetScale database. Used for sharding, resharding, and reorganizing data.
 
-> **[Import a database](#import-a-database)**
+> [card] [Import a database](#import-a-database)
 >
 > Import data from an external MySQL database into PlanetScale with no downtime.
 
-> **[Materialize tables and views](#materialize)**
+> [card] [Materialize tables and views](#materialize)
 >
 > Keep copies, aggregations, or views in sync in near-realtime.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/prisma-best-practices
 title: "Prisma Best Practices"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -126,15 +126,15 @@ Lastly, this [discussion topic response on Prisma connection pooling](https://gi
 
 ## Other resources:
 
-> **[Using PlanetScale with Prisma](https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma.md)**
+> [card] [Using PlanetScale with Prisma](https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma.md)
 
-> **[Prisma quickstart for adding Prisma to an existing project](https://www.prisma.io/docs/getting-started/quickstart)**
+> [card] [Prisma quickstart for adding Prisma to an existing project](https://www.prisma.io/docs/getting-started/quickstart)
 
-> **[Prisma document on connection management](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/connection-management)**
+> [card] [Prisma document on connection management](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/connection-management)
 
-> **[Prisma document on how the connection pool works in Prisma](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/connection-pool#how-the-connection-pool-works)**
+> [card] [Prisma document on how the connection pool works in Prisma](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/connection-pool#how-the-connection-pool-works)
 
-> **[Video: Prisma & PlanetScale Best Practices](https://youtu.be/iaHt5_hg44c)**
+> [card] [Video: Prisma & PlanetScale Best Practices](https://youtu.be/iaHt5_hg44c)
 
 ## Need help?
 

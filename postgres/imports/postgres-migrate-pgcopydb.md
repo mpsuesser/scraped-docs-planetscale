@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb
 title: "Postgres Migrate Pgcopydb"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -135,139 +135,139 @@ The migration runs from a dedicated **migration instance**, a compute instance (
 
 PlanetScale provides infrastructure-as-code templates that provision a fully configured migration instance with pgcopydb v0.20.0, PostgreSQL 18 client tools, and the helper scripts pre-installed. Choose the template that matches your cloud provider and provisioning tool:
 
-**AWS CloudFormation**
-
-Upload the [CloudFormation template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/aws-cloudformation) to CloudFormation and fill in VPC ID, Subnet ID, instance type, and volume size. Or deploy via the CLI:
-
-```bash theme={null}
-aws cloudformation create-stack \
-  --stack-name planetscale-migration \
-  --template-body file://pgcopydb-migration-instance.yaml \
-  --parameters \
-    ParameterKey=VpcId,ParameterValue=vpc-xxxxxxxxx \
-    ParameterKey=SubnetId,ParameterValue=subnet-xxxxxxxxx \
-    ParameterKey=InstanceType,ParameterValue=c7i.xlarge \
-    ParameterKey=VolumeSize,ParameterValue=1000 \
-  --capabilities CAPABILITY_NAMED_IAM
-```
-
-**Key parameters:**
-
-* `VpcId` / `SubnetId` — The VPC and public subnet where the instance will launch. The subnet must have an internet gateway route for PlanetScale connectivity.
-* `InstanceType` — `c7i.xlarge` for databases under 100 GB, `c7i.2xlarge` for 100–500 GB, `c7i.4xlarge` for 500 GB+.
-* `VolumeSize` — EBS io2 Block Express volume in GB. Choose based on your source database size (500, 1000, 3000, 6000, or 12000).
-* `KeyPairName` — Optional. Leave empty to use EC2 Instance Connect for SSH access.
-
-**Connect to the instance** via SSM Session Manager (no SSH key needed):
-
-```bash theme={null}
-aws ssm start-session --target INSTANCE_ID
-```
-
-You can also use EC2 Instance Connect. Open the instance in the EC2 console and click **Connect** for browser-based SSH.
-
-**AWS Terraform**
-
-Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/aws-terraform) files (`pgcopydb-migration-instance.tf` and `user-data.sh`) in the same directory and deploy:
-
-```bash theme={null}
-terraform init
-terraform apply \
-  -var="vpc_id=vpc-xxxxxxxxx" \
-  -var="subnet_id=subnet-xxxxxxxxx" \
-  -var="instance_type=c7i.xlarge" \
-  -var="volume_size=1000"
-```
-
-**Key variables:**
-
-* `vpc_id` / `subnet_id` — The VPC and public subnet where the instance will launch. The subnet must have an internet gateway route for PlanetScale connectivity.
-* `instance_type` — `c7i.xlarge` for databases under 100 GB, `c7i.2xlarge` for 100–500 GB, `c7i.4xlarge` for 500 GB+.
-* `volume_size` — EBS io2 Block Express volume in GB (500, 1000, 3000, 6000, or 12000).
-* `key_pair_name` — Optional. Leave empty to use EC2 Instance Connect for SSH access.
-* `region` — AWS region (default: `us-east-1`).
-
-**Connect to the instance** via SSM Session Manager:
-
-```bash theme={null}
-aws ssm start-session --target $(terraform output -raw instance_id)
-```
-
-You can also use EC2 Instance Connect. Open the instance in the EC2 console and click **Connect** for browser-based SSH.
-
-**GCP Terraform**
-
-Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/gcp-terraform) files (`pgcopydb-migration-instance.tf` and `startup-script.sh`) in the same directory and deploy:
-
-```bash theme={null}
-terraform init
-terraform apply \
-  -var="project_id=my-project" \
-  -var="vpc_name=my-vpc" \
-  -var="subnet_name=my-subnet" \
-  -var="service_account_email=sa@my-project.iam.gserviceaccount.com" \
-  -var="machine_type=n2-standard-8" \
-  -var="disk_size_gb=500"
-```
-
-**Key variables:**
-
-* `project_id` — Your GCP project ID.
-* `vpc_name` / `subnet_name` — The VPC and subnet where the instance will launch.
-* `service_account_email` — Service account to attach to the instance.
-* `machine_type` — `n2-standard-8` or `c3d-standard` family. Size based on your source database.
-* `disk_size_gb` — Boot disk size in GB (100–10000). Choose based on your source database size.
-* `region` / `zone` — GCP region and zone (default: `us-central1-a`).
-
-**Connect to the instance** via IAP tunnel:
-
-```bash theme={null}
-gcloud compute ssh $(terraform output -raw instance_name) \
-  --zone=$(terraform output -raw zone) \
-  --project=YOUR_PROJECT \
-  --tunnel-through-iap
-```
-
-You can also use the GCP Console. Open the instance in Compute Engine and click **SSH** for browser-based access.
-
-**Azure Terraform**
-
-Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/azure-terraform) files (`pgcopydb-migration-instance.tf` and `custom-data.sh`) in the same directory and deploy:
-
-```bash theme={null}
-terraform init
-terraform apply \
-  -var="subscription_id=$(az account show --query id -o tsv)" \
-  -var="vnet_resource_group_name=YOUR_NETWORK_RG" \
-  -var="vnet_name=YOUR_VNET" \
-  -var="subnet_name=YOUR_SUBNET" \
-  -var="your_public_ip=$(curl -4 icanhazip.com)"
-```
-
-**Key variables:**
-
-* `subscription_id` — Your Azure subscription ID.
-* `vnet_resource_group_name` / `vnet_name` / `subnet_name` — An existing virtual network and subnet where the VM will launch, and the resource group that holds them. Everything the template creates lands in its own `planetscale-migration-rg` resource group, so tearing it down never touches your resources.
-* `your_public_ip` — Restricts SSH access to your IP address.
-* `vm_size` — `Standard_E4bds_v5` for databases under 100 GB, `Standard_E8bds_v5` (default) for 100–500 GB, `Standard_E16bds_v5` for 500 GB+. The data disk's provisioned IOPS are matched to the VM size.
-* `data_disk_size_gb` — Premium SSD v2 data disk size in GB (500, 1000, or 3000). Choose based on your source database size.
-* `region` / `zone` — Azure region and availability zone (default: `eastus`). The region must support zonal Premium SSD v2 disks. If `terraform apply` fails with an allocation error, retry with a different `zone`.
-
-**Connect to the instance** as the `ubuntu` user with the generated SSH key:
-
-```bash theme={null}
-terraform output -raw generated_ssh_private_key > ./migration_key
-chmod 600 ./migration_key
-ssh -i ./migration_key ubuntu@$(terraform output -raw public_ip)
-```
-
-> [!WARNING]
+> [tab] AWS CloudFormation
 >
-> The generated private key is stored in `terraform.tfstate` as well as `./migration_key`. Do not commit or share either file, and delete `./migration_key` once the migration is complete. To skip the generated key entirely, pass your own key with `-var="ssh_public_key=..."`.
+> Upload the [CloudFormation template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/aws-cloudformation) to CloudFormation and fill in VPC ID, Subnet ID, instance type, and volume size. Or deploy via the CLI:
+>
+> ```bash theme={null}
+> aws cloudformation create-stack \
+>   --stack-name planetscale-migration \
+>   --template-body file://pgcopydb-migration-instance.yaml \
+>   --parameters \
+>     ParameterKey=VpcId,ParameterValue=vpc-xxxxxxxxx \
+>     ParameterKey=SubnetId,ParameterValue=subnet-xxxxxxxxx \
+>     ParameterKey=InstanceType,ParameterValue=c7i.xlarge \
+>     ParameterKey=VolumeSize,ParameterValue=1000 \
+>   --capabilities CAPABILITY_NAMED_IAM
+> ```
+>
+> **Key parameters:**
+>
+> * `VpcId` / `SubnetId` — The VPC and public subnet where the instance will launch. The subnet must have an internet gateway route for PlanetScale connectivity.
+> * `InstanceType` — `c7i.xlarge` for databases under 100 GB, `c7i.2xlarge` for 100–500 GB, `c7i.4xlarge` for 500 GB+.
+> * `VolumeSize` — EBS io2 Block Express volume in GB. Choose based on your source database size (500, 1000, 3000, 6000, or 12000).
+> * `KeyPairName` — Optional. Leave empty to use EC2 Instance Connect for SSH access.
+>
+> **Connect to the instance** via SSM Session Manager (no SSH key needed):
+>
+> ```bash theme={null}
+> aws ssm start-session --target INSTANCE_ID
+> ```
+>
+> You can also use EC2 Instance Connect. Open the instance in the EC2 console and click **Connect** for browser-based SSH.
 
-You can also connect with Entra ID (`az ssh vm ...`, or **Connect** in the portal), which logs you in as your own user rather than `ubuntu` — run `sudo su - ubuntu` after connecting.
+> [tab] AWS Terraform
+>
+> Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/aws-terraform) files (`pgcopydb-migration-instance.tf` and `user-data.sh`) in the same directory and deploy:
+>
+> ```bash theme={null}
+> terraform init
+> terraform apply \
+>   -var="vpc_id=vpc-xxxxxxxxx" \
+>   -var="subnet_id=subnet-xxxxxxxxx" \
+>   -var="instance_type=c7i.xlarge" \
+>   -var="volume_size=1000"
+> ```
+>
+> **Key variables:**
+>
+> * `vpc_id` / `subnet_id` — The VPC and public subnet where the instance will launch. The subnet must have an internet gateway route for PlanetScale connectivity.
+> * `instance_type` — `c7i.xlarge` for databases under 100 GB, `c7i.2xlarge` for 100–500 GB, `c7i.4xlarge` for 500 GB+.
+> * `volume_size` — EBS io2 Block Express volume in GB (500, 1000, 3000, 6000, or 12000).
+> * `key_pair_name` — Optional. Leave empty to use EC2 Instance Connect for SSH access.
+> * `region` — AWS region (default: `us-east-1`).
+>
+> **Connect to the instance** via SSM Session Manager:
+>
+> ```bash theme={null}
+> aws ssm start-session --target $(terraform output -raw instance_id)
+> ```
+>
+> You can also use EC2 Instance Connect. Open the instance in the EC2 console and click **Connect** for browser-based SSH.
 
-First boot takes 10–15 minutes while pgcopydb is built from source. Watch progress with `sudo tail -f /var/log/pgcopydb-setup.log`.
+> [tab] GCP Terraform
+>
+> Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/gcp-terraform) files (`pgcopydb-migration-instance.tf` and `startup-script.sh`) in the same directory and deploy:
+>
+> ```bash theme={null}
+> terraform init
+> terraform apply \
+>   -var="project_id=my-project" \
+>   -var="vpc_name=my-vpc" \
+>   -var="subnet_name=my-subnet" \
+>   -var="service_account_email=sa@my-project.iam.gserviceaccount.com" \
+>   -var="machine_type=n2-standard-8" \
+>   -var="disk_size_gb=500"
+> ```
+>
+> **Key variables:**
+>
+> * `project_id` — Your GCP project ID.
+> * `vpc_name` / `subnet_name` — The VPC and subnet where the instance will launch.
+> * `service_account_email` — Service account to attach to the instance.
+> * `machine_type` — `n2-standard-8` or `c3d-standard` family. Size based on your source database.
+> * `disk_size_gb` — Boot disk size in GB (100–10000). Choose based on your source database size.
+> * `region` / `zone` — GCP region and zone (default: `us-central1-a`).
+>
+> **Connect to the instance** via IAP tunnel:
+>
+> ```bash theme={null}
+> gcloud compute ssh $(terraform output -raw instance_name) \
+>   --zone=$(terraform output -raw zone) \
+>   --project=YOUR_PROJECT \
+>   --tunnel-through-iap
+> ```
+>
+> You can also use the GCP Console. Open the instance in Compute Engine and click **SSH** for browser-based access.
+
+> [tab] Azure Terraform
+>
+> Save the [Terraform template](https://github.com/planetscale/migration-scripts/tree/main/pgcopydb-templates/azure-terraform) files (`pgcopydb-migration-instance.tf` and `custom-data.sh`) in the same directory and deploy:
+>
+> ```bash theme={null}
+> terraform init
+> terraform apply \
+>   -var="subscription_id=$(az account show --query id -o tsv)" \
+>   -var="vnet_resource_group_name=YOUR_NETWORK_RG" \
+>   -var="vnet_name=YOUR_VNET" \
+>   -var="subnet_name=YOUR_SUBNET" \
+>   -var="your_public_ip=$(curl -4 icanhazip.com)"
+> ```
+>
+> **Key variables:**
+>
+> * `subscription_id` — Your Azure subscription ID.
+> * `vnet_resource_group_name` / `vnet_name` / `subnet_name` — An existing virtual network and subnet where the VM will launch, and the resource group that holds them. Everything the template creates lands in its own `planetscale-migration-rg` resource group, so tearing it down never touches your resources.
+> * `your_public_ip` — Restricts SSH access to your IP address.
+> * `vm_size` — `Standard_E4bds_v5` for databases under 100 GB, `Standard_E8bds_v5` (default) for 100–500 GB, `Standard_E16bds_v5` for 500 GB+. The data disk's provisioned IOPS are matched to the VM size.
+> * `data_disk_size_gb` — Premium SSD v2 data disk size in GB (500, 1000, or 3000). Choose based on your source database size.
+> * `region` / `zone` — Azure region and availability zone (default: `eastus`). The region must support zonal Premium SSD v2 disks. If `terraform apply` fails with an allocation error, retry with a different `zone`.
+>
+> **Connect to the instance** as the `ubuntu` user with the generated SSH key:
+>
+> ```bash theme={null}
+> terraform output -raw generated_ssh_private_key > ./migration_key
+> chmod 600 ./migration_key
+> ssh -i ./migration_key ubuntu@$(terraform output -raw public_ip)
+> ```
+>
+> > [!WARNING]
+> >
+> > The generated private key is stored in `terraform.tfstate` as well as `./migration_key`. Do not commit or share either file, and delete `./migration_key` once the migration is complete. To skip the generated key entirely, pass your own key with `-var="ssh_public_key=..."`.
+>
+> You can also connect with Entra ID (`az ssh vm ...`, or **Connect** in the portal), which logs you in as your own user rather than `ubuntu` — run `sudo su - ubuntu` after connecting.
+>
+> First boot takes 10–15 minutes while pgcopydb is built from source. Watch progress with `sudo tail -f /var/log/pgcopydb-setup.log`.
 
 > [!NOTE]
 >
@@ -456,61 +456,61 @@ Any extensions not supported by PlanetScale should be added to the `[exclude-ext
 
 The following are starting-point filters for common source providers. Copy the one that matches your source and adjust as needed:
 
-**AWS RDS/Aurora**
+> [tab] AWS RDS/Aurora
+>
+> ```ini theme={null}
+> [exclude-extension]
+> rds_tools
+> aws_commons
+> aws_s3
+> pg_repack
+> ```
 
-```ini theme={null}
-[exclude-extension]
-rds_tools
-aws_commons
-aws_s3
-pg_repack
-```
+> [tab] Supabase
+>
+> ```ini theme={null}
+> [exclude-schema]
+> auth
+> supabase_functions
+> extensions
+> storage
+> cron
+> realtime
+> supabase_migrations
+> net
+> _supabase
+> graphql
+> graphql_public
+>
+> [exclude-extension]
+> pg_net
+> pg_graphql
+> pgsodium
+> supabase_vault
+> pg_repack
+> http
+> pg_stat_monitor
+>
+> [exclude-event-trigger]
+> supabase_functions.hooks
+> ```
 
-**Supabase**
-
-```ini theme={null}
-[exclude-schema]
-auth
-supabase_functions
-extensions
-storage
-cron
-realtime
-supabase_migrations
-net
-_supabase
-graphql
-graphql_public
-
-[exclude-extension]
-pg_net
-pg_graphql
-pgsodium
-supabase_vault
-pg_repack
-http
-pg_stat_monitor
-
-[exclude-event-trigger]
-supabase_functions.hooks
-```
-
-**Google AlloyDB**
-
-```ini theme={null}
-[exclude-schema]
-ai
-google_ml
-helpobj
-perfsnap
-pgsnap
-
-[exclude-extension]
-g_stats
-google_columnar_engine
-google_db_advisor
-google_ml_integration
-```
+> [tab] Google AlloyDB
+>
+> ```ini theme={null}
+> [exclude-schema]
+> ai
+> google_ml
+> helpobj
+> perfsnap
+> pgsnap
+>
+> [exclude-extension]
+> g_stats
+> google_columnar_engine
+> google_db_advisor
+> google_ml_integration
+> ```
 
 ## 5. Run the migration
 

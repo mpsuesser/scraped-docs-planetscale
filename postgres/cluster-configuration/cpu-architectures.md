@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/cpu-architectures
 title: "Cpu Architectures"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -124,13 +124,13 @@ Depending on your target region for your deployment, there may or may not be cer
 
 ## Additional Resources
 
-> **[AWS Graviton processors](https://aws.amazon.com/ec2/graviton)**
+> [card] [AWS Graviton processors](https://aws.amazon.com/ec2/graviton)
 
-> **[PostgreSQL Performance Tuning](https://wiki.postgresql.org/wiki/Performance_Optimization)**
+> [card] [PostgreSQL Performance Tuning](https://wiki.postgresql.org/wiki/Performance_Optimization)
 
-> **[PostgreSQL supported platforms](https://www.postgresql.org/docs/current/supported-platforms.html)**
+> [card] [PostgreSQL supported platforms](https://www.postgresql.org/docs/current/supported-platforms.html)
 
-> **[PlanetScale Postgres migration guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md)**
+> [card] [PlanetScale Postgres migration guides](https://planetscale.com/docs/postgres/imports/postgres-imports.md)
 
 ## Need help?
 

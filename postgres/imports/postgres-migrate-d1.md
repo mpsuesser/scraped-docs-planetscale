@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-d1
 title: "Postgres Migrate D1"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -161,7 +161,7 @@ If you have an application table named `schema_migrations` that is **not** Rails
 
 ## Next steps
 
-> **[Postgres import overview](https://planetscale.com/docs/postgres/imports/postgres-imports.md)**
+> [card] [Postgres import overview](https://planetscale.com/docs/postgres/imports/postgres-imports.md)
 
 ## Need help?
 

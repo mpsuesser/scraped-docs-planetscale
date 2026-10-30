@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/pricing
 title: "Pricing"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -96,43 +96,43 @@ See the [read-only regions pricing documentation](https://planetscale.com/docs/v
 
 ### Amazon Web Services
 
-> **[ap-northeast-1 (Tokyo)](https://planetscale.com/pricing?region=ap-northeast)**
+> [card] [ap-northeast-1 (Tokyo)](https://planetscale.com/pricing?region=ap-northeast)
 
-> **[ap-south-1 (Mumbai)](https://planetscale.com/pricing?region=ap-south)**
+> [card] [ap-south-1 (Mumbai)](https://planetscale.com/pricing?region=ap-south)
 
-> **[ap-southeast-1 (Singapore)](https://planetscale.com/pricing?region=ap-southeast)**
+> [card] [ap-southeast-1 (Singapore)](https://planetscale.com/pricing?region=ap-southeast)
 
-> **[ap-southeast-2 (Sydney)](https://planetscale.com/pricing?region=aws-ap-southeast-2)**
+> [card] [ap-southeast-2 (Sydney)](https://planetscale.com/pricing?region=aws-ap-southeast-2)
 
-> **[eu-central-1 (Frankfurt)](https://planetscale.com/pricing?region=eu-central)**
+> [card] [eu-central-1 (Frankfurt)](https://planetscale.com/pricing?region=eu-central)
 
-> **[ca-central-1 (Montreal)](https://planetscale.com/pricing?region=aws-ca-central-1)**
+> [card] [ca-central-1 (Montreal)](https://planetscale.com/pricing?region=aws-ca-central-1)
 
-> **[eu-west-1 (Dublin)](https://planetscale.com/pricing?region=eu-west)**
+> [card] [eu-west-1 (Dublin)](https://planetscale.com/pricing?region=eu-west)
 
-> **[eu-west-2 (London)](https://planetscale.com/pricing?region=aws-eu-west-2)**
+> [card] [eu-west-2 (London)](https://planetscale.com/pricing?region=aws-eu-west-2)
 
-> **[sa-east-1 (Sao Paulo)](https://planetscale.com/pricing?region=aws-sa-east-1)**
+> [card] [sa-east-1 (Sao Paulo)](https://planetscale.com/pricing?region=aws-sa-east-1)
 
-> **[us-east-1 (N. Virginia)](https://planetscale.com/pricing?region=us-east)**
+> [card] [us-east-1 (N. Virginia)](https://planetscale.com/pricing?region=us-east)
 
-> **[us-east-2 (Ohio)](https://planetscale.com/pricing?region=us-east-2)**
+> [card] [us-east-2 (Ohio)](https://planetscale.com/pricing?region=us-east-2)
 
-> **[us-west-2 (Oregon)](https://planetscale.com/pricing?region=us-west)**
+> [card] [us-west-2 (Oregon)](https://planetscale.com/pricing?region=us-west)
 
 ### Google Cloud
 
-> **[asia-northeast3 (Seoul, South Korea)](https://planetscale.com/pricing?region=gcp-asia-northeast3)**
+> [card] [asia-northeast3 (Seoul, South Korea)](https://planetscale.com/pricing?region=gcp-asia-northeast3)
 
-> **[europe-west4 (Eemshaven, Netherlands)](https://planetscale.com/pricing?region=gcp-europe-west4)**
+> [card] [europe-west4 (Eemshaven, Netherlands)](https://planetscale.com/pricing?region=gcp-europe-west4)
 
-> **[northamerica-northeast1 (Montréal, Québec)](https://planetscale.com/pricing?region=gcp-northamerica-northeast1)**
+> [card] [northamerica-northeast1 (Montréal, Québec)](https://planetscale.com/pricing?region=gcp-northamerica-northeast1)
 
-> **[us-central1 (Council Bluffs, Iowa)](https://planetscale.com/pricing?region=gcp-us-central1)**
+> [card] [us-central1 (Council Bluffs, Iowa)](https://planetscale.com/pricing?region=gcp-us-central1)
 
-> **[us-east1 (Moncks Corner, South Carolina)](https://planetscale.com/pricing?region=gcp-us-east1)**
+> [card] [us-east1 (Moncks Corner, South Carolina)](https://planetscale.com/pricing?region=gcp-us-east1)
 
-> **[us-east4 (Ashburn, Virginia)](https://planetscale.com/pricing?region=gcp-us-east4)**
+> [card] [us-east4 (Ashburn, Virginia)](https://planetscale.com/pricing?region=gcp-us-east4)
 
 ## Need help?
 

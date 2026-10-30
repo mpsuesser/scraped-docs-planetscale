@@ -2,39 +2,25 @@
 url: https://planetscale.com/docs/neki/explain-reference
 title: "Explain Reference"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
+The following query adds up the order totals after a date, as a monthly report would. It reads the [example schema](example-schema.md):
 
-# EXPLAIN output reference
-
-> Complete EXPLAIN (NEKI_PLAN) and EXPLAIN (NEKI_PG_PLAN) output for one query in every format
-
-The following query adds up the order totals after a date, as a monthly report
-would. It reads the [example schema](https://planetscale.com/docs/neki/example-schema.md):
-
-```sql theme={null}
+```sql
 SELECT sum(total_amount)
 FROM orders
 WHERE created_at > '2026-09-09';
 ```
 
-The query has no predicate on the shard key `user_id`, so the plan scatters to
-every shard in the group. Each shard computes a partial sum, and the router
-sums the partial sums.
+The query has no predicate on the shard key `user_id`, so the plan scatters to every shard in the group. Each shard computes a partial sum, and the router sums the partial sums.
 
-The following sections give the complete output of the query for `EXPLAIN
-(NEKI_PLAN)` and `EXPLAIN (NEKI_PG_PLAN)`, in each of the four output formats.
-[Query planning](https://planetscale.com/docs/neki/query-planning.md#explain-in-neki) explains the `EXPLAIN`
-modes and their options.
+The following sections give the complete output of the query for `EXPLAIN (NEKI_PLAN)` and `EXPLAIN (NEKI_PG_PLAN)`, in each of the four output formats. [Query planning](query-planning.md#explain-in-neki) explains the `EXPLAIN` modes and their options.
 
-## `EXPLAIN (NEKI_PLAN)`
+## EXPLAIN (NEKI\_PLAN)
 
-```sql theme={null}
+```sql
 EXPLAIN (NEKI_PLAN, FORMAT TEXT)
 SELECT sum(total_amount)
 FROM orders
@@ -43,9 +29,9 @@ WHERE created_at > '2026-09-09';
 
 Replace `TEXT` with `JSON`, `XML`, or `YAML` for the other formats.
 
-**TEXT**
+#### TEXT
 
-```text theme={null}
+```text
 Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
   ->  Collapse  (cost=0.00..2002.00 rows=2 width=32)
         ->  Route [Scatter]  (cost=0.00..2002.00 rows=2 width=32)
@@ -53,9 +39,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
               ShardGroup: user_data
 ```
 
-**JSON**
+#### JSON
 
-```json theme={null}
+```json
 [
   {
     "Plan": {
@@ -123,9 +109,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 ]
 ```
 
-**XML**
+#### XML
 
-```xml theme={null}
+```xml
 <explain xmlns="http://www.postgresql.org/2009/explain">
   <Query>
     <Plan>
@@ -191,9 +177,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 </explain>
 ```
 
-**YAML**
+#### YAML
 
-```yaml theme={null}
+```yaml
 - Plan:
     Node Type: Aggregate
     Variant: Ordered
@@ -242,13 +228,11 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
                     Total: 2002
 ```
 
-The route's `Query` shows the date literal as `$1`. Neki replaces literal
-values with parameters before it looks up a plan, as [Query plan cache and
-protocols](https://planetscale.com/docs/neki/query-planning.md#query-plan-cache-and-protocols) describes.
+The route’s `Query` shows the date literal as `$1`. Neki replaces literal values with parameters before it looks up a plan, as [Query plan cache and protocols](query-planning.md#query-plan-cache-and-protocols) describes.
 
-## `EXPLAIN (NEKI_PG_PLAN)`
+## EXPLAIN (NEKI\_PG\_PLAN)
 
-```sql theme={null}
+```sql
 EXPLAIN (NEKI_PG_PLAN, FORMAT TEXT)
 SELECT sum(total_amount)
 FROM orders
@@ -257,9 +241,9 @@ WHERE created_at > '2026-09-09';
 
 The route also shows the Postgres plan from every shard in its shard group.
 
-**TEXT**
+#### TEXT
 
-```text theme={null}
+```text
 Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
   ->  Collapse  (cost=0.00..2002.00 rows=2 width=32)
         ->  Route [Scatter]  (cost=0.00..2002.00 rows=2 width=32)
@@ -276,9 +260,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
                                 Filter: (created_at > ('2026-09-09'::cstring)::timestamp without time zone)
 ```
 
-**JSON**
+#### JSON
 
-```json theme={null}
+```json
 [
   {
     "Plan": {
@@ -416,9 +400,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 ]
 ```
 
-**XML**
+#### XML
 
-```xml theme={null}
+```xml
 <explain xmlns="http://www.postgresql.org/2009/explain">
   <Query>
     <Plan>
@@ -550,9 +534,9 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 </explain>
 ```
 
-**YAML**
+#### YAML
 
-```yaml theme={null}
+```yaml
 - Plan:
     Node Type: Aggregate
     Variant: Ordered
@@ -657,7 +641,4 @@ Aggregate [Ordered]  (cost=0.00..2002.00 rows=1 width=32)
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
-
-
-This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.

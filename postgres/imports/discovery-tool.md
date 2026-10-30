@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/discovery-tool
 title: "Discovery Tool"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -462,13 +462,13 @@ All analysis happens client-side in your browser — your discovery data is neve
 
 If you want tailored guidance from our migration team, [share your discovery report with us](https://planetscale.com/contact). You can also follow one of our migration guides on your own:
 
-> **[Migrate using pgdump/restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
+> [card] [Migrate using pgdump/restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)
 
-> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
+> [card] [Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)
 
-> **[Migrate using Amazon DMS](https://planetscale.com/docs/postgres/imports/postgres-migrate-dms.md)**
+> [card] [Migrate using Amazon DMS](https://planetscale.com/docs/postgres/imports/postgres-migrate-dms.md)
 
-> **[Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)**
+> [card] [Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/etl
 title: "Etl"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -24,15 +24,15 @@ With PlanetScale Connect, you can integrate with supported ETL platforms to extr
 
 We currently support the following connectors:
 
-> **[Airbyte](https://planetscale.com/docs/vitess/integrations/airbyte.md)**
+> [card] [Airbyte](https://planetscale.com/docs/vitess/integrations/airbyte.md)
 
-> **[Debezium](https://planetscale.com/docs/vitess/integrations/debezium.md)**
+> [card] [Debezium](https://planetscale.com/docs/vitess/integrations/debezium.md)
 
-> **[Fivetran](https://planetscale.com/docs/vitess/integrations/fivetran.md)**
+> [card] [Fivetran](https://planetscale.com/docs/vitess/integrations/fivetran.md)
 
-> **[Hightouch](https://planetscale.com/docs/vitess/integrations/hightouch.md)**
+> [card] [Hightouch](https://planetscale.com/docs/vitess/integrations/hightouch.md)
 
-> **[Stitch](https://planetscale.com/docs/vitess/integrations/stitch.md)**
+> [card] [Stitch](https://planetscale.com/docs/vitess/integrations/stitch.md)
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/planetscale-environment-setup
 title: "Planetscale Environment Setup"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -14,15 +14,15 @@ current_date: 2026-10-22T18:21:49.469Z
 
 ## Table of Contents
 
-> **[macOS installation](#macos-instructions)**
+> [card] [macOS installation](#macos-instructions)
 
-> **[Linux installation](#linux-instructions)**
+> [card] [Linux installation](#linux-instructions)
 
-> **[Windows installation](#windows-instructions)**
+> [card] [Windows installation](#windows-instructions)
 
-> **[Manual setup (any OS)](#manual-setup-any-os)**
+> [card] [Manual setup (any OS)](#manual-setup-any-os)
 
-> **[Using the PlanetScale CLI](#using-the-planetscale-cli)**
+> [card] [Using the PlanetScale CLI](#using-the-planetscale-cli)
 
 ## Setup overview
 

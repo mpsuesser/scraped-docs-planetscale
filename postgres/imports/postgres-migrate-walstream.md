@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream
 title: "Postgres Migrate Walstream"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -471,11 +471,11 @@ This is commonly caused by the duplicate key crash loop above. Each unclean work
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
+> [card] [PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)
 
-> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
+> [card] [Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)
 
-> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
+> [card] [Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)
 
 ## Next Steps
 

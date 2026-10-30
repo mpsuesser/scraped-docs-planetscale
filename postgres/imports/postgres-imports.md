@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-imports
 title: "Postgres Imports"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -30,13 +30,13 @@ Before beginning your migration, we recommend running our [migration assessment 
 
 PlanetScale Postgres provides several migration approaches to suit different business requirements, database sizes, and downtime tolerances:
 
-> **[Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
+> [card] [Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)
 
-> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
+> [card] [Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)
 
-> **[Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)**
+> [card] [Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)
 
-> **[Migrate using pscale from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)**
+> [card] [Migrate using pscale from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)
 
 You can also utilize our [migration scripts](https://github.com/planetscale/migration-scripts/tree/main/postgres-direct) directly if you prefer. These scripts can be used to migrate straight from any Postgres source that supports logical replication into PlanetScale Postgres.
 
@@ -209,15 +209,15 @@ For the most up-to-date information on supported features and extensions, refer 
 
 Follow the migration guide that's right for you:
 
-> **[Import from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)**
+> [card] [Import from Cloudflare D1](https://planetscale.com/docs/postgres/imports/postgres-migrate-d1.md)
 
-> **[Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)**
+> [card] [Migrate using pg\_dump & pg\_restore](https://planetscale.com/docs/postgres/imports/postgres-migrate-dumprestore.md)
 
-> **[Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)**
+> [card] [Migrate using WAL streaming](https://planetscale.com/docs/postgres/imports/postgres-migrate-walstream.md)
 
-> **[Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)**
+> [card] [Migrate using pgcopydb](https://planetscale.com/docs/postgres/imports/postgres-migrate-pgcopydb.md)
 
-> **[Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)**
+> [card] [Migrate from Heroku](https://planetscale.com/docs/postgres/imports/heroku.md)
 
 > [!NOTE]
 >

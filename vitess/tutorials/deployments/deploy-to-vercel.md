@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/deployments/deploy-to-vercel
 title: "Deploy To Vercel"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -18,9 +18,9 @@ This page covers Vitess.
 
 It will cover two options:
 
-> **[Manually adding PlanetScale environment variables to your Vercel project](#manually-connect-to-vercel)**
+> [card] [Manually adding PlanetScale environment variables to your Vercel project](#manually-connect-to-vercel)
 
-> **[Connecting your PlanetScale database to your application using the Vercel integration](#deploy-with-the-planetscale-vercel-integration)**
+> [card] [Connecting your PlanetScale database to your application using the Vercel integration](#deploy-with-the-planetscale-vercel-integration)
 
 ## Prerequisites
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/faq-and-troubleshooting
 title: "Faq And Troubleshooting"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -18,21 +18,21 @@ This page covers Postgres.
 
 ## Behavior and expectations
 
-> **Does Database Traffic Control change my schema, indexes, or query plans?**
+> [accordion] Does Database Traffic Control change my schema, indexes, or query plans?
 >
 > No. Database Traffic Control does not modify your schema or indexes, and it does not directly change how queries are planned. It focuses on whether queries are allowed to consume resources based on your configured resource budgets.
 
-> **Is Database Traffic Control applied per cluster or per branch?**
+> [accordion] Is Database Traffic Control applied per cluster or per branch?
 >
 > Resource budgets are configured **per [database branch](https://planetscale.com/docs/postgres/branching.md)**. Each branch can have its own set of resource budgets.
 
-> **What happens when a query exceeds a resource budget in Enforce mode?**
+> [accordion] What happens when a query exceeds a resource budget in Enforce mode?
 >
 > Database Traffic Control blocks the query and records a **violation**.
 >
 > The blocked query returns an error to the client with **SQLSTATE `53000`**. The error message includes **`[PGINSIGHTS] Traffic Control:`** and details about why the query was blocked (for example, which limit was exceeded). Violations are visible in the Database Traffic Control page.
 
-> **Does Database Traffic Control affect queries in Warn mode?**
+> [accordion] Does Database Traffic Control affect queries in Warn mode?
 >
 > In **Warn** mode, matching queries are **not** blocked or throttled; they complete normally.
 >
@@ -40,23 +40,23 @@ This page covers Postgres.
 
 ## Resource budget matching
 
-> **Can a query match multiple resource budgets?**
+> [accordion] Can a query match multiple resource budgets?
 >
 > Yes. A query can match more than one resource budget if its attributes satisfy multiple matching criteria. For example, a query might match one resource budget based on its username and another based on an application tag.
 >
 > When a query matches multiple resource budgets, it must satisfy **all** of them. If any matching resource budget would block the query, the query is blocked. Resource budgets are combined with AND logic, not OR.
 
-> **How do I know which resource budgets a query matched?**
+> [accordion] How do I know which resource budgets a query matched?
 >
 > The Database Traffic Control UI shows violations per resource budget. If a query is blocked, you can see which resource budget caused the violation. If a query matches multiple resource budgets but only one blocks it, the violation is attributed to the blocking resource budget.
 
-> **My SQLCommenter tags are not showing up in Insights. What's wrong?**
+> [accordion] My SQLCommenter tags are not showing up in Insights. What's wrong?
 >
 > The most common cause is tag placement. Tags must appear **before** the semicolon that ends the SQL statement. See the [Query tags troubleshooting](https://planetscale.com/docs/postgres/monitoring/query-tags.md#troubleshooting) section for the correct format and other common issues.
 
 ## Understanding and responding to high violation rates
 
-> **I see a sudden spike in violations. What should I do?**
+> [accordion] I see a sudden spike in violations. What should I do?
 >
 > 1. Narrow the **time range** in the Database Traffic Control UI to the window where the spike occurs.
 > 2. Identify which resource budget has the highest violation count.
@@ -66,7 +66,7 @@ This page covers Postgres.
 >    * If the workload is expected and healthy, consider relaxing limits slightly.
 >    * If the workload is unexpected or clearly problematic, work with the owning team to correct it.
 
-> **Violations are constantly high for a critical application workload. Is that bad?**
+> [accordion] Violations are constantly high for a critical application workload. Is that bad?
 >
 > Consistently high violations for a key application workload suggest a mismatch between your resource budget limits and real usage. Either:
 >
@@ -79,7 +79,7 @@ This page covers Postgres.
 
 ## Quickly rolling back a misconfiguration
 
-> **I enabled Enforce and now legitimate traffic is failing. How do I revert quickly?**
+> [accordion] I enabled Enforce and now legitimate traffic is failing. How do I revert quickly?
 >
 > You have several options:
 >
@@ -91,15 +91,15 @@ This page covers Postgres.
 
 ## Configuration tips
 
-> **How do I block expensive single queries immediately?**
+> [accordion] How do I block expensive single queries immediately?
 >
 > Create a resource budget that matches only that query, then set its allowed resource usage to `0` across the board. This will block all executions of that query.
 
-> **How does concurrency interact with parallel queries?**
+> [accordion] How does concurrency interact with parallel queries?
 >
 > Concurrency is expressed as a percentage of Postgres worker processes. A query with a parallel execution plan uses multiple worker processes, so a single parallel query may consume more than one unit of concurrency. Keep this in mind when setting concurrency limits for workloads that run parallel queries.
 
-> **Can I control how much shared memory is used for resource budgets?**
+> [accordion] Can I control how much shared memory is used for resource budgets?
 >
 > Yes. The [`traffic_control.shm_size`](../extensions/pginsights.md#database-traffic-control-shared-memory-size) parameter controls how much shared memory is allocated to store resource budgets. The default is `64kB`.
 >
@@ -109,13 +109,13 @@ This page covers Postgres.
 
 ## Interaction with connection pooling and clients
 
-> **How does Database Traffic Control interact with connection pooling?**
+> [accordion] How does Database Traffic Control interact with connection pooling?
 >
 > Database Traffic Control is concerned with the queries that reach the database, regardless of whether they come from a pool or direct connections.
 >
 > See [Connection pooling](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) for more information.
 
-> **Can I rely on Database Traffic Control instead of client‑side rate limiting?**
+> [accordion] Can I rely on Database Traffic Control instead of client‑side rate limiting?
 >
 > Database Traffic Control protects your database, but it does not replace all forms of client‑side rate limiting. You may still need application‑level controls to:
 >

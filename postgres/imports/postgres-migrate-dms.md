@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/imports/postgres-migrate-dms
 title: "Postgres Migrate Dms"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -795,11 +795,11 @@ SELECT setval('your_sequence', (SELECT MAX(id) FROM your_table));
 
 Before migration, review:
 
-> **[PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)**
+> [card] [PostgreSQL version compatibility](https://planetscale.com/docs/postgres/imports/postgres-imports.md#postgresql-version-compatibility)
 
-> **[Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)**
+> [card] [Extension support limitations](https://planetscale.com/docs/postgres/imports/postgres-imports.md#extension-support)
 
-> **[Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)**
+> [card] [Third-party enhancement restrictions](https://planetscale.com/docs/postgres/imports/postgres-imports.md#third-party-enhancements-and-tools)
 
 **Important:** Plan additional time for post-migration schema object setup. Complex databases may require several hours for index recreation and sequence synchronization.
 

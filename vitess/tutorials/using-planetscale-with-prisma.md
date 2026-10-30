@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/using-planetscale-with-prisma
 title: "Using Planetscale With Prisma"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -321,13 +321,13 @@ model User {
 
 ## Additional resources
 
-> **[Prisma Documentation](https://www.prisma.io/docs)**
+> [card] [Prisma Documentation](https://www.prisma.io/docs)
 
-> **[Prisma + PlanetScale Best Practices](https://www.prisma.io/docs/orm/overview/databases/planetscale)**
+> [card] [Prisma + PlanetScale Best Practices](https://www.prisma.io/docs/orm/overview/databases/planetscale)
 
-> **[PlanetScale Support](https://planetscale.com/contact?initial=support)**
+> [card] [PlanetScale Support](https://planetscale.com/contact?initial=support)
 
-> **[Foreign key constraints support](https://planetscale.com/docs/vitess/foreign-key-constraints.md)**
+> [card] [Foreign key constraints support](https://planetscale.com/docs/vitess/foreign-key-constraints.md)
 
 ## Need help?
 

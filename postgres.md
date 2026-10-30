@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres
 title: "Postgres"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -16,23 +16,23 @@ PlanetScale Postgres is a fully-managed PostgreSQL-compatible database that brin
 
 With PlanetScale Postgres, you get the power of branching, query insights, automated backups, replicas, and many more powerful database features without the operational complexity.
 
-> **[Postgres quickstart guide](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart.md)**
+> [card] [Postgres quickstart guide](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-quickstart.md)
 >
 > Deploy a Postgres database and learn the basics of using PlanetScale.
 
-> **[Architecture](https://planetscale.com/docs/postgres/postgres-architecture.md)**
+> [card] [Architecture](https://planetscale.com/docs/postgres/postgres-architecture.md)
 >
 > PlanetScale Postgres architecture.
 
-> **[Database operations](https://planetscale.com/docs/postgres/operations-philosophy.md)**
+> [card] [Database operations](https://planetscale.com/docs/postgres/operations-philosophy.md)
 >
 > The operational philosophy behind PlanetScale Postgres databases.
 
-> **[Import a database](https://planetscale.com/docs/postgres/imports/postgres-imports.md)**
+> [card] [Import a database](https://planetscale.com/docs/postgres/imports/postgres-imports.md)
 >
 > Import your existing Postgres database to PlanetScale.
 
-> **[Horizontal sharding with Neki](https://planetscale.com/docs/neki.md)**
+> [card] [Horizontal sharding with Neki](https://planetscale.com/docs/neki.md)
 >
 > Scale Postgres beyond a single cluster with Neki.
 

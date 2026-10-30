@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ To interact with PlanetScale and manage your databases, you can use the `pscale`
 * Bootstrap AI agents (`pscale agent-guide`)
 * ...and more!
 
-> **[Install pscale](https://planetscale.com/docs/cli/planetscale-environment-setup.md)**
+> [card] [Install pscale](https://planetscale.com/docs/cli/planetscale-environment-setup.md)
 >
 > Install or upgrade the PlanetScale CLI for macOS, Linux, or Windows.
 

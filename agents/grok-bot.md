@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/agents/grok-bot
 title: "Grok Bot"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -16,11 +16,11 @@ current_date: 2026-10-22T18:21:49.469Z
 
 PlanetScale Bot helps you get started with PlanetScale, understand database performance, and fix slow or failing queries using its [MCP server](https://planetscale.com/docs/mcp-server.md) and installed skills.
 
-> **[Add PlanetScale Bot](https://x.ai/bot/0hgwu8KbM0FIY-idg0x6L)**
+> [card] [Add PlanetScale Bot](https://x.ai/bot/0hgwu8KbM0FIY-idg0x6L)
 >
 > Open the PlanetScale Bot by PlanetScale template, then choose Add to Grok Bot.
 
-> **[Connect the PlanetScale plugin](https://x.ai/bot/plugin/741)**
+> [card] [Connect the PlanetScale plugin](https://x.ai/bot/plugin/741)
 >
 > Add PlanetScale to Grok Bot and authorize access to your databases.
 

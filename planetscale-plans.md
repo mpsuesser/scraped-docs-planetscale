@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -20,13 +20,13 @@ PlanetScale is built to accommodate all companies at all stages. Whether you nee
 
 Our plans are split into two general offerings: [Base (self-serve)](#base-plan) and [Enterprise](#enterprise-plan).
 
-> **[Base](#base-plan)**
+> [card] [Base](#base-plan)
 >
 > Self-serve plan with fully-managed Vitess (MySQL-compatible), [Neki](https://planetscale.com/docs/neki.md), and Postgres databases. Features include sharding, branching, query insights, and more. Available with network-attached storage or Metal options.
 >
 > [Learn more](#base-plan)
 
-> **[Enterprise](#enterprise-plan)**
+> [card] [Enterprise](#enterprise-plan)
 >
 > Enhanced support, customizations, and deployment options. Available for Vitess, Neki, and Postgres with features like dedicated accounts, PCI compliance, and expert assistance.
 >

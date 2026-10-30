@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/github-actions
 title: "Github Actions"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-10-30T18:26:51.105Z
+current_date: 2026-10-30T18:26:51.105Z
 ---
 
 > ## Documentation Index
@@ -21,27 +21,27 @@ used in a real application.
 
 With GitHub Actions, you can automate the creation of branches and deploy requests all within your CI workflow.
 
-> **[Getting Started](#getting-started)**
+> [card] [Getting Started](#getting-started)
 
-> **[Authentication](#authentication)**
+> [card] [Authentication](#authentication)
 
-> **[Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)**
+> [card] [Convert GitHub branch name to PlanetScale branch name](#convert-github-branch-name-to-planetscale-branch-name)
 
-> **[Create a PlanetScale branch](#create-a-planetscale-branch)**
+> [card] [Create a PlanetScale branch](#create-a-planetscale-branch)
 
-> **[Recreate the branch when the pull request changes](#recreate-the-branch-when-the-pull-request-changes)**
+> [card] [Recreate the branch when the pull request changes](#recreate-the-branch-when-the-pull-request-changes)
 
-> **[Create a password for a branch](#create-a-password-for-a-branch)**
+> [card] [Create a password for a branch](#create-a-password-for-a-branch)
 
-> **[Open a deploy request](#open-a-deploy-request)**
+> [card] [Open a deploy request](#open-a-deploy-request)
 
-> **[Get deploy request by branch name](#get-deploy-request-by-branch-name)**
+> [card] [Get deploy request by branch name](#get-deploy-request-by-branch-name)
 
-> **[Get deploy request diff and comment on pull request](#get-deploy-request-diff-and-comment-on-pull-request)**
+> [card] [Get deploy request diff and comment on pull request](#get-deploy-request-diff-and-comment-on-pull-request)
 
-> **[Check for dropped columns](#check-for-dropped-columns)**
+> [card] [Check for dropped columns](#check-for-dropped-columns)
 
-> **[Submit a deploy request by branch name](#submit-a-deploy-request-by-branch-name)**
+> [card] [Submit a deploy request by branch name](#submit-a-deploy-request-by-branch-name)
 
 ## Getting started
 
