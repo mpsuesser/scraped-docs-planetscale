@@ -2,29 +2,19 @@
 url: https://planetscale.com/docs/postgres/search/reference/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-02T17:59:43.747Z
+current_date: 2026-11-02T17:59:43.747Z
 ---
-
-> ## Documentation Index
-> Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
-> Use this file to discover all available pages before exploring further.
-
-# Settings
-
-> Postgres settings that control TIN.
-
-This page covers Postgres.
 
 These are ordinary Postgres GUCs (`SET`, `ALTER DATABASE … SET`, or `postgresql.conf`). Defaults are tuned for good performance, and you usually do not need to change them.
 
 | Setting | Default | Notes |
-| - | - | - |
+| --- | --- | --- |
 | `tin.enable_custom_scan` | `on` | When `off`, falls back to generic index scanning (troubleshooting / comparison). |
 | `tin.index_maintenance_mode` | `background` | How index maintenance runs: `background`, `foreground` (in the writing session), or `manual` (no automatic maintenance). |
 | `tin.build_io_concurrency` | `0` (auto) | Caps concurrent disk I/O during `CREATE INDEX` / `REINDEX`. `1` serializes build I/O. |
 | `tin.rss_baseline` | server-derived (MB) | Per-worker RSS estimate used when planning build parallelism. |
-| `tin.maintenance_jobs_per_db` | `0` | How many of its own database's maintenance jobs a cluster-wide maintenance worker finishes before yielding to another database with queued work. `0` drains the current database first. Set it in `postgresql.conf` or with `ALTER SYSTEM`. A session `SET` is rejected. |
+| `tin.maintenance_jobs_per_db` | `0` | How many of its own database’s maintenance jobs a cluster-wide maintenance worker finishes before yielding to another database with queued work. `0` drains the current database first. Set it in `postgresql.conf` or with `ALTER SYSTEM`. A session `SET` is rejected. |
 | `tin.track_page_reuse_stats` | `off` | When `on`, `EXPLAIN ANALYZE` reports distinct vs repeated index page reads. |
 
 ## Debug settings
@@ -32,7 +22,7 @@ These are ordinary Postgres GUCs (`SET`, `ALTER DATABASE … SET`, or `postgresq
 The `tin.debug_*` settings are for debugging and testing TIN, not for production use. Each one forces a planning choice the cost model would otherwise make, so that an alternative plan can be measured. They never change query results, and a query shape that would be incorrect is still refused. All of them are session-level (`SET`) and default to following the cost model.
 
 | Setting | Values | Default | Notes |
-| - | - | - | - |
+| --- | --- | --- | --- |
 | `tin.debug_force_boolean_family` | `auto`, `fused`, `factored` | `auto` | For a query over several TIN indexes, force one combined scan (`fused`) or separate scans joined with boolean operators (`factored`). |
 | `tin.debug_force_topk` | `auto`, `topk`, `exhaustive` | `auto` | For `ORDER BY tin.score(ctid) DESC LIMIT k`, force the bounded top-k scan or an exhaustive scored scan. |
 | `tin.debug_force_multi_index_drive` | `auto`, `sparse`, `stripe` | `auto` | For a query over several TIN indexes, drive from the rarest required term (`sparse`) or evaluate by block range (`stripe`). |
@@ -44,7 +34,4 @@ The `tin.debug_*` settings are for debugging and testing TIN, not for production
 
 ## Need help?
 
-Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
-
-
-This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
+Get help from [the PlanetScale Support team](https://planetscale.com/contact?initial=support), or join our [Discord community](https://pscale.link/community) to see how others are using PlanetScale.
