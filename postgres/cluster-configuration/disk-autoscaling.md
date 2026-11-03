@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/disk-autoscaling
 title: "Disk Autoscaling"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-03T19:53:17.216Z
+current_date: 2026-11-03T19:53:17.216Z
 ---
 
 > ## Documentation Index
@@ -32,7 +32,8 @@ We provide two growth modes:
 
 * **In-place growth mode** — This is the default scaling mode that expands storage capacity by resizing existing volumes directly, without requiring failovers or connection disruption. This method leverages the native volume-resize capability of AWS EBS and GCP Persistent Disk.
 * **Surge growth mode** — Surge growth creates new volumes with larger capacity and orchestrates failover to the new storage, circumventing AWS EBS and GCP Persistent Disk [resize limitations](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVolume.html).
-* **Shrink mode** — In shrink mode, the autoscaler reduces storage capacity for underutilized volumes. This can help to optimize costs after a surge event.
+
+You shrink a disk yourself from the Storage tab. A shrink copies your data onto a new, smaller disk and restarts the database, because AWS and GCP volumes can't shrink in place. See [Manually shrinking](#manually-shrinking).
 
 Autoscaling will grow the cluster's storage without requiring you to make any configuration changes. The new additional space will become available as soon as the scaling action has completed. Disks are never shrunk automatically. After usage drops, use [Manually shrinking](#manually-shrinking) to shrink the disk.
 
@@ -101,9 +102,9 @@ Click **Queue storage changes**
 
 Click **Apply changes**
 
-When initiated, the disk scaler reduces storage capacity for underutilized volumes through surge operations, as neither AWS EBS nor GCP Persistent Disk supports in-place volume shrinking.
+A shrink copies your data onto a new, smaller disk and replaces the old one. Neither AWS EBS nor GCP Persistent Disk can shrink a volume in place.
 
-Shrink operations cause a brief failover event that severs existing database connections. Applications must handle connection recovery.
+The replacement restarts the database. Existing connections drop, and applications must reconnect.
 
 ## Enable or disable disk autoscaling
 
