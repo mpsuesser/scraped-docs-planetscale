@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-03T22:53:13.776Z
+current_date: 2026-11-03T22:53:13.776Z
 ---
 
 > ## Documentation Index
@@ -52,19 +52,50 @@ This will bring up a pop-up modal that prompts you to pick a **branch** to backu
 
 **Step 3**
 
-Click the **Create backup** button to finish the backup and close the pop-up modal.
+Select if this backup is an [Emergency backup](#emergency-backups).
 
 **Step 4**
+
+Click the **Create backup** button to finish the backup and close the pop-up modal.
+
+**Step 5**
 
 Manual backups are not free and are denoted by the `$` icon next to their name in the list view on the backups page.
 
 ![Manual backups are shown with a \$ sign](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/back-up-and-restore/manual-backup-row.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=4d8b0a32c70a633c877977d5b6014ede)
 
-**Step 5**
+**Step 6**
 
 To see the cost associated with storage of a manual backup, click on the backup name. You will see the cost per month on the details page.
 
 ![Monthly storage cost for a Manual backup](https://mintcdn.com/planetscale-2/pncBnOWnwAfGxG1f/images/assets/docs/concepts/back-up-and-restore/manual-backup-cost.png?fit=max\&auto=format\&n=pncBnOWnwAfGxG1f\&q=85\&s=4cffe60bd30ece07b0f67f72140bb8f9)
+
+### Emergency backups
+
+Emergency backups are available when you need an immediate backup. Unlike regular backups, emergency backups do not start from a previous backup. They copy data directly from a running database server in each shard.
+
+They are only recommended when regular backups are failing or you can't wait for the next scheduled backup.
+
+Choose where the backup copies data from:
+
+* **Primary**: copies data from the primary in each shard. This is the default on production branches. Copying from the primary uses additional primary resources while the backup runs.
+* **Replica**: copies data from a replica in each shard, which reduces the load on the primary. A replica backup needs a replica in every shard. If a shard has no replica available, the backup fails for that shard. Your database keeps serving traffic either way.
+
+Development branches have no replicas, so emergency backups of a development branch always copy from the primary.
+
+Emergency backups are treated like manual backups. They have the same retention options, are billed the same way, and can be restored under the same rules. They can't be used for point-in-time recovery, and they don't include external keyspaces.
+
+Only one emergency backup can run on a branch at a time. A request for a second emergency backup is rejected until the first one finishes. Running scheduled or manual backups don't block an emergency backup.
+
+To create an emergency backup with the [PlanetScale CLI](https://planetscale.com/docs/cli/backup.md), pass `--emergency` and `--emergency-source`:
+
+```bash theme={null}
+pscale backup create <DATABASE_NAME> <BRANCH_NAME> --emergency --emergency-source replica
+```
+
+> [!NOTE]
+>
+> Emergency backups may impact database performance and should only be used in critical situations where immediate backup is required.
 
 ## Schedule backups
 

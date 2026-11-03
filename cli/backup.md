@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/backup
 title: "Backup"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-11-03T22:53:13.776Z
+current_date: 2026-11-03T22:53:13.776Z
 ---
 
 ## Getting Started
@@ -24,7 +24,7 @@ pscale backup <SUB-COMMAND> <FLAG>
 
 | **Sub-command** | **Sub-command flags** | **Description** | **Product** |
 | --- | --- | --- | --- |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--name` | Backup a branch’s data and schema | Postgres, Vitess, Neki |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--name`, `--emergency`, `--emergency-source` | Backup a branch’s data and schema | Postgres, Vitess, Neki |
 | `delete <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` | `--force` | Delete a branch backup | Postgres, Vitess, Neki |
 | `list <DATABASE_NAME> <BRANCH_NAME>` |  | List all backups of a branch | Postgres, Vitess, Neki |
 | `policy list <DATABASE_NAME>` |  | List backup policies for a database | Postgres, Vitess, Neki |
@@ -44,6 +44,8 @@ pscale backup <SUB-COMMAND> <FLAG>
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
 | `--name` | Optional name for an on-demand backup or backup policy. | `create`, `policy create`, `policy update` |
+| `--emergency` | Vitess only. Create an [emergency backup](../vitess/backups.md#emergency-backups) instead of waiting for the next scheduled backup. Requires `--emergency-source`. | `create` |
+| `--emergency-source` | Vitess only. Where an emergency backup copies data from: `primary` or `replica`. Required with `--emergency` and rejected without it. | `create` |
 | `--cluster-size` | Cluster size for the restored branch. Optional for Neki; omit it to keep the source default configuration-profile size. | `restore` |
 | `--replicas` | Number of additional replicas for a Postgres or Neki restore. `0` creates a single-node Postgres branch; Neki requires a highly available configuration. Omit to use the target cluster size default. Not used for Vitess. | `restore` |
 | `--config-profile` | Neki restore override: `name=<profile>[,cluster-size=<size>][,replicas=<n>]`. Repeatable. Omitted profiles inherit the source. | `restore` |
