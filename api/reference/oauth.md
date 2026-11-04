@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/oauth
 title: "Oauth"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-04T16:43:55.073Z
+current_date: 2026-11-04T16:43:55.073Z
 ---
 
 > ## Documentation Index
@@ -67,7 +67,7 @@ In this step, select the access scopes you think your application will need on a
 
 View OAuth access scopes documentation
 
-[Open](https://planetscale.com/docs/docs/api/reference/oauth-access-scopes)
+[Open](https://planetscale.com/docs/api/reference/oauth-access-scopes.md)
 
 This is only a partial list of the OAuth access scopes. For a full list of scopes, see the OAuth access scopes documentation.
 
