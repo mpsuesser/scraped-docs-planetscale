@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -104,13 +104,15 @@ pscale branch create <DB_NAME> <BRANCH_NAME> --org <ORG_NAME> --service-token <S
 
 ## Use a service token with the PlanetScale API
 
-In order to execute a request to the PlanetScale API, you'll need a service token to execute requests directly or for minting OAuth tokens. Both the ID and token are required in the `Authorization` header without a scheme. Below is an example of how to use a service token to list details about the organizations the token can access:
+In order to execute a request to the PlanetScale API, you'll need a service token to execute requests directly or for minting OAuth tokens. Send the token as a Bearer token in the `Authorization` header. Below is an example of how to use a service token to list details about the organizations the token can access:
 
 ```bash theme={null}
 curl --request GET \
      --url 'https://api.planetscale.com/v1/organizations' \
-     --header 'Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>'
+     --header 'Authorization: Bearer <SERVICE_TOKEN>'
 ```
+
+The API also accepts the token ID and token together, with no scheme: `Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>`. Older service tokens only work in this form. Sending the token on its own, without `Bearer` or the ID, returns `401`.
 
 Refer to the [API docs](https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api.md) for more details on how to use the API.
 
@@ -182,7 +184,7 @@ pscale service-token delete <SERVICE_TOKEN_ID>
 
 Running `pscale` in CI or an AI agent uses a [service token](https://planetscale.com/docs/cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
 
-```bash theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null}
 # Environment variables (recommended for CI and agents)
 export PLANETSCALE_SERVICE_TOKEN_ID="<SERVICE_TOKEN_ID>"
 export PLANETSCALE_SERVICE_TOKEN="<SERVICE_TOKEN>"
@@ -195,7 +197,7 @@ pscale database list --org <org> \
 
 A service token has **no active organization**, so resource commands need the org supplied explicitly. Set it with `PLANETSCALE_ORG`, the `--org` flag on the subcommand, or `pscale org switch <org>` (which works with a service token):
 
-```bash theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null}
 export PLANETSCALE_ORG="<org>"
 pscale database list --format json          # uses PLANETSCALE_ORG
 pscale database list --org <org> --format json   # explicit flag
@@ -230,7 +232,7 @@ Do not retry these with service-token auth. The failure is by design, not transi
 
 When a command's human output is hard to parse, prefer `--format json`, or drop to the raw API with `pscale api`, which returns the API response verbatim and uses the same token:
 
-```bash theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null}
 # org list
 pscale api organizations --format json
 

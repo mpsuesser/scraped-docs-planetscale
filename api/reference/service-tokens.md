@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -20,18 +20,20 @@ This document will show you how to create a service token for the API in PlanetS
 
 ## Authorization header
 
-To make requests to the API, add the service token values in the `Authorization` header in your HTTP API request using the following format:
+To make requests to the API, send the service token as a Bearer token in the `Authorization` header:
 
 ```text Text theme={null}
-Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>
+Authorization: Bearer <SERVICE_TOKEN>
 ```
 
 Here is a cURL example:
 
 ```curl cURL theme={null}
 curl --request GET 'https://api.planetscale.com/v1/organizations' \
---header 'Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>'
+--header 'Authorization: Bearer <SERVICE_TOKEN>'
 ```
+
+The API also accepts the service token ID and the token together, with no scheme: `Authorization: <SERVICE_TOKEN_ID>:<SERVICE_TOKEN>`. Older service tokens only work in this form, so if an active token returns `401` with `Bearer`, send it this way instead. Sending the token on its own, without `Bearer` or the ID, returns `401`.
 
 ## Creating a service token
 
@@ -157,7 +159,7 @@ After your permissions are set, you can now use the service token in a cURL requ
 ```curl cURL theme={null}
 curl --request POST \
      --url https://api.planetscale.com/v1/organizations/ORGANIZATION_NAME/databases/DATABASE_NAME/branches \
-     --header 'Authorization: SERVICE_TOKEN_ID:SERVICE_TOKEN' \
+     --header 'Authorization: Bearer SERVICE_TOKEN' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      --data '{"name": "BRANCH_NAME","parent_branch": "PARENT_BRANCH_NAME"}'

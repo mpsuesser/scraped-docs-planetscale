@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_role
 title: "Create_role"
 description: ""
-access_date: 2026-11-01T14:56:44.586Z
-current_date: 2026-11-01T14:56:44.586Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -30,6 +30,9 @@ A service token or OAuth token must have at least one of the following access or
 This page covers Postgres.
 
 Vitess version: [Vitess](https://planetscale.com/docs/api/reference/create_password.md)
+
+Connect with the `username` field from the response. It already ends with the branch ID, in the form `<name>.<branch id>`. Connecting with `base_username` or the role name alone fails with `username must include branch`.
+To run DDL on tables that `postgres` owns, include `postgres` in `inherited_roles`.
 
 > [!NOTE]
 >

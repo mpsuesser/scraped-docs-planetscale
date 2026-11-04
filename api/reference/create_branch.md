@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_branch
 title: "Create_branch"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -34,6 +34,8 @@ This endpoint also facilitates backup restores: pass a `backup_id` (from a backu
 Do not hard-code cluster size SKU names — discover valid, enabled sizes with `list_cluster_size_skus`.
 
 After creation, poll `get_branch` until `ready` is `true` before connecting, and — for branches restored from a backup — before deleting the source backup or any scratch resources.
+For Postgres, a branch created without `backup_id` starts empty, with no schema or data. To branch with the parent's schema and data, create a backup with `create_backup`, wait for it with `get_backup`, then pass its `backup_id` here.
+A restored Postgres branch keeps the original owners of its tables. Run migrations as the role that owns them, or as a role that inherits `postgres` when `postgres` owns them. Any other role fails with `must be owner of table`. To move ownership, use `reassign_role_objects`.
 
 
 ## OpenAPI

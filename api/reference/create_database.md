@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_database
 title: "Create_database"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -27,6 +27,7 @@ A service token or OAuth token must have at least one of the following access or
 
 Available for Vitess and Postgres.
 
+Cluster size names differ by engine: Vitess names such as `PS_DEV` are rejected for PostgreSQL with `Cluster size is invalid`.
 Do not hard-code cluster size SKU names — discover them with `list_cluster_size_skus` (filter by the matching `engine` and `enabled: true`; the first enabled non-metal SKU, typically `PS_10`, is a safe default for temporary databases). `cluster_size` is **required for MySQL/Vitess** databases and optional for PostgreSQL.
 
 Discover valid `region` slugs with `list_regions_for_organization` and only pick regions where `enabled` is `true`.

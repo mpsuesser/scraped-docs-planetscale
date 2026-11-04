@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_role
 title: "Delete_role"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -30,6 +30,8 @@ A service token or OAuth token must have at least one of the following access or
 This page covers Postgres.
 
 Vitess version: [Vitess](https://planetscale.com/docs/api/reference/delete_password.md)
+
+If this returns `422` with `Role is still referenced and cannot be dropped`, the role owns objects or holds extra grants. Retry with `successor` set to `postgres` to reassign what it owns, then drop it.
 
 > [!NOTE]
 >

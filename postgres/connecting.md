@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-04T23:12:49.500Z
+current_date: 2026-11-04T23:12:49.500Z
 ---
 
 > ## Documentation Index
@@ -51,6 +51,8 @@ PlanetScale databases require SSL/TLS encryption for all connections. Connection
 * **Port 6432** — Connections through PgBouncer for connection pooling
 
 The [connections quickstart](https://planetscale.com/docs/postgres/connecting/quickstart.md) provides detailed connection string examples and explains when to use each connection method.
+
+PlanetScale ends TLS at its proxy, so `pg_stat_ssl` reports no SSL for your session even though the connection is encrypted. To confirm TLS, check from the client, for example with `\conninfo` in `psql`.
 
 ### Private connectivity
 
