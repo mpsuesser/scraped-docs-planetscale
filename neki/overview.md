@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/neki/overview
 title: "Overview"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-05T17:52:09.132Z
+current_date: 2026-11-05T17:52:09.132Z
 ---
 
 > ## Documentation Index
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Overview
+# PlanetScale Neki overview
 
 > The components of a Neki deployment and how they fit together
 

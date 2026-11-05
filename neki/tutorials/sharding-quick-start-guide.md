@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/neki/tutorials/sharding-quick-start-guide
 title: "Sharding Quick Start Guide"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-05T17:52:09.132Z
+current_date: 2026-11-05T17:52:09.132Z
 ---
 
 > ## Documentation Index
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Neki sharding quickstart
+# PlanetScale Neki sharding quickstart
 
 > Add a shard and route a new table with a data topology
 
