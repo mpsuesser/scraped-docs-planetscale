@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-05T17:17:40.401Z
+current_date: 2026-11-05T17:17:40.401Z
 ---
 
 > ## Documentation Index
@@ -102,6 +102,22 @@ This setting does not change [service token](https://planetscale.com/docs/mcp/se
 Most MCP clients provide a way to re-authenticate the MCP server if you need to update your permissions.
 
 Service token access is not chosen in the OAuth prompt. Grant it on the token. See [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
+
+## IP allowlisting
+
+Database queries from the hosted MCP server at `mcp.pscale.dev` leave from four dedicated IP addresses:
+
+```
+104.28.1.231
+104.28.1.232
+104.28.1.233
+104.28.1.234
+```
+
+* **Postgres:** If your database uses [IP restrictions](https://planetscale.com/docs/postgres/connecting/ip-restrictions.md), add all four addresses (each as a `/32`). Queries from the MCP server fail if any of the four is missing.
+* **Vitess:** No action needed. The MCP server creates short-lived passwords that only accept connections from these addresses.
+
+These addresses apply only to the hosted server at `mcp.pscale.dev`. If your database does not restrict connections by IP, you do not need to do anything.
 
 ## Installation instructions
 
