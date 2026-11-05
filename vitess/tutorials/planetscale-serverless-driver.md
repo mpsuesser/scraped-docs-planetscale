@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver
 title: "Planetscale Serverless Driver"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-05T00:45:20.606Z
+current_date: 2026-11-05T00:45:20.606Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,10 @@ current_date: 2026-10-26T19:24:46.643Z
 # PlanetScale serverless driver for JavaScript
 
 This page covers Vitess.
+
+> [!NOTE]
+>
+> This driver is for Vitess (MySQL) databases. To run Postgres queries over HTTP, use the [Neon serverless driver](https://planetscale.com/docs/postgres/connecting/neon-serverless-driver.md).
 
 ## Why use the PlanetScale serverless driver
 
