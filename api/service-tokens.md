@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-05T16:38:10.434Z
-current_date: 2026-11-05T16:38:10.434Z
+access_date: 2026-11-05T17:39:04.433Z
+current_date: 2026-11-05T17:39:04.433Z
 ---
 
 > ## Documentation Index
@@ -184,7 +184,7 @@ pscale service-token delete <SERVICE_TOKEN_ID>
 
 Running `pscale` in CI or an AI agent uses a [service token](https://planetscale.com/docs/cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
 
-```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
 # Environment variables (recommended for CI and agents)
 export PLANETSCALE_SERVICE_TOKEN_ID="<SERVICE_TOKEN_ID>"
 export PLANETSCALE_SERVICE_TOKEN="<SERVICE_TOKEN>"
@@ -197,7 +197,7 @@ pscale database list --org <org> \
 
 A service token has **no active organization**, so resource commands need the org supplied explicitly. Set it with `PLANETSCALE_ORG`, the `--org` flag on the subcommand, or `pscale org switch <org>` (which works with a service token):
 
-```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
 export PLANETSCALE_ORG="<org>"
 pscale database list --format json          # uses PLANETSCALE_ORG
 pscale database list --org <org> --format json   # explicit flag
@@ -232,7 +232,7 @@ Do not retry these with service-token auth. The failure is by design, not transi
 
 When a command's human output is hard to parse, prefer `--format json`, or drop to the raw API with `pscale api`, which returns the API response verbatim and uses the same token:
 
-```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
+```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
 # org list
 pscale api organizations --format json
 
