@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security
 title: "Security"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-05T16:29:42.154Z
+current_date: 2026-11-05T16:29:42.154Z
 ---
 
 > ## Documentation Index
@@ -30,7 +30,7 @@ Below is a breakdown of common security and compliance requirements by PlanetSca
 | [Security logs](https://planetscale.com/docs/security/security-log.md) | | | | |
 | [Data Processing Addendum available](#data-processing-addendum) | | | | |
 | [Private database connectivity](#private-database-connectivity) | | | | |
-| [Single sign-on (SSO)](https://planetscale.com/docs/security/sso.md) | Available as add-on | | | |
+| [Single sign-on (SSO)](https://planetscale.com/docs/security/sso.md) | Available as add-on | Available as add-on | Available as add-on | Available as add-on |
 | [Business Associate Agreements available](#hipaa-and-business-associate-agreements) | | | | |
 | Dedicated AWS/GCP/Azure account | | | | |
 | [PCI compliant](#pci-compliance) | | | | |

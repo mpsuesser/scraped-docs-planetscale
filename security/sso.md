@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/sso
 title: "Sso"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-05T16:29:42.154Z
+current_date: 2026-11-05T16:29:42.154Z
 ---
 
 > ## Documentation Index
@@ -24,7 +24,7 @@ You can also enable and manage organization SSO from the [PlanetScale CLI](https
 
 > [!NOTE]
 >
-> SSO is available as an *add-on* for the [Base plan](https://planetscale.com/docs/planetscale-plans.md#base-plan) at \$199/month per organization and included in our [Enterprise plans](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan). Security is important to us, so we do not profit off of SSO. We only charge enough to cover the WorkOS cost for enrolling a new account.
+> SSO is available as an *add-on* for any plan at \$199/month per organization. It is not included in the [Enterprise plan](https://planetscale.com/docs/planetscale-plans.md#enterprise-plan). Security is important to us, so we do not profit off of SSO. We only charge enough to cover the WorkOS cost for enrolling a new account.
 
 ## Implications
 

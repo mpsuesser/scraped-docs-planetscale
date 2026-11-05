@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/planetscale-plans
 title: "Planetscale Plans"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-05T16:29:42.154Z
+current_date: 2026-11-05T16:29:42.154Z
 ---
 
 > ## Documentation Index
@@ -80,7 +80,7 @@ On top of processing and memory, all **Base** cluster sizes share the following:
 
 \*\* Additional production branches are billed at the cost of your selected cluster size per month.
 
-\*\*\* [SSO](https://planetscale.com/docs/security/sso.md) and [Business support](https://planetscale.com/docs/support.md#business) options are available on the Base plan for an additional fee.
+\*\*\* [SSO](https://planetscale.com/docs/security/sso.md) is available on any plan for an additional fee of \$199/month per organization. [Business support](https://planetscale.com/docs/support.md#business) is available on the Base plan for an additional fee.
 
 ### Additional production branches
 
@@ -163,7 +163,7 @@ In general, if you need any of the following, Enterprise may be the best solutio
 
 ### Single Sign-on (SSO)
 
-Add [Single Sign-on (SSO)](https://planetscale.com/docs/security/sso.md) for your organization to the Base plan for an additional fee of \$199/month.
+Add [Single Sign-on (SSO)](https://planetscale.com/docs/security/sso.md) for your organization to any plan, including Enterprise, for an additional fee of \$199/month. SSO is not included in the Enterprise plan.
 
 ### Business support
 
