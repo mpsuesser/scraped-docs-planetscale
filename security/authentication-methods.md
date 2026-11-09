@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/authentication-methods
 title: "Authentication Methods"
 description: ""
-access_date: 2026-11-09T19:25:59.204Z
-current_date: 2026-11-09T19:25:59.204Z
+access_date: 2026-11-09T23:28:57.282Z
+current_date: 2026-11-09T23:28:57.282Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ Let's break down how each of these work.
 
 This is the only authentication mechanism where PlanetScale maintains user credentials.
 
-Additionally, users can opt to configure [two-factor authentication (2FA)](https://planetscale.com/docs/security/multi-factor-authentication.md). This option requires **something you know** *(i.e. your password)* and **something you have** *(i.e. recovery codes)*.
+Additionally, users can opt to configure [two-factor authentication (2FA)](https://planetscale.com/docs/security/multi-factor-authentication.md). This asks for your password and something you have: an authenticator app, a passkey, or a hardware security key. If your passkey confirms it's you with Face ID, Touch ID, or a PIN, it can also sign you in without a password. Recovery codes are a backup if you lose access to your authenticator app or keys.
 
 ## Single sign-on
 
