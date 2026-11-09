@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/multi-factor-authentication
 title: "Multi Factor Authentication"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-09T19:25:59.204Z
+current_date: 2026-11-09T19:25:59.204Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ PlanetScale allows users logging in with an email address and password to set MF
 
 > [!NOTE]
 >
-> If you're authenticating via GitHub OAuth or [SSO](https://planetscale.com/docs/security/sso.md), MFA settings will not be displayed.
+> If you're authenticating via GitHub OAuth or [SSO](https://planetscale.com/docs/security/sso.md), MFA settings will not be displayed. To use MFA with an account that signs in with GitHub, first [switch to email and password](https://planetscale.com/docs/security/authentication-methods.md#switch-to-email-and-password).
 
 ### Authentication providers
 

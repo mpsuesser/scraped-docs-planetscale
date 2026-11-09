@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/authentication-methods
 title: "Authentication Methods"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-09T19:25:59.204Z
+current_date: 2026-11-09T19:25:59.204Z
 ---
 
 > ## Documentation Index
@@ -43,6 +43,32 @@ Users can authenticate with PlanetScale using their GitHub account.
 >
 > Enabling SSO removes OAuth access for all members of your *organization*, meaning they will no longer be able
 > to sign in with their GitHub credentials.
+
+### Switch to email and password
+
+You can stop signing in with GitHub and sign in with your email address and a password instead.
+
+**Step 1**
+
+Go to your [PlanetScale account settings](https://app.planetscale.com/settings/account) page.
+
+**Step 2**
+
+In the **Sign in with GitHub** section, click **"Disconnect GitHub"**.
+
+**Step 3**
+
+Click **"Confirm on GitHub"** and approve the sign-in on GitHub.
+
+**Step 4**
+
+Enter and confirm a new password, then click **"Disconnect GitHub"**.
+
+Signing in with GitHub stops working for your account, and you are signed out of PlanetScale in your other browsers. Your account then works like any other email and password account, including [multi-factor authentication](https://planetscale.com/docs/security/multi-factor-authentication.md).
+
+> [!NOTE]
+>
+> Accounts that belong to an organization using SSO can't disconnect GitHub.
 
 ## Need help?
 
