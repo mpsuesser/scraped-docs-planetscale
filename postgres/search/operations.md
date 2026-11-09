@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/search/operations
 title: "Operations"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-09T15:29:04.317Z
+current_date: 2026-11-09T15:29:04.317Z
 ---
 
 > ## Documentation Index
@@ -41,6 +41,37 @@ Network-attached storage supports [storage autoscaling](https://planetscale.com/
 ## Parallel query
 
 TIN splits an index into segments at build time, one per core by default, and a query can use one parallel worker per segment. Postgres caps the workers with `max_parallel_workers_per_gather` and `max_parallel_workers`, both available under [Parameters](https://planetscale.com/docs/postgres/cluster-configuration/parameters.md). As an index grows, the work per query grows with it, and TIN spreads that work across the cores it is given, so a multi-terabyte index performs best on a cluster size with more vCPUs. If you build on one cluster size and serve on another, set `initial_segment_count` for the serving size, because the segment count is fixed at build. See [Index options](https://planetscale.com/docs/postgres/search/reference/indexes.md#index-options-with).
+
+## Prepared statements
+
+Most drivers send parameterized queries as prepared statements, and some, such as postgres.js, prepare every query by default. Connection poolers such as Hyperdrive and PgBouncer keep those statements alive across requests. Under the default `plan_cache_mode = auto`, Postgres plans the first five executions of a prepared statement with the actual parameter values, which is called a custom plan. After that it can switch to a generic plan, which is built once without the parameter values and reused for every later execution.
+
+A generic plan is a poor fit for search. When the TINQL query is a parameter, the generic plan is made without seeing the query, so TIN cannot plan for it, and the reused plan can be far slower than the one the same query gets when its value is known. The symptom is a query that is fast in `psql` or under `EXPLAIN ANALYZE` with a literal query string, and slow from the application once a connection has run it a few times.
+
+Set `plan_cache_mode = force_custom_plan` for the role your application connects as:
+
+```sql theme={null}
+ALTER ROLE app_user SET plan_cache_mode = force_custom_plan;
+```
+
+Postgres then plans every execution with its parameter values. The setting applies to connections opened after the change, so connections already held by a pool keep the old behavior until they reconnect. To change it for the current session only, use `SET plan_cache_mode = force_custom_plan`. Planning on every execution costs a little CPU per query, which is small next to the work of a search.
+
+To see the difference for a query, compare the two plans for the same prepared statement:
+
+```sql theme={null}
+PREPARE search(text, int) AS
+  SELECT id, title, tin.score(ctid) AS score
+  FROM posts
+  WHERE body ==> $1
+  ORDER BY score DESC
+  LIMIT $2;
+
+SET plan_cache_mode = force_generic_plan;
+EXPLAIN ANALYZE EXECUTE search('espresso', 10);
+
+SET plan_cache_mode = force_custom_plan;
+EXPLAIN ANALYZE EXECUTE search('espresso', 10);
+```
 
 ## Read replicas
 
@@ -85,6 +116,7 @@ TIN has few settings of its own. Most of its behavior follows ordinary Postgres 
 | `seq_page_cost`, `random_page_cost`, `cpu_tuple_cost`, `cpu_operator_cost`, `parallel_setup_cost`, `parallel_tuple_cost`, `effective_cache_size` | TIN's cost model measures the work of each candidate plan in physical units and prices them with these settings, so they decide between serial and parallel plans and between index paths. The defaults describe spinning disk. On a cluster whose index fits in memory, `seq_page_cost = 0.1`, `random_page_cost = 0.1`, and an accurate `effective_cache_size` produce better plans. |
 | `wal_level` | Changes to a TIN index are written to WAL under the same rule as built-in indexes. Only `minimal`, with an index created in the current transaction, skips logging. |
 | `wal_compression` | The last phase of an index build writes the whole index to WAL. `lz4` or `zstd` reduces that WAL volume at the cost of CPU that is usually idle by then. |
+| `plan_cache_mode` | Set to `force_custom_plan` when queries reach TIN as prepared statements, so each execution is planned with its TINQL query. See [Prepared statements](#prepared-statements). |
 | `hot_standby_feedback` | Required on replicas that serve TIN queries. See [Read replicas](#read-replicas). |
 | `autovacuum_vacuum_scale_factor`, `autovacuum_vacuum_threshold` | Decide how soon dead rows are reported to TIN. See [Vacuum](#vacuum). |
 
