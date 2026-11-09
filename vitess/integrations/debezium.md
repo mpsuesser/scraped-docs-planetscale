@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/debezium
 title: "Debezium"
 description: ""
-access_date: 2026-10-20T16:23:25.828Z
-current_date: 2026-10-20T16:23:25.828Z
+access_date: 2026-11-09T16:07:41.444Z
+current_date: 2026-11-09T16:07:41.444Z
 ---
 
 The [Debezium connector for PlanetScale](https://github.com/planetscale/debezium-connector-planetscale) is based on the [Debezium Vitess connector](https://debezium.io/documentation/reference/stable/connectors/vitess.html) and packages the PlanetScale-specific connector classes, patches, and runtime dependencies for Kafka Connect and Debezium Server. It streams change events from a PlanetScale Vitess database through [VStream](https://vitess.io/docs/concepts/vstream/), including the initial copy of existing rows.
@@ -23,8 +23,9 @@ We publish one connector release line per upstream Debezium minor version, so yo
 | 3.4 | [v3.4.3.Final-r1](https://github.com/planetscale/debezium-connector-planetscale/releases/tag/v3.4.3.Final-r1) | ✅ | ✅ |
 | 3.5 | [v3.5.2.Final-r1](https://github.com/planetscale/debezium-connector-planetscale/releases/tag/v3.5.2.Final-r1) | ✅ | ✅ |
 | 3.6 | [v3.6.3.Final-r1](https://github.com/planetscale/debezium-connector-planetscale/releases/tag/v3.6.3.Final-r1) | ✅ | ✅ |
+| 3.7 | [v3.7.1.Final-r1](https://github.com/planetscale/debezium-connector-planetscale/releases/tag/v3.7.1.Final-r1) | ✅ | ✅ |
 
-If you have no existing Debezium deployment, start with the **3.6 line**, the newest one available.
+If you have no existing Debezium deployment, start with the **3.7 line**, the newest one available.
 
 ## Download the connector
 
@@ -98,12 +99,12 @@ debezium.source.schema.history.internal.file.filename=data/schema_history.dat
 ```
 
 ```shellscript
-# pick the Debezium Server image that matches the connector line, e.g. 3.6.3.Final for v3.6.3.Final-r1
+# pick the Debezium Server image that matches the connector line, e.g. 3.7.1.Final for v3.7.1.Final-r1
 docker run --rm \
-  -v "$PWD/planetscale-debezium-adapter-3.6.3.Final-r1.jar:/debezium/lib/planetscale-debezium-adapter-3.6.3.Final-r1.jar:ro" \
+  -v "$PWD/planetscale-debezium-adapter-3.7.1.Final-r1.jar:/debezium/lib/planetscale-debezium-adapter-3.7.1.Final-r1.jar:ro" \
   -v "$PWD/application.properties:/debezium/config/application.properties:ro" \
   -v "$PWD/data:/debezium/data" \
-  quay.io/debezium/server:3.6.3.Final
+  quay.io/debezium/server:3.7.1.Final
 ```
 
 Mount `data/` to persist offsets and schema history across restarts. Existing rows arrive as events first (the snapshot), followed by changes as they happen.
@@ -113,7 +114,7 @@ Mount `data/` to persist offsets and schema history across restarts. Existing ro
 Download the Debezium Server distribution for the same line from Maven Central, unpack it, copy the connector jar into `lib/` and your configuration into `config/application.properties`, then start it with `run.sh`. Requires Java 21.
 
 ```shellscript
-V=3.6.3.Final
+V=3.7.1.Final
 curl -fLO https://repo1.maven.org/maven2/io/debezium/debezium-server-dist/$V/debezium-server-dist-$V.tar.gz
 tar -xzf debezium-server-dist-$V.tar.gz
 cp planetscale-debezium-adapter-$V-r1.jar debezium-server/lib/
@@ -128,7 +129,7 @@ The repository’s [`server/`](https://github.com/planetscale/debezium-connector
 Unzip the plugin archive into a directory on the worker’s `plugin.path`, restart the worker, and register the connector:
 
 ```shellscript
-unzip planetscale-debezium-connector-planetscale-3.6.3.Final-r1.zip -d /opt/connect/plugins/
+unzip planetscale-debezium-connector-planetscale-3.7.1.Final-r1.zip -d /opt/connect/plugins/
 ```
 
 ```json
