@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/error-codes
 title: "Error Codes"
 description: ""
-access_date: 2026-10-27T16:28:43.980Z
-current_date: 2026-10-27T16:28:43.980Z
+access_date: 2026-11-09T12:58:46.465Z
+current_date: 2026-11-09T12:58:46.465Z
 ---
 
 > ## Documentation Index
@@ -89,14 +89,6 @@ SELECT inheritance_id FROM inheritance_parent;
 
 The rejection only occurs when `inheritance_parent` has child tables. Reading the parent without `ONLY` would have to expand to the children, so add `ONLY` to read just the parent.
 
-### 22 — AND CHAIN is unavailable for this transaction command.
-
-```sql theme={null}
-COMMIT AND CHAIN;
-```
-
-The `AND CHAIN` clause is the rejected part. Issue the `COMMIT` (or `ROLLBACK`, `END`, `ABORT`) and start the next transaction explicitly.
-
 ### 23 — This transaction command is unavailable.
 
 ```sql theme={null}
@@ -161,6 +153,14 @@ SET client_min_messages = 'debug1';
 
 The parameter accepts only some of its PostgreSQL values on Neki; the error's DETAIL names them.
 
+### 537 — A WITH HOLD cursor whose router-computed part evaluates a function, operator or cast that is not IMMUTABLE is unavailable.
+
+```sql theme={null}
+DECLARE c CURSOR WITH HOLD FOR SELECT count(*), now() FROM users;
+```
+
+PostgreSQL computes the remaining rows of a held cursor at `COMMIT`. The router computes part of this query itself, here the aggregate across shards and `now()`, at each later `FETCH`, so a function that is not `IMMUTABLE` would answer for the `FETCH` and not for the commit. Declare the cursor without `WITH HOLD`, or compute the value in the client.
+
 ### 563 — Changing DateStyle, TimeZone, IntervalStyle, extra\_float\_digits, or client\_encoding while a cursor over a router-computed query holds rows is unavailable.
 
 ```sql theme={null}
@@ -176,10 +176,11 @@ The router encodes a cursor's rows under the output settings in force at its fir
 ### 660 — A cursor over this query shape is unavailable.
 
 ```sql theme={null}
-DECLARE c CURSOR WITH HOLD FOR SELECT count(*) FROM users;
+BEGIN;
+DECLARE c CURSOR FOR SELECT u.name, o.status FROM users u JOIN orders o ON u.name = o.status FOR UPDATE;
 ```
 
-A `WITH HOLD` cursor over a query the router computes, here an aggregate across shards, is refused; the message names the shape. Declare the cursor without `WITH HOLD` inside a transaction.
+The join on `name` crosses shards, so the router computes it, and a row-locking cursor over a query the router computes is refused: a row mark would lock every row a shard returns, not only the rows you fetch. The message names the shape. Join on the shard key so the cursor runs on one shard, or lock the rows with a separate `SELECT ... FOR UPDATE`.
 
 ### 817 — Planning against … is unavailable: earlier DDL in this transaction is not reflected in the router's schema view.
 
@@ -385,25 +386,76 @@ CREATE TABLE users_adv_lock AS SELECT pg_advisory_xact_lock(1);
 
 The advisory-lock call lands in a plan position — the body of `CREATE TABLE AS` — where the router cannot take the lock. Take the lock in a separate statement.
 
+## Temporary tables
+
+Codes raised for temporary tables. A session can create a temporary table with `CREATE TEMP TABLE` and a column list, insert into it with an `INSERT` that has a `VALUES` list, and read it with a `SELECT`, all outside a transaction block. The data topology places a temporary table through the `pg_temp` schema, as the [example schema](https://planetscale.com/docs/neki/example-schema.md) does. Anything else that creates, names, or reads a temporary table is rejected before a shard sees it.
+
+### 338 — Creating this temporary relation is unavailable.
+
+```sql theme={null}
+CREATE TEMP VIEW active_users AS SELECT * FROM users;
+```
+
+Only `CREATE TEMP TABLE` with a column list creates a temporary relation. `CREATE TEMP TABLE ... AS`, `CREATE TEMP SEQUENCE`, and a temporary materialized view report the same code, and so does a `CREATE TEMP TABLE` that the data topology places on a reference table or on a sharded shard group without a sharding key. Create a regular relation and drop it when done.
+
+### 619 — Creating a function or procedure is unavailable while the session has temporary tables.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+CREATE FUNCTION cart_size() RETURNS bigint LANGUAGE sql AS $$SELECT count(*) FROM session_cart$$;
+```
+
+A routine body can name a temporary table where the router cannot see it. Create the routine in a session without temporary tables, or run `DISCARD TEMP` first.
+
+### 627 — Using a temporary table inside a transaction is unavailable, including a statement the router runs as a transaction, such as an INSERT whose VALUES contain a subquery or a SELECT with FOR UPDATE.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+BEGIN;
+SELECT * FROM session_cart;
+```
+
+The `SELECT` runs inside a transaction block. Use the temporary table outside a transaction block.
+
+### 690 — A relation or type name passed as a string or a bound parameter is unavailable when it can name a temporary table.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+CREATE TABLE relation_refs (id bigint PRIMARY KEY, rc regclass DEFAULT 'session_cart');
+```
+
+The default `'session_cart'` is a name in a string, which a shard resolves, and the router cannot route a shard to the session's temporary tables. Name the table in the statement itself.
+
+### 717 — DDL that names an object spelled like a temporary table is unavailable while the session has temporary tables.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+CREATE TYPE session_cart AS ENUM ('standard', 'express');
+```
+
+The new type has the same name as the temporary table `session_cart`. The router cannot tell whether the statement names the temporary table or a new object, so it rejects the statement. Choose a name that no temporary table has, or run `DISCARD TEMP` first.
+
+### 749 — … on a temporary table is unavailable.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+UPDATE session_cart SET quantity = 2;
+```
+
+A temporary table supports only `CREATE TEMP TABLE` with a column list, `INSERT` with a `VALUES` list, and `SELECT`. The message names the rejected statement, here `UPDATE`.
+
+### 917 — The storage size of a temporary relation is unavailable.
+
+```sql theme={null}
+CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
+SELECT pg_relation_size('session_cart');
+```
+
+A temporary table exists only on the session's own backend, which the router's size probe cannot reach. The size functions `pg_relation_size`, `pg_table_size`, `pg_indexes_size` and `pg_total_relation_size` work for tables that are not temporary.
+
 ## PL/pgSQL
 
 Codes raised while translating or executing a PL/pgSQL routine on the router.
-
-### 82 — Nested and array-slice assignment targets are unavailable in PL/pgSQL.
-
-```sql theme={null}
-DO $$DECLARE a int[]; BEGIN a[1:2] := ARRAY[1,2]; END$$;
-```
-
-A nested or array-slice assignment target in PL/pgSQL. Assign the whole variable, or a single subscript.
-
-### 85 — Composite INTO targets are unavailable in PL/pgSQL.
-
-```sql theme={null}
-DO $$DECLARE c refcursor := 'c'; u users; BEGIN OPEN c FOR SELECT * FROM users; FETCH c INTO u; END$$;
-```
-
-The `FETCH` target `u` is a named composite (`users`) variable. Fetch into a `record` variable, or into a list of scalar variables.
 
 ### 86 — Record fields with varying runtime types are unavailable in PL/pgSQL.
 
@@ -422,15 +474,6 @@ SELECT pinned_to_primary();
 
 The function's `SET` clause names a parameter the router cannot scope around a call, here the Neki session option `__neki.target`. Set it on the session instead.
 
-### 88 — Polymorphic routines are unavailable for router-side execution.
-
-```sql theme={null}
-CREATE FUNCTION identity_of(anyelement) RETURNS anyelement LANGUAGE plpgsql AS $$BEGIN RETURN $1; END$$;
-SELECT identity_of(1);
-```
-
-The routine's polymorphic signature (`anyelement`, `anyarray`, and similar) is what is rejected for router-side execution. Declare concrete argument types.
-
 ### 90 — This PL/pgSQL statement is unavailable.
 
 ```sql theme={null}
@@ -438,14 +481,6 @@ DO $$DECLARE x text; BEGIN GET DIAGNOSTICS x = PG_CONTEXT; END$$;
 ```
 
 A PL/pgSQL statement form the executor has no implementation for, here `GET DIAGNOSTICS ... PG_CONTEXT`.
-
-### 91 — EXIT to a block label is unavailable in PL/pgSQL.
-
-```sql theme={null}
-DO $$<<outer>> BEGIN EXIT outer; END$$;
-```
-
-`EXIT` naming a *block* label. `EXIT` from a loop, optionally naming the loop's label.
 
 ### 575 — RETURN QUERY EXECUTE of a FETCH or SQL EXECUTE into a function result with a domain column is unavailable unless the cursor was opened by a PL/pgSQL OPEN over a static query.
 
@@ -508,17 +543,17 @@ DO $$DECLARE c refcursor := 'c'; r record; BEGIN OPEN c FOR EXECUTE 'SELECT 1 AS
 
 The cursor was opened with a dynamic command string, so the router cannot know the shape of the record it fills. Open it over a static query, or fetch into scalar variables.
 
+### 935 — A record value of function … is unavailable in PL/pgSQL: the function names no shape for it.
+
+```sql theme={null}
+DO $$DECLARE r record; BEGIN SELECT * INTO r FROM json_to_record('{"a": 1}'::json) AS x(a int); END$$;
+```
+
+`json_to_record` returns a bare `record`, and its columns come from the column definition list of the `FROM` clause, so the function itself names no shape for the record that PL/pgSQL receives. Run the query as a plain SQL statement outside the routine.
+
 ## Query shapes and routing
 
 The largest group: codes raised while the planner turns a query into routed work. Many depend on the data topology, and the same statement can plan against an unsharded table and be rejected against a sharded one.
-
-### 67 — Array-slice and multidimensional array assignment are unavailable.
-
-```sql theme={null}
-DO $$DECLARE a int[] := '{{1,2},{3,4}}'; BEGIN a[1] := 5; END$$;
-```
-
-Assigning one element of a multidimensional array is the rejected part, as is assigning an array slice. Replace the whole array value instead.
 
 ### 69 — Subqueries in VALUES are unavailable.
 
@@ -587,18 +622,18 @@ A router-only expression (`now()`) appears in a clause the planner cannot lift i
 ### 108 — This subquery shape is unavailable in ORDER BY.
 
 ```sql theme={null}
-SELECT name FROM users WHERE nextval('public.my_sequence') > 0 ORDER BY (SELECT max(total_amount) FROM orders);
+SELECT name FROM users ORDER BY user_id > ALL (SELECT user_id FROM orders);
 ```
 
-The `ORDER BY` subquery cannot be evaluated once up front because the volatile `WHERE` expression forces per-row router evaluation. Remove the volatile predicate, or sort in your application.
+An `ALL` subquery is the `ORDER BY` sort key, and the router cannot evaluate that shape. Sort by a column, or sort in your application.
 
 ### 109 — This quantified-subquery shape is unavailable.
 
 ```sql theme={null}
-SELECT * FROM users WHERE (user_id, name) > ALL(SELECT user_id, name FROM orders);
+SELECT user_id, count(*) FROM orders GROUP BY user_id HAVING count(*) IN (SELECT user_id FROM users WHERE users.user_id = orders.user_id);
 ```
 
-The quantified comparison uses a row constructor, so the `ALL` cannot be rewritten into a routable form. Compare a single column.
+The `HAVING` clause tests an aggregate against an `IN` subquery that reads the outer query (`orders.user_id`), so the router cannot pull the subquery up. Remove the reference to the outer query from the subquery.
 
 ### 110 — This correlated-subquery shape cannot be decorrelated safely.
 
@@ -651,10 +686,10 @@ A set-returning function in a `VALUES` cell means the router cannot know the row
 ### 119 — This ON CONFLICT shape is unavailable.
 
 ```sql theme={null}
-INSERT INTO orders (order_id, user_id, order_date, status) VALUES (91021, 91020, DATE '2026-09-09', 'new'), (91022, 91020, DATE '2026-09-09', 'held') ON CONFLICT (order_id) DO NOTHING RETURNING order_id, user_id;
+INSERT INTO orders (order_id, user_id, order_date) VALUES (91021, 91020, DATE '2026-09-09'), (91022, 91020, DATE '2026-09-09') ON CONFLICT (order_id) DO UPDATE SET status = 'held' WHERE orders.status IS NULL RETURNING order_id, user_id;
 ```
 
-Depends on the topology: the `ON CONFLICT` arbiter index (`order_id`) does not cover the table's shard key (`user_id`), so a conflict cannot be resolved on one shard. Arbitrate on an index that includes the shard key.
+Depends on the topology: the `ON CONFLICT` arbiter index (`order_id`) does not include the table's shard key (`user_id`), so the router cannot match the rows that `RETURNING` produces to the rows you inserted. Arbitrate on an index that includes the shard key, insert one row per statement, or drop the `WHERE` or the `RETURNING`.
 
 ### 120 — This column default cannot be materialized on the router.
 
@@ -928,6 +963,15 @@ SELECT JSON_ARRAY(SELECT 1);
 
 `JSON_ARRAY` over a subquery, evaluated by the router. Use `json_agg` over the subquery instead.
 
+### 798 — A record a shard builds is unavailable on the router when the statement builds records of other row types with the same field types: its field names, typmods or collations cannot be told apart.
+
+```sql theme={null}
+INSERT INTO users (user_id, name, email) VALUES (1, 'a', 'a@example.com');
+SELECT max(ROW(CASE WHEN user_id = 1 THEN ROW(name::varchar(5)) ELSE ROW(name::varchar(10)) END)) FROM users;
+```
+
+Both branches of the `CASE` build a one-field record of type `varchar`, with different type modifiers. The `max` merges the records from every shard, and the router cannot tell from a shard's reply which of the two row types a record has. The same happens when the branches differ in `COLLATE`. Give the records the same type modifier and `COLLATE` in every branch.
+
 ### 822 — A LATERAL XMLTABLE or JSON\_TABLE is unavailable.
 
 ```sql theme={null}
@@ -959,7 +1003,7 @@ Codes raised when the router — rather than a shard — has to compute an expre
 ### 64 — Set-returning function … has no opcode factory.
 
 ```sql theme={null}
-SELECT * FROM pg_lock_status();
+SELECT * FROM pg_get_catalog_foreign_keys();
 ```
 
 The router has no implementation of this set-returning built-in function, so it cannot run it.
@@ -967,18 +1011,18 @@ The router has no implementation of this set-returning built-in function, so it 
 ### 200 — Built-in function … is unavailable in the evaluation engine.
 
 ```sql theme={null}
-SELECT pg_relation_size('users');
+SELECT pg_relation_filepath('users');
 ```
 
 The built-in function has a catalog entry but no router implementation, so it cannot be evaluated when the router — rather than a shard — has to compute it.
 
-### 202 — Built-in type input function … is unavailable in the evaluation engine.
+### 594 — … is unavailable for this index or access method.
 
 ```sql theme={null}
-SELECT 'x'::text::gtsvector;
+SELECT pg_indexam_has_property(100000, 'can_order');
 ```
 
-The literal has to be parsed by `gtsvectorin`, which the evaluation engine does not implement, so the router cannot build the value. `brin_bloom_summary` and `brin_minmax_multi_summary` behave the same way.
+The router has a handler only for the six built-in access methods and does not stream `pg_am`, so it cannot tell an OID that no access method has from the OID of a custom access method. PostgreSQL returns `NULL` for this OID.
 
 ## DDL
 
@@ -1265,14 +1309,6 @@ ALTER TABLE notes ALTER COLUMN seq RESTART;
 
 Neki cannot reset the router's reservations for the identity sequence. Restart the column's owned sequence with `ALTER SEQUENCE` instead.
 
-### 338 — Temporary tables, views and sequences are unavailable.
-
-```sql theme={null}
-CREATE TEMP TABLE session_cart (sku text PRIMARY KEY, quantity integer NOT NULL);
-```
-
-A temporary relation lives in the PostgreSQL backend that created it, and the router holds no shard backend for a session. The relation would be created on each shard's pooled backend, where no later statement could see it, so the statement is rejected instead. `CREATE TEMP TABLE ... AS`, `CREATE TEMP VIEW`, `CREATE TEMP SEQUENCE`, and a name qualified with `pg_temp` report the same code. Create a regular relation and drop it when done.
-
 ### 339 — Temporary types and domains are unavailable.
 
 ```sql theme={null}
@@ -1384,6 +1420,14 @@ WITH m AS (MERGE INTO users t USING ref_countries s ON t.user_id = s.country_id 
 
 The `MERGE` body cannot be hosted by the router CTE materialization boundary.
 
+### 593 — Recursive CTE "…" with a SEARCH or CYCLE clause is unavailable when its recursion cannot run on one shard.
+
+```sql theme={null}
+WITH RECURSIVE t AS (SELECT user_id, name FROM users WHERE user_id = 1 UNION ALL SELECT u.user_id, u.name FROM users u JOIN t ON u.name = t.name AND u.user_id > t.user_id) SEARCH DEPTH FIRST BY user_id SET ordercol SELECT * FROM t;
+```
+
+The recursive term joins on `name`, not on the shard key, so the recursion cannot run on one shard. The router then runs it one step at a time, and it does not compute the `SEARCH` or `CYCLE` column, which PostgreSQL derives from the row each new row came from. Join the recursive term on the shard key so the whole recursion runs on one shard.
+
 ### 626 — Refreshing a database collation version is unavailable.
 
 ```sql theme={null}
@@ -1399,6 +1443,23 @@ WITH c AS (SELECT user_id FROM users WHERE user_id = 2) SELECT c.user_id, d.user
 ```
 
 The CTE `c` inside the derived table shadows the outer CTE `c`. Give the inner CTE a distinct name.
+
+### 635 — A recursive CTE whose body reads another CTE of its own WITH clause or holds a WITH clause of its own, or a WITH RECURSIVE item referenced before its definition, is unavailable on the router.
+
+```sql theme={null}
+WITH RECURSIVE seed AS (SELECT 1 AS n), t(n) AS (SELECT n FROM seed UNION ALL SELECT n + 1 FROM t WHERE n < 3) SELECT * FROM t;
+```
+
+The recursive CTE `t` reads `seed`, another CTE of the same `WITH` clause. Write the body of `seed` inside the non-recursive term of `t`.
+
+### 640 — A routine that runs a utility statement or dynamic SQL is unavailable in SQL that shards run without the router.
+
+```sql theme={null}
+CREATE FUNCTION truncate_notes() RETURNS trigger LANGUAGE plpgsql AS $$BEGIN TRUNCATE notes; RETURN NEW; END$$;
+CREATE TRIGGER users_truncate_notes BEFORE INSERT ON users FOR EACH ROW EXECUTE FUNCTION truncate_notes();
+```
+
+A trigger function runs on the shard that holds the row, so the `TRUNCATE` would act on that shard's part of `notes` alone. Creating the function succeeds; creating the trigger that stores it is refused. Run the statement outside the trigger.
 
 ### 645 — A data-modifying CTE body whose output differs from its write's RETURNING columns is unavailable on the router.
 
@@ -1426,13 +1487,21 @@ The `SET` option changes a base type's input or output functions. Neki cannot
 refresh the router's type metadata after that change, so it rejects the
 statement before it reaches a shard.
 
-### 726 — A data-modifying CTE needing a join parameter at its execution fence is unavailable on the router.
+### 705 — Data-modifying CTE "…" read through CTE "…", which the planner copies for each of its references, is unavailable on the router.
 
 ```sql theme={null}
-WITH a AS NOT MATERIALIZED (INSERT INTO users (user_id, name, email) VALUES (1, 'a', 'a@example.com') RETURNING user_id), b AS (UPDATE orders SET status = 'x' WHERE user_id IN (SELECT user_id FROM a) RETURNING order_id, user_id) SELECT count(*) FROM a JOIN b USING (user_id) WHERE a.user_id IN (SELECT user_id FROM a);
+WITH deleted AS (DELETE FROM orders USING (VALUES (1::bigint), (2::bigint)) AS ids (user_id) WHERE orders.user_id = ids.user_id RETURNING orders.order_id, orders.status), copied AS (WITH inner_rows AS (SELECT order_id, status FROM deleted) SELECT order_id, status FROM inner_rows) SELECT a.order_id, l.status FROM copied a CROSS JOIN LATERAL (SELECT b.status FROM copied b WHERE b.order_id = a.order_id LIMIT 1) l ORDER BY 1;
 ```
 
-The `UPDATE` in `b` needs a value from `a` that is not available where the router runs it.
+The outer query and the `LATERAL` subquery both read `copied`, so the planner copies it for each reference, and each copy would run the `DELETE` in `deleted`. Mark `copied` as `AS MATERIALIZED`.
+
+### 707 — A data-modifying CTE read by a query block the planner eliminates, or by a CTE that does not run, is unavailable on the router.
+
+```sql theme={null}
+WITH inserted AS (INSERT INTO users (user_id, name, email) VALUES (1, 'Ada', 'ada@example.com') RETURNING user_id) SELECT (SELECT count(*) FROM inserted WHERE false);
+```
+
+The only query block that reads `inserted` has a constant-false `WHERE`, so the planner drops it, and with it the reference that keeps the `INSERT` in the plan. PostgreSQL still runs the `INSERT`. Remove the condition, or read `inserted` from a block that runs.
 
 ### 786 — A data-modifying CTE whose rows the statement reads, writing a table with triggers, is unavailable on the router.
 
@@ -1458,6 +1527,15 @@ WITH c AS (SELECT EXISTS(SELECT 1 FROM users) AS e FROM orders) SELECT c FROM c;
 
 The whole-row reference includes a subquery that the planner has extracted from the CTE target list. Select the individual columns instead of the whole row.
 
+### 803 — Session state is unavailable in stored expressions shards evaluate.
+
+```sql theme={null}
+CREATE FUNCTION set_search_path() RETURNS trigger LANGUAGE plpgsql AS $$BEGIN SET search_path = pg_catalog; RETURN NEW; END$$;
+CREATE TRIGGER users_set_search_path BEFORE INSERT ON users FOR EACH ROW EXECUTE FUNCTION set_search_path();
+```
+
+A trigger function runs on a shared shard connection, where a session-level `SET` would outlive the statement and reach other sessions. Creating the function succeeds; creating the trigger that stores it is refused. Use `SET LOCAL`.
+
 ### 810 — A NOT MATERIALIZED SELECT CTE read more than once by a statement with a data-modifying CTE is unavailable on the router.
 
 ```sql theme={null}
@@ -1469,10 +1547,10 @@ WITH batch AS NOT MATERIALIZED (SELECT user_id FROM users WHERE user_id > 1 ORDE
 ### 816 — A data-modifying CTE body without verifiable write output columns is unavailable on the router.
 
 ```sql theme={null}
-WITH d AS (DELETE FROM orders o USING (SELECT 'x' AS s) v WHERE o.status = v.s) SELECT 1;
+WITH inserted AS (INSERT INTO orders (order_id, user_id, order_date) SELECT p.product_id, p.user_id, DATE '2026-09-09' FROM products p JOIN users u ON u.name = p.name) SELECT 1;
 ```
 
-The router cannot verify the write output columns of this `DELETE ... USING` CTE, which has no `RETURNING`. This rejection depends on the data topology.
+The `INSERT ... SELECT` reads a join across shards, so the router runs the write below its own operators, and the CTE has no `RETURNING` clause from which it could verify the write's output columns. This rejection depends on the data topology. Add a `RETURNING` clause.
 
 ### 821 — A CTE exposing an unnamed subquery column is unavailable on the router.
 
@@ -1481,6 +1559,14 @@ WITH c(x) AS MATERIALIZED (SELECT EXISTS(SELECT 1 FROM users) FROM orders) SELEC
 ```
 
 The extracted subquery has no output name in the CTE body. Give the expression an explicit alias inside the CTE.
+
+### 888 — Recursive CTE "…" carries a column whose type has no array type, which is unavailable on the router.
+
+```sql theme={null}
+WITH RECURSIVE t(order_id, tags) AS (SELECT user_id, tag_ids FROM user_tags WHERE user_id = 1 UNION ALL SELECT o.order_id, t.tags FROM orders o JOIN t ON o.order_id = t.order_id + 1 WHERE o.order_id < 10) SELECT * FROM t;
+```
+
+The recursive term joins on `order_id`, not on the shard key, so the recursion cannot run on one shard. The router then binds every carried column as an array of its type, and `tags` is already an array, which PostgreSQL has no array type for. Join the recursive term on the shard key so the whole recursion runs on one shard.
 
 ### 896 — SECURITY LABEL statements are unavailable.
 
@@ -1527,10 +1613,10 @@ WITH c AS (SELECT o.user_id, u2.user_id AS uid FROM users u2 LEFT JOIN orders o 
 ### 933 — This nested CTE inside a data-modifying statement is unavailable on the router.
 
 ```sql theme={null}
-WITH a AS (SELECT user_id FROM users WHERE user_id = 1), b AS (SELECT user_id FROM a) UPDATE orders SET status = 'cascaded' FROM b WHERE orders.user_id = b.user_id AND orders.user_id = 1 RETURNING orders.order_id;
+WITH recent AS (SELECT order_id FROM orders WHERE status = 'active' LIMIT 3), picked AS (SELECT order_id FROM recent) UPDATE orders SET total_amount = total_amount + 1 FROM picked, recent r2 WHERE orders.order_id = picked.order_id AND r2.order_id = picked.order_id;
 ```
 
-The CTE chain feeds a data-modifying statement. This rejection depends on the query plan and data topology.
+The CTE `picked` reads the CTE `recent`, and the `UPDATE` reads both. Mark `picked` as `AS MATERIALIZED`, or read `recent` directly. This rejection depends on the query plan and data topology.
 
 ### 961 — This nested recursive CTE is unavailable on the router.
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/example-schema
 title: "Example Schema"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-09T12:58:46.465Z
+current_date: 2026-11-09T12:58:46.465Z
 ---
 
 > ## Documentation Index
@@ -27,6 +27,7 @@ page defines its tables and the data topology that places them on shards.
 | `regional_users` | Sharded on the enum column `region` in the `user_data` shard group |
 | `regional_accounts` | Sharded on the generated column `account_id` in the `user_data` shard group |
 | `devices` | Sharded on the expression `owner_id + device_no` in the `user_data` shard group |
+| `pg_temp` | The schema of temporary tables. Its default shard group is `meta` |
 
 ## Tables
 
@@ -189,6 +190,9 @@ columns.
         }
       },
       "schemas": {
+        "pg_temp": {
+          "default_shard_group": "meta"
+        },
         "public": {
           "tables": {
             "users": {
@@ -271,6 +275,9 @@ The topology has two shard groups:
 `ref_countries` is a reference table. Each shard in `user_data` holds a full
 copy, so Neki can send a join of a sharded table with `ref_countries` to the
 shards.
+
+The `pg_temp` schema sets `meta` as its default shard group, so the temporary
+tables of a session live on `shard-meta`.
 
 [Data topology](https://planetscale.com/docs/neki/data-topology.md) explains each part of the topology
 document. [Reference tables and GSIs](https://planetscale.com/docs/neki/reference-tables-and-gsis.md) explains
