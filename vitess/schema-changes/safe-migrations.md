@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/safe-migrations
 title: "Safe Migrations"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-10T16:33:18.688Z
+current_date: 2026-11-10T16:33:18.688Z
 ---
 
 > ## Documentation Index
@@ -29,6 +29,14 @@ Safe migrations and deploy requests provide the option to quickly [revert schema
 To prevent accidental changes to the database schema, which may cause downtime, safe migrations enforce the use of [branching](https://planetscale.com/docs/vitess/schema-changes/branching.md) and [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md). This requires that changes be made safely and allows all team members to check and comment on schema changes before they are applied.
 
 With safe migrations enabled, Data Definition Language (DDL) statements issued to branches with safe migrations enabled will automatically be rejected by PlanetScale. Any `CREATE`, `ALTER`, or `DELETE` commands, whether sent using the PlanetScale built-in console, terminal, or MySQL GUI, will fail when we receive them.
+
+## Primary keys and unique keys
+
+Every table must have a primary key or a unique `NOT NULL` key. Safe migrations, deploy requests, and Online DDL use that key as a stable row identity.
+
+> [!WARNING]
+>
+> Do not disable safe migrations to add an `AUTO_INCREMENT` primary key to an existing table that has none with a direct `ALTER TABLE`. That change can silently diverge data between PRIMARY, REPLICA, and RDONLY tablets and lead to data loss during failover. If a table already has no primary key or unique `NOT NULL` key, [contact PlanetScale Support](https://planetscale.com/contact?initial=support). See [Tables without a primary key](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md#tables-without-a-primary-key).
 
 ## Staging branches
 

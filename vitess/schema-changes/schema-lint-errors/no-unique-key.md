@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/no-unique-key
 title: "No Unique Key"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-10T16:33:18.688Z
+current_date: 2026-11-10T16:33:18.688Z
 ---
 
 > ## Documentation Index
@@ -30,9 +30,11 @@ table "orders" has no non-null unique key: all tables must have at least one uni
 
 PlanetScale uses Vitess online schema change workflows to apply changes without downtime. Those workflows need a stable row identity while copying and reconciling data. Nullable unique keys do not qualify because MySQL allows multiple `NULL` values in a unique index.
 
+Without a primary key or a `NOT NULL` unique key, InnoDB uses an internal hidden row ID that is assigned independently on each MySQL instance, so it is not a shared identity across PRIMARY, REPLICA, and RDONLY tablets. Online DDL (VReplication) also needs a shared unique key between the source and target schemas, so adding the first primary key to a keyless table fails with `found no possible unique key`.
+
 ## How to fix it
 
-Add a primary key or a unique key over columns that are all declared `NOT NULL`.
+Define a primary key when you create the table. A `PRIMARY KEY` satisfies the unique, not-null key requirement.
 
 ```sql theme={null}
 CREATE TABLE orders (
@@ -43,19 +45,24 @@ CREATE TABLE orders (
 );
 ```
 
-If the table already exists and the intended key column contains `NULL` values, fix the data first, then make the column `NOT NULL`, then add the unique key. For large tables, split those steps into separate deploy requests.
-
-```sql theme={null}
-ALTER TABLE orders MODIFY id bigint unsigned NOT NULL;
-ALTER TABLE orders ADD UNIQUE KEY orders_id_idx (id);
-```
-
 If your only candidate key uses a `TEXT`, `BLOB`, or prefix index, use a surrogate key such as a bigint or UUID column instead.
+
+> [!WARNING]
+>
+> If the table already exists and has no primary key or unique `NOT NULL` key, do not add an `AUTO_INCREMENT` primary key with a direct `ALTER TABLE` (including with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) disabled):
+>
+> ```sql theme={null}
+> ALTER TABLE orders ADD COLUMN id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY;
+> ```
+>
+> That change can silently diverge data between tablets and lead to data loss during failover. [Contact PlanetScale Support](https://planetscale.com/contact?initial=support) rather than adding the key yourself. See [Tables without a primary key](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md#tables-without-a-primary-key).
 
 ## Related docs
 
 * [Changing primary and unique keys](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md)
+* [Tables without a primary key](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md#tables-without-a-primary-key)
 * [How online schema change tools work](https://planetscale.com/docs/vitess/schema-changes/how-online-schema-change-tools-work.md)
+* [Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md)
 
 ## Need help?
 

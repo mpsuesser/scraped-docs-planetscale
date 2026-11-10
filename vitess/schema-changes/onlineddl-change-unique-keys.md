@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys
 title: "Onlineddl Change Unique Keys"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-10T16:33:18.688Z
+current_date: 2026-11-10T16:33:18.688Z
 ---
 
 > ## Documentation Index
@@ -25,6 +25,26 @@ When you modify a table, both the old and the new schema must have a unique key 
 Essentially this makes it possible for PlanetScale to unambiguously identify and correlate a row between the two schemas.
 
 If you attempt to deploy a schema change which does not comply with the above restriction, the deploy request will fail with the error `Table ... has no shared columns covered by non-null unique keys between both branches.`.
+
+## Tables without a primary key
+
+> [!WARNING]
+>
+> Do not add an `AUTO_INCREMENT` primary key to an existing table that has none with a direct `ALTER TABLE`. This includes running the change on a branch with [safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) disabled:
+>
+> ```sql theme={null}
+> ALTER TABLE events ADD COLUMN id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY;
+> ```
+>
+> That statement can silently diverge data between tablets and lead to data loss during failover.
+
+Without a primary key or a `NOT NULL` unique key, InnoDB uses an internal hidden row ID assigned at insert execution time, independently on each MySQL instance. Row order and that internal ID can differ between the PRIMARY tablet and its REPLICA and RDONLY tablets.
+
+A direct `ALTER` that adds an `AUTO_INCREMENT` primary key is replicated as a statement, so every tablet numbers rows in its own physical order. The same `id` can then refer to different rows on PRIMARY, REPLICA, and RDONLY tablets. Later row-based updates and deletes by that `id` silently hit the wrong rows on REPLICA and RDONLY tablets, and replication can eventually stop with duplicate-key errors (`1062`). Data divergence is silent until then.
+
+[Safe migrations](https://planetscale.com/docs/vitess/schema-changes/safe-migrations.md) and [deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md) require every table to have a primary key or a unique `NOT NULL` key. Online DDL (VReplication) also needs a shared unique key between the source and target schemas, so an Online DDL that adds the first primary key to a keyless table fails with `found no possible unique key`.
+
+Define a primary key when you create the table. If a table already has no primary key or unique `NOT NULL` key, [contact PlanetScale Support](https://planetscale.com/contact?initial=support) rather than adding one with a direct `ALTER`.
 
 ## Examples: allowed changes
 

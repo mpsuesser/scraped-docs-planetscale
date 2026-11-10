@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes
 title: "Schema Changes"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-10T16:33:18.688Z
+current_date: 2026-11-10T16:33:18.688Z
 ---
 
 > ## Documentation Index
@@ -107,7 +107,7 @@ pscale shell <database> <branch>
 
 > [!WARNING]
 >
-> You can only apply direct schema changes to branches without safe migrations enabled.
+> You can only apply direct schema changes to branches without safe migrations enabled. Do not use that path to add an `AUTO_INCREMENT` primary key to a table that has none — see [Tables without a primary key](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md#tables-without-a-primary-key).
 
 Here is a sample CREATE table schema change you could try using:
 
@@ -165,6 +165,10 @@ If you want to make schema changes containing foreign key constraints, enable fo
 PlanetScale doesn't support direct `RENAME` for columns and tables. Learn why and how to rename tables or columns in [this tutorial](https://planetscale.com/docs/vitess/schema-changes/handling-table-and-column-renames.md).
 
 A single deploy request can alter up to 10 tables. To make more changes you'll want to split up your migration over multiple deploy requests or temporarily disable safe-migrations and apply the changes directly.
+
+> [!WARNING]
+>
+> Do not disable safe migrations to add an `AUTO_INCREMENT` primary key to an existing table that has none. See [Tables without a primary key](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md#tables-without-a-primary-key).
 
 ## Need help?
 
