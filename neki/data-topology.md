@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-11T09:16:26.037Z
+current_date: 2026-11-11T09:16:26.037Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -183,6 +183,14 @@ Neki supports three shard-index types. A topology that attempts to name another 
 
 Neki rejects a shard-key definition whose Postgres type does not have a routing rule. It does not wait for the first row or query to discover an unsupported type.
 
+Shard indexes live in the top-level `shard_indexes` catalog. Multiple shard groups can contain the same shard.
+
+The topology’s **shard index** defines how Neki routes rows; it is not a PostgreSQL table index. Create a PostgreSQL index on the shard-key columns when they are not already covered by a primary key or another suitable index. These columns commonly appear in joins and predicates. When planning queries, Neki uses PostgreSQL’s column statistics to estimate which plan will work best. PostgreSQL’s autovacuum refreshes these statistics as data changes. After a bulk load or import, collect them explicitly with `ANALYZE`, as described in the [Postgres import guide](imports/postgres.md#restore-into-neki).
+
+A table-level primary index must produce values that fit the shard group’s range layout. Changing the index type without changing the ranges can concentrate rows on one shard or leave some values without a matching destination.
+
+### Shard index expressions
+
 After defaults and table overrides are resolved, the `columns` list contains exactly one entry. That entry is a column name or a deterministic expression over a single unqualified column, such as `lower(email)` or `tenant_id * 1000`. An expression that names more than one column is still one entry, so the topology accepts it:
 
 ```json
@@ -192,13 +200,9 @@ After defaults and table overrides are resolved, the `columns` list contains exa
 }
 ```
 
+An expression entry is a routing function the topology author chooses. It must preserve value equality: every value PostgreSQL calls equal must map to one result. `scale(n)` does not — `7.5` and `7.50` are equal and have different display scales — so a lookup spelled one way does not find a row stored the other way, and rows that compare equal do not co-locate. A bare column entry is always safe, because Neki hashes the value’s normalized form. Neki does not check the expression; preserving equality is the author’s responsibility.
+
 `INSERT ... VALUES` into a table sharded by an expression over more than one column returns NK013 code 10. Its message is `multi column shard index inserts are not supported`. `INSERT ... SELECT` into that table returns NK013 code 117. A one-column expression routes. `SELECT` and `DELETE` scatter unless `=` names every base column of that expression, which returns NK013 code 115. A comparison other than `=` still scatters. `UPDATE` of a column that is not part of the expression follows the same rule. `UPDATE` of a base column of the expression returns NK013 code 145, including when there is no `WHERE`.
-
-Shard indexes live in the top-level `shard_indexes` catalog. Multiple shard groups can contain the same shard.
-
-The topology’s **shard index** defines how Neki routes rows; it is not a PostgreSQL table index. Create a PostgreSQL index on the shard-key columns when they are not already covered by a primary key or another suitable index. These columns commonly appear in joins and predicates. When planning queries, Neki uses PostgreSQL’s column statistics to estimate which plan will work best. PostgreSQL’s autovacuum refreshes these statistics as data changes. After a bulk load or import, collect them explicitly with `ANALYZE`, as described in the [Postgres import guide](imports/postgres.md#restore-into-neki).
-
-A table-level primary index must produce values that fit the shard group’s range layout. Changing the index type without changing the ranges can concentrate rows on one shard or leave some values without a matching destination.
 
 ## Single-shard and multi-shard queries
 
