@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/cluster-configuration
 title: "Cluster Configuration"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -220,6 +220,8 @@ The [Vitess tablet throttler](https://vitess.io/docs/reference/features/tablet-t
 
 * **Enable** — On by default. When enabled, migrations and workflows pause while replication lag is above the threshold. This setting applies across all shards in the keyspace.
 * **Replication lag threshold** — Seconds of lag that trip the throttler. The default is 5 seconds.
+
+While throttled, the keyspace also holds back VStream events, so change data capture consumers such as Debezium stall until replication lag drops below the threshold. If you disable the throttler, manage schema migrations and VReplication workflows yourself so they don't cause replication lag.
 
 You can also change these settings from the CLI with `pscale keyspace update-settings`. See the [keyspace CLI docs](https://planetscale.com/docs/cli/keyspace.md).
 

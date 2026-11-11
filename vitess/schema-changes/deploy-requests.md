@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/deploy-requests
 title: "Deploy Requests"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -288,6 +288,7 @@ The following changes are examples of changes that are **not** instantly deploya
 * Adding or dropping a foreign key constraint
 * Extending a `VARCHAR` column size
 * Updating a column to `NULL` or `NOT NULL`
+* Changing a table or column `COMMENT`. A deploy request that only changes comments still copies the full table.
 
 To know whether or not a deploy request is instantly deployable, look for the "Instantly deployable" badge on your deploy request. This badge will only be visible on deploy requests that can be deployed instantly.
 

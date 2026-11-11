@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -87,7 +87,7 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vttablet\_queries\_read\_rows\_total**  Total number of rows read by queries through vttablet | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_queries\_returned\_rows\_total**  Total number of rows returned by queries through vttablet | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_queries\_total**  Total number of queries processed by vttablet | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
-| **planetscale\_vttablet\_replication\_lag**  MySQL replication lag in seconds | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_replication\_lag**  MySQL replication lag in whole seconds, as reported by `SHOW REPLICA STATUS`. Can be off by 1–2 seconds; use `planetscale_mysql_replica_lag_seconds` for precise lag | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_stream\_connection\_pool\_active**  Number of active connections in the vttablet stream connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_stream\_connection\_pool\_capacity**  Total capacity of the vttablet stream connection pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_stream\_connection\_pool\_get\_total**  Number of connection get operations from the stream connection pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |

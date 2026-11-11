@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/logs
 title: "Logs"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -69,6 +69,10 @@ The time range selector offers several preset options:
 ## Log retention
 
 By default, logs are retained for **7 days**. This retention period ensures you have access to recent log history for troubleshooting and analysis while managing storage efficiently.
+
+## Forwarding logs
+
+PlanetScale doesn't forward Postgres logs to external destinations such as Datadog. To collect and analyze logs outside the dashboard, use the [pganalyze integration](https://planetscale.com/docs/postgres/monitoring/pganalyze.md), whose collector can ingest Postgres logs.
 
 ## Search and filtering
 

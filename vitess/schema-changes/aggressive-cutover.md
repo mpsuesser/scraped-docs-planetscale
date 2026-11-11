@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/aggressive-cutover
 title: "Aggressive Cutover"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -39,6 +39,22 @@ This triggers force cutover immediately without waiting for the 1 hour timeout. 
 > Force cutover terminates active queries and transactions holding locks on the table. Understand which queries will be affected before using this option.
 
 Having retry logic or a strategy to handle re-running killed queries is advised.
+
+### Migrations outside deploy requests
+
+The 1 hour automatic force cutover applies to deploy requests. Online DDL migrations you run directly, for example with `SET @@ddl_strategy='vitess'`, keep retrying cutover without forcing it. Each attempt can hold new queries on the table for up to about 10 seconds while it waits for the metadata lock.
+
+To get the same behavior as deploy requests, include `--force-cut-over-after` in the DDL strategy:
+
+```sql theme={null}
+SET @@ddl_strategy='vitess --force-cut-over-after=1h';
+```
+
+To force cutover for a migration that is already waiting, run:
+
+```sql theme={null}
+ALTER VITESS_MIGRATION '<MIGRATION_UUID>' FORCE_CUTOVER;
+```
 
 ## Aggressive cutover for a single deploy request
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/multi-factor-authentication
 title: "Multi Factor Authentication"
 description: ""
-access_date: 2026-11-09T23:28:57.282Z
-current_date: 2026-11-09T23:28:57.282Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -23,6 +23,12 @@ PlanetScale allows users logging in with an email address and password to set MF
 > [!NOTE]
 >
 > If you're authenticating via GitHub OAuth or [SSO](https://planetscale.com/docs/security/sso.md), MFA settings will not be displayed. To use MFA with an account that signs in with GitHub, first [switch to email and password](https://planetscale.com/docs/security/authentication-methods.md#switch-to-email-and-password).
+
+### Require MFA for an organization
+
+MFA is a per-user setting. Organization administrators can't require it for members or see which members have it enabled.
+
+To enforce MFA across an organization, enable [SAML SSO](https://planetscale.com/docs/security/sso.md) and require MFA in your identity provider. Once SSO is enabled, members sign in through your identity provider, so its MFA policy applies to everyone.
 
 ### Authentication providers
 

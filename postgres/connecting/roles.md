@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/roles
 title: "Roles"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-11T21:19:24.875Z
+current_date: 2026-11-11T21:19:24.875Z
 ---
 
 > ## Documentation Index
@@ -277,6 +277,16 @@ pscale role reset --org <org> <database> <branch> <role-id>
 ```
 
 This command will prompt for confirmation before resetting the password and return the role object with the new password.
+
+### Rotating credentials without downtime
+
+A role has one password at a time, so you can't keep the old and new passwords valid side by side. To rotate credentials without downtime, switch your applications to a new role:
+
+1. [Create a new role](#creating-new-user-defined-roles) with the same privileges as the existing one.
+2. Update every connection string that uses the old role, including direct connections on port `5432`, PgBouncer connections on port `6432`, [dedicated PgBouncers](https://planetscale.com/docs/postgres/connecting/pgbouncer.md), and replica connections. The username changes along with the password.
+3. Run both roles side by side until the old role has no remaining sessions.
+4. If the old role owns database objects, [reassign them](#reassigning-objects-owned-by-a-role) to the new role.
+5. Delete the old role.
 
 ## User-defined role examples and use cases
 
