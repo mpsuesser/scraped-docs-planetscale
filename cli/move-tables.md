@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/move-tables
 title: "Move Tables"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-12T00:51:14.625Z
+current_date: 2026-11-12T00:51:14.625Z
 ---
 
 ## Getting Started
@@ -31,7 +31,7 @@ You must be an [Organization Administrator](../security/access-control.md#organi
 | **Sub-command** | **Sub-command flags** | **Description** |
 | --- | --- | --- |
 | `list <DATABASE_NAME> <BRANCH_NAME>` | `--target-keyspace <KEYSPACE_NAME>` | List MoveTables workflows on the branch |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--workflow <NAME>` \*, `--source-keyspace <KEYSPACE_NAME>` \*, `--target-keyspace <KEYSPACE_NAME>` \*, `--tables <TABLE_NAMES>` †, `--all-tables` †, `--exclude-tables <TABLE_NAMES>`, `--auto-start`, `--stop-after-copy`, `--defer-secondary-keys`, `--on-ddl <ACTION>`, `--sharded-auto-increment-handling <ACTION>`, `--global-keyspace <KEYSPACE_NAME>`, `--source-time-zone <TIME_ZONE>`, `--tenant-id <ID>`, `--cells <CELLS>`, `--tablet-types <TYPES>`, `--atomic-copy` | Create a MoveTables workflow |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--workflow <NAME>` \*, `--source-keyspace <KEYSPACE_NAME>` \*, `--target-keyspace <KEYSPACE_NAME>` \*, `--tables <TABLE_NAMES>` †, `--all-tables` †, `--exclude-tables <TABLE_NAMES>`, `--auto-start`, `--stop-after-copy`, `--defer-secondary-keys`, `--on-ddl <ACTION>`, `--sharded-auto-increment-handling <ACTION>`, `--global-keyspace <KEYSPACE_NAME>`, `--source-time-zone <TIME_ZONE>`, `--tenant-id <ID>`, `--cells <CELLS>`, `--all-cells`, `--tablet-types <TYPES>`, `--atomic-copy` | Create a MoveTables workflow |
 | `show <DATABASE_NAME> <BRANCH_NAME>` | `--workflow <NAME>` \*, `--target-keyspace <KEYSPACE_NAME>` \* | Show a workflow |
 | `status <DATABASE_NAME> <BRANCH_NAME>` | `--workflow <NAME>` \*, `--target-keyspace <KEYSPACE_NAME>` \* | Show copy progress and traffic state |
 | `start <DATABASE_NAME> <BRANCH_NAME>` | `--workflow <NAME>` \*, `--target-keyspace <KEYSPACE_NAME>` \* | Start or resume a stopped workflow |
@@ -65,7 +65,8 @@ You must be an [Organization Administrator](../security/access-control.md#organi
 | `--global-keyspace <KEYSPACE_NAME>` | Unsharded keyspace in which to create sequence tables when `--sharded-auto-increment-handling` is `REPLACE` | `create` |
 | `--source-time-zone <TIME_ZONE>` | Convert `DATETIME` values from this timezone to UTC | `create` |
 | `--tenant-id <ID>` | Tenant ID for multi-tenant MoveTables | `create` |
-| `--cells <CELLS>` | Cells to restrict the workflow to (comma-separated) | `create` |
+| `--cells <CELLS>` | Cells to replicate from (comma-separated). When omitted, every cell in the branch is used. Pass a list to restrict replication to exactly those cells. Vitess still prefers same-cell tablets. Cannot be combined with `--all-cells` | `create` |
+| `--all-cells` | Use every cell in the branch. This is the default when `--cells` is omitted. Cannot be combined with `--cells` | `create` |
 | `--tablet-types <TYPES>` | Tablet types for the workflow or traffic switch (comma-separated). Use `REPLICA,RDONLY` for reads and `PRIMARY` for writes | `create`, `switch-traffic`, `reverse-traffic` |
 | `--atomic-copy` | Copy all tables in a single consistent copy phase. Use it when the source has foreign key constraints | `create` |
 | `--dry-run` | Show what would happen without applying it | `switch-traffic`, `reverse-traffic`, `complete` |
