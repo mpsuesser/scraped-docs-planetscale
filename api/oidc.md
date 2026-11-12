@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/oidc
 title: "Oidc"
 description: ""
-access_date: 2026-11-05T22:45:27.269Z
-current_date: 2026-11-05T22:45:27.269Z
+access_date: 2026-11-12T21:52:41.301Z
+current_date: 2026-11-12T21:52:41.301Z
 ---
 
 > ## Documentation Index
@@ -27,6 +27,30 @@ To create an OIDC trust using the dashboard, log into your organization, go to t
 Choose a policy name, an identity provider, a service token lifetime, the required claims, and the permissions to grant to the short-lived service tokens minted for this policy.
 
 Additional claims are recommended to scope a policy to a specific workflow, environment, or branch depending on the scenario.
+
+## Create an OIDC trust using the PlanetScale CLI
+
+You can also manage OIDC trusts with the [`pscale oidc-trust`](../cli/oidc-trust.md) commands. List the available providers and the claims in their tokens:
+
+```bash theme={null}
+pscale oidc-trust providers list --org <ORGANIZATION_NAME>
+pscale oidc-trust providers show github_actions --org <ORGANIZATION_NAME>
+```
+
+Then create the trust:
+
+```bash theme={null}
+pscale oidc-trust create \
+  --org <ORGANIZATION_NAME> \
+  --name "Deploy from main" \
+  --provider github_actions \
+  --max-ttl 900 \
+  --condition repository_id=<REPOSITORY_ID> \
+  --condition repository_owner_id=<OWNER_ID> \
+  --database-access <DATABASE_NAME>:read_branch
+```
+
+The output includes the trust ID to pass to `planetscale/auth-action`.
 
 ## Providers
 
