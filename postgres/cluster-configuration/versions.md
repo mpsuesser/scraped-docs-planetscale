@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/versions
 title: "Versions"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-13T16:33:47.328Z
+current_date: 2026-11-13T16:33:47.328Z
 ---
 
 > ## Documentation Index
@@ -20,8 +20,8 @@ PlanetScale Postgres supports versions 17 and 18 of Postgres.
 
 Specifically, the following versions are currently supported:
 
-* 17.11
-* 18.6
+* 17.12
+* 18.7
 
 New databases will be created using the latest version by default and we recommend sticking to that default, but you can choose an older version if you need to.
 

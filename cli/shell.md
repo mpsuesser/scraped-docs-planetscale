@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/shell
 title: "Shell"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-11-13T16:33:47.328Z
+current_date: 2026-11-13T16:33:47.328Z
 ---
 
 ## Getting Started
@@ -30,16 +30,16 @@ By default, if no branch names are given and there is only one branch, it automa
 
 ### Available flags
 
-| **Flag** | **Description** |  |
-| --- | --- | --- |
-| `-h`, `--help` | Help for shell command |  |
-| `--local-addr <ADDRESS>` | Local address where the Vitess proxy binds and listens. By default it binds to `127.0.0.1` with a random port. Not supported for Postgres or Neki. |  |
-| `--org <ORGANIZATION_NAME>` | The organization for the current user |  |
-| `--remote-addr <ADDRESS>` | PlanetScale Database remote network address. By default the remote address is populated automatically from the PlanetScale API |  |
-| `--replica` | Connect to a replica. The CLI adds the \` | replica `username suffix for Vitess and Postgres. For Neki, it instead sets` PGOPTIONS `to` -c \_\_neki.target=REPLICA\`. |
-| `--role <ROLE>` | Role defines the access level, allowed values are: reader, writer, readwriter, admin. Defaults to ‘reader’ for replica passwords, otherwise defaults to ‘admin’ |  |
-| `--router <ROUTER>` | Connect through the named router group. Neki only. |  |
-| `--db-name <NAME>` | PostgreSQL database name to connect to (default `postgres`). Also accepted as a third positional argument. Postgres and Neki only. |  |
+| **Flag** | **Description** |
+| --- | --- |
+| `-h`, `--help` | Help for shell command |
+| `--local-addr <ADDRESS>` | Local address where the Vitess proxy binds and listens. By default it binds to `127.0.0.1` with a random port. Not supported for Postgres or Neki. |
+| `--org <ORGANIZATION_NAME>` | The organization for the current user |
+| `--remote-addr <ADDRESS>` | PlanetScale Database remote network address. By default the remote address is populated automatically from the PlanetScale API |
+| `--replica` | Connect to a replica. The CLI adds the \` |
+| `--role <ROLE>` | Role defines the access level, allowed values are: reader, writer, readwriter, admin. Defaults to ‘reader’ for replica passwords, otherwise defaults to ‘admin’ |
+| `--router <ROUTER>` | Connect through the named router group. Neki only. |
+| `--db-name <NAME>` | PostgreSQL database name to connect to (default `postgres`). Also accepted as a third positional argument. Postgres and Neki only. |
 
 Available roles for the `--role` flag are:
 

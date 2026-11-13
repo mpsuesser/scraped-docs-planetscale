@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/extensions
 title: "Extensions"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-13T16:33:47.328Z
+current_date: 2026-11-13T16:33:47.328Z
 ---
 
 > ## Documentation Index
@@ -180,7 +180,7 @@ Some extensions depend on others. Install the required dependency first, then re
 
 ### Supported Native PostgreSQL Extensions
 
-#### Postgres 18.6
+#### Postgres 18.7
 
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
@@ -219,7 +219,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | [unaccent](https://www.postgresql.org/docs/current/unaccent.html) | Text search dictionary for removing accents (diacritic signs) from lexemes | 1.1 | | | |
 | [uuid-ossp](https://www.postgresql.org/docs/current/uuid-ossp.html) | Functions to generate universally unique identifiers (UUIDs) | 1.1 | | | |
 
-#### Postgres 17.11
+#### Postgres 17.12
 
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
@@ -260,7 +260,7 @@ Some extensions depend on others. Install the required dependency first, then re
 
 ### Supported Community Extensions
 
-#### Postgres 18.6
+#### Postgres 18.7
 
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
@@ -284,7 +284,7 @@ Some extensions depend on others. Install the required dependency first, then re
 | [tin](https://planetscale.com/docs/postgres/search.md) | High-performance full-text search index with BM25 ranking and TINQL query language | 1.0.4 | ⭐ | | [📝](https://planetscale.com/docs/postgres/search.md) |
 | [wal2json](https://github.com/eulerto/wal2json) | Logical decoding output plugin that produces JSON format change data capture (CDC) output for streaming database changes | 2.6 | ⭐ | | |
 
-#### Postgres 17.11
+#### Postgres 17.12
 
 | Extension | Description | Version | Superuser required | Restart required | Additional Notes |
 | - | - | - | - | - | - |
