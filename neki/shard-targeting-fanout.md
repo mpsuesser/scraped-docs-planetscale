@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/shard-targeting-fanout
 title: "Shard Targeting Fanout"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-16T08:05:02.601Z
+current_date: 2026-11-16T08:05:02.601Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,8 @@ Neki routes each statement according to its [query plan](https://planetscale.com
 and the [data topology](https://planetscale.com/docs/neki/data-topology.md). Session settings control three
 parts of that routing: how many shards a statement can reach, which type of
 Postgres instance serves reads, and whether data queries go to one shard
-directly.
+directly. To apply these settings to every connection of a role, see
+[Routing defaults for roles](https://planetscale.com/docs/neki/connecting/routing-defaults.md).
 
 ## Controlling fanout
 
