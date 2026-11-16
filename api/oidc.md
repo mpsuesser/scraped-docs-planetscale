@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/oidc
 title: "Oidc"
 description: ""
-access_date: 2026-11-12T21:52:41.301Z
-current_date: 2026-11-12T21:52:41.301Z
+access_date: 2026-11-16T22:31:44.093Z
+current_date: 2026-11-16T22:31:44.093Z
 ---
 
 > ## Documentation Index
@@ -54,9 +54,12 @@ The output includes the trust ID to pass to `planetscale/auth-action`.
 
 ## Providers
 
-PlanetScale supports configuring OIDC with [GitHub Actions](https://docs.github.com/en/actions/concepts/security/openid-connect) and [Depot CI](https://depot.dev/docs/ci/oidc). Refer to their respective documentation for information on the claims they support.
+PlanetScale supports configuring OIDC with [GitHub Actions](https://docs.github.com/en/actions/concepts/security/openid-connect), [Depot CI](https://depot.dev/docs/ci/oidc), and [Buildkite](https://buildkite.com/docs/pipelines/security/oidc).
+Refer to their respective documentation for information on the claims they support.
 
 ## Exchanging an OIDC token
+
+### GitHub Actions and Depot CI
 
 A workflow in GitHub Actions or Depot CI with the `id-token: write` permission can request an OIDC token.
 Use the `planetscale/auth-action` action in a Depot CI or GitHub Actions workflow job with the `id-token: write` permission to request
@@ -96,6 +99,43 @@ jobs:
 ```
 
 The source of [`planetscale/auth-action`](https://github.com/planetscale/auth-action) is a useful reference if you want to implement the exchange in your own tooling.
+
+### Buildkite
+
+In Buildkite, request a token with [`buildkite-agent oidc request-token`](https://buildkite.com/docs/agent/v3/cli-oidc) and exchange it with the PlanetScale API.
+
+```yaml .buildkite/pipeline.yml theme={null}
+steps:
+  - label: "Read organization"
+    command: .buildkite/planetscale.sh
+    env:
+      PLANETSCALE_ORGANIZATION: "<organization>"
+      PLANETSCALE_OIDC_TRUST_ID: "<OIDC trust ID>"
+```
+
+```bash .buildkite/planetscale.sh theme={null}
+#!/usr/bin/env bash
+set -euo pipefail
+
+oidc_token="$(buildkite-agent oidc request-token --audience "planetscale:${PLANETSCALE_OIDC_TRUST_ID}")"
+
+service_token="$(jq -n --arg token "$oidc_token" '{token: $token}' | curl --fail-with-body --silent --show-error \
+  --header "Content-Type: application/json" \
+  --header "Accept: application/json" \
+  --data @- \
+  "https://api.planetscale.com/v1/organizations/${PLANETSCALE_ORGANIZATION}/oidc-trusts/${PLANETSCALE_OIDC_TRUST_ID}/token")"
+
+PLANETSCALE_SERVICE_TOKEN_ID="$(jq -r .id <<<"$service_token")"
+PLANETSCALE_SERVICE_TOKEN="$(jq -r .token <<<"$service_token")"
+buildkite-agent redactor add <<<"$PLANETSCALE_SERVICE_TOKEN"
+export PLANETSCALE_SERVICE_TOKEN_ID PLANETSCALE_SERVICE_TOKEN
+
+curl --fail-with-body --silent --show-error \
+  --header "Authorization: ${PLANETSCALE_SERVICE_TOKEN_ID}:${PLANETSCALE_SERVICE_TOKEN}" \
+  --header "Accept: application/json" \
+  "https://api.planetscale.com/v1/organizations/${PLANETSCALE_ORGANIZATION}" \
+  | jq '{name, created_at}'
+```
 
 ## Need help?
 
