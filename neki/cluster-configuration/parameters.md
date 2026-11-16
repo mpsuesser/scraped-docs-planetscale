@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/cluster-configuration/parameters
 title: "Parameters"
 description: ""
-access_date: 2026-10-20T18:26:07.257Z
-current_date: 2026-10-20T18:26:07.257Z
+access_date: 2026-11-16T13:25:19.868Z
+current_date: 2026-11-16T13:25:19.868Z
 ---
 
 > ## Documentation Index
@@ -27,7 +27,7 @@ admin, or router.
 | **Sidecars** | The connection pools between routers and Postgres instances | The sidecar beside every Postgres instance in every shard assigned to the configuration profile |
 | **Replicator** | Connections used by the distributed replicator | The replicator for every shard assigned to the configuration profile |
 | **Admin** | Cluster discovery, health checks, and recovery behavior | The admin service for the selected branch |
-| **Router** | Replica-routing lag thresholds | Every router instance in the selected router group |
+| **Router** | Replica routing, client timeouts, and sidecar connections | Every router instance in the selected router group |
 
 Different configuration profiles can use different Postgres parameter values.
 For example, a profile assigned to a memory-intensive shard can use different
@@ -335,7 +335,7 @@ Select the **Parameters** tab.
 
 **Step 5**
 
-Update the replica-routing thresholds, then select **Apply now**.
+Update the parameters, then select **Apply now**.
 
 **Step 6**
 
