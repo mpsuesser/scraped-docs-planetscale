@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/authentication-methods
 title: "Authentication Methods"
 description: ""
-access_date: 2026-11-09T23:28:57.282Z
-current_date: 2026-11-09T23:28:57.282Z
+access_date: 2026-11-16T23:16:03.247Z
+current_date: 2026-11-16T23:16:03.247Z
 ---
 
 > ## Documentation Index
@@ -69,6 +69,34 @@ Signing in with GitHub stops working for your account, and you are signed out of
 > [!NOTE]
 >
 > Accounts that belong to an organization using SSO can't disconnect GitHub.
+
+## Revoke all sessions
+
+If you lose a device, or think someone else might be signed in to your account, you can revoke all of your sessions. This:
+
+* Signs you out of PlanetScale in every other browser. The browser you use to revoke your sessions stays signed in.
+* Revokes your pscale CLI logins.
+* Revokes the OAuth applications you authorized, such as MCP clients.
+
+It also cancels any CLI login or application authorization you approved that hasn't finished yet. Organization [service tokens](https://planetscale.com/docs/api/service-tokens.md) aren't affected, because they belong to the organization.
+
+**Step 1**
+
+Go to your [PlanetScale account settings](https://app.planetscale.com/settings/account) page.
+
+**Step 2**
+
+In the **Revoke all sessions** section, click **"Revoke all sessions"**.
+
+**Step 3**
+
+If you're asked to confirm access to your account, confirm it.
+
+**Step 4**
+
+Select the checkbox to confirm that your other browsers, CLI logins, and applications will need to sign in again, then click **"Revoke all sessions"**.
+
+To keep using the CLI, run `pscale auth login`. Reauthorize any applications you still use. The event is recorded in your [security log](https://planetscale.com/docs/security/security-log.md).
 
 ## Need help?
 

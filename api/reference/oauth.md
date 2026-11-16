@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/oauth
 title: "Oauth"
 description: ""
-access_date: 2026-11-04T16:43:55.073Z
-current_date: 2026-11-04T16:43:55.073Z
+access_date: 2026-11-16T23:16:03.247Z
+current_date: 2026-11-16T23:16:03.247Z
 ---
 
 > ## Documentation Index
@@ -243,6 +243,10 @@ Here is a cURL example:
 curl --request GET 'https://api.planetscale.com/v1/organizations' \
 --header 'Authorization: Bearer <ACCESS_TOKEN>'
 ```
+
+### Revoked access
+
+Your application's tokens stop working if the user [revokes all of their sessions](https://planetscale.com/docs/security/authentication-methods.md#revoke-all-sessions). If an Organization Administrator [revokes the user's tokens](https://planetscale.com/docs/security/access-control.md#revoke-member-tokens) for their organization, your application loses access to that organization and keeps access to the user's other organizations. In both cases, the user has to authorize your application again to restore access.
 
 ## Need help?
 

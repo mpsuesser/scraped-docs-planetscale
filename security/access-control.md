@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/access-control
 title: "Access Control"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-16T23:16:03.247Z
+current_date: 2026-11-16T23:16:03.247Z
 ---
 
 > ## Documentation Index
@@ -83,7 +83,7 @@ The following table describes permissions assigned at the organization level for
 | Manage invoices | View or download organization invoices | | | |
 | Manage billing | View or update billing plans and payment methods | | | |
 | View audit logs | View all audit logs | | | |
-| Manage organization members | Update member roles or delete organization members | | | |
+| Manage organization members | Update member roles, revoke member tokens, or delete organization members | | | |
 | Manage database members | Update member roles, add, or remove database members | | | |
 | Manage organization | Update organization settings, SSO, or delete organization | | | |
 
@@ -170,6 +170,32 @@ From here, you can also remove a Database Administrator by clicking the "**Remov
 If you wish to give several members the Database Administrator role, you may want to [create a Team](https://planetscale.com/docs/security/teams.md#create-and-manage-teams). This will allow you to manage the access to that database all in one place.
 
 For instructions, see our [Teams documentation](https://planetscale.com/docs/security/teams.md).
+
+## Revoke member tokens
+
+Organization Administrators can revoke a member's pscale CLI logins and the OAuth applications they authorized without removing them from the organization, for example if the member loses a device.
+
+**Step 1**
+
+In the [PlanetScale dashboard](https://app.planetscale.com), click on the "**Settings**" tab in the top navigation, then click on "**Members**" in the sidebar on the left.
+
+**Step 2**
+
+Open the actions menu at the end of the member's row and click "**Revoke tokens**".
+
+**Step 3**
+
+Select the checkbox to confirm that the member will need to sign in to the CLI and reapprove applications, then click "**Revoke tokens**".
+
+The member's pscale CLI logins and the OAuth applications they authorized lose access to this organization. Their access to other organizations doesn't change.
+
+PlanetScale emails the member to let them know. To keep using the CLI and those applications with this organization, the member runs `pscale auth login` and reapproves the applications. The action is recorded in the organization's [audit log](https://planetscale.com/docs/security/audit-log.md).
+
+Revoking a member's tokens doesn't sign them out of their browser sessions and doesn't affect the organization's [service tokens](https://planetscale.com/docs/api/service-tokens.md). To remove a member's access entirely, remove them from the organization.
+
+> [!NOTE]
+>
+> You can't revoke your own tokens from the members list. To revoke your own CLI logins and applications, [revoke all sessions](https://planetscale.com/docs/security/authentication-methods.md#revoke-all-sessions) from your account settings instead. That revokes them for every organization and signs you out of your other browsers.
 
 ## Need help?
 

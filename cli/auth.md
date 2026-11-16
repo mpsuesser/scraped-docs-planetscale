@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/auth
 title: "Auth"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-11-16T23:16:03.247Z
+current_date: 2026-11-16T23:16:03.247Z
 ---
 
 ## Getting Started
@@ -129,6 +129,14 @@ pscale auth logout
 ```shellscript
 Press Enter to log out of the PlanetScale API.
 ```
+
+## Revoked logins
+
+If you lose a device that’s signed in to the CLI, [revoke all sessions](../security/authentication-methods.md#revoke-all-sessions) from your account settings. This revokes your CLI logins on every device.
+
+An Organization Administrator can also [revoke your tokens](../security/access-control.md#revoke-member-tokens) for their organization. The CLI then can’t access that organization, but it keeps working with your other organizations.
+
+In both cases, run `pscale auth login` to sign in again.
 
 ## Need help?
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/security-log
 title: "Security Log"
 description: ""
-access_date: 2026-10-20T18:01:41.586Z
-current_date: 2026-10-20T18:01:41.586Z
+access_date: 2026-11-16T23:16:03.247Z
+current_date: 2026-11-16T23:16:03.247Z
 ---
 
 > ## Documentation Index
@@ -34,7 +34,7 @@ You can track the following `events` in your PlanetScale account:
 
 | PlanetScale security log events | Actions |
 | :- | :- |
-| user | signed\_out  signed\_in  accepted\_tos  updated\_name  updated\_email  enabled\_mfa  disabled\_mfa |
+| user | signed\_out  signed\_in  accepted\_tos  updated\_name  updated\_email  enabled\_mfa  disabled\_mfa  revoked\_all\_sessions |
 
 ## Need help?
 
