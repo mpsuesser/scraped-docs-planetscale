@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -57,7 +57,9 @@ branch.
 Schema recommendations include either a DDL statement or an Online DDL script.
 Apply it through a Neki router using native DDL or a [managed schema-change
 workflow](https://planetscale.com/docs/neki/schema-changes.md), as directed by the recommendation. You can
-also make the equivalent change in your application or ORM migrations.
+also make the equivalent change in your application or ORM migrations, or click
+**Fix with agent** to have [Insights Agent](https://planetscale.com/docs/insights-agent.md) open a pull
+request with that change.
 
 Evaluate lock behavior, rewrite cost, and downtime before running the
 statement on a production branch. Application DDL is cluster-wide: Neki sends

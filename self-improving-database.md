@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/self-improving-database
 title: "Self Improving Database"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -19,6 +19,10 @@ Available for Vitess and Postgres.
 The [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) gives AI agents access to production query metrics ([Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md)) and [Schema Recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) alongside your application code. This combination enables a self-improving optimization loop: an agent identifies the highest-impact performance issues, finds the relevant code, makes improvements, and opens a pull request.
 
 This works for both Postgres and Vitess databases.
+
+> [!TIP]
+>
+> To run an agent loop like this without writing prompts or managing credentials and schedules, connect a repository to [Insights Agent](https://planetscale.com/docs/insights-agent.md).
 
 [Self-improving database](https://www.youtube-nocookie.com/embed/T7aof_ilvkQ?rel=0)
 

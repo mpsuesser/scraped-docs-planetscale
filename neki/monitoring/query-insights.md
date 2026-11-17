@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -234,6 +234,14 @@ Insights also surfaces two related views for every Neki cluster:
   that can improve performance, reduce storage, or prevent ID exhaustion.
 
 From **Insights**, open **Anomalies** or **View recommendations**.
+
+## Insights Agent
+
+[Insights Agent](https://planetscale.com/docs/insights-agent.md) combines Insights data with your
+application's repository and opens pull requests that speed up slow queries
+and apply schema recommendations. Start a run with the **Fix with agent**
+button on a query pattern or recommendation, or schedule runs from
+**Insights** > **Agent**.
 
 ## Need help?
 

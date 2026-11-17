@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -71,6 +71,10 @@ The remaining sections of this doc walk through how to interpret and act on the 
 ### MCP server access
 
 Query Insights data is also available through the [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md). This lets MCP-compatible tools like Cursor, Claude, and VS Code query your Insights data directly — useful for analyzing slow queries, spotting pattern changes, or getting index recommendations without leaving your editor. See the [MCP server documentation](https://planetscale.com/docs/mcp-server.md) for setup instructions.
+
+### Insights Agent
+
+[Insights Agent](https://planetscale.com/docs/insights-agent.md) combines Insights data with your application's repository and opens pull requests that speed up slow queries. Start a run with the **Fix with agent** button on a query's detail page, or schedule runs from **Insights** > **Agent**.
 
 ## Query latency
 

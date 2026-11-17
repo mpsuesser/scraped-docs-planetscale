@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -51,6 +51,8 @@ Each recommendation will have the following:
 ### Applying a recommendation
 
 Schema recommendations include a DDL statement that can be applied directly to your database, or integrated into your application or ORM framework. We recommend carefully evaluating the performance impacts or downtime assoicated with running the DDL before applying it to a production environment.
+
+To have the change made in your repository for you, click **Fix with agent** on the recommendation. [Insights Agent](https://planetscale.com/docs/insights-agent.md) opens a pull request with a migration that follows your project's conventions.
 
 ### Closing a recommendation
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/schema-recommendations
 title: "Schema Recommendations"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -51,10 +51,11 @@ Each recommendation will have the following:
 
 ### Applying a recommendation
 
-Once you better understand the recommendation, you can apply the recommendation by either:
+Once you better understand the recommendation, you can apply the recommendation in one of the following ways:
 
 * Applying it directly through a database branch
 * Making the schema change directly in your application or ORM code
+* Clicking **Fix with agent** to have [Insights Agent](https://planetscale.com/docs/insights-agent.md) open a pull request with the change in your repository
 
 We recommend making the schema change directly in your application or ORM code if it is where you manage your schema outside of PlanetScale. We look for different migration framework’s table names in your schema to alert you when you might want to change the schema directly in your application or ORM code. If you manage the schema directly in the database, you can use the following method.
 

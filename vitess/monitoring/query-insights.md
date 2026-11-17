@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/monitoring/query-insights
 title: "Query Insights"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-17T17:39:52.141Z
+current_date: 2026-11-17T17:39:52.141Z
 ---
 
 > ## Documentation Index
@@ -29,6 +29,8 @@ You can also see a [list of all queries](#queries-overview) performed on your da
 With this built-in tool, you can easily diagnose issues with your queries, allowing you to optimize individual queries without much digging. We will also alert you of any active issues your database may be having in the [Anomalies](https://planetscale.com/docs/vitess/monitoring/anomalies.md) page. This feature flags queries that are running significantly slower than expected.
 
 Insights will also automatically recommend schema changes to improve database performance, reduce memory and storage, and improve your schema based on production database traffic. Read more about the supported recommendations and how to use them in the [schema recommendations documentation](https://planetscale.com/docs/vitess/monitoring/schema-recommendations.md).
+
+[Insights Agent](https://planetscale.com/docs/insights-agent.md) combines Insights data with your application's repository and opens pull requests that speed up slow queries and apply schema recommendations. Start a run with the **Fix with agent** button on a query or recommendation, or schedule runs from **Insights** > **Agent**.
 
 ## Insights page overview
 
