@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-11-17T13:04:03.759Z
-current_date: 2026-11-17T13:04:03.759Z
+access_date: 2026-11-17T19:40:04.630Z
+current_date: 2026-11-17T19:40:04.630Z
 ---
 
 ## Getting Started
@@ -27,7 +27,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `admin <COMMAND>` | `show`, `update`, `parameters`, `sizes`, `changes` (`list`, `show`, `cancel`) | Manage the Admin configuration for a Neki branch | Neki |
 | `connections <COMMAND>` | `show`, `top`, `kill`, `kill-transaction` | Inspect and act on live branch connections. See the [`connections` reference](connections.md). | Postgres, Vitess |
 | `config-profile <COMMAND>` | `create`, `default`, `delete`, `list`, `set-default`, `show`, `update`, `parameters`, `extensions` (`enable`, `disable`), `maintenance`, `changes` (`list`, `show`, `cancel`) | Manage configuration profiles for a Neki branch | Neki |
-| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_ID>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--cluster-size <CLUSTER_SIZE>`, `--replicas <COUNT>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>`, `--config-profile`, `--router`, `--wait` | Create a new branch on the specified database | Postgres, Vitess, Neki |
+| `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_ID>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--cluster-size <CLUSTER_SIZE>`, `--replicas <COUNT>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>`, `--storage-iops <NUMBER>`, `--storage-throughput <NUMBER>`, `--config-profile`, `--router`, `--wait` | Create a new branch on the specified database | Postgres, Vitess, Neki |
 | `data-topology <COMMAND>` | `get`, `ls` (`--shards`), `update` | View or update a Neki branch’s data topology | Neki |
 | `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess, Neki |
 | `demote <DATABASE_NAME> <BRANCH_NAME>` |  | Demote a production branch to development | Vitess |
@@ -109,8 +109,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--min-storage <BYTES>` | Minimum storage size in bytes for a Postgres or Neki branch, or for shards in a Neki configuration profile. Not available for Vitess. | `create`, `config-profile create`, `config-profile update` |
 | `--max-storage <BYTES>` | Maximum storage size in bytes for storage autoscaling on a Postgres or Neki branch, or for shards in a Neki configuration profile. Not available for Vitess. | `create`, `config-profile create`, `config-profile update` |
 | `--storage-autoscaling` | Enable storage autoscaling for shards in a Neki configuration profile (`--storage-autoscaling=false` to disable). | `config-profile create`, `config-profile update` |
-| `--storage-iops <NUMBER>` | Storage IOPS for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
-| `--storage-throughput <NUMBER>` | Storage throughput in MiB/s for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
+| `--storage-iops <NUMBER>` | Storage IOPS for a Postgres backup restore or point-in-time recovery (requires `--restore` or `--restore-point`), or for shards in a Neki configuration profile | `create`, `config-profile create`, `config-profile update` |
+| `--storage-throughput <NUMBER>` | Storage throughput in MiB/s for a Postgres backup restore or point-in-time recovery (requires `--restore` or `--restore-point`), or for shards in a Neki configuration profile | `create`, `config-profile create`, `config-profile update` |
 | `--update-postgres-minor-version` | Also upgrade a Postgres branch to the latest PostgreSQL minor version during the maintenance run. | `maintenance run` |
 | `--day <DAY>` | Day of the week the maintenance window opens, such as `sunday`. Omit to keep the current day. | `maintenance window set` |
 | `--hour <HOUR>` | Hour of the day, in UTC (`0` - `23`), the maintenance window opens. Omit to keep the current hour. | `maintenance window set` |

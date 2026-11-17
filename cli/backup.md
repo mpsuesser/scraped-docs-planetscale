@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/backup
 title: "Backup"
 description: ""
-access_date: 2026-11-03T22:53:13.776Z
-current_date: 2026-11-03T22:53:13.776Z
+access_date: 2026-11-17T19:40:04.630Z
+current_date: 2026-11-17T19:40:04.630Z
 ---
 
 ## Getting Started
@@ -32,7 +32,7 @@ pscale backup <SUB-COMMAND> <FLAG>
 | `policy create <DATABASE_NAME>` | `--target` \*, `--retention-value` \*, `--retention-unit` \*, `--frequency-value` \*, `--frequency-unit` \*, `--schedule-time` \*, `--name`, `--schedule-day`, `--schedule-week` | Create a backup policy | Postgres, Vitess, Neki |
 | `policy update <DATABASE_NAME> <POLICY_ID>` | `--name`, `--target`, `--retention-value`, `--retention-unit`, `--frequency-value`, `--frequency-unit`, `--schedule-time`, `--schedule-day`, `--schedule-week` | Update a backup policy | Postgres, Vitess, Neki |
 | `policy delete <DATABASE_NAME> <POLICY_ID>` | `--force` | Delete a backup policy | Postgres, Vitess, Neki |
-| `restore <DATABASE_NAME> <NEW_BRANCH_NAME> <BACKUP_ID>` | `--cluster-size`, `--replicas`, `--config-profile`, `--router` | Restore a backup to a new branch | Postgres, Vitess, Neki |
+| `restore <DATABASE_NAME> <NEW_BRANCH_NAME> <BACKUP_ID>` | `--cluster-size`, `--replicas`, `--storage-iops`, `--storage-throughput`, `--config-profile`, `--router` | Restore a backup to a new branch | Postgres, Vitess, Neki |
 | `restore show <DATABASE_NAME> <SOURCE_BRANCH_NAME> <BACKUP_ID>` |  | Preview the Neki configuration-profile and router sizes a restore will use if you do not override them | Neki |
 | `show <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` |  | Show a specific backup of a branch | Postgres, Vitess, Neki |
 | `update <DATABASE_NAME> <BRANCH_NAME> <BACKUP_ID>` | `--protected` \* | Update a backup’s protected status | Postgres, Vitess, Neki |
@@ -48,6 +48,8 @@ pscale backup <SUB-COMMAND> <FLAG>
 | `--emergency-source` | Vitess only. Where an emergency backup copies data from: `primary` or `replica`. Required with `--emergency` and rejected without it. | `create` |
 | `--cluster-size` | Cluster size for the restored branch. Optional for Neki; omit it to keep the source default configuration-profile size. | `restore` |
 | `--replicas` | Number of additional replicas for a Postgres or Neki restore. `0` creates a single-node Postgres branch; Neki requires a highly available configuration. Omit to use the target cluster size default. Not used for Vitess. | `restore` |
+| `--storage-iops` | Postgres only. Storage IOPS for the restored branch. See [cluster storage](../postgres/cluster-configuration/cluster-storage.md#iops) for limits. | `restore` |
+| `--storage-throughput` | Postgres only. Storage throughput in MiB/s for the restored branch. | `restore` |
 | `--config-profile` | Neki restore override: `name=<profile>[,cluster-size=<size>][,replicas=<n>]`. Repeatable. Omitted profiles inherit the source. | `restore` |
 | `--router` | Neki restore override: `name=<router>[,size=<sku>][,replicas-per-cell=<n>]`. Repeatable. Omitted routers inherit the source. | `restore` |
 | `--target` | Branch target: `production` or `development`. | `policy create`, `policy update` |
@@ -141,6 +143,13 @@ pscale backup policy delete <DATABASE_NAME> <POLICY_ID>
 
 ```shellscript
 pscale backup restore <DATABASE_NAME> <NEW_BRANCH_NAME> <BACKUP_ID>
+```
+
+For Postgres, set the restored branch’s storage IOPS and throughput. Large restores are often limited by throughput, so raising it can speed up the restore. The values stay on the restored branch.
+
+```shellscript
+pscale backup restore <DATABASE_NAME> <NEW_BRANCH_NAME> <BACKUP_ID> \
+  --storage-iops 5000 --storage-throughput 300
 ```
 
 For Neki, omitted configuration-profile and router sizes inherit the live source branch. Preview those defaults first:

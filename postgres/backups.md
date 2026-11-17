@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/backups
 title: "Backups"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T19:40:04.630Z
+current_date: 2026-11-17T19:40:04.630Z
 ---
 
 > ## Documentation Index
@@ -160,12 +160,15 @@ Configure the restored branch:
 
 * **Branch name**: Name for the new branch
 * **Cluster size**: Choose the desired size of the new cluster
+* **IOPS** and **Throughput**: On AWS network-attached storage, set the disk performance for the new branch. Large restores are often limited by throughput, so raising it can speed up the restore. See [cluster storage](https://planetscale.com/docs/postgres/cluster-configuration/cluster-storage.md#iops) for limits and pricing.
 
 **Step 6**
 
 Click **Restore backup**
 
-A new branch will be created based on this backup and will become visible under the **Branches** page.
+A new branch will be created based on this backup and will become visible under the **Branches** page. The IOPS and throughput settings stay on the restored branch, and you can change them later from its storage settings.
+
+From the CLI, pass `--storage-iops` and `--storage-throughput` to [`pscale backup restore`](../cli/backup.md#restore-a-backup-to-a-new-branch). Through the API, pass `storage_iops` and `storage_throughput_mibs` in the `storage` object when you [create a branch](https://planetscale.com/docs/api/reference/create_branch.md) from a backup or a point in time.
 
 ### Point-in-time recovery
 
