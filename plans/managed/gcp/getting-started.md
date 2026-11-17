@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/gcp/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-17T10:53:04.176Z
+current_date: 2026-11-17T10:53:04.176Z
 ---
 
 > ## Documentation Index
@@ -35,6 +35,16 @@ PlanetScale Managed requires the use of a standalone project in GCP. This projec
 ## Modification of accounts
 
 Once the GCP project is handed over to PlanetScale via granting IAM permissions, it should not be modified. Issues caused by modifications of the GCP project or its resources void the PlanetScale Managed SLA. [Contact support](https://planetscale.com/contact?initial=support) to discuss configuration changes or customization.
+
+## Organization policies and IAM deny policies
+
+PlanetScale manages the infrastructure in the PlanetScale Managed project with Terraform, running as the `terraform-runner@planetscale-operations.iam.gserviceaccount.com` service account. If your organization uses IAM deny policies that apply to this project, you must add `terraform-runner` to the exception principals of every deny rule so PlanetScale can operate and maintain your deployment. Organization Policy constraints cannot exempt a principal, so do not enforce constraints on this project that restrict the resources PlanetScale provisions, and [contact support](https://planetscale.com/contact?initial=support) before applying new ones. Add the following to the deny rules you exempt:
+
+```json theme={null}
+"exceptionPrincipals": [
+  "principal://iam.googleapis.com/projects/-/serviceAccounts/terraform-runner@planetscale-operations.iam.gserviceaccount.com"
+]
+```
 
 ## Step 2: Bootstrap GCP project
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/azure/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-17T10:53:04.176Z
+current_date: 2026-11-17T10:53:04.176Z
 ---
 
 > ## Documentation Index
@@ -36,6 +36,16 @@ Azure VM SKU availability varies by subscription and region. Coordinate region s
 The person deploying the bootstrap must have the Azure **Owner** role on the subscription. Owner is required because the template creates resources, managed identities, a custom role definition, and role assignments.
 
 Once PlanetScale begins managing the subscription, do not modify its resources or use your own infrastructure-as-code tooling inside it. [Contact support](https://planetscale.com/contact?initial=support) to discuss changes or customization.
+
+### Azure Policy
+
+PlanetScale manages the infrastructure in the dedicated subscription with Terraform, running as the Runner managed identity created by the bootstrap. Azure Policy cannot exempt a principal, so if your policy assignments with a `Deny` effect apply to this subscription, you must exclude the subscription from them so PlanetScale can operate and maintain your deployment. Policies that only audit, or that only protect your tenant, can stay as they are. Add the subscription to the `notScopes` of each `Deny` assignment you exclude:
+
+```json theme={null}
+"notScopes": [
+  "/subscriptions/<planetscale-managed-subscription-id>"
+]
+```
 
 ## Step 2: Deploy the PlanetScale bootstrap
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/getting-started
 title: "Getting Started"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-17T10:53:04.176Z
+current_date: 2026-11-17T10:53:04.176Z
 ---
 
 > ## Documentation Index
@@ -35,6 +35,20 @@ The [creating a member account in your organization document](https://docs.aws.a
 ### Modification of accounts
 
 Once the member account is handed over to PlanetScale via granting IAM permissions, it should not be modified. Issues caused by modifications of the member account or its resources void the PlanetScale Managed SLA. [Contact support](https://planetscale.com/contact?initial=support) to discuss configuration changes or customization.
+
+### Service control policies (SCPs)
+
+PlanetScale manages the infrastructure in the PlanetScale Managed member account with Terraform, running as the `TerraformRunner` role. If your AWS Organizations service control policies (SCPs) apply to this member account, you must exempt `TerraformRunner` from every `Deny` statement so PlanetScale can operate and maintain your deployment. Guardrails that only protect your organization, such as denying `organizations:LeaveOrganization` or protecting your own audit and security roles, can stay as they are. Add the following condition to the `Deny` statements you exempt:
+
+```json theme={null}
+"Condition": {
+  "ArnNotLike": {
+    "aws:PrincipalArn": [
+      "arn:aws:iam::<planetscale-managed-account-id>:role/TerraformRunner"
+    ]
+  }
+}
+```
 
 ### Recommendations
 
