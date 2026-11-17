@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_database_regions
 title: "List_database_regions"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-11-17T00:40:45.668Z
+current_date: 2026-11-17T00:40:45.668Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-10-29T10:19:03.286Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+ `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
 
 **OAuth Scopes**
 
@@ -47,6 +47,7 @@ servers:
   - url: https://api.planetscale.com/v1
 security:
   - oauth2: []
+  - service_token: []
 tags:
   - name: BackupPolicies
     description: |2
@@ -91,6 +92,9 @@ tags:
                 Resources for running and viewing Insights agent analyses.
   - name: Insights Agent schedules
     description: Resources for managing Insights Agent schedules.
+  - name: InsightsAgentSuggestions
+    description: |2
+                Resources for reviewing and applying the cluster size, replica, and parameter changes a branch tuning run suggests.
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
@@ -136,6 +140,9 @@ tags:
   - name: Bouncer resizes
     description: |2
                 Resources for managing Postgres bouncer resize requests.
+  - name: Bouncer restarts
+    description: |2
+                Resources for restarting the PgBouncers of a Postgres branch in place.
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
@@ -197,6 +204,9 @@ tags:
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: OIDC trust providers
+    description: |2
+                  Resources for listing the OIDC providers that OIDC trusts can trust and the claims of their tokens.
   - name: OIDC trusts
     description: |2
                   Resources for managing OIDC trusts, which allow tokens from trusted OIDC providers to be exchanged for service tokens.
@@ -231,7 +241,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
 
         **OAuth Scopes**
 
@@ -349,6 +359,34 @@ paths:
                         neki_supported:
                           type: boolean
                           description: Whether the region supports Neki databases
+                        availability_zones:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: >-
+                                  Provider availability zone name in the account
+                                  where the database is deployed (e.g.
+                                  us-east-1a)
+                              id:
+                                type: string
+                                description: >-
+                                  Provider availability zone ID when available
+                                  (e.g. AWS use1-az1).
+                                nullable: true
+                              default:
+                                type: boolean
+                                description: >-
+                                  Whether this zone is in the caller-stable
+                                  default selection of three (seeded by the
+                                  authenticated user or service token)
+                            required:
+                              - name
+                              - id
+                              - default
+                          nullable: true
                       required:
                         - id
                         - provider
@@ -441,7 +479,9 @@ components:
             database:read_comments: Read deploy request comments in a database
             database:read_database: Read database information
             database:read_deploy_requests: Read deploy requests in a database
+            database:read_live_connections: Read live connections
             database:read_members: Read members
+            database:read_production_live_connections: Read live connections on production branches
             database:read_workflows: Read database workflows
             database:restore_backups: Restore backups to new branches
             database:restore_production_branch_backups: Restore production branch backups to new branches
@@ -487,9 +527,11 @@ components:
             organization:read_databases: Read organization databases
             organization:read_deploy_requests: Read deploy requests in an organization
             organization:read_invoices: Read organization invoices
+            organization:read_live_connections: Read live connections in an organization
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
             organization:read_payment_method: Read organization payment method
+            organization:read_production_live_connections: Read live connections on production branches in an organization
             organization:read_workflows: Read workflows in an organization
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
@@ -507,6 +549,13 @@ components:
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user
+    service_token:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: >-
+        A service token, sent as `Bearer <SERVICE_TOKEN>`. Older service tokens
+        are sent as `<SERVICE_TOKEN_ID>:<SERVICE_TOKEN>` instead.
 
 ````
 

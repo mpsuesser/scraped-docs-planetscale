@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/get_oauth_application
 title: "Get_oauth_application"
 description: ""
-access_date: 2026-10-29T10:19:03.286Z
-current_date: 2026-10-29T10:19:03.286Z
+access_date: 2026-11-17T00:40:45.668Z
+current_date: 2026-11-17T00:40:45.668Z
 ---
 
 > ## Documentation Index
@@ -39,6 +39,7 @@ servers:
   - url: https://api.planetscale.com/v1
 security:
   - oauth2: []
+  - service_token: []
 tags:
   - name: BackupPolicies
     description: |2
@@ -83,6 +84,9 @@ tags:
                 Resources for running and viewing Insights agent analyses.
   - name: Insights Agent schedules
     description: Resources for managing Insights Agent schedules.
+  - name: InsightsAgentSuggestions
+    description: |2
+                Resources for reviewing and applying the cluster size, replica, and parameter changes a branch tuning run suggests.
   - name: Keyspace config changes
     description: |2
                 Resources for managing keyspace-level configuration change requests.
@@ -128,6 +132,9 @@ tags:
   - name: Bouncer resizes
     description: |2
                 Resources for managing Postgres bouncer resize requests.
+  - name: Bouncer restarts
+    description: |2
+                Resources for restarting the PgBouncers of a Postgres branch in place.
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
@@ -189,6 +196,9 @@ tags:
   - name: Invoices
     description: |2
                   Resources for managing invoices.
+  - name: OIDC trust providers
+    description: |2
+                  Resources for listing the OIDC providers that OIDC trusts can trust and the claims of their tokens.
   - name: OIDC trusts
     description: |2
                   Resources for managing OIDC trusts, which allow tokens from trusted OIDC providers to be exchanged for service tokens.
@@ -302,13 +312,13 @@ paths:
                     additionalProperties: true
                     description: >-
                       Scopes grouped by resource type (database, organization,
-                      branch, user) with scope, description, and admin flag
+                      branch, user) with scope and description
                   all_scopes_by_resource:
                     type: object
                     additionalProperties: true
                     description: >-
                       All available scopes grouped by resource type with scope,
-                      description, selected, and admin flags
+                      description, and selected
                   mcp_tool_groups:
                     items:
                       type: object
@@ -316,18 +326,16 @@ paths:
                     type: array
                     description: >-
                       MCP tool groups (id, label, section, tools, scopes,
-                      parent_id, default_enabled, roles) selectable when
-                      authorizing a DCR app; only present for DCR apps.
-                      Database-section groups also carry org_scopes (the
-                      organization-tier scope names granting the group across
-                      all databases in an organization) and org_roles (the
-                      organization roles allowed to grant them); both are null
-                      for organization-section groups. Each group includes
-                      blocked_mcp_access_levels: the organization
-                      mcp_access_level values that prevent granting it, each
-                      with a level and reason. Read query groups are blocked at
-                      none; write query groups are also blocked at read_only.
-                      Other groups return an empty list
+                      parent_id, default_enabled) selectable when authorizing a
+                      DCR app; only present for DCR apps. Database-section
+                      groups also carry org_scopes, the organization-tier scope
+                      names granting the group across all databases in an
+                      organization; it is null for organization-section groups.
+                      Each group includes blocked_mcp_access_levels: the
+                      organization mcp_access_level values that prevent granting
+                      it, each with a level and reason. Read query groups are
+                      blocked at none; write query groups are also blocked at
+                      read_only. Other groups return an empty list
                     nullable: true
                 required:
                   - id
@@ -416,7 +424,9 @@ components:
             database:read_comments: Read deploy request comments in a database
             database:read_database: Read database information
             database:read_deploy_requests: Read deploy requests in a database
+            database:read_live_connections: Read live connections
             database:read_members: Read members
+            database:read_production_live_connections: Read live connections on production branches
             database:read_workflows: Read database workflows
             database:restore_backups: Restore backups to new branches
             database:restore_production_branch_backups: Restore production branch backups to new branches
@@ -462,9 +472,11 @@ components:
             organization:read_databases: Read organization databases
             organization:read_deploy_requests: Read deploy requests in an organization
             organization:read_invoices: Read organization invoices
+            organization:read_live_connections: Read live connections in an organization
             organization:read_members: Read members in an organization
             organization:read_organization: Read organization
             organization:read_payment_method: Read organization payment method
+            organization:read_production_live_connections: Read live connections on production branches in an organization
             organization:read_workflows: Read workflows in an organization
             organization:restore_backups: Restore backups to new branches in an organization
             organization:restore_production_branch_backups: >-
@@ -482,6 +494,13 @@ components:
             user:read_organizations: Read a user's organizations
             user:read_user: Read user
             user:write_user: Write user
+    service_token:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: >-
+        A service token, sent as `Bearer <SERVICE_TOKEN>`. Older service tokens
+        are sent as `<SERVICE_TOKEN_ID>:<SERVICE_TOKEN>` instead.
 
 ````
 
