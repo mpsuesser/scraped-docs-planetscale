@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/create_shard
 title: "Create_shard"
 description: ""
-access_date: 2026-11-17T00:40:45.668Z
-current_date: 2026-11-17T00:40:45.668Z
+access_date: 2026-11-17T13:39:54.934Z
+current_date: 2026-11-17T13:39:54.934Z
 ---
 
 > ## Documentation Index
@@ -82,6 +82,9 @@ tags:
                 Resources for managing Postgres IP restriction entries for databases.
 
                 Note: This endpoint is only available for PostgreSQL databases. For MySQL databases, use the Database Branch Passwords endpoint.
+  - name: Database sleeps
+    description: |2
+                Sleep and wake a Postgres database.
   - name: Databases
     description: |2
                   Resources for managing databases within an organization.
@@ -172,6 +175,9 @@ tags:
     description: |2
                 Resources for managing shard-level configuration change requests.
                 Only available for custom-sharded keyspaces.
+  - name: Database report subscriptions
+    description: |2
+                  Subscribe to and unsubscribe from a database's weekly report email.
   - name: Traffic budgets
     description: |2
                 Resources for managing traffic budgets.
@@ -403,6 +409,7 @@ components:
               Restore production branch backups to new branches in an
               organization
             organization:write_backups: Create and update backups in an organization
+            organization:write_billing_email: Update the organization billing email
             organization:write_branches: Write branches in an organization
             organization:write_comments: Create deploy request comments in an organization
             organization:write_databases: Write organization databases
