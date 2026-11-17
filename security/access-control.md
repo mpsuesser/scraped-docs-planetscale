@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/access-control
 title: "Access Control"
 description: ""
-access_date: 2026-11-16T23:16:03.247Z
-current_date: 2026-11-16T23:16:03.247Z
+access_date: 2026-11-17T20:20:27.806Z
+current_date: 2026-11-17T20:20:27.806Z
 ---
 
 > ## Documentation Index
@@ -34,6 +34,8 @@ We currently support four different roles in your organization:
 ### Organization Administrator
 
 An `Organization Administrator` can perform all actions in an organization, as well as all actions on *every* database within that organization.
+
+Organization Administrators can also [require multi-factor authentication](https://planetscale.com/docs/security/multi-factor-authentication.md#require-mfa-for-an-organization) for every member of the organization.
 
 ### Organization Analyst
 
