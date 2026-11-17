@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/cluster-configuration/maintenance-windows
 title: "Maintenance Windows"
 description: ""
-access_date: 2026-10-29T21:39:41.267Z
-current_date: 2026-10-29T21:39:41.267Z
+access_date: 2026-11-17T13:04:03.759Z
+current_date: 2026-11-17T13:04:03.759Z
 ---
 
 > ## Documentation Index
@@ -118,6 +118,10 @@ Subscribe to these [webhook events](https://planetscale.com/docs/api/webhook-eve
 * [Get a maintenance schedule](https://planetscale.com/docs/api/reference/get_maintenance_schedule.md)
 * [Update a maintenance schedule](https://planetscale.com/docs/api/reference/update_maintenance_schedule.md)
 * [List maintenance windows](https://planetscale.com/docs/api/reference/list_maintenance_windows.md)
+
+## CLI
+
+Use [`pscale branch maintenance window` and `pscale branch maintenance event`](../../cli/branch.md#the-maintenance-window-and-maintenance-event-sub-commands) to view and change the window and to reschedule events from the command line.
 
 ## Development branches
 

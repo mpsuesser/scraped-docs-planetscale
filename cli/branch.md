@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-17T13:04:03.759Z
+current_date: 2026-11-17T13:04:03.759Z
 ---
 
 ## Getting Started
@@ -36,8 +36,13 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `lint <DATABASE_NAME> <BRANCH_NAME>` |  | Lint the schema of a branch | Vitess |
 | `list <DATABASE_NAME>` | `--web` | List all branches of a database | Postgres, Vitess, Neki |
 | `maintenance run <DATABASE_NAME> <BRANCH_NAME>` | `--update-postgres-minor-version` (Postgres only) | Run maintenance for a Postgres or Neki branch | Postgres, Neki |
+| `maintenance window show <DATABASE_NAME> <BRANCH_NAME>` |  | Show the weekly maintenance window of a Postgres branch | Postgres |
+| `maintenance window set <DATABASE_NAME> <BRANCH_NAME>` | `--day <DAY>`, `--hour <HOUR>` | Change the weekly maintenance window of a Postgres branch | Postgres |
+| `maintenance event list <DATABASE_NAME> <BRANCH_NAME>` | `--state <STATE>`, `--page <NUMBER>`, `--per-page <NUMBER>` | List maintenance events for a Postgres branch | Postgres |
+| `maintenance event show <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID>` |  | Show a maintenance event and the times it can be moved to | Postgres |
+| `maintenance event reschedule <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID>` | `--to <TIMESTAMP>` \* | Move a maintenance event to one of its available times | Postgres |
 | `parameters list <DATABASE_NAME> <BRANCH_NAME>` | `--namespace <NAMESPACE>`, `--extension`, `--internal` | List the configuration parameters of a Postgres branch | Postgres |
-| `promote <DATABASE_NAME> <BRANCH_NAME>` |  | Promote a database branch to production | Vitess |
+| `promote <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>` | Promote a database branch to production | Vitess |
 | `query-patterns list <DATABASE_NAME> <BRANCH_NAME>` | `--limit <NUMBER>`, `--starting-after <REPORT_ID>` | List query pattern reports for a branch. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `query-patterns show <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` |  | Show a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `query-patterns delete <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` | `--force` | Delete a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
@@ -107,6 +112,10 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--storage-iops <NUMBER>` | Storage IOPS for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
 | `--storage-throughput <NUMBER>` | Storage throughput in MiB/s for shards in a Neki configuration profile | `config-profile create`, `config-profile update` |
 | `--update-postgres-minor-version` | Also upgrade a Postgres branch to the latest PostgreSQL minor version during the maintenance run. | `maintenance run` |
+| `--day <DAY>` | Day of the week the maintenance window opens, such as `sunday`. Omit to keep the current day. | `maintenance window set` |
+| `--hour <HOUR>` | Hour of the day, in UTC (`0` - `23`), the maintenance window opens. Omit to keep the current hour. | `maintenance window set` |
+| `--state <STATE>` | Only list events in this state: `scheduled`, `in_progress`, `completed`, `canceled`, or `expired`. | `maintenance event list` |
+| `--to <TIMESTAMP>` | RFC 3339 time to move the event to, such as `2026-11-08T03:00:00Z`. Must be one of the times listed by `maintenance event show`. | `maintenance event reschedule` |
 | `--database <DATABASE_NAME>` | Specify the database name | `switch` |
 | `--create` | Create a new branch if it does not exist | `switch` |
 | `--parent-branch <BRANCH_NAME>` | If a new branch is being created, use this to specify a parent branch. Default is `main`. | `switch` |
@@ -115,12 +124,12 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--starting-after <REPORT_ID>` | Fetch the next page of query pattern reports after a report ID. | `query-patterns list` |
 | `--output <PATH>` | Write the query patterns CSV report to a specific file path. | `query-patterns download` |
 | `--candidate <REPLICA_NAME>` | The replica to promote during a switchover, as returned by `pscale branch infra`. Omit to select automatically. | `switchover` |
-| `--page <NUMBER>` | Page of results to fetch. | `switchover list` |
-| `--per-page <NUMBER>` | Number of results per page. Default is `100`. | `switchover list` |
+| `--page <NUMBER>` | Page of results to fetch. | `switchover list`, `maintenance event list` |
+| `--per-page <NUMBER>` | Number of results per page. Default is `100`. | `switchover list`, `maintenance event list` |
 | `--new-name <BRANCH_NAME>` | New name for the branch | `update` |
 | `--deletion-protected` | Protect the branch from deletion (`--deletion-protected=false` to disable) | `update` |
 | `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
-| `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, or shards in a Neki configuration profile. For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update` |
+| `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, shards in a Neki configuration profile, or the default keyspace of a promoted Vitess branch (`PS-DEV` is not permitted). For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update`, `promote` |
 | `--replicas <COUNT>` | Additional replica count for a Postgres branch resize, a Postgres or Neki backup restore, or shards in a Neki configuration profile. | `create`, `resize`, `config-profile create`, `config-profile update` |
 | `--read-only-replicas <COUNT>` | [Read-only replica](../neki/read-only-replicas.md) count for shards in a Neki configuration profile, from 0 to 8. | `config-profile create`, `config-profile update` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list --internal=false` to find parameters you can change for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
@@ -337,6 +346,25 @@ List past switchovers or show one by id. `switchover list` supports `--page` and
 pscale branch switchover list <DATABASE_NAME> <BRANCH_NAME>
 pscale branch switchover show <DATABASE_NAME> <BRANCH_NAME> <ID>
 ```
+
+### The maintenance window and maintenance event sub-commands
+
+**Command:**
+
+```shellscript
+pscale branch maintenance window show <DATABASE_NAME> <BRANCH_NAME>
+pscale branch maintenance window set <DATABASE_NAME> <BRANCH_NAME> --day sunday --hour 3
+```
+
+Shows or changes the weekly [maintenance window](../postgres/cluster-configuration/maintenance-windows.md) of a Postgres branch. The day and hour are in UTC. `window set` requires at least one of `--day` or `--hour`, and keeps the current value of the one you leave out. Scheduled maintenance moves to the new window. You can’t change the window while it is open.
+
+```shellscript
+pscale branch maintenance event list <DATABASE_NAME> <BRANCH_NAME> --state scheduled
+pscale branch maintenance event show <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID>
+pscale branch maintenance event reschedule <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID> --to 2026-11-08T03:00:00Z
+```
+
+Lists, shows, and reschedules maintenance events for a Postgres branch. `event show` lists the times the event can be moved to, and `reschedule --to` must be one of them. An event can be rescheduled a limited number of times, and not once it has started or while the maintenance window is open.
 
 ### The list sub-command with --web flag
 

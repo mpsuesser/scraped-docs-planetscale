@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-11-17T13:04:03.759Z
+current_date: 2026-11-17T13:04:03.759Z
 ---
 
 ## Getting Started
@@ -28,9 +28,11 @@ pscale service-token <SUB-COMMAND> <FLAG>
 | `create` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Create a service token for the organization |
 | `delete <TOKEN_ID>` |  | Postgres, Vitess, Neki | Delete an entire service token in the organization |
 | `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Delete individual permissions granted to a service token in the organization |
+| `duplicate <TOKEN_ID>` | `--name <NAME>` \* | Postgres, Vitess, Neki | Duplicate a service token in the organization |
 | `list` |  | Postgres, Vitess, Neki | List the IDs, names, and expiration times of an organization’s service tokens |
 | `show <TOKEN_ID>` |  | Postgres, Vitess, Neki | Show a service token in the organization |
 | `show-access` |  | Postgres, Vitess, Neki | Fetch a service token and its accesses |
+| `update <TOKEN_ID>` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Change a service token’s name or expiry without rotating its secret |
 
 ### Service token automation: service-token
 
@@ -43,9 +45,11 @@ All `service-token` sub-commands are **unavailable when authenticated with a ser
 | `list` | 🚫 | 🚫 | ✅ | Both | ✅ | `pscale api organizations/<org>/service-tokens --format json` |
 | `show-access <id>` | 🚫 | 🚫 | ✅ | Both | ✅ | `pscale api organizations/<org>/service-tokens/<id> --format json` |
 | `create` | 🚫 | 🚫 | ✅ | Both | ✅ | `pscale auth login`, then CLI; or [Service tokens API](../api/reference/service-tokens.md) |
-| `add-access` / `delete-access` / `delete` | 🚫 | 🚫 | ✅ | Both | ✅ | `pscale auth login`, then CLI; or [Service tokens API](../api/reference/service-tokens.md) |
+| `add-access` / `delete-access` / `delete` / `duplicate` / `update` | 🚫 | 🚫 | ✅ | Both | ✅ | `pscale auth login`, then CLI; or [Service tokens API](../api/reference/service-tokens.md) |
 
 Read operations (`list`, `show-access`): use `pscale api` with the same service token. Create and manage operations: run under `pscale auth login`; there is no service-token CLI path for those sub-commands.
+
+> \* *Flag is required*
 
 #### Sub-command flag descriptions
 
@@ -54,8 +58,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | **Sub-command flag** | **Description** | **Applicable sub-commands** |
 | --- | --- | --- |
 | `--database <DATABASE_NAME>` | The database this project is using. | `add-access`, `delete-access` |
-| `--name <NAME>` | The name for the service token. | `create` |
-| `--ttl <SECONDS>` | Time to live (in seconds) for the service token. The token will be invalid when the TTL has passed. | `create` |
+| `--name <NAME>` | The name for the service token. Required for `duplicate`. | `create`, `duplicate`, `update` |
+| `--ttl <SECONDS>` | Time to live (in seconds) for the service token. The token will be invalid when the TTL has passed. With `update`, pass `never` to remove the expiry. | `create`, `update` |
 
 ### Available flags
 
@@ -120,6 +124,24 @@ This will grant the service token the `read_organization` access on the organiza
 ```shellscript
 pscale service-token show <TOKEN_ID>
 ```
+
+### Duplicate a service token
+
+```shellscript
+pscale service-token duplicate <TOKEN_ID> --name "My Token Copy"
+```
+
+This creates a copy of the service token with a new name and prints the new token ID and value, the same as `create`.
+
+### Update a service token’s name or expiry
+
+```shellscript
+pscale service-token update <TOKEN_ID> --name "Renamed Token"
+pscale service-token update <TOKEN_ID> --ttl 3600
+pscale service-token update <TOKEN_ID> --ttl never
+```
+
+Pass at least one of `--name` or `--ttl`. A flag you leave out keeps its current value. `--ttl` sets a new time to live in seconds, and `--ttl never` removes the expiry. The token’s ID, value, and permissions don’t change.
 
 ## Need help?
 

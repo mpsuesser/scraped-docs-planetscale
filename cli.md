@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli
 title: "Cli"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-17T13:04:03.759Z
+current_date: 2026-11-17T13:04:03.759Z
 ---
 
 > ## Documentation Index
@@ -70,7 +70,7 @@ Use `pscale [command] [command]` to start up the `pscale` CLI in your terminal.
 | [`ping`](cli/ping.md) | | `--help`, `--count, -n int`, `--concurrency int`, `--provider, -p string` `--timeout duration` | Vitess, Postgres, Neki | Check [latency](https://planetscale.com/docs/vitess/connecting/network-latency.md) between your machine and PlanetScale's public regions |
 | [`region`](cli/region.md) | `list` | `--org string` | Vitess, Postgres, Neki | View available [regions](https://planetscale.com/docs/vitess/regions.md) |
 | [`role`](cli/role.md) | `create`, `default`, `delete`, `get`, `list`, `reassign`, `renew`, `reset`, `reset-default`, `update` | `--help`, `--org string`, `--inherited-roles string`, `--ttl duration`, `--force`, `--successor string`, `--name string`, `--web` | Postgres, Neki | Manage [Postgres](https://planetscale.com/docs/postgres/connecting/roles.md) and [Neki](https://planetscale.com/docs/neki/connecting/roles.md) roles |
-| [`service-token`](cli/service-token.md) | `add-access`, `create`, `delete`, `delete-access`, `list`, `show-access` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage access of [service tokens](https://planetscale.com/docs/api/reference/service-tokens.md) |
+| [`service-token`](cli/service-token.md) | `add-access`, `create`, `delete`, `delete-access`, `duplicate`, `list`, `show-access`, `update` | `--help`, `--org string` | Vitess, Postgres, Neki | Manage access of [service tokens](https://planetscale.com/docs/api/reference/service-tokens.md) |
 | [`size`](cli/size.md) | `cluster list` | `--help`, `--org string`, `--engine string`, `--region string`, `--metal`, `--external` | Vitess, Postgres, Neki | View available [cluster sizes](https://planetscale.com/docs/planetscale-plans.md), including [external keyspace sizes](https://planetscale.com/docs/cli/size.md#list-external-keyspace-cluster-sizes) |
 | [`traffic-control`](cli/traffic-control.md) | `budget`, `rule` | `--help`, `--org string` | Postgres | Manage [Database Traffic Control](https://planetscale.com/docs/postgres/traffic-control.md) budgets and rules for a Postgres database branch |
 | [`shell`](cli/shell.md) | `<database_name>` `[branch_name]` `[db_name]` | `--help`, `--db-name string`, `--local-addr string`, `--org string`, `--remote-addr string`, `--role string`, `--replica`, `--router` | Vitess, Postgres, Neki | Open an interactive shell to the specified database and branch |

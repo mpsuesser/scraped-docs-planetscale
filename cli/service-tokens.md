@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-17T13:04:03.759Z
+current_date: 2026-11-17T13:04:03.759Z
 ---
 
 > ## Documentation Index
@@ -135,6 +135,30 @@ pscale service-token create --name "My Token" --ttl 3600
 ```
 
 This command will return a service token ID, value, and expiration time (if TTL was specified) for your use.
+
+### Duplicate a service token
+
+To create a copy of an existing service token with a new name, run:
+
+```bash theme={null}
+pscale service-token duplicate <SERVICE_TOKEN_ID> --name "My Token Copy"
+```
+
+This command returns the new service token ID and value, the same as `create`.
+
+### Update a service token's name or expiry
+
+To rename a service token or change its expiration without rotating its value, use the `update` command with `--name`, `--ttl`, or both:
+
+```bash theme={null}
+pscale service-token update <SERVICE_TOKEN_ID> --name "Renamed Token" --ttl 3600
+```
+
+Pass `--ttl never` to remove the expiration:
+
+```bash theme={null}
+pscale service-token update <SERVICE_TOKEN_ID> --ttl never
+```
 
 ### Add database access permissions
 
