@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/insights-agent
 title: "Insights Agent"
 description: ""
-access_date: 2026-11-17T17:46:16.700Z
-current_date: 2026-11-17T17:46:16.700Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 > ## Documentation Index
@@ -97,6 +97,16 @@ This menu also lists previous runs for that query or recommendation.
 
 ![Fix with agent menu on a schema recommendation, showing the connected GitHub repository, the Start agent run button, and previous runs](https://mintcdn.com/planetscale-2/zfLczGsVZ6WcfFEo/images/insights-agent/fix-with-agent.png?fit=max\&auto=format\&n=zfLczGsVZ6WcfFEo\&q=85\&s=eb661e361cc6545637a0151bc1e123d2)
 
+You can also start a run from the CLI or the [MCP server](https://planetscale.com/docs/mcp-server.md). Pass up to five `--fingerprint` values with their `--keyspace`, or up to five `--schema-recommendation` numbers. The two target types cannot be combined.
+
+```bash theme={null}
+pscale insights agent runs create <database> <branch> --org <org> --fingerprint <fingerprint> --keyspace <keyspace>
+pscale insights agent runs create <database> <branch> --org <org> --schema-recommendation <number>
+```
+
+See [`pscale insights agent`](cli/insights.md#the-agent-sub-command) for list, show, and cancel.
+From MCP, use `planetscale_start_insights_agent_run`, `planetscale_list_insights_agent_runs`, `planetscale_get_insights_agent_run`, and `planetscale_cancel_insights_agent_run`.
+
 ### On a schedule
 
 Each run type has its own schedule on each branch.
@@ -105,6 +115,15 @@ Each run type has its own schedule on each branch.
 2. Turn on **Enable automatic recommendation runs** or **Enable automatic slow query runs**.
 3. Set **Run at** to a time of day, and **Repeat** to **Daily**, **Weekly**, or **Monthly**.
    Weekly schedules run on a day of the week, and monthly schedules on a day of the month or the last day.
+
+From the CLI, `<run-type>` is `slow_query` or `schema_recommendation`. `--frequency` is `day`, `week`, or `month`. Weekly schedules use `--day-of-week` from 0 (Sunday) to 6 (Saturday). Monthly schedules use `--day-of-month` from 1 to 31 (shorter months run on their last day). Flags you omit keep their current value.
+
+```bash theme={null}
+pscale insights agent schedules update <database> <branch> slow_query --org <org> --enabled --frequency week --day-of-week 1 --time 03:00 --time-zone America/New_York
+pscale insights agent schedules update <database> <branch> schema_recommendation --org <org> --enabled=false
+```
+
+From MCP, `planetscale_update_insights_agent_schedule` changes a schedule and `planetscale_get_insights_agent_schedules` lists them.
 
 Scheduled runs choose their own targets.
 A scheduled run is skipped, at no cost, when there is nothing to work on:
@@ -190,6 +209,8 @@ The run page shows each run's cost.
 | Disconnect a repository | Organization administrators and database administrators |
 | Start runs and change schedules | Organization administrators, database administrators, and custom roles with the **Manage Insights Agent** permission |
 | View runs | Anyone who can view Query Insights for the database |
+| Start, cancel, or schedule runs with a service token | Token with `write_insights_agent` |
+| List and view runs with a service token | Token with `read_insights_agent` |
 
 ## Security and data
 
@@ -204,6 +225,7 @@ The [PlanetScale MCP server](https://planetscale.com/docs/mcp-server.md) and [Pl
 Use your own agent when you want to choose the model, write the prompt and house rules, benchmark changes before opening a pull request, or work across repositories that aren't connected to a database.
 
 Use Insights Agent when you want the same loop without managing prompts, credentials, schedules, or deploy requests yourself.
+Start a hosted run with `pscale insights agent runs create` or `planetscale_start_insights_agent_run` once a repository is connected.
 Insights agent is a low-friction way to get better code and a faster database.
 
 ## Need help?

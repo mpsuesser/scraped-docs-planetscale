@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/oauth-access-scopes
 title: "Oauth Access Scopes"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 > ## Documentation Index
@@ -58,6 +58,7 @@ See the [OAuth documentation](https://planetscale.com/docs/api/reference/oauth.m
 | delete\_production\_branch\_backups | Delete production backups |
 | restore\_backups | Restore this branch's backups to new branches |
 | restore\_production\_branch\_backups | Restore production branch backups to new |
+| write\_insights\_agents | Start Insights Agent runs and change their schedules in an organization |
 
 ## Database access
 
@@ -88,6 +89,7 @@ See the [OAuth documentation](https://planetscale.com/docs/api/reference/oauth.m
 | delete\_production\_branch\_backups | Delete production backups |
 | restore\_backups | Restore this branch's backups to new branches |
 | restore\_production\_branch\_backups | Restore production branch backups to new branches |
+| write\_insights\_agent | Start Insights Agent runs and change their schedules |
 
 ## Branch access
 

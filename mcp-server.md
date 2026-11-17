@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-11-10T20:12:48.232Z
-current_date: 2026-11-10T20:12:48.232Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 > ## Documentation Index
@@ -69,7 +69,7 @@ https://mcp.pscale.dev/mcp/planetscale
 
 > [!TIP]
 >
-> If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes the `planetscale_execute_read_query` and `planetscale_execute_write_query` tools.
+> If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes query execution tools and the Insights Agent tools that start, cancel, or schedule runs.
 
 For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
 
@@ -527,6 +527,12 @@ The available tools are:
 24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
 25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
 26. `planetscale_get_branch_metrics` - Infrastructure metrics for a branch: CPU, memory, disk, replication lag, and connections, for Vitess, Postgres, and Neki. The default summary covers the last hour (latest, min, average, p95, and max) plus current disk and connection counts. Memory utilization includes page cache, so the summary also includes RSS and cache. Use `view` `series` or `instant` to drill into specific metrics. Query stats stay on `planetscale_get_insights`.
+27. `planetscale_list_insights_agent_runs` - List [Insights Agent](https://planetscale.com/docs/insights-agent.md) runs on a branch. Optionally filter by query fingerprint and keyspace, or by schema recommendation number.
+28. `planetscale_get_insights_agent_run` - Get an Insights Agent run by number: its state, outcome, summary, pull request, and the stages of its latest attempt.
+29. `planetscale_start_insights_agent_run` - Start an Insights Agent run that reviews up to five slow queries or implements up to five schema recommendations. The database needs a connected repository. Call again with `confirm: true` after the user approves the billed run.
+30. `planetscale_cancel_insights_agent_run` - Cancel an Insights Agent run that is pending, submitting, or running.
+31. `planetscale_get_insights_agent_schedules` - Get the Insights Agent schedules on a branch: whether each is enabled, how often it runs, and when it runs next.
+32. `planetscale_update_insights_agent_schedule` - Turn an Insights Agent `slow_query` or `schema_recommendation` schedule on or off, or change when it runs. Turning a schedule on, or changing how often an enabled schedule runs, needs `confirm: true`.
 
 ## Troubleshooting
 

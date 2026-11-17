@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-09-10T14:51:28.297Z
-current_date: 2026-09-10T14:51:28.297Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 ## Getting Started
@@ -45,6 +45,12 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | `recommendations` | Postgres, Vitess, Neki | List schema recommendations with ready-to-apply DDL |
 | `recommendations show` | Postgres, Vitess, Neki | Show one schema recommendation and its full DDL |
 | `recommendations dismiss` | Postgres, Vitess, Neki | Dismiss a schema recommendation |
+| `agent runs` | Postgres, Vitess, Neki | List Insights Agent runs on a branch, newest first |
+| `agent runs show` | Postgres, Vitess, Neki | Show an Insights Agent run, its stages, and the pull request it opened |
+| `agent runs create` | Postgres, Vitess, Neki | Start an Insights Agent run that reviews slow queries or implements schema recommendations |
+| `agent runs cancel` | Postgres, Vitess, Neki | Cancel a pending or running Insights Agent run |
+| `agent schedules` | Postgres, Vitess, Neki | List the Insights Agent schedules on a branch |
+| `agent schedules update` | Postgres, Vitess, Neki | Turn on, turn off, or change the schedule for a run type |
 
 ### Available flags
 
@@ -287,9 +293,117 @@ pscale insights recommendations dismiss <database> <number> --org <org> --force 
 
 If the database or branch is not found, or Query Insights is not enabled, the command returns an error explaining both possible causes.
 
+### The agent sub-command
+
+Start and review [Insights Agent](../insights-agent.md) runs and schedules. The agent reviews slow queries or implements schema recommendations against the repository connected to a database, and opens a pull request with the changes it makes.
+
+Runs belong to a branch. Each run reviews up to five slow query patterns or implements up to five schema recommendations from that branch. The database needs a connected repository.
+
+If the branch is not found, or the Insights Agent is not enabled for the organization, the command returns an error explaining both possible causes.
+
+**Usage:**
+
+```shellscript
+pscale insights agent <command> <database> <branch> --org <org> <FLAG>
+```
+
+#### agent runs
+
+List Insights Agent runs on a branch, newest first.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--fingerprint <fp>` | Only list runs that reviewed the slow query with this fingerprint |
+| `--keyspace <name>` | Keyspace of the `--fingerprint` query |
+| `--schema-recommendation <number>` | Only list runs that implemented the schema recommendation with this number |
+| `--page <n>` | Page number to fetch |
+| `--per-page <n>` | Number of results per page. Default: `25`. |
+
+`--keyspace` requires `--fingerprint`.
+
+```shellscript
+pscale insights agent runs <database> <branch> --org <org>
+pscale insights agent runs <database> <branch> --org <org> --fingerprint <fingerprint> --keyspace <keyspace>
+pscale insights agent runs <database> <branch> --org <org> --schema-recommendation <number>
+```
+
+#### agent runs show
+
+Show an Insights Agent run, its stages, and the pull request it opened. `<number>` is the run number from `pscale insights agent runs`.
+
+```shellscript
+pscale insights agent runs show <database> <branch> <number> --org <org>
+pscale insights agent runs show <database> <branch> <number> --org <org> --format json
+```
+
+#### agent runs create
+
+Start an Insights Agent run on a branch. The database needs a connected repository, and the agent opens a pull request against it with the changes it makes.
+
+Pass up to five slow query fingerprints with `--fingerprint` and their `--keyspace` to review slow queries, or up to five schema recommendation numbers with `--schema-recommendation` to implement them. Find fingerprints with `pscale insights queries` and recommendation numbers with `pscale insights recommendations`. `--fingerprint` and `--schema-recommendation` cannot be combined. Pass one of the two, not both.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--fingerprint <fp>` | Fingerprint of a slow query to review (repeat or comma-separate) |
+| `--keyspace <name>` | Keyspace of the `--fingerprint` queries |
+| `--schema-recommendation <number>` | Number of a schema recommendation to implement (repeat or comma-separate) |
+
+`--fingerprint` and `--keyspace` must be passed together.
+
+```shellscript
+pscale insights agent runs create <database> <branch> --org <org> --fingerprint <fingerprint> --keyspace <keyspace>
+pscale insights agent runs create <database> <branch> --org <org> --schema-recommendation 3,4
+```
+
+#### agent runs cancel
+
+Cancel a pending or running Insights Agent run. Interactive confirmation is required unless `--force` is passed.
+
+```shellscript
+pscale insights agent runs cancel <database> <branch> <number> --org <org> --force
+```
+
+#### agent schedules
+
+List the Insights Agent schedules on a branch.
+
+```shellscript
+pscale insights agent schedules <database> <branch> --org <org>
+```
+
+#### agent schedules update
+
+Turn on, turn off, or change when the Insights Agent runs on its own for one run type on a branch. `<run-type>` is `slow_query` or `schema_recommendation`.
+
+Scheduled runs choose their own targets: slow query runs look at the queries Insights recorded in the last 24 hours, and schema recommendation runs work on the branch’s open recommendations. A run with nothing to work on is skipped.
+
+Flags that are not passed keep their current value. At least one of the flags below is required.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--enabled` | Whether the schedule runs |
+| `--frequency <unit>` | How often the schedule runs: `day`, `week`, or `month` |
+| `--time <HH:MM>` | The local time of day to run, in HH:MM format |
+| `--time-zone <zone>` | The IANA time zone for `--time`, such as `America/New_York` |
+| `--day-of-week <0-6>` | The day of the week for weekly schedules, from 0 (Sunday) to 6 (Saturday) |
+| `--day-of-month <1-31>` | The day of the month for monthly schedules, from 1 to 31. Shorter months run on their last day. |
+
+```shellscript
+pscale insights agent schedules update <database> <branch> slow_query --org <org> --enabled --frequency week --day-of-week 1 --time 03:00 --time-zone America/New_York
+pscale insights agent schedules update <database> <branch> schema_recommendation --org <org> --enabled=false
+```
+
 ## Related documentation
 
 ## pscale inspect
+
+## Insights Agent
 
 ## Query Insights (Postgres)
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/self-improving-database
 title: "Self Improving Database"
 description: ""
-access_date: 2026-11-17T17:39:52.141Z
-current_date: 2026-11-17T17:39:52.141Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 > ## Documentation Index
@@ -22,7 +22,7 @@ This works for both Postgres and Vitess databases.
 
 > [!TIP]
 >
-> To run an agent loop like this without writing prompts or managing credentials and schedules, connect a repository to [Insights Agent](https://planetscale.com/docs/insights-agent.md).
+> To run an agent loop like this without writing prompts or managing credentials and schedules, connect a repository to [Insights Agent](https://planetscale.com/docs/insights-agent.md). Start a run or change a schedule with [`pscale insights agent`](cli/insights.md#the-agent-sub-command) or the [MCP Insights Agent tools](https://planetscale.com/docs/mcp-server.md#available-tools).
 
 [Self-improving database](https://www.youtube-nocookie.com/embed/T7aof_ilvkQ?rel=0)
 

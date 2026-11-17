@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-17T22:48:04.450Z
+current_date: 2026-11-17T22:48:04.450Z
 ---
 
 > ## Documentation Index
@@ -101,12 +101,18 @@ The full connect permissions can also run read queries. You do not need the read
 | `planetscale_list_databases`, `planetscale_get_database` | `read_databases` to see every database. Otherwise grant `read_database` on each database. | `read_database` |
 | `planetscale_list_branches`, `planetscale_get_branch`, `planetscale_get_branch_schema`, `planetscale_get_branch_metrics` | | `read_branch` |
 | `planetscale_get_insights`, `planetscale_list_schema_recommendations` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
+| `planetscale_list_query_error_patterns`, `planetscale_list_query_error_executions` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
+| `planetscale_list_query_tags`, `planetscale_get_query_tag`, `planetscale_list_query_tag_summaries` | `read_databases` also works in place of `read_database` | `read_database` and `read_branch` |
 | `planetscale_list_invoices`, `planetscale_get_invoice_line_items` | `read_invoices` | |
 | `planetscale_get_organization_billing_payment_method` | `read_payment_method` | |
 | `planetscale_update_payment_method`, `planetscale_get_payment_method_setup` | `write_payment_method` | |
 | `planetscale_execute_read_query` | | Read-only set, plus the read-query connect and delete permissions above |
 | `planetscale_execute_write_query` | | Read-only set, plus the write-query connect and delete permissions above |
 | `planetscale_search_documentation` | None | None |
+| `planetscale_list_insights_agent_runs`, `planetscale_get_insights_agent_run`, `planetscale_get_insights_agent_schedules` | | `read_insights_agent` |
+| `planetscale_start_insights_agent_run`, `planetscale_cancel_insights_agent_run`, `planetscale_update_insights_agent_schedule` | | `write_insights_agent` |
+
+Start, cancel, and schedule tools are on the full MCP server only. The insights-only server still lists and shows runs and schedules.
 
 ## Client configuration
 
