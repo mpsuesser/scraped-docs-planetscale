@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/oidc
 title: "Oidc"
 description: ""
-access_date: 2026-11-16T22:31:44.093Z
-current_date: 2026-11-16T22:31:44.093Z
+access_date: 2026-11-17T18:32:30.440Z
+current_date: 2026-11-17T18:32:30.440Z
 ---
 
 > ## Documentation Index
@@ -54,7 +54,7 @@ The output includes the trust ID to pass to `planetscale/auth-action`.
 
 ## Providers
 
-PlanetScale supports configuring OIDC with [GitHub Actions](https://docs.github.com/en/actions/concepts/security/openid-connect), [Depot CI](https://depot.dev/docs/ci/oidc), and [Buildkite](https://buildkite.com/docs/pipelines/security/oidc).
+PlanetScale supports configuring OIDC with [GitHub Actions](https://docs.github.com/en/actions/concepts/security/openid-connect), [Depot CI](https://depot.dev/docs/ci/oidc), [Buildkite](https://buildkite.com/docs/pipelines/security/oidc), and [Cursor Cloud Agents](https://cursor.com/docs/cloud-agent/identity).
 Refer to their respective documentation for information on the claims they support.
 
 ## Exchanging an OIDC token
@@ -135,6 +135,23 @@ curl --fail-with-body --silent --show-error \
   --header "Accept: application/json" \
   "https://api.planetscale.com/v1/organizations/${PLANETSCALE_ORGANIZATION}" \
   | jq '{name, created_at}'
+```
+
+### Cursor
+
+A Cursor Cloud Agent requests an OIDC token from a local socket on its machine ([Cursor docs](https://cursor.com/docs/cloud-agent/identity)) and exchanges it with the API.
+The trust must have a `team_id` condition with your Cursor team ID, which is the `teamId` in the URL of the [Cursor dashboard](https://cursor.com/dashboard). Additional conditions to scope to a specific Agent usecase are recommended.
+
+Add this to the agent's prompt or to the repository's `AGENTS.md`, with your organization name and trust ID:
+
+```text theme={null}
+To use the PlanetScale API or `pscale`, first get a PlanetScale service token. Organization: your-organization. OIDC trust ID: your-trust-id.
+
+1. Request an OIDC token from the Cursor agent socket: POST http://cursor-agent/v1/tokens/oidc over the Unix socket in $CURSOR_AGENT_SOCKET, with the JSON body {"aud":"planetscale:<trust id>"}. The token is in the "token" field of the response.
+2. Exchange it: POST https://api.planetscale.com/v1/organizations/<organization>/oidc-trusts/<trust id>/token with the JSON body {"token":"<OIDC token>"}. The response has "id" and "token".
+3. Authenticate API requests with the header "Authorization: <id>:<token>". For `pscale`, set PLANETSCALE_SERVICE_TOKEN_ID and PLANETSCALE_SERVICE_TOKEN.
+
+Do these steps in the same shell command that uses the token, because shell variables may not persist between commands. Never print the OIDC token or the service token. If the API returns 401, get a new token.
 ```
 
 ## Need help?
