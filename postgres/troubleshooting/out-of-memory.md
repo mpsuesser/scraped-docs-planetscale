@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-18T18:23:42.560Z
+current_date: 2026-11-18T18:23:42.560Z
 ---
 
 > ## Documentation Index
@@ -41,15 +41,17 @@ High memory usage does not necessarily indicate a problem. Whether memory usage 
 
 The [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) page includes a memory chart that breaks down the different types of memory your cluster is using. Understanding these categories helps you determine if action is needed:
 
-* **Active cache** — Memory used to cache frequently accessed table and index data. This is *good* memory usage — it improves query performance by reducing disk reads. The operating system manages this cache automatically and will release it when needed. High active cache usage does not increase OOM risk.
+* **Active cache** — Memory used to cache frequently accessed table and index data. This is *good* memory usage — it improves query performance by reducing disk reads. The operating system manages this cache automatically and can release clean pages when needed. High active cache usage does not by itself indicate OOM risk.
 
-* **Inactive cache** — Memory used to cache data that hasn't been accessed recently. Like active cache, this memory is managed by the operating system and released when needed. High inactive cache usage does not increase OOM risk.
+* **Inactive cache** — Memory used to cache data that hasn't been accessed recently. Like active cache, this memory is managed by the operating system and its clean pages can be released when needed. High inactive cache usage does not by itself indicate OOM risk.
 
 * **RSS (Resident Set Size)** — Memory actively used by Postgres processes, including connection overhead and query working memory. This memory cannot be reclaimed while processes are running. High RSS usage, especially when combined with many connections, can lead to OOM events.
 
 * **Memory mapped** — Memory mapped files used by Postgres. This is typically stable and managed by the system.
 
-When evaluating memory usage, focus on RSS rather than cache memory. If your cluster shows high total memory usage but most of it is active or inactive cache, the cluster is healthy and performing optimally. The cache will be released automatically if Postgres needs the memory for other operations.
+When evaluating memory usage, look at RSS as well as cache memory. If your cluster shows high total memory usage but most of it is clean active or inactive cache, the cluster is usually healthy. Clean cache can be released if Postgres needs the memory for other operations, but dirty pages must be written to disk first, and shared memory and huge pages are not released on demand.
+
+The memory percentage on the [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) page includes active cache, so it can sit near 100% on a healthy cluster. It is not OOM headroom; OOM events are shown as annotations on the memory chart.
 
 ## Common causes of high memory usage
 
@@ -110,7 +112,7 @@ These parameters are configured automatically based on your cluster size, but cu
 To prevent OOM events:
 
 1. **Monitor memory usage** — Use the [Metrics](https://planetscale.com/docs/postgres/monitoring/metrics.md) dashboard to track memory utilization over time.
-2. **Set up alerts** — Use external monitoring tools to alert when memory usage exceeds thresholds. See [Prometheus integration](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) for scraping metrics into your monitoring system.
+2. **Set up alerts** — Use external monitoring tools to alert when memory usage exceeds thresholds or on OOM-related container restarts. See [Prometheus integration](https://planetscale.com/docs/postgres/monitoring/prometheus-postgres.md) for scraping metrics into your monitoring system.
 3. **Review connection counts** — High connection counts often correlate with memory pressure.
 4. **Analyze slow queries** — Memory-intensive queries often appear in slow query logs. Use [Query Insights](https://planetscale.com/docs/postgres/monitoring/query-insights.md) to identify them.
 5. **Right-size your cluster** — Ensure your cluster has adequate memory for your workload, with headroom for traffic spikes.

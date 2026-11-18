@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/metrics
 title: "Metrics"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-18T18:23:42.560Z
+current_date: 2026-11-18T18:23:42.560Z
 ---
 
 > ## Documentation Index
@@ -40,7 +40,7 @@ The primary cluster utilization panel shows your primary database server's resou
 | Metric | Unit | Purpose | Key Insights |
 | :- | :- | :- | :- |
 | **CPU** | Percent | Real-time CPU utilization | Monitor for consistent performance and identify when optimization may be needed |
-| **Memory** | Percent | Current memory consumption | Track memory usage patterns and plan for scaling when approaching limits |
+| **Memory** | Percent | Current memory consumption | Track memory usage patterns and plan for scaling when approaching limits. Calculated as `(memory in use − inactive file cache) ÷ allocated memory × 100%`, so it can read near 100% on a healthy cluster and is not OOM headroom; see [Out of memory](https://planetscale.com/docs/postgres/troubleshooting/out-of-memory.md) |
 
 ### Replica monitoring
 
@@ -171,7 +171,7 @@ Storage metrics vary depending on your cluster's storage type:
 ### Normal operating ranges
 
 * **CPU**: 0-30% for typical workloads
-* **Memory**: 20-80% depending on dataset size
+* **Memory**: 20-80% depending on dataset size, or near 100% when most of it is file cache
 * **IOPS**: Varies by workload type (OLTP vs. analytics)
 * **Storage Usage**: Keep below 80% for optimal performance (applies to both absolute storage usage and disk usage percentage)
 
@@ -187,7 +187,7 @@ Storage metrics vary depending on your cluster's storage type:
 ### Troubleshooting with metrics
 
 * **High CPU**: Check for inefficient queries or missing indexes
-* **High Memory**: Monitor for high memory usage from large queries or buffer cache pressure
+* **High Memory**: Monitor for high memory usage from large queries or buffer cache pressure. Check for OOM events, since dirty cache can contribute to them
 * **High IOPS**: Analyze query patterns and consider query optimization
 * **High Storage/Disk Usage**: Plan for storage scaling or data archiving (for Metal clusters, this requires instance resizing)
 * **High RSS vs Memory Mapped**: May indicate memory pressure or suboptimal shared\_buffers configuration
