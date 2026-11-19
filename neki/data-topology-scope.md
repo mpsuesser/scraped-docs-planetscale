@@ -2,15 +2,15 @@
 url: https://planetscale.com/docs/neki/data-topology-scope
 title: "Data Topology Scope"
 description: ""
-access_date: 2026-11-19T20:12:31.318Z
-current_date: 2026-11-19T20:12:31.318Z
+access_date: 2026-11-19T21:15:20.896Z
+current_date: 2026-11-19T21:15:20.896Z
 ---
 
 > ## Documentation Index
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Data Topology scope
+# Data topology scope
 
 > The relationship between Neki topology, shards, and logical objects in Postgres
 
