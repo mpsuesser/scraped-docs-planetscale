@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_service_tokens
 title: "List_service_tokens"
 description: ""
-access_date: 2026-11-17T13:39:54.934Z
-current_date: 2026-11-17T13:39:54.934Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -320,6 +320,14 @@ paths:
                           type: string
                           description: The name of the service token
                           nullable: true
+                        cidrs:
+                          items:
+                            type: string
+                          type: array
+                          description: >-
+                            List of IP addresses or CIDR ranges that can use
+                            this service token. Empty means unrestricted.
+                          nullable: true
                         display_name:
                           type: string
                           description: The display name of the service token
@@ -633,6 +641,7 @@ paths:
                       required:
                         - id
                         - name
+                        - cidrs
                         - display_name
                         - avatar_url
                         - created_at

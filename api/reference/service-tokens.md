@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-17T22:48:04.450Z
-current_date: 2026-11-17T22:48:04.450Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -40,6 +40,8 @@ The API also accepts the service token ID and the token together, with no scheme
 To create a service token using the dashboard, log into your organization and click **Settings > Service tokens > New service token**.
 
 Give the token a descriptive name (this is used for your reference only) and click **Create service token**.
+
+You can also limit the token to IPv4 addresses or CIDR ranges from the same dialog, or later from the token page. See [IP restrictions](https://planetscale.com/docs/api/service-tokens.md#ip-restrictions).
 
 ### Service token ID
 

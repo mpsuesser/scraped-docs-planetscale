@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-19T17:25:13.308Z
-current_date: 2026-11-19T17:25:13.308Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -31,6 +31,22 @@ The modal will update, displaying your service token where the Name field was. C
 > Be sure to copy the service token after you create it. There's no way to retrieve the token value once you leave this page.
 
 ![Service token detail page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/modal-with-service-token-2.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=1f18f07b836f9395cc035223cfc9e437)
+
+## IP restrictions
+
+Limit a service token to IPv4 addresses or CIDR ranges. API requests from any other address are rejected. Leave the list empty to allow any address.
+
+In the **New service token** dialog, **IP restrictions** is optional. The dialog says: "Optional. Add IPv4 addresses or ranges. Leave empty to allow requests from any address."
+
+On the token page, add or remove addresses under **IP restrictions**. Each change is saved immediately. The page says: "API requests using this token are only accepted from these IPv4 addresses. Leave this empty to allow any address."
+
+A token accepts up to 10 addresses or ranges. IPv6 is rejected with `IP restrictions must be a list of valid IPv4 addresses or ranges`. `0.0.0.0/0` is rejected with `0.0.0.0/0 cannot be used as an IP restriction`. A bare address such as `203.0.113.10` is stored as `203.0.113.10/32`.
+
+Duplicating a token copies its IP restrictions. OAuth tokens and tokens minted by an OIDC trust do not support IP restrictions.
+
+From the CLI, pass `--cidrs` to [`pscale service-token create`](../cli/service-token.md) or [`pscale service-token update`](../cli/service-token.md). Repeat the flag or separate values with commas. `--cidrs ""` clears the list. `list`, `show`, and `create` print the addresses in a `cidrs` column.
+
+Through the API, send `cidrs` when you [create](https://planetscale.com/docs/api/reference/create_service_token.md) or [update](https://planetscale.com/docs/api/reference/update_service_token.md) a service token. [Get](https://planetscale.com/docs/api/reference/get_service_token.md) and [list](https://planetscale.com/docs/api/reference/list_service_tokens.md) return the same field. Omit `cidrs` on update to leave the list unchanged. Send an empty array to remove the restrictions.
 
 ## Assign service token permissions
 

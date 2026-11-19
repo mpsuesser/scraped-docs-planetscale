@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-11-19T21:34:24.731Z
-current_date: 2026-11-19T21:34:24.731Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 ## Getting Started
@@ -25,14 +25,14 @@ pscale service-token <SUB-COMMAND> <FLAG>
 | **Sub-command** | **Sub-command flags** | **Product** | **Description** |
 | --- | --- | --- | --- |
 | `add-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Add individual permissions to the specified service token in the organization |
-| `create` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Create a service token for the organization |
+| `create` | `--name <NAME>`, `--ttl <SECONDS>`, `--cidrs <CIDRS>` | Postgres, Vitess, Neki | Create a service token for the organization |
 | `delete <TOKEN_ID>` |  | Postgres, Vitess, Neki | Delete an entire service token in the organization |
 | `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Delete individual permissions granted to a service token in the organization |
 | `duplicate <TOKEN_ID>` | `--name <NAME>` \*, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Duplicate a service token in the organization |
-| `list` |  | Postgres, Vitess, Neki | List the IDs, names, and expiration times of an organization’s service tokens |
+| `list` |  | Postgres, Vitess, Neki | List the IDs, names, IP restrictions, and expiration times of an organization’s service tokens |
 | `show <TOKEN_ID>` |  | Postgres, Vitess, Neki | Show a service token in the organization |
 | `show-access` |  | Postgres, Vitess, Neki | Fetch a service token and its accesses |
-| `update <TOKEN_ID>` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Change a service token’s name or expiry without rotating its secret |
+| `update <TOKEN_ID>` | `--name <NAME>`, `--ttl <SECONDS>`, `--cidrs <CIDRS>` | Postgres, Vitess, Neki | Change a service token’s name, expiry, or IP restrictions without rotating its secret |
 
 ### Service token automation: service-token
 
@@ -60,6 +60,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--database <DATABASE_NAME>` | The database this project is using. | `add-access`, `delete-access` |
 | `--name <NAME>` | The name for the service token. Required for `duplicate`. | `create`, `duplicate`, `update` |
 | `--ttl <SECONDS>` | Time to live (in seconds) for the service token. The token will be invalid when the TTL has passed. With `update`, pass `never` to remove the expiry. | `create`, `duplicate`, `update` |
+| `--cidrs <CIDRS>` | IPv4 addresses and CIDR ranges allowed to use this service token. Repeat the flag or separate values with commas. On `create`, omit it to leave the token unrestricted. On `update`, this replaces the list. An empty value removes all restrictions. | `create`, `update` |
 
 ### Available flags
 
@@ -125,6 +126,14 @@ This will grant the service token the `read_organization` access on the organiza
 pscale service-token show <TOKEN_ID>
 ```
 
+### Create a service token with IP restrictions
+
+```shellscript
+pscale service-token create --name ci --cidrs 10.0.0.0/8,192.168.1.1
+```
+
+`--cidrs` accepts IPv4 addresses and CIDR ranges, up to 10. A bare address is stored as a `/32`. Omit `--cidrs` to leave the token unrestricted. See [IP restrictions](../api/service-tokens.md#ip-restrictions).
+
 ### Duplicate a service token
 
 ```shellscript
@@ -132,17 +141,19 @@ pscale service-token duplicate <TOKEN_ID> --name "My Token Copy"
 pscale service-token duplicate <TOKEN_ID> --name "My Token Copy" --ttl 3600
 ```
 
-This creates a copy of the service token with a new name and prints the new token ID and value, the same as `create`. `--ttl` sets the copy’s time to live in seconds. The copy doesn’t take the original token’s expiration.
+This creates a copy of the service token with a new name and prints the new token ID and value, the same as `create`. The copy keeps the original token’s permissions and IP restrictions. `--ttl` sets the copy’s time to live in seconds. The copy doesn’t take the original token’s expiration.
 
-### Update a service token’s name or expiry
+### Update a service token’s name, expiry, or IP restrictions
 
 ```shellscript
 pscale service-token update <TOKEN_ID> --name "Renamed Token"
 pscale service-token update <TOKEN_ID> --ttl 3600
 pscale service-token update <TOKEN_ID> --ttl never
+pscale service-token update <TOKEN_ID> --cidrs 203.0.113.0/24
+pscale service-token update <TOKEN_ID> --cidrs ""
 ```
 
-Pass at least one of `--name` or `--ttl`. A flag you leave out keeps its current value. `--ttl` sets a new time to live in seconds, and `--ttl never` removes the expiry. The token’s ID, value, and permissions don’t change.
+Pass at least one of `--name`, `--ttl`, or `--cidrs`. A flag you leave out keeps its current value. `--ttl` sets a new time to live in seconds, and `--ttl never` removes the expiry. `--cidrs` replaces the allowed addresses, and `--cidrs ""` removes all restrictions. The token’s ID, value, and permissions don’t change.
 
 ## Need help?
 

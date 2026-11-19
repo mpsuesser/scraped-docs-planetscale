@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_service_token
 title: "Update_service_token"
 description: ""
-access_date: 2026-11-17T13:39:54.934Z
-current_date: 2026-11-17T13:39:54.934Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-11-17T13:39:54.934Z
 
 # Update a service token
 
-> Update a service token's name or expiration.
+> Update a service token's name, expiration, or IP restrictions.
 ### Authorization
 A service token   must have at least one of the following access   in order to use this API endpoint:
 
@@ -231,7 +231,7 @@ paths:
         - Service tokens
       summary: Update a service token
       description: >+
-        Update a service token's name or expiration.
+        Update a service token's name, expiration, or IP restrictions.
 
         ### Authorization
 
@@ -274,6 +274,14 @@ paths:
                     leave the expiration unchanged. Null clears the expiration.
                     Must be greater than 0 and at most one year.
                   nullable: true
+                cidrs:
+                  items:
+                    type: string
+                  type: array
+                  description: >-
+                    List of IP addresses or CIDR ranges that can use this
+                    service token. An empty list removes restrictions. Omit to
+                    leave restrictions unchanged.
       responses:
         '200':
           description: Returns the service token
@@ -289,6 +297,14 @@ paths:
                   name:
                     type: string
                     description: The name of the service token
+                    nullable: true
+                  cidrs:
+                    items:
+                      type: string
+                    type: array
+                    description: >-
+                      List of IP addresses or CIDR ranges that can use this
+                      service token. Empty means unrestricted.
                     nullable: true
                   display_name:
                     type: string
@@ -599,6 +615,7 @@ paths:
                 required:
                   - id
                   - name
+                  - cidrs
                   - display_name
                   - avatar_url
                   - created_at

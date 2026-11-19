@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/duplicate_service_token
 title: "Duplicate_service_token"
 description: ""
-access_date: 2026-11-17T13:39:54.934Z
-current_date: 2026-11-17T13:39:54.934Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -12,7 +12,7 @@ current_date: 2026-11-17T13:39:54.934Z
 
 # Duplicate a service token
 
-> Create a new service token with the same grants as an existing service token. The original token is not changed.
+> Create a new service token with the same grants and IP restrictions as an existing service token. The original token is not changed.
 ### Authorization
 A service token   must have at least one of the following access   in order to use this API endpoint:
 
@@ -231,8 +231,8 @@ paths:
         - Service tokens
       summary: Duplicate a service token
       description: >+
-        Create a new service token with the same grants as an existing service
-        token. The original token is not changed.
+        Create a new service token with the same grants and IP restrictions as
+        an existing service token. The original token is not changed.
 
         ### Authorization
 
@@ -281,6 +281,14 @@ paths:
                   name:
                     type: string
                     description: The name of the service token
+                    nullable: true
+                  cidrs:
+                    items:
+                      type: string
+                    type: array
+                    description: >-
+                      List of IP addresses or CIDR ranges that can use this
+                      service token. Empty means unrestricted.
                     nullable: true
                   display_name:
                     type: string
@@ -591,6 +599,7 @@ paths:
                 required:
                   - id
                   - name
+                  - cidrs
                   - display_name
                   - avatar_url
                   - created_at

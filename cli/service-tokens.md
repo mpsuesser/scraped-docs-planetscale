@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-19T21:34:24.731Z
-current_date: 2026-11-19T21:34:24.731Z
+access_date: 2026-11-19T22:00:49.533Z
+current_date: 2026-11-19T22:00:49.533Z
 ---
 
 > ## Documentation Index
@@ -136,6 +136,14 @@ pscale service-token create --name "My Token" --ttl 3600
 
 This command will return a service token ID, value, and expiration time (if TTL was specified) for your use.
 
+Limit the token to IPv4 addresses or CIDR ranges with `--cidrs`. Repeat the flag or separate values with commas. Omit it to allow any address.
+
+```bash theme={null}
+pscale service-token create --name "My Token" --cidrs 10.0.0.0/8,192.168.1.1
+```
+
+See [IP restrictions](https://planetscale.com/docs/api/service-tokens.md#ip-restrictions) for the address rules. `list`, `show`, and `create` include the addresses in a `cidrs` column.
+
 ### Duplicate a service token
 
 To create a copy of an existing service token with a new name, run:
@@ -150,11 +158,11 @@ You can also specify a time to live (TTL) in seconds for the copy using the `--t
 pscale service-token duplicate <SERVICE_TOKEN_ID> --name "My Token Copy" --ttl 3600
 ```
 
-This command returns the new service token ID and value, the same as `create`.
+This command returns the new service token ID and value, the same as `create`. The copy keeps the original token's permissions and IP restrictions.
 
-### Update a service token's name or expiry
+### Update a service token's name, expiry, or IP restrictions
 
-To rename a service token or change its expiration without rotating its value, use the `update` command with `--name`, `--ttl`, or both:
+To rename a service token, change its expiration, or replace its IP restrictions without rotating its value, use the `update` command with `--name`, `--ttl`, `--cidrs`, or any combination:
 
 ```bash theme={null}
 pscale service-token update <SERVICE_TOKEN_ID> --name "Renamed Token" --ttl 3600
@@ -164,6 +172,13 @@ Pass `--ttl never` to remove the expiration:
 
 ```bash theme={null}
 pscale service-token update <SERVICE_TOKEN_ID> --ttl never
+```
+
+Replace the allowed addresses with `--cidrs`. An empty value removes all restrictions:
+
+```bash theme={null}
+pscale service-token update <SERVICE_TOKEN_ID> --cidrs 203.0.113.0/24
+pscale service-token update <SERVICE_TOKEN_ID> --cidrs ""
 ```
 
 ### Add database access permissions
