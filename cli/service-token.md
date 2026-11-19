@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-token
 title: "Service Token"
 description: ""
-access_date: 2026-11-17T13:04:03.759Z
-current_date: 2026-11-17T13:04:03.759Z
+access_date: 2026-11-19T21:34:24.731Z
+current_date: 2026-11-19T21:34:24.731Z
 ---
 
 ## Getting Started
@@ -28,7 +28,7 @@ pscale service-token <SUB-COMMAND> <FLAG>
 | `create` | `--name <NAME>`, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Create a service token for the organization |
 | `delete <TOKEN_ID>` |  | Postgres, Vitess, Neki | Delete an entire service token in the organization |
 | `delete-access <TOKEN_ID> <PERMISSION> <PERMISSION>` | `--database <DATABASE_NAME>` | Postgres, Vitess, Neki | Delete individual permissions granted to a service token in the organization |
-| `duplicate <TOKEN_ID>` | `--name <NAME>` \* | Postgres, Vitess, Neki | Duplicate a service token in the organization |
+| `duplicate <TOKEN_ID>` | `--name <NAME>` \*, `--ttl <SECONDS>` | Postgres, Vitess, Neki | Duplicate a service token in the organization |
 | `list` |  | Postgres, Vitess, Neki | List the IDs, names, and expiration times of an organization’s service tokens |
 | `show <TOKEN_ID>` |  | Postgres, Vitess, Neki | Show a service token in the organization |
 | `show-access` |  | Postgres, Vitess, Neki | Fetch a service token and its accesses |
@@ -59,7 +59,7 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | --- | --- | --- |
 | `--database <DATABASE_NAME>` | The database this project is using. | `add-access`, `delete-access` |
 | `--name <NAME>` | The name for the service token. Required for `duplicate`. | `create`, `duplicate`, `update` |
-| `--ttl <SECONDS>` | Time to live (in seconds) for the service token. The token will be invalid when the TTL has passed. With `update`, pass `never` to remove the expiry. | `create`, `update` |
+| `--ttl <SECONDS>` | Time to live (in seconds) for the service token. The token will be invalid when the TTL has passed. With `update`, pass `never` to remove the expiry. | `create`, `duplicate`, `update` |
 
 ### Available flags
 
@@ -129,9 +129,10 @@ pscale service-token show <TOKEN_ID>
 
 ```shellscript
 pscale service-token duplicate <TOKEN_ID> --name "My Token Copy"
+pscale service-token duplicate <TOKEN_ID> --name "My Token Copy" --ttl 3600
 ```
 
-This creates a copy of the service token with a new name and prints the new token ID and value, the same as `create`.
+This creates a copy of the service token with a new name and prints the new token ID and value, the same as `create`. `--ttl` sets the copy’s time to live in seconds. The copy doesn’t take the original token’s expiration.
 
 ### Update a service token’s name or expiry
 

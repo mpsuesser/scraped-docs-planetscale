@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-17T13:04:03.759Z
-current_date: 2026-11-17T13:04:03.759Z
+access_date: 2026-11-19T21:34:24.731Z
+current_date: 2026-11-19T21:34:24.731Z
 ---
 
 > ## Documentation Index
@@ -142,6 +142,12 @@ To create a copy of an existing service token with a new name, run:
 
 ```bash theme={null}
 pscale service-token duplicate <SERVICE_TOKEN_ID> --name "My Token Copy"
+```
+
+You can also specify a time to live (TTL) in seconds for the copy using the `--ttl` flag. The copy doesn't take the original token's expiration:
+
+```bash theme={null}
+pscale service-token duplicate <SERVICE_TOKEN_ID> --name "My Token Copy" --ttl 3600
 ```
 
 This command returns the new service token ID and value, the same as `create`.
