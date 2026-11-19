@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/data-topology
 title: "Data Topology"
 description: ""
-access_date: 2026-11-11T09:16:26.037Z
-current_date: 2026-11-11T09:16:26.037Z
+access_date: 2026-11-19T20:12:31.318Z
+current_date: 2026-11-19T20:12:31.318Z
 ---
 
 The data topology is the document that describes a Neki cluster. It declares four kinds of object:
@@ -13,7 +13,9 @@ The data topology is the document that describes a Neki cluster. It declares fou
 - Shard groups — named key-range layouts. Each one is a list of key ranges, each pointing at a shard. Tables attach to a shard group.
 - Shard indexes — named hashing recipes (type, columns, params). Shard groups and tables reference them by name.
 
-The data topology is what we use to manage which tables are sharded, which are not, and how the data is spread across shards. Having a good data topology is critical for a Neki database that has good performance.
+The data topology is what we use to manage which tables are sharded, which are not, and how the data is spread across shards. It does not create objects or define their structure inside each shard’s Postgres catalog. Databases, schemas, tables, and other objects are created using Postgres Data Definition Language (DDL) statements, independently of the Neki data topology document.
+
+The ability to separately control a cluster’s data topology and its logical objects benefits compatibility and flexibility, as described in [Topology scope](data-topology-scope.md).
 
 Below is an example of a small, albeit complete, data topology that shards an `events` table by `tenant_id`:
 
@@ -296,7 +298,7 @@ __neki.set_data_topology(
 ) RETURNS record(success boolean, revision bigint)
 ```
 
-Use `overwrite => false` only to create the first topology. It fails when a topology already exists. Use `overwrite => true` to replace an existing topology:
+Every Neki cluster is created with a topology stub, so `overwrite => false` always fails because a topology already exists. Use `overwrite => true` to replace the current topology:
 
 ```sql
 SELECT *
@@ -333,7 +335,7 @@ The optional JSON object accepts:
 | `expected_revision` | Applies the replacement only if the stored revision still matches the revision you read. This prevents one editor from silently overwriting another editor’s change. |
 | `force` | Applies a change despite validation problems introduced by that change and records the suppressed findings. Existing problems do not require this option. |
 
-Unknown and misspelled options are rejected. `overwrite` controls create versus replace; it is not a concurrency check. Use `expected_revision` for concurrent edits. Use `force` only with PlanetScale Support because it can persist routing problems.
+Unknown and misspelled options are rejected. Use `expected_revision` for concurrent edits. Use `force` only with PlanetScale Support because it can persist routing problems.
 
 ### Wait for router visibility after a SQL update
 
