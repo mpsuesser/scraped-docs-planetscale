@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-11-16T08:05:02.601Z
-current_date: 2026-11-16T08:05:02.601Z
+access_date: 2026-11-20T13:37:54.137Z
+current_date: 2026-11-20T13:37:54.137Z
 ---
 
 Neki uses the Postgres wire protocol, so you can connect with `psql` or any standard Postgres driver. Your applications connect to a Neki router instead of connecting to each shard’s primary or replicas. The router plans each statement and sends it to the required Postgres shards.
@@ -49,7 +49,9 @@ The generated `psql` command uses `sslmode=verify-full` and the system CA store.
 
 ## Private connections
 
-Keep traffic between your cloud network and Neki off the public internet with [AWS PrivateLink](connecting/private-connections/aws-privatelink.md) or [GCP Private Service Connect](connecting/private-connections/gcp-private-service-connect.md). Private connections use the same roles, router groups, and required TLS settings as public connections.
+For single-tenant and PlanetScale Managed deployments we recommend [VPC peering](connecting/private-connections/vpc-peering.md). Clients connect straight to the routers without a load balancer in between and can stay inside their own zone. To enable it follow [Set up VPC peering](connecting/private-connections/vpc-peering.md#set-up-vpc-peering).
+
+You can also keep traffic between your cloud network and Neki off the public internet with [AWS PrivateLink](connecting/private-connections/aws-privatelink.md) or [GCP Private Service Connect](connecting/private-connections/gcp-private-service-connect.md). Private connections use the same roles, router groups and required TLS settings as public connections.
 
 ## Primary and replica routing
 

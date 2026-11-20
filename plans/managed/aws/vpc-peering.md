@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws/vpc-peering
 title: "Vpc Peering"
 description: ""
-access_date: 2026-10-30T18:26:51.105Z
-current_date: 2026-10-30T18:26:51.105Z
+access_date: 2026-11-20T13:37:54.137Z
+current_date: 2026-11-20T13:37:54.137Z
 ---
 
 ## Overview
@@ -26,6 +26,7 @@ Before requesting a peering connection:
 - Review security groups and network ACLs for database traffic:
 	- Vitess uses TCP ports `443` and `3306`.
 		- Postgres uses TCP ports `443`, `5432`, and `6432`.
+		- Neki uses TCP port `5432`.
 
 VPC peering is not transitive. Clients must reside in the directly peered VPC; they cannot reach the Managed VPC through a transit gateway, VPN, Direct Connect connection, NAT device, or another peered VPC.
 
@@ -171,6 +172,7 @@ Use the dedicated private database hostname supplied by your Solutions Engineer:
 
 - Vitess hostnames end in `.private-connect.psdb.cloud`.
 - Postgres hostnames end in `.private-pg.psdb.cloud`.
+- Neki hostnames end in `.direct.psdb.cloud`. See [Neki VPC peering hostnames](../../../neki/connecting/private-connections/vpc-peering.md#hostnames).
 
 First, resolve the hostname:
 
