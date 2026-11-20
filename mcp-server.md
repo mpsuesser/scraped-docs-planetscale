@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-11-20T00:28:06.812Z
-current_date: 2026-11-20T00:28:06.812Z
+access_date: 2026-11-20T14:25:32.652Z
+current_date: 2026-11-20T14:25:32.652Z
 ---
 
 > ## Documentation Index
@@ -18,7 +18,7 @@ Available for Vitess and Postgres.
 
 ## What is the PlanetScale MCP server?
 
-* A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, Insights data, and the organization payment method.
+* A hosted MCP server that accesses your PlanetScale organizations, databases, branches, schema, Insights data, live connections, backups, and billing.
 * Authenticated via OAuth. [Service tokens](https://planetscale.com/docs/mcp/service-token.md) are also supported for CI and headless clients.
 * Accessible from any MCP client that supports HTTP-hosted servers.
 
@@ -69,7 +69,7 @@ https://mcp.pscale.dev/mcp/planetscale
 
 > [!TIP]
 >
-> If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes query execution tools and the Insights Agent tools that start, cancel, or schedule runs.
+> If you only need access to Insights data and Schema Recommendations (no query execution), use the insights-only server: `https://mcp.pscale.dev/mcp/planetscale-insights-only`. This server excludes query execution, billing, and feedback tools, and the Insights Agent tools that start, cancel, or schedule runs.
 
 For CI, headless agents, or any client that can send a custom HTTP header, see [MCP service tokens](https://planetscale.com/docs/mcp/service-token.md).
 
@@ -88,6 +88,7 @@ OAuth permissions are controlled through scopes:
 * Scopes define which organizations, databases, branches, or features the MCP server can see.
 * You choose whether the MCP server has no access, read-only access, or full access to databases at the organization or per-database level.
 * Payment method access is separate: no access, read-only (view the saved card), or full access (start Checkout and confirm the saved card). Full access is required to update the card.
+* Live connections, backups, and the billing email each have their own permission. Live connections on a production branch need a separate production permission. Only an organization administrator can grant **Update billing email**.
 
 Organization administrators can further limit query access for everyone in the organization. In organization **Settings**, set **MCP query access**:
 
@@ -492,6 +493,8 @@ Once installed, you can ask your MCP-enabled editor or agent to:
 * "Check whether the CPU and memory profile for my database is appropriate for the current workload."
 * "Is my main branch full, lagging, or close to its connection limit?"
 * "Explain what changed between yesterday's and today's query patterns in Insights."
+* "Which connections on my main branch have been idle in a transaction the longest?"
+* "When did my production branch last back up, and when does that backup expire?"
 
 You can also run these workflows on a recurring schedule using [Cursor Automations](https://cursor.com/docs/cloud-agent/automations). See [Self-improving database](https://planetscale.com/docs/self-improving-database.md) for ready-to-use prompts.
 
@@ -512,7 +515,7 @@ The available tools are:
 9. `planetscale_execute_write_query` - Execute a write SQL query (INSERT, UPDATE, DELETE, or DDL) against a PlanetScale database. For Postgres, optionally accepts `postgres_database_name` to target a non-default database.
 10. `planetscale_get_insights` - Get query performance insights for a PlanetScale database branch.
 11. `planetscale_list_regions_for_organization` - List all available regions for an organization.
-12. `planetscale_list_cluster_size_skus` - List all available cluster size SKUs.
+12. `planetscale_list_cluster_sizes` - List the cluster sizes available to an organization for Vitess, Postgres, or Neki, with rates.
 13. `planetscale_list_invoices` - List all invoices for an organization.
 14. `planetscale_get_invoice_line_items` - Get all line items for an invoice, with prorated costs broken down by database branch.
 15. `planetscale_get_organization_billing_payment_method` - Show the organization's current payment method.
@@ -522,7 +525,7 @@ The available tools are:
 19. `planetscale_list_schema_recommendations` - List schema recommendations for a database, including suggestions for adding indexes, removing redundant indexes, and preventing primary key exhaustion.
 20. `planetscale_list_query_error_patterns` - List failing queries for a database branch, aggregated by error fingerprint, with the error message, occurrence count, last run, and total and average duration. Optionally search by error text, sort, and filter by tablet type.
 21. `planetscale_list_query_error_executions` - List the individual failed executions behind an `error_fingerprint` from `planetscale_list_query_error_patterns`, including the normalized SQL, tables, keyspace, user, row counts, duration, and query tags.
-22. `planetscale_get_postgres_logs` - Fetch server logs for a Postgres database branch, newest first. Filter by log level, time range, server role (primary or replica), and pod name, or pass a raw LogsQL query for advanced filtering. Postgres-only; not available for Vitess databases.
+22. `planetscale_get_postgres_logs` - Fetch server logs for a Postgres or Neki database branch, newest first. Filter by log level, time range, server role (primary or replica), and pod name, or pass a raw LogsQL query for advanced filtering. Not available for Vitess databases.
 23. `planetscale_list_query_tags` - List the [query tags](https://planetscale.com/docs/postgres/monitoring/query-tags.md) seen on a database branch's queries, with their values and query counts. Optionally filter by tag name, fingerprint, keyspace, or tablet type.
 24. `planetscale_get_query_tag` - Get a single query tag and its values, using a tag ID from `planetscale_list_query_tags`.
 25. `planetscale_list_query_tag_summaries` - Group query statistics by the values of one or more query tags, attributing total time, latency, rows read, and errors to an application, route, job, or user. Takes tag IDs from `planetscale_list_query_tags`.
@@ -534,6 +537,11 @@ The available tools are:
 31. `planetscale_get_insights_agent_schedules` - Get the Insights Agent schedules on a branch: whether each is enabled, how often it runs, and when it runs next.
 32. `planetscale_update_insights_agent_schedule` - Turn an Insights Agent `slow_query` or `schema_recommendation` schedule on or off, or change when it runs. Turning a schedule on, or changing how often an enabled schedule runs, needs `confirm: true`.
 33. `planetscale_submit_insights_agent_run_feedback` - Rate a completed Insights Agent run as `useful` or `not_useful`, with an optional `reason` for a `not_useful` rating and an optional `note`. Rating again replaces the earlier rating.
+34. `planetscale_list_live_connections` - List the [live connections](https://planetscale.com/docs/postgres/monitoring/connections.md) on a branch for Vitess, Postgres, and Neki, with a summary by state, user, and application, the longest query, the oldest transaction, and blocked sessions. Filter by `state` or `min_duration_ms`. Query text is left out unless you set `include_query_text`. On Vitess, it reads one primary tablet; a branch with more than one keyspace or shard asks for `keyspace` and `shard`. Read-only: it does not cancel queries or terminate connections.
+35. `planetscale_get_branch_backups` - Show how a branch is backed up: the backup policies that apply to it (frequency, schedule, retention, last and next run), its most recent backups (state, size, expiry, and whether each is protected from deletion), and when the last successful backup completed. Works for Vitess, Postgres, and Neki. Read-only: it does not create, delete, protect, or restore backups.
+36. `planetscale_update_billing_email` - Change the email address that receives invoices and billing notices. Requires the **Update billing email** permission.
+37. `planetscale_submit_feedback` - Send PlanetScale a problem your agent ran into, such as a wrong result, a confusing error, a documentation gap, or a missing tool. Submissions include your PlanetScale user ID and email address.
+38. `planetscale_ask_question` - Send PlanetScale a question the documentation and tools could not answer. No answer is returned to the agent.
 
 ## Troubleshooting
 
