@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/insights-agent
 title: "Insights Agent"
 description: ""
-access_date: 2026-11-17T22:48:04.450Z
-current_date: 2026-11-17T22:48:04.450Z
+access_date: 2026-11-20T00:28:06.812Z
+current_date: 2026-11-20T00:28:06.812Z
 ---
 
 > ## Documentation Index
@@ -159,6 +159,30 @@ Slow query runs also graph the query's p50 and p95 latency from the day before t
 To stop a run that hasn't finished, click **Cancel agent run** on the run page.
 A cancelled run can't be resumed, but you can start a new one.
 
+## Rate a run
+
+Every completed run asks for feedback.
+If a run wasn't helpful, you can tell us why and add a note.
+Feedback helps make future runs better.
+
+| Reason | Label |
+| - | - |
+| `wrong_diagnosis` | Wrong diagnosis |
+| `fix_wont_work` | Fix wouldn’t work |
+| `too_risky` | Too risky |
+| `already_known` | Already knew this |
+| `doesnt_fit` | Doesn’t fit our code or setup |
+| `other` | Other |
+
+From the CLI, pass `--rating useful` or `--rating not_useful`, with an optional `--reason` and `--note`:
+
+```bash theme={null}
+pscale insights agent runs feedback <database> <branch> <number> --org <org> --rating not_useful --reason too_risky --note "Touches a hot table"
+```
+
+From MCP, use `planetscale_submit_insights_agent_run_feedback`.
+From the API, send `rating` (required), `reason`, and `note` in a `PUT` to `/v1/organizations/{organization}/databases/{database}/branches/{branch}/insights/agent/runs/{number}/feedback`. A `GET` on the same path returns your feedback.
+
 ## Review the pull request
 
 Pull requests from Insights Agent explain the problem with links to the affected queries or recommendations in Insights, describe the fix, and link back to the run in PlanetScale.
@@ -210,7 +234,7 @@ The run page shows each run's cost.
 | Start runs and change schedules | Organization administrators, database administrators, and custom roles with the **Manage Insights Agent** permission |
 | View runs | Anyone who can view Query Insights for the database |
 | Start, cancel, or schedule runs with a service token | Token with `write_insights_agent` |
-| List and view runs with a service token | Token with `read_insights_agent` |
+| List, view, and rate runs with a service token | Token with `read_insights_agent` |
 
 ## Security and data
 

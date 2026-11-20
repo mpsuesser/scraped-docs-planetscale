@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/mcp-server
 title: "Mcp Server"
 description: ""
-access_date: 2026-11-17T22:48:04.450Z
-current_date: 2026-11-17T22:48:04.450Z
+access_date: 2026-11-20T00:28:06.812Z
+current_date: 2026-11-20T00:28:06.812Z
 ---
 
 > ## Documentation Index
@@ -533,6 +533,7 @@ The available tools are:
 30. `planetscale_cancel_insights_agent_run` - Cancel an Insights Agent run that is pending, submitting, or running.
 31. `planetscale_get_insights_agent_schedules` - Get the Insights Agent schedules on a branch: whether each is enabled, how often it runs, and when it runs next.
 32. `planetscale_update_insights_agent_schedule` - Turn an Insights Agent `slow_query` or `schema_recommendation` schedule on or off, or change when it runs. Turning a schedule on, or changing how often an enabled schedule runs, needs `confirm: true`.
+33. `planetscale_submit_insights_agent_run_feedback` - Rate a completed Insights Agent run as `useful` or `not_useful`, with an optional `reason` for a `not_useful` rating and an optional `note`. Rating again replaces the earlier rating.
 
 ## Troubleshooting
 

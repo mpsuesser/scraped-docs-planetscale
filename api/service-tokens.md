@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-19T22:00:49.533Z
-current_date: 2026-11-19T22:00:49.533Z
+access_date: 2026-11-20T00:28:06.812Z
+current_date: 2026-11-20T00:28:06.812Z
 ---
 
 > ## Documentation Index
@@ -66,7 +66,7 @@ In order to perform operations specific to a database, permissions can be assign
 
 Select the database you want to grant access to and check the box next to each permission option you need to grant. Once you are done, click **"Save permissions"**.
 
-For a full list of database access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#database-access-permissions). That list includes `read_insights_agent` (list and view Insights Agent runs and schedules) and `write_insights_agent` (start, cancel, or schedule Insights Agent runs).
+For a full list of database access permissions, see the [API documentation for service tokens](https://planetscale.com/docs/api/reference/service-tokens.md#database-access-permissions). That list includes `read_insights_agent` (list, view, and rate Insights Agent runs and view schedules) and `write_insights_agent` (start, cancel, or schedule Insights Agent runs).
 
 ![The Database access permissions modal.](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/service-tokens/db-access-permissions-2.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=2f2a5fae0c095305dc848397de6962a5)
 
@@ -208,7 +208,7 @@ pscale service-token delete <SERVICE_TOKEN_ID>
 
 Running `pscale` in CI or an AI agent uses a [service token](https://planetscale.com/docs/cli/service-tokens.md) instead of `pscale auth login`. Provide the token as environment variables (recommended) or as flags on each command; both are equivalent:
 
-```bash theme={null}
+```bash theme={null} theme={null}
 # Environment variables (recommended for CI and agents)
 export PLANETSCALE_SERVICE_TOKEN_ID="<SERVICE_TOKEN_ID>"
 export PLANETSCALE_SERVICE_TOKEN="<SERVICE_TOKEN>"
@@ -221,7 +221,7 @@ pscale database list --org <org> \
 
 A service token has **no active organization**, so resource commands need the org supplied explicitly. Set it with `PLANETSCALE_ORG`, the `--org` flag on the subcommand, or `pscale org switch <org>` (which works with a service token):
 
-```bash theme={null}
+```bash theme={null} theme={null}
 export PLANETSCALE_ORG="<org>"
 pscale database list --format json          # uses PLANETSCALE_ORG
 pscale database list --org <org> --format json   # explicit flag
@@ -256,7 +256,7 @@ Do not retry these with service-token auth. The failure is by design, not transi
 
 When a command's human output is hard to parse, prefer `--format json`, or drop to the raw API with `pscale api`, which returns the API response verbatim and uses the same token:
 
-```bash theme={null}
+```bash theme={null} theme={null}
 # org list
 pscale api organizations --format json
 

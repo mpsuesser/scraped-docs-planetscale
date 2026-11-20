@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/service-tokens
 title: "Service Tokens"
 description: ""
-access_date: 2026-11-19T22:00:49.533Z
-current_date: 2026-11-19T22:00:49.533Z
+access_date: 2026-11-20T00:28:06.812Z
+current_date: 2026-11-20T00:28:06.812Z
 ---
 
 > ## Documentation Index
@@ -127,7 +127,7 @@ Select the database you want to grant access for and check the box next to each 
 | restore\_production\_branch\_backup | Restore a production branch backup |
 | write\_branch\_vschema | Update the VSchema for a database branch |
 | write\_production\_branch\_vschema | Update the VSchema for a production database branch |
-| read\_insights\_agent | Read Insights Agent runs and schedules |
+| read\_insights\_agent | Read and rate Insights Agent runs, and read schedules |
 | write\_insights\_agent | Start Insights Agent runs and change their schedules |
 
 > [!TIP]

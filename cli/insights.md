@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/insights
 title: "Insights"
 description: ""
-access_date: 2026-11-17T22:48:04.450Z
-current_date: 2026-11-17T22:48:04.450Z
+access_date: 2026-11-20T00:28:06.812Z
+current_date: 2026-11-20T00:28:06.812Z
 ---
 
 ## Getting Started
@@ -49,6 +49,7 @@ Place **positional arguments first**, then flags. **`--org` is required.**
 | `agent runs show` | Postgres, Vitess, Neki | Show an Insights Agent run, its stages, and the pull request it opened |
 | `agent runs create` | Postgres, Vitess, Neki | Start an Insights Agent run that reviews slow queries or implements schema recommendations |
 | `agent runs cancel` | Postgres, Vitess, Neki | Cancel a pending or running Insights Agent run |
+| `agent runs feedback` | Postgres, Vitess, Neki | Rate a completed Insights Agent run as useful or not useful |
 | `agent schedules` | Postgres, Vitess, Neki | List the Insights Agent schedules on a branch |
 | `agent schedules update` | Postgres, Vitess, Neki | Turn on, turn off, or change the schedule for a run type |
 
@@ -365,6 +366,23 @@ Cancel a pending or running Insights Agent run. Interactive confirmation is requ
 
 ```shellscript
 pscale insights agent runs cancel <database> <branch> <number> --org <org> --force
+```
+
+#### agent runs feedback
+
+Rate a completed Insights Agent run. Rating a run again replaces your earlier rating.
+
+**Available flags:**
+
+| **Flag** | **Description** |
+| --- | --- |
+| `--rating <rating>` | `useful` or `not_useful`. Required. |
+| `--reason <reason>` | Why a `not_useful` run missed: `wrong_diagnosis`, `fix_wont_work`, `too_risky`, `already_known`, `doesnt_fit`, or `other` |
+| `--note <text>` | Optional note |
+
+```shellscript
+pscale insights agent runs feedback <database> <branch> <number> --org <org> --rating useful
+pscale insights agent runs feedback <database> <branch> <number> --org <org> --rating not_useful --reason wrong_diagnosis --note "The slow query comes from a background job"
 ```
 
 #### agent schedules
