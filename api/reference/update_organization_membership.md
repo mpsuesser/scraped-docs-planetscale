@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/update_organization_membership
 title: "Update_organization_membership"
 description: ""
-access_date: 2026-11-17T13:39:54.934Z
-current_date: 2026-11-17T13:39:54.934Z
+access_date: 2026-11-20T14:46:20.067Z
+current_date: 2026-11-20T14:46:20.067Z
 ---
 
 > ## Documentation Index
@@ -86,9 +86,12 @@ tags:
   - name: Databases
     description: |2
                   Resources for managing databases within an organization.
+  - name: InsightsAgentRunFeedback
+    description: |2
+                Resources for rating whether an Insights Agent run was useful.
   - name: InsightsAgentRuns
     description: |2
-                Resources for running and viewing Insights agent analyses.
+                Resources for starting, viewing, and cancelling Insights Agent runs.
   - name: Insights Agent schedules
     description: Resources for managing Insights Agent schedules.
   - name: InsightsAgentSuggestions
@@ -145,6 +148,10 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchover proxies
+    description: |2
+                Resources for a proxy that sits in front of an external Postgres database and a branch,
+                so data can be copied to the branch and traffic switched between the two.
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
@@ -274,9 +281,9 @@ paths:
                 role:
                   type: string
                   description: >-
-                    The role to assign to the member (e.g., 'admin', 'member').
-                    Note: Cannot update your own role. Roles managed by IdP
-                    cannot be updated via API.
+                    The role to assign: a built-in name (admin, member, analyst)
+                    or a custom role slug. Cannot update your own role. Roles
+                    managed by IdP cannot be updated via API.
               required:
                 - role
       responses:
@@ -376,10 +383,9 @@ paths:
                       - two_factor_auth_configured
                   role:
                     type: string
-                    enum:
-                      - member
-                      - admin
-                    description: The role of the user in the organization
+                    description: >-
+                      The role of the user in the organization. A built-in name
+                      (admin, member, analyst) or a custom role slug.
                   created_at:
                     type: string
                     description: When the membership was created
@@ -474,6 +480,7 @@ components:
             database:write_comments: Create deploy request comments in a database
             database:write_database: Write database
             database:write_deploy_requests: Create and update deploy requests in a database
+            database:write_insights_agent: Start Insights Agent runs and change their schedules
             database:write_members: Write members
             database:write_workflows: Create and manage database workflows
             organization:approve_deploy_requests: Approve deploy requests in an organization
@@ -527,6 +534,9 @@ components:
             organization:write_comments: Create deploy request comments in an organization
             organization:write_databases: Write organization databases
             organization:write_deploy_requests: Create and update deploy requests in an organization
+            organization:write_insights_agents: >-
+              Start Insights Agent runs and change their schedules in an
+              organization
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
             organization:write_payment_method: Update and delete the organization payment method

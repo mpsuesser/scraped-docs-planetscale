@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/list_read_only_regions
 title: "List_read_only_regions"
 description: ""
-access_date: 2026-11-17T13:39:54.934Z
-current_date: 2026-11-17T13:39:54.934Z
+access_date: 2026-11-20T14:46:20.067Z
+current_date: 2026-11-20T14:46:20.067Z
 ---
 
 > ## Documentation Index
@@ -17,7 +17,7 @@ current_date: 2026-11-17T13:39:54.934Z
 A service token or OAuth token must have at least one of the following access or scopes in order to use this API endpoint:
 
 **Service Token Accesses**
- `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+ `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`, `read_insights_agent`, `write_insights_agent`
 
 **OAuth Scopes**
 
@@ -90,9 +90,12 @@ tags:
   - name: Databases
     description: |2
                   Resources for managing databases within an organization.
+  - name: InsightsAgentRunFeedback
+    description: |2
+                Resources for rating whether an Insights Agent run was useful.
   - name: InsightsAgentRuns
     description: |2
-                Resources for running and viewing Insights agent analyses.
+                Resources for starting, viewing, and cancelling Insights Agent runs.
   - name: Insights Agent schedules
     description: Resources for managing Insights Agent schedules.
   - name: InsightsAgentSuggestions
@@ -149,6 +152,10 @@ tags:
   - name: Bouncers
     description: |2
                 Resources for managing postgres bouncers.
+  - name: Switchover proxies
+    description: |2
+                Resources for a proxy that sits in front of an external Postgres database and a branch,
+                so data can be copied to the branch and traffic switched between the two.
   - name: Switchovers
     description: |2
                 Resources for moving the primary of a Postgres branch.
@@ -248,7 +255,7 @@ paths:
 
 
         **Service Token Accesses**
-         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`
+         `read_database`, `delete_database`, `write_database`, `read_branch`, `delete_branch`, `create_branch`, `rename_branch`, `promote_branches`, `demote_branches`, `delete_production_branch`, `connect_branch`, `connect_production_branch`, `connect_production_read_only_branch`, `delete_branch_password`, `delete_production_branch_password`, `delete_production_read_only_branch_password`, `read_deploy_request`, `create_deploy_request`, `approve_deploy_request`, `read_comment`, `create_comment`, `restore_backup`, `restore_production_branch_backup`, `read_backups`, `write_backups`, `delete_backups`, `delete_production_branch_backups`, `write_branch_vschema`, `write_production_branch_vschema`, `write_branch_topology`, `write_production_branch_topology`, `read_workflow`, `write_workflow`, `delete_workflow`, `read_insights_agent`, `write_insights_agent`
 
         **OAuth Scopes**
 
@@ -548,6 +555,7 @@ components:
             database:write_comments: Create deploy request comments in a database
             database:write_database: Write database
             database:write_deploy_requests: Create and update deploy requests in a database
+            database:write_insights_agent: Start Insights Agent runs and change their schedules
             database:write_members: Write members
             database:write_workflows: Create and manage database workflows
             organization:approve_deploy_requests: Approve deploy requests in an organization
@@ -601,6 +609,9 @@ components:
             organization:write_comments: Create deploy request comments in an organization
             organization:write_databases: Write organization databases
             organization:write_deploy_requests: Create and update deploy requests in an organization
+            organization:write_insights_agents: >-
+              Start Insights Agent runs and change their schedules in an
+              organization
             organization:write_members: Write members in an organization
             organization:write_organization: Write organization
             organization:write_payment_method: Update and delete the organization payment method
