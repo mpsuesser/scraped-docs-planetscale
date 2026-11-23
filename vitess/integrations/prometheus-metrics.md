@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/integrations/prometheus-metrics
 title: "Prometheus Metrics"
 description: ""
-access_date: 2026-11-11T21:19:24.875Z
-current_date: 2026-11-11T21:19:24.875Z
+access_date: 2026-11-23T14:54:02.351Z
+current_date: 2026-11-23T14:54:02.351Z
 ---
 
 > ## Documentation Index
@@ -81,6 +81,7 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vttablet\_found\_rows\_pool\_wait\_time\_total**  Total time spent waiting for connections from the found rows pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_found\_rows\_pool\_wait\_total**  Number of waits for an available connection in the found rows pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_is\_serving**  If a vttablet is or is not serving traffic | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_kills\_total**  Number of queries, transactions, and connections vttablet killed, by kill type | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_vttablet\_kill\_type |
 | **planetscale\_vttablet\_queries\_affected\_rows\_total**  Total number of rows affected by queries through vttablet | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_queries\_duration**  Distribution of query execution times through vttablet | Histogram | cluster, le, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_queries\_duration\_by\_table\_total**  Total of query execution times through vttablet, broken down by table | Counter | cluster, planetscale\_command, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_table, planetscale\_tablet\_type |
@@ -101,6 +102,7 @@ PlanetScale emits the following metrics to be scraped.
 | **planetscale\_vttablet\_transaction\_pool\_in\_use**  Number of transactions currently in use in the transaction pool | Gauge | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_transaction\_pool\_wait\_time\_total**  Total time spent waiting for transactions from the transaction pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_transaction\_pool\_wait\_total**  Number of waits for an available transaction in the transaction pool | Counter | cluster, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
+| **planetscale\_vttablet\_transactions\_duration\_seconds**  Distribution of transaction durations through vttablet, by how the transaction ended (commit, rollback, kill) | Histogram | cluster, le, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type, planetscale\_vttablet\_operation |
 | **planetscale\_vttablet\_volume\_available\_bytes**  Available storage space in bytes on vttablet volumes | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_volume\_capacity\_bytes**  Total storage capacity in bytes on vttablet volumes | Gauge | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_pod, planetscale\_shard, planetscale\_tablet\_type |
 | **planetscale\_vttablet\_vstreamer\_errors\_total**  Total number of vttablet vstreamer errors. | Counter | cluster, planetscale\_cell, planetscale\_database\_branch\_id, planetscale\_keyspace, planetscale\_shard, planetscale\_vstreamer\_code |
@@ -248,6 +250,8 @@ The gauge only reports a container's latest termination reason, so the query att
 | planetscale\_vtorc\_analysis | The problem VTOrc detected (DeadPrimary, ReplicaSemiSyncMustBeSet, etc.) |
 | planetscale\_vtorc\_recovery\_type | The recovery VTOrc performed (RecoverDeadPrimary, ElectNewPrimary, FixReplica, etc.) |
 | planetscale\_vttablet\_code | VTTablet error code (NOT\_FOUND, etc.) |
+| planetscale\_vttablet\_kill\_type | What vttablet killed (Transactions, Queries, ReservedConnection, Connections) |
+| planetscale\_vttablet\_operation | How a vttablet transaction ended (commit, rollback, kill) |
 | planetscale\_waiting\_reason | Container waiting reason (CrashLoopBackOff, ImagePullBackOff, etc.) |
 | planetscale\_workflow | VReplication workflow identifier |
 
