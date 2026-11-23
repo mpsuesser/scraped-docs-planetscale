@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/demote_branch
 title: "Demote_branch"
 description: ""
-access_date: 2026-11-20T14:46:20.067Z
-current_date: 2026-11-20T14:46:20.067Z
+access_date: 2026-11-23T22:53:06.735Z
+current_date: 2026-11-23T22:53:06.735Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `demote_branches` |
 | Database | `demote_branches` |
 
-This page covers Vitess.
+Available for Vitess, Neki, and Postgres.
 
 
 ## OpenAPI
@@ -292,14 +292,16 @@ paths:
                 cluster_size:
                   type: string
                   description: >-
-                    Postgres cluster size to apply when demoting. PS-DEV is
-                    allowed. Changing the size requires write_database.
+                    Postgres or Neki cluster size to apply when demoting. PS-DEV
+                    is allowed. Omit it to leave the size unchanged. Changing
+                    the size requires write_database.
                 replicas:
                   type: integer
                   description: >-
-                    Postgres replica count, not including the primary. 0 is a
-                    single node. 2 to 8 is high availability. Changing the
-                    replica count requires write_database.
+                    Postgres or Neki replica count, not including the primary. 0
+                    is a single node. 2 to 8 is high availability. Vitess
+                    ignores this option. Changing the replica count requires
+                    write_database.
       responses:
         '200':
           description: Returns a development branch

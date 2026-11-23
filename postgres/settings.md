@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/settings
 title: "Settings"
 description: ""
-access_date: 2026-10-29T14:57:53.846Z
-current_date: 2026-10-29T14:57:53.846Z
+access_date: 2026-11-23T22:53:06.735Z
+current_date: 2026-11-23T22:53:06.735Z
 ---
 
 > ## Documentation Index
@@ -36,7 +36,7 @@ The database name field displays your current database name. **This name cannot 
 
 The default branch dropdown allows you to select which branch serves as the default for your database. This branch will be used as the source when creating new development branches.
 
-Only production branches can be set as the default. New branches created from the **Branches** page start as development branches, so you must first [upsize the cluster and add replicas](https://planetscale.com/docs/postgres/cluster-configuration.md) on the **Clusters** page to promote them to a production branch before they are eligible.
+Only production branches can be set as the default. New branches created from the **Branches** page start as development branches. [Promote the branch](https://planetscale.com/docs/postgres/promote-branch.md) before it can be the default.
 
 > [!NOTE]
 >

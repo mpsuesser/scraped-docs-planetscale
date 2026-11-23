@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/promote_branch
 title: "Promote_branch"
 description: ""
-access_date: 2026-11-20T14:46:20.067Z
-current_date: 2026-11-20T14:46:20.067Z
+access_date: 2026-11-23T22:53:06.735Z
+current_date: 2026-11-23T22:53:06.735Z
 ---
 
 > ## Documentation Index
@@ -26,7 +26,7 @@ A service token or OAuth token must have at least one of the following access or
 | Organization | `promote_branches` |
 | Database | `promote_branches` |
 
-This page covers Vitess.
+Available for Vitess, Neki, and Postgres.
 
 
 ## OpenAPI

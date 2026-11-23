@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/branch
 title: "Branch"
 description: ""
-access_date: 2026-11-17T19:40:04.630Z
-current_date: 2026-11-17T19:40:04.630Z
+access_date: 2026-11-23T22:53:06.735Z
+current_date: 2026-11-23T22:53:06.735Z
 ---
 
 ## Getting Started
@@ -30,7 +30,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `create <DATABASE_NAME> <BRANCH_NAME>` | `--from <SOURCE_BRANCH>`, `--region <BRANCH_REGION>`, `--restore <BACKUP_ID>`, `--restore-point <TIMESTAMP>`, `--seed-data`, `--cluster-size <CLUSTER_SIZE>`, `--replicas <COUNT>`, `--major-version <MAJOR_VERSION>`, `--min-storage <BYTES>`, `--max-storage <BYTES>`, `--storage-iops <NUMBER>`, `--storage-throughput <NUMBER>`, `--config-profile`, `--router`, `--wait` | Create a new branch on the specified database | Postgres, Vitess, Neki |
 | `data-topology <COMMAND>` | `get`, `ls` (`--shards`), `update` | View or update a Neki branch’s data topology | Neki |
 | `delete <DATABASE_NAME> <BRANCH_NAME>` | `--force`, `--delete-descendants` | Delete the specified branch from a database | Postgres, Vitess, Neki |
-| `demote <DATABASE_NAME> <BRANCH_NAME>` |  | Demote a production branch to development | Vitess |
+| `demote <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>`, `--replicas <COUNT>` | Demote a production branch to development | Postgres, Neki, Vitess |
 | `diff <DATABASE_NAME> <BRANCH_NAME>` | `--web` | Show the diff of the specified branch against the parent branch. | Vitess |
 | `extensions list <DATABASE_NAME> <BRANCH_NAME>` |  | List the extensions available on a Postgres branch’s cluster image | Postgres |
 | `lint <DATABASE_NAME> <BRANCH_NAME>` |  | Lint the schema of a branch | Vitess |
@@ -42,7 +42,7 @@ pscale branch <SUB-COMMAND> <FLAG>
 | `maintenance event show <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID>` |  | Show a maintenance event and the times it can be moved to | Postgres |
 | `maintenance event reschedule <DATABASE_NAME> <BRANCH_NAME> <EVENT_ID>` | `--to <TIMESTAMP>` \* | Move a maintenance event to one of its available times | Postgres |
 | `parameters list <DATABASE_NAME> <BRANCH_NAME>` | `--namespace <NAMESPACE>`, `--extension`, `--internal` | List the configuration parameters of a Postgres branch | Postgres |
-| `promote <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>` | Promote a database branch to production | Vitess |
+| `promote <DATABASE_NAME> <BRANCH_NAME>` | `--cluster-size <SKU>`, `--replicas <COUNT>` | Promote a branch to production | Postgres, Neki, Vitess |
 | `query-patterns list <DATABASE_NAME> <BRANCH_NAME>` | `--limit <NUMBER>`, `--starting-after <REPORT_ID>` | List query pattern reports for a branch. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `query-patterns show <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` |  | Show a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
 | `query-patterns delete <DATABASE_NAME> <BRANCH_NAME> <REPORT_ID>` | `--force` | Delete a query pattern report. See the [`query-patterns` reference](query-patterns.md). | Postgres, Vitess |
@@ -129,8 +129,8 @@ Some of the sub-commands have additional flags unique to the sub-command. This s
 | `--new-name <BRANCH_NAME>` | New name for the branch | `update` |
 | `--deletion-protected` | Protect the branch from deletion (`--deletion-protected=false` to disable) | `update` |
 | `--routing-rules <FILE>` | JSON file with the routing rules to set on the branch | `routing-rules update` |
-| `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, shards in a Neki configuration profile, or the default keyspace of a promoted Vitess branch (`PS-DEV` is not permitted). For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update`, `promote` |
-| `--replicas <COUNT>` | Additional replica count for a Postgres branch resize, a Postgres or Neki backup restore, or shards in a Neki configuration profile. | `create`, `resize`, `config-profile create`, `config-profile update` |
+| `--cluster-size <SKU>` | Cluster size for a new branch, a Postgres branch resize, shards in a Neki configuration profile, or a promoted or demoted branch. On `promote`, `PS-DEV` is not permitted. Omitting it leaves the size unchanged, except a `PS-DEV` Postgres branch moves to `PS-5` and a `PS-DEV` Neki branch moves to `PS-10`. On `demote`, `PS-DEV` is allowed, and omitting it leaves the size unchanged. For MySQL, a promote size applies to the default keyspace. For Neki `create`, omit this flag to use the database default. Use `pscale size cluster list` (`--engine neki` for Neki) or the [cluster sizing](../neki/cluster-configuration/cluster-sizing.md) menu. | `create`, `resize`, `config-profile create`, `config-profile update`, `promote`, `demote` |
+| `--replicas <COUNT>` | Replica count for a Postgres branch resize, a Postgres or Neki backup restore, shards in a Neki configuration profile, or `promote` and `demote`. On promote and demote the count does not include the primary: `0` is a single node and `2` to `8` is high availability. Vitess ignores this option. | `create`, `resize`, `config-profile create`, `config-profile update`, `promote`, `demote` |
 | `--read-only-replicas <COUNT>` | [Read-only replica](../neki/read-only-replicas.md) count for shards in a Neki configuration profile, from 0 to 8. | `config-profile create`, `config-profile update` |
 | `--parameters <NAMESPACE.NAME=VALUE>` | Set a configuration parameter (e.g. `pgconf.max_connections=200`). Repeat the flag to set multiple parameters. Use `pscale branch parameters list --internal=false` to find parameters you can change for Postgres, or `config-profile parameters`, `admin parameters`, or `sidecar parameters` for Neki. | `resize`, `config-profile update`, `admin update`, `router update`, `sidecar update` |
 | `--wait-timeout <DURATION>` | Maximum time to wait for the change request to complete with `--wait`. Default is `10m`. | `resize` |

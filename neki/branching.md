@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/branching
 title: "Branching"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-23T22:53:06.735Z
+current_date: 2026-11-23T22:53:06.735Z
 ---
 
 > ## Documentation Index
@@ -61,6 +61,10 @@ configuration or running DDL.
 An empty development branch is useful for testing schema setup from scratch.
 See [Development environments](https://planetscale.com/docs/neki/development-environments.md) for a repeatable
 setup and guidance for production-like data.
+
+## Promote a branch
+
+New branches are created as development branches. You can [promote a branch](https://planetscale.com/docs/neki/promote-branch.md) to production.
 
 ## Move development data to production
 
