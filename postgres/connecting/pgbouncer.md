@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/pgbouncer
 title: "Pgbouncer"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T21:40:01.567Z
+current_date: 2026-11-24T21:40:01.567Z
 ---
 
 > ## Documentation Index
@@ -195,6 +195,34 @@ Advanced parameters should only be adjusted with a thorough understanding of PgB
 | Number of processes | Sets the number of PgBouncer processes that will run on each node in this branch's cluster. Default: `1` |
 
 Learn more about PgBouncer configuration [on their official website](https://www.pgbouncer.org/features.html).
+
+## Restarting PgBouncers
+
+PgBouncers can be restarted without restarting Postgres. The **Restart PgBouncer…** item is available in the cluster actions menu, below the switchover item. Postgres and direct connections on port `5432` are not affected; only connections to the selected bouncer are dropped.
+
+### What happens during a restart
+
+* During a dedicated PgBouncer restart, the PgBouncers in the pool restart one at a time. This allows PgBouncer to continue accepting new connections throughout the restart process. Existing connections have 2 minutes to finish their work.
+* After 2 minutes, all remaining connections to that PgBouncer instance are terminated and any transactions running on them are interrupted. Your application should reconnect and retry interrupted work. See the [connection resilience guide](https://planetscale.com/docs/postgres/connection-resilience.md) for how to handle this safely.
+* Traffic through [dedicated primary PgBouncers](#dedicated-primary-pgbouncers) also passes through the local PgBouncer, so restarting the local PgBouncer can interrupt transactions sent through them too.
+
+How long a restart takes depends on the number of PgBouncers in the pool.
+
+### Restarting from the dashboard
+
+You must be a database or organization administrator to restart PgBouncers.
+
+1. On the branch page, open the cluster actions menu and select **Restart PgBouncer…**
+2. Choose the PgBouncer to restart. **Built-in PgBouncer** is the local PgBouncer on the primary. Dedicated PgBouncers are listed by name.
+3. Click **Restart PgBouncer**.
+
+While the restart runs, the PgBouncer's card on the branch page shows that it is restarting. Restarts appear in the branch's changes history and as events on the metrics graphs.
+
+A PgBouncer accepts one restart at a time. You can't restart a dedicated PgBouncer during a configuration change or resize. You can't restart any PgBouncer while the branch is not ready or is asleep.
+
+### Restarting with the API
+
+See the [create bouncer restart API reference](https://planetscale.com/docs/api/reference/create_bouncer_restart.md) for details.
 
 ## How PgBouncer works
 
