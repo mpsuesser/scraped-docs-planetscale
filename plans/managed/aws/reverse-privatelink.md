@@ -2,27 +2,31 @@
 url: https://planetscale.com/docs/plans/managed/aws/reverse-privatelink
 title: "Reverse Privatelink"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T23:11:04.115Z
+current_date: 2026-11-24T23:11:04.115Z
 ---
 
 > ## Documentation Index
 > Fetch the complete documentation index at: https://planetscale.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Set up AWS Reverse PrivateLink with PlanetScale Managed
+# Set up AWS Reverse PrivateLink
 
-> [PlanetScale Managed](../aws.md) can connect to your existing databases via AWS PrivateLink for the purposes of data imports.
+> Connect PlanetScale to an existing AWS database over PrivateLink for data imports.
 
 Available for Vitess and Postgres.
 
-Often, one of the first tasks for a new Managed deployment is to import data from an existing database housed in a separate AWS Organizations member account.
+> [!NOTE]
+>
+> AWS Reverse PrivateLink is available for [single-tenant](https://planetscale.com/docs/plans/deployment-options.md#single-tenancy-deployment-on-planetscale) and [PlanetScale Managed](https://planetscale.com/docs/plans/managed/aws.md) deployments. Contact your PlanetScale Solutions Engineer to complete the PlanetScale-side setup.
+
+Often, one of the first tasks for a new PlanetScale deployment is to import data from an existing database housed in a separate AWS account.
 
 This guide explains how to set up AWS PrivateLink components that enable cross-account communication to facilitate this process. In PrivateLink parlance, the source database is known as the "producer", and PlanetScale is the "consumer".
 
 While there are a number of different ways to set up and configure PrivateLink components, in this guide we'll be using the AWS CLI tool.
 
-## How PlanetScale Managed and AWS PrivateLink work
+## How AWS Reverse PrivateLink works
 
 Broadly speaking, there are three major components to this PrivateLink setup:
 
@@ -34,7 +38,7 @@ Broadly speaking, there are three major components to this PrivateLink setup:
 
 ## Starting state
 
-Below is a simplified diagram of our initial state. We've got two separate accounts, each with their own VPCs and availability zones. We're using AWS [AZ IDs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#az-ids) as well as of AZ names to ensure that we're always referring to the correct AZ, as AZ names are not consistent across AWS accounts. On the producer side, we have a network subnet inside each AZ.
+Below is a simplified diagram of our initial state. We've got two separate accounts, each with their own VPCs and availability zones. We're using AWS [AZ IDs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#az-ids) as well as AZ names to ensure that we're always referring to the correct AZ, as AZ names are not consistent across AWS accounts. On the producer side, we have a network subnet inside each AZ.
 
 ![starting state](https://mintcdn.com/planetscale-2/UzFO5Pe10M0-W-uW/images/assets/docs/managed/aws/privatelink/starting-state.png?fit=max\&auto=format\&n=UzFO5Pe10M0-W-uW\&q=85\&s=2628332316a16768b3b3cff8f1e1a224)
 
@@ -128,7 +132,7 @@ Save changes to apply the updated rules
 
 ### Configure service permissions
 
-You only want to allow incoming connections on this endpoint service from the PlanetScale Managed AWS Organizations member account. This step requires the account number.
+Allow incoming connections on this endpoint service only from the PlanetScale AWS account that hosts your deployment. Contact your Solutions Engineer for how to get this.
 
 ```bash theme={null}
 aws ec2 modify-vpc-endpoint-service-permissions \

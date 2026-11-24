@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/deployment-options
 title: "Deployment Options"
 description: ""
-access_date: 2026-11-24T22:40:02.942Z
-current_date: 2026-11-24T22:40:02.942Z
+access_date: 2026-11-24T23:11:04.115Z
+current_date: 2026-11-24T23:11:04.115Z
 ---
 
 > ## Documentation Index
@@ -59,6 +59,7 @@ Single-tenant deployment options are available with [PlanetScale Enterprise](htt
   * **AWS** — [AWS PrivateLink](https://planetscale.com/docs/plans/managed/aws/privatelink.md) (recommended) or [VPC peering](https://planetscale.com/docs/plans/managed/aws/vpc-peering.md)
   * **GCP** — [Private Service Connect](https://cloud.google.com/vpc/docs/private-access-options)
   * **Azure** — [Azure Private Link](https://planetscale.com/docs/plans/managed/azure/private-link.md)
+* [AWS Reverse PrivateLink](https://planetscale.com/docs/plans/managed/aws/reverse-privatelink.md) for importing data from an existing database in another AWS account
 
 If you have any questions about which deployment option may be best for you, [reach out to us](https://planetscale.com/contact) and we can help you figure it out.
 
