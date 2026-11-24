@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/guides/prometheus-metrics-datadog
 title: "Prometheus Metrics Datadog"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -230,7 +230,7 @@ If I check the status of the PlanetScale Plugin, I can see our last run added a 
 
 In the Datadog UI, I can see data for the `planetscale.active_connections` metric:
 
-![Datadog Connections Metric](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/prometheus-datadog-graph.png?fit=max\&auto=format\&n=xsX1e-5IXCYXbX59\&q=85\&s=a27906622e857038e5b7e7f6c34c5598)
+![Datadog Connections Metric](https://mintcdn.com/planetscale-2/g0AZZQkXmTSBYuKj/images/prometheus-datadog-graph.png?fit=max\&auto=format\&n=g0AZZQkXmTSBYuKj\&q=85\&s=6bb2c1f0801932630df74a2853140785)
 
 ## What's Next?
 

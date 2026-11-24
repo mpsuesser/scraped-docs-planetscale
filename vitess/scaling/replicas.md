@@ -2,13 +2,13 @@
 url: https://planetscale.com/docs/vitess/scaling/replicas
 title: "Replicas"
 description: ""
-access_date: 2026-08-05T19:12:39.041Z
-current_date: 2026-08-05T19:12:39.041Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 ## Overview
 
-A replica is a continuously updated copy of your Vitess database. Replicas serve two main purposes:
+Replicas serve two main purposes:
 
 - They provide an additional source for your data to be queried.
 - They increase database availability by enabling fast failovers for maintenance or unexpected failure.
@@ -99,8 +99,8 @@ Replicas are useful for offloading read-heavy workloads from the primary node. B
 
 We use replicas for every production database branch. The number of replicas for a given database depends on the selected plan for that database:
 
-- **Base plan** — Base plan databases include 2 replicas per production branch distributed across multiple AZs in a given region.
-- **Enterprise** — The Enterprise plan is customizable to fit the needs of your organization, and as such can have as many replicas as needed.
+- **Base plan:** Includes 2 replicas per production branch distributed across multiple AZs in a given region.
+- **Enterprise:** Customizable to fit the needs of your organization, and as such can have as many replicas as needed.
 
 [Read-only regions](read-only-regions.md) also run replicas, hosted in a different geographical region. Each read-only region has its own cluster size and replica count, configured per keyspace independently of the primary region. It is important to note that the MySQL nodes in read-only regions are replicas intended only for reading data and are not eligible for failover if the primary node experiences an outage.
 

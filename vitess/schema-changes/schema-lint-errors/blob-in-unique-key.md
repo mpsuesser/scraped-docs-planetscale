@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/blob-in-unique-key
 title: "Blob In Unique Key"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -68,7 +68,7 @@ CREATE TABLE documents (
 ## Related docs
 
 * [Changing primary and unique keys](https://planetscale.com/docs/vitess/schema-changes/onlineddl-change-unique-keys.md)
-* [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md)
+* [MySQL compatibility](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md)
 
 ## Need help?
 

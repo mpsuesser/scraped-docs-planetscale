@@ -2,9 +2,19 @@
 url: https://planetscale.com/docs/vitess/security/connection-strings
 title: "Connection Strings"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
+
+## Postgres
+
+Create **role credentials** with [`pscale role`](../../cli/role.md), then connect using a [connection string](../../postgres/connecting/quickstart.md).
+
+`pscale connect` is not supported.
+
+## Vitess / MySQL
+
+Create a **branch password** with [`pscale password`](../../cli/password.md), then connect with a [connection string](../connecting/connection-strings.md) or [`pscale connect`](../../cli/connect.md).
 
 ## Creating a password
 

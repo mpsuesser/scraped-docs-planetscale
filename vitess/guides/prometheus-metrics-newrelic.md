@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/guides/prometheus-metrics-newrelic
 title: "Prometheus Metrics Newrelic"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -165,7 +165,7 @@ FROM Metric SELECT average(planetscale_pods_cpu_util_percentages) WHERE planetsc
 
 Because my `main` branch is production, we will see the memory usage for my primary and both my replicas over the last 30 minutes:
 
-![New Relic Memory Query](https://mintcdn.com/planetscale-2/xsX1e-5IXCYXbX59/vitess/tutorials/metrics-new-relic-dashboard.png?fit=max\&auto=format\&n=xsX1e-5IXCYXbX59\&q=85\&s=5ae095318cdab9644ca82f12f11ad58f)
+![New Relic Memory Query](https://mintcdn.com/planetscale-2/qp-ZKr_vKb0iLpeb/images/metrics-new-relic-dashboard.png?fit=max\&auto=format\&n=qp-ZKr_vKb0iLpeb\&q=85\&s=63d2958ae54d53e76643c09f0db60a66)
 
 ## Filtering Metrics
 

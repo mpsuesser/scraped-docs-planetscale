@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-11-24T16:52:58.686Z
-current_date: 2026-11-24T16:52:58.686Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -13,6 +13,8 @@ current_date: 2026-11-24T16:52:58.686Z
 # Audit log
 
 > The organization audit log grants [Organization Administrators](../security/access-control.md#organization-administrator) access to review **actions** performed by individual members of the organization.
+
+Available for Vitess and Postgres.
 
 In addition, each audit log includes **events** detailing who performed the **action** and when it happened.
 
@@ -54,7 +56,7 @@ You can track the following organization **events** in your PlanetScale account:
 | deployment | unqueued | Vitess |
 | external\_datasource | created  deleted | Vitess, Postgres |
 | integration | created  deleted | Vitess, Postgres |
-| organization | created  deleted  joined  removed\_member  left  added\_member  enabled\_sso  disabled\_sso  enabled\_sso\_directory  disabled\_sso\_directory | Vitess, Postgres |
+| organization | created  deleted  joined  removed\_member  left  added\_member  revoked\_member\_tokens  enabled\_sso  disabled\_sso  enabled\_sso\_directory  disabled\_sso\_directory  enabled\_mfa\_requirement  disabled\_mfa\_requirement | Vitess, Postgres |
 | organization\_custom\_role | created  updated  deleted | Vitess, Postgres |
 | organization\_invitation | created  deleted | Vitess, Postgres |
 | organization\_membership | created  updated\_role | Vitess, Postgres |

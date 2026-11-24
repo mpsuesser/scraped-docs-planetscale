@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/monitoring/prometheus-metrics-datadog-postgres
 title: "Prometheus Metrics Datadog Postgres"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -16,7 +16,7 @@ current_date: 2026-10-26T19:24:46.643Z
 
 This page covers Postgres.
 
-Vitess version: [Vitess](https://planetscale.com/docs/vitess/monitoring/prometheus-metrics-datadog.md)
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/tutorials/prometheus-metrics-datadog.md)
 
 ## Overview
 

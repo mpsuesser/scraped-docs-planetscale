@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/postgres-compatibility
 title: "Postgres Compatibility"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -16,13 +16,13 @@ current_date: 2026-10-26T19:24:46.643Z
 
 This page covers Postgres.
 
-Vitess version: [Vitess](https://planetscale.com/docs/vitess/mysql-compatibility.md)
+Vitess version: [Vitess](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md)
 
 ## Overview
 
 PlanetScale Postgres runs on PostgreSQL versions 17 and 18. See our [supported versions](https://planetscale.com/docs/postgres/cluster-configuration/versions.md) documentation for the specific versions available.
 
-PlanetScale Postgres is designed to be fully compatible with standard PostgreSQL. Unlike PlanetScale Vitess, which has [certain MySQL compatibility limitations](https://planetscale.com/docs/vitess/mysql-compatibility.md), PlanetScale Postgres supports the full PostgreSQL feature set, including stored procedures, triggers, and foreign keys.
+PlanetScale Postgres is designed to be fully compatible with standard PostgreSQL. Unlike PlanetScale Vitess, which has [certain MySQL compatibility limitations](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md), PlanetScale Postgres supports the full PostgreSQL feature set, including stored procedures, triggers, and foreign keys.
 
 ## Full PostgreSQL feature support
 

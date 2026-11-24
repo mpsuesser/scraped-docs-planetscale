@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility
 title: "Mysql Compatibility"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -50,6 +50,7 @@ If you're importing a database, there are some additional requirements that you 
 | `TRIGGER` | | We do not support any form of [stored routines](https://dev.mysql.com/doc/refman/8.0/en/stored-routines.html). |
 | `EVENT` | | We do not support any form of [stored routines](https://dev.mysql.com/doc/refman/8.0/en/stored-routines.html). |
 | `LOAD DATA INFILE` | | Loading data via [`LOAD DATA INFILE` is not supported](https://github.com/vitessio/vitess/issues/2976). |
+| `LOCK TABLES` | | [`LOCK TABLES`](https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html) is not supported. |
 | `KILL` | | We do not support killing queries or shards from the command line. |
 | `:=` | | The `:=` assignment operator is not yet supported. |
 | `SET GLOBAL time_zone` | | The global time zone is set to UTC and can not be modified. |

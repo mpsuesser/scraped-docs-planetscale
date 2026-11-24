@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/scaling/planetscale-system-limits
 title: "Planetscale System Limits"
 description: ""
-access_date: 2026-10-01T00:16:06.842Z
-current_date: 2026-10-01T00:16:06.842Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 We can sometimes manually adjust limits on a per-database level. If you are facing issues or have questions, the best course of action is to [open a support ticket](https://planetscale.com/contact).
@@ -46,8 +46,8 @@ vttablet: rpc error: code = ResourceExhausted desc = transaction pool connection
 
 This can often be mitigated by trying one of the following solutions:
 
-A) Reduce the amount of parallelism in the requests being sent to the database.  
-B) Shorten lengthy transactions by reducing batch sizes or making some other application-level adjustment.
+1. Reduce the amount of parallelism in the requests being sent to the database.
+2. Shorten lengthy transactions by reducing batch sizes or making some other application-level adjustment.
 
 If you cannot make such changes to your application, consider choosing a larger instance type with a larger transaction pool. The exact limit varies depending on the instance type of your database. For details, see the [plans page](../../plans/planetscale-skus.md).
 

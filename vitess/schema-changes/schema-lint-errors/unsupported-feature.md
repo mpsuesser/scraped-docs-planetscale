@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/schema-changes/schema-lint-errors/unsupported-feature
 title: "Unsupported Feature"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -56,7 +56,7 @@ If the error mentions `JSON_TABLE`, rewrite the query or schema design to avoid 
 
 ## Related docs
 
-* [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md)
+* [MySQL compatibility](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md)
 * [PlanetScale system limits](https://planetscale.com/docs/vitess/troubleshooting/planetscale-system-limits.md)
 * [Deploy requests](https://planetscale.com/docs/vitess/schema-changes/deploy-requests.md)
 

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/tutorials/planetscale-serverless-driver-prisma-example
 title: "Planetscale Serverless Driver Prisma Example"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -15,6 +15,8 @@ current_date: 2026-10-26T19:24:46.643Z
 > This document outlines how you can use the [PlanetScale serverless driver](planetscale-serverless-driver.md) along with Prisma in your application.
 
 This page covers Vitess.
+
+Postgres version: [Postgres](https://planetscale.com/docs/postgres/tutorials/planetscale-postgres-prisma.md)
 
 ## Set up
 

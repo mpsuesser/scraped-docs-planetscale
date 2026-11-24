@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/troubleshooting/out-of-memory
 title: "Out Of Memory"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -30,7 +30,7 @@ When an OOM event occurs:
 
 ## Primary resolution: Upgrade cluster size
 
-The most direct solution to OOM events is to increase your cluster size to provide more memory. See [cluster sizing](https://planetscale.com/docs/vitess/scaling/cluster-sizing.md) for the available sizes and their memory, and [cluster configuration](https://planetscale.com/docs/vitess/scaling/cluster-configuration.md) for how to resize. Resizing is performed with minimal downtime.
+The most direct solution to OOM events is to increase your cluster size to provide more memory. See [cluster sizing](https://planetscale.com/docs/vitess/scaling/cluster-sizing.md) for the available sizes and their memory, and [cluster configuration](https://planetscale.com/docs/vitess/cluster-configuration.md) for how to resize. Resizing is performed with minimal downtime.
 
 ## Common causes of high memory usage
 

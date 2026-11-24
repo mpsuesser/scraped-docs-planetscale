@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres-vs-vitess
 title: "Postgres Vs Vitess"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-24T22:00:06.512Z
+current_date: 2026-11-24T22:00:06.512Z
 ---
 
 > ## Documentation Index
@@ -31,7 +31,7 @@ PlanetScale offers [**Vitess**](https://planetscale.com/docs/vitess.md) (our MyS
 | **Automatic and custom backups** | ✅ | ✅ | ✅ |
 | **PITR** | ❌ | ✅ | ✅ |
 | **Multi-region** | ✅ | ✅ | ✅ |
-| **SQL compatibility** | Some [MySQL compatibility](https://planetscale.com/docs/vitess/mysql-compatibility.md) limitations | PostgreSQL compatible; some [platform preview limitations](https://planetscale.com/docs/neki/platform-preview-limitations.md) | Fully PostgreSQL compatible |
+| **SQL compatibility** | Some [MySQL compatibility](https://planetscale.com/docs/vitess/troubleshooting/mysql-compatibility.md) limitations | PostgreSQL compatible; some [platform preview limitations](https://planetscale.com/docs/neki/platform-preview-limitations.md) | Fully PostgreSQL compatible |
 | **Multiple logical databases per cluster** | ❌ (use [keyspaces](https://planetscale.com/docs/vitess/terminology.md#keyspace) instead) | ✅ Logical databases | ✅ `CREATE DATABASE` |
 | **Max cluster size** | Unlimited shards | Unlimited shards | Single cluster |
 
