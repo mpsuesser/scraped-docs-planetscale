@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/vitess/audit-log
 title: "Audit Log"
 description: ""
-access_date: 2026-10-22T18:21:49.469Z
-current_date: 2026-10-22T18:21:49.469Z
+access_date: 2026-11-24T16:52:58.686Z
+current_date: 2026-11-24T16:52:58.686Z
 ---
 
 > ## Documentation Index
@@ -55,6 +55,7 @@ You can track the following organization **events** in your PlanetScale account:
 | external\_datasource | created  deleted | Vitess, Postgres |
 | integration | created  deleted | Vitess, Postgres |
 | organization | created  deleted  joined  removed\_member  left  added\_member  enabled\_sso  disabled\_sso  enabled\_sso\_directory  disabled\_sso\_directory | Vitess, Postgres |
+| organization\_custom\_role | created  updated  deleted | Vitess, Postgres |
 | organization\_invitation | created  deleted | Vitess, Postgres |
 | organization\_membership | created  updated\_role | Vitess, Postgres |
 | organization\_team | created  deleted  added\_member  left  removed\_member | Vitess, Postgres |

@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/access-control
 title: "Access Control"
 description: ""
-access_date: 2026-11-17T20:20:27.806Z
-current_date: 2026-11-17T20:20:27.806Z
+access_date: 2026-11-24T16:52:58.686Z
+current_date: 2026-11-24T16:52:58.686Z
 ---
 
 > ## Documentation Index
@@ -24,12 +24,14 @@ Within each organization, you can add members and assign them different roles. T
 
 ## Roles and permissions
 
-We currently support four different roles in your organization:
+We currently support four predefined roles in your organization:
 
 * `Organization Administrator`
 * `Organization Analyst`
 * `Organization Member`
 * `Database Administrator`
+
+Organization Administrators can also create [custom roles](#custom-roles) and assign them to members instead of a predefined role.
 
 ### Organization Administrator
 
@@ -50,6 +52,50 @@ An `Organization Member` can only perform limited actions within an organization
 A `Database Administrator` can perform all actions on the database for which they were assigned the `Databases Administrator` role.
 
 This role is assigned at the **database level** and gives elevated permissions for the particular database that an organization member is the `Database Administrator` of. If you want to [grant a member *full* access to manage one or several databases](#assign-roles-at-a-database-level) but not full `Organization Administrator` access, then this is the role you want. Please note, a user that is granted this role must be a member of the organization of which the database exists in, so they will have the permissions associated with `Organization Member` as well.
+
+### Custom roles
+
+Organization Administrators can create custom roles and assign them to members instead of a predefined role. Each organization member has one organization role.
+
+Only Organization Administrators can create, edit, and delete custom roles.
+
+Every custom role includes **View organization**. Custom roles cannot include permission to manage custom roles.
+
+#### Custom role slugs
+
+PlanetScale generates a slug from the role name when you create the role. The slug does not change if you rename the role. On the custom roles page, open the role's overflow menu and click **Copy slug**.
+
+Use the slug to assign the role through the API or your identity provider. The `role` field accepts a predefined name (`admin`, `member`, or `analyst`) or a custom role slug.
+
+#### Create a custom role
+
+**Step 1**
+
+In the [PlanetScale dashboard](https://app.planetscale.com), click on the **Settings** tab in the top navigation.
+
+**Step 2**
+
+Click on **Members** in the sidebar on the left, then open the **Custom roles** tab.
+
+**Step 3**
+
+Click **Create custom role**.
+
+**Step 4**
+
+Enter a role name, an optional description, and the permissions to include. Then click **Create role**.
+
+You cannot delete a custom role while a member or a pending invitation uses it.
+
+The API can [list](https://planetscale.com/docs/api/reference/list_organization_custom_roles.md), [create](https://planetscale.com/docs/api/reference/create_organization_custom_role.md), [update](https://planetscale.com/docs/api/reference/update_organization_custom_role.md), and [delete](https://planetscale.com/docs/api/reference/delete_organization_custom_role.md) custom roles.
+
+#### Assign a custom role
+
+Assign a custom role from the **Role** menu on the Members page, or when you [invite someone](#assign-organization-roles-to-members). Organization Administrators can assign any role.
+
+You cannot change or revoke access for a user with more permissions than you.
+
+To assign a custom role through the API, set `role` on [update membership](https://planetscale.com/docs/api/reference/update_organization_membership.md) or [create invitation](https://planetscale.com/docs/api/reference/create_organization_invitation.md) to the custom role slug. To assign a custom role from an identity provider, see [SSO](https://planetscale.com/docs/security/sso.md#custom-roles).
 
 ## Organization-level permissions
 
@@ -119,13 +165,15 @@ An organization may have several databases, and an `Organization Member` may hav
 
 ## Assign organization roles to members
 
-You can follow the steps below to assign roles to your members. You must be an Organization Administrator to modify member roles.
+You can follow the steps below to assign roles to your members, including [custom roles](#custom-roles).
 
 * In the [PlanetScale dashboard](https://app.planetscale.com), click on the Settings tab in the top navigation.
 * Click on "Members" in the sidebar on the left.
 * From here, you can click on the dropdown on the right under the "Role" column to select the role you want to apply to each member.
 
 You can also invite new members to your organization and choose their role before sending the invitation. If you don't pick a role, they'll join as an [`Organization Member`](#organization-member) by default.
+
+You cannot change or revoke access for a user with more permissions than you.
 
 > [!NOTE]
 >

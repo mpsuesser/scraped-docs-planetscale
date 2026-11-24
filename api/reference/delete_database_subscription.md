@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/api/reference/delete_database_subscription
 title: "Delete_database_subscription"
 description: ""
-access_date: 2026-11-20T19:18:28.468Z
-current_date: 2026-11-20T19:18:28.468Z
+access_date: 2026-11-24T16:52:58.686Z
+current_date: 2026-11-24T16:52:58.686Z
 ---
 
 > ## Documentation Index
@@ -49,6 +49,12 @@ tags:
   - name: Backups
     description: |2
                 Resources for managing database branch backups.
+  - name: Branch authentication
+    description: Resources for managing how roles log in to a Postgres branch.
+  - name: Branch authentication OIDC principals
+    description: >-
+      Resources for managing the IAM principals that can log in to a Postgres
+      branch with OIDC.
   - name: Branch changes
     description: |2
                 Resources for managing cluster changes.
@@ -128,9 +134,12 @@ tags:
   - name: OIDC tokens
     description: |2
                 API endpoints for exchanging OIDC tokens for service tokens.
+  - name: Organization custom roles
+    description: |2
+                Resources for managing custom roles in an organization. Organization members who can list members can list custom roles. Only organization administrators can create, update, and delete them. Service tokens and OAuth applications cannot create, update, or delete custom roles. Every custom role must include the show_organization permission. Custom roles cannot grant custom-role management. A custom role cannot be deleted while an organization member or an active invitation uses it.
   - name: Organization invitations
     description: |2
-                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators or analysts.
+                Resources for inviting people to an organization. Service tokens with `write_members` can list, send, and cancel invitations, but can only invite people as members. Only organization administrators can invite people as administrators. Members with a custom role can only invite people to a role whose permissions they hold.
   - name: Organization members
     description: |2
                 Resources for managing organization members and their roles.

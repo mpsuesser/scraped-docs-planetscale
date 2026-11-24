@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/security/sso
 title: "Sso"
 description: ""
-access_date: 2026-11-05T16:29:42.154Z
-current_date: 2026-11-05T16:29:42.154Z
+access_date: 2026-11-24T16:52:58.686Z
+current_date: 2026-11-24T16:52:58.686Z
 ---
 
 > ## Documentation Index
@@ -30,7 +30,7 @@ You can also enable and manage organization SSO from the [PlanetScale CLI](https
 
 It's important to understand how enabling SSO will affect your Organization. Once enabled, the following will happen:
 
-* All non-admin members will be removed from the organization.
+* All non-admin members will be removed from the organization, including members with a custom role and Organization Analysts.
 * [Organization Administrators](https://planetscale.com/docs/security/access-control.md#organization-administrator) will remain in the Organization so they can configure SSO without losing access.
   * All administrators will retain access with their old credentials, until they logout and login through their Identity Provider. Once they've authenticated through their Identity Provider the account will only be usable with SSO authentication.
 * Each [Organization Member](https://app.planetscale.com/planetscale/settings/members) must re-authenticate using SSO. Once they've authenticated, they will be automatically added back to the organization.
@@ -107,6 +107,12 @@ You also have the option to manage PlanetScale roles through your identity provi
 >
 > If you are using Okta as your identity provider and want to manage organization roles through SSO or Directory Sync, see [Using Okta to manage organization admins](#using-okta-to-manage-organization-admins) for additional configuration steps.
 
+### Custom roles
+
+Identity providers assign [custom roles](https://planetscale.com/docs/security/access-control.md#custom-roles) by sending the custom role slug in the existing `planetscale_role` attribute.
+
+On the [custom roles](https://planetscale.com/docs/security/access-control.md#custom-roles) page, open the role's overflow menu and click **Copy slug**.
+
 ## Multiple organizations with SSO
 
 You can enable SSO for multiple organizations using the same identity provider. Users will be able to swap between organizations by using the selector in the top right of the PlanetScale dashboard.
@@ -148,6 +154,12 @@ If you wish to have your identity provider determine user roles in PlanetScale, 
 You can find the directory-managed members under "**Settings**" > "**Members**", and directory-managed Teams under "**Settings**" > "**Teams**".
 
 ![Dashboard UI - Directory-managed Teams page](https://mintcdn.com/planetscale-2/GA0k5H-MolPvBjDk/images/assets/docs/concepts/sso/managed.png?fit=max\&auto=format\&n=GA0k5H-MolPvBjDk\&q=85\&s=f36262759a8dc656e592aa960eaaa77e)
+
+### Custom roles
+
+Directory Sync assigns [custom roles](https://planetscale.com/docs/security/access-control.md#custom-roles) by sending the custom role slug in the existing `planetscale_role` attribute.
+
+On the [custom roles](https://planetscale.com/docs/security/access-control.md#custom-roles) page, open the role's overflow menu and click **Copy slug**.
 
 ## Admin failsafe
 
@@ -206,6 +218,7 @@ Click **Add attribute** and fill in the following values
   * Display name: `Member`, Value: `member`
   * Display name: `Analyst`, Value: `analyst`
   * Display name: `Administrator`, Value: `admin`
+  * For each [custom role](https://planetscale.com/docs/security/access-control.md#custom-roles), add a value whose **Value** is the custom role slug
 
 **Step 4**
 
@@ -256,6 +269,7 @@ Click **Add attribute** and fill in the following values
   * Display name: `member`, Value: `member`
   * Display name: `analyst`, Value: `analyst`
   * Display name: `administrator`, Value: `admin`
+  * For each [custom role](https://planetscale.com/docs/security/access-control.md#custom-roles), add a value whose **Value** is the custom role slug
 
 **Step 4**
 
