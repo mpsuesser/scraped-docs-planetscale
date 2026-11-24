@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/traffic-control/concepts
 title: "Concepts"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T06:48:57.512Z
+current_date: 2026-11-24T06:48:57.512Z
 ---
 
 > ## Documentation Index
@@ -139,6 +139,8 @@ Tag rules match against key-value pairs that your application attaches to querie
 To create a tag-based rule, recently executed queries must have included the tag.
 
 Tag rules can also match each unique value for a selected tag key. This creates separate active budget tracking for each tag value, such as each application, worker pool, user, or tenant, without creating a separate rule for every value.
+
+Tag rules can also match queries where a tag is missing or empty. For example, a rule for `app` with a missing value matches queries that have no `app` tag and queries that have `app=''`. Use this to set a budget for untagged traffic. You can combine a missing-value tag with other tags in the same rule. Keep in mind, some behind-the-scenes queries sent by your Postgres client, application framework, or PlanetScale [schema recommendations](https://planetscale.com/docs/postgres/monitoring/schema-recommendations.md) have no tags and will match missing-value tag rules. Check the [Insights tags page](https://planetscale.com/docs/postgres/monitoring/query-tags.md) to see which queries will be affected, or start your new rule [in warning mode](https://planetscale.com/docs/postgres/traffic-control/concepts.md#modes-enforce-warn-off) first.
 
 > [!NOTE]
 >

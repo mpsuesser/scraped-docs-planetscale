@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/cli/traffic-control
 title: "Traffic Control"
 description: ""
-access_date: 2026-08-20T18:00:05.296Z
-current_date: 2026-08-20T18:00:05.296Z
+access_date: 2026-11-24T06:48:57.512Z
+current_date: 2026-11-24T06:48:57.512Z
 ---
 
 ## Getting Started
@@ -188,7 +188,7 @@ This command adds a rule to the budget. Rules are combined via OR, tags within a
 | `--fingerprint string` | SQL fingerprint to match |
 | `--keyspace string` | Keyspace to match |
 | `--kind string` | Kind of rule (default `match`) |
-| `--tag stringArray` | Tag in the format `key=<key>,value=<value>,source=<source>` (repeatable) |
+| `--tag stringArray` | Tag in the format `key=<key>,value=<value>,source=<source>` (repeatable). An empty value (`value=`) matches queries without the tag. |
 
 ### The rule delete sub-command
 
