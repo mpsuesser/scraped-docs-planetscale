@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/managed/aws
 title: "Aws"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:40:02.942Z
+current_date: 2026-11-24T22:40:02.942Z
 ---
 
 > ## Documentation Index
@@ -74,6 +74,8 @@ By default, all database connections are encrypted but use public endpoints. [AW
 
 | | AWS PrivateLink | AWS VPC peering |
 | - | - | - |
+| Available on | Multi-tenant, single-tenant, and Managed | Single-tenant and Managed only |
+| Setup | Create a VPC endpoint in your AWS account | PlanetScale sends a peering request. You accept it, add routes, and associate a private hosted zone |
 | Connectivity | Exposes a specific service through interface endpoints | Routes private traffic directly between two VPCs |
 | CIDR requirements | Overlapping VPC CIDR blocks are supported | VPC CIDR blocks must not overlap |
 | Routing | No route to the service VPC is required | Both VPC owners maintain routes |

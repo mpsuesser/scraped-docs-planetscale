@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/plans/deployment-options
 title: "Deployment Options"
 description: ""
-access_date: 2026-10-26T19:24:46.643Z
-current_date: 2026-10-26T19:24:46.643Z
+access_date: 2026-11-24T22:40:02.942Z
+current_date: 2026-11-24T22:40:02.942Z
 ---
 
 > ## Documentation Index
@@ -36,6 +36,7 @@ Multi-tenancy is the default deployment option. When you sign up for a PlanetSca
 * BAAs available for HIPAA compliance
 * [Private connection support](https://planetscale.com/docs/vitess/connecting/private-connections.md) via AWS PrivateLink
 * [Private connection support](https://planetscale.com/docs/vitess/connecting/private-connections-gcp.md) via GCP Private Service Connect
+* VPC peering is not available on multi-tenant
 
 ## Single-tenancy deployment on PlanetScale
 

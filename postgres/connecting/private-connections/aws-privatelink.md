@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink
 title: "Aws Privatelink"
 description: ""
-access_date: 2026-09-06T18:18:54.347Z
-current_date: 2026-09-06T18:18:54.347Z
+access_date: 2026-11-24T22:40:02.942Z
+current_date: 2026-11-24T22:40:02.942Z
 ---
 
 [AWS PrivateLink](https://aws.amazon.com/privatelink/) is a highly available, scalable technology that enables you to privately connect your VPC to supported AWS services, VPC endpoint services, and AWS Marketplace partner services.
@@ -20,6 +20,8 @@ By default, PlanetScale Postgres databases use secure connections over the publi
 AWS PrivateLink provides these security and compliance benefits by ensuring your database traffic never leaves the AWS backbone network.
 
 Normal PlanetScale Postgres connectivity (as described in our [standard connection documentation](../../connecting.md)) uses secure TLS encryption over the public internet and is appropriate for most use cases. AWS PrivateLink is primarily beneficial for compliance and enhanced security requirements.
+
+Need VPC peering? It’s available on single-tenant and Managed, not on multi-tenant. [Contact us](https://planetscale.com/contact) for more information. See [Set up AWS VPC peering](../../../plans/managed/aws/vpc-peering.md).
 
 ### PrivateLink pricing
 

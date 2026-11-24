@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting/neon-serverless-driver
 title: "Neon Serverless Driver"
 description: ""
-access_date: 2026-11-05T00:45:20.606Z
-current_date: 2026-11-05T00:45:20.606Z
+access_date: 2026-11-24T22:40:02.942Z
+current_date: 2026-11-24T22:40:02.942Z
 ---
 
 > ## Documentation Index
@@ -33,7 +33,7 @@ Use the Neon serverless driver when your deployment platform cannot maintain TCP
 | Platform | Recommended approach |
 | - | - |
 | [Netlify Functions](https://docs.netlify.com/functions/overview/) | Neon serverless driver (this page) |
-| [Deno Deploy](https://deno.com/deploy/docs) | Neon serverless driver (this page) |
+| [Deno Deploy](https://docs.deno.com/deploy/) | Neon serverless driver (this page) |
 | [Cloudflare Workers](https://developers.cloudflare.com/workers/) (without Hyperdrive) | Neon serverless driver (this page) |
 | [Vercel](https://vercel.com/docs/functions) | [`pg`](https://node-postgres.com/) with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) and [PgBouncer on port 6432](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) |
 | [Cloudflare Workers](https://developers.cloudflare.com/workers/) + Hyperdrive | [`pg` with Hyperdrive](../tutorials/planetscale-postgres-cloudflare-workers.md) |

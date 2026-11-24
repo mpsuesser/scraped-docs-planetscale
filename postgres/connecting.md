@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/postgres/connecting
 title: "Connecting"
 description: ""
-access_date: 2026-11-04T23:12:49.500Z
-current_date: 2026-11-04T23:12:49.500Z
+access_date: 2026-11-24T22:40:02.942Z
+current_date: 2026-11-24T22:40:02.942Z
 ---
 
 > ## Documentation Index
@@ -59,13 +59,14 @@ PlanetScale ends TLS at its proxy, so `pg_stat_ssl` reports no SSL for your sess
 For enhanced security and reduced latency, PlanetScale supports private connectivity that keeps traffic within cloud provider networks:
 
 * **AWS PrivateLink** — Establishes private connections from your AWS VPC to PlanetScale databases without exposing traffic to the public internet. See the [AWS PrivateLink documentation](https://planetscale.com/docs/postgres/connecting/private-connections/aws-privatelink.md).
+* **AWS VPC peering** — Private routed connectivity between your VPC and the PlanetScale VPC. Available on single-tenant and Managed. Multi-tenant databases use PrivateLink. See [AWS VPC peering](https://planetscale.com/docs/plans/managed/aws/vpc-peering.md).
 * **GCP Private Service Connect** — Provides private connectivity from your Google Cloud VPC to PlanetScale databases. See the [GCP Private Service Connect documentation](https://planetscale.com/docs/postgres/connecting/private-connections/gcp-private-service-connect.md).
 
 ### Choosing a connection method for your platform
 
 Most JavaScript and TypeScript applications should connect with a standard TCP driver such as [`pg`](tutorials/planetscale-postgres-node.md) through [PgBouncer](https://planetscale.com/docs/postgres/connecting/pgbouncer.md) on port **6432**. This applies to Vercel (with [`@vercel/functions`](https://vercel.com/guides/connection-pooling-with-functions) connection pooling), AWS Lambda, Railway, Render, and long-running servers.
 
-For platforms without reliable TCP pooling, PlanetScale supports the [Neon serverless driver](https://planetscale.com/docs/postgres/connecting/neon-serverless-driver.md) over HTTP or WebSockets. Use it for [Netlify Functions](https://docs.netlify.com/functions/overview/), [Deno Deploy](https://deno.com/deploy/docs), and edge runtimes where TCP is not available. For [Cloudflare Workers](https://developers.cloudflare.com/workers/), prefer [Hyperdrive with `pg`](tutorials/planetscale-postgres-cloudflare-workers.md) over the serverless driver when possible.
+For platforms without reliable TCP pooling, PlanetScale supports the [Neon serverless driver](https://planetscale.com/docs/postgres/connecting/neon-serverless-driver.md) over HTTP or WebSockets. Use it for [Netlify Functions](https://docs.netlify.com/functions/overview/), [Deno Deploy](https://docs.deno.com/deploy/), and edge runtimes where TCP is not available. For [Cloudflare Workers](https://developers.cloudflare.com/workers/), prefer [Hyperdrive with `pg`](tutorials/planetscale-postgres-cloudflare-workers.md) over the serverless driver when possible.
 
 ## Understanding Postgres connections
 
