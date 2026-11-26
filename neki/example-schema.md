@@ -2,8 +2,8 @@
 url: https://planetscale.com/docs/neki/example-schema
 title: "Example Schema"
 description: ""
-access_date: 2026-11-09T12:58:46.465Z
-current_date: 2026-11-09T12:58:46.465Z
+access_date: 2026-11-26T10:35:29.142Z
+current_date: 2026-11-26T10:35:29.142Z
 ---
 
 > ## Documentation Index
@@ -21,6 +21,7 @@ page defines its tables and the data topology that places them on shards.
 | - | - |
 | `users`, `orders`, `products`, `user_tags` | Sharded on `user_id` in the `user_data` shard group |
 | `accounts` | Sharded on `account_id` in the `user_data` shard group. Owns the global secondary indexes (GSIs) `by_email` and `by_phone` |
+| `account_logins` | Sharded on `account_id` in the `user_data` shard group. Reads the GSI `by_email` that `accounts` owns |
 | `accounts_by_email`, `accounts_by_phone` | Unsharded lookup tables for the `accounts` GSIs, in the `meta` shard group |
 | `notes` | Unsharded, in the `meta` shard group |
 | `ref_countries` | A reference table, with a copy on every shard in the `user_data` shard group |
@@ -72,6 +73,11 @@ CREATE TABLE public.accounts (
     email      text NOT NULL,
     phone      text NOT NULL,
     category   integer
+);
+
+CREATE TABLE public.account_logins (
+    account_id bigint PRIMARY KEY,
+    email      text NOT NULL
 );
 
 CREATE TABLE public.accounts_by_email (
@@ -126,6 +132,10 @@ it.
 `accounts` is in the same shard group but uses a different shard key,
 `account_id`. Its rows are not co-located with the rows of the tables sharded
 on `user_id`.
+
+`account_logins` is sharded on `account_id` like `accounts`, and declares
+`by_email` as a secondary index too, so it uses the lookup table that
+`accounts` owns.
 
 `regional_users`, `regional_accounts`, and `devices` show other ways to choose
 a shard key: an enum column, a generated column, and an expression over two
@@ -236,6 +246,20 @@ columns.
             "devices": {
               "shard_group": "user_data",
               "primary_indexes": [{ "shard_index": "xxhash_device" }]
+            },
+            "account_logins": {
+              "shard_group": "user_data",
+              "secondary_indexes": [
+                {
+                  "name": "by_email",
+                  "columns": ["email"]
+                }
+              ],
+              "primary_indexes": [
+                {
+                  "shard_index": "xxhash_account_id"
+                }
+              ]
             },
             "accounts_by_email": {
               "shard_group": "meta"
